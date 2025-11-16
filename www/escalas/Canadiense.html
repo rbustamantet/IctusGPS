@@ -19,34 +19,59 @@
   --bad-bg:#fee2e2;--bad-txt:#991b1b;--bad-bd:#fecaca;
 }
 
-/* SAFE TOP */
-.safe-top{
-  position:fixed;top:0;left:0;width:100%;
-  height:calc(env(safe-area-inset-top,0px)+52px);
-  background:var(--accent);z-index:1001;
-  display:flex;align-items:center;justify-content:center;
-  padding-top:env(safe-area-inset-top,0px);
+/* =========================================================
+   SAFE-TOP
+========================================================= */
+.safe-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(env(safe-area-inset-top, 0px) + 60px);
+  background: #0f3d83;
+  z-index: 1001;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: env(safe-area-inset-top, 0px);
 }
-.safe-content{width:100%;max-width:1080px;padding:4px 16px 6px;
-  display:flex;justify-content:space-between;align-items:center;}
-.safe-left{display:flex;align-items:center;gap:10px;}
+.safe-content {
+  width: 100%;
+  max-width: 1080px;
+  padding: 6px 16px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; 
+  /* Añadir un padding-top para empujar los iconos ligeramente hacia abajo y no pegarlos al borde */
+  padding-top: 2px; /* Ajuste manual para bajar los iconos un poco */
+  padding-bottom: 0; /* Eliminar padding inferior para reservar ese espacio */
+}
+.safe-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 .safe-mini {
   width: 44px;
   height: 44px;
   object-fit: contain;
-  padding: 4px; /* <--- Mantenemos el padding original */
+  padding: 4px;
   box-shadow: 0 0 4px rgba(0,0,0,0.1);
-  /* Solución 1: Añadimos box-sizing */
-  box-sizing: border-box; /* <--- ESTO ES CRUCIAL */
 }
-.safe-logo{height:44px;width:auto;}
-.safe-actions{display:flex;gap:10px;}
+.safe-logo {
+  height: 44px;
+  width: auto;
+}
+.safe-actions {
+  display: flex;
+  gap: 10px;
+}
 .safe-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   background: rgba(255,255,255,0.15);
   border: 1px solid white;
   border-radius: 50%;
@@ -123,8 +148,7 @@ header{position:sticky;
 
 
 /* INTRO */
-.intro{margin-top:calc(env(safe-area-inset-top,0px)+54px);max-width:980px;
-  margin-inline:auto;padding:14px 16px 0;color:var(--muted);
+.intro{max-width:980px;margin-inline:auto;padding:52px 16px 0;color:var(--muted);
   font-size:.95rem;line-height:1.45;text-align:justify;}
 .intro strong{color:var(--accent);}
 
@@ -134,9 +158,9 @@ header{position:sticky;
 .intro2 strong{color:var(--accent);text-shadow: 2px 2px 6px rgba(0,0,0,0.25);}
 
 /* CUERPO */
-body{padding-top:calc(env(safe-area-inset-top, 0px) + 52px);}
+body{padding-top:10px;}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:Verdana,Geneva,sans-serif;}
-.container{max-width:980px;margin:14px auto 40px;padding:0 16px;}
+.container{max-width:980px;margin:14px auto 40px;padding:12px 16px;}
 .card{background:#fff;border:1px solid var(--border);border-radius:16px;
   padding:18px;box-shadow:0 2px 10px rgba(15,23,42,.06);margin-top:12px;}
 label{font-weight:700;color:var(--accent);}
@@ -194,14 +218,15 @@ footer{text-align:center;padding:1.5rem 0;margin-top:2rem;
   </div>
 </header>
 
+
+
+<main class="container">
 <section class="intro">
   <p>
     Evalúa el <strong>déficit neurológico global</strong> en pacientes con ictus, considerando nivel de conciencia, orientación, lenguaje y función motora. 
     La puntuación total varía entre <strong>2 y 10</strong>; valores más altos indican mejor estado neurológico. <strong>No es aplicable a pacientes en coma.</strong>
   </p>
 </section>
-
-<main class="container">
   <div class="card">
     <form id="form" autocomplete="off">
       <label for="conciencia">Nivel de conciencia</label>

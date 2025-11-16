@@ -33,11 +33,11 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(env(safe-area-inset-top, 0px) + 52px);
+  height: calc(env(safe-area-inset-top, 0px) + 60px);
   background: var(--azul-institucional);
   z-index: 1001;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   padding-top: env(safe-area-inset-top, 0px);
 }
@@ -47,7 +47,10 @@
   padding: 6px 16px 8px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start; 
+  /* Añadir un padding-top para empujar los iconos ligeramente hacia abajo y no pegarlos al borde */
+  padding-top: 2px; /* Ajuste manual para bajar los iconos un poco */
+  padding-bottom: 0; /* Eliminar padding inferior para reservar ese espacio */
 }
 .safe-left {
   display: flex;
@@ -148,14 +151,13 @@ header {
 }
 
 /* INTRO */
-.intro{margin-top:calc(env(safe-area-inset-top,0px)+54px);max-width:980px;
-  margin-inline:auto;padding:52px 16px 0;color:var(--muted);
+.intro{max-width:980px;margin-inline:auto;padding:52px 16px 0;color:var(--muted);
   font-size:.95rem;line-height:1.45;text-align:justify;}
 .intro strong{color:var(--accent);}
 
 /* ===== CUERPO ===== */
 body{margin:0;background:var(--bg);color:var(--ink);font-family:Verdana, Geneva, Tahoma, sans-serif;}
-.wrap{max-width:980px;margin:16px auto 48px;padding:0 16px;}
+.wrap{max-width:980px;margin:16px auto 48px;padding:12px 16px;}
 .panel{background:#fff;border:1px solid var(--borde);border-radius:16px;padding:16px;box-shadow:0 2px 10px rgba(15,23,42,.06);}
 
 label{font-weight:900;color:#0b1f44;margin-top:8px;display:block;}
@@ -216,6 +218,12 @@ details[open] summary .caret{ transform:rotate(90deg); }
 .table tr:nth-child(even) td{background:#f9fbff;text-align:left;}
 .table b{font-weight:800;}
 
+@media(max-width:768px){
+  header{font-size:1.05rem;}
+  main{padding:0.9rem 1rem;}
+  body{font-size:0.96rem;}
+}
+
 </style>
 
 </head>
@@ -245,11 +253,12 @@ details[open] summary .caret{ transform:rotate(90deg); }
       <output id="pill" class="pill" aria-live="polite" aria-atomic="true">—</output>
   </div>
 </header>
-<section class="intro">
-  <p>La clasificación <b>TOAST (Trial of Org 10172 in Acute Stroke Treatment)</b> es un sistema <b>etiológico</b> utilizado para categorizar el subtipo de infarto cerebral isquémico, basándose en la causa subyacente. Define cinco categorías principales (Aterosclerosis de gran vaso, Cardioembolismo, Oclusión de pequeño vaso/Lacunar, Ictus de otra etiología e Ictus de etiología indeterminada). Su propósito principal es <b>homogeneizar la clasificación de los ictus en ensayos clínicos</b y guiar las decisiones terapéuticas y preventivas a largo plazo.</p>
+
 
 
 <main class="wrap">
+<section class="intro">
+  <p>La clasificación <b>TOAST (Trial of Org 10172 in Acute Stroke Treatment)</b> es un sistema <b>etiológico</b> utilizado para categorizar el subtipo de infarto cerebral isquémico, basándose en la causa subyacente. Define cinco categorías principales (Aterosclerosis de gran vaso, Cardioembolismo, Oclusión de pequeño vaso/Lacunar, Ictus de otra etiología e Ictus de etiología indeterminada). Su propósito principal es <b>homogeneizar la clasificación de los ictus en ensayos clínicos</b y guiar las decisiones terapéuticas y preventivas a largo plazo.</p></section>
   <section class="panel" aria-labelledby="title-to">
     <p class="note">Seleccione las condiciones diagnósticas más probables según estudios clínicos e imagenológicos.</p>
 

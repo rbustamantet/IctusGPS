@@ -37,11 +37,11 @@ html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(env(safe-area-inset-top, 0px) + 52px);
+  height: calc(env(safe-area-inset-top, 0px) + 60px);
   background: var(--azul-institucional);
   z-index: 1001;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   padding-top: env(safe-area-inset-top, 0px);
 }
@@ -51,7 +51,10 @@ html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
   padding: 6px 16px 8px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start; 
+  /* Añadir un padding-top para empujar los iconos ligeramente hacia abajo y no pegarlos al borde */
+  padding-top: 2px; /* Ajuste manual para bajar los iconos un poco */
+  padding-bottom: 0; /* Eliminar padding inferior para reservar ese espacio */
 }
 .safe-left {
   display: flex;
@@ -156,13 +159,12 @@ header {
 .pill-top.extreme{background:#fecaca;color:#7f1d1d;border-color:#fca5a5}
 
 /* INTRO */
-.intro{margin-top:calc(env(safe-area-inset-top,0px)+54px);max-width:980px;
-  margin-inline:auto;padding:52px 16px 0;color:var(--muted);
+.intro{max-width:980px;margin-inline:auto;padding:52px 16px 0;color:var(--muted);
   font-size:.95rem;line-height:1.45;text-align:justify;}
 .intro strong{color:var(--accent);}
 
 /* CONTENIDO */
-.wrap{max-width:950px;margin:16px auto 48px;padding:0 16px}
+.wrap{max-width:950px;margin:16px auto 48px;padding:12px 16px}
 .card{background:#fff;border:1px solid var(--borde);border-radius:16px;
       box-shadow:0 2px 10px rgba(15,23,42,.06);padding:18px;margin-bottom:16px}
 label{font-size:14px;font-weight:700;display:block;margin-bottom:6px;color:var(--ink)}
@@ -195,6 +197,11 @@ select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.15)
 footer.smallprint{text-align:center;margin-top:2rem;padding:1rem 0;
   border-top:1px solid #e5e7eb;background:#fff;font-size:12px;color:var(--muted)}
 footer img{max-width:320px;height:auto;opacity:.95}
+@media(max-width:768px){
+  header{font-size:1.05rem;}
+  main{padding:0.9rem 1rem;}
+  body{font-size:0.96rem;}
+}
 
 </style>
 
@@ -225,13 +232,14 @@ footer img{max-width:320px;height:auto;opacity:.95}
       <output id="pillTop" class="pill-top">—</output>
   </div>
 </header>
+
+<main class="wrap">
 <section class="intro">
   <p>
 El <b>ICH Score (Intracerebral Hemorrhage Score)</b> es un sistema de clasificación clínica simple y rápido diseñado para predecir la <b>mortalidad a 30 días</b> en pacientes que han sufrido una <b>hemorragia intracerebral</b>. Evalúa cinco factores fácilmente identificables en la cabecera del paciente y la tomografía. La puntuación resultante (0–6) permite una <b>estratificación de riesgo</b> clara para guiar las decisiones sobre la agresividad del manejo clínico.
   </p>
 </section>
 
-<main class="wrap">
   <div class="card">
     <form id="calcForm" autocomplete="off">
       <label for="gcs">Escala de Glasgow</label>
