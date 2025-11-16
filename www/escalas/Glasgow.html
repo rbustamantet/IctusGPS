@@ -12,29 +12,113 @@
 
 <style>
 :root{
-  --bg:#f8fafc; --ink:#0f172a;
-  --azul:#0b2c5f; --gris:#6b7280; --borde:#e5e7eb;
-  --ok:#0a7f3f; --warn:#d97706; --bad:#b91c1c;
-  --accent:#2563eb; --accent-light:#dbeafe;
+  --bg:#f9fafc;--ink:#0e1a33;--accent:#0f3d83;
+  --border:#e5e9f2;--muted:#64748b;
+  --ok-bg:#dcfce7;--ok-txt:#065f46;--ok-bd:#86efac;
+  --mid-bg:#fef3c7;--mid-txt:#92400e;--mid-bd:#fde68a;
+  --bad-bg:#fee2e2;--bad-txt:#991b1b;--bad-bd:#fecaca;
 }
-html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Verdana, Geneva, sans-serif}
+:root{
+  --bg:#f9fafc;
+  --ink:#0e1a33;
+  --accent-dark:#0f3d83;
+  --accent-light:#2563eb;
+  --border:#e5e9f2;
+  --muted:#64748b;
+  --ok:#166534; --ok-bg:#e9fce7; --ok-ring:#bbf7d0;
+  --mid:#92400e; --mid-bg:#fff7ed; --mid-ring:#fed7aa;
+  --bad:#991b1b; --bad-bg:#fef2f2; --bad-ring:#fecaca;
+  --azul-institucional:#0f3d83;
+}
 
-/* === CABECERA === */
-.appbar{
-  position:sticky;top:0;z-index:1000;
-  background:#0f3d83;color:#fff;
-  box-shadow:0 2px 6px rgba(0,0,0,0.1);
+/* =========================================================
+   SAFE-TOP
+========================================================= */
+.safe-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(env(safe-area-inset-top, 0px) + 52px);
+  background: var(--azul-institucional);
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: env(safe-area-inset-top, 0px);
 }
-.appbar-inner{
-  max-width:980px;margin:0 auto;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:12px 16px;gap:12px;
+.safe-content{width:100%;max-width:1080px;padding:4px 16px 6px;
+  display:flex;justify-content:space-between;align-items:center;}
+.safe-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-.left-group{
-  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+.safe-mini {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  padding: 4px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.1);
 }
-.appbar h1{
-  margin:0;font-size:22px;line-height:1.2;color:#fff;font-weight:800;
+.safe-logo {
+  height: 44px;
+  width: auto;
+}
+.safe-actions {
+  display: flex;
+  gap: 10px;
+}
+.safe-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid white;
+  border-radius: 50%;
+  transition: background .25s, border-color .25s, transform .1s;
+}
+.safe-btn:hover {
+  background: #01c5fe;
+  border: 1px solid white;
+}
+.safe-btn:active { transform: scale(0.95); }
+.safe-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}/* CABECERA */
+header{position:sticky;
+  z-index:999;background:var(--accent);color:#fff;
+  box-shadow:0 2px 6px rgba(0,0,0,.08);top: calc(env(safe-area-inset-top, 0px) + 52px);
+}
+.bar{display:flex;justify-content:center;align-items:center;gap:10px;
+  height:52px;padding:0 16px;}
+.bar h1{font-size:1.4rem;font-weight:700;margin:0;}
+/* =========================================================
+   CABECERA
+========================================================= */
+/* ... (reglas existentes) ... */
+.bar {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap: 10px;
+  height:52px;
+  padding:4px 16px;
+}
+
+.bar h1 {
+  display: flex; /* <-- NUEVO: Habilita flexbox para alinear el icono */
+  align-items: center; /* <-- NUEVO: Centra el icono y el texto verticalmente */
+  /* ... (otras reglas de title) ... */
+}
+.bar h1 img {
+  width: 32px; /* Define el tamaño del icono */
+  height: 32px;
+  margin-right: 8px; /* Espacio entre el icono y el texto "ABCD²" */
 }
 .pill-top{
   display:inline-block;padding:6px 10px;border-radius:999px;
@@ -45,28 +129,30 @@ html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:V
 .pill-top.tone-amber{background:#fef3c7;color:#92400e;border-color:#fde68a}
 .pill-top.tone-red{background:#fee2e2;color:#991b1b;border-color:#fecaca}
 
-.btn-inicio{
-  display:inline-flex;align-items:center;justify-content:center;
-  height:32px;padding:0 14px;
-  border-radius:10px;text-decoration:none;
-  border:1px solid rgba(127,179,255,.35);
-  background:#1c60c3;color:white;font-size:0.9rem;font-weight:700;
-  transition:background .2s,border-color .2s;
-}
-.btn-inicio:hover{background:#0C00FF;border-color:rgba(127,179,255,.35)}
+
+/* INTRO */
+.intro{margin-top:calc(env(safe-area-inset-top,0px)+54px);max-width:980px;
+  margin-inline:auto;padding:52px 16px 0;color:var(--muted);
+  font-size:.95rem;line-height:1.45;text-align:justify;}
+.intro strong{color:var(--accent);}
 
 /* === CONTENIDO === */
-.container{max-width:880px;margin:16px auto 48px;padding:0 16px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Verdana, Geneva, sans-serif;}
+
+.wrap{max-width:980px;margin:16px auto 48px;padding:0 16px;}
 .card{background:#fff;border:1px solid var(--borde);border-radius:16px;
       box-shadow:0 2px 10px rgba(15,23,42,.06);padding:18px;margin-bottom:16px;}
-label{display:block;margin:8px 0 4px;font-weight:700;color:var(--azul)}
-select{width:100%;padding:10px 12px;border:1px solid var(--borde);
-        border-radius:10px;background:#fff;font-size:14px;cursor:pointer;}
-select:focus{outline:2px solid var(--accent-light)}
+label{font-weight:900;color:#0b1f44;margin-top:8px;display:block;}
+select{width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;font-size:14px;}
+select:focus{border:1px solid #0f3d83;}
 .row{display:grid;grid-template-columns:1fr;gap:10px}
 @media (min-width:560px){.row{grid-template-columns:1fr 1fr 1fr}}
 
-.scoreline{font-weight:600;font-size:16px;color:var(--ink);margin-top:10px}
+
+
+
+.scoreline{font-weight:600;font-size:16px;color:var(--ink);margin-top:10px;background:#fff;border:1px solid #cbd5e1;border-radius:16px;
+      box-shadow:0 2px 10px rgba(15,23,42,.06);padding:18px;margin-bottom:16px;}
 .score{font-weight:800;color:var(--azul)}
 .pill{display:inline-block;padding:4px 10px;margin-left:8px;border-radius:999px;
       font-weight:700;color:#fff}
@@ -74,15 +160,20 @@ select:focus{outline:2px solid var(--accent-light)}
 .pill.moderado{background:var(--warn)}
 .pill.grave{background:var(--bad)}
 
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;justify-content:flex-end}
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;
-  padding:10px 14px;border-radius:10px;font-weight:700;font-size:14px;
-  border:1px solid var(--azul);background:#fff;color:var(--azul);
-  cursor:pointer;transition:background .2s,transform .1s,box-shadow .2s;
+
+/* === BOTONES === */
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;}
+.btn-action{
+  flex:1 1 48%;border:none;border-radius:10px;padding:12px;
+  font-size:15px;font-weight:700;cursor:pointer;transition:background .2s;
 }
-.btn:hover{background:#eff6ff;box-shadow:0 3px 8px rgba(37,99,235,.15)}
-.btn.copiado{background:#0f3d83;color:#fff;border-color:#0f3d83}
+.btn-clear {background:#fff; color:#0b2c5f; border:1px solid #2563eb;}
+.btn-clear:hover {background:#eff6ff;}
+.btn-copy {background:#fff; color:#0f3d83; border:1px solid #2563eb; }
+.btn-copy:hover {background:#eff6ff;}
+
+.btn-copy.copiado{background:#0f3d83!important;color:#fff!important;}
+
 
 #resumenText{white-space:pre-wrap;font-size:13px;color:#0f172a;margin-top:8px;
              border:1px dashed var(--borde);border-radius:10px;padding:10px;background:#f8fafc}
@@ -91,62 +182,37 @@ select:focus{outline:2px solid var(--accent-light)}
 footer.smallprint{text-align:center;margin-top:2rem;padding:1rem 0;
                   border-top:1px solid #e5e7eb;background:#ffffff}
 footer img{max-width:320px;height:auto;opacity:.95}
-/* Botón Volver inferior */
-.back-btn{
-  display:inline-block;
-  margin:1.5rem auto 0;
-  background:#0f3d83;
-  color:#fff;
-  text-decoration:none;
-  font-weight:700;
-  padding:0.7rem 1.4rem;
-  border-radius:10px;
-  box-shadow:0 4px 10px rgba(15,61,131,.25);
-  transition:background .2s, transform .1s, box-shadow .2s;
-}
-.back-btn:hover{
-  background:#1c60c3;
-  transform:translateY(-1px);
-  box-shadow:0 6px 12px rgba(15,61,131,.35);
-}
 </style>
-<style>
-:root {
-  --azul-institucional: #0f3d83;
-}
 
-/* Barra superior segura */
-.safe-top {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: calc(env(safe-area-inset-top, 0px) + 28px);
-  background: var(--azul-institucional);
-  z-index: 1000;
-}
-
-/* Empuja el contenido real por debajo de la barra */
-body {
-  margin: 0;
-  padding-top: calc(env(safe-area-inset-top, 0px) + 28px);
-  background-color: #fff;
-}
-</style>
 
 </head>
 
 <body>
-  <div class="safe-top"></div>
-<header class="appbar" role="region" aria-label="Cabecera GCS">
-  <div class="appbar-inner">
-    <div class="left-group">
-      <h1>Escala de Glasgow</h1>
-      <output id="pillTop" class="pill-top" aria-live="polite" aria-atomic="true">GCS —</output>
+
+<div class="safe-top">
+  <div class="safe-content">
+    <div class="safe-left">
+      <img src="../iconos/escalasico.png" alt="Icono Escalas" class="safe-mini">
+      <img src="../img/topbar.png" alt="IctusGPS" class="safe-logo">
     </div>
-    <a class="btn-inicio" href="../index.html">Inicio</a>
+    <div class="safe-actions">
+      <a href="javascript:history.back()" class="safe-btn"><img src="../iconos/atrastransparente.png" class="safe-icon" alt="Atrás"></a>
+      <a href="../index.html" class="safe-btn"><img src="../iconos/hometransparente.png" class="safe-icon" alt="Inicio"></a>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="bar">
+    <h1><img src="../iconos/glasgow.png" alt="Glasgow">Glasgow</h1>
+      <output id="pillTop" class="pill-top" aria-live="polite" aria-atomic="true">GCS —</output>
   </div>
 </header>
+<section class="intro">
+  <p>Evalúa el <b>nivel de conciencia</b> de un paciente, midiendo la <b>respuesta ocular, verbal y motora</b>. La puntuación total (3-15) permite monitorizar el estado neurológico y clasificar la gravedad de la lesión cerebral (leve, moderada o grave).</p>
+</section>
+<main class="wrap">
+
 
 <div class="container">
   <div class="card">
@@ -187,19 +253,18 @@ body {
       GCS: <span class="score" id="out">—</span>
       <span class="pill" id="band">—</span>
     </div>
-    <p class="note">Interpretación: leve (13–15), moderado (9–12), grave (3–8).</p>
 
-    <div class="actions">
-      <button id="btnClear" class="btn" type="button">Borrar</button>
-      <button id="btnCopy" class="btn" type="button">Copiar resumen</button>
+<div class="actions">
+      <button id="btnClear" class="btn-action btn-clear">Borrar</button>
+      <button id="btnCopy" class="btn-action btn-copy">Copiar resumen</button>
     </div>
+
 
     <div id="resumenText"></div>
   </div>
-<div style="text-align:center;">
-  <a href="index.html" class="back-btn">Volver</a>
+
 </div>
-</div>
+</main>
 
 <script>
 function tone(t){if(t>=13)return"tone-green";if(t>=9)return"tone-amber";return"tone-red";}
