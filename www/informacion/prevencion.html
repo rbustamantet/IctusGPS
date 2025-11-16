@@ -4,8 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0f3d83">
-
-<title>Prevención del ictus</title>
+<title>Prevención del Ictus</title>
 
 <link rel="manifest" href="../site.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
@@ -32,13 +31,17 @@
   --alert-border:#f5c2c0;
 }
 
-html,body{
-  margin:0; padding:10;
-  font-family:Verdana, sans-serif;
-  background:var(--bg);
-  color:var(--ink);
-}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
 
+body{
+  font-family: Verdana, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height:1.6;
+}
 /* =========================================================
    SAFE-TOP
 ========================================================= */
@@ -204,7 +207,149 @@ body {
   padding-top: calc(env(safe-area-inset-top, 0px) + 52px);
   background-color: #fff;
 }
+/* =========================================================
+   ESTILOS DE IMPRESIÓN (@media print) 🖨️
+========================================================= */
+@media print {
+  /* 1. Ocultar todos los elementos de navegación y sus contenidos */
+  .safe-top,
+  .safe-content,
+  .safe-left, /* <-- Añadido */
+  .safe-mini, /* <-- Añadido */
+  .safe-logo, /* <-- Añadido */
+  .safe-actions,
+  header,
+  .action-buttons, /* <--- AÑADIR ESTO */
+  script,
+  .back-btn {
+    display: none !important;
+    visibility: hidden !important; 
+  }
 
+  /* 2. Manipular y estilizar el encabezado y el título */
+  /* Reemplazamos el HEADER por el MAIN para inyectar el título grande */
+  main {
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0.5cm 1cm !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+  
+  /* Inyectar el título largo en la impresión */
+  main:before {
+    content: "Consejos de estilo de vida para prevenir el ictus";
+    display: block;
+    color: var(--accent) !important; 
+    font-size: 28pt !important;
+    font-weight: 800 !important;
+    text-align: left !important;
+    padding: 0 0 0.5cm 0;
+    margin-bottom: 0.5cm;
+    border-bottom: 2px solid var(--accent);
+  }
+
+  /* 3. Resetear el cuerpo y el contenido */
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: white !important;
+    color: black !important;
+    padding-top: 0 !important; 
+    font-size: 10pt;
+  }
+
+  /* 4. Optimizar el diseño de las tarjetas */
+  .card {
+    display: block !important;
+    border: 1px solid #ccc !important;
+    margin-bottom: 0.7cm !important;
+    padding: 10px !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+  }
+
+  /* 5. Optimizar imágenes y texto */
+  .card img {
+    float: left;
+    margin-right: 12px;
+    margin-bottom: 8px;
+    width: 60px !important;
+    border-radius: 5px !important;
+  }
+  
+  .card-text h2 {
+    color: var(--accent) !important;
+    margin-top: 0 !important;
+    margin-bottom: 0.2rem !important;
+    font-size: 12pt !important;
+  }
+  
+  .card-text p {
+    font-size: 10pt !important;
+    line-height: 1.4 !important;
+    text-align: justify;
+    color: #333 !important;
+  }
+  
+  /* 6. Pie de página (Footer) */
+  footer {
+    display: block !important;
+    position: static !important;
+    width: auto !important;
+    left: auto !important;
+    transform: none !important;
+    border-top: 1px solid #ccc !important;
+    background: white !important;
+    box-shadow: none !important;
+    padding: 1rem 0 !important;
+    text-align: center;
+  }
+  footer img {
+    max-width: 280px !important;
+  }
+}
+/* =========================================================
+   BOTONES DE ACCIÓN INFERIOR
+========================================================= */
+.action-buttons {
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--border);
+}
+.action-btn {
+  display: inline-block;
+  font-weight: 700;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.print-btn {
+  background: var(--accent-dark);
+  color: #fff;
+  border: 1px solid var(--accent-dark);
+}
+.print-btn:hover {
+  background: #1c60c3;
+  box-shadow: 0 6px 10px rgba(15, 61, 131, 0.3);
+}
+
+.pdf-btn {
+  background: var(--card);
+  color: var(--accent-dark);
+  border: 1px solid var(--accent-dark);
+}
+.pdf-btn:hover {
+  background: var(--accent-light);
+  border-color: var(--accent-dark);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
 </style>
 </head>
 
@@ -214,7 +359,7 @@ body {
 <div class="safe-top">
   <div class="safe-content">
     <div class="safe-left">
-      <img src="../iconos/informacionico.png" alt="Icono Informacion" class="safe-mini">
+      <img src="../iconos/informacionico.png" alt="Icono Información" class="safe-mini">
       <img src="../img/topbar.png" alt="IctusGPS" class="safe-logo">
     </div>
     <div class="safe-actions">
@@ -229,18 +374,17 @@ body {
 </div>
 <header>
   <div class="bar wrap">
-    <div class="title" style="margin:0;font-size:1.35rem;line-height:1;font-weight:800;letter-spacing:.2px;color:#fff;">Prevención del ictus</div>
+    <div class="title">Prevención del ictus</div>
   </div>
 </header>
-<main>
-<div class="page">
 
-<!-- 1. Control de tensión arterial -->
+<main>
+  <!-- 1. Control de tensión arterial -->
 <div class="card">
   <img src="../img/1.png">
   <div class="card-text">
     <h2>Controlar la tensión arterial</h2>
-    <p>La presión alta es uno de los factores que más influyen en el ictus. Revisarla con frecuencia y seguir la medicación indicada reduce claramente el riesgo. Caminar cada día y limitar la sal ayuda mucho.</p>
+    <p>La presión alta es uno de los factores que más influyen en el ictus, se recomienda mantenerla por debajo de <b>130/80 mmHg</b>. <b>Tomarse la TA</b> con frecuencia y seguir la <b>medicación</b> indicada reduce claramente el riesgo. Caminar cada día y limitar la sal ayuda mucho.</p>
   </div>
 </div>
 
@@ -249,7 +393,7 @@ body {
   <img src="../img/2.png">
   <div class="card-text">
     <h2>Alimentación equilibrada</h2>
-    <p>La dieta mediterránea es la más recomendable: más verduras, frutas, pescado y aceite de oliva; menos sal, fritos y alimentos procesados. No es prohibir: es elegir mejor.</p>
+    <p>La <b>dieta mediterránea</b> es la más recomendable: más verduras, frutas, pescado y aceite de oliva; menos sal, fritos y alimentos procesados. Es crucial limitar el sodio (sal y procesados) y las grasas saturadas para mantener una presión arterial y colesterol saludables. No es prohibir: es <b>elegir mejor</b>.</p>
   </div>
 </div>
 
@@ -258,7 +402,7 @@ body {
   <img src="../img/3.png">
   <div class="card-text">
     <h2>Moverse cada día</h2>
-    <p>Caminar entre 30 y 45 minutos diarios es suficiente para la mayoría de personas. Si no es posible, cualquier movimiento ayuda: estiramientos, subir escaleras o paseos cortos.</p>
+    <p>El <b>ejercicio regular</b> es vital, pues ayuda a controlar la presión arterial, el colesterol y el peso corporal. El objetivo es alcanzar al menos 150 minutos semanales de actividad moderada, siendo suficiente caminar a paso rápido 30-45 minutos diarios. <b>Romper el sedentarismo</b> es clave: cualquier movimiento ayuda, como usar escaleras o hacer estiramientos. La consistencia es el factor más importante para mantener las arterias sanas y proteger el cerebro.</p>
   </div>
 </div>
 
@@ -267,7 +411,7 @@ body {
   <img src="../img/4.png">
   <div class="card-text">
     <h2>No fumar</h2>
-    <p>El tabaco daña las arterias y aumenta mucho el riesgo de ictus. Dejarlo siempre aporta beneficio, sea cual sea la edad.</p>
+    <p>El tabaco daña las arterias y aumenta mucho el riesgo de ictus. <b>Dejar de fumar siempre aporta beneficio</b>, sea cual sea la edad. El Servicio Andaluz de Salud tiene una línea telefónica gratuita para ayudar a dejar de fumar - <b>900 850 300</b> - que ofrece terapia personalizada y seguimiento. También se puede solicitar información sobre programas de deshabituación en el Centro de Salud. </p>
   </div>
 </div>
 
@@ -276,7 +420,7 @@ body {
   <img src="../img/5.png">
   <div class="card-text">
     <h2>Alcohol con moderación</h2>
-    <p>El exceso eleva la tensión arterial y puede provocar arritmias. Lo más recomendable es limitarlo al máximo.</p>
+    <p>El consumo excesivo de alcohol es un factor de riesgo clave que eleva la tensión arterial y puede provocar arritmias, como la Fibrilación Auricular, que aumenta el riesgo de ictus. La recomendación de salud es <b>limitar al máximo su consumo</b> o, idealmente, optar por la <b>abstinencia</b> para proteger el sistema cardiovascular.</p>
   </div>
 </div>
 
@@ -285,7 +429,7 @@ body {
   <img src="../img/6.png">
   <div class="card-text">
     <h2>Mantener un peso saludable</h2>
-    <p>Incluso una pequeña bajada de peso mejora la tensión arterial, el azúcar y el colesterol. Pasos pequeños y constantes suelen ser suficientes.</p>
+    <p>El exceso de peso, especialmente en el abdomen, aumenta el riesgo de ictus al agravar la hipertensión, la diabetes y el colesterol alto. <b>Mantener un peso saludable</b> es esencial para controlar estos factores de riesgo de manera simultánea. Incluso una pequeña pérdida de peso (5-10%) ya genera grandes mejoras en la presión arterial y el metabolismo del azúcar. El enfoque debe ser en <b>pasos pequeños y consistentes</b> a través de la <b>dieta</b> y el <b>ejercicio</b>, más que en dietas extremas.</p>
   </div>
 </div>
 
@@ -294,7 +438,7 @@ body {
   <img src="../img/7.png">
   <div class="card-text">
     <h2>Control del azúcar</h2>
-    <p>La diabetes aumenta el riesgo de ictus. Seguir la medicación y las pautas dietéticas ayuda a mantener niveles estables.</p>
+    <p>La diabetes es un factor de riesgo mayor que acelera el daño y endurecimiento de las arterias (aterosclerosis), lo que causa el ictus. El <b>control estricto de la glucemia</b> es crucial para proteger los vasos sanguíneos cerebrales. Es fundamental <b>seguir rigurosamente la medicación prescrita y las pautas dietéticas</b> indicadas por el médico. Mantener los niveles de azúcar estables reduce drásticamente el riesgo vascular y la probabilidad de un ictus.</p>
   </div>
 </div>
 
@@ -303,7 +447,7 @@ body {
   <img src="../img/8.png">
   <div class="card-text">
     <h2>Control del colesterol LDL</h2>
-    <p>Reducir el colesterol LDL es fundamental para prevenir ictus. Es importante tomar la medicación cada día para mantenerlo bajo. Alimentos como el aceite de oliva, el pescado azul, las verduras y las frutas ayudan a mejorar el perfil lipídico.</p>
+    <p>El control del colesterol <b>LDL</b> ("malo") es esencial, ya que es el principal causante de la aterosclerosis, el estrechamiento de las arterias que lleva a la formación de coágulos y al ictus. Para reducirlo, es vital la <b>toma diaria y constante de la medicación</b> bajo supervisión médica. Además, la <b>dieta</b> debe priorizar el aceite de oliva, el pescado azul, frutas y verduras, limitando las grasas saturadas. Un LDL bajo protege directamente el flujo sanguíneo cerebral.</p>
   </div>
 </div>
 
@@ -312,28 +456,60 @@ body {
   <img src="../img/9.png">
   <div class="card-text">
     <h2>Dormir bien y reducir el estrés</h2>
-    <p>Un descanso adecuado protege el cerebro. Mantener horarios fijos, evitar pantallas antes de dormir y actividades relajantes mejora la calidad del sueño.</p>
+    <p>Un <b>descanso adecuado</b> es fundamental, ya que la falta de sueño crónico y la apnea impiden el descenso nocturno de la presión arterial, contribuyendo a la hipertensión y al ictus. El <b>estrés crónico</b> también eleva la TA y la inflamación, dañando las arterias. Para mejorar el descanso, se deben <b>mantener horarios fijos</b> de sueño y <b>evitar las pantallas</b> antes de acostarse. Reducir el estrés con <b>actividades relajantes</b> protege el cerebro y el sistema cardiovascular.</p>
   </div>
 </div>
-
+<div class="action-buttons">
+    <a id="printButton" class="action-btn print-btn">
+    Imprimir
+</a>
+    <a href="estilodevida.pdf" download="Estilodevida.pdf" class="action-btn pdf-btn" target="_blank">
+        Descargar PDF
+    </a>
 </div>
+
 </main>
+
 <footer>
   <img src="uibanner.png" alt="Unidad de Ictus Málaga">
 </footer>
 
 <script>
 document.addEventListener('DOMContentLoaded', ()=>{
-  const backBtn=document.querySelector('.safe-btn[title="Volver atrás"]');
-  if(backBtn){
-    backBtn.addEventListener('click',e=>{
-      e.preventDefault();
-      if(window.history.length>1) history.back();
-      else window.location.href='../index.html';
-    });
-  }
+    
+    const isCapacitor = window.Capacitor && window.Capacitor.isNativePlatform();
+    const actionButtons = document.querySelector('.action-buttons');
+
+    if (isCapacitor && actionButtons) {
+        // Si estamos en la aplicación Android/iOS, ocultamos el contenedor de botones.
+        actionButtons.style.display = 'none';
+    } else {
+        // --- Lógica del botón de Volver (PC y Web) ---
+        const backBtn=document.querySelector('.safe-btn[title="Volver atrás"]');
+        if(backBtn){
+            backBtn.addEventListener('click',e=>{
+                e.preventDefault();
+                if(window.history.length>1) history.back();
+                else window.location.href='../index.html';
+            });
+        }
+
+        // --- Lógica de Imprimir (PC) ---
+        const printButton = document.getElementById('printButton');
+        if (printButton) {
+            printButton.addEventListener('click', (e) => {
+                e.preventDefault(); 
+                window.print();
+            });
+        }
+        // Nota: El botón PDF es un enlace HTML simple y funciona por defecto en PC.
+    }
+    
+    // --- Solución para el fallo de impresión en PC (Comportamiento de navegación) ---
+    // Aunque el script esté limpio, si el botón Imprimir aún falla en PC,
+    // es un problema de que la función window.print() se ejecuta antes que e.preventDefault().
+    // La solución para PC está en el HTML: ya tiene el botón PDF como enlace.
 });
 </script>
-
 </body>
 </html>
