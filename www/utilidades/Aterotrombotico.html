@@ -32,7 +32,7 @@ body{
   margin:0;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   color:var(--ink);
-  background:linear-gradient(180deg,#eef5ff 0%,#f8fafc 100%);
+  background:white;
   min-height:100vh;
   -webkit-overflow-scrolling: touch; /* scroll fluido en iOS/Android */
   overflow-y: auto;
@@ -150,19 +150,12 @@ header {
 }
 
 
-@media (max-height:760px){
-  body{
-    align-items:flex-start;      /* evita que se recorte la cabecera */
-    padding-top:16px;
-  }
-}
+
 
 .wrap{
+  max-width:950px;
   margin: 0 auto;               /* ✔ CENTRAR EN WEB */
-  background:var(--card);
-  border:1px solid var(--brand-soft);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
+  background: white;
   overflow:visible;     /* ✔ permite scroll */
   padding:28px;
 }
@@ -171,7 +164,7 @@ header {
   main{padding:28px; display:grid;overflow:visible;gap:22px}
   .card {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: .3fr .7fr;
   align-items: center;       /* 🔹 centra verticalmente dentro del grid */
   justify-items: center;     /* 🔹 centra horizontalmente cada celda */
   gap: 24px;
@@ -209,8 +202,8 @@ header {
 /* Columna derecha: imagen ilustrativa */
 .card .illustration {
   position: relative;
-  width: 345px;
-  height: 460px;
+  width: 172px;
+  height: 230px;
   aspect-ratio: 4 / 3; /* mantiene proporción */
   overflow: hidden;
   border-radius: 14px;
@@ -290,7 +283,7 @@ footer img{
 }
 
 /* Responsive */
-@media(max-width:768px){
+@media(max-width:600px){
   header{font-size:1.05rem;}
   main{padding:0.9rem 1rem;}
   body{font-size:0.96rem;}
