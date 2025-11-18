@@ -11,40 +11,171 @@
   <title>Fibrilación Auricular</title>
   <style>
  :root{
-    --bg:#f8fafc; --ink:#0f172a;
+    --bg:#f8fafc; --ink:#0f172a; --azul-institucional: #0f3d83;
+
     --azul:#0f3d83; --gris:#6b7280; --borde:#e5e7eb;
-    --ok:#0a7f3f; --error:#b91c1c;
 
-  html, body{font-family: Verdana, Geneva, Tahoma, sans-serif; background:#fff; color:#0f172a; margin:0; padding:0}
+ /* =========================================================
+     VARIABLES GLOBALES (colores, tipografía base, etc.)
+     Mantener aquí los tokens de diseño comunes de la app.
+  ========================================================= */
+  :root{
+    /* Colores de fondo y texto */
+    --bg:#f8fafc;
+    --ink:#0e1a33;
+    --azul:#0f3d83;
 
-  /* Cabecera pegajosa */
-.appbar{position:sticky;top:0;z-index:1000;background:#0f3d83;color:#fff;box-shadow:0 0px 0px rgba(0,0,0,.1)}
-.appbar-inner{max-width:1080px;margin:0 auto;padding:4px 2px;display:flex;align-items:center;justify-content:space-between;gap:0px}
-.appbar-inner { min-height: 64px; }
-.appbar h1{margin:0;font-size:1.4rem;font-weight:800;color:#fff}
-.appbar h1 { font-size: clamp(1.2rem, 2.8vw, 1.4rem); line-height:1.2; white-space:nowrap; }
+    /* Paleta principal */
+    --accent-dark:#0f3d83;
+    --accent-light:#2563eb;
 
-.left-group{display:flex;align-items:center;gap:10px}
-.btn {
-  display:inline-flex;align-items:center;gap:8px;
-      padding:9px 16px;border-radius:12px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.06);
-      color:white;text-decoration:none;font-weight:600;font-size:15px;
-      transition:background .25s,border-color .25s;
+    /* Neutros / bordes */
+    --border:#e5e9f2;
+    --muted:#64748b;
+
+    /* Estados clínicos (OK / intermedio / mal) */
+    --ok:#166534;
+    --ok-bg:#e9fce7;
+    --ok-ring:#bbf7d0;
+
+    --mid:#92400e;
+    --mid-bg:#fff7ed;
+    --mid-ring:#fed7aa;
+
+    --bad:#991b1b;
+    --bad-bg:#fef2f2;
+    --bad-ring:#fecaca;
+
+    /* Azul institucional reutilizado en toda la app */
+    --azul-institucional:#0f3d83;
+
+    /* Compatibilidad con variables antiguas (por si se usan en otros CSS) */
+    --bg-alt:#f8fafc;
+    --ink-alt:#0f172a;
+    --azul:#0f3d83;
+    --gris:#6b7280;
+    --borde:#e5e7eb;
+    --error:#b91c1c;
   }
 
-    .btn:hover{border-color:rgba(127,179,255,.35);background:#1c60c3;color:white;text-decoration:none;font-weight:600;}
-
-
-.icon-unit {
-  width: 24px;
-  height: 24px;
+/* =========================================================
+   SAFE-TOP
+========================================================= */
+.safe-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(env(safe-area-inset-top, 0px) + 60px);
+  background: var(--azul-institucional);
+  z-index: 1001;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: env(safe-area-inset-top, 0px);
+}
+.safe-content {
+  width: 100%;
+  max-width: 1080px;
+  padding: 6px 16px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; 
+  /* Añadir un padding-top para empujar los iconos ligeramente hacia abajo y no pegarlos al borde */
+  padding-top: 2px; /* Ajuste manual para bajar los iconos un poco */
+  padding-bottom: 0; /* Eliminar padding inferior para reservar ese espacio */
+}
+.safe-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.safe-mini {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  padding: 4px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.1);
+}
+.safe-logo {
+  height: 44px;
+  width: auto;
+}
+.safe-actions {
+  display: flex;
+  gap: 10px;
+}
+.safe-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid white;
   border-radius: 50%;
-  margin-right: 4px;
+  transition: background .25s, border-color .25s, transform .1s;
+}
+.safe-btn:hover {
+  background: #01c5fe;
+  border: 1px solid white;
+}
+.safe-btn:active { transform: scale(0.95); }
+.safe-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+/* =========================================================
+   CABECERA INFERIOR (STICKY)
+========================================================= */
+header {
+  position: sticky;
+  top: calc(env(safe-area-inset-top, 0px) + 52px);
+  z-index: 1002;
+  backdrop-filter: blur(6px);
+  background: var(--azul-institucional);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  color: #fff;
+}
+.bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  height: 52px;
+  padding: 0 16px;
+}
+.title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+}
+/* =========================================================
+   CABECERA
+========================================================= */
+/* ... (reglas existentes) ... */
+.bar {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap: 10px;
+  height:52px;
+  padding:4px 16px;
 }
 
-  
+.title {
+  display: flex; /* <-- NUEVO: Habilita flexbox para alinear el icono */
+  align-items: center; /* <-- NUEVO: Centra el icono y el texto verticalmente */
+  /* ... (otras reglas de title) ... */
+}
+.title img {
+  width: 32px; /* Define el tamaño del icono */
+  height: 32px;
+  margin-right: 8px; /* Espacio entre el icono y el texto "ABCD²" */
+}
+
 
       /* Verdana forzada */
     html,body,.wrap,.card,label,input,select,button,table,p,h1,h2,h3,li{font-family:Verdana,Geneva,sans-serif!important}
@@ -111,55 +242,63 @@
     .renal-disclaimer{background:#f8fbff;border:1px solid #e3eef9;border-left:4px solid #1976d2;border-radius:12px;padding:10px 12px;margin:10px 0 0 0}
     .renal-disclaimer b{color:#0b4576}
 
-/* Icono con hover a flecha (versión Unidades) */
-.icon-btn{
-  position:relative;
-  display:inline-block;
-  width:40px;height:40px;
-  border:none;outline:0;background:#fff;border-radius:50%;
-  box-shadow:0 0 6px rgba(0,0,0,.08);
-  padding:0; margin-right:8px;
-  vertical-align:middle;
-  cursor:pointer;
+:root {
+  --azul-institucional: #0f3d83;
 }
-.icon-btn .icon-unit,
-.icon-btn .icon-arrow{
-  position:absolute; inset:0;
-  width:100%; height:100%;
-  transition:opacity .22s ease;
-  pointer-events:none; /* clic siempre llega al botón */
+
+/* =========================================================
+   FOOTER
+========================================================= */
+footer{
+  width:100%;
+  margin:2rem 0 0;
+  padding:1.5rem 0;
+  border-top:1px solid #e5e7eb;
+  background:#ffffff;
+  text-align:center;
+  box-shadow:0 -2px 6px rgba(0,0,0,0.04);
 }
-.icon-btn .icon-unit{ opacity:1; }
-.icon-btn .icon-arrow{ opacity:0; }
+@media(max-width:768px){
+  header{font-size:1.05rem;}
+  main{padding:0.9rem 1rem;}
+  body{font-size:0.96rem;}
+}
 
-/* En hover cambia a flecha */
-.icon-btn:hover .icon-unit{ opacity:0; }
-.icon-btn:hover .icon-arrow{ opacity:1; }
 
-/* Feedback al clic */
-.icon-btn:active{ transform:scale(.96); }
+}
+/* Empuja el contenido real por debajo de la barra superior */
+body {
+  margin: 0;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 52px);
+  background-color: #fff;
+}
 
   </style>
 </head>
 <body>
-
-<header class="appbar" role="region" aria-label="Anticoagulación en FA">
-  <div class="appbar-inner">
-    <div class="left-group">
-      <button id="backIcon" class="icon-btn" aria-label="Atrás" title="Atrás">
-        <img class="icon-unit" src="anticoagulacion.png" alt="Icono Anticoagulación" width="40" height="40">
-        <svg class="icon-arrow" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M15 18l-6-6 6-6" fill="none" stroke="#0F3D83" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-      <h1 style="margin:0;font-size:1.35rem;line-height:1;font-weight:800;letter-spacing:.2px;color:#fff;">Fibrilación auricular</h1>
+<!-- SAFE-TOP -->
+<div class="safe-top">
+  <div class="safe-content">
+    <div class="safe-left">
+      <img src="../iconos/utilidadesico.png" alt="Icono Utilidades" class="safe-mini">
+      <img src="../img/topbar.png" alt="IctusGPS" class="safe-logo">
     </div>
-    <div class="actions">
-      <a class="btn" href="../index.html">Inicio</a>
+    <div class="safe-actions">
+      <a href="javascript:history.back()" class="safe-btn" title="Volver atrás">
+        <img src="../iconos/atrastransparente.png" alt="Atrás" class="safe-icon">
+      </a>
+      <a href="../index.html" class="safe-btn" title="Volver al inicio">
+        <img src="../iconos/hometransparente.png" alt="Inicio" class="safe-icon">
+      </a>
     </div>
   </div>
-</header>
+</div>
 
+<header>
+  <div class="bar">
+    <div class="title"><img src="anticoagulacion.png" alt="Fibrilación auricular">Fibrilación auricular</div>
+      </div>
+</header>
 
   <div class="wrap">
     <div class="card">
@@ -333,7 +472,6 @@
 
       <div class="btnbar">
         <button type="button" class="ghost" id="btnPrint" disabled>Imprimir informe</button>
-                     <button type="button" class="ghost" id="btnPDF" disabled>Exportar PDF</button>
         <button type="button" class="ghost" id="btnCopy" disabled>Copiar informe</button>
       </div>
     </div>
@@ -841,75 +979,6 @@
       document.getElementById('btnPrint').disabled=true;
       document.getElementById('btnCopy').disabled=true;
       
-// ====== BOTÓN EXPORTAR PDF (versión tolerante) ======
-document.getElementById('btnPDF').addEventListener('click', async (e) => {
-  e.preventDefault();
-
-  const resultDiv = document.getElementById('resultCard');
-
-  if (!resultDiv || resultDiv.innerText.trim() === '') {
-    (typeof showToast === 'function')
-      ? showToast('No hay contenido para exportar.', 'warn')
-      : alert('No hay contenido para exportar.');
-    return;
-  }
-
-  try {
-    await exportarPDFconCabecera('resultCard', 'Informe_Anticoagulacion.pdf');
-    (typeof showToast === 'function')
-      ? showToast('📄 Informe PDF generado correctamente.', 'info')
-      : alert('Informe PDF generado correctamente.');
-  } catch (err) {
-    console.error('Error en exportarPDFconCabecera:', err);
-    (typeof showToast === 'function')
-      ? showToast('⚠️ Error al generar el PDF.', 'warn')
-      : alert('Error al generar el PDF.');
-  }
-});
-
-
-  
-
-async function generarInformePDF(nombre, edad, nhc) {
-  try {
-    if (!__lastReport) return;
-
-    const r = __lastReport;
-    const fecha = (new Date(r.ts)).toLocaleString('es-ES');
-    const sexTxt = r.inputs.sex === 'M' ? 'Varón' : (r.inputs.sex === 'F' ? 'Mujer' : '—');
-
-    const datosPaciente = `
-      <div style="margin:10px 0 20px;padding:10px;border-left:4px solid #0f3d83;background:#f3f8ff;border-radius:8px">
-        <b>Paciente:</b> ${nombre || '—'}<br>
-        <b>Edad:</b> ${edad || '—'} años<br>
-        ${nhc ? `<b>NHC:</b> ${nhc}<br>` : ''}
-        <b>Sexo:</b> ${sexTxt}<br>
-        <b>Generado:</b> ${fecha}
-      </div>
-    `;
-
-    // Contenido del informe (idéntico al imprimible)
-    const informeHTML = `
-      <div id="informeCompleto">
-        <h2 style="color:#0f3d83;margin-bottom:6px">Informe — Selección de anticoagulante oral</h2>
-        ${datosPaciente}
-        ${document.getElementById('resultCard').outerHTML}
-      </div>
-    `;
-
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = informeHTML;
-    document.body.appendChild(tempDiv);
-
-    await exportarPDFconCabecera('informeCompleto', 'Informe_Anticoagulacion.pdf');
-
-    document.body.removeChild(tempDiv);
-
-  } catch (err) {
-    console.error(err);
-    showToast('Error al generar el PDF.','error');
-  }
-}
 
 
 
@@ -1057,10 +1126,7 @@ async function generarInformePDF(nombre, edad, nhc) {
   </li>
 </ol> 
      </div>
-    </div>
-    <div style="text-align:center;">
-      <a href="index.html" class="back-btn">Volver</a>
-    </div>
+</div></div></div>
 
     <script>
       const refToggle=document.getElementById('refToggle');
@@ -1161,48 +1227,12 @@ async function generarInformePDF(nombre, edad, nhc) {
     })();
     </script>
 
-    <footer style="position:relative;left:50%;transform:translateX(-50%);width:100vw;margin:2rem 0 0 0;padding:1.5rem 0;border-top:1px solid #e5e7eb;background:#ffffff;text-align:center;box-shadow:0 -2px 6px rgba(0,0,0,0.04);">
-      <img src="uibanner.png" alt="Unidad de Ictus Málaga" style="max-width:380px;height:auto;opacity:.96;">
-    </footer>
-  </div>
-<script src="../lib/html2pdf.bundle.min.js"></script>
+<footer>
+  <img src="uibanner.png" alt="Unidad de Ictus Málaga" style="max-width:380px;height:auto;opacity:.96;">
+</footer>
+
 <script src="../js/index.js"></script>
-<script>
-document.addEventListener('deviceready', function () {
-  // Registrar todos los botones aquí dentro
-  const btnPDF = document.getElementById('btnPDF');
-  if (btnPDF) {
-    btnPDF.addEventListener('click', async (e) => {
-      e.preventDefault();
 
-      const resultDiv = document.getElementById('resultCard');
-      if (!resultDiv || resultDiv.innerText.trim() === '') {
-        alert('No hay contenido para exportar.');
-        return;
-      }
-
-      try {
-        await exportarPDFconCabecera('resultCard', 'Informe_Anticoagulacion.pdf');
-        alert('Informe PDF generado correctamente.');
-      } catch (err) {
-        console.error('Error PDF:', err);
-        alert('Error al generar el PDF.');
-      }
-    });
-  }
-}, false);
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", function(){
-  const btn = document.getElementById('backIcon');
-  if(!btn) return;
-  btn.addEventListener('click', function(){
-    console.log('[IctusGPS] Atrás clicado. Historial:', window.history.length);
-    if (window.history.length > 1) history.back();
-    else window.location.href = '../index.html';
-  });
-});
-</script>
 
 </body>
 </html>
