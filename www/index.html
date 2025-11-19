@@ -75,7 +75,7 @@ body {
 
   header{
     width:100%;
-    padding:32px 0 12px;
+    padding:12px 0 12px;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -131,10 +131,20 @@ animation: shine 3s linear infinite;
     display:flex;
     flex-direction:column;
     align-items:center;
+    flex: 0 0 calc(50% - 28px); /* 3 por fila menos el gap */
+    max-width: calc(50% - 28px);
     text-decoration:none;
     color:var(--ink);
     transition:transform .15s ease, box-shadow .15s ease, background .2s ease;
   }
+
+/* A partir de 400px → 3 por fila */
+@media (min-width: 400px) {
+  .menu .icon-btn {
+    flex: 0 0 calc(33.33% - 28px);
+    max-width: calc(33.33% - 28px);
+  }
+}
 
   .icon-circle{
     width:100px;
@@ -160,7 +170,7 @@ animation: shine 3s linear infinite;
   .icon-btn:nth-child(5) .icon-circle{ animation-delay:1.4s; }
 
   .icon-btn:hover .icon-circle img {
-  filter: drop-shadow(0 0 10px rgba(127,179,255,0.5));
+  filter: drop-shadow(0 0 30px rgba(127,179,255,0.9));
 }
 
 
@@ -249,6 +259,32 @@ footer img{
     0 0 12px rgba(255,255,255,0.15),
     0 8px 20px rgba(0,0,0,0.25);
 }
+.exit-btn {
+  position: absolute;
+  top: 31px;
+  right: 31px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 40, 40, 0.20);
+  color: white;
+  font-size: 1.6rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 99;
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+
+.exit-btn:hover {
+  transform: scale(1.08);
+  background: rgba(255, 60, 60, 1);
+}
+
 </style>
 </head>
 <body>
@@ -256,6 +292,12 @@ footer img{
 <header>
   <div class="logo-wrapper">
     <img src="img/inicio.png" alt="IctusGPS" class="logo-ictusgps">
+    <button class="exit-btn" onclick="exitApp()"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="9" stroke-opacity="0.35"/>
+  <line x1="12" y1="5" x2="12" y2="13" />
+</svg>
+
+</button>
     <span class="pin-ping"></span>
   </div>
 </header>
@@ -304,34 +346,86 @@ footer img{
   <img src="img/pie.png" alt="Firma">
 </footer>
 <script src="js/index.js"></script>
+
 <script>
-/* 🔹 Inserta index.css automáticamente en todas las vistas cargadas */
-(function() {
-  const cssPath = 'css/index.css';
-  const head = document.head || document.getElementsByTagName('head')[0];
-  if (![...document.styleSheets].some(s => s.href && s.href.includes(cssPath))) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = cssPath;
-    head.appendChild(link);
-  }
-})();
+function exitApp() {
 
-import { App } from '@capacitor/app';
-
-// Asegúrate de que este código solo se ejecute en el entorno Capacitor/Android
-if (window.Capacitor && window.Capacitor.isNativePlatform()) {
-  App.addListener('backButton', ({ canGoBack }) => {
-    // Si el historial del navegador no puede ir más atrás (es decir, estamos en la página inicial)
-    if (!canGoBack || window.location.pathname.endsWith('/index.html')) {
-      // Cierra la aplicación de Android
-      App.exitApp();
-    } else {
-      // Si hay historial, permite la navegación normal hacia atrás
-      window.history.back();
+  // 🔹 1) ANDROID nativo (Capacitor)
+  try {
+    if (
+      window.Capacitor &&
+      typeof window.Capacitor.isNativePlatform === 'function' &&
+      window.Capacitor.isNativePlatform() &&
+      window.Capacitor.Plugins &&
+      window.Capacitor.Plugins.App &&
+      typeof window.Capacitor.Plugins.App.exitApp === 'function'
+    ) {
+      // Cierra la app Android
+      window.Capacitor.Plugins.App.exitApp();
+      return;
     }
+  } catch (e) {
+    console.log('Error al intentar cerrar con Capacitor App:', e);
+  }
+
+  // 🔹 2) Fallback WEB → animación de apagado
+  const overlay = document.createElement("div");
+  overlay.style.position = "fixed";
+  overlay.style.top = "0";
+  overlay.style.left = "0";
+  overlay.style.width = "100%";
+  overlay.style.height = "100%";
+  overlay.style.background = "#0f3d83";
+  overlay.style.zIndex = "9999";
+  overlay.style.opacity = "0";
+  overlay.style.transition = "opacity 0.8s ease";
+  document.body.appendChild(overlay);
+
+  requestAnimationFrame(() => {
+    overlay.style.opacity = "1";
   });
+
+  setTimeout(() => {
+    document.body.innerHTML = `
+      <div style="
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:100vh;
+        background:#0f3d83;
+      ">
+        <svg viewBox="0 0 24 24" width="90" height="90"
+             fill="none" stroke="white" stroke-width="2.5"
+             stroke-linecap="round" stroke-linejoin="round"
+             style="filter: drop-shadow(0 0 12px rgba(255,255,255,0.45));
+                    animation: powerPulse 1.3s ease-out;">
+          <line x1="12" y1="3" x2="12" y2="12" />
+          <path d="M6.2 7a7 7 0 1 0 11.6 0" />
+        </svg>
+
+        <style>
+          @keyframes powerPulse {
+            0%   { transform: scale(0.8); opacity: 0; }
+            50%  { transform: scale(1.15); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+          }
+        </style>
+      </div>
+    `;
+  }, 900);
+
+  setTimeout(() => {
+    overlay.style.background = "#000";
+    overlay.style.opacity = "0";
+    overlay.style.transition = "opacity 1.4s ease";
+  }, 1500);
+
+  setTimeout(() => {
+    window.open('', '_self').close();
+  }, 3200);
 }
 </script>
+
+
 </body>
 </html>
