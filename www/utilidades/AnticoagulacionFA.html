@@ -1310,6 +1310,14 @@ body {
 
 
 <script src="../js/index.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  if (window.Capacitor && Capacitor.getPlatform() === "android") {
+    const btnPrint = document.getElementById("btnPrint");
+    if (btnPrint) btnPrint.style.display = "none";
+  }
+});
+</script>
 
 <footer>
   <img src="uibanner.png" alt="Unidad de Ictus Málaga" style="max-width:380px;height:auto;opacity:.96;">
