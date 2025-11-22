@@ -1,255 +1,222 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="manifest" href="../site.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
-<link rel="shortcut icon" href="../iconos/ictusgps.png">
-<meta name="theme-color" content="#0f3d83">
-<title>Fibrilación Auricular</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="../site.webmanifest">
+  <link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
+  <link rel="shortcut icon" href="../iconos/ictusgps.png">
+  <meta name="theme-color" content="#0f3d83">
+  <title>Fibrilación Auricular</title>
+  <style>
+ :root{
+    --bg:#f8fafc; --ink:#0f172a; --azul-institucional: #0f3d83;
 
-<style>
+    --azul:#0f3d83; --gris:#6b7280; --borde:#e5e7eb;
+
+ /* =========================================================
+     VARIABLES GLOBALES (colores, tipografía base, etc.)
+     Mantener aquí los tokens de diseño comunes de la app.
+  ========================================================= */
+  :root{
+    /* Colores de fondo y texto */
+    --bg:#f8fafc;
+    --ink:#0e1a33;
+    --azul:#0f3d83;
+
+    /* Paleta principal */
+    --accent-dark:#0f3d83;
+    --accent-light:#2563eb;
+
+    /* Neutros / bordes */
+    --border:#e5e9f2;
+    --muted:#64748b;
+
+    /* Estados clínicos (OK / intermedio / mal) */
+    --ok:#166534;
+    --ok-bg:#e9fce7;
+    --ok-ring:#bbf7d0;
+
+    --mid:#92400e;
+    --mid-bg:#fff7ed;
+    --mid-ring:#fed7aa;
+
+    --bad:#991b1b;
+    --bad-bg:#fef2f2;
+    --bad-ring:#fecaca;
+
+    /* Azul institucional reutilizado en toda la app */
+    --azul-institucional:#0f3d83;
+
+    /* Compatibilidad con variables antiguas (por si se usan en otros CSS) */
+    --bg-alt:#f8fafc;
+    --ink-alt:#0f172a;
+    --azul:#0f3d83;
+    --gris:#6b7280;
+    --borde:#e5e7eb;
+    --error:#b91c1c;
+  }
 
 /* =========================================================
-   VARIABLES GLOBALES
-========================================================= */
-:root{
-  --bg:#f8fafc; 
-  --ink:#0e1a33;
-
-  --azul:#0f3d83;
-  --azul-institucional:#0f3d83;
-
-  --accent-dark:#0f3d83;
-  --accent-light:#2563eb;
-
-  --border:#e5e9f2;
-  --muted:#64748b;
-
-  --ok:#166534;
-  --ok-bg:#e9fce7;
-  --ok-ring:#bbf7d0;
-
-  --mid:#92400e;
-  --mid-bg:#fff7ed;
-  --mid-ring:#fed7aa;
-
-  --bad:#991b1b;
-  --bad-bg:#fef2f2;
-  --bad-ring:#fecaca;
-
-  --gris:#6b7280;
-  --borde:#e5e7eb;
-  --error:#b91c1c;
-}
-
-/* =========================================================
-   SAFE-TOP (FIJO 60 px + notch)
+   SAFE-TOP
 ========================================================= */
 .safe-top {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(env(safe-area-inset-top) + 60px);
+  height: calc(env(safe-area-inset-top, 0px) + 60px);
   background: var(--azul-institucional);
   z-index: 1001;
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding-top: env(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top, 0px);
 }
-
-.safe-content{
-  width:100%;
-  max-width:1080px;
-  padding: calc(env(safe-area-inset-top) + 4px) 16px 8px;
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
+.safe-content {
+  width: 100%;
+  max-width: 1080px;
+  padding: 6px 16px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; 
+  /* Añadir un padding-top para empujar los iconos ligeramente hacia abajo y no pegarlos al borde */
+  padding-top: 2px; /* Ajuste manual para bajar los iconos un poco */
+  padding-bottom: 0; /* Eliminar padding inferior para reservar ese espacio */
 }
-
-.safe-left{
-  display:flex;
-  align-items:center;
-  gap:10px;
+.safe-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-
-.safe-mini{
-  width:44px;
-  height:44px;
-  object-fit:contain;
-  padding:4px;
-  box-shadow:0 0 4px rgba(0,0,0,0.1);
+.safe-mini {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  padding: 4px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.1);
 }
-
-.safe-logo{
-  height:44px;
-  width:auto;
+.safe-logo {
+  height: 44px;
+  width: auto;
 }
-
-.safe-actions{
-  display:flex;
-  gap:10px;
+.safe-actions {
+  display: flex;
+  gap: 10px;
 }
-
-.safe-btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width:40px;
-  height:40px;
-  background:rgba(255,255,255,0.15);
-  border:1px solid white;
-  border-radius:50%;
-  transition:background .25s, border-color .25s, transform .1s;
+.safe-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid white;
+  border-radius: 50%;
+  transition: background .25s, border-color .25s, transform .1s;
 }
-
-.safe-btn:hover{
-  background:#01c5fe;
+.safe-btn:hover {
+  background: #01c5fe;
+  border: 1px solid white;
 }
-
-.safe-btn:active{
-  transform:scale(0.95);
+.safe-btn:active { transform: scale(0.95); }
+.safe-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
 }
-
-.safe-icon{
-  width:32px; 
-  height:32px;
-  object-fit:contain;
-}
-
 /* =========================================================
-   CABECERA STICKY
+   CABECERA INFERIOR (STICKY)
 ========================================================= */
-header{
-  position:sticky;
-  top:calc(env(safe-area-inset-top) + 52px);
-  z-index:1002;
-  backdrop-filter:blur(6px);
-  background:var(--azul-institucional);
-  border-bottom:1px solid rgba(255,255,255,.08);
-  box-shadow:0 2px 6px rgba(0,0,0,0.08);
-  color:#fff;
+header {
+  position: sticky;
+  top: calc(env(safe-area-inset-top, 0px) + 52px);
+  z-index: 1002;
+  backdrop-filter: blur(6px);
+  background: var(--azul-institucional);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  color: #fff;
 }
-
-.bar{
+.bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  height: 52px;
+  padding: 0 16px;
+}
+.title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+}
+/* =========================================================
+   CABECERA
+========================================================= */
+/* ... (reglas existentes) ... */
+.bar {
   display:flex;
   justify-content:center;
   align-items:center;
-  gap:10px;
+  gap: 10px;
   height:52px;
-  padding:0 16px;
+  padding:4px 16px;
 }
 
-.title{
-  display:flex;
-  align-items:center;
-  font-size:1.4rem;
-  font-weight:700;
-  color:#fff;
+.title {
+  display: flex; /* <-- NUEVO: Habilita flexbox para alinear el icono */
+  align-items: center; /* <-- NUEVO: Centra el icono y el texto verticalmente */
+  /* ... (otras reglas de title) ... */
+}
+.title img {
+  width: 32px; /* Define el tamaño del icono */
+  height: 32px;
+  margin-right: 8px; /* Espacio entre el icono y el texto "ABCD²" */
 }
 
-.title img{
-  width:32px;
-  height:32px;
-  margin-right:8px;
-}
 
-/* =========================================================
-   TIPOGRAFÍA Y TARJETAS
-========================================================= */
-html,body,.wrap,.card,label,input,select,button,table,p,h1,h2,h3,li{
-  font-family:Verdana,Geneva,sans-serif!important;
-}
+      /* Verdana forzada */
+    html,body,.wrap,.card,label,input,select,button,table,p,h1,h2,h3,li{font-family:Verdana,Geneva,sans-serif!important}
+    .wrap{max-width:1080px;margin:16px auto;padding:0 12px 40px}
+    .card{background:#fff;border-radius:14px;box-shadow:0 3px 14px rgba(16,71,119,.12);padding:16px;margin:12px 0}
+    .grid{display:grid;gap:12px}
+    .g-2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+    .g-3{grid-template-columns:repeat(auto-fit,minmax(40%,1fr))}
+    label{font-weight:600;font-size:.92rem;color:#0f3f66;display:block;margin-bottom:6px}
+    label.row{font-weight:400}
+    .row{display:flex;gap:8px;align-items:center;margin:4px 0}
+    input[type="number"],select{width:100%;box-sizing:border-box;border:1px solid #cfe3f6;background:#fff;border-radius:10px;padding:10px 12px;font-size:1rem}
+    small.hint{color:#345;opacity:.8}
+    .btnbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;align-items:center}
+    button{border:0;border-radius:999px;padding:10px 16px; font-weight:700;cursor:pointer;line-height:1;flex:0 0 auto;height:auto}
+    .primary{background:#0f3d83;color:#fff}
+    .primary:hover {background:#fff;color:#0f3d83;border:2px solid #0f3d83}
+    .ghost{background:#fff;color:#0f3d83;border:2px solid #0f3d83}
+    .ghost:hover {background:#0f3d83;color:#fff;border:2px solid #0f3d83}
 
-.wrap{
-  max-width:1080px;
-  margin:16px auto;
-  padding:0 12px 40px;
-}
 
-.card{
-  background:#fff;
-  border-radius:14px;
-  box-shadow:0 3px 14px rgba(16,71,119,.12);
-  padding:16px;
-  margin:12px 0;
-}
-
-.grid{display:grid; gap:12px;}
-.g-2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
-.g-3{grid-template-columns:repeat(auto-fit,minmax(40%,1fr));}
-
-label{font-weight:600;font-size:.92rem;color:#0f3f66;display:block;margin-bottom:6px;}
-label.row{font-weight:400;}
-.row{display:flex;gap:8px;align-items:center;margin:4px 0;}
-
-input[type="number"],select{
-  width:100%;
-  box-sizing:border-box;
-  border:1px solid #cfe3f6;
-  background:#fff;
-  border-radius:10px;
-  padding:10px 12px;
-  font-size:1rem;
-}
-
-small.hint{color:#345;opacity:.8;}
-
-.btnbar{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:8px;
-  align-items:center;
-}
-
-button{
-  border:0;
-  border-radius:999px;
-  padding:10px 16px;
-  font-weight:700;
-  cursor:pointer;
-  line-height:1;
-  flex:0 0 auto;
-}
-
-.primary{background:#0f3d83;color:#fff;}
-.primary:hover {background:#fff;color:#0f3d83;border:2px solid #0f3d83;}
-
-.ghost{background:#fff;color:#0f3d83;border:2px solid #0f3d83;}
-.ghost:hover {background:#0f3d83;color:#fff;border:2px solid #0f3d83;}
-
-/* =========================================================
-   TABLAS / PILLS / RESULTADOS
-========================================================= */
-table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;font-size:.95rem;}
-th,td{padding:6px;border-bottom:1px solid #e8f2fb;text-align:left;vertical-align:top;}
-thead th{background:#eef6ff;color:#0b4576;font-size:.9rem;}
-tfoot td{background:#f3f9ff;}
-
-.muted{color:#567;}
-.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-weight:700;font-size:.8rem;}
-.ok{background:#e8f5e9;color:#1b5e20;}
-.okr{background:#ffcccc;color:#660000;}
-.okb{background:#0f3d83;color:#ffffff;}
-.bad{background:#ffebee;color:#b71c1c;}
-.note{font-size:.86rem;color:#456;}
-.center{text-align:center;}
-.subtle{color:#345;opacity:.85;}
-.subtle2{background:#fff5f5;color:#660000;opacity:.85;}
-.sticky-result{position:relative}
-.result-anchor{scroll-margin-top:84px}
-
-.sep{height:1px;background:#e7f0fb;margin:14px 0;}
-
-.inlineSelect{display:flex;gap:8px;}
-.unit{width:44%;}
-.val{flex:1;}
-/* Mejores opciones */
+    table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;font-size:.95rem}
+    th,td{padding:6px;border-bottom:1px solid #e8f2fb;text-align:left;vertical-align:top}
+    thead th{background:#eef6ff;color:#0b4576;font-size:.9rem}
+    tfoot td{background:#f3f9ff}
+    .muted{color:#567}
+    .pill{display:inline-block;padding:2px 8px;border-radius:999px;font-weight:700;font-size:.8rem}
+    .ok{background:#e8f5e9;color:#1b5e20}
+    .okr{background:#ffcccc;color:#660000}
+    .okb{background:#0f3d83;color:#ffffff}
+    .bad{background:#ffebee;color:#b71c1c}
+    .note{font-size:.86rem;color:#456}
+    .center{text-align:center}
+    .subtle{color:#345;opacity:.85}
+    .subtle2{background:#fff5f5;color:#660000;opacity:.85}
+    .sticky-result{position:relative}
+    .result-anchor{scroll-margin-top:84px}
+    .sep{height:1px;background:#e7f0fb;margin:14px 0}
+    .inlineSelect{display:flex;gap:8px}
+    .unit{width:44%}.val{flex:1}
+    /* Mejores opciones */
     #comparative tbody tr.best td{background:#e8f5e9}
     #comparative tbody tr.best td:first-child{border-left:4px solid var(--ok);font-weight:700}
     /* Adecuación clínica */
@@ -260,59 +227,24 @@ tfoot td{background:#f3f9ff;}
     .list-min{padding-left:16px;margin:0}
     .doseTag{background:#fff4ce;color:#7a4e00;border:1px solid #ffe08a;padding:2px 8px;border-radius:999px;font-weight:700;font-size:.8rem}
     .noOac{color:#b71c1c;font-weight:800}
-
-/* Columnas visibles */
-#comparative tbody td._zebra{background:#eef6ff;}
-@media (max-width:640px){
-  .col-rra,.col-rrs{display:none;}
-}
-
-
-
-
-/* Toast */
-.toast{
-  position:fixed;
-  top: calc(env(safe-area-inset-top) + 104px);
-  left:50%;
-  transform:translateX(-50%) translateY(-10px);
-  width:calc(100% - 32px);
-  max-width:680px;
-  text-align:center;
-  background:#b71c1c;
-  border-radius:5px;
-  color:#fff;
-  padding:10px;
-  box-shadow:0 6px 24px rgba(0,0,0,.18);
-  opacity:0;
-  pointer-events:none;
-  z-index:1003;
-  transition:opacity .25s,transform .25s;
-  font-weight:600;
-}
-.toast.show{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
-}.toast.warn{background:#f57c00;}
-.toast.info{background:#1976d2;}
-
-/* Referencias */
-    #refContent{overflow:hidden;  border:1px solid #1976d2;background:#eef6ff;border-radius:9px;
-max-height:0;transition:max-height .4s ease}
+    /* Zebra por columnas visibles */
+    #comparative tbody td._zebra{background:#eef6ff}
+    @media (max-width:640px){.col-rra,.col-rrs{display:none}}
+    /* Toast */
+    .toast{position:fixed;top:16px;right:16px;background:#b71c1c;color:#fff;padding:10px 14px;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.18);opacity:0;transform:translateY(-10px);pointer-events:none;z-index:1000;transition:opacity .25s,transform .25s;max-width:min(92vw,520px);line-height:1.25;font-weight:600}
+    .toast.show{opacity:1;transform:translateY(0);pointer-events:auto}
+    .toast.warn{background:#f57c00}.toast.info{background:#1976d2}
+    #refContent{overflow:hidden;max-height:0;transition:max-height .4s ease}
     #refContent.show{display:block!important;max-height:4000px}
     .back-btn{display:inline-block;margin:1.5rem auto 0;background:#0f3d83;color:#fff;text-decoration:none;font-weight:700;padding:.7rem 1.4rem;border-radius:10px;box-shadow:0 4px 10px rgba(15,61,131,.25);transition:background .2s,transform .1s,box-shadow .2s}
     .back-btn:hover{background:#1c60c3;transform:translateY(-1px);box-shadow:0 6px 12px rgba(15,61,131,.35)}
+    /* Bloque reno-disclaimer */
+    .renal-disclaimer{background:#f8fbff;border:1px solid #e3eef9;border-left:4px solid #1976d2;border-radius:12px;padding:10px 12px;margin:10px 0 0 0}
+    .renal-disclaimer b{color:#0b4576}
 
-/* Disclaimer renal */
-.renal-disclaimer{
-  background:#f8fbff;
-  border:1px solid #e3eef9;
-  border-left:4px solid #1976d2;
-  border-radius:12px;
-  padding:10px 12px;
-  margin:10px 0 0 0;
+:root {
+  --azul-institucional: #0f3d83;
 }
-.renal-disclaimer b{color:#0b4576;}
 
 /* =========================================================
    FOOTER
@@ -326,19 +258,13 @@ footer{
   text-align:center;
   box-shadow:0 -2px 6px rgba(0,0,0,0.04);
 }
-
-/* =========================================================
-   MEDIA QUERIES
-========================================================= */
 @media(max-width:768px){
   header{font-size:1.05rem;}
   main{padding:0.9rem 1rem;}
   body{font-size:0.96rem;}
 }
 
-/* =========================================================
-   PADDING SUPERIOR DEL CONTENIDO
-========================================================= */
+
 
 /* Empuja el contenido real por debajo de la barra superior */
 body {
@@ -346,40 +272,33 @@ body {
   padding-top: calc(env(safe-area-inset-top, 0px) + 52px);
   background-color: #fff;
 }
-</style>
+
+  </style>
 </head>
-
 <body>
-
 <!-- SAFE-TOP -->
 <div class="safe-top">
   <div class="safe-content">
     <div class="safe-left">
-      <img src="../iconos/utilidadesico.png" class="safe-mini" alt="">
-      <img src="../img/topbar.png" class="safe-logo" alt="IctusGPS">
+      <img src="../iconos/utilidadesico.png" alt="Icono Utilidades" class="safe-mini">
+      <img src="../img/topbar.png" alt="IctusGPS" class="safe-logo">
     </div>
-
     <div class="safe-actions">
-      <a href="javascript:history.back()" class="safe-btn">
-        <img src="../iconos/atrastransparente.png" class="safe-icon">
+      <a href="javascript:history.back()" class="safe-btn" title="Volver atrás">
+        <img src="../iconos/atrastransparente.png" alt="Atrás" class="safe-icon">
       </a>
-      <a href="../index.html" class="safe-btn">
-        <img src="../iconos/hometransparente.png" class="safe-icon">
+      <a href="../index.html" class="safe-btn" title="Volver al inicio">
+        <img src="../iconos/hometransparente.png" alt="Inicio" class="safe-icon">
       </a>
     </div>
   </div>
 </div>
 
-<!-- CABECERA -->
 <header>
   <div class="bar">
-    <div class="title">
-      <img src="anticoagulacion.png" alt="">
-      Fibrilación auricular
-    </div>
-  </div>
+    <div class="title"><img src="anticoagulacion.png" alt="Fibrilación auricular">Fibrilación auricular</div>
+      </div>
 </header>
-
 
   <div class="wrap">
     <div class="card">
@@ -523,7 +442,7 @@ body {
         <tfoot>
           <tr><td class="subtle" colspan="9"><b>Abreviaturas:</b> <b>RA</b>=riesgo anual de ictus; <b>RRR</b>=reducción relativa; <b>RRA</b>=reducción absoluta;
         <b>NNT</b>=nº necesario a tratar; <b>RS</b>=riesgo anual de sangrado mayor; <b>RRS</b>=riesgo relativo de sangrado vs VKA; <b>NNH</b>=nº necesario para dañar.</td></tr>
-        <tr><td class="subtle2" colspan="9"><b>Nota:</b> coeficientes orientativos; adapta a tus fuentes.</td></tr>
+        <tr><td class="subtle2" colspan="9"><span style color: var(--ink,#0f172a); background:#fff5f5;><b>Nota:</b> coeficientes orientativos; adapta a tus fuentes.</span></td></tr>
 </tfoot>
       </table>
 
@@ -878,6 +797,7 @@ body {
       };
       document.getElementById('btnPrint').disabled=false;
       document.getElementById('btnCopy').disabled=false;
+      document.getElementById('btnPDF').disabled = false;
     }
 
     /* ===== Informe imprimible ===== */
@@ -1071,9 +991,8 @@ body {
     window.addEventListener('DOMContentLoaded', autoCheckByInputs);
     </script>
 
-    <!-- Referencias / Bibliografía -->   
- <div class="card" id="referencias">
-   <div class="note" id="refNote">
+    <!-- Referencias / Bibliografía -->
+    <div class="card" id="referencias">
       <h2 id="refToggle" style="margin:0 0 8px;font-size:1em;cursor:pointer;">Referencias <span id="refArrow" style="font-size:1em;">▼</span></h2>
       <div id="refContent" style="display:none;">
 <div>
@@ -1206,7 +1125,7 @@ body {
     <a href="https://www.jthjournal.org/article/S1538-7836(22)01848-7/fulltext" rel="noopener" target="_blank">Texto</a>
   </li>
 </ol> 
-     </div></div>
+     </div>
 </div></div></div>
 
     <script>
@@ -1308,12 +1227,12 @@ body {
     })();
     </script>
 
-
-<script src="../js/index.js"></script>
-
 <footer>
   <img src="uibanner.png" alt="Unidad de Ictus Málaga" style="max-width:380px;height:auto;opacity:.96;">
 </footer>
+
+<script src="../js/index.js"></script>
+
 
 </body>
 </html>

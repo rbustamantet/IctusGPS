@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<meta name="theme-color" content="#0f3d83">
+<title>Título de la página</title>
+
+<!-- ICONOS PWA (ajuste rutas según su app) -->
+<link rel="manifest" href="../site.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
+<link rel="shortcut icon" href="../iconos/ictusgps.png">
+
+<!-- CORE CSS GLOBAL -->
+<link rel="stylesheet" href="../css/core.css">
+
+<!-- CSS LOCAL OPCIONAL (estilos propios de la página) -->
+<style>
+/* Añada aquí solo estilos específicos de esta página */
+</style>
+
+</head>
+<body>
+
+<!-- SAFE-TOP GLOBAL -->
+<div class="safe-top">
+  <div class="safe-content">
+    <div class="safe-left">
+      <img src="../iconos/utilidadesico.png" class="safe-mini" alt="">
+      <img src="../img/topbar.png" class="safe-logo" alt="Ictus GPS">
+    </div>
+
+    <div class="safe-actions">
+      <a href="javascript:history.back()" class="safe-btn">
+        <img src="../iconos/atrastransparente.png" class="safe-icon" alt="">
+      </a>
+      <a href="../index.html" class="safe-btn">
+        <img src="../iconos/hometransparente.png" class="safe-icon" alt="">
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER / TÍTULO DE LA PÁGINA -->
+<header>
+  <div class="bar">
+    <div class="title">
+      <!-- Icono opcional -->
+      <img src="../iconos/icoejemplo.png" alt="" style="width:32px;height:32px;margin-right:8px;">
+      Título de la página
+    </div>
+  </div>
+</header>
+
+<!-- CONTENIDO PRINCIPAL -->
+<main style="max-width:1080px;margin:0 auto;padding:16px;">
+  
+  <div class="card">
+    <h2>Contenido de ejemplo</h2>
+    <p>Esta es la plantilla base para construir nuevas páginas de Ictus GPS.</p>
+  </div>
+
+</main>
+
+<!-- TOAST GLOBAL -->
+<div id="toast" class="toast" role="alert" aria-live="assertive"></div>
+
+<!-- JS LOCAL -->
+<script>
+function showToast(msg,type='error'){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.remove('warn','info');
+  if(type==='warn') t.classList.add('warn');
+  if(type==='info') t.classList.add('info');
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+</script>
+
+<!-- JS GLOBAL (opcional) -->
+<script src="../js/index.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,190 @@
+/************************************************************
+ * Ictus GPS — core.css  (2025)
+ * Barra superior, cabecera, padding global, toast unificado
+ * Para TODAS las páginas de la app (PWA / Capacitor / Web)
+ ************************************************************/
+
+/* =========================================================
+   VARIABLES GLOBALES
+========================================================= */
+:root{
+  --azul-institucional: #0f3d83;
+  --toast-error: #b71c1c;
+  --toast-warn:  #f57c00;
+  --toast-info:  #1976d2;
+
+  --safe-top-height: 60px;   /* altura fija de la barra institucional */
+  --header-height:   52px;   /* altura fija del encabezado de página */
+}
+
+/* =========================================================
+   SAFE-TOP (60 px + notch)
+========================================================= */
+.safe-top{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(env(safe-area-inset-top, 0px) + var(--safe-top-height));
+  background: var(--azul-institucional);
+
+  z-index: 1001;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+
+  padding: env(safe-area-inset-top) 16px 8px;
+}
+
+.safe-content {
+  width: 100%;
+  max-width: 1080px;
+  padding: 6px 16px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; 
+  /* Añadir un padding-top para empujar los iconos ligeramente hacia abajo y no pegarlos al borde */
+  padding-top: 2px; /* Ajuste manual para bajar los iconos un poco */
+  padding-bottom: 0; /* Eliminar padding inferior para reservar ese espacio */
+}
+.safe-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.safe-mini {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  padding: 4px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.1);
+}
+.safe-logo {
+  height: 44px;
+  width: auto;
+}
+.safe-actions {
+  display: flex;
+  gap: 10px;
+}
+.safe-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid white;
+  border-radius: 50%;
+  transition: background .25s, border-color .25s, transform .1s;
+}
+.safe-btn:hover {
+  background: #01c5fe;
+  border: 1px solid white;
+}
+.safe-btn:active { transform: scale(0.95); }
+.safe-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+
+/* =========================================================
+   CABECERA (HEADER)
+   — SIEMPRE justo debajo de la safe-top.
+========================================================= */
+header{
+  position: sticky;
+  top: calc(env(safe-area-inset-top, 0px) + var(--safe-top-height));
+  height: var(--header-height);
+
+  background: var(--azul-institucional);
+  color: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 1002;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+header .bar{
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+header .title{
+  font-size: 1.35rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  color: #fff;
+}
+
+
+/* =========================================================
+   BODY — padding superior unificado
+   (safe-top + header en todos los dispositivos)
+========================================================= */
+
+
+
+/* =========================================================
+   TOAST GLOBAL (multilínea, centrado, coherente)
+========================================================= */
+.toast{
+  position: fixed;
+
+  /* justo debajo del header */
+  top: calc(
+        env(safe-area-inset-top, 0px)
+        + var(--safe-top-height)
+        + 10px
+      );
+
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+
+  width: calc(100% - 32px);
+  max-width: 680px;
+
+  padding: 12px 16px;
+  background: var(--toast-error);
+  color: #fff;
+
+  border-radius: 6px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.4;
+
+  opacity: 0;
+  pointer-events: none;
+
+  z-index: 3000;
+  transition: opacity .25s, transform .25s;
+}
+
+.toast.show{
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.toast.warn { background: var(--toast-warn); }
+.toast.info { background: var(--toast-info); }
+
+
+/* =========================================================
+   MEDIA QUERIES (opcional)
+========================================================= */
+@media(max-width: 640px){
+  header .title{
+    font-size: 1.25rem;
+  }
+}
