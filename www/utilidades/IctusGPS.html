@@ -164,6 +164,14 @@ header{
     .toolbar{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-bottom:.75rem}
     .toolbar button{border:1px solid var(--borde);background:#f8fafc;padding:.45rem .7rem;border-radius:.5rem;cursor:pointer;}
     .toolbar button:hover{background:#eef2ff;border-color:#c7d2fe}
+    .howto{
+       background:#fff;
+       border-radius:14px;
+       box-shadow:0 3px 14px rgba(16,71,119,.12);
+       font-size:.9rem;
+       padding:24px;
+       margin:8px 0px;
+}
 /* 🔹 Limitar el ancho máximo del cuerpo */
 main {
   max-width: 1080px;      /* ancho máximo del contenido */
@@ -335,6 +343,10 @@ body {
   </div>
 </header>
   <main>
+<div class="howto">Carga una imagen de TC o RM y ajusta sobre ella el mapa arterial seleccionado.  
+    Puedes mover, ampliar, girar y modificar la opacidad para facilitar la correlación anatómica.  
+    La herramienta permite comparar cortes axiales con mapas predefinidos para identificar territorios vasculares.
+</div>
     <div class="content">
       <div class="panel">
         <h2>Imagen médica (TC/RM)</h2>
@@ -671,7 +683,7 @@ infra_supra: {
       const rect = contenedor.getBoundingClientRect();
       const mouseX = clientX - rect.left, mouseY = clientY - rect.top;
       const preX = (mouseX - mapaX) / escala, preY = (mouseY - mapaY) / escala;
-      const factor = (deltaY < 0) ? 1.1 : 0.9;
+      const factor = (deltaY < 0) ? 1.015 : 0.985;  // zoom ultrafino (~1.5%)
       const nuevaEscala = clamp(escala * factor, SCALE_MIN, SCALE_MAX);
       mapaX = mouseX - preX * nuevaEscala; mapaY = mouseY - preY * nuevaEscala;
       escala = nuevaEscala; actualizarUI();

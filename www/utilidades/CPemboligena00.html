@@ -181,6 +181,7 @@ header{
   margin-right:8px;
 }
 
+
 /* =========================================================
    CONTENIDO
 ========================================================= */
@@ -263,7 +264,7 @@ header{
   gap:10px;
 }
 .g-2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
-@media(min-width:860px){
+@media(min-width:640px){
   .grid.cols-2{grid-template-columns:1fr 1fr;}
 }
 
@@ -509,11 +510,13 @@ tfoot td{
   border-left:4px solid var(--ok);
   font-weight:700;
 }
+
 /* Columnas visibles */
 #comparative tbody td._zebra{background:#eef6ff;}
 @media (max-width:640px){
-  .col-ra,.col-rra,.col-rrs{display:none;}
+  .col-rra,.col-rrs{display:none;}
 }
+
 /* Toast */
 .toast{
   position:fixed;
@@ -826,7 +829,7 @@ body{
       <thead>
         <tr>
           <th>Estrategia</th>
-          <th class="right col-ra">RA</th>
+          <th class="right">RA ictus</th>
           <th class="right">RRR</th>
           <th class="right col-rra">RRA</th>
           <th class="right">NNT</th>
@@ -1120,34 +1123,24 @@ function mostrarRecomendacionPatologia(preliminar = false) {
     case "iam":
   texto = "<b>Infarto agudo de miocardio</b> – Mayor riesgo embólico si trombo cavitario o ictus periinfarto.";
 
-case "iam":
-      texto = "<b>Infarto agudo de miocardio</b> – Mayor riesgo embólico si trombo cavitario o ictus periinfarto.";
+  // PRIORIDAD CLÍNICA CORRECTA
 
-      const tieneTromboCavitario = riesgos.includes("Trombo cavitario");
-      const tieneIctusPeriinfarto = riesgos.includes("Ictus periinfarto");
+  // 1️⃣ Ictus periinfarto → anticoagulación indefinida
+  if (riesgos.includes("Ictus periinfarto")) {
+    recomendacion = "Anticoagulación (ACOD o AVK) indefinida como prevención secundaria del ictus periinfarto. " ;
+    fuerza = "ACODS_PREFERIDOS";
 
-      // 1️⃣ Ictus periinfarto → anticoagulación TRANSITORIA 3–6 meses
-      if (tieneIctusPeriinfarto) {
-        recomendacion =
-          "Anticoagulación (ACOD o AVK) durante 3–6 meses tras el ictus periinfarto, " +
-          "con reevaluación por imagen cardiaca. Si no persiste trombo ni otra fuente cardioembólica, " +
-          "no se mantiene anticoagulación indefinida.";
-        fuerza = "ANTICOAGULACION_TRANSITORIA";
+  // 2️⃣ Trombo cavitario → anticoagulación transitoria 3–6 meses
+  } else if (riesgos.includes("Trombo cavitario")) {
+    recomendacion = "Anticoagulación (ACOD o AVK) 3–6 meses, con reevaluación por imagen hasta resolución del trombo.";
+    fuerza = "ANTICOAGULACION_TRANSITORIA";
 
-      // 2️⃣ Trombo cavitario sin ictus periinfarto → también transitoria
-      } else if (tieneTromboCavitario) {
-        recomendacion =
-          "Anticoagulación (ACOD o AVK) 3–6 meses, con control ecocardiográfico hasta la resolución del trombo cavitario.";
-        fuerza = "ANTICOAGULACION_TRANSITORIA";
-
-      // 3️⃣ IAM sin trombo ni ictus periinfarto → no AC sistemática
-      } else {
-        recomendacion =
-          "En ausencia de ictus periinfarto o trombo cavitario, no se recomienda anticoagulación sistemática " +
-          "por el solo hecho del IAM.";
-        fuerza = "NO_ANTICOAGULAR";
-      }
-      break;
+  // 3️⃣ Ningún criterio mayor
+  } else {
+    recomendacion = "En ausencia de ictus periinfarto o trombo cavitario, no se recomienda anticoagulación sistemática.";
+    fuerza = "NO_ANTICOAGULAR";
+  }
+  break;
 
 
     case "dilatada":
@@ -1173,45 +1166,16 @@ case "iam":
   break;
 
 
-case "isquemica":
-      texto = "<b>Miocardiopatía isquémica</b> – Riesgo embólico si hay zonas acinéticas, trombos murales o ictus cardioembólico " +
-              "atribuible a una disfunción ventricular persistente.";
-
-      const tieneTromboMural     = riesgos.includes("Trombo mural documentado");
-      const tieneFEbaja          = riesgos.includes("FE ≤ 35%");
-      const tieneAcinesia        = riesgos.includes("Zonas acinéticas o hipocinéticas");
-      const ictusCardioPrevio    = riesgos.includes("Antecedente de ictus cardioembólico");
-
-      // 1️⃣ Trombo mural → anticoagulación TRANSITORIA 3–6 meses
-      if (tieneTromboMural) {
-        recomendacion =
-          "Anticoagulación (AVK o ACOD) durante 3–6 meses, con reevaluación por imagen hasta la resolución del trombo mural. " +
-          "Si el trombo desaparece y no hay FA ni otra fuente embólica persistente, no se mantiene anticoagulación indefinida.";
+    case "isquemica":
+      texto = "<b>Miocardiopatía isquémica</b> – Riesgo embólico en zonas acinéticas, trombos murales o ictus previo.";
+      if (riesgos.includes("Trombo mural documentado")) {
+        recomendacion = "Anticoagulación (AVK o ACOD) 3–6 meses, hasta resolución del trombo.";
         fuerza = "ANTICOAGULACION_TRANSITORIA";
-
-      // 2️⃣ Ictus cardioembólico + disfunción estructural (FE baja o acinesia) → AC INDEFINIDA
-      } else if (ictusCardioPrevio && (tieneFEbaja || tieneAcinesia)) {
-        recomendacion =
-          "Ictus cardioembólico en el contexto de miocardiopatía isquémica con disfunción ventricular relevante " +
-          "(FE ≤35% y/o zonas acinéticas). Recomendable anticoagulación (ACOD o AVK) indefinida como prevención secundaria, " +
-          "si no hay contraindicaciones.";
+      } else if (riesgos.includes("Antecedente de ictus cardioembólico")) {
+        recomendacion = "Anticoagulación (AVK o ACOD) indefinida como prevención secundaria.";
         fuerza = "ACODS_PREFERIDOS";
-
-      // 3️⃣ Ictus cardioembólico pero SIN FE baja ni acinesia → NO justifica AC indefinida
-      } else if (ictusCardioPrevio && !tieneFEbaja && !tieneAcinesia) {
-        recomendacion =
-          "Ictus cardioembólico previo sin disfunción sistólica significativa ni zonas acinéticas demostradas. " +
-          "La miocardiopatía isquémica sin alteraciones estructurales relevantes no se considera fuente cardioembólica " +
-          "crónica por sí misma. No se recomienda anticoagulación indefinida; debe reevaluarse la etiología (p. ej. ESUS, FA oculta) " +
-          "y seguir las guías de ictus criptogénico.";
-        fuerza = "NO_ANTICOAGULAR";
-
-      // 4️⃣ Sin trombo ni ictus cardioembólico → no AC sistemática
       } else {
-        recomendacion =
-          "Sin trombo mural documentado ni ictus cardioembólico atribuible a disfunción ventricular, " +
-          "no se indica anticoagulación sistemática en la miocardiopatía isquémica. Manejo habitual con antiagregación " +
-          "y tratamiento óptimo de la cardiopatía.";
+        recomendacion = "No se indica anticoagulación sistemática sin trombo ni ictus cardioembólico.";
         fuerza = "NO_ANTICOAGULAR";
       }
       break;
@@ -1550,65 +1514,6 @@ function calcHASBLED(flags,age){
   if(flags.hAlcohol)s+=1;
   return s;
 }
-// Evaluación específica de CHA2DS2-VASc en fibrilación auricular
-function evalCHA2DS2VAScFA(vascScore, sex) {
-  if (!Number.isFinite(vascScore)) {
-    return {
-      level: "UNKNOWN",
-      label: "Datos insuficientes para valorar CHA₂DS₂-VASc.",
-      detalle: ""
-    };
-  }
-
-  const isMale   = sex === "M";
-  const isFemale = sex === "F";
-
-  // Bajo riesgo: NO anticoagulación
-  // Varón: 0 puntos; Mujer: 1 punto (solo sexo)
-  if ((isMale && vascScore === 0) ||
-      (isFemale && vascScore === 1)) {
-    return {
-      level: "NO_AC",
-      label: "FA con CHA₂DS₂-VASc bajo: no se recomienda anticoagulación.",
-      detalle: isMale
-        ? "Varón con CHA₂DS₂-VASc = 0."
-        : "Mujer con CHA₂DS₂-VASc = 1 (solo punto por sexo)."
-    };
-  }
-
-  // Riesgo intermedio: valorar anticoagulación, NO indicada automáticamente
-  // Varón: 1 punto; Mujer: 2 puntos
-  if ((isMale && vascScore === 1) ||
-      (isFemale && vascScore === 2)) {
-    return {
-      level: "CONSIDER_AC",
-      label: "FA con CHA₂DS₂-VASc intermedio: valorar anticoagulación, sin indicación automática.",
-      detalle: isMale
-        ? "Varón con CHA₂DS₂-VASc = 1."
-        : "Mujer con CHA₂DS₂-VASc = 2."
-    };
-  }
-
-  // Alto riesgo: indicación de anticoagulación crónica
-  // Varón: ≥2 puntos; Mujer: ≥3 puntos
-  if ((isMale && vascScore >= 2) ||
-      (isFemale && vascScore >= 3)) {
-    return {
-      level: "AC_RECOMMENDED",
-      label: "FA con CHA₂DS₂-VASc alto: se recomienda anticoagulación crónica si no hay contraindicaciones.",
-      detalle: (isMale ? "Varón" : "Mujer") +
-               " con CHA₂DS₂-VASc " +
-               (isMale ? "≥2." : "≥3.")
-    };
-  }
-
-  return {
-    level: "UNKNOWN",
-    label: "",
-    detalle: ""
-  };
-}
-
 function getStrokeRiskPct(vasc){
   const k=Math.max(0,Math.min(9,vasc|0));
   return strokeRisksByVasc[k]??0;
@@ -1915,268 +1820,174 @@ function compute(){
   aplicarAutoChecks();
   updateEscalasVisibility();
 
-  const age = clamp(parseFloat(document.getElementById('age').value) || 0, 18, 110);
-  const sex = document.getElementById('sex').value;
+  const age=clamp(parseFloat(document.getElementById('age').value)||0,18,110);
+  const sex=document.getElementById('sex').value;
 
-  const weightRaw = parseFloat(document.getElementById('weight').value);
-  const weight    = isFinite(weightRaw) ? clamp(weightRaw, 10, 400) : NaN;
-  const wUnit     = document.getElementById('weightUnit').value;
+  const weightRaw=parseFloat(document.getElementById('weight').value);
+  const weight=isFinite(weightRaw)?clamp(weightRaw,10,400):NaN;
+  const wUnit=document.getElementById('weightUnit').value;
 
-  const scrRaw = parseFloat(document.getElementById('scr').value);
-  const scr    = isFinite(scrRaw) ? clamp(scrRaw, 0.1, 15) : NaN;
-  const scrUnit = document.getElementById('scrUnit').value;
+  const scrRaw=parseFloat(document.getElementById('scr').value);
+  const scr=isFinite(scrRaw)?clamp(scrRaw,0.1,15):NaN;
+  const scrUnit=document.getElementById('scrUnit').value;
 
-  const flags = {
-    cCongest:   document.getElementById('cCongest')?.checked || false,
-    cHTN:       document.getElementById('cHTN')?.checked || false,
-    cAge75:     document.getElementById('cAge75')?.checked || false,
-    cDiab:      document.getElementById('cDiab')?.checked || false,
-    cStroke:    document.getElementById('cStroke')?.checked || false,
-    cVasc:      document.getElementById('cVasc')?.checked || false,
-    cAge65:     document.getElementById('cAge65')?.checked || false,
-    cSc:        document.getElementById('cSc')?.checked || false,
-    hHTN:       document.getElementById('hHTN')?.checked || false,
-    hRenal:     document.getElementById('hRenal')?.checked || false,
-    hLiver:     document.getElementById('hLiver')?.checked || false,
-    hStroke:    document.getElementById('hStroke')?.checked || false,
-    hBleed:     document.getElementById('hBleed')?.checked || false,
-    hLabileINR: document.getElementById('hLabileINR')?.checked || false,
-    hElder:     document.getElementById('hElder')?.checked || false,
-    hDrugs:     document.getElementById('hDrugs')?.checked || false,
-    hAlcohol:   document.getElementById('hAlcohol')?.checked || false
+  const flags={
+    cCongest:document.getElementById('cCongest')?.checked||false,
+    cHTN:document.getElementById('cHTN')?.checked||false,
+    cAge75:document.getElementById('cAge75')?.checked||false,
+    cDiab:document.getElementById('cDiab')?.checked||false,
+    cStroke:document.getElementById('cStroke')?.checked||false,
+    cVasc:document.getElementById('cVasc')?.checked||false,
+    cAge65:document.getElementById('cAge65')?.checked||false,
+    cSc:document.getElementById('cSc')?.checked||false,
+    hHTN:document.getElementById('hHTN')?.checked||false,
+    hRenal:document.getElementById('hRenal')?.checked||false,
+    hLiver:document.getElementById('hLiver')?.checked||false,
+    hStroke:document.getElementById('hStroke')?.checked||false,
+    hBleed:document.getElementById('hBleed')?.checked||false,
+    hLabileINR:document.getElementById('hLabileINR')?.checked||false,
+    hElder:document.getElementById('hElder')?.checked||false,
+    hDrugs:document.getElementById('hDrugs')?.checked||false,
+    hAlcohol:document.getElementById('hAlcohol')?.checked||false
   };
 
-  const special = {
-    dysphagia: document.getElementById('condDysphagia')?.checked || false,
-    giBleed:   document.getElementById('condGIbleed')?.checked || false,
-    ichRisk:   document.getElementById('condICHrisk')?.checked || false,
-    valvular:  document.getElementById('condValvular')?.checked || false,
-    oncoGI:    document.getElementById('condOncoGI')?.checked || false,
-    polypharm: document.getElementById('condPolypharm')?.checked || false,
-    cirrhosis: document.getElementById('condCirrhosis')?.checked || false,
-    obesity:   document.getElementById('condObesity')?.checked || false,
-    poorINR:   document.getElementById('condPoorINR')?.checked || false,
-    qd:        document.getElementById('condQD')?.checked || false,
-    pgp:       document.getElementById('condPgp')?.checked || false
+  const special={
+    dysphagia:document.getElementById('condDysphagia')?.checked||false,
+    giBleed:document.getElementById('condGIbleed')?.checked||false,
+    ichRisk:document.getElementById('condICHrisk')?.checked||false,
+    valvular:document.getElementById('condValvular')?.checked||false,
+    oncoGI:document.getElementById('condOncoGI')?.checked||false,
+    polypharm:document.getElementById('condPolypharm')?.checked||false,
+    cirrhosis:document.getElementById('condCirrhosis')?.checked||false,
+    obesity:document.getElementById('condObesity')?.checked||false,
+    poorINR:document.getElementById('condPoorINR')?.checked||false,
+    qd:document.getElementById('condQD')?.checked||false,
+    pgp:document.getElementById('condPgp')?.checked||false
   };
 
-  const female = (sex === 'F');
-  const vasc   = calcVasc(age || 0, female, flags);
-  const hasbled = calcHASBLED(flags, age || 0);
+  const female=(sex==='F');
+  const vasc=calcVasc(age||0,female,flags);
+  const hasbled=calcHASBLED(flags,age||0);
 
-  const strokeBase = getStrokeRiskPct(vasc.vasc);
-  const bleedBase  = getBleedRiskPct(hasbled);
+  const strokeBase=getStrokeRiskPct(vasc.vasc);
+  const bleedBase=getBleedRiskPct(hasbled);
 
-  const {crcl, scr_mgdl} = calcCrCl(
-    age,
-    sex,
-    isFinite(weight) ? weight : NaN,
-    wUnit,
-    scr,
-    scrUnit
-  );
-  const weightKg = isFinite(weight)
-    ? ((wUnit === 'lb') ? (weight / 2.20462) : weight)
-    : NaN;
+  const {crcl,scr_mgdl}=calcCrCl(age,sex,isFinite(weight)?weight:NaN,wUnit,scr,scrUnit);
+  const weightKg=isFinite(weight)?((wUnit==='lb')?(weight/2.20462):weight):NaN;
 
-  // Evaluación por patología principal
-  let patEval        = mostrarRecomendacionPatologia(false);
-  let fuerza         = patEval.fuerza;
-  let recomendacion  = patEval.recomendacion;
+const { fuerza, recomendacion } = mostrarRecomendacionPatologia(false);
 
-  // =========================
-  // FA presente o no
-  // =========================
-  const tieneFA = patologiaTieneFASeleccionada();
+// =========================
+// MOSTRAR/OCULTAR BLOQUE FA SEGÚN SI HAY FA MARCADA
+// =========================
+const tieneFA = patologiaTieneFASeleccionada();
 
-  // Mostrar/ocultar bloques de FA
-  if (!tieneFA) {
-    document.querySelector(".kpi").style.display = "none";
-    document.getElementById("comparative").style.display = "none";
-    document.getElementById("doseSection").style.display = "none";
+if (!tieneFA) {
+  // Ocultar todo el bloque FA
+  document.querySelector(".kpi").style.display = "none";
+  document.getElementById("comparative").style.display = "none";
+  document.getElementById("doseSection").style.display = "none";
 
-    document.getElementById('scoreVA').textContent      = "–";
-    document.getElementById('scoreVASc').textContent    = "–";
-    document.getElementById('annualStroke').textContent = "–";
-    document.getElementById('scoreHASBLED').textContent = "–";
-    document.getElementById('annualBleed').textContent  = "–";
-    document.getElementById('crcl').textContent         = "–";
-    document.getElementById('scrConv').textContent      = "–";
-  } else {
-    document.querySelector(".kpi").style.display        = "grid";
-    document.getElementById("comparative").style.display = "table";
-    document.getElementById("doseSection").style.display = "";
-  }
+  // Limpiar KPIs
+  document.getElementById('scoreVA').textContent = "–";
+  document.getElementById('scoreVASc').textContent = "–";
+  document.getElementById('annualStroke').textContent = "–";
+  document.getElementById('scoreHASBLED').textContent = "–";
+  document.getElementById('annualBleed').textContent = "–";
+  document.getElementById('crcl').textContent = "–";
+  document.getElementById('scrConv').textContent = "–";
 
-  // KPIs numéricos (si hay FA visible, se rellenan; si no, se quedan en – pero no pasa nada)
-  document.getElementById('scoreVA').textContent      = vasc.va;
-  document.getElementById('scoreVASc').textContent    = vasc.vasc;
-  document.getElementById('annualStroke').textContent = fmt(strokeBase,1);
-  document.getElementById('scoreHASBLED').textContent = hasbled;
-  document.getElementById('annualBleed').textContent  = fmt(bleedBase,1);
-  document.getElementById('crcl').textContent         = isFinite(crcl) ? fmt(crcl,0) : NDASH;
-  document.getElementById('scrConv').textContent      = isFinite(scr_mgdl) ? fmt(scr_mgdl,2) : NDASH;
+} else {
+  // Mostrar bloque FA
+  document.querySelector(".kpi").style.display = "grid";
+  document.getElementById("comparative").style.display = "table";
+  document.getElementById("doseSection").style.display = "";
+}
 
-  // =========================
-  // Integrar CHA2DS2-VASc con FA
-  // =========================
-  let faCHAdecision = null;
-  let indicacionFAtexto = "";
 
-  if (tieneFA) {
-    faCHAdecision = evalCHA2DS2VAScFA(vasc.vasc, sex);
-    const nivelFA = faCHAdecision.level;
+  document.getElementById('scoreVA').textContent=vasc.va;
+  document.getElementById('scoreVASc').textContent=vasc.vasc;
+  document.getElementById('annualStroke').textContent=fmt(strokeBase,1);
+  document.getElementById('scoreHASBLED').textContent=hasbled;
+  document.getElementById('annualBleed').textContent=fmt(bleedBase,1);
+  document.getElementById('crcl').textContent=isFinite(crcl)?fmt(crcl,0):NDASH;
+  document.getElementById('scrConv').textContent=isFinite(scr_mgdl)?fmt(scr_mgdl,2):NDASH;
 
-    switch (nivelFA) {
-      case "NO_AC":
-        // Solo mantenemos AC obligatoria si la patología lo exige claramente
-        if (fuerza === "VKA_OBLIGATORIO" || fuerza === "ANTICOAGULACION_TRANSITORIA") {
-          // se mantiene la anticoagulación por la patología
-        } else {
-          fuerza = "NO_ANTICOAGULAR";
-        }
-        indicacionFAtexto = faCHAdecision.label + " " + faCHAdecision.detalle;
-        break;
+  const {prefer,avoid,notes}=buildClinicalRules({crcl,age,special,weightKg}, fuerza);
 
-      case "CONSIDER_AC":
-        // No indicación automática; señalamos “considerar” si la patología no obliga o contraindica
-        if (fuerza === "NO_ANTICOAGULAR" ||
-            fuerza === "ANTIAGREGACION_PREFERIDA" ||
-            fuerza === "INSUFICIENTE") {
-          fuerza = "CONSIDERAR_ACOD";
-        }
-        indicacionFAtexto = faCHAdecision.label + " " + faCHAdecision.detalle;
-        break;
-
-      case "AC_RECOMMENDED":
-        // Si la patología no es más restrictiva, promovemos anticoagulación
-        if (fuerza === "NO_ANTICOAGULAR" ||
-            fuerza === "ANTIAGREGACION_PREFERIDA" ||
-            fuerza === "INSUFICIENTE") {
-          fuerza = "ACODS_PREFERIDOS";
-        }
-        indicacionFAtexto = faCHAdecision.label + " " + faCHAdecision.detalle;
-        break;
-
-      default:
-        // No modificamos fuerza
-        break;
-    }
-  }
-
-  // =========================
-  // A partir de aquí, usamos la fuerza FINAL
-  // =========================
-  const {prefer, avoid, notes} = buildClinicalRules(
-    {crcl, age, special, weightKg},
-    fuerza
-  );
-
-  const TOL_REL = 0.03, TOL_ABS = 0.005;
+  const TOL_REL=0.03,TOL_ABS=0.005;
   function withinTolerance(score,best,tolRel=TOL_REL,tolAbs=TOL_ABS){
     if(!isFinite(score)||!isFinite(best))return false;
-    const relOk = best>0 ? (best-score)<=best*tolRel : false;
-    const absOk = Math.abs(best-score)<=tolAbs;
-    return relOk || absOk;
+    const relOk=best>0?(best-score)<=best*tolRel:false;
+    const absOk=Math.abs(best-score)<=tolAbs;
+    return relOk||absOk;
   }
 
-  // =========================
-  // Tabla comparativa (FA)
-  // =========================
-  const tbody = document.querySelector('#comparative tbody');
-  tbody.innerHTML = '';
-  const rows = [];
-  let bestScore = -Infinity;
+  const tbody=document.querySelector('#comparative tbody');
+  tbody.innerHTML='';
+  const rows=[];
+  let bestScore=-Infinity;
 
   STRATS.forEach(name=>{
-    const rrStroke       = RR_Stroke[name];
-    const rrBleed_vsVKA  = RR_Bleed_vs_VKA[name];
-    const riskStroke     = strokeBase * rrStroke;
-    const rrr            = (1 - rrStroke) * 100;
-    const arr            = strokeBase - riskStroke;
-    const bleedPct       = (name === 'VKA') ? bleedBase : (bleedBase * rrBleed_vsVKA);
-    const score          = (arr > 0 && bleedPct > 0) ? (arr / bleedPct) : -Infinity;
-    const adequacy       = summarizeForStrategy(name, prefer, avoid);
-    const tip            = escAttr(decodeEntities(adequacy.tooltip || ''));
-
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><b>${name}</b></td>
-      <td class="right col-ra">${fmt(riskStroke,1)}</td>
+    const rrStroke=RR_Stroke[name], rrBleed_vsVKA=RR_Bleed_vs_VKA[name];
+    const riskStroke=strokeBase*rrStroke, rrr=(1-rrStroke)*100, arr=strokeBase-riskStroke;
+    const bleedPct=(name==='VKA')?bleedBase:(bleedBase*rrBleed_vsVKA);
+    const score=(arr>0&&bleedPct>0)?(arr/bleedPct):-Infinity;
+    const adequacy=summarizeForStrategy(name,prefer,avoid);
+    const tip=escAttr(decodeEntities(adequacy.tooltip||''));
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><b>${name}</b></td>
+      <td class="right">${fmt(riskStroke,1)}</td>
       <td class="right">${fmt(rrr,0)}</td>
       <td class="right col-rra">${fmt(arr,1)}</td>
-      <td class="right">${isFinite(arr) && arr>0 ? oneIn(arr) : NDASH}</td>
+      <td class="right">${isFinite(arr)&&arr>0?oneIn(arr):NDASH}</td>
       <td class="right">${fmt(bleedPct,1)}</td>
       <td class="right col-rrs">${fmt(rrBleed_vsVKA,2)}</td>
-      <td class="right">${isFinite(bleedPct) && bleedPct>0 ? oneIn(bleedPct) : NDASH}</td>
+      <td class="right">${isFinite(bleedPct)&&bleedPct>0?oneIn(bleedPct):NDASH}</td>
       <td class="right"><span class="pill ${adequacy.cls}" title="${tip}">${adequacy.label}</span></td>`;
     tbody.appendChild(tr);
     rows.push({tr,score});
-    if (score > bestScore) bestScore = score;
+    if(score>bestScore)bestScore=score;
   });
-  rows.forEach(({tr,score})=>{
-    if (withinTolerance(score,bestScore)) tr.classList.add('best');
-  });
+  rows.forEach(({tr,score})=>{if(withinTolerance(score,bestScore))tr.classList.add('best');});
   applyColumnStriping();
 
-  // =========================
-  // Recomendaciones + dosis
-  // =========================
-  const recList    = document.getElementById('recList');
-  const doseSection = document.getElementById('doseSection');
-  recList.innerHTML = '';
+  const recList=document.getElementById('recList');
+// Mostrar coletilla (opcional) en recomendaciones globales
+if (recomendacion) {
+  const li = document.createElement("li");
+  li.innerHTML = `<i>${recomendacion}</i>`;
+  recList.appendChild(li);
+}
+  const doseSection=document.getElementById('doseSection');
+  recList.innerHTML='';
+  let preferredGlobal=[], avoidedGlobal=[], dosesForReport=[];
 
-  let preferredGlobal = [];
-  let avoidedGlobal   = [];
-  let dosesForReport  = [];
-
-  // Mensaje específico de FA + CHA2DS2-VASc (si procede)
-  if (indicacionFAtexto) {
-    const liFA = document.createElement('li');
-    liFA.innerHTML = `<b>FA y CHA<sub>2</sub>DS<sub>2</sub>-VASc:</b> ${indicacionFAtexto}`;
-    recList.appendChild(liFA);
-  }
-
-  // Coletilla de la patología principal
-  if (recomendacion) {
-    const liPat = document.createElement('li');
-    liPat.innerHTML = `<i>${recomendacion}</i>`;
-    recList.appendChild(liPat);
-  }
-
-  // ¿Anticoagulación requerida según fuerza final?
-  let isAnticoagulationRequired =
+  const isAnticoagulationRequired =
     fuerza !== "NO_ANTICOAGULAR" &&
     fuerza !== "ANTIAGREGACION_PREFERIDA" &&
     fuerza !== "INSUFICIENTE";
 
-  // Si la fuerza final dice NO anticoagular, bloqueamos esquema de AC
-  if (!isAnticoagulationRequired) {
-    const li = document.createElement('li');
-    li.innerHTML = '<span style="color:#b71c1c;font-weight:800;">NO se recomienda tratamiento anticoagulante. Manejo habitual: antiagregación (AAS) o vigilancia.</span>';
+  if(!isAnticoagulationRequired && fuerza !== "INSUFICIENTE"){ 
+    const li=document.createElement('li');
+    li.innerHTML='<span style="color:#b71c1c;font-weight:800;">NO se recomienda tratamiento anticoagulante. Manejo habitual: antiagregación (AAS) o vigilancia.</span>';
     recList.appendChild(li);
-    doseSection.style.display = 'none';
-  } else {
-    // Añadimos notas de buildClinicalRules
+    doseSection.style.display='none';
+  }else{
     notes.forEach(t=>{
-      const li = document.createElement('li');
-      li.textContent = decodeEntities(t);
+      const li=document.createElement('li');
+      li.textContent=decodeEntities(t);
       recList.appendChild(li);
     });
 
-    // Estrategias preferibles / a evitar
     ["VKA","Apixabán","Dabigatrán","Edoxabán","Rivaroxabán"].forEach(n=>{
-      if ((avoid[n] || new Set()).size > 0) {
-        avoidedGlobal.push(n);
-      } else if ((prefer[n] || new Set()).size > 0) {
-        preferredGlobal.push(n);
-      }
+      if((avoid[n]||new Set()).size>0)avoidedGlobal.push(n);
+      else if((prefer[n]||new Set()).size>0)preferredGlobal.push(n);
     });
 
-    // Si la patología obliga AVK
-    if (fuerza === "VKA_OBLIGATORIO") {
+    if(fuerza === "VKA_OBLIGATORIO") {
       preferredGlobal = ["VKA"];
-      avoidedGlobal   = ["Apixabán","Dabigatrán","Edoxabán","Rivaroxabán","No terapia"];
+      avoidedGlobal = ["Apixabán", "Dabigatrán", "Edoxabán", "Rivaroxabán", "No terapia"];
     }
 
     const preferredACODs = preferredGlobal.filter(n => n !== "VKA");
@@ -2185,88 +1996,56 @@ function compute(){
       preferredACODs.length > 0 &&
       fuerza !== "VKA_OBLIGATORIO";
 
-    if (isVKAOnlyForComorbidity) {
+    if(isVKAOnlyForComorbidity) {
       notes.push(`⚠️ Nota: el AVK aparece como “preferible” por comorbilidad (p. ej. obesidad mórbida o hepatopatía), pero en FA no valvular los ACOD (${preferredACODs.join(', ')}) siguen siendo primera elección; debe ponderarse beneficio y riesgo en cada caso.`);
-      preferredGlobal = preferredACODs.slice();
+      preferredGlobal = preferredACODs;
     } else if (preferredACODs.length > 0 && fuerza !== "VKA_OBLIGATORIO") {
       notes.push(`⭐ Primera elección: ${preferredACODs.join(', ')} por mejor balance eficacia/seguridad en este contexto.`);
     }
 
-    if (preferredGlobal.length) {
-      const li = document.createElement('li');
-      li.innerHTML = "<b>Estrategias preferibles (según comorbilidades):</b> " + preferredGlobal.join(", ");
+    if(preferredGlobal.length){
+      const li=document.createElement('li');
+      li.innerHTML="<b>Estrategias preferibles (según comorbilidades):</b> "+preferredGlobal.join(", ");
       recList.appendChild(li);
     }
-    if (avoidedGlobal.length) {
-      const li = document.createElement('li');
-      li.innerHTML = "<b>Estrategias a evitar:</b> " + avoidedGlobal.join(", ");
+    if(avoidedGlobal.length){
+      const li=document.createElement('li');
+      li.innerHTML="<b>Estrategias a evitar:</b> "+avoidedGlobal.join(", ");
       recList.appendChild(li);
     }
 
-    // Posología
-    doseSection.style.display = '';
-    const doseList = document.getElementById('doseList');
-    doseList.innerHTML = '';
-
-    dosesForReport = doseSuggestions(
-      {age, crcl, hasbled, weightKg, scr_mgdl, special},
-      avoid
-    );
-
-    if (dosesForReport.length === 0) {
-      const li = document.createElement('li');
-      li.innerHTML = '<span class="muted">No se muestran posologías porque todas las opciones disponibles están marcadas como «Evitar».</span>';
+    doseSection.style.display='';
+    const doseList=document.getElementById('doseList');
+    doseList.innerHTML='';
+    dosesForReport=doseSuggestions({age,crcl,hasbled,weightKg,scr_mgdl,special},avoid);
+    if(dosesForReport.length===0){
+      const li=document.createElement('li');
+      li.innerHTML='<span class="muted">No se muestran posologías porque todas las opciones disponibles están marcadas como «Evitar».</span>';
       doseList.appendChild(li);
-    } else {
+    }else{
       dosesForReport.forEach(d=>{
-        const li = document.createElement('li');
-        const tag = d.highlight
-          ? `<span class="pill" style="background:#fff4ce;border:1px solid #ffe08a;color:#7a4e00;">Dosis reducida</span>`
-          : '';
-        li.innerHTML = `<b>${d.name}:</b> ${d.dose} ${tag} <span class="muted">— ${d.why}</span>`;
+        const li=document.createElement('li');
+        const tag=d.highlight?`<span class="pill" style="background:#fff4ce;border:1px solid #ffe08a;color:#7a4e00;">Dosis reducida</span>`:'';
+        li.innerHTML=`<b>${d.name}:</b> ${d.dose} ${tag} <span class="muted">— ${d.why}</span>`;
         doseList.appendChild(li);
       });
     }
   }
 
-  // =========================
-  // Guardar estado para informe
-  // =========================
-  __lastReport = {
-    ts: new Date().toISOString(),
-    inputs: {
-      age,
-      sex,
-      weight: isFinite(weight) ? weight : null,
-      weightUnit: wUnit,
-      scr: isFinite(scr) ? scr : null,
-      scrUnit,
-      weightKg: isFinite(weightKg) ? weightKg : null
-    },
-    renal: {
-      crcl: isFinite(crcl) ? +crcl.toFixed(0) : null,
-      scr_mgdl: isFinite(scr_mgdl) ? +scr_mgdl.toFixed(2) : null
-    },
-    scores: {
-      va: vasc.va,
-      vasc: vasc.vasc,
-      hasbled
-    },
-    risks: {
-      strokeBase: +strokeBase,
-      bleedBase: +bleedBase
-    },
-    noOAC: !isAnticoagulationRequired,
-    preferredGlobal,
-    avoidedGlobal,
-    notes: [...notes],
-    doses: dosesForReport
+  __lastReport={
+    ts:new Date().toISOString(),
+    inputs:{age,sex,weight:isFinite(weight)?weight:null,weightUnit:wUnit,scr:isFinite(scr)?scr:null,scrUnit,weightKg:isFinite(weightKg)?weightKg:null},
+    renal:{crcl:isFinite(crcl)?+crcl.toFixed(0):null,scr_mgdl:isFinite(scr_mgdl)?+scr_mgdl.toFixed(2):null},
+    scores:{va:vasc.va,vasc:vasc.vasc,hasbled},
+    risks:{strokeBase:+strokeBase,bleedBase:+bleedBase},
+    noOAC:!isAnticoagulationRequired,
+    preferredGlobal, avoidedGlobal,
+    notes:[...notes],
+    doses:dosesForReport
   };
-
-  document.getElementById('btnPrint').disabled = false;
-  document.getElementById('btnCopy').disabled  = false;
+  document.getElementById('btnPrint').disabled=false;
+  document.getElementById('btnCopy').disabled=false;
 }
-
 
 /* Informe imprimible */
 function printReport(){

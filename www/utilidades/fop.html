@@ -181,7 +181,14 @@ header{
   margin:16px auto 48px;
   padding:0 16px
 }
-
+.howto{
+  background:#fff;
+  border-radius:14px;
+  box-shadow:0 3px 14px rgba(16,71,119,.12);
+  font-size:.9rem;
+  padding:12px;
+  margin:12px 0;
+}
 .panel{
   background:#fff;
   border:1px solid var(--borde);
@@ -525,16 +532,17 @@ body {
 <main class="wrap">
 <section class="panel">
 
-<p class="note">
-  Herramienta clínica interactiva basada en la escala RoPE, los criterios anatómicos y clínicos (A+C) y la clasificación PASCAL para orientar la elección de tratamiento en el foramen oval permeable (FOP) tras ictus isquémico.
-</p>
+<div class="howto">
+    La herramienta calcula automáticamente la puntuación <b>RoPE</b> y la clasificación <b>PASCAL</b> (RoPE + rasgos anatómicos de alto riesgo) para orientar la probabilidad de causalidad del FOP y la recomendación final. Las situaciones clínicas relevantes (C) no modifican la clasificación PASCAL, pero pueden ayudar al clínico a contextualizar el caso y a decidir cuando se precisa <b>discusión multidisciplinar</b>. El resumen puede copiarse con el botón correspondiente.
+</div>
+
 
 <!-- BLOQUE ROPE -->
 <div class="block rope">
   <h3>🧮 Escala RoPE</h3>
   <div class="grid cols-2">
     <div>
-      <label>Edad</label>
+      <label><b>Edad</b></label>
       <select id="age">
         <option value="">Selecciona…</option>
         <option value="5">≤30</option>
@@ -546,7 +554,7 @@ body {
       </select>
     </div>
     <div>
-      <label>Factores clínicos ausentes</label>
+      <label><b>Factores clínicos</b></label>
       <label class="check"><input type="checkbox" id="noHTN"> No HTA</label>
       <label class="check"><input type="checkbox" id="noDM"> No DM</label>
       <label class="check"><input type="checkbox" id="noSmoke"> No tabaco</label>
@@ -584,7 +592,7 @@ body {
 
 <!-- BLOQUE INFORMATIVO (incluye PASCAL + explicación A/C) -->
 <div class="block info">
-  <h3>📊 Clasificación PASCAL (informativa)</h3>
+  <h3>📊 Clasificación PASCAL</h3>
   <div class="note" style="margin-bottom:10px;">
     La clasificación PASCAL combina la puntuación RoPE y la presencia de rasgos anatómicos de alto riesgo del FOP (shunt grande y/o aneurisma del septo auricular) para estimar la probabilidad de que el FOP sea causal.
     <br><br>
