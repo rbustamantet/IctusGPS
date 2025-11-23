@@ -3,14 +3,15 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+
 <!-- ===== META DATA / SEO ===== -->
 <meta name="title" content="Foramen oval permeable">
-<meta name="description" content="Herramienta clínica interactiva basada en la escala RoPE y los criterios anatómicos y clínicos (A+C) para orientar la elección de tratamiento en el foramen oval permeable (FOP) tras ictus isquémico. Desarrollado por Rafael Bustamante Toledo.">
-<meta name="keywords" content="FOP, foramen oval permeable, RoPE, ictus criptogénico, cierre percutáneo, embolia paradojal, neurología vascular, Ictus GPS, tratamiento ictus, prevención secundaria, cierre FOP">
+<meta name="description" content="Herramienta clínica interactiva basada en la escala RoPE, los criterios anatómicos y clínicos (A+C) y la clasificación PASCAL para orientar la elección de tratamiento en el foramen oval permeable (FOP) tras ictus isquémico.">
+<meta name="keywords" content="FOP, foramen oval permeable, RoPE, PASCAL, ictus criptogénico, cierre percutáneo, embolia paradójica, neurología vascular, Ictus GPS, tratamiento ictus, prevención secundaria, cierre FOP">
 <meta name="author" content="Rafael Bustamante Toledo">
 <meta name="robots" content="index, follow">
 <meta property="og:title" content="Foramen oval permeable">
-<meta property="og:description" content="Escala RoPE + A + C para estimar la probabilidad de causalidad del FOP y orientar el manejo (cierre percutáneo, antiagregación o consenso multidisciplinar).">
+<meta property="og:description" content="RoPE + A + C + clasificación PASCAL para estimar la probabilidad de causalidad del FOP y orientar el manejo.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="../iconos/ictusgps.png">
 <meta property="og:locale" content="es_ES">
@@ -53,7 +54,13 @@
   --borde:#e5e7eb;
   --error:#b91c1c;
 }
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Verdana, Geneva, sans-serif}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Verdana, Geneva, sans-serif
+}
 
 /* =========================================================
    SAFE-TOP (FIJO 60 px + notch)
@@ -168,62 +175,290 @@ header{
   margin-right:8px;
 }
 
-
 /* ===== CONTENIDO ===== */
-.wrap{max-width:1080px;margin:16px auto 48px;padding:0 16px}
-.panel{background:#fff;border:1px solid var(--borde);border-radius:16px;padding:16px;box-shadow:0 2px 10px rgba(15,23,42,.06)}
-.block{border-radius:14px;padding:14px 16px;margin:14px 0;transition:background .3s}
-.block h3{margin:0 0 8px 0;font-size:1.05rem;font-weight:800;display:flex;align-items:center;gap:6px}
-.block.rope{background:#eff6ff;border-left:4px solid #3b82f6}
-.block.anat{background:#ecfdf5;border-left:4px solid #10b981}
-.block.clin{background:#fffbeb;border-left:4px solid #f59e0b}
-.block.info{background:#ffffff;border-left:4px solid #000000}
-.note{color:#64748b;font-size:12px;margin:6px 0 12px}
-label{font-weight:400;color:#1e293b;margin-top:8px;display:block}
-select{width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;font-size:14px}
-.grid{display:grid;gap:10px}
-@media(min-width:860px){.grid.cols-2{grid-template-columns:1fr 1fr}}
-.check{display:flex;align-items:flex-start;gap:8px;margin:6px 0;color:#1e293b;font-weight:400;transition:color .2s}
-.check:hover{color:#0f3d83}
-.check input{margin-top:2px;transform:scale(1.05);accent-color:#0f3d83}
+.wrap{
+  max-width:1080px;
+  margin:16px auto 48px;
+  padding:0 16px
+}
+
+.panel{
+  background:#fff;
+  border:1px solid var(--borde);
+  border-radius:16px;
+  padding:16px;
+  box-shadow:0 2px 10px rgba(15,23,42,.06)
+}
+
+.block{
+  border-radius:14px;
+  padding:14px 16px;
+  margin:14px 0;
+  transition:background .3s
+}
+
+.block h3{
+  margin:0 0 8px 0;
+  font-size:1.05rem;
+  font-weight:800;
+  display:flex;
+  align-items:center;
+  gap:6px
+}
+
+.block.rope{
+  background:#eff6ff;
+  border-left:4px solid #3b82f6
+}
+
+.block.anat{
+  background:#ecfdf5;
+  border-left:4px solid #10b981
+}
+
+.block.clin{
+  background:#fffbeb;
+  border-left:4px solid #f59e0b
+}
+
+.block.info{
+  background:#ffffff;
+  border-left:4px solid #000000
+}
+
+.note{
+  color:#64748b;
+  font-size:12px;
+  margin:6px 0 12px
+}
+
+label{
+  font-weight:400;
+  color:#1e293b;
+  margin-top:8px;
+  display:block
+}
+
+select{
+  width:100%;
+  padding:10px 12px;
+  border:1px solid #cbd5e1;
+  border-radius:10px;
+  background:#fff;
+  font-size:14px
+}
+
+.grid{
+  display:grid;
+  gap:10px
+}
+
+@media(min-width:860px){
+  .grid.cols-2{grid-template-columns:1fr 1fr}
+}
+
+/* RESPONSIVE: PASCAL + RECOMENDACIÓN EN MÓVIL */
+@media(max-width: 640px){
+  .kpi.pascal-reco {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+.check{
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  margin:6px 0;
+  color:#1e293b;
+  font-weight:400;
+  transition:color .2s
+}
+
+.check:hover{
+  color:#0f3d83
+}
+
+.check input{
+  margin-top:2px;
+  transform:scale(1.05);
+  accent-color:#0f3d83
+}
 
 /* RESULTADOS */
-.kpi{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
-.box{border:1.5px dashed #c7dbff;border-radius:14px;padding:14px;background:#f8fbff;text-align:center}
-.ttl{font-size:14px;color:#334155;font-weight:800;margin-bottom:2px}
-.val{font-size:22px;font-weight:900;color:#0b2c5f}
-.mini{font-size:12px;color:#64748b;margin-top:4px}
-.ok{background:var(--ok-bg);border-color:var(--ok-ring)}
-.warn{background:var(--mid-bg);border-color:var(--mid-ring)}
-.bad{background:var(--bad-bg);border-color:var(--bad-ring)}
-.ok .val{color:var(--ok)}.warn .val{color:var(--mid)}.bad .val{color:var(--bad)}
+.kpi{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:10px
+}
 
-.actions { margin-left: auto; }
-.btn-action{flex:1 1 32%;border:none;border-radius:10px;padding:12px;font-size:15px;font-weight:700;cursor:pointer}
-.btn-clear{background:#fff;color:#0b2c5f;border:1px solid #2563eb}
-.btn-clear:hover{background:#eff6ff}
-.btn-copy{background:#fff;color:#0f3d83;border:1px solid #2563eb}
-.btn-copy:hover{background:#eff6ff}
-.btn-copy.copiado{background:#0f3d83!important;color:#fff!important}
-.btn-calc{background:#0f3d83;color:#fff;border:1px solid #0f3d83}
-.btn-calc:hover{background:#1c60c3}
+.box{
+  border:1.5px dashed #c7dbff;
+  border-radius:14px;
+  padding:14px;
+  background:#f8fbff;
+  text-align:center
+}
 
-#resumenText{white-space:pre-wrap;font-size:13px;color:#0f172a;margin-top:12px;border:1px dashed var(--borde);border-radius:10px;padding:10px 12px;background:#f8fafc;line-height:1.45}
-.advertencia{background:#fffbe6;border-left:4px solid #f59e0b;padding:10px;border-radius:10px;font-size:13px;color:#78350f;margin-top:16px;line-height:1.5}
+.ttl{
+  font-size:14px;
+  color:#334155;
+  font-weight:800;
+  margin-bottom:2px
+}
+
+.val{
+  font-size:22px;
+  font-weight:900;
+  color:#0b2c5f
+}
+
+.mini{
+  font-size:12px;
+  color:#64748b;
+  margin-top:4px
+}
+
+.ok{
+  background:var(--ok-bg);
+  border-color:var(--ok-ring)
+}
+
+.warn{
+  background:var(--mid-bg);
+  border-color:var(--mid-ring)
+}
+
+.bad{
+  background:var(--bad-bg);
+  border-color:var(--bad-ring)
+}
+
+.ok .val{color:var(--ok)}
+.warn .val{color:var(--mid)}
+.bad .val{color:var(--bad)}
+
+.actions{
+  margin-left:auto;
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:16px;
+}
+
+.btn-action{
+  flex:1 1 32%;
+  border:none;
+  border-radius:10px;
+  padding:12px;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer
+}
+
+.btn-clear{
+  background:#fff;
+  color:#0b2c5f;
+  border:1px solid #2563eb
+}
+
+.btn-clear:hover{
+  background:#eff6ff
+}
+
+.btn-copy{
+  background:#fff;
+  color:#0f3d83;
+  border:1px solid #2563eb
+}
+
+.btn-copy:hover{
+  background:#eff6ff
+}
+
+.btn-copy.copiado{
+  background:#0f3d83!important;
+  color:#fff!important
+}
+
+.btn-calc{
+  background:#0f3d83;
+  color:#fff;
+  border:1px solid #0f3d83
+}
+
+.btn-calc:hover{
+  background:#1c60c3
+}
+
+#resumenText{
+  white-space:pre-wrap;
+  font-size:13px;
+  color:#0f172a;
+  margin-top:12px;
+  border:1px dashed var(--borde);
+  border-radius:10px;
+  padding:10px 12px;
+  background:#f8fafc;
+  line-height:1.45
+}
+
+.advertencia{
+  background:#fffbe6;
+  border-left:4px solid #f59e0b;
+  padding:10px;
+  border-radius:10px;
+  font-size:13px;
+  color:#78350f;
+  margin-top:16px;
+  line-height:1.5
+}
 
 /* DISCLAIMER FINAL */
 .disclaimer-red{
-  background:#fef2f2;border:1px solid #fecaca;border-radius:12px;
-  padding:14px 16px;margin:28px auto 0;max-width:960px;
+  background:#fef2f2;
+  border:1px solid #fecaca;
+  border-radius:12px;
+  padding:14px 16px;
+  margin:28px auto 0;
+  max-width:960px;
   box-shadow:0 2px 8px rgba(185,28,28,0.05);
 }
-.disclaimer-red p{margin:0;color:#7f1d1d;font-size:14px;line-height:1.5;text-align:left;}
-.disclaimer-red b{color:#991b1b;}
-.back-btn{display:inline-block;margin:1.5rem auto 0;background:#0f3d83;color:#fff;text-decoration:none;font-weight:700;padding:0.7rem 1.4rem;border-radius:10px;box-shadow:0 4px 10px rgba(15,61,131,.25);transition:background .2s, transform .1s, box-shadow .2s;}
-.back-btn:hover{background:#1c60c3;transform:translateY(-1px);box-shadow:0 6px 12px rgba(15,61,131,.35);}
-/* =========================================================
-   FOOTER
-========================================================= */
+
+.disclaimer-red p{
+  margin:0;
+  color:#7f1d1d;
+  font-size:14px;
+  line-height:1.5;
+  text-align:left;
+}
+
+.disclaimer-red b{
+  color:#991b1b;
+}
+
+.back-btn{
+  display:inline-block;
+  margin:1.5rem auto 0;
+  background:#0f3d83;
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
+  padding:0.7rem 1.4rem;
+  border-radius:10px;
+  box-shadow:0 4px 10px rgba(15,61,131,.25);
+  transition:background .2s, transform .1s, box-shadow .2s;
+}
+
+.back-btn:hover{
+  background:#1c60c3;
+  transform:translateY(-1px);
+  box-shadow:0 6px 12px rgba(15,61,131,.35);
+}
+
+/* FOOTER */
 footer{
   width:100%;
   margin:2rem 0 0;
@@ -268,10 +503,10 @@ body {
 
     <div class="safe-actions">
       <a href="javascript:history.back()" class="safe-btn">
-        <img src="../iconos/atrastransparente.png" class="safe-icon">
+        <img src="../iconos/atrastransparente.png" class="safe-icon" alt="">
       </a>
       <a href="../index.html" class="safe-btn">
-        <img src="../iconos/hometransparente.png" class="safe-icon">
+        <img src="../iconos/hometransparente.png" class="safe-icon" alt="">
       </a>
     </div>
   </div>
@@ -289,7 +524,10 @@ body {
 
 <main class="wrap">
 <section class="panel">
-<p class="note">Herramienta clínica interactiva basada en la escala RoPE y los criterios anatómicos y clínicos (A+C) para orientar la elección de tratamiento en el foramen oval permeable (FOP) tras ictus isquémico.</p>
+
+<p class="note">
+  Herramienta clínica interactiva basada en la escala RoPE, los criterios anatómicos y clínicos (A+C) y la clasificación PASCAL para orientar la elección de tratamiento en el foramen oval permeable (FOP) tras ictus isquémico.
+</p>
 
 <!-- BLOQUE ROPE -->
 <div class="block rope">
@@ -299,9 +537,12 @@ body {
       <label>Edad</label>
       <select id="age">
         <option value="">Selecciona…</option>
-        <option value="5">≤30</option><option value="4">31–40</option>
-        <option value="3">41–50</option><option value="2">51–60</option>
-        <option value="1">61–70</option><option value="0">>70</option>
+        <option value="5">≤30</option>
+        <option value="4">31–40</option>
+        <option value="3">41–50</option>
+        <option value="2">51–60</option>
+        <option value="1">61–70</option>
+        <option value="0">&gt;70</option>
       </select>
     </div>
     <div>
@@ -316,13 +557,12 @@ body {
 </div>
 
 <!-- BLOQUE ANATÓMICO -->
-<!-- BLOQUE ANATÓMICO (actualizado y simplificado) -->
 <div class="block anat">
-  <h3>🫀 Características anatómicas</h3>
+  <h3>🫀 Características anatómicas (A)</h3>
   <div class="grid cols-2">
     <label class="check"><input type="checkbox" id="asa"> Aneurisma o movilidad del tabique interauricular (ASA ≥10–15 mm o septo laxo)</label>
     <label class="check"><input type="checkbox" id="largeShunt"> Gran paso D-I / shunt tipo “en ducha o cortina”</label>
-    <label class="check"><input type="checkbox" id="longTunnel"> Canal interauricular largo (>8 mm)</label>
+    <label class="check"><input type="checkbox" id="longTunnel"> Canal interauricular largo (&gt;8 mm)</label>
     <label class="check"><input type="checkbox" id="eustachian"> Válvula de Eustaquio o red de Chiari prominente</label>
     <label class="check"><input type="checkbox" id="pulmShunt"> Shunt pulmonar coexistente</label>
   </div>
@@ -330,51 +570,60 @@ body {
 
 <!-- BLOQUE CLÍNICO -->
 <div class="block clin">
-  <h3>👩‍⚕️ Situaciones clínicas relevantes</h3>
+  <h3>👩‍⚕️ Situaciones clínicas relevantes (C)</h3>
   <div class="grid cols-2">
-    <label class="check"><input type="checkbox" id="crypt60"> Ictus criptogénico en menor de 60 años</label>
-    <label class="check"><input type="checkbox" id="noOtherCause"> Sin otra causa (TOAST)</label>
-    <label class="check"><input type="checkbox" id="noAF"> Sin FA documentada</label>
-    <label class="check"><input type="checkbox" id="embolicPattern"> Patrón embólico o cortical</label>
+    <label class="check"><input type="checkbox" id="crypt60"> Evento isquémico sin causa alternativa identificada tras estudio completo</label>
+    <label class="check"><input type="checkbox" id="noAF"> Sin FA documentada (incluida monitorización prolongada)</label>
+    <label class="check"><input type="checkbox" id="embolicMulti"> Patrón embólico multiterritorial o bilateral</label>
     <label class="check"><input type="checkbox" id="recurOnAP"> Recurrencia bajo antiagregante</label>
     <label class="check"><input type="checkbox" id="lowBleed"> Riesgo hemorrágico bajo</label>
-    <label class="check"><input type="checkbox" id="contraClose"> <span style="color:#991b1b; font-weight:700;">
-Contraindicación para cierre</span></label>
-</div></div>
+    <label class="check"><input type="checkbox" id="contraClose"> <span style="color:#991b1b; font-weight:700;">Contraindicación para cierre</span></label>
+  </div>
+</div>
+
+
+<!-- BLOQUE INFORMATIVO (incluye PASCAL + explicación A/C) -->
 <div class="block info">
-<!-- Detalles explicativos -->
- <div class="note"> 
-<details style="margin-top:16px;">
-    <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">
-      📋 Explicación de los factores anatómicos y clínicos
-    </summary>
-    <div style="margin-top:8px;font-size:13px;line-height:1.5;color:#1e293b;">
-      <b>Factores anatómicos de alto riesgo:</b>
-      <ul>
-        <li><b>Aneurisma del septo interauricular (ASA):</b> movilidad septal >10–15 mm; favorece el paso de émbolos.</li>
-        <li><b>Septo laxo:</b> variabilidad septal que aumenta riesgo de embolia paradójica.</li>
-        <li><b>Gran paso derecha–izquierda:</b> shunt significativo visible en reposo o con maniobra de Valsalva.</li>
-        <li><b>Shunt tipo “en ducha o cortina”:</b> múltiples microburbujas que indican paso masivo.</li>
-        <li><b>Canal largo:</b> túnel interauricular >8 mm, mantiene comunicación abierta.</li>
-        <li><b>Válvula de Eustaquio / red de Chiari:</b> estructuras que dirigen el flujo hacia el FOP.</li>
-        <li><b>Shunt pulmonar:</b> paso alternativo de émbolos, relevante si coexistente con FOP.</li>
-      </ul>
+  <h3>📊 Clasificación PASCAL (informativa)</h3>
+  <div class="note" style="margin-bottom:10px;">
+    La clasificación PASCAL combina la puntuación RoPE y la presencia de rasgos anatómicos de alto riesgo del FOP (shunt grande y/o aneurisma del septo auricular) para estimar la probabilidad de que el FOP sea causal.
+    <br><br>
+    • RoPE ≥7 <b>y</b> shunt grande o ASA → <b>Probable</b> (FOP probablemente causal; el cierre ofrece el mayor beneficio absoluto).<br>
+    • RoPE ≥7 sin shunt grande/ASA, o RoPE &lt;7 con shunt grande/ASA → <b>Posible</b> (relación causal posible; valorar caso a caso).<br>
+    • RoPE &lt;7 <b>y</b> sin shunt grande/ASA → <b>Improbable</b> (FOP probablemente incidental).
+  </div>
 
-      <b>Situaciones clínicas relevantes:</b>
-      <ul>
-        <li><b>Ictus criptogénico &lt;60 años:</b> mayor probabilidad de FOP causal.</li>
-        <li><b>Sin otra causa (TOAST no cardioembólico):</b> refuerza el vínculo causal del FOP.</li>
-        <li><b>Sin FA documentada:</b> descartada fuente embolígena alternativa (monitorización prolongada).</li>
-        <li><b>Patrón embólico o cortical:</b> infarto compatible con embolia paradojal.</li>
-        <li><b>Recurrencia bajo antiagregante:</b> sugiere fracaso del tratamiento médico.</li>
-        <li><b>Riesgo hemorrágico bajo:</b> condición favorable para cierre percutáneo.</li>
-      </ul>
-    </div>
-  </details>
+  <!-- Detalles explicativos originales -->
+  <div class="note">
+    <details style="margin-top:16px;">
+      <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">
+        📋 Explicación de los factores anatómicos y clínicos
+      </summary>
+      <div style="margin-top:8px;font-size:13px;line-height:1.5;color:#1e293b;">
+        <b>Factores anatómicos de alto riesgo:</b>
+        <ul>
+          <li><b>Aneurisma del septo interauricular (ASA):</b> movilidad septal &gt;10–15 mm; favorece el paso de émbolos.</li>
+          <li><b>Septo laxo:</b> variabilidad septal que aumenta riesgo de embolia paradójica.</li>
+          <li><b>Gran paso derecha–izquierda:</b> shunt significativo visible en reposo o con maniobra de Valsalva.</li>
+          <li><b>Shunt tipo “en ducha o cortina”:</b> múltiples microburbujas que indican paso masivo.</li>
+          <li><b>Canal largo:</b> túnel interauricular &gt;8 mm, mantiene comunicación abierta.</li>
+          <li><b>Válvula de Eustaquio / red de Chiari:</b> estructuras que dirigen el flujo hacia el FOP.</li>
+          <li><b>Shunt pulmonar:</b> paso alternativo de émbolos, relevante si coexistente con FOP.</li>
+        </ul>
+
+<b>Situaciones clínicas relevantes:</b>
+<ul>
+  <li><b>Evento isquémico sin causa alternativa:</b> ictus criptogénico tras estudio adecuado.</li>
+  <li><b>Sin fibrilación auricular documentada:</b> incluida monitorización prolongada.</li>
+  <li><b>Patrón embólico multiterritorial o bilateral:</b> distribución de infartos que refuerza origen embolígeno.</li>
+  <li><b>Recurrencia bajo antiagregante:</b> sugiere fracaso del tratamiento médico y mayor beneficio del cierre.</li>
+  <li><b>Riesgo hemorrágico bajo:</b> condición favorable cuando se plantea cierre o intensificación terapéutica.</li>
+</ul>
+
+      </div>
+    </details>
+  </div>
 </div>
-
-</div>
-
 
 <!-- BOTONES -->
 <div class="actions">
@@ -384,8 +633,9 @@ Contraindicación para cierre</span></label>
 </div>
 
 <!-- RESULTADOS -->
-<!-- RESULTADOS -->
 <div class="panel" id="resultCard" style="margin-top:16px;display:none;">
+
+  <!-- RoPE -->
   <div class="kpi">
     <div class="box" id="ropeBox">
       <div class="ttl">RoPE</div>
@@ -399,140 +649,264 @@ Contraindicación para cierre</span></label>
     </div>
   </div>
 
+  <!-- Anat + Clínico -->
   <div class="kpi">
     <div class="box" id="aBox">
-      <div class="ttl">Rasgos anatómicos (A)</div>
+      <div class="ttl">Anatomía</div>
       <div class="val" id="aVal">0</div>
     </div>
     <div class="box" id="cBox">
-      <div class="ttl">Criterios clínicos (C)</div>
+      <div class="ttl">Clínica</div>
       <div class="val" id="cVal">0</div>
     </div>
   </div>
 
-  <!-- Recomendación ocupa todo el ancho -->
-  <div style="margin-top:12px;">
+  <!-- PASCAL + Recomendación en la misma fila -->
+<div class="kpi pascal-reco" style="grid-template-columns:1fr 1.4fr;">
+
+    <!-- PASCAL -->
+    <div class="box" id="pascalBox">
+      <div class="ttl">Clasificación PASCAL</div>
+      <div class="val" id="pascalVal">-</div>
+      <div class="mini" id="pascalNote">-</div>
+    </div>
+
+    <!-- Recomendación orientativa -->
     <div class="box" id="recBox">
       <div class="ttl">Recomendación orientativa</div>
       <div class="val" id="recVal">-</div>
       <div class="mini" id="recNote">-</div>
     </div>
+
   </div>
 
+  <!-- Resumen -->
   <div id="resumenText"></div>
-<!-- Disclaimer final con fondo rojo tenue -->
-<div class="disclaimer-red">
-  <p>
-    <b>Advertencia.</b> Esta herramienta tiene carácter orientativo y no sustituye el juicio clínico del profesional sanitario ni la discusión multidisciplinar.
-    Las recomendaciones ofrecidas deben interpretarse en el contexto individual de cada paciente     y conforme a los protocolos locales y las guías de referencia.
-  </p>
-</div>
-</div>
-</section>
 
+  <!-- Disclaimer -->
+  <div class="disclaimer-red">
+    <p>
+      <b>Advertencia.</b> Esta herramienta tiene carácter orientativo y no sustituye el juicio clínico del profesional sanitario ni la discusión multidisciplinar.
+      Las recomendaciones deben interpretarse en el contexto individual del paciente y conforme a protocolos y guías de referencia.
+    </p>
+  </div>
+
+</div>
+
+</section>
 </main>
 
+<footer>
+  <img src="uibanner.png" alt="Unidad de Ictus Málaga" style="max-width:380px;height:auto;opacity:.96">
+</footer>
+
 <script>
-const PROB={0:'28%',1:'30%',2:'35%',3:'44%',4:'55%',5:'61%',6:'67%',7:'78%',8:'84%',9:'88%',10:'90%'};
+/* Probabilidades RoPE */
+const PROB={
+  0:'28%',1:'30%',2:'35%',3:'44%',4:'55%',
+  5:'61%',6:'67%',7:'78%',8:'84%',9:'88%',10:'90%'
+};
+
+/* IDs de campos */
 const idsAnat=['asa','largeShunt','longTunnel','eustachian','pulmShunt'];
-const idsClin=['crypt60','noOtherCause','noAF','embolicPattern','recurOnAP','lowBleed'];
+const idsClin=['crypt60','noAF','embolicMulti','recurOnAP','lowBleed'];
+
 const $=id=>document.getElementById(id);
 
+/* Funciones auxiliares RoPE */
 const toneFor=s=>s>=7?'bad':(s>=4?'warn':'ok');
 const labelFor=s=>s>=7?'Alta':(s>=4?'Intermedia':'Baja');
-const interpFor=s=>s>=7?'Probabilidad alta: perfil joven, sin FR y patrón cortical.':(s>=4?'Probabilidad intermedia: valorar beneficio-riesgo.':'Probabilidad baja: preferir manejo médico salvo otros hallazgos.');
+const interpFor=s=>s>=7?'Probabilidad alta de FOP causal.':(s>=4?'Probabilidad intermedia.':'Probabilidad baja de FOP causal.');
 
 function getAnat(){return idsAnat.filter(id=>$(id).checked)}
 function getClin(){return idsClin.filter(id=>$(id).checked)}
 
-function decideReco(score,A,C,contra){
-  if(contra) return {rec:'Evitar cierre percutáneo: manejo médico',note:'Contraindicación o alto riesgo para cierre',tone:'bad'};
-  if(score>=7 && A>=1) return {rec:'Cierre percutáneo recomendado',note:'RoPE alta + ≥1 rasgo anatómico',tone:'ok'};
-  if(score>=4 && score<=6 && (A>=2 || C>=2)) return {rec:'Valorar cierre en consenso multidisciplinar',note:'RoPE intermedia + (A≥2 o C≥2)',tone:'warn'};
-  if(score<=3 && A===0 && C<=1) return {rec:'Manejo médico (antiagregante / según caso)',note:'Baja probabilidad causal y sin alto riesgo anatómico',tone:'bad'};
-  return {rec:'Valorar cierre en consenso multidisciplinar',note:'Perfil intermedio / datos mixtos',tone:'warn'};
+/* PASCAL: usa RoPE + shunt grande / ASA */
+function hasHighRiskPascal(){
+  return !!($('largeShunt').checked || $('asa').checked);
 }
 
-function mostrarResumen(s,prob,cat,A,C,decision,contra){
-const selAnat=getAnat().map(id=>({
-  asa:'Aneurisma o movilidad del tabique interauricular (ASA ≥10–15 mm o septo laxo)',
-  largeShunt:'Gran paso D-I / shunt tipo “en ducha”',
-  longTunnel:'Canal interauricular largo (>8 mm)',
-  eustachian:'Válvula de Eustaquio o red de Chiari prominente',
-  pulmShunt:'Shunt pulmonar coexistente'
+function pascalClass(scoreRoPE){
+  const highRisk = hasHighRiskPascal();
+
+  if(scoreRoPE >= 7 && highRisk){
+    return {
+      label:'Probable',
+      tone:'ok',
+      note:'RoPE ≥7 y presencia de shunt grande y/o ASA: FOP probablemente causal; el cierre suele aportar mayor beneficio absoluto.'
+    };
+  }
+
+  if(scoreRoPE < 7 && !highRisk){
+    return {
+      label:'Improbable',
+      tone:'bad',
+      note:'RoPE <7 y sin shunt grande/ASA: el FOP probablemente es un hallazgo incidental; suele preferirse manejo médico.'
+    };
+  }
+
+  return {
+    label:'Posible',
+    tone:'warn',
+    note:'Perfil intermedio (Posible): relación causal posible; valorar cierre en comité multidisciplinar.'
+  };
+}
+
+/* Decisión terapéutica basada en PASCAL + contraindicaciones */
+function decideReco(score,A,C,pascal,contra){
+  if(contra){
+    return {
+      rec:'Evitar cierre percutáneo',
+      note:'Existe contraindicación o riesgo inaceptable para el procedimiento; optar por manejo médico individualizado.',
+      tone:'bad'
+    };
+  }
+
+  if(pascal.label === 'Probable'){
+    return {
+      rec:'Cierre percutáneo recomendado',
+      note:'Clasificación PASCAL “Probable”: FOP probablemente causal; mayor beneficio absoluto del cierre frente al manejo médico.',
+      tone:'ok'
+    };
+  }
+
+  if(pascal.label === 'Posible'){
+    return {
+      rec:'Valorar cierre en consenso multidisciplinar',
+      note:'Clasificación PASCAL “Posible”: la relación causal es posible; integrar edad, comorbilidad, preferencias del paciente y otros hallazgos (incluidos A y C).',
+      tone:'warn'
+    };
+  }
+
+  /* improbable */
+  return {
+    rec:'Manejo médico (antiagregante o anticoagulación según perfil)',
+    note:'Clasificación PASCAL “Improbable”: el FOP es probablemente un hallazgo incidental; el beneficio del cierre es limitado.',
+    tone:'bad'
+  };
+}
+
+/* Resumen para copiar/pegar en la historia */
+function mostrarResumen(s,prob,cat,A,C,pascal,decision,contra){
+  const selAnat=getAnat().map(id=>({
+    asa:'Aneurisma/septo laxo',
+    largeShunt:'Gran paso D–I (“ducha/cortina”)',
+    longTunnel:'Canal interauricular largo',
+    eustachian:'Válvula de Eustaquio/red de Chiari',
+    pulmShunt:'Shunt pulmonar coexistente'
+  }[id]));
+
+const selClin=getClin().map(id=>({
+    crypt60:'Evento isquémico sin causa alternativa identificada',
+    noAF:'Sin FA documentada',
+    embolicMulti:'Patrón embólico multiterritorial o bilateral',
+    recurOnAP:'Recurrencia bajo antiagregación',
+    lowBleed:'Riesgo hemorrágico bajo'
 }[id]));
 
-  const selClin=getClin().map(id=>({crypt60:'Ictus criptogénico <60',noOtherCause:'Sin otra causa (TOAST)',noAF:'Sin FA documentada',embolicPattern:'Patrón embólico',recurOnAP:'Recurrencia con AAS',lowBleed:'Riesgo hemorrágico bajo'}[id]));
 
   let t = `FOP – Recomendación (Ictus GPS)\n`;
   t += `======================\n`;
-  t += `RoPE: ${s}/10 - Prob. FOP causal: ${prob} (${cat}).\n`;
-  t += `Rasgos anatómicos (A): ${A}${A ? ' - ' + selAnat.join(', ') : ''}.\n`;
-  t += `Criterios clínicos (C): ${C}${C ? ' - ' + selClin.join(', ') : ''}.\n`;
-  if(contra) t += `ATENCIÓN: Contraindicación o alto riesgo para cierre.\n`;
-  t += `\nRecomendación: ${decision.rec} - ${decision.note}.\n`;
+  t += `RoPE: ${s}/10 – Probabilidad de FOP causal: ${prob} (${cat}).\n`;
+  t += `Rasgos anatómicos (A): ${A}${A ? ' – ' + selAnat.join(', ') : ''}.\n`;
+  t += `Criterios clínicos (C): ${C}${C ? ' – ' + selClin.join(', ') : ''}.\n`;
+  t += `Clasificación PASCAL: ${pascal.label}. ${pascal.note}\n`;
+
+  if(contra){
+    t += `\nATENCIÓN: Se ha marcado “contraindicación para cierre”.\n`;
+  }
+
+  t += `\nRecomendación orientativa: ${decision.rec}\n${decision.note}\n`;
   t += `\nReferencias: AHA/ASA 2021; ESO 2021.\n`;
   t += `Aviso: herramienta orientativa; no sustituye el juicio clínico ni la discusión multidisciplinar.`;
+
   $('resumenText').textContent = t;
 }
 
+/* Cálculo principal */
 function calcular(){
-  const age=$('age').value;
-  if(age===''){ 
+  const ageVal = $('age').value;
+  if(ageVal === ''){
     $('resultCard').style.display='none';
-    $('pill').className='pill pill-init';
-    $('pill').textContent='—';
+    $('resumenText').textContent='';
     return;
   }
-  let s=parseInt(age,10);
-  ['noHTN','noDM','noSmoke','noPrior','cortical'].forEach(id=>{if($(id).checked)s+=1;});
-  s=Math.max(0,Math.min(10,s));
-  const prob=PROB[s]||'—',cat=labelFor(s),tone=toneFor(s);
-  const A=getAnat().length,C=getClin().length,contra=$('contraClose').checked;
-  const decision=decideReco(s,A,C,contra);
 
-  $('scoreVal').textContent=s;
-  $('probVal').textContent=prob;
-  $('classVal').textContent=cat;
-  $('interpVal').textContent=interpFor(s);
+  let s = parseInt(ageVal,10);
+  ['noHTN','noDM','noSmoke','noPrior','cortical'].forEach(id=>{
+    if($(id).checked) s += 1;
+  });
+  s = Math.max(0,Math.min(10,s));
+
+  const prob = PROB[s] || '—';
+  const cat  = labelFor(s);
+  const tone = toneFor(s);
+
+  const A = getAnat().length;
+  const C = getClin().length;
+  const contra = $('contraClose').checked;
+
+  const pascal = pascalClass(s);
+  const decision = decideReco(s,A,C,pascal,contra);
+
+  /* RoPE */
+  $('scoreVal').textContent = s;
+  $('probVal').textContent  = prob;
+  $('classVal').textContent = cat;
+  $('interpVal').textContent= interpFor(s);
+
   ['ropeBox','classBox'].forEach(id=>{
     const el=$(id);
     el.classList.remove('ok','warn','bad');
     el.classList.add(tone);
   });
-  $('aVal').textContent=A;
-  $('cVal').textContent=C;
-  ['aBox','cBox','recBox'].forEach(id=>{
+
+  /* A y C */
+  $('aVal').textContent = A;
+  $('cVal').textContent = C;
+  ['aBox','cBox'].forEach(id=>{
     const el=$(id);
     el.classList.remove('ok','warn','bad');
     el.classList.add(decision.tone);
   });
-  $('recVal').textContent=decision.rec;
-  $('recNote').textContent=decision.note;
+
+  /* PASCAL */
+  $('pascalVal').textContent  = pascal.label;
+  $('pascalNote').textContent = pascal.note;
+  const pBox = $('pascalBox');
+  pBox.classList.remove('ok','warn','bad');
+  pBox.classList.add(pascal.tone);
+
+  /* Recomendación */
+  $('recVal').textContent  = decision.rec;
+  $('recNote').textContent = decision.note;
+  const recBox = $('recBox');
+  recBox.classList.remove('ok','warn','bad');
+  recBox.classList.add(decision.tone);
 
   $('resultCard').style.display='block';
 
- 
-
-  mostrarResumen(s,prob,cat,A,C,decision,contra);
+  mostrarResumen(s,prob,cat,A,C,pascal,decision,contra);
 }
 
+/* Borrar formulario */
 function borrar(){
   $('age').value='';
-  ['noHTN','noDM','noSmoke','noPrior','cortical','contraClose',...idsAnat,...idsClin].forEach(id=>{
-    if($(id)) $(id).checked=false;
-  });
+  ['noHTN','noDM','noSmoke','noPrior','cortical','contraClose',...idsAnat,...idsClin]
+    .forEach(id=>{
+      if($(id)) $(id).checked=false;
+    });
+
   $('resultCard').style.display='none';
-  $('pill').className='pill pill-init';
-  $('pill').textContent='—';
   $('resumenText').textContent='';
 }
 
+/* Copiar resumen */
 function copiar(){
-  const t=$('resumenText').textContent.trim();
+  const t = $('resumenText').textContent.trim();
   if(!t) return;
   navigator.clipboard.writeText(t).then(()=>{
-    const b=$('btnCopy');
+    const b = $('btnCopy');
     b.classList.add('copiado');
     b.textContent='Copiado';
     setTimeout(()=>{
@@ -542,16 +916,13 @@ function copiar(){
   });
 }
 
+/* Listeners */
 $('btnCalc').addEventListener('click',calcular);
 $('btnClear').addEventListener('click',borrar);
 $('btnCopy').addEventListener('click',copiar);
 </script>
 
-<footer>
-  <img src="uibanner.png" alt="Unidad de Ictus Málaga" style="max-width:380px;height:auto;opacity:.96">
-</footer>
-
-<script src="js/index.js"></script>
+<script src="../js/index.js"></script>
 
 </body>
 </html>
