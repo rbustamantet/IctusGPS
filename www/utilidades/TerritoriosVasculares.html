@@ -47,12 +47,23 @@
 
 *{box-sizing:border-box}
 
-/* Contenedor general */
-.gal-vsc{font-family: Verdana, Geneva, sans-serif; color:var(--ink); background:var(--bg); border-radius:16px}
-.gal-wrap{max-width:1100px;margin:0 auto;padding:1rem}
 html,body,.wrap,.card,label,input,select,button,table,p,h1,h2,h3,li{
   font-family:Verdana,Geneva,sans-serif!important;
 }
+
+/* Contenedor general */
+.gal-vsc{
+  font-family: Verdana, Geneva, sans-serif;
+  color:var(--ink);
+  background:var(--bg);
+  border-radius:16px;
+}
+.gal-wrap{
+  max-width:1100px;
+  margin:0 auto;
+  padding:1rem;
+}
+
 /* =========================================================
    SAFE-TOP (FIJO 60 px + notch)
 ========================================================= */
@@ -165,43 +176,112 @@ header{
   height:32px;
   margin-right:8px;
 }
-.pill-top{
-  display:inline-block; max-width:70vw; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-  padding:.35rem .65rem; border-radius:999px; border:1px solid #bfdbfe;
-  background:var(--accent-light); color:var(--accent-ink); font-weight:700; font-size:12px;font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
 
 /* Ocultar cabecera y bloquear scroll cuando se abre el lightbox */
-body.lightbox-open .bar{ display:none !important; }
-body.lightbox-open{ overflow:hidden; }
+body.lightbox-open .bar{ 
+  display:none !important; 
+}
+body.lightbox-open{ 
+  overflow:hidden; 
+}
 
-/* Carrusel */
-.gal-carousel{position:relative;background:var(--card);border-radius:16px;border:1px solid var(--accent-light);box-shadow:0 8px 22px rgba(31,86,179,.06);overflow:hidden}
-.gal-track{display:flex;scroll-snap-type:x mandatory;overflow-x:auto;scroll-behavior:smooth}
-.gal-track::-webkit-scrollbar{height:8px}
-.gal-track::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:8px}
-.gal-slide{min-width:100%;scroll-snap-align:center;padding:.6rem}
-.gal-img{display:block;max-width:100%;max-height:72vh;margin:0 auto;border-radius:12px;box-shadow:0 4px 18px rgba(15,23,42,.15);cursor:zoom-in}
+/* =========================================================
+   MOSAICO DE IMÁGENES
+   (2 columnas móvil / 3 columnas escritorio)
+========================================================= */
+.gal-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:0.75rem;
+  margin-top:0.75rem;
+}
 
-/* Flechas sobre el carrusel */
-.gal-nav{position:absolute;inset:0;display:flex;justify-content:space-between;align-items:center;pointer-events:none}
-.gal-btn{pointer-events:auto;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:#fff;color:var(--accent-ink);text-decoration:none;border:1px solid var(--accent-light);font-weight:bold}
+@media(min-width:960px){
+  .gal-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+}
 
-/* Miniaturas */
-.gal-thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:.5rem;margin-top:.6rem}
-.gal-thumbs a{display:block;background:#fff;border:1px solid var(--accent-light);border-radius:10px;overflow:hidden}
-.gal-thumbs img{width:100%;height:72px;object-fit:cover;display:block}
+.gal-item{
+  background:#ffffff;
+  border:1px solid var(--accent-light);
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 4px 14px rgba(15,23,42,.06);
+  transition:transform .15s ease, box-shadow .15s ease;
+}
 
-/* Lightbox */
-.gal-light{position:fixed;inset:0;background:rgba(2,10,22,.92);display:none;align-items:center;justify-content:center;z-index:1003}
-.gal-light:target{display:flex}
-.gal-light img{max-width:95vw;max-height:92vh;border-radius:10px}
+.gal-item a{
+  display:block;
+  text-decoration:none;
+  color:inherit;
+}
+
+.gal-thumb{
+  width:100%;
+  aspect-ratio:4/3;
+  object-fit:cover;
+  display:block;
+}
+
+.gal-item:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(15,23,42,.12);
+}
+
+/* Pequeño pie explicativo opcional */
+.gal-caption{
+  padding:0.45rem 0.6rem 0.55rem;
+  border-top:1px solid rgba(148,163,184,0.25);
+  background:linear-gradient(to bottom,#eff6ff,#ffffff);
+}
+.gal-caption-title{
+  font-size:0.78rem;
+  font-weight:700;
+  color:#0f172a;
+  margin-bottom:0.15rem;
+}
+.gal-caption-sub{
+  font-size:0.7rem;
+  color:#475569;
+  line-height:1.2;
+}
+
+/* =========================================================
+   LIGHTBOX
+========================================================= */
+.gal-light{
+  position:fixed;
+  inset:0;
+  background:rgba(2,10,22,.92);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:1003;
+}
+.gal-light:target{
+  display:flex;
+}
+.gal-light img{
+  max-width:95vw;
+  max-height:92vh;
+  border-radius:10px;
+}
 
 /* Controles del lightbox (tono azul) */
 .gal-close, .gal-next, .gal-prev{
-  position:absolute;top:14px;width:44px;height:44px;border-radius:50%;
-  display:grid;place-items:center;background:#0e2646;color:#fff;border:1px solid rgba(126,170,212,.35);
-  text-decoration:none;font-weight:bold
+  position:absolute;
+  top:44px;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#0e2646;
+  color:#fff;
+  border:1px solid rgba(126,170,212,.35);
+  text-decoration:none;
+  font-weight:bold;
 }
 .gal-close{right:14px}
 .gal-prev{left:14px;top:50%;transform:translateY(-50%)}
@@ -239,12 +319,10 @@ body {
   padding-top: calc(env(safe-area-inset-top, 0px) + 52px);
   background-color: #fff;
 }
-
 </style>
 </head>
 <body>
 
-<!-- Cabecera pegajosa -->
 <!-- SAFE-TOP -->
 <div class="safe-top">
   <div class="safe-content">
@@ -255,10 +333,10 @@ body {
 
     <div class="safe-actions">
       <a href="javascript:history.back()" class="safe-btn">
-        <img src="../iconos/atrastransparente.png" class="safe-icon">
+        <img src="../iconos/atrastransparente.png" class="safe-icon" alt="">
       </a>
       <a href="../index.html" class="safe-btn">
-        <img src="../iconos/hometransparente.png" class="safe-icon">
+        <img src="../iconos/hometransparente.png" class="safe-icon" alt="">
       </a>
     </div>
   </div>
@@ -269,309 +347,314 @@ body {
   <div class="bar">
     <div class="title">
       <img src="territoriosico.png" alt="">
-Territorios vasculares
+      Territorios vasculares
     </div>
   </div>
 </header>
 
-
+<!-- CONTENIDO PRINCIPAL: MOSAICO -->
 <div class="gal-vsc" id="galeria-territorios">
   <div class="gal-wrap">
-    <div class="gal-carousel">
-      <div id="track" class="gal-track">
-        
-        <!-- SLIDE 1 -->
-        <section class="gal-slide" id="se0043fa2">
-          <a href="#l4ee2f2de" title="Ampliar">
-            <img class="gal-img"
-                 alt="Territorios supratentoriales"
-                 data-title="Territorios supratentoriales"
-                 src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhhrJy3r_m8o-St0fN31j50Hjeqe2M34QE49GVT0YDZ-_Im0jGskk1hH9tMhSE4o0NDx1zgX-TKFCmb_VBAr2hEu_njoPGnXOPp-qhDgcmquYehJFygur5m9uCS5PdOyF2_VEAYoS82rl1udQn1m5EHown6zJHOZmOMX9VIaL15-mDLhfBymT47HjwovDI/s1180/R.PNG" />
-          </a>
-          <div class="gal-nav">
-            <a aria-label="Anterior" class="gal-btn" href="#sb1a5e728">⟨</a>
-            <a aria-label="Siguiente" class="gal-btn" href="#s9817d1f9">⟩</a>
-          </div>
-        </section>
-        
-        <!-- SLIDE 2 -->
-        <section class="gal-slide" id="s9817d1f9">
-          <a href="#lad6b7fea" title="Ampliar">
-            <img class="gal-img"
-                 alt="Polígono de Willis y territorios arteriales"
-                 data-title="Polígono de Willis y territorios arteriales"
-                 src="https://blogger.googleusercontent.com/img/a/AVvXsEh0QcXGKZzhB7mg4TRPSI2pl9UEHnNbdp_WBhXzMcUxHRYaliaiccmW3Ro62Y4DxRShN60UbgdVODGRztQF5MDfuX5wbTWhAfDdf5dnDNpvhMYJl_wmFT-FvplGZD3USStH27UgS3U87-nhFkBy67XmQIkDRIRcHetzUIJBtRz5DhsZNvcceJCY5et1UcY" />
-          </a>
-          <div class="gal-nav">
-            <a aria-label="Anterior" class="gal-btn" href="#se0043fa2">⟨</a>
-            <a aria-label="Siguiente" class="gal-btn" href="#s2b32fe5e">⟩</a>
-          </div>
-        </section>
-        
-        <!-- SLIDE 3 -->
-        <section class="gal-slide" id="s2b32fe5e">
-          <a href="#lc0f801fc" title="Ampliar">
-            <img class="gal-img"
-                 alt="Correlación estructural"
-                 data-title="Correlación estructural"
-                 src="https://blogger.googleusercontent.com/img/a/AVvXsEgw2DR205GGQ0yd_ZUQ9R-C8lsbZcQFVEeBhd2k3GboHbThYSr1H15-9gdGD9nwxIp1o-VVPpbe8jyRNUhUwOiTkmgi0DtJMjSuR0JfO5YF3ccxOKzFzOiVnmgMSldItIPhXvJsLwYfHbyr6nX-THuTPJRRwCgygn8vMh1RbaTJoiBQcGy-Bf5GiOVzkqM" />
-          </a>
-          <div class="gal-nav">
-            <a aria-label="Anterior" class="gal-btn" href="#s9817d1f9">⟨</a>
-            <a aria-label="Siguiente" class="gal-btn" href="#sf052fd37">⟩</a>
-          </div>
-        </section>
-        
-        <!-- SLIDE 4 -->
-        <section class="gal-slide" id="sf052fd37">
-          <a href="#la538cf20" title="Ampliar">
-            <img class="gal-img"
-                 alt="Mapas axiales"
-                 data-title="Mapas axiales"
-                 src="https://blogger.googleusercontent.com/img/a/AVvXsEh3vxKAOMqfcNxsTZjeBqYBfYx-JZP_VxnbnDDIKgRxiNCIFEJp81eghrYwRj_2sCZtAXRxN7Zpro4FsRvRa22nC4n9w8lSCQn9VrORhx75Xa6ZUDPT3T7vCGL0y4aqYFhttl6X4O0vUTw1Al60JpWWnr9GvOESpBShAp5ZrgAZKfJnAtxvUSGALlh68nA" />
-          </a>
-          <div class="gal-nav">
-            <a aria-label="Anterior" class="gal-btn" href="#s2b32fe5e">⟨</a>
-            <a aria-label="Siguiente" class="gal-btn" href="#s701e5cf1">⟩</a>
-          </div>
-        </section>
-        
-        <!-- SLIDE 5 -->
-        <section class="gal-slide" id="s701e5cf1">
-          <a href="#l4c5f8a44" title="Ampliar">
-            <img class="gal-img"
-                 alt="A: Axial-Leyenda"
-                 data-title="A: Axial-Leyenda"
-                 src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhFjIEtQbkHBnLJY4CGIjqdoV9NJV4YHBgsrK-MjWU5NN1v4vow27RijVNqEQf9L0uI90VGNMMy4R8K5I-N-jGRvjK4QUNjx4UYVvsSfa8DJgS7UKsuzhDDIKT0JbGjD2QSLwRGw8Xb-xpgjmELiv4swxSyCu7FB8muOsICHL831W8toufWd-vU2Vs-Lp8/s1227/Captura%20de%20pantalla%202024-02-09%20185945.png" />
-          </a>
-          <div class="gal-nav">
-            <a aria-label="Anterior" class="gal-btn" href="#sf052fd37">⟨</a>
-            <a aria-label="Siguiente" class="gal-btn" href="#s3cbc047b">⟩</a>
-          </div>
-        </section>
-        
-        <!-- SLIDE 6 -->
-        <section class="gal-slide" id="s3cbc047b">
-          <a href="#l47a3ef7d" title="Ampliar">
-            <img class="gal-img"
-                 alt="B: Axial"
-                 data-title="B: Axial"
-                 src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhfildefi4XAHnXQmmPttQ412c92nKlBQhHTqYsfbWTyjNtNjAGykxHugd7gDPD9_YpbFIJARghuNn7mwsJp2e2Mo7bZNDUXtOG1neIzBGNKWg7aaCg_DVVNtS4PzCJog3vk1g94bncNYD6ThQGSXiSETHMyMWFhx0fM-5ygcCBvYynTHcUFWUY_pZOzFw/s1218/Captura%20de%20pantalla%202024-02-09%20185928.png" />
-          </a>
-          <div class="gal-nav">
-            <a aria-label="Anterior" class="gal-btn" href="#s701e5cf1">⟨</a>
-            <a aria-label="Siguiente" class="gal-btn" href="#s32cd7bcc">⟩</a>
-          </div>
-        </section>
-        
-        <!-- SLIDE 7 -->
-        <section class="gal-slide" id="s32cd7bcc">
-          <a href="#l54e9c272" title="Ampliar">
-            <img class="gal-img"
-                 alt="C: Axial"
-                 data-title="C: Axial"
-                 src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhid7LYTi7-3r6EFAFlzGJf-1RE7ik4W3avaiwNMAJ7LdTo3P_WtjpB70oAcfLp4w6KBik47qO95QAqoAuV3fGUKIRazpFZl5V9ouLzA3OWLK56mQ-SvYyD9ruwph7Rnmr4GpIeQhvI7chFbs75tcP4blyUSsfXlDYcXE4qaHJnueHKkJseHdXUaWEVDL0/s1219/Captura%20de%20pantalla%202024-02-09%20185905.png" />
-          </a>
-          <div class="gal-nav">
-            <a aria-label="Anterior" class="gal-btn" href="#s3cbc047b">⟨</a>
-            <a aria-label="Siguiente" class="gal-btn" href="#s3c3edc7b">⟩</a>
-          </div>
-        </section>
-        
-        <!-- SLIDE 8 -->
-        <section class="gal-slide" id="s3c3edc7b">
-          <a href="#lf667051f" title="Ampliar">
-            <img class="gal-img"
-                 alt="Atlas RM"
-                 data-title="Atlas RM"
-                 src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhtvZjl5KVc6JytN_17GFVSAzcxE9Vbrc69Svn7z6Op-O_qWxxv2eCaB76ytBdh2jPF689LxFu959LmRTYR9nvfN7lnP68mDUWGf_KiiVFS7VFVqb6kzJl3hBD6TZx3iUb0wnlnavuZ57A_N3k88sBNVwJrr-aW5mJUOBvG_71cNfabeU5V0EJ4ULFyeFs/s1576/ACVTERR2.PNG" />
-          </a>
-          <div class="gal-nav">
-            <a aria-label="Anterior" class="gal-btn" href="#s32cd7bcc">⟨</a>
-            <a aria-label="Siguiente" class="gal-btn" href="#s6705c89b">⟩</a>
-          </div>
-        </section>
-        
-        <!-- SLIDE 9 -->
-        <section class="gal-slide" id="s6705c89b">
-          <a href="#l922e023f" title="Ampliar">
-            <img class="gal-img"
-                 alt="Atlas axial-sagital-coronal"
-                 data-title="Atlas axial-sagital-coronal"
-                 src="https://blogger.googleusercontent.com/img/a/AVvXsEgs86YkGzwJSjpf7M65_zp0Kjg8MAuqdYU67nbS_SYljDdtNytxz2Qb0StFlunG5cw16TsVaKNZKE3s16QKs1Miw9iUa_1f45anv7o8-JxHR7pligKAloYqcJDPbXTSEgJJhCKqGek1a6mXnpsEZ9QsRVRUel51byMyNoRkgYwmUCPORwwxQD4bcIE6NY4" />
-          </a>
-          <div class="gal-nav">
-            <a aria-label="Anterior" class="gal-btn" href="#s3c3edc7b">⟨</a>
-            <a aria-label="Siguiente" class="gal-btn" href="#s378ecd80">⟩</a>
-          </div>
-        </section>
-        
-        <!-- SLIDE 10 -->
-        <section class="gal-slide" id="s378ecd80">
-          <a href="#le1541af7" title="Ampliar">
-            <img class="gal-img"
-                 alt="Correlación anatomo-clínica"
-                 data-title="Correlación anatomo-clínica"
-                 src="https://blogger.googleusercontent.com/img/a/AVvXsEhAdgqTHw5IohAwvx06tP7Kx-qvzdPs7mn5IFtUnz_2OOUIUfrj4OVR37lH7E7CylFenhvANvaHYJn6ijvbK5OQWKaCt_69skRqelcBK6GQ3n9YSUddZlqsDqWqLax0Zfhno9wxjUzuQiKKCk3VTr0D9Qh2L_pWNZyFyr8bXa6oJCNdqPNjHx2kCWmWuIc" />
-          </a>
-          <div class="gal-nav">
-            <a aria-label="Anterior" class="gal-btn" href="#s6705c89b">⟨</a>
-            <a aria-label="Siguiente" class="gal-btn" href="#sb1a5e728">⟩</a>
-          </div>
-        </section>
-        
-        <!-- SLIDE 11 -->
-        <section class="gal-slide" id="sb1a5e728">
-          <a href="#la8d45fb9" title="Ampliar">
-            <img class="gal-img"
-                 alt="Ganglios basales y tálamo"
-                 data-title="Ganglios basales y tálamo"
-                 src="https://blogger.googleusercontent.com/img/a/AVvXsEgKiKHOsZ_UnQFK-KxkESjOhiB-ORXvvz8wS03-PWS8UKGGPLaIJXL-a8qrr1-JaeCT9FLAqhxCwPbswVczbaeUJr2JWmuWl43mqEdQTDp7ftLo1LrO9TiGdtue0qevvGxTT7G3ATd1BZP70A7hWoBvBvM_yPHZeKbYNxizbSFtEGclNW8Le70xy-iQjU0" />
-          </a>
-          <div class="gal-nav">
-            <a aria-label="Anterior" class="gal-btn" href="#s378ecd80">⟨</a>
-            <a aria-label="Siguiente" class="gal-btn" href="#se0043fa2">⟩</a>
-          </div>
-        </section>
 
-      </div>
-    </div>
+    <div class="gal-grid">
 
-    <!-- Miniaturas -->
-    <div class="gal-thumbs">
-      <a href="#se0043fa2" title="Territorios supratentoriales"><img alt="" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhhrJy3r_m8o-St0fN31j50Hjeqe2M34QE49GVT0YDZ-_Im0jGskk1hH9tMhSE4o0NDx1zgX-TKFCmb_VBAr2hEu_njoPGnXOPp-qhDgcmquYehJFygur5m9uCS5PdOyF2_VEAYoS82rl1udQn1m5EHown6zJHOZmOMX9VIaL15-mDLhfBymT47HjwovDI/s1180/R.PNG" /></a>
-      <a href="#s9817d1f9" title="Polígono de Willis y territorios arteriales"><img alt="" src="https://blogger.googleusercontent.com/img/a/AVvXsEjdsJhJ9b8mUYevqwGeuwT8bABx3h0M__z-ALCq94Og8yC6PauEaEou6M8WLdl6HKH4Vy6c50KNi-JeFg-MwuZzD0oWKZGBvPTTdJMuCbvDBE6HZ4WzSiyEb-SaUeSkO_pAuVYAwxhjFALuZcFH7iYlrGnTfZTTON20UVoiYkW89JtIQJvAkRImaULir9Y" /></a>
-      <a href="#s2b32fe5e" title="Correlación estructural"><img alt="" src="https://blogger.googleusercontent.com/img/a/AVvXsEjMEXsTvk7mUemTZjUg5y9A_vJfc1bGaaTj5FQ1FZ4K0I3EflPBMkc7RneKkOUIlWtNfspdGe15UoX5suCHAoqQGtWNTLc-1hpo90pu530FdV_YRD7m97Kz0vAZOwBAtK658PaFK8sbVRVsIGwic7CylqHzq7XNQFQTVv26Zr41dnbuncT0niFyshZdEK0" /></a>
-      <a href="#sf052fd37" title="Mapas axiales"><img alt="" src="https://blogger.googleusercontent.com/img/a/AVvXsEhq0-SGyOF_nM_WWRvpPvbn4GjoUETGBb6OSIwJ1j7lRzq9JGE1iRc55jQV3OvPSF6Z3Y3Qqm8vsNoWMrRq5jFWPSY0J97-IxaehACjNApSRVSuUKZGm74CSx77PFpZaaC1sB1G_Bb4t8UPg-yAhZYSjkXTJ0z4S841eYVhyeuH1GEdwZ1z5HfrDxbVpVs" /></a>
-      <a href="#s701e5cf1" title="A: Axial-Leyenda"><img alt="" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhFjIEtQbkHBnLJY4CGIjqdoV9NJV4YHBgsrK-MjWU5NN1v4vow27RijVNqEQf9L0uI90VGNMMy4R8K5I-N-jGRvjK4QUNjx4UYVvsSfa8DJgS7UKsuzhDDIKT0JbGjD2QSLwRGw8Xb-xpgjmELiv4swxSyCu7FB8muOsICHL831W8toufWd-vU2Vs-Lp8/s1227/Captura%20de%20pantalla%202024-02-09%20185945.png" /></a>
-      <a href="#s3cbc047b" title="B: Axial"><img alt="" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhfildefi4XAHnXQmmPttQ412c92nKlBQhHTqYsfbWTyjNtNjAGykxHugd7gDPD9_YpbFIJARghuNn7mwsJp2e2Mo7bZNDUXtOG1neIzBGNKWg7aaCg_DVVNtS4PzCJog3vk1g94bncNYD6ThQGSXiSETHMyMWFhx0fM-5ygcCBvYynTHcUFWUY_pZOzFw/s1218/Captura%20de%20pantalla%202024-02-09%20185928.png" /></a>
-      <a href="#s32cd7bcc" title="C: Axial"><img alt="" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhid7LYTi7-3r6EFAFlzGJf-1RE7ik4W3avaiwNMAJ7LdTo3P_WtjpB70oAcfLp4w6KBik47qO95QAqoAuV3fGUKIRazpFZl5V9ouLzA3OWLK56mQ-SvYyD9ruwph7Rnmr4GpIeQhvI7chFbs75tcP4blyUSsfXlDYcXE4qaHJnueHKkJseHdXUaWEVDL0/s1219/Captura%20de%20pantalla%202024-02-09%20185905.png" /></a>
-      <a href="#s3c3edc7b" title="Atlas RM"><img alt="" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhtvZjl5KVc6JytN_17GFVSAzcxE9Vbrc69Svn7z6Op-O_qWxxv2eCaB76ytBdh2jPF689LxFu959LmRTYR9nvfN7lnP68mDUWGf_KiiVFS7VFVqb6kzJl3hBD6TZx3iUb0wnlnavuZ57A_N3k88sBNVwJrr-aW5mJUOBvG_71cNfabeU5V0EJ4ULFyeFs/s1576/ACVTERR2.PNG" /></a>
-      <a href="#s6705c89b" title="Atlas axial-sagital-coronal"><img alt="" src="https://blogger.googleusercontent.com/img/a/AVvXsEjauZ3AMUL5MwSzwdpAsQHcg8Vd10LTsVWPk7DagBw2l6-hx28cH1pr3A2fR-7HYTF7rWrGA1nH4rWXm88QG3ALy9NlXeC3PmhNEtqhrYQzUjLNejv5Pd6Pn3_dAy_9K_55keKay4H_FVzUuB9JLpJYiZvMTTJ1t10ayyKljynMrbShIOPYtvhzfu02Fwg" /></a>
-      <a href="#s378ecd80" title="Correlación anatomo-clínica"><img alt="" src="https://blogger.googleusercontent.com/img/a/AVvXsEijoaZYnaeyUXkTJDayUFo1RAENahLrfUHXirO6VEwPCaAMW9IGtduiiFnq9iP5k9mIfJmNGXsDF-91RgWkKBJ6KC61wEe_sLXebIpvVksDbQ8fwzchoooeOJok68ajDYc4li8KPCUvAKD88qbVT1SLrQqox6IIVXsslftFbYkw_BkKFKus_vwccaVRdbM" /></a>
-      <a href="#sb1a5e728" title="Ganglios basales y tálamo"><img alt="" src="https://blogger.googleusercontent.com/img/a/AVvXsEg-sSLtQFT06GmwaGiClGW95iF48ljqhYrY2mp2hZubxE3ddnAGlZ0rjI8rMpkXSjzwWQG91FBB8BDZY18SO36OAa5Mn5-66f5YQxLAAITztCojV-eBJfZTOdsFtqmb_RWxbht9SEj8qfqbNASe279jz7_VMRU2Xfah2FUDTWO5PEhHHEFeUNKc2Becjuw" /></a>
+      <!-- 1: Territorios supratentoriales -->
+      <article class="gal-item">
+        <a href="#l4ee2f2de" title="Territorios supratentoriales">
+          <img class="gal-thumb"
+               src="img/tv01.png"
+               alt="Territorios supratentoriales">
+        </a>
+        <div class="gal-caption">
+          <div class="gal-caption-title">Territorios supratentoriales</div>
+          <div class="gal-caption-sub">Cortical superficial · Superficial cortical territories</div>
+        </div>
+      </article>
+
+      <!-- 2: Polígono de Willis -->
+      <article class="gal-item">
+        <a href="#lad6b7fea" title="Polígono de Willis y territorios arteriales">
+          <img class="gal-thumb"
+               src="img/tv02.png"
+               alt="Polígono de Willis y territorios arteriales">
+        </a>
+        <div class="gal-caption">
+          <div class="gal-caption-title">Polígono de Willis</div>
+          <div class="gal-caption-sub">Willis circle & arterial territories</div>
+        </div>
+      </article>
+
+      <!-- 3: Correlación estructural -->
+      <article class="gal-item">
+        <a href="#lc0f801fc" title="Correlación estructural">
+          <img class="gal-thumb"
+               src="img/tv03.png"
+               alt="Correlación estructural">
+        </a>
+        <div class="gal-caption">
+          <div class="gal-caption-title">Correlación estructural</div>
+          <div class="gal-caption-sub">Coronal & axial structural correlation</div>
+        </div>
+      </article>
+
+      <!-- 4: Mapas axiales -->
+      <article class="gal-item">
+        <a href="#la538cf20" title="Mapas axiales">
+          <img class="gal-thumb"
+               src="img/tv04.png"
+               alt="Mapas axiales">
+        </a>
+        <div class="gal-caption">
+          <div class="gal-caption-title">Mapas axiales</div>
+          <div class="gal-caption-sub">Axial maps with cortical & deep territories</div>
+        </div>
+      </article>
+
+      <!-- 5: Axial A -->
+      <article class="gal-item">
+        <a href="#l4c5f8a44" title="A: Axial-Leyenda">
+          <img class="gal-thumb"
+               src="img/tv05.png"
+               alt="A: Axial-Leyenda">
+        </a>
+        <div class="gal-caption">
+          <div class="gal-caption-title">Axial A · Leyenda</div>
+          <div class="gal-caption-sub">Numbered axial territories (legend)</div>
+        </div>
+      </article>
+
+      <!-- 6: Axial B -->
+      <article class="gal-item">
+        <a href="#l47a3ef7d" title="B: Axial">
+          <img class="gal-thumb"
+               src="img/tv06.png"
+               alt="B: Axial">
+        </a>
+        <div class="gal-caption">
+          <div class="gal-caption-title">Axial B</div>
+          <div class="gal-caption-sub">Axial numbered territories (set B)</div>
+        </div>
+      </article>
+
+      <!-- 7: Leyenda perforantes -->
+      <article class="gal-item">
+        <a href="#l54e9c272" title="Leyenda territorios y ramas arteriales">
+          <img class="gal-thumb"
+               src="img/tv07.png"
+               alt="Leyenda territorios y ramas arteriales">
+        </a>
+        <div class="gal-caption">
+          <div class="gal-caption-title">Leyenda perforantes</div>
+          <div class="gal-caption-sub">Deep branches & perforators legend</div>
+        </div>
+      </article>
+
+      <!-- 8: Atlas TC/RM I -->
+      <article class="gal-item">
+        <a href="#lf667051f" title="Atlas TC/RM I">
+          <img class="gal-thumb"
+               src="img/tv08.png"
+               alt="Atlas RM">
+        </a>
+        <div class="gal-caption">
+          <div class="gal-caption-title">Atlas TC/RM I</div>
+          <div class="gal-caption-sub">Axial · sagittal · coronal (I)</div>
+        </div>
+      </article>
+
+      <!-- 9: Atlas TC/RM II -->
+      <article class="gal-item">
+        <a href="#l922e023f" title="Atlas axial-sagital-coronal II">
+          <img class="gal-thumb"
+               src="img/tv09.png"
+               alt="Atlas axial-sagital-coronal">
+        </a>
+        <div class="gal-caption">
+          <div class="gal-caption-title">Atlas TC/RM II</div>
+          <div class="gal-caption-sub">Axial · sagittal · coronal (II)</div>
+        </div>
+      </article>
+
+      <!-- 10: Correlación anatomo-clínica -->
+      <article class="gal-item">
+        <a href="#le1541af7" title="Correlación anatomo-clínica">
+          <img class="gal-thumb"
+               src="img/tv10.png"
+               alt="Correlación anatomo-clínica">
+        </a>
+        <div class="gal-caption">
+          <div class="gal-caption-title">Correlación anatomo-clínica</div>
+          <div class="gal-caption-sub">Vertebrobasilar territories & clinical signs</div>
+        </div>
+      </article>
+
+      <!-- 11: Ganglios basales y tálamo -->
+      <article class="gal-item">
+        <a href="#la8d45fb9" title="Ganglios basales y tálamo">
+          <img class="gal-thumb"
+               src="img/tv11.png"
+               alt="Ganglios basales y tálamo">
+        </a>
+        <div class="gal-caption">
+          <div class="gal-caption-title">Ganglios basales & tálamo</div>
+          <div class="gal-caption-sub">Deep perforators · basal ganglia · thalamus</div>
+        </div>
+      </article>
+
     </div>
   </div>
 </div>
 
-<!-- LIGHTBOXES -->
+<!-- LIGHTBOXES (sin cambios) -->
 <div aria-hidden="true" class="gal-light" id="l4ee2f2de">
   <a aria-label="Anterior" class="gal-prev" href="#la8d45fb9">⟨</a>
   <a aria-label="Siguiente" class="gal-next" href="#lad6b7fea">⟩</a>
-  <a aria-label="Cerrar" class="gal-close" href="#se0043fa2">✕</a>
-  <img alt="Territorios vasculares supratentoriales — esquema síntesis (General overview)" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhhrJy3r_m8o-St0fN31j50Hjeqe2M34QE49GVT0YDZ-_Im0jGskk1hH9tMhSE4o0NDx1zgX-TKFCmb_VBAr2hEu_njoPGnXOPp-qhDgcmquYehJFygur5m9uCS5PdOyF2_VEAYoS82rl1udQn1m5EHown6zJHOZmOMX9VIaL15-mDLhfBymT47HjwovDI/s1180/R.PNG" />
+  <a aria-label="Cerrar" class="gal-close" href="#galeria-territorios">✕</a>
+  <img alt="Territorios vasculares supratentoriales — esquema síntesis (General overview)" src="img/tv01.png">
 </div>
 
 <div aria-hidden="true" class="gal-light" id="lad6b7fea">
   <a aria-label="Anterior" class="gal-prev" href="#l4ee2f2de">⟨</a>
   <a aria-label="Siguiente" class="gal-next" href="#lc0f801fc">⟩</a>
-  <a aria-label="Cerrar" class="gal-close" href="#s9817d1f9">✕</a>
-  <img alt="Círculo de Willis y territorios arteriales (Willis &amp; arterial territories)" src="https://blogger.googleusercontent.com/img/a/AVvXsEg7hRDECc4mNzXdrBiOx2xFGPVt_1fZGYawSgj02rQAl0Li_F2gYAAQpqjd8BDZNn6wzWK74uuPSjB3Zqg8o10_WoaZhIhGsiCLs-E9Sq83-7vU-t0_QBY4kzxRb7St31CtgCEQcAw8CG-Z0q9DhXoC83xOoddDyqpS13gPzW461_e-HtEs1yA8qdqSDnc" />
+  <a aria-label="Cerrar" class="gal-close" href="#galeria-territorios">✕</a>
+  <img alt="Círculo de Willis y territorios arteriales (Willis &amp; arterial territories)"                src="img/tv02.png"
+>
 </div>
 
 <div aria-hidden="true" class="gal-light" id="lc0f801fc">
   <a aria-label="Anterior" class="gal-prev" href="#lad6b7fea">⟨</a>
   <a aria-label="Siguiente" class="gal-next" href="#la538cf20">⟩</a>
-  <a aria-label="Cerrar" class="gal-close" href="#s2b32fe5e">✕</a>
-  <img alt="Resumen de irrigación superficial y profunda — (A) Coronal · (B) Axial (Cortical &amp; deep supply summary)" src="https://blogger.googleusercontent.com/img/a/AVvXsEiG7dB8WvlyNaX5qz4WZVHaRDL9bmQ-3v_cPI8rcTb9vU2DjyQP53ZTuVcdsdDanUFTrzPTxcAYs3Yzw2PxrbL1dQLGH1v8AcRC9mZHVVH2cDuBADU4xUlH9VJGPmucvqOpkx7qLOO5xEcxBwoBvuEaWNk2lR9ax9JZ2qQ86ZEbtWk-VB3FJN8ApFu7iGc" />
+  <a aria-label="Cerrar" class="gal-close" href="#galeria-territorios">✕</a>
+  <img alt="Resumen de irrigación superficial y profunda — (A) Coronal · (B) Axial (Cortical &amp; deep supply summary)"                src="img/tv03.png">
+
 </div>
 
 <div aria-hidden="true" class="gal-light" id="la538cf20">
   <a aria-label="Anterior" class="gal-prev" href="#lc0f801fc">⟨</a>
   <a aria-label="Siguiente" class="gal-next" href="#l4c5f8a44">⟩</a>
-  <a aria-label="Cerrar" class="gal-close" href="#sf052fd37">✕</a>
-  <img alt="Cortes axiales con territorios (incluye perforantes) / Axial sections with perforators" src="https://blogger.googleusercontent.com/img/a/AVvXsEiGlkE7ixTpjuFcsAGNwjV1XEVQ0I27lt2sHUS7JZBKMux_74xmmkILggjaN1xnCaBlWxfW9PUdf6IV2-IbtOpM9iuHH3ornkb4kq6-kaXK4mZDP_MqoulQjHlw25MvUk0_gOzKkiFdcUGkonb_5AG3aqIiUSqMs2B4yx6iyX_0ld-s2P0Hfgqc6ZNKPdg" />
+  <a aria-label="Cerrar" class="gal-close" href="#galeria-territorios">✕</a>
+  <img alt="Cortes axiales con territorios (incluye perforantes) / Axial sections with perforators"                src="img/tv04.png">
+
 </div>
 
 <div aria-hidden="true" class="gal-light" id="l4c5f8a44">
   <a aria-label="Anterior" class="gal-prev" href="#la538cf20">⟨</a>
   <a aria-label="Siguiente" class="gal-next" href="#l47a3ef7d">⟩</a>
-  <a aria-label="Cerrar" class="gal-close" href="#s701e5cf1">✕</a>
-  <img alt="Axial: distribución territorial numerada (A) / Axial numbered territories (A)" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhFjIEtQbkHBnLJY4CGIjqdoV9NJV4YHBgsrK-MjWU5NN1v4vow27RijVNqEQf9L0uI90VGNMMy4R8K5I-N-jGRvjK4QUNjx4UYVvsSfa8DJgS7UKsuzhDDIKT0JbGjD2QSLwRGw8Xb-xpgjmELiv4swxSyCu7FB8muOsICHL831W8toufWd-vU2Vs-Lp8/s1227/Captura%20de%20pantalla%202024-02-09%20185945.png" />
+  <a aria-label="Cerrar" class="gal-close" href="#galeria-territorios">✕</a>
+  <img alt="Axial: distribución territorial numerada (A) / Axial numbered territories (A)"                src="img/tv05.png"
+>
 </div>
 
 <div aria-hidden="true" class="gal-light" id="l47a3ef7d">
   <a aria-label="Anterior" class="gal-prev" href="#l4c5f8a44">⟨</a>
   <a aria-label="Siguiente" class="gal-next" href="#l54e9c272">⟩</a>
-  <a aria-label="Cerrar" class="gal-close" href="#s3cbc047b">✕</a>
-  <img alt="Axial: distribución territorial numerada (B) / Axial numbered territories (B)" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhfildefi4XAHnXQmmPttQ412c92nKlBQhHTqYsfbWTyjNtNjAGykxHugd7gDPD9_YpbFIJARghuNn7mwsJp2e2Mo7bZNDUXtOG1neIzBGNKWg7aaCg_DVVNtS4PzCJog3vk1g94bncNYD6ThQGSXiSETHMyMWFhx0fM-5ygcCBvYynTHcUFWUY_pZOzFw/s1218/Captura%20de%20pantalla%202024-02-09%20185928.png" />
+  <a aria-label="Cerrar" class="gal-close" href="#galeria-territorios">✕</a>
+  <img alt="B: Axial"                src="img/tv06.png"
+>
 </div>
 
 <div aria-hidden="true" class="gal-light" id="l54e9c272">
   <a aria-label="Anterior" class="gal-prev" href="#l47a3ef7d">⟨</a>
   <a aria-label="Siguiente" class="gal-next" href="#lf667051f">⟩</a>
-  <a aria-label="Cerrar" class="gal-close" href="#s32cd7bcc">✕</a>
-  <img alt="Leyenda de territorios y ramas arteriales numeradas / Legend" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhid7LYTi7-3r6EFAFlzGJf-1RE7ik4W3avaiwNMAJ7LdTo3P_WtjpB70oAcfLp4w6KBik47qO95QAqoAuV3fGUKIRazpFZl5V9ouLzA3OWLK56mQ-SvYyD9ruwph7Rnmr4GpIeQhvI7chFbs75tcP4blyUSsfXlDYcXE4qaHJnueHKkJseHdXUaWEVDL0/s1219/Captura%20de%20pantalla%202024-02-09%20185905.png" />
+  <a aria-label="Cerrar" class="gal-close" href="#galeria-territorios">✕</a>
+  <img alt="Leyenda de territorios y ramas arteriales numeradas / Legend"                src="img/tv07.png"
+>
 </div>
 
 <div aria-hidden="true" class="gal-light" id="lf667051f">
   <a aria-label="Anterior" class="gal-prev" href="#l54e9c272">⟨</a>
   <a aria-label="Siguiente" class="gal-next" href="#l922e023f">⟩</a>
-  <a aria-label="Cerrar" class="gal-close" href="#s3c3edc7b">✕</a>
-  <img alt="Territorios en TC/RM: axial · sagital · coronal (I) / Segmented atlas I" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhtvZjl5KVc6JytN_17GFVSAzcxE9Vbrc69Svn7z6Op-O_qWxxv2eCaB76ytBdh2jPF689LxFu959LmRTYR9nvfN7lnP68mDUWGf_KiiVFS7VFVqb6kzJl3hBD6TZx3iUb0wnlnavuZ57A_N3k88sBNVwJrr-aW5mJUOBvG_71cNfabeU5V0EJ4ULFyeFs/s1576/ACVTERR2.PNG" />
+  <a aria-label="Cerrar" class="gal-close" href="#galeria-territorios">✕</a>
+  <img alt="Territorios en TC/RM: axial · sagital · coronal (I) / Segmented atlas I"                src="img/tv08.png"
+>
 </div>
 
 <div aria-hidden="true" class="gal-light" id="l922e023f">
   <a aria-label="Anterior" class="gal-prev" href="#lf667051f">⟨</a>
   <a aria-label="Siguiente" class="gal-next" href="#le1541af7">⟩</a>
-  <a aria-label="Cerrar" class="gal-close" href="#s6705c89b">✕</a>
-  <img alt="Territorios en TC/RM: axial · sagital · coronal (II) / Segmented atlas II" src="https://blogger.googleusercontent.com/img/a/AVvXsEhd_Sv7Out4Z87sRRL4Bi0Ou6sQgP-p6oWz-vEsW2fptZAjH9XQ9NGUnSl4zT2vHrKOeudxEbmoOC0ft7pvUlAUcCLu0lbG-721g30g89odbK-vJI-uvD1Bwc4unkxn5xsRJo7Ml4H3ohkODNrXw2rKMpxX2xuGkdP6wZlfQ-u3MIRB51cnNsHtUitT40s" />
+  <a aria-label="Cerrar" class="gal-close" href="#galeria-territorios">✕</a>
+  <img alt="Territorios en TC/RM: axial · sagital · coronal (II) / Segmented atlas II"                src="img/tv09.png"
+>
 </div>
 
 <div aria-hidden="true" class="gal-light" id="le1541af7">
   <a aria-label="Anterior" class="gal-prev" href="#l922e023f">⟨</a>
   <a aria-label="Siguiente" class="gal-next" href="#la8d45fb9">⟩</a>
-  <a aria-label="Cerrar" class="gal-close" href="#s378ecd80">✕</a>
-  <img alt="Arterias vertebrobasilares: territorios y correlación clínica / Vertebrobasilar territories &amp; clinical signs" src="https://blogger.googleusercontent.com/img/a/AVvXsEjFLRgSG0_1bKPfBpD1XR1fg3XqKqr1zBJgIqoXcIeSIeCldM8yyfF4x1WsM01Xi8IvpAaKdr5ahN8Yg2GVbmuxg_tjnbdSQEzycPx-ZEeCVLX3ialiRQX8fhCai6gkNpVHL_fi-QDn5pVLhL4lKZF50MGQf1jUVIPhNG3HPDbq4jHU1RjHa7FbDJ0-Jig" />
+  <a aria-label="Cerrar" class="gal-close" href="#galeria-territorios">✕</a>
+  <img alt="Arterias vertebrobasilares: territorios y correlación clínica / Vertebrobasilar territories &amp; clinical signs"                src="img/tv10.png"
+>
 </div>
 
 <div aria-hidden="true" class="gal-light" id="la8d45fb9">
   <a aria-label="Anterior" class="gal-prev" href="#le1541af7">⟨</a>
   <a aria-label="Siguiente" class="gal-next" href="#l4ee2f2de">⟩</a>
-  <a aria-label="Cerrar" class="gal-close" href="#sb1a5e728">✕</a>
-  <img alt="Perforantes y núcleos grises (ganglios basales y tálamo) / Deep perforators (basal ganglia &amp; thalamus)" src="https://blogger.googleusercontent.com/img/a/AVvXsEhokrhXwbDu1w8EBFApPjwNM1O0Im5hyB8vFIdY04krQwtevJBzxxZlUskTUwHXf8a-TiJSIgg0RGWHiFe0lbboyzbYbfNnneJ0kM6uQ9V3-ZziE6hQufWOHs-YtEjZp-tCXsFRdp_6yPICNVAN6gAWQWdO5DLmEM8Q2rHeQNCNgRdvzxmfq0kd3aN0beE" />
+  <a aria-label="Cerrar" class="gal-close" href="#galeria-territorios">✕</a>
+  <img alt="Perforantes y núcleos grises (ganglios basales y tálamo) / Deep perforators (basal ganglia &amp; thalamus)"                src="img/tv11.png"
+>
 </div>
 
 
+
+<footer>
+  <img src="uibanner.png" alt="Unidad de Ictus Málaga" style="max-width:380px;height:auto;opacity:.96;">
+</footer>
+
+<script src="../js/index.js"></script>
 <script>
-/* ===== Píldora con guion largo real (evita &#8212;) ===== */
-const MDASH = String.fromCharCode(8212);
-const track = document.getElementById('track');
-const slides = Array.from(track.querySelectorAll('.gal-slide'));
-const pill   = document.getElementById('pillTop');
-
-function updatePillNearest(){
-  const rect = track.getBoundingClientRect();
-  const center = rect.left + rect.width/2;
-  let best = {i:0, d:Infinity};
-  slides.forEach((s,i)=>{
-    const r = s.getBoundingClientRect();
-    const c = r.left + r.width/2;
-    const d = Math.abs(center - c);
-    if(d < best.d) best = {i, d};
-  });
-  const img = slides[best.i].querySelector('.gal-img');
-  const title = (img.dataset.title || img.alt || '').trim();
-  pill.textContent = `Imagen ${best.i+1}/${slides.length} ${MDASH} ${title}`;
-}
-track.addEventListener('scroll', ()=>{ requestAnimationFrame(updatePillNearest); });
-window.addEventListener('load', updatePillNearest);
-window.addEventListener('resize', updatePillNearest);
-
-/* ===== Ocultar cabecera al abrir lightbox ===== */
+/* =========================================================
+   SWIPE GESTURES PARA LIGHTBOX (Android / iOS)
+========================================================= */
 (function(){
-  function checkLightbox(){
-    const h = location.hash;
-    const open = !!(h && document.querySelector(h)?.classList.contains('gal-light'));
-    document.body.classList.toggle('lightbox-open', open);
+  let startX = 0;
+  let startY = 0;
+  let deltaX = 0;
+  let deltaY = 0;
+  const umbral = 40;  // distancia mínima para considerar swipe
+
+  function getCurrentLightbox(){
+    const h = location.hash.replace('#','');
+    if(!h) return null;
+    return document.getElementById(h);
   }
-  window.addEventListener('hashchange', checkLightbox);
-  window.addEventListener('load', checkLightbox);
+
+  function handleTouchStart(e){
+    if(!getCurrentLightbox()) return;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    deltaX = 0;
+    deltaY = 0;
+  }
+
+  function handleTouchMove(e){
+    if(!getCurrentLightbox()) return;
+    deltaX = e.touches[0].clientX - startX;
+    deltaY = e.touches[0].clientY - startY;
+  }
+
+  function handleTouchEnd(){
+    const lb = getCurrentLightbox();
+    if(!lb) return;
+
+    // Evitar interpretar scroll vertical como swipe
+    if(Math.abs(deltaY) > Math.abs(deltaX)) return;
+
+    if(deltaX < -umbral){
+      // Swipe izquierda → siguiente
+      const next = lb.querySelector('.gal-next');
+      if(next) window.location.hash = next.getAttribute('href');
+    }
+    else if(deltaX > umbral){
+      // Swipe derecha → anterior
+      const prev = lb.querySelector('.gal-prev');
+      if(prev) window.location.hash = prev.getAttribute('href');
+    }
+  }
+
+  document.addEventListener('touchstart', handleTouchStart, {passive:true});
+  document.addEventListener('touchmove', handleTouchMove,   {passive:true});
+  document.addEventListener('touchend',  handleTouchEnd,    {passive:true});
 })();
 </script>
-  <footer>
-<img src="uibanner.png" alt="Unidad de Ictus Málaga" style="max-width:380px;height:auto;opacity:.96;">
-</footer>
-<script src="js/index.js"></script>
+
 </body>
 </html>

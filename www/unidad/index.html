@@ -123,14 +123,29 @@ header{
   align-items:center;
   padding:8px 18px;
 }
-.tittle{
+.title{
   font-size:1.4rem;
   font-weight:700;
   letter-spacing:.2px;
   color:#fff;
   text-align:center;
   text-transform:none; /* 🔹 estilo oración */
+  z-index: 5;
+
 }
+/* ==== Efecto estático visible sobre fondo azul ==== */
+.titulo-neon  {
+  position: relative;
+  z-index: 10;
+  color: #e9f2ff;
+  text-shadow:
+    0 0 6px rgba(15,61,131,0.9),
+    0 0 12px rgba(15,61,131,0.7),
+    0 2px 3px rgba(0,0,0,0.4);
+}
+
+
+
 
 /* Contenido */
 main{
@@ -286,7 +301,7 @@ body {
 </div>
 <header>
   <div class="bar wrap">
-    <div class="title" style="margin:0;font-size:1.35rem;line-height:1;font-weight:800;letter-spacing:.2px;color:#fff;">¿Qué es una Unidad de Ictus?</div>
+    <div class="title titulo-neon">¿Qué es una Unidad de Ictus?</div>
   </div>
 </header>
 <main>

@@ -126,7 +126,19 @@ header {
   letter-spacing:.2px;
   color:#fff;
   text-align:center;
-  text-transform:none;
+  text-transform:none; /* 🔹 estilo oración */
+  z-index: 5;
+
+}
+/* ==== Efecto estático visible sobre fondo azul ==== */
+.titulo-neon  {
+  position: relative;
+  z-index: 10;
+  color: #e9f2ff;
+  text-shadow:
+    0 0 6px rgba(15,61,131,0.9),
+    0 0 12px rgba(15,61,131,0.7),
+    0 2px 3px rgba(0,0,0,0.4);
 }
 /* =========================================================
    CABECERA

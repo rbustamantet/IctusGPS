@@ -355,3 +355,11 @@ async function exportarPDFconCabecera(elementId, nombreArchivo = "Informe_Ictus.
     if (overlay) overlay.style.display = "none";
   }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (window.Capacitor && Capacitor.getPlatform() === "android") {
+    const btnPrint = document.getElementById("btnPrint");
+    if (btnPrint) btnPrint.style.display = "none";
+  }
+});
+

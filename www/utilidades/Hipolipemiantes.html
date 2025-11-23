@@ -351,7 +351,7 @@ body {
         <div class="btns">
           <button type="submit" id="btnCalcular">Calcular</button>
           <button type="button" class="secondary" id="btnLimpiar">Borrar</button>
-          <button type="button" class="ghost no-print" id="btnImprimir">Imprimir</button>
+          <button type="button" class="ghost no-print" id="btnPrint">Imprimir</button>
           <button type="button" class="secondary no-print" id="btnCopiar">Copiar</button>
         </div>
       </form>
@@ -750,7 +750,7 @@ $('#disclaimerFinal').classList.remove('hide');
   $('#disclaimerFinal').classList.add('hide'); // ocultar el disclaimer
 });
 
-  $('#btnImprimir').addEventListener('click', ()=>{
+  $('#btnPrint').addEventListener('click', ()=>{
   const resultado = $('#resultado').innerHTML.trim();
   if(!resultado || resultado.includes('Complete')){ alert('Primero calcule una recomendación.'); return; }
 
@@ -838,7 +838,7 @@ $('#disclaimerFinal').classList.remove('hide');
 })();
 </script>
 
-<script src="js/index.js"></script>
+<script src="../js/index.js"></script>
 <footer>
   <img src="uibanner.png" alt="Unidad de Ictus Málaga" style="max-width:380px;height:auto;opacity:.96;">
 </footer>
