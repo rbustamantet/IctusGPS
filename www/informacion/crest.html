@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<meta name="theme-color" content="#0f3d83">
+<title>Ensayo CREST-2</title>
+
+<!-- ICONOS PWA -->
+<link rel="manifest" href="../site.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
+<link rel="shortcut icon" href="../iconos/ictusgps.png">
+
+<style>
+/* =========================================================
+   VARIABLES (TUS COLORES)
+========================================================= */
+:root{
+  --bg:#f8fafc; --ink:#0e1a33;
+  --azul:#0f3d83; --azul-institucional:#0f3d83;
+  --border:#e5e7eb; --muted:#64748b;
+  --card:#ffffff; --shadow:rgba(15,23,42,.06);
+
+  --ok:#166534;     --ok-bg:#e9fce7;
+  --warn:#92400e;   --warn-bg:#fff7ed;
+  --err:#991b1b;    --err-bg:#fef2f2;
+}
+
+/* Tipografía */
+html,body, p, h1, h2, h3, li, div, span {font-family: Verdana, sans-serif !important;}
+
+*{box-sizing:border-box}
+html,body{
+  margin:0; padding:0;
+  background:var(--bg); color:var(--ink);
+}
+
+body {
+  padding-top: calc(env(safe-area-inset-top) + 52px);
+}
+
+/* =========================================================
+   SAFE-TOP
+========================================================= */
+.safe-top{
+  position:fixed; top:0; left:0; width:100%;
+  height:calc(env(safe-area-inset-top) + 60px);
+  background:var(--azul-institucional);
+  display:flex; align-items:flex-start; justify-content:center;
+  padding-top: env(safe-area-inset-top);
+  z-index:1001;
+}
+.safe-content{
+  width:100%; max-width:1080px; display:flex;
+  justify-content:space-between; padding:6px 16px;
+}
+.safe-left{display:flex; align-items:center; gap:10px;}
+.safe-mini{width:44px;height:44px;padding:4px;}
+.safe-logo{height:44px;}
+.safe-actions{display:flex;gap:10px;}
+
+.safe-btn{
+  width:40px;height:40px; border-radius:50%;
+  border:1px solid rgba(255,255,255,0.9);
+  background:rgba(255,255,255,0.15);
+  display:flex;align-items:center;justify-content:center;
+}
+.safe-icon{width:32px; height:32px}
+
+/* =========================================================
+   HEADER
+========================================================= */
+header{
+  position:sticky; top:calc(env(safe-area-inset-top)+52px);
+  background:var(--azul-institucional); color:white;
+  box-shadow:0 2px 6px rgba(0,0,0,0.08);
+  z-index:1002; padding:6px 0;
+}
+.bar{
+  display:flex;justify-content:center;align-items:center; gap:10px;
+}
+.title{display:flex;align-items:center;font-size:1.25rem;font-weight:700;}
+.title img{width:32px;height:32px;margin-right:8px}
+
+/* =========================================================
+   CONTENIDO
+========================================================= */
+main{max-width:1080px;margin:0 auto;padding:16px;}
+
+.howto{
+  background:white; border:1px solid var(--border);
+  padding:1rem; border-radius:14px; font-size:14px;
+  box-shadow:0 2px 4px var(--shadow);
+}
+
+/* =========================================================
+   TARJETAS (DISEÑO MÓVIL-FIRST)
+========================================================= */
+
+.card{
+  background:white; border:1px solid var(--border);
+  border-radius:16px; padding:1rem 1.1rem;
+  box-shadow:0 2px 8px rgba(0,0,0,0.04);
+  margin-bottom:1rem;
+}
+
+.card h2{font-size:1.05rem;margin:0 0 .65rem;}
+.card h3{font-size:0.95rem;margin:.85rem 0 .4rem;color:#0f172a;}
+
+p{font-size:14px;line-height:1.5;margin:.3rem 0}
+ul{margin:.4rem 0 .6rem 1.2rem;padding:0}
+li{font-size:13px;margin:.2rem 0}
+
+/* BADGES */
+.badge{
+  display:inline-block;padding:2px 7px;
+  border-radius:999px;font-size:11px;font-weight:700;
+  background:#e0ebff;color:#1e3a8a;border:1px solid #bfdbfe;
+}
+
+/* BLOQUES COMPARATIVOS */
+.strategy-card{
+  border-left:4px solid var(--azul);
+  background:white;border-radius:14px;
+  padding:.9rem 1rem;margin-bottom:1rem;
+  box-shadow:0 1px 4px rgba(0,0,0,.04);
+}
+.strategy-title{
+  font-size:1rem;font-weight:700;margin-bottom:.3rem;
+  display:flex;align-items:center;gap:6px;
+}
+.strategy-tag{
+  font-size:11px;padding:2px 6px;border-radius:6px;
+  font-weight:bold;
+}
+.tag-ok{background:var(--ok-bg);color:var(--ok);border: 1px solid var(--ok);}
+.tag-warn{background:var(--warn-bg);color:var(--warn);border: 1px solid var(--warn);}
+.tag-err{background:var(--err-bg);color:var(--err);}
+.tag-med{background:#eef4ff;color:blue;border: 1px solid blue;}
+
+.strategy-block p{margin:.25rem 0;font-size:13px;}
+.strategy-block ul{margin-left:1rem}
+
+/* RESPONSIVE: en PC las cards se ponen en 3 columnas */
+@media(min-width:900px){
+  .strategies-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;
+  }
+}
+
+/* REFERENCIA */
+details.ref summary{
+  cursor:pointer;font-weight:700;color:#1e3a8a;font-size:14px;margin-top:1rem;
+}
+details.ref .refbox{
+  border:1px solid var(--border);background:white;
+  border-radius:12px;padding:.75rem;margin-top:.5rem;
+  font-size:13px;color:#0f172a;
+}
+
+/* DISCLAIMER */
+.disclaimer-red{
+  background:#fef2f2;border:1px solid #fecaca;
+  border-radius:12px;padding:14px 16px;margin-top:26px;
+}
+.disclaimer-red p{margin:0;font-size:13px;color:#7f1d1d}
+
+/* FOOTER */
+footer{
+  width:100%;padding:1.5rem 0;margin-top:2rem;
+  border-top:1px solid #e5e7eb;background:white;text-align:center;
+}
+</style>
+</head>
+
+
+<body>
+
+<!-- SAFE TOP -->
+<div class="safe-top">
+  <div class="safe-content">
+
+    <div class="safe-left">
+      <img src="../iconos/informacionico.png" class="safe-mini">
+      <img src="../img/topbar.png" class="safe-logo">
+    </div>
+
+    <div class="safe-actions">
+      <a href="javascript:history.back()" class="safe-btn"><img src="../iconos/atrastransparente.png" class="safe-icon"></a>
+      <a href="../index.html" class="safe-btn"><img src="../iconos/hometransparente.png" class="safe-icon"></a>
+    </div>
+
+  </div>
+</div>
+
+<header>
+  <div class="bar">
+    <div class="title"><img src="../utilidades/estenosisico.png">Ensayo CREST-2</div>
+  </div>
+</header>
+
+<main>
+
+  <div class="howto">
+    Resultados clave del ensayo <b>CREST-2</b> en estenosis carotídea asintomática ≥70% y su integración práctica en la toma de decisiones.
+  </div>
+
+  <div class="card">
+    <h2>Resumen del ensayo CREST-2</h2>
+
+    <h3>Diseño del estudio</h3>
+    <p>CREST-2 evalúa en paralelo:</p>
+    <ul>
+      <li><b>CAS + tratamiento médico intensivo</b> vs <b>tratamiento médico solo</b>.</li>
+      <li><b>CEA + tratamiento médico intensivo</b> vs <b>tratamiento médico solo</b>.</li>
+    </ul>
+
+    <h3>Conclusiones principales</h3>
+    <p>
+      En estenosis asintomática ≥70%:
+    </p>
+    <ul>
+      <li><b>CAS</b> es la única estrategia que reduce significativamente el riesgo de ictus frente a tratamiento médico intensivo.</li>
+      <li><b>CEA</b> no demuestra beneficio significativo global.</li>
+      <li>El tratamiento médico intensivo sigue siendo esencial.</li>
+    </ul>
+    <p>
+      En Ictus GPS, esto justifica que <b>CAS sea la técnica preferente por defecto</b> siempre que la anatomía lo permita.
+    </p>
+<div style="margin-top:1.2rem; font-size:13px; line-height:1.45; color:#0f172a; 
+            background:#f1f5f9; border:1px solid #d6dee8; padding:12px 14px; 
+            border-radius:12px;">
+  <b>Abreviaturas utilizadas</b>
+  <ul style="margin:6px 0 0 1.2rem; padding:0;">
+    <li><b>CEA</b>: Carotid Endarterectomy (<i>endarterectomía carotídea</i>).</li>
+    <li><b>CAS</b>: Carotid Artery Stenting (<i>stent carotídeo</i>).</li>
+      </ul>
+</div>
+  </div>
+
+
+
+  <div class="strategies-grid">
+
+  <!-- CAS -->
+  <div class="strategy-card" style="border-left:4px solid var(--ok); background:var(--ok-bg);">
+    <div class="strategy-title">
+      CAS + tratamiento médico
+      <span class="strategy-tag tag-ok">Preferente</span>
+    </div>
+    <div class="strategy-block">
+      <p><b>Evento primario a 4 años:2,8 %.</b></p>
+      <p><b>Riesgo perioperatorio (0–44 días):1,3 %.</b></p>
+      <h3>Ventajas</h3>
+      <ul>
+        <li>Mejor protección frente a ictus que el tratamiento médico intensivo.</li>
+        <li>Especialmente útil en cuello hostil o alto riesgo quirúrgico para CEA.</li>
+      </ul>
+      <h3>Limitaciones</h3>
+      <ul>
+        <li>Tortuosidad/calcificación severa en carótida.</li>
+        <li>Arco aórtico hostil (tipo III o muy calcificado).</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CEA -->
+  <div class="strategy-card" style="border-left:4px solid var(--warn); background:var(--warn-bg);">
+    <div class="strategy-title">
+      CEA + tratamiento médico
+      <span class="strategy-tag tag-warn">Alternativa</span>
+    </div>
+    <div class="strategy-block">
+      <p><b>Evento primario a 4 años:3,7 %</b> (no significativo frente a médico).</p>
+      <p><b>Riesgo perioperatorio (0–44 días):1,5 %.</b></p>
+      <h3>Ventajas</h3>
+      <ul>
+        <li>Técnica estable, útil si CAS no es viable.</li>
+      </ul>
+      <h3>Limitaciones</h3>
+      <ul>
+        <li>Sin beneficio significativo respecto al tratamiento médico intensivo.</li>
+        <li>Evitar en cuello hostil: radioterapia, estenosis cervical alta, reestenosis pos-CEA.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- MÉDICO -->
+  <div class="strategy-card" style="border-left:4px solid blue; background:#eef4ff;">
+    <div class="strategy-title">
+      Tratamiento médico intensivo
+      <span class="strategy-tag tag-med">Esencial</span>
+    </div>
+    <div class="strategy-block">
+      <p><b>Evento primario a 4 años:5,3–6,0 %</b>.</p>
+      <p><b>Riesgo perioperatorio:</b> ninguno (sin intervención).</p>
+
+      <h3>Ventajas</h3>
+      <ul>
+        <li>Reducción muy marcada del riesgo basal.</li>
+        <li>Indispensable incluso si se realiza CEA o CAS.</li>
+      </ul>
+
+      <h3>Limitaciones</h3>
+      <ul>
+        <li>Mantiene un riesgo residual de ictus superior al de CAS.</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+
+  <details class="ref">
+    <summary>Referencia CREST-2</summary>
+    <div class="refbox">
+      Meschia JF et al. <i>Stenting and Endarterectomy versus Medical Therapy for Asymptomatic Carotid Stenosis.</i>
+      New England Journal of Medicine, 2025. Ensayo CREST-2. 
+    </div>
+  </details>
+
+  <div class="disclaimer-red">
+    <p><b>Advertencia.</b> Esta página resume la evidencia del ensayo CREST-2 y orienta la práctica clínica. 
+    No sustituye el juicio individual, la discusión MDT ni los protocolos locales.</p>
+  </div>
+
+</main>
+
+<footer>
+  <img src="uibanner.png" style="max-width:380px;opacity:.96;">
+</footer>
+</body>
+</html>
