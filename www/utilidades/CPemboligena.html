@@ -62,11 +62,15 @@ label, input, select, button, table, p, h1, h2, h3, li {
   font-family: Verdana, Geneva, sans-serif !important;
 }
 
-body{
+*{box-sizing:border-box}
+html,body{
   margin:0;
+  padding:0;
   background:var(--bg);
   color:var(--ink);
+  font-family: Verdana, Geneva, Tahoma, sans-serif
 }
+.wrap{max-width:1100px;margin:0 auto;padding:.2rem}
 
 /* =========================================================
    SAFE-TOP (FIJO 60 px + notch)
@@ -184,11 +188,6 @@ header{
 /* =========================================================
    CONTENIDO
 ========================================================= */
-.wrap{
-  max-width:1080px;
-  margin:16px auto 48px;
-  padding:0 16px;
-}
 
 .panel{
   background:#fff;
@@ -650,13 +649,14 @@ body{
 </header>
 
 <main class="wrap">
-<section class="panel">
-
-  <!-- CÓMO USAR -->
+<!-- CÓMO USAR -->
   <div class="howto">
     <b>Cómo usar:</b> seleccione la <b>patología cardíaca embolígena</b> principal, marque los <b>factores específicos</b> de esa entidad y complete los <b>datos clínicos</b> (edad, sexo, peso, creatinina, comorbilidades).  
     La calculadora estima el riesgo <b>CHA<sub>2</sub>DS<sub>2</sub>-VASc</b>, <b>HAS-BLED</b>, el <b>aclaramiento de creatinina</b> y muestra una recomendación orientativa de <b>tratamiento antitrombótico</b> (ACOD/AVK/no ACO) ajustada a la patología y a las condiciones clínicas especiales.
   </div>
+<section class="panel">
+
+  
 
   <!-- BLOQUE 1: PATOLOGÍA CARDÍACA -->
   <div class="block patologia" id="patologia-section">

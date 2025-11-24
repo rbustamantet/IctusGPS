@@ -55,12 +55,15 @@
   --error:#b91c1c;
 }
 
-body{
+*{box-sizing:border-box}
+html,body{
   margin:0;
+  padding:0;
   background:var(--bg);
   color:var(--ink);
-  font-family:Verdana, Geneva, sans-serif
+  font-family: Verdana, Geneva, Tahoma, sans-serif
 }
+.wrap{max-width:1100px;margin:0 auto;padding:.2rem}
 
 /* =========================================================
    SAFE-TOP (FIJO 60 px + notch)
@@ -175,19 +178,14 @@ header{
   margin-right:8px;
 }
 
-/* ===== CONTENIDO ===== */
-.wrap{
-  max-width:1080px;
-  margin:16px auto 48px;
-  padding:0 16px
-}
 .howto{
   background:#fff;
+  border:1px solid var(--border);
   border-radius:14px;
-  box-shadow:0 3px 14px rgba(16,71,119,.12);
-  font-size:.9rem;
-  padding:12px;
-  margin:12px 0;
+  box-shadow:0 2px 2px var(--shadow);
+  padding:1rem;
+  margin:.3rem 0 1rem;
+  font-size:14px
 }
 .panel{
   background:#fff;
@@ -530,12 +528,10 @@ body {
 </header>
 
 <main class="wrap">
-<section class="panel">
-
 <div class="howto">
     La herramienta calcula automáticamente la puntuación <b>RoPE</b> y la clasificación <b>PASCAL</b> (RoPE + rasgos anatómicos de alto riesgo) para orientar la probabilidad de causalidad del FOP y la recomendación final. Las situaciones clínicas relevantes (C) no modifican la clasificación PASCAL, pero pueden ayudar al clínico a contextualizar el caso y a decidir cuando se precisa <b>discusión multidisciplinar</b>. El resumen puede copiarse con el botón correspondiente.
 </div>
-
+<section class="panel">
 
 <!-- BLOQUE ROPE -->
 <div class="block rope">
