@@ -31,6 +31,9 @@
   --azul-institucional:#0f3d83;
 }
 
+*{box-sizing:border-box}
+
+
 /* =========================================================
    SAFE-TOP
 ========================================================= */
@@ -55,7 +58,7 @@
   justify-content: space-between;
   align-items: flex-start; 
   /* Añadir un padding-top para empujar los iconos ligeramente hacia abajo y no pegarlos al borde */
-  padding-top: 2px; /* Ajuste manual para bajar los iconos un poco */
+  padding-top: 5px; /* Ajuste manual para bajar los iconos un poco */
   padding-bottom: 0; /* Eliminar padding inferior para reservar ese espacio */
 }
 .safe-left {
@@ -106,7 +109,7 @@ header{position:sticky;
   box-shadow:0 2px 6px rgba(0,0,0,.08);top: calc(env(safe-area-inset-top, 0px) + 52px);
 }
 .bar{display:flex;justify-content:center;align-items:center;gap:10px;
-  height:52px;padding:0 16px;}
+  height:52px;padding:0 0px;}
 .bar h1{font-size:1.4rem;font-weight:700;margin:0;}
 /* =========================================================
    CABECERA
@@ -132,10 +135,11 @@ header{position:sticky;
   margin-right: 8px; /* Espacio entre el icono y el texto "ABCD²" */
 }
 .pill{
-  display:inline-flex;align-items:center;justify-content:center;
-  min-width:38px;height:18px;padding:4px 8px;
-  border-radius:999px;font-size:13px;font-weight:700;
-  border:1px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  display:inline-flex; align-items:center; justify-content:center;
+  min-width:38px; height:25px; padding:6px 10px;
+  border-radius:999px; font-size:13px; font-weight:700;
+  border:1px solid transparent; background:#dbeafe; color:#1e3a8a;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
 .pill-ok{background:#dcfce7;color:#065f46;border-color:#86efac;}
 .pill-warn{background:#fef3c7;color:#92400e;border-color:#fde68a;}

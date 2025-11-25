@@ -26,6 +26,7 @@
   --chip-bg:#eef6ff; --chip-ink:#1e3a8a;
   --azul-institucional:#0f3d83;
 }
+*{box-sizing:border-box}
 
 /* =========================================================
    SAFE-TOP
@@ -51,7 +52,7 @@
   justify-content: space-between;
   align-items: flex-start; 
   /* Añadir un padding-top para empujar los iconos ligeramente hacia abajo y no pegarlos al borde */
-  padding-top: 2px; /* Ajuste manual para bajar los iconos un poco */
+  padding-top: 5px; /* Ajuste manual para bajar los iconos un poco */
   padding-bottom: 0; /* Eliminar padding inferior para reservar ese espacio */
 }
 .safe-left {
@@ -165,19 +166,11 @@ header {
 }
 
 .pill{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-width:38px;
-  height:28px;
-  padding:4px 8px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:700;
-  border:1px solid transparent;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+  display:inline-flex; align-items:center; justify-content:center;
+  min-width:38px; height:25px; padding:6px 10px;
+  border-radius:999px; font-size:13px; font-weight:700;
+  border:1px solid transparent; background:#dbeafe; color:#1e3a8a;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
 .pill-ok{background:#dcfce7;color:#065f46;border-color:#86efac;}
 .pill-warn{background:#fef3c7;color:#92400e;border-color:#fde68a;}
