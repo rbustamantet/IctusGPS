@@ -11,20 +11,17 @@
 <title>ABCD² — Riesgo de ictus tras AIT</title>
 <style>
 :root{
-  --bg:#f8fafc; --ink:#0f172a; --muted:#64748b;
+  --bg:#f9fafc;
+  --ink:#0e1a33;
+  --accent-dark:#0f3d83;
+  --accent-light:#2563eb;
+  --muted:#64748b;
   --card:#ffffff; --ring:#c7dbff; --borde:#dbeafe;
   --ok:#166534; --ok-bg:#e9fce7; --ok-ring:#bbf7d0;
   --mid:#92400e; --mid-bg:#fff7ed; --mid-ring:#fed7aa;
   --bad:#991b1b; --bad-bg:#fef2f2; --bad-ring:#fecaca;
   --accent:#1e3a8a; --accent-soft:#e6f0ff;
-}
-:root{
-  --bg:#f9fafc;
-  --ink:#0e1a33;
-  --accent-dark:#0f3d83;
-  --accent-light:#2563eb;
-  --border:#e5e9f2;
-  --muted:#64748b;
+  --azul-institucional:#0f3d83;
 }
 *{box-sizing:border-box}
 
@@ -37,7 +34,7 @@
   left: 0;
   width: 100%;
   height: calc(env(safe-area-inset-top, 0px) + 60px);
-  background: var(--accent-dark);
+  background: var(--azul-institucional);
   z-index: 1001;
   display: flex;
   align-items: flex-start;
@@ -122,10 +119,11 @@ header {
   font-weight: 700;
   color: #fff;
 }
-
 /* =========================================================
    CABECERA
 ========================================================= */
+/* ... (reglas existentes) ... */
+
 
 .title {
   display: flex; /* <-- NUEVO: Habilita flexbox para alinear el icono */
@@ -152,15 +150,14 @@ header {
 .pill-bad  {background:#fee2e2; color:#991b1b; border-color:#fecaca;}   /* rojo */
 
 
-
-html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
-  font-family:Verdana, Geneva, Tahoma, sans-serif;font-size:15px}
 /* INTRO */
 .intro{max-width:980px;margin-inline:auto;padding:52px 16px 0;color:var(--muted);
   font-size:.95rem;line-height:1.45;text-align:justify;}
 .intro strong{color:var(--accent);}
-/* Layout */
-.wrap{max-width:980px;margin:14px auto 40px;padding:16px 14px}
+
+/* ===== CUERPO ===== */
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Verdana, Geneva, sans-serif;}
+.wrap{max-width:980px;margin:16px auto 48px;padding:12px 16px;}
 .sub{color:var(--muted);margin:2px 0 12px;font-size: 0.9rem}
 .panel{background:#fff;border:1px solid var(--borde);border-radius:16px;padding:14px;
        box-shadow:0 8px 22px rgba(31,86,179,.06)}
@@ -224,14 +221,13 @@ select:focus{outline:none;box-shadow:0 0 0 4px var(--accent-soft)}
 
 </head>
 <body>
- <!-- Barra superior segura -->
+<!-- SAFE-TOP -->
 <div class="safe-top">
   <div class="safe-content">
     <div class="safe-left">
       <img src="../iconos/escalasico.png" alt="Icono Escalas" class="safe-mini">
       <img src="../img/topbar.png" alt="IctusGPS" class="safe-logo">
     </div>
-
     <div class="safe-actions">
       <a href="javascript:history.back()" class="safe-btn" title="Volver atrás">
         <img src="../iconos/atrastransparente.png" alt="Atrás" class="safe-icon">
@@ -242,12 +238,10 @@ select:focus{outline:none;box-shadow:0 0 0 4px var(--accent-soft)}
     </div>
   </div>
 </div>
+
 <header>
-  <div class="bar">
-    <div class="title">
-        <img src="../iconos/abcd2.png" alt="ABCD2">
-        ABCD²
-    </div>
+  <div class="bar">
+    <div class="title"><img src="../iconos/abcd2.png" alt="ABCD²">ABCD²</div>
     <output id="pill" class="pill" aria-live="polite" aria-atomic="true" aria-label="Puntuación ABCD²">—</output>
   </div>
 </header>

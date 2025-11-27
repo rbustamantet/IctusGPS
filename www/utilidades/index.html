@@ -28,6 +28,7 @@
   --ring:#3a69b8;
   --shadow:0 8px 18px rgba(0,0,0,.35);
   --radius:18px;
+  --azul-institucional: #0f3d83;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -40,102 +41,121 @@ body{
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   line-height:1.6;
+  margin:0;
+  padding-top:calc(env(safe-area-inset-top,0px) + 52px); /* ✅ Empuja el contenido bajo la barra */
 }
-/* =========================================================
-   SAFE-TOP
-========================================================= */
-:root { --azul-institucional: #0f3d83; }
 
+/* =========================================================
+   SAFE-TOP (FIJO 60 px + notch)
+========================================================= */
 .safe-top {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(env(safe-area-inset-top, 0px) + 52px);
+  height: calc(env(safe-area-inset-top) + 60px);
   background: var(--azul-institucional);
   z-index: 1001;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding-top: env(safe-area-inset-top, 0px);
+  padding-top: env(safe-area-inset-top);
 }
 
-.safe-content {
-  width: 100%;
-  max-width: 1080px;
+.safe-content{
+  width:100%;
+  max-width:1080px;
   padding: 6px 16px 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
 }
 
-.safe-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.safe-mini {
-  width: 44px;
-  height: 44px;
-  object-fit: contain;
-  padding: 4px;
-  box-shadow: 0 0 4px rgba(0,0,0,0.1);
-}
-.safe-logo {
-  height: 44px;
-  width: auto;
+.safe-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
-.safe-actions {
-  display: flex;
-  gap: 10px;
-}
-.safe-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  background: rgba(255,255,255,0.15);
-  border: 1px solid white;
-  border-radius: 50%;
-  transition: background .25s, border-color .25s, transform .1s;
-}
-.safe-btn:hover {
-  background: #01c5fe;
-  border: 1px solid white;
-}
-.safe-btn:active { transform: scale(0.95); }
-.safe-icon {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
+.safe-mini{
+  width:44px;
+  height:44px;
+  object-fit:contain;
+  padding:4px;
+  box-shadow:0 0 4px rgba(0,0,0,0.1);
 }
 
-/* Cabecera */
+.safe-logo{
+  height:44px;
+  width:auto;
+}
+
+.safe-actions{
+  display:flex;
+  gap:10px;
+}
+
+.safe-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:40px;
+  height:40px;
+  background:rgba(255,255,255,0.15);
+  border:1px solid white;
+  border-radius:50%;
+  transition:background .25s, border-color .25s, transform .1s;
+}
+
+.safe-btn:hover{
+  background:#01c5fe;
+}
+
+.safe-btn:active{
+  transform:scale(0.95);
+}
+
+.safe-icon{
+  width:32px; 
+  height:32px;
+  object-fit:contain;
+}
+
+/* =========================================================
+   CABECERA STICKY
+========================================================= */
 header{
   position:sticky;
-  top:0;
-  z-index:20;
+  top:calc(env(safe-area-inset-top) + 52px);
+  z-index:1002;
   backdrop-filter:blur(6px);
-  background:var(--accent-dark);
+  background:var(--azul-institucional);
   border-bottom:1px solid rgba(255,255,255,.08);
   box-shadow:0 2px 6px rgba(0,0,0,0.08);
   color:#fff;
 }
+
 .bar{
   display:flex;
   justify-content:center;
   align-items:center;
-  padding:8px 18px;
+  gap:10px;
+  height:52px;
+  padding:0 16px;
 }
-.tittle{
+
+.title{
+  display:flex;
+  align-items:center;
   font-size:1.4rem;
   font-weight:700;
-  letter-spacing:.2px;
   color:#fff;
-  text-align:center;
-  text-transform:none; /* 🔹 estilo oración */
+}
+
+.title img{
+  width:32px;
+  height:32px;
+  margin-right:8px;
 }
 
 /* Contenido */
