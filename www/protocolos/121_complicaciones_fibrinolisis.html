@@ -24,6 +24,7 @@
   --alert:#b30000;
   --alert-bg:#fef3f2;
   --alert-border:#f5c2c0;
+  --azul-institucional:#0f3d83;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -39,27 +40,54 @@ body{
 }
 
 /* =========================================================
-   BARRA SUPERIOR (safe-top)
+   SAFE-TOP
 ========================================================= */
-:root{--azul-institucional:#0f3d83;}
 .safe-top{
-  position:fixed;top:0;left:0;
+  position:fixed;
+  top:0; left:0;
   width:100%;
-  height:calc(env(safe-area-inset-top,0px)+52px);
+  height:calc(env(safe-area-inset-top,0px) + 52px);
   background:var(--azul-institucional);
   z-index:1001;
-  display:flex;align-items:center;justify-content:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   padding-top:env(safe-area-inset-top,0px);
 }
+
 .safe-content{
-  width:100%;max-width:1080px;
+  width:100%;
+  max-width:1080px;
   padding:6px 16px 8px;
-  display:flex;justify-content:space-between;align-items:center;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
-.safe-left{display:flex;align-items:center;gap:10px;}
-.safe-mini{width:44px;height:44px;object-fit:contain;padding:4px;box-shadow:0 0 4px rgba(0,0,0,0.1);}
-.safe-logo{height:44px;width:auto;}
-.safe-actions{display:flex;gap:10px;}
+
+.safe-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.safe-mini{
+  width:44px;
+  height:44px;
+  object-fit:contain;
+  padding:4px;
+  box-shadow:0 0 4px rgba(0,0,0,0.1);
+}
+
+.safe-logo{
+  height:44px;
+  width:auto;
+}
+
+.safe-actions{
+  display:flex;
+  gap:10px;
+}
+
 .safe-btn {
   display: inline-flex;
   align-items: center;
@@ -96,14 +124,18 @@ header{
   color:#fff;
 }
 .bar{
-  display:flex;justify-content:center;align-items:center;
-  padding:4px 18px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:8px 18px;
 }
 .title{
-  font-size:1.25rem;font-weight:700;
-  letter-spacing:.2px;text-align:center;color:#fff;
+  font-size:1.3rem;
+  font-weight:700;
+  color:#fff;
+  text-align:center;
+  text-transform:none;
 }
-
 /* =========================================================
    CUERPO PRINCIPAL
 ========================================================= */

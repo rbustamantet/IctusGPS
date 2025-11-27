@@ -22,6 +22,8 @@
   --accent-dark:#0f3d83;
   --border:#e5e9f2;
   --alert:#b30000;
+  --alert-bg:#fef3f2;
+  --alert-border:#f5c2c0;
   --azul-institucional:#0f3d83;
 }
 
@@ -36,7 +38,7 @@ body{
   text-rendering: optimizeLegibility;
   line-height:1.6;
   margin:0;
-  padding-top:calc(env(safe-area-inset-top,0px) + 52px);
+  padding-top:calc(env(safe-area-inset-top,0px) + 52px); /* ✅ Empuja el contenido bajo la barra */
 }
 
 /* =========================================================
@@ -130,7 +132,7 @@ header{
   padding:8px 18px;
 }
 .title{
-  font-size:1.25rem;
+  font-size:1.3rem;
   font-weight:700;
   color:#fff;
   text-align:center;
