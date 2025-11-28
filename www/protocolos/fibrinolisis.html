@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f3d83">
+<title>Checklist Fibrinólisis IV</title>
+
+<link rel="manifest" href="../site.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
+<link rel="shortcut icon" href="../iconos/ictusgps.png">
+
+<style>
+:root{
+  --bg:#f9fafc;
+  --ink:#0e1a33;
+  --muted:#64748b;
+  --accent:#0f3d83;
+  --accent-light:#d7e3f8;
+  --accent-dark:#0d2d63;
+  --border:#e5e9f2;
+
+  --card-bg:#0f3d83;
+  --card-active:#01c5fe;
+  --shadow:0 8px 18px rgba(0,0,0,.15);
+  --radius:18px;
+}
+
+/* Reset */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+
+/* Fuente y fondo */
+body{
+  font-family: Verdana, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height:1.6;
+}
+
+/* =========================================================
+   SAFE-TOP (igual que en toda la app)
+========================================================= */
+:root { --azul-institucional: #0f3d83; }
+
+.safe-top{
+  position:fixed;
+  top:0;left:0;
+  width:100%;
+  height:calc(env(safe-area-inset-top,0px) + 52px);
+  background:var(--azul-institucional);
+  z-index:1001;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding-top:env(safe-area-inset-top,0px);
+}
+.safe-content{
+  width:100%;
+  max-width:1080px;
+  padding:6px 16px 8px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.safe-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.safe-mini{
+  width:44px;height:44px;
+  object-fit:contain;
+  padding:4px;
+}
+.safe-logo{
+  height:44px;width:auto;
+}
+.safe-actions{
+  display:flex;gap:10px;
+}
+.safe-btn{
+  display:inline-flex;
+  align-items:center;justify-content:center;
+  width:40px;height:40px;
+  background:rgba(255,255,255,0.15);
+  border:1px solid white;
+  border-radius:50%;
+  transition:.25s;
+}
+.safe-btn:hover{ background:#01c5fe; }
+.safe-icon{
+  width:32px;height:32px;
+  object-fit:contain;
+}
+
+/* Empuja contenido real */
+body{
+  padding-top:calc(env(safe-area-inset-top,0px) + 52px);
+}
+
+/* Cabecera */
+header{
+  position:sticky;top:0;z-index:20;
+  backdrop-filter:blur(6px);
+  background:var(--accent);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.bar{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:10px 18px;
+}
+.title{
+  font-size:1.35rem;
+  font-weight:700;
+  color:#fff;
+}
+
+/* =========================================================
+   CUERPO PRINCIPAL
+========================================================= */
+main{
+  max-width:1080px;
+  margin:0 auto;
+  padding:1.2rem 1.25rem 2.5rem;
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.04);
+}
+
+/* =========================================================
+   TARJETAS MODO GUARDIA
+========================================================= */
+.block{
+  background:var(--card-bg);
+  padding:16px 18px;
+  border-radius:var(--radius);
+  color:#fff;
+  box-shadow:var(--shadow);
+  border:1px solid rgba(255,255,255,.08);
+  margin-bottom:16px;
+  cursor:pointer;
+  transition:background .25s, transform .2s;
+}
+.block:hover{
+  background:var(--card-active);
+  transform:translateY(-2px);
+}
+.block-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.block-header .info{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.block-header img{
+  width:44px;height:44px;
+  border-radius:50%;
+  background:white;
+  padding:4px;
+}
+.block-title{
+  font-size:1.05rem;
+  font-weight:700;
+}
+.block-arrow{
+  font-size:1.8rem;
+  transition:transform .25s;
+}
+.block.open .block-arrow{
+  transform:rotate(90deg);
+}
+
+/* Contenido interno */
+.block-content{
+  margin-top:12px;
+  padding-left:4px;
+  display:none;
+  animation:fade .25s ease;
+}
+.block.open .block-content{
+  display:block;
+}
+
+.block-content ul{
+  padding-left:18px;
+  margin-top:6px;
+}
+.block-content li{
+  margin-bottom:6px;
+}
+
+/* Animación */
+@keyframes fade{
+  from{opacity:0;transform:translateY(-4px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+footer{
+  width:100vw;
+  margin-top:2rem;
+  padding:1.5rem 0;
+  border-top:1px solid #e5e7eb;
+  background:#ffffff;
+  text-align:center;
+}
+footer img{
+  max-width:380px;
+  height:auto;
+  opacity:.96;
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     SAFE-TOP
+========================================================= -->
+<div class="safe-top">
+  <div class="safe-content">
+    <div class="safe-left">
+      <img src="../iconos/fibrinolisis.png" class="safe-mini" alt="Fibrinólisis">
+      <img src="../img/topbar.png" class="safe-logo" alt="IctusGPS">
+    </div>
+
+    <div class="safe-actions">
+      <a href="javascript:history.back()" class="safe-btn" title="Volver atrás">
+        <img src="../iconos/atrastransparente.png" class="safe-icon">
+      </a>
+      <a href="../index.html" class="safe-btn" title="Inicio">
+        <img src="../iconos/hometransparente.png" class="safe-icon">
+      </a>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="bar">
+    <div class="title">Checklist Fibrinólisis IV</div>
+  </div>
+</header>
+
+<main>
+
+<!-- =========================================================
+     BLOQUES MODO GUARDIA
+========================================================= -->
+
+<!-- 1. Confirmación diagnóstica -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/fibrinolisis.png">
+      <span class="block-title">1. Confirmación diagnóstica</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+
+  <div class="block-content">
+    <ul>
+      <li>Déficit neurológico focal compatible con ictus isquémico.</li>
+      <li>Inicio o LKW ≤ 4,5 h.</li>
+      <li>TC sin HIC y ASPECTS ≥ 6.</li>
+      <li>No confusión con crisis, encefalitis o aórtica.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 2. Constantes -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/fibrinolisis.png">
+      <span class="block-title">2. Constantes y exploración</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+
+  <div class="block-content">
+    <ul>
+      <li>PA < 185/110 mmHg (controlar si preciso).</li>
+      <li>Glucemia 50–400 mg/dL.</li>
+      <li>Temperatura < 38,5 ºC.</li>
+      <li>NIHSS y peso documentados.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 3. Analítica -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/fibrinolisis.png">
+      <span class="block-title">3. Analítica imprescindible</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+
+  <div class="block-content">
+    <ul>
+      <li>Glucemia confirmada.</li>
+      <li>Hemograma.</li>
+      <li>INR/TTPA si AVK o sospecha coagulopatía.</li>
+      <li>Función renal si toma DOAC.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 4. Exclusiones absolutas -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/fibrinolisis.png">
+      <span class="block-title">4. Criterios de exclusión absolutos</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+
+  <div class="block-content">
+    <ul>
+      <li>HIC previa reciente o lesión vascular activa.</li>
+      <li>Neoplasia SNC de alto riesgo.</li>
+      <li>Cirugía o trauma mayor < 14 días.</li>
+      <li>Hemorragia activa o reciente (< 21 días).</li>
+      <li>PA no controlable > 185/110 mmHg.</li>
+      <li>INR > 1,7 o plaquetas < 100.000.</li>
+      <li>DOAC < 48 h sin niveles normales.</li>
+      <li>Sospecha endocarditis infecciosa.</li>
+      <li>Ictus previo < 3 meses.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 5. Precauciones -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/fibrinolisis.png">
+      <span class="block-title">5. Exclusiones relativas / Precauciones</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+
+  <div class="block-content">
+    <ul>
+      <li>Edad > 80 años con criterios extendidos.</li>
+      <li>Diabetes + ictus previo.</li>
+      <li>ASPECTS bajo pero no extenso.</li>
+      <li>Embarazo / posparto reciente.</li>
+      <li>Trombocitopenia 100–150k.</li>
+      <li>Heparina terapéutica < 24 h.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 6. Tenecteplasa -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/fibrinolisis.png">
+      <span class="block-title">6. Tenecteplasa</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+
+  <div class="block-content">
+    <ul>
+      <li>No ictus posterior sin imágenes avanzadas.</li>
+      <li>No contraindicación a trombectomía.</li>
+      <li>Dosis: 0,25 mg/kg bolo (máx. 25 mg).</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 7. rtPA -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/fibrinolisis.png">
+      <span class="block-title">7. rtPA (alteplasa)</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+
+  <div class="block-content">
+    <ul>
+      <li>Dosis: 0,9 mg/kg (10% bolo + 60 min; máx. 90 mg).</li>
+      <li>Control estricto de PA durante perfusión.</li>
+      <li>Vía venosa segura.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 8. Monitorización -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/fibrinolisis.png">
+      <span class="block-title">8. Monitorización post-trombolisis</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+
+  <div class="block-content">
+    <ul>
+      <li>PA: 15 min × 2 h → 30 min × 6 h → 1 h × 16 h.</li>
+      <li>No AAS ni heparina primeras 24 h.</li>
+      <li>TC control a 24 h o antes si deterioro.</li>
+      <li>Vigilancia neurológica y de signos HIC.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 9. Documentación -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/fibrinolisis.png">
+      <span class="block-title">9. Documentación obligatoria</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+
+  <div class="block-content">
+    <ul>
+      <li>Hora inicio / LKW.</li>
+      <li>Hora TC.</li>
+      <li>Hora bolo y perfusión.</li>
+      <li>Consentimiento verbal documentado.</li>
+      <li>Motivo si no se administra fibrinólisis.</li>
+    </ul>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <img src="uibanner.png" alt="Unidad de Ictus Málaga">
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', ()=>{
+
+  // Botón atrás robusto
+  const backBtn = document.querySelector('.safe-btn[title="Volver atrás"]');
+  if(backBtn){
+    backBtn.addEventListener('click', e=>{
+      e.preventDefault();
+      if(history.length > 1) history.back();
+      else location.href='../index.html';
+    });
+  }
+
+  // Desplegables Modo Guardia
+  document.querySelectorAll('.block').forEach(block=>{
+    block.addEventListener('click', ()=>{
+      block.classList.toggle('open');
+    });
+  });
+
+});
+</script>
+
+</body>
+</html>

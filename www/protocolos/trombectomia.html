@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f3d83">
+<title>Criterios de Trombectomía</title>
+
+<link rel="manifest" href="../site.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
+<link rel="shortcut icon" href="../iconos/ictusgps.png">
+
+<style>
+:root{
+  --bg:#f9fafc;
+  --ink:#0e1a33;
+  --muted:#64748b;
+  --accent:#0f3d83;
+  --accent-light:#d7e3f8;
+  --accent-dark:#0d2d63;
+  --border:#e5e9f2;
+
+  --card-bg:#0f3d83;
+  --card-active:#01c5fe;
+  --shadow:0 8px 18px rgba(0,0,0,.15);
+  --radius:18px;
+}
+
+/* Reset */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+
+/* Fuente y fondo */
+body{
+  font-family: Verdana, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height:1.6;
+}
+
+/* =========================================================
+   SAFE-TOP
+========================================================= */
+:root { --azul-institucional: #0f3d83; }
+
+.safe-top{
+  position:fixed;
+  top:0;left:0;
+  width:100%;
+  height:calc(env(safe-area-inset-top,0px) + 52px);
+  background:var(--azul-institucional);
+  z-index:1001;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding-top:env(safe-area-inset-top,0px);
+}
+.safe-content{
+  width:100%;
+  max-width:1080px;
+  padding:6px 16px 8px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.safe-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.safe-mini{
+  width:44px;height:44px;
+  object-fit:contain;
+  padding:4px;
+}
+.safe-logo{
+  height:44px;width:auto;
+}
+.safe-actions{
+  display:flex;gap:10px;
+}
+.safe-btn{
+  display:inline-flex;
+  align-items:center;justify-content:center;
+  width:40px;height:40px;
+  background:rgba(255,255,255,0.15);
+  border:1px solid white;
+  border-radius:50%;
+  transition:.25s;
+}
+.safe-btn:hover{ background:#01c5fe; }
+.safe-icon{
+  width:32px;height:32px;
+  object-fit:contain;
+}
+
+/* Empuja el contenido real */
+body{
+  padding-top:calc(env(safe-area-inset-top,0px) + 52px);
+}
+
+/* Cabecera */
+header{
+  position:sticky;top:0;z-index:20;
+  backdrop-filter:blur(6px);
+  background:var(--accent);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.bar{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:10px 18px;
+}
+.title{
+  font-size:1.35rem;
+  font-weight:700;
+  color:#fff;
+}
+
+/* =========================================================
+   CUERPO PRINCIPAL
+========================================================= */
+main{
+  max-width:1080px;
+  margin:0 auto;
+  padding:1.2rem 1.25rem 2.5rem;
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.04);
+}
+
+/* =========================================================
+   TARJETAS MODO GUARDIA
+========================================================= */
+.block{
+  background:var(--card-bg);
+  padding:16px 18px;
+  border-radius:var(--radius);
+  color:#fff;
+  box-shadow:var(--shadow);
+  border:1px solid rgba(255,255,255,.08);
+  margin-bottom:16px;
+  cursor:pointer;
+  transition:background .25s, transform .2s;
+}
+.block:hover{
+  background:var(--card-active);
+  transform:translateY(-2px);
+}
+.block-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.block-header .info{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.block-header img{
+  width:44px;height:44px;
+  border-radius:50%;
+  background:white;
+  padding:4px;
+}
+.block-title{
+  font-size:1.05rem;
+  font-weight:700;
+}
+.block-arrow{
+  font-size:1.8rem;
+  transition:transform .25s;
+}
+.block.open .block-arrow{
+  transform:rotate(90deg);
+}
+
+/* Contenido interno */
+.block-content{
+  margin-top:12px;
+  padding-left:4px;
+  display:none;
+  animation:fade .25s ease;
+}
+.block.open .block-content{
+  display:block;
+}
+
+.block-content ul{
+  padding-left:18px;
+  margin-top:6px;
+}
+.block-content li{
+  margin-bottom:6px;
+}
+
+/* Animación */
+@keyframes fade{
+  from{opacity:0;transform:translateY(-4px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+footer{
+  width:100vw;
+  margin-top:2rem;
+  padding:1.5rem 0;
+  border-top:1px solid #e5e7eb;
+  background:#ffffff;
+  text-align:center;
+}
+footer img{
+  max-width:380px;
+  height:auto;
+  opacity:.96;
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     SAFE-TOP
+========================================================= -->
+<div class="safe-top">
+  <div class="safe-content">
+    <div class="safe-left">
+      <img src="../iconos/fibrinolisis.png" class="safe-mini" alt="Trombectomía">
+      <img src="../img/topbar.png" class="safe-logo" alt="IctusGPS">
+    </div>
+
+    <div class="safe-actions">
+      <a href="javascript:history.back()" class="safe-btn" title="Volver atrás">
+        <img src="../iconos/atrastransparente.png" class="safe-icon">
+      </a>
+      <a href="../index.html" class="safe-btn" title="Inicio">
+        <img src="../iconos/hometransparente.png" class="safe-icon">
+      </a>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="bar">
+    <div class="title">Criterios de Trombectomía</div>
+  </div>
+</header>
+
+<main>
+
+<!-- =========================================================
+     BLOQUES MODO GUARDIA
+========================================================= -->
+
+<!-- 1. Selección del paciente -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/fibrinolisis.png">
+      <span class="block-title">1. Selección del paciente</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+  <div class="block-content">
+    <ul>
+      <li>Déficit neurológico focal grave o potencialmente discapacitante.</li>
+      <li>NIHSS habitualmente ≥ 6 (flexible según clínica).</li>
+      <li>Clínica compatible con oclusión proximal de gran vaso.</li>
+      <li>Candidato a tratamiento agresivo según situación basal y comorbilidad.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 2. Imágenes requeridas -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/fibrinolisis.png">
+      <span class="block-title">2. Estudios de imagen obligatorios</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+  <div class="block-content">
+    <ul>
+      <li>TC craneal sin hemorragia.</li>
+      <li>Angio-TC: oclusión en carótida interna, M1, M2 proximal, basilar o vertebral.</li>
+      <li>Perfusión/CBF (si > 6 h): penumbra significativa y núcleo bajo.</li>
+      <li>ASPECTS ≥ 6 en TC o núcleo < 70 ml en perfusión.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 3. Ventanas temporales -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/fibrinolisis.png">
+      <span class="block-title">3. Ventanas temporales</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+  <div class="block-content">
+    <ul>
+      <li><strong>0–6 h:</strong> Indicada si oclusión proximal + ASPECTS adecuado.</li>
+      <li><strong>6–24 h:</strong> Selección por imagen avanzada (DAWN/DEFUSE 3).</li>
+      <li>LKW aplicable en wake-up con imagen favorable.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 4. Criterios anatómicos -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/fibrinolisis.png">
+      <span class="block-title">4. Criterios anatómicos de oclusión</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+  <div class="block-content">
+    <ul>
+      <li>ACI terminal / segmento supraclinoideo.</li>
+      <li>ACM M1 o M2 proximal.</li>
+      <li>Basilar u oclusiones vertebrobasilares con clínica grave.</li>
+      <li>Circulación posterior con deterioro neurológico significativo.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 5. Criterios funcionales -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/fibrinolisis.png">
+      <span class="block-title">5. Criterios funcionales</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+  <div class="block-content">
+    <ul>
+      <li>Independencia basal (mRS 0–2).</li>
+      <li>Déficit potencialmente discapacitante aunque NIHSS bajo.</li>
+      <li>Buena expectativa de vida y comorbilidad controlada.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 6. Contraindicaciones -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/fibrinolisis.png">
+      <span class="block-title">6. Contraindicaciones principales</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+  <div class="block-content">
+    <ul>
+      <li>Ausencia de oclusión arterial tratable.</li>
+      <li>ASPECTS muy bajo sin beneficio esperado.</li>
+      <li>Coma profundo sin correlación imagenológica recuperable.</li>
+      <li>Hemorragia o riesgo de HIC no asumible.</li>
+      <li>Imposibilidad técnica (acceso vascular, tortuosidad extrema).</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 7. Situaciones especiales -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/fibrinolisis.png">
+      <span class="block-title">7. Situaciones especiales</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+  <div class="block-content">
+    <ul>
+      <li>M2 distal: considerar si clínica grave/discapacitante.</li>
+      <li>Circulación posterior: indicación más amplia.</li>
+      <li>Wake-up: si mismatch favorable.</li>
+      <li>ACM dominante con NIHSS moderado.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 8. Preparación -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/fibrinolisis.png">
+      <span class="block-title">8. Preparación previa al procedimiento</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+  <div class="block-content">
+    <ul>
+      <li>TA objetivo < 185/110 mmHg.</li>
+      <li>Vía venosa amplia.</li>
+      <li>Glucemia corregida.</li>
+      <li>Consentimiento verbal si posible.</li>
+      <li>Coordinar traslado urgente al centro extractor.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 9. Post-procedimiento -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/fibrinolisis.png">
+      <span class="block-title">9. Manejo post-trombectomía</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+  <div class="block-content">
+    <ul>
+      <li>Control neurológico estrecho.</li>
+      <li>TA según protocolo post-procedimiento.</li>
+      <li>TC de control si deterioro o tras 24 h.</li>
+      <li>Evitar hipotensión o hipoxemia.</li>
+      <li>Evaluar necesidad de antihipertensivos, anticoagulación o AAS según caso.</li>
+    </ul>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <img src="uibanner.png" alt="Unidad de Ictus Málaga">
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', ()=>{
+
+  // Botón atrás robusto
+  const backBtn=document.querySelector('.safe-btn[title="Volver atrás"]');
+  if(backBtn){
+    backBtn.addEventListener('click',e=>{
+      e.preventDefault();
+      if(history.length>1) history.back();
+      else location.href='../index.html';
+    });
+  }
+
+  // Desplegables
+  document.querySelectorAll('.block').forEach(block=>{
+    block.addEventListener('click',()=>block.classList.toggle('open'));
+  });
+
+});
+</script>
+
+</body>
+</html>

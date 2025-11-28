@@ -3,305 +3,309 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f3d83">
+<title>Utilidad: Tratamiento Antitrombótico Aterotrombótico</title>
+
 <link rel="manifest" href="../site.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
 <link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
 <link rel="shortcut icon" href="../iconos/ictusgps.png">
-<meta name="theme-color" content="#0f3d83">
 
-<title>Sección en construcción · Ictus GPS</title>
-<meta name="color-scheme" content="light">
 <style>
-  :root{
-    --ink:#0f172a;
-    --muted:#475569;
-    --bg:#f4f7fb;
-    --card:#ffffff;
-    --brand:#1e3a8a;
-    --brand-soft:#dbeafe;
-    --ring:#93c5fd;
-    --shadow:0 8px 20px rgba(2,8,23,.08);
-    --radius:22px;
-      --bg:#f8fafc; 
+:root{
+  --bg:#f9fafc;
   --ink:#0e1a33;
-
-  --azul:#0f3d83;
-  --azul-institucional:#0f3d83;
-
-  --accent-dark:#0f3d83;
-  --accent-light:#2563eb;
-
-  --border:#e5e9f2;
   --muted:#64748b;
+  --accent:#0f3d83;
+  --accent-light:#d7e3f8;
+  --accent-dark:#0d2d63;
+  --border:#e5e9f2;
 
-  --ok:#166534;
-  --ok-bg:#e9fce7;
-  --ok-ring:#bbf7d0;
+  --card-bg:#0f3d83;
+  --card-active:#01c5fe;
+  --shadow:0 8px 18px rgba(0,0,0,.15);
+  --radius:18px;
 
-  --mid:#92400e;
-  --mid-bg:#fff7ed;
-  --mid-ring:#fed7aa;
-
-  --bad:#991b1b;
-  --bad-bg:#fef2f2;
-  --bad-ring:#fecaca;
-
-  --gris:#6b7280;
-  --borde:#e5e7eb;
-  --error:#b91c1c;
-
-  --card:#ffffff;
-  --shadow:rgba(15,23,42,.06);
-  }
-*{box-sizing:border-box}
-html,body{
-  margin:0;
-  padding:0;
-  background:var(--bg);
-  color:var(--ink);
-  font-family: Verdana, Geneva, Tahoma, sans-serif
+  --modal-bg:rgba(0,0,0,0.45);
+  --modal-card:#ffffff;
 }
-.wrap{max-width:1100px;margin:0 auto;padding:.2rem}
+
+/* Reset */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+
+/* Fuente y fondo */
+body{
+  font-family: Verdana, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height:1.6;
+}
 
 /* =========================================================
-   SAFE-TOP (FIJO 60 px + notch)
+   SAFE-TOP
 ========================================================= */
-.safe-top {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: calc(env(safe-area-inset-top) + 60px);
-  background: var(--azul-institucional);
-  z-index: 1001;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: env(safe-area-inset-top);
-}
+:root { --azul-institucional:#0f3d83; }
 
+.safe-top{
+  position:fixed;
+  top:0;left:0;
+  width:100%;
+  height:calc(env(safe-area-inset-top,0px) + 52px);
+  background:var(--azul-institucional);
+  z-index:1001;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding-top:env(safe-area-inset-top,0px);
+}
 .safe-content{
   width:100%;
   max-width:1080px;
-  padding: 6px 16px 8px;
+  padding:6px 16px 8px;
   display:flex;
   justify-content:space-between;
-  align-items:flex-start;
+  align-items:center;
 }
-
 .safe-left{
   display:flex;
   align-items:center;
   gap:10px;
 }
-
 .safe-mini{
-  width:44px;
-  height:44px;
+  width:44px;height:44px;
   object-fit:contain;
   padding:4px;
-  box-shadow:0 0 4px rgba(0,0,0,0.1);
 }
-
 .safe-logo{
-  height:44px;
-  width:auto;
+  height:44px;width:auto;
 }
-
 .safe-actions{
-  display:flex;
-  gap:10px;
+  display:flex;gap:10px;
 }
-
 .safe-btn{
   display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width:40px;
-  height:40px;
+  align-items:center;justify-content:center;
+  width:40px;height:40px;
   background:rgba(255,255,255,0.15);
-  border:1px solid white;
+  border:1px solid #fff;
   border-radius:50%;
-  transition:background .25s, border-color .25s, transform .1s;
+  transition:.25s;
 }
-
-.safe-btn:hover{
-  background:#01c5fe;
-}
-
-.safe-btn:active{
-  transform:scale(0.95);
-}
-
+.safe-btn:hover{ background:#01c5fe; }
 .safe-icon{
-  width:32px; 
-  height:32px;
+  width:32px;height:32px;
   object-fit:contain;
 }
 
-/* =========================================================
-   CABECERA STICKY
-========================================================= */
-header{
-  position:sticky;
-  top:calc(env(safe-area-inset-top) + 52px);
-  z-index:1002;
-  backdrop-filter:blur(6px);
-  background:var(--azul-institucional);
-  border-bottom:1px solid rgba(255,255,255,.08);
-  box-shadow:0 2px 6px rgba(0,0,0,0.08);
-  color:#fff;
+/* Empuja contenido real */
+body{
+  padding-top:calc(env(safe-area-inset-top,0px) + 52px);
 }
 
+/* Cabecera */
+header{
+  position:sticky;top:0;z-index:20;
+  backdrop-filter:blur(6px);
+  background:var(--accent);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
 .bar{
   display:flex;
   justify-content:center;
   align-items:center;
-  gap:10px;
-  height:52px;
-  padding:0 16px;
+  padding:10px 18px;
 }
-
 .title{
-  display:flex;
-  align-items:center;
-  font-size:1.4rem;
+  font-size:1.25rem;
   font-weight:700;
   color:#fff;
+  text-align:center;
 }
 
-.title img{
-  width:32px;
-  height:32px;
-  margin-right:8px;
+/* =========================================================
+   CUERPO PRINCIPAL
+========================================================= */
+main{
+  max-width:1080px;
+  margin:0 auto;
+  padding:1.2rem 1.25rem 2.5rem;
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.04);
 }
 
-
-
-
-.wrap{
-  max-width:950px;
-  margin: 0 auto;               /* ✔ CENTRAR EN WEB */
-  background: white;
-  overflow:visible;     /* ✔ permite scroll */
-  padding:28px;
+/* =========================================================
+   TARJETAS UTILIDADES (Modo Guardia)
+========================================================= */
+.block{
+  background:var(--card-bg);
+  padding:16px 18px;
+  border-radius:var(--radius);
+  color:#fff;
+  box-shadow:var(--shadow);
+  border:1px solid rgba(255,255,255,.08);
+  margin-bottom:16px;
+  cursor:pointer;
+  transition:background .25s, transform .2s;
+}
+/* Bloques de herramientas / consideraciones generales */
+.block.tool-block{
+  background:#164a8a; /* Distinto del azul principal */
+  border-color:rgba(255,255,255,.14);
+}
+.block.tool-block:hover{
+  background:#1d5bb5;
 }
 
-
-  main{padding:28px; display:grid;overflow:visible;gap:22px}
-  .card {
-  display: grid;
-  grid-template-columns: .3fr .7fr;
-  align-items: center;       /* 🔹 centra verticalmente dentro del grid */
-  justify-items: center;     /* 🔹 centra horizontalmente cada celda */
-  gap: 24px;
-  background: var(--bg);
-  border: 1px solid #e5edff;
-  border-radius: 16px;
-  padding: 22px;
+/* Subtítulo de sección */
+.section-subtitle{
+  margin-top:1.8rem;
+  margin-bottom:0.3rem;
+  font-size:1.08rem;
+  font-weight:700;
+  color:var(--accent-dark);
+}
+.section-hint{
+  margin-bottom:1.2rem;
+  font-size:0.92rem;
+  color:var(--muted);
 }
 
+/* Badges de herramientas */
+.tool-badge{
+  display:inline-block;
+  margin-top:4px;
+  padding:2px 7px;
+  border-radius:999px;
+  font-size:0.75rem;
+  letter-spacing:.01em;
+  background:rgba(255,255,255,.15);
+  color:#e9f3ff;
+}
 
- /* Columna izquierda: texto */
-.card .content{
+.block:hover{
+  background:var(--card-active);
+  transform:translateY(-2px);
+}
+.block-header{
   display:flex;
-  flex-direction:column;
-  gap:14px;
+  align-items:center;
+  justify-content:space-between;
+}
+.block-header .info{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.block-header img{
+  width:44px;height:44px;
+  border-radius:50%;
+  background:#fff;
+  padding:4px;
+}
+.block-title{
+  font-size:1.02rem;
+  font-weight:700;
+}
+.block-arrow{
+  font-size:1.8rem;
+  transition:transform .25s;
+}
+.block.open .block-arrow{
+  transform:rotate(90deg);
 }
 
-/* Columna derecha: imagen ilustrativa */
-.card .illustration{
-  display:flex;
+/* Contenido interno */
+.block-content{
+  margin-top:12px;
+  padding-left:4px;
+  display:none;
+  animation:fade .25s ease;
+}
+.block.open .block-content{
+  display:block;
+}
+
+.block-content ul{
+  padding-left:18px;
+  margin-top:6px;
+}
+.block-content li{
+  margin-bottom:6px;
+}
+
+/* Botón Nota */
+.note-btn{
+  background:none;
+  border:none;
+  color:#cce7ff;
+  font-size:1.1rem;
+  cursor:pointer;
+  margin-left:4px;
+  padding:2px 4px;
+  border-radius:6px;
+  transition:color .2s;
+}
+.note-btn:hover{
+  color:#ffffff;
+}
+
+/* Modal */
+.modal-overlay{
+  display:none;
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:var(--modal-bg);
+  backdrop-filter:blur(2px);
+  z-index:2000;
   justify-content:center;
   align-items:center;
-  position:relative;
-  background: #1e3a8a;
-
+  padding:20px;
+}
+.modal{
+  background:var(--modal-card);
+  width:100%;
+  max-width:420px;
+  max-height:80vh;
+  overflow-y:auto;
+  border-radius:16px;
+  padding:20px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.25);
+  animation:fade .25s ease;
+}
+.modal h2{
+  margin-bottom:12px;
+  font-size:1.2rem;
+  color:var(--accent);
+}
+.modal-close{
+  position:absolute;
+  top:14px;
+  right:20px;
+  font-size:1.8rem;
+  background:none;
+  border:none;
+  cursor:pointer;
+  color:#444;
 }
 
-/* Columna izquierda: texto */
-.card .content{
-  display:flex;
-  flex-direction:column;
-  gap:14px;
+/* Animación */
+@keyframes fade{
+  from{opacity:0; transform:translateY(-4px);}
+  to{opacity:1; transform:translateY(0);}
 }
 
-/* Columna derecha: imagen ilustrativa */
-.card .illustration {
-  position: relative;
-  width: 172px;
-  height: 230px;
-  aspect-ratio: 4 / 3; /* mantiene proporción */
-  overflow: hidden;
-  border-radius: 14px;
-  box-shadow: 0 6px 18px rgba(0,0,0,.15);
-}
-
-/* ambas imágenes apiladas una sobre otra */
-.card .illustration img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: inherit;
-  opacity: 0;
-  animation: blurSwap 12s ease-in-out infinite;
-}
-
-/* la primera inicia visible */
-.card .illustration img:first-child {
-  animation-delay: 0s;
-}
-
-/* la segunda aparece a mitad de ciclo */
-.card .illustration img:last-child {
-  animation-delay: 6s;
-}
-
-@keyframes blurSwap {
-  0%,45%  { opacity:1; filter:blur(0px); }
-  50%,95% { opacity:0; filter:blur(8px); }
-  100%    { opacity:1; filter:blur(0px); }
-}
-
-
-  .badge{
-    display:inline-flex; align-items:center; gap:8px;
-    background:#fff; border:1px solid var(--ring); color:var(--brand);
-    padding:8px 12px; border-radius:999px;
-    font-weight:bold; font-size:.9rem
-  }
-  .tittle{font-size:clamp(22px,3.4vw,28px); color:#1e3a8a; margin:2px 0 0}
-  .subtitle{color:var(--muted); line-height:1.5; margin:0}
-  .progress{
-    height:10px; background:#e8f1ff; border-radius:999px; overflow:hidden; position:relative
-  }
-  .bar2{
-    position:absolute; inset:0 auto 0 0; width:40%;
-    background:linear-gradient(90deg,#60a5fa,#2563eb);
-    border-radius:inherit;
-    box-shadow:0 0 0 1px rgba(255,255,255,.3) inset;
-    animation:pulse 6s ease-in-out infinite
-  }
-  @keyframes pulse{
-    0%{width:0%} 50%{width:70%} 100%{width:100%}
-  }
-
-
-
-/* Pie */
 footer{
-  position:relative;
-  left:50%;
-  transform:translateX(-50%);
   width:100vw;
   margin-top:2rem;
   padding:1.5rem 0;
   border-top:1px solid #e5e7eb;
   background:#ffffff;
   text-align:center;
-  box-shadow:0 -2px 6px rgba(0,0,0,0.04);
 }
 footer img{
   max-width:380px;
@@ -309,58 +313,71 @@ footer img{
   opacity:.96;
 }
 
-/* Responsive */
-@media(max-width:600px){
-  header{font-size:1.05rem;}
-  main{padding:0.9rem 1rem;}
-  body{font-size:0.96rem;}
+/* =========================================================
+   ÍNDICE FLOTANTE SUPERIOR
+========================================================= */
+.tabbar {
+  position: sticky;
+  top: calc(env(safe-area-inset-top,0px) + 52px);
+  z-index: 900;
+  background: #ffffffcc;
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: center;
 }
-/* Empuja el contenido real por debajo de la barra superior */
-body {
-  margin: 0;
-  padding-top: calc(env(safe-area-inset-top, 0px) + 52px);
-  background-color: #fff;
-}
-  }
-  .dot{display:inline-block; width:7px; height:7px; border-radius:50%; background:#22c55e; margin-right:6px}
 
-/* 📱 Adaptación móvil: una sola columna con imagen visible completa */
-@media (max-width:700px){
-  .card{
-    grid-template-columns:1fr;
-    align-items:flex-start;       /* evita el centrado que recorta */
-  }
-  .card .illustration{
-    display:flex;
-    order:2;                      /* imagen debajo del texto */
-    margin-top:20px;
-    justify-content:center;
-  }
-  .card .illustration img{
-    width:100%;
-    height:auto;
-    max-height:none;
-    object-fit:contain;           /* muestra la imagen completa sin recorte */
-    border-radius:12px;
-  }
+.tabbar-inner{
+  display: flex;
+  gap: 14px;
+  padding: 10px 16px;
+  max-width: 1080px;
+  width: 100%;
+  justify-content: center;
 }
+
+.tab-item{
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-dark);
+  background: #e7eef8;
+  border: 1px solid #d0d9e7;
+  cursor: pointer;
+  transition: background .25s, color .25s, border-color .25s;
+  user-select: none;
+}
+
+.tab-item.active{
+  background: var(--accent);
+  border-color: var(--accent-dark);
+  color: white;
+}
+
+.tab-item:hover{
+  background: #c9daf6;
+}
+
+
 </style>
 </head>
 
 <body>
-<!-- SAFE-TOP -->
+
+<!-- SAFE TOP -->
 <div class="safe-top">
   <div class="safe-content">
     <div class="safe-left">
-      <img src="../iconos/utilidadesico.png" alt="Icono Utilidades" class="safe-mini">
-      <img src="../img/topbar.png" alt="IctusGPS" class="safe-logo">
+      <img src="../iconos/utilidadesico.png" class="safe-mini" alt="Utilidades">
+      <img src="../img/topbar.png" class="safe-logo" alt="IctusGPS">
     </div>
     <div class="safe-actions">
       <a href="javascript:history.back()" class="safe-btn" title="Volver atrás">
-        <img src="../iconos/atrastransparente.png" alt="Atrás" class="safe-icon">
+        <img src="../iconos/atrastransparente.png" class="safe-icon">
       </a>
-      <a href="../index.html" class="safe-btn" title="Volver al inicio">
-        <img src="../iconos/hometransparente.png" alt="Inicio" class="safe-icon">
+      <a href="../index.html" class="safe-btn" title="Inicio">
+        <img src="../iconos/hometransparente.png" class="safe-icon">
       </a>
     </div>
   </div>
@@ -368,36 +385,537 @@ body {
 
 <header>
   <div class="bar">
-    <div class="title"><img src="aterotromboticoico.png" alt="Ictus aterotrombótico">Ictus aterotrombótico</div>
-      </div>
+    <div class="title">Tratamiento antitrombótico (aterotrombótico y afines)</div>
+  </div>
 </header>
 
-  <div class="wrap" role="region" aria-label="Aviso de sección en construcción">
-
-
-    <main>
-      <div class="card">
-        <div class="illustration">
-  <img src="../iconos/neuroapps.png" alt="NeuroApps – vista 1">
-  <img src="../iconos/neuroapps2.png" alt="NeuroApps – vista 2">
+<div class="tabbar">
+  <div class="tabbar-inner">
+    <div class="tab-item active" data-target="escenarios">Escenarios clínicos</div>
+    <div class="tab-item" data-target="herramientas">Herramientas transversales</div>
+  </div>
 </div>
-<div class="content">
-          <span class="badge">🛠️ Sección en construcción</span>
-          <h2 class="tittle">Estamos preparando esta sección</h2>
-          <p class="subtitle">
-            Este contenido aún no está disponible. Estamos ultimando el material para garantizar rigor científico,
-            utilidad docente y una experiencia de uso coherente con el resto de la app.
-          </p>
-          <div class="progress"><div class="bar2"></div></div>
 
 
-        </div>
+<main>
+
+<!-- =========================================================
+     BLOQUES PRINCIPALES
+========================================================= -->
+<span id="escenarios"></span>
+<!-- 1. Ictus menor / AIT -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/utilidadesico.png">
+      <span class="block-title">1. Ictus menor / AIT de alto riesgo</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+  <div class="block-content">
+    <ul>
+      <li>NIHSS ≤ 3 o ABCD<sub>2</sub> ≥ 4.</li>
+      <li>DAPT (AAS + clopidogrel) 21–30 días, luego monoterapia.</li>
+      <li>Ticagrelor + AAS si clopidogrel no es adecuado (THALES).</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 2. Carótida extracraneal -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/utilidadesico.png">
+      <span class="block-title">2. Estenosis carotídea extracraneal</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+  <div class="block-content">
+    <ul>
+
+      <li><strong>Sintomática moderada (50–69 %)</strong>  
+        <ul>
+          <li>Monoterapia (AAS o clopidogrel).</li>
+          <li>Valorar intervención si alto riesgo
+            <button class="note-btn" data-note="1">ⓘ</button>
+          </li>
+        </ul>
+      </li>
+
+      <li><strong>Sintomática crítica (≥70 %)</strong>  
+        <ul>
+          <li>EAC/ATP ≤ 2 semanas.</li>
+          <li>DAPT/AAS pre y post.</li>
+          <li>Stent carotídeo: DAPT 1–3 meses.</li>
+          <li>Si no intervención posible: DAPT 21–30 días.</li>
+        </ul>
+      </li>
+
+      <li><strong>Asintomática (≥50 %)</strong>  
+        <ul>
+          <li>Monoterapia.</li>
+          <li>Valorar intervención si alto riesgo
+            <button class="note-btn" data-note="2">ⓘ</button>
+          </li>
+        </ul>
+      </li>
+
+    </ul>
+  </div>
+</div>
+
+<!-- 3. Estenosis intracraneal -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/utilidadesico.png">
+      <span class="block-title">3. Estenosis intracraneal aterosclerótica</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+  <div class="block-content">
+    <ul>
+      <li><strong>Sintomática ≥70 %</strong>:  
+        <ul>
+          <li>DAPT 90 días, luego monoterapia.</li>
+          <li>Evitar intervencionismo salvo fracaso.</li>
+        </ul>
+      </li>
+      <li><strong>Asintomática</strong>:  
+        <ul>
+          <li>Monoterapia.</li>
+          <li>Seguimiento imagenológico
+            <button class="note-btn" data-note="3">ⓘ</button>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- 4. Vertebrales -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/utilidadesico.png">
+      <span class="block-title">4. Estenosis vertebrales</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+  <div class="block-content">
+    <ul>
+
+      <li><strong>Extracraneal moderada (50–69 %)</strong>: monoterapia.</li>
+      <li><strong>Extracraneal crítica (≥70 %)</strong>:  
+        <ul>
+          <li>Monoterapia; valorar intervención.</li>
+          <li>DAPT 21–30 días si alto riesgo
+            <button class="note-btn" data-note="4">ⓘ</button>
+          </li>
+        </ul>
+      </li>
+
+      <li><strong>Intracraneal ≥70 %</strong>:  
+        <ul>
+          <li>DAPT 90 días.</li>
+          <li>Intervención sólo si fracaso médico.</li>
+        </ul>
+      </li>
+
+      <li><strong>Asintomática</strong>: monoterapia; valorar intervención si alto riesgo
+        <button class="note-btn" data-note="4">ⓘ</button>
+      </li>
+
+    </ul>
+  </div>
+</div>
+
+<!-- 5. Aterotrombótico sin estenosis -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/utilidadesico.png">
+      <span class="block-title">5. Ictus aterotrombótico sin estenosis significativa</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+  <div class="block-content">
+    <ul>
+      <li>Monoterapia antiagregante.</li>
+      <li>No DAPT crónica.</li>
+      <li>Control agresivo de FRV.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 6. Lacunar -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/utilidadesico.png">
+      <span class="block-title">6. Ictus lacunar</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+  <div class="block-content">
+    <ul>
+      <li>Monoterapia.</li>
+      <li>No indicada DAPT.</li>
+      <li>Control estricto de HTA/DM.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 7. Disección -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/utilidadesico.png">
+      <span class="block-title">7. Disección arterial</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+  <div class="block-content">
+    <ul>
+      <li>Sintomática: anticoagulación o monoterapia.</li>
+      <li>Asintomática: AAS.</li>
+      <li>Con stent: DAPT 1–3 meses.</li>
+      <li>Indicación de stent:
+        <button class="note-btn" data-note="5">ⓘ</button>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- 8. Carotid web -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/utilidadesico.png">
+      <span class="block-title">8. Carotid Web</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+  <div class="block-content">
+    <ul>
+      <li>Monoterapia.</li>
+      <li>Considerar intervención si alto riesgo
+        <button class="note-btn" data-note="6">ⓘ</button>
+      </li>
+      <li>No anticoagulación salvo coexistencia de otra fuente embólica.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 9. Trombo mural aórtico -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/utilidadesico.png">
+      <span class="block-title">9. Trombo mural en aorta ascendente</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+  <div class="block-content">
+    <ul>
+      <li>Anticoagulación oral (preferencia AVK).</li>
+      <li>Asociar AAS si placa compleja
+        <button class="note-btn" data-note="7">ⓘ</button>
+      </li>
+      <li>DAPT si contraindicación para anticoagulación.</li>
+      <li>Caso persistente: considerar cirugía o stent.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 10. Estenosis crítica sin opción de intervención -->
+<div class="block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/utilidadesico.png">
+      <span class="block-title">10. Estenosis crítica sin intervención posible</span>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+  <div class="block-content">
+    <ul>
+      <li>DAPT 21–30 días, luego monoterapia.</li>
+      <li>Especialmente útil si síntomas ≤14 días.</li>
+    </ul>
+  </div>
+</div>
+
+<span id="herramientas"></span>
+
+<h2 class="section-subtitle">Herramientas y consideraciones generales de tratamiento</h2>
+<p class="section-hint">
+  Módulos transversales aplicables a los distintos escenarios clínicos: dosis de carga,
+  duración de la triple terapia, manejo en pacientes anticoagulados y gastroprotección.
+</p>
+
+
+<!-- 11. Dosis de carga de antiagregantes -->
+<div class="block tool-block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/utilidadesico.png" alt="">
+      <div>
+        <span class="block-title">11. Dosis de carga de antiagregantes</span><br>
+        <span class="tool-badge">Dosis inicial y mantenimiento</span>
       </div>
-    </main>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+
+  <div class="block-content">
+    <ul>
+      <li><strong>AAS</strong>: carga 300 mg VO; luego 75–100 mg/día (máx. 3–5 días de dosis alta).</li>
+      <li><strong>Clopidogrel</strong>:
+        <ul>
+          <li>300 mg si &lt; 12 h desde el evento.</li>
+          <li>600 mg si ≥ 12 h desde el evento.</li>
+          <li>Mantenimiento 75 mg/día.</li>
+        </ul>
+      </li>
+      <li><strong>Ticagrelor</strong>: carga 180 mg; mantenimiento 90 mg/12 h.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 12. Triple terapia post-stent carotídeo -->
+<div class="block tool-block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/utilidadesico.png" alt="">
+      <div>
+        <span class="block-title">12. Triple terapia post-stent carotídeo en anticoagulados</span><br>
+        <span class="tool-badge">Stent carotídeo + ACO</span>
+      </div>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+
+  <div class="block-content">
+    <ul>
+      <li>Días 1–7: ACO + AAS + clopidogrel.</li>
+      <li>Días 8–30: ACO + clopidogrel.</li>
+      <li>&gt;30 días: ACO en monoterapia.</li>
+      <li>Prolongar hasta 14 días si muy alto riesgo
+        <button class="note-btn" data-note="8">ⓘ</button>
+      </li>
+      <li>IBP desde el inicio; preferir ACOD; evitar AAS más allá del 1er mes.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 13. Triple terapia en anticoagulados sin stent -->
+<div class="block tool-block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/utilidadesico.png" alt="">
+      <div>
+        <span class="block-title">13. Triple terapia en anticoagulados con indicación de DAPT (sin stent)</span><br>
+        <span class="tool-badge">ACO + DAPT sin stent</span>
+      </div>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+
+  <div class="block-content">
+    <ul>
+      <li>Días 1–7: ACO + AAS + clopidogrel.</li>
+      <li>Días 8–30: ACO + clopidogrel.</li>
+      <li>Días 31–90: ACO solo o ACO + clopidogrel si muy alto riesgo.</li>
+      <li>&gt;90 días: ACO en monoterapia.</li>
+      <li>Suspender AAS precozmente salvo indicación coronaria o vascular crítica.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 14. IBP y clopidogrel -->
+<div class="block tool-block">
+  <div class="block-header">
+    <div class="info">
+      <img src="../iconos/utilidadesico.png" alt="">
+      <div>
+        <span class="block-title">14. IBP y clopidogrel</span><br>
+        <span class="tool-badge">Gastroprotección</span>
+      </div>
+    </div>
+    <span class="block-arrow">›</span>
+  </div>
+
+  <div class="block-content">
+    <ul>
+      <li>Indicar IBP si &gt;65 años, úlcera o HDB previa, o AAS/ACO.</li>
+      <li>Preferir pantoprazol, lansoprazol, rabeprazol.</li>
+      <li>Evitar omeprazol/esomeprazol salvo ausencia de alternativas.</li>
+      <li>Iniciar IBP desde el primer día en DAPT o ACO + clopidogrel.</li>
+    </ul>
+  </div>
+</div>
+
+</main>
+
+<!-- =========================================================
+     MODALES DE NOTAS
+========================================================= -->
+
+<div class="modal-overlay" id="note-modal">
+  <div class="modal">
+    <button class="modal-close">&times;</button>
+    <h2 id="note-title">Nota</h2>
+    <div id="note-content"></div>
+  </div>
 </div>
 
 <footer>
   <img src="uibanner.png" alt="Unidad de Ictus Málaga">
 </footer>
+
+<script>
+/* Botón atrás */
+document.addEventListener('DOMContentLoaded', ()=>{
+
+  const backBtn = document.querySelector('.safe-btn[title="Volver atrás"]');
+  if(backBtn){
+    backBtn.addEventListener('click', e=>{
+      e.preventDefault();
+      if(history.length > 1) history.back();
+      else location.href='../index.html';
+    });
+  }
+
+  /* Desplegables */
+  document.querySelectorAll('.block').forEach(block=>{
+    block.addEventListener('click', e=>{
+      if(!e.target.classList.contains('note-btn')){
+        block.classList.toggle('open');
+      }
+    });
+  });
+
+  /* Notas */
+  const notes = {
+    1: `
+      • Síntomas recientes (≤14 días)<br>
+      • AITs/ictus recurrentes<br>
+      • AITs fluctuantes/inestables<br>
+      • Placa ulcerada, irregular o extensa<br>
+      • Hipoperfusión cerebral<br>
+      • Bajo riesgo quirúrgico y buena expectativa de vida
+    `,
+    2: `
+      • Progresión de estenosis<br>
+      • Placa inestable (ulcerada/móvil/hemorrágica)<br>
+      • Velocidades Doppler >300 cm/s<br>
+      • Microembolias espontáneas<br>
+      • Infartos silentes recientes ipsilaterales<br>
+      • Ausencia de colaterales<br>
+      • Estenosis bilateral<br>
+      • Edad <75 años y bajo riesgo quirúrgico<br>
+      • Baja adherencia terapéutica
+    `,
+    3: `
+      <strong>Utilidad</strong><br>
+      • Detectar progresión<br>
+      • Infartos silentes<br>
+      • Evaluar eficacia tratamiento<br>
+      • Valorar hipoperfusión<br><br>
+      <strong>Modificación del tratamiento</strong><br>
+      • Recurrencia/hipoperfusión → intervención<br>
+      • Infartos silentes/progresión → reforzar antiagregación o FRV<br>
+      • Progresión sin síntomas → seguimiento estrecho
+    `,
+    4: `
+      • Síntomas vertebrobasilares ≤14 días<br>
+      • AITs/ictus recurrentes<br>
+      • AITs fluctuantes<br>
+      • Infartos silentes o recientes VB<br>
+      • Placa ulcerada/móvil en origen vertebral<br>
+      • Hipoperfusión<br>
+      • Estenosis bilateral / colaterales malas<br>
+      • Edad <75 años y buen riesgo de intervención
+    `,
+    5: `
+      • Estenosis crítica con hipoperfusión<br>
+      • Síntomas recurrentes pese a tratamiento<br>
+      • Trombo intraluminal flotante/embolígeno<br>
+      • Disección extensa/inestable con deterioro<br>
+      • Falsa luz aneurismática con expansión o riesgo de rotura<br>
+      • No indicado en disecciones asintomáticas
+    `,
+    6: `
+      • Ictus/AIT repetidos en mismo territorio<br>
+      • Web prominente/protruyente<br>
+      • Trombosis asociada<br>
+      • Estasis significativa del flujo<br>
+      • Edad <60 años sin otra causa embólica<br>
+      • Ausencia de FRV
+    `,
+    7: `
+      • Trombo sobre placa ulcerada, móvil o con hemorragia intraplaca<br>
+      • Asociar AAS si alto riesgo embólico<br>
+      • Uso individualizado y limitado (1–3 meses)
+    `,
+    8: `
+      • Stent largo o bifurcación<br>
+      • Placa ulcerada o trombo residual<br>
+      • Ictus/AIT múltiples previos<br>
+      • Paciente joven, bajo riesgo hemorrágico
+    `
+  };
+
+  const modalOverlay = document.getElementById('note-modal');
+  const modalTitle = document.getElementById('note-title');
+  const modalContent = document.getElementById('note-content');
+
+  document.querySelectorAll('.note-btn').forEach(btn=>{
+    btn.addEventListener('click', e=>{
+      e.stopPropagation(); 
+      const n = btn.dataset.note;
+      modalTitle.textContent = `Nota ${n}`;
+      modalContent.innerHTML = notes[n];
+      modalOverlay.style.display='flex';
+    });
+  });
+
+  document.querySelector('.modal-close').addEventListener('click', ()=>{
+    modalOverlay.style.display='none';
+  });
+
+  modalOverlay.addEventListener('click', e=>{
+    if(e.target === modalOverlay){
+      modalOverlay.style.display='none';
+    }
+  });
+
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', ()=>{
+
+  const tabs = document.querySelectorAll('.tab-item');
+
+  tabs.forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      // Activar pestaña
+      tabs.forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+
+      // Scroll suave
+      const targetId = tab.dataset.target;
+      const targetEl = document.getElementById(targetId);
+
+      const offset = (window.innerWidth < 600) ? 105 : 115;
+      const y = targetEl.getBoundingClientRect().top + window.scrollY - offset;
+
+      window.scrollTo({ top:y, behavior:'smooth' });
+    });
+  });
+
+});
+</script>
+
 </body>
 </html>
