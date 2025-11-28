@@ -1,259 +1,203 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0f3d83">
-<title>Utilidad: Tratamiento Antitrombótico Aterotrombótico</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
-<link rel="manifest" href="../site.webmanifest">
+<title>Ictus aterotrombótico</title>
+<meta name="theme-color" content="#0f3d83">
 <link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
 <link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
-<link rel="shortcut icon" href="../iconos/ictusgps.png">
 
 <style>
+/* VARIABLES BÁSICAS */
 :root{
-  --bg:#f9fafc;
+  --bg:#f8fafc; 
   --ink:#0e1a33;
-  --muted:#64748b;
-  --accent:#0f3d83;
-  --accent-light:#d7e3f8;
-  --accent-dark:#0d2d63;
+  --azul:#0f3d83;
   --border:#e5e9f2;
-
-  --card-bg:#0f3d83;
-  --card-active:#01c5fe;
-  --shadow:0 8px 18px rgba(0,0,0,.15);
-  --radius:18px;
+  --muted:#64748b;
+  --azul-light:#e4edfa;
+  --azul-mid:#2563eb;
+  --azul-dark:#0d2d63;
 
   --modal-bg:rgba(0,0,0,0.45);
   --modal-card:#ffffff;
 }
 
-/* Reset */
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
+/* TIPOGRAFÍA */
+html, body { font-family: Verdana, Geneva, sans-serif; }
+*{box-sizing:border-box}
 
-/* Fuente y fondo */
+/* SAFE-TOP */
 body{
-  font-family: Verdana, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", sans-serif;
-  background: var(--bg);
-  color: var(--ink);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  line-height:1.6;
+  margin:0;
+  padding-top:calc(env(safe-area-inset-top, 0px) + 52px);
+  background:var(--bg);
+  color:var(--ink);
 }
 
-/* =========================================================
-   SAFE-TOP
-========================================================= */
-:root { --azul-institucional:#0f3d83; }
-
-.safe-top{
-  position:fixed;
-  top:0;left:0;
-  width:100%;
-  height:calc(env(safe-area-inset-top,0px) + 52px);
-  background:var(--azul-institucional);
-  z-index:1001;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding-top:env(safe-area-inset-top,0px);
+.safe-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(env(safe-area-inset-top) + 60px);
+  background: var(--azul);
+  z-index: 1001;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: env(safe-area-inset-top);
 }
+
 .safe-content{
   width:100%;
   max-width:1080px;
-  padding:6px 16px 8px;
+  padding: 6px 16px 8px;
   display:flex;
   justify-content:space-between;
-  align-items:center;
+  align-items:flex-start;
 }
+
 .safe-left{
-  display:flex;
-  align-items:center;
-  gap:10px;
+  display:flex; align-items:center; gap:10px;
 }
-.safe-mini{
-  width:44px;height:44px;
-  object-fit:contain;
-  padding:4px;
-}
-.safe-logo{
-  height:44px;width:auto;
-}
-.safe-actions{
-  display:flex;gap:10px;
-}
+.safe-mini{width:44px;height:44px;object-fit:contain;padding:4px;}
+.safe-logo{height:44px;width:auto;}
+
+.safe-actions{display:flex; gap:10px;}
 .safe-btn{
-  display:inline-flex;
-  align-items:center;justify-content:center;
+  display:inline-flex; align-items:center; justify-content:center;
   width:40px;height:40px;
   background:rgba(255,255,255,0.15);
-  border:1px solid #fff;
+  border:1px solid white;
   border-radius:50%;
-  transition:.25s;
+  cursor:pointer;
 }
-.safe-btn:hover{ background:#01c5fe; }
-.safe-icon{
-  width:32px;height:32px;
-  object-fit:contain;
-}
+.safe-btn:hover{background:#01c5fe;}
+.safe-icon{width:32px;height:32px;}
 
-/* Empuja contenido real */
-body{
-  padding-top:calc(env(safe-area-inset-top,0px) + 52px);
-}
-
-/* Cabecera */
+/* CABECERA */
 header{
-  position:sticky;top:0;z-index:20;
-  backdrop-filter:blur(6px);
-  background:var(--accent);
-  border-bottom:1px solid rgba(255,255,255,.08);
-}
-.bar{
+  position:sticky;
+  top:calc(env(safe-area-inset-top) + 52px);
+  z-index:1002;
+  background:var(--azul);
+  color:#fff;
+  height:52px;
   display:flex;
   justify-content:center;
   align-items:center;
-  padding:10px 18px;
-}
-.title{
-  font-size:1.25rem;
-  font-weight:700;
-  color:#fff;
-  text-align:center;
+  border-bottom:1px solid rgba(255,255,255,.08);
 }
 
-/* =========================================================
-   CUERPO PRINCIPAL
-========================================================= */
-main{
-  max-width:1080px;
-  margin:0 auto;
-  padding:1.2rem 1.25rem 2.5rem;
+.title{display:flex;align-items:center;font-size:1.3rem;font-weight:700;text-align:center;}
+.title img{width:32px;height:32px;margin-right:8px;}
+
+/* CONTENIDO */
+.wrap{max-width:1080px;margin:0 auto;padding:1rem;}
+
+.panel{
   background:#fff;
-  border-radius:12px;
-  box-shadow:0 2px 10px rgba(0,0,0,0.04);
+  border-radius:16px;
+  padding:16px;
+  box-shadow:0 3px 14px rgba(16,71,119,.12);
+  border:1px solid var(--border);
 }
 
-/* =========================================================
-   TARJETAS UTILIDADES (Modo Guardia)
-========================================================= */
 .block{
-  background:var(--card-bg);
-  padding:16px 18px;
-  border-radius:var(--radius);
-  color:#fff;
-  box-shadow:var(--shadow);
-  border:1px solid rgba(255,255,255,.08);
-  margin-bottom:16px;
-  cursor:pointer;
-  transition:background .25s, transform .2s;
-}
-/* Bloques de herramientas / consideraciones generales */
-.block.tool-block{
-  background:#164a8a; /* Distinto del azul principal */
-  border-color:rgba(255,255,255,.14);
-}
-.block.tool-block:hover{
-  background:#1d5bb5;
-}
-
-/* Subtítulo de sección */
-.section-subtitle{
-  margin-top:1.8rem;
-  margin-bottom:0.3rem;
-  font-size:1.08rem;
-  font-weight:700;
-  color:var(--accent-dark);
-}
-.section-hint{
-  margin-bottom:1.2rem;
-  font-size:0.92rem;
-  color:var(--muted);
-}
-
-/* Badges de herramientas */
-.tool-badge{
-  display:inline-block;
-  margin-top:4px;
-  padding:2px 7px;
-  border-radius:999px;
-  font-size:0.75rem;
-  letter-spacing:.01em;
-  background:rgba(255,255,255,.15);
-  color:#e9f3ff;
-}
-
-.block:hover{
-  background:var(--card-active);
-  transform:translateY(-2px);
-}
-.block-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-.block-header .info{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-.block-header img{
-  width:44px;height:44px;
-  border-radius:50%;
   background:#fff;
-  padding:4px;
-}
-.block-title{
-  font-size:1.02rem;
-  font-weight:700;
-}
-.block-arrow{
-  font-size:1.8rem;
-  transition:transform .25s;
-}
-.block.open .block-arrow{
-  transform:rotate(90deg);
+  border-radius:14px;
+  padding:16px;
+  margin:18px 0;
+  box-shadow:0 2px 8px rgba(15,61,131,0.08);
+  border:1px solid var(--border);
 }
 
-/* Contenido interno */
-.block-content{
-  margin-top:12px;
-  padding-left:4px;
-  display:none;
-  animation:fade .25s ease;
+.block h3{
+  margin:0 0 10px;
+  font-size:1.05rem;
+  font-weight:800;
+  display:flex;
+  align-items:center;
+  gap:6px;
 }
-.block.open .block-content{
-  display:block;
+.icon-h3{
+  width:20px;
+  height:20px;
+  margin-right:6px;
 }
 
-.block-content ul{
-  padding-left:18px;
+/* SELECT ESCENARIO */
+label { font-size:0.95rem; }
+select{
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #d4e2ff;
+  background:#ffffff;
+  font-size:1rem;
+  width:100%;
+  box-shadow:0 2px 6px rgba(0,0,0,0.03);
   margin-top:6px;
 }
-.block-content li{
-  margin-bottom:6px;
+select:focus{
+  outline:none;
+  border:1px solid #0f3d83;
+  box-shadow:0 0 0 1px rgba(15,61,131,0.2);
 }
 
-/* Botón Nota */
-.note-btn{
-  background:none;
-  border:none;
-  color:#cce7ff;
-  font-size:1.1rem;
+/* RECOMENDACIÓN */
+#escenario-resultado{
+  background: #F7FFF7;
+  border-left:4px solid #16a34a;
+  border-radius:14px;
+  padding:16px;
+  margin:8px 0;
+  box-shadow:0 2px 8px rgba(15,61,131,0.08);
+}
+#escenario-resultado b{
+  color:#0f3d83;
+}
+
+.note{
+  color:var(--muted);
+  font-size:.85rem;
+  margin-top:8px;
+}
+
+/* HERRAMIENTAS TRANSVERSALES */
+.tools-wrap{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:8px;
+}
+
+.tool-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid #d0d9e7;
+  background:#f1f5ff;
+  color:#0f3d83;
+  font-size:0.85rem;
   cursor:pointer;
-  margin-left:4px;
-  padding:2px 4px;
-  border-radius:6px;
-  transition:color .2s;
+  box-shadow:0 1px 4px rgba(15,61,131,0.06);
+  transition:background .2s, transform .1s, box-shadow .2s;
 }
-.note-btn:hover{
-  color:#ffffff;
+.tool-chip span.emoji{
+  font-size:1.1rem;
+}
+.tool-chip:hover{
+  background:#e0ebff;
+  transform:translateY(-1px);
+  box-shadow:0 2px 6px rgba(15,61,131,0.12);
 }
 
-/* Modal */
+/* MODAL HERRAMIENTAS */
 .modal-overlay{
   display:none;
   position:fixed;
@@ -267,99 +211,86 @@ main{
   padding:20px;
 }
 .modal{
+  position:relative;
   background:var(--modal-card);
   width:100%;
-  max-width:420px;
+  max-width:460px;
   max-height:80vh;
   overflow-y:auto;
   border-radius:16px;
-  padding:20px;
+  padding:18px 20px 20px;
   box-shadow:0 8px 32px rgba(0,0,0,0.25);
   animation:fade .25s ease;
 }
 .modal h2{
-  margin-bottom:12px;
-  font-size:1.2rem;
-  color:var(--accent);
+  margin:0 0 10px;
+  font-size:1.1rem;
+  color:var(--azul-dark);
 }
 .modal-close{
   position:absolute;
-  top:14px;
-  right:20px;
-  font-size:1.8rem;
+  top:10px;
+  right:14px;
+  font-size:1.6rem;
   background:none;
   border:none;
   cursor:pointer;
   color:#444;
 }
 
-/* Animación */
-@keyframes fade{
-  from{opacity:0; transform:translateY(-4px);}
-  to{opacity:1; transform:translateY(0);}
+/* DISCLAIMER FINAL */
+.disclaimer-red{
+  background:#fff7f7;
+  border-left:4px solid #d9534f;
+  border-radius:12px;
+  margin:0 auto;
+  padding:1rem;
+  max-width:1080px;
+  box-shadow:0 1px 4px rgba(217,83,79,0.05);
+}
+.disclaimer-red p{
+  color:#7d1a1a;
+  font-size:0.9rem;
 }
 
+/* FOOTER */
 footer{
-  width:100vw;
-  margin-top:2rem;
+  width:100%;
+  margin:2rem 0 0;
   padding:1.5rem 0;
   border-top:1px solid #e5e7eb;
   background:#ffffff;
   text-align:center;
+  box-shadow:0 -2px 6px rgba(0,0,0,0.04);
 }
-footer img{
-  max-width:380px;
-  height:auto;
-  opacity:.96;
-}
+footer img { max-width:80%; height:auto; }
+@media (min-width:600px){ footer img { max-width:380px; } }
 
-/* =========================================================
-   ÍNDICE FLOTANTE SUPERIOR
-========================================================= */
-.tabbar {
-  position: sticky;
-  top: calc(env(safe-area-inset-top,0px) + 52px);
-  z-index: 900;
-  background: #ffffffcc;
-  backdrop-filter: blur(6px);
-  border-bottom: 1px solid #e2e8f0;
-  display: flex;
-  justify-content: center;
+/* MEDIA QUERIES */
+@media(max-width:768px){
+  header{font-size:1.05rem;}
+  body{font-size:0.96rem;}
 }
 
-.tabbar-inner{
-  display: flex;
-  gap: 14px;
-  padding: 10px 16px;
-  max-width: 1080px;
-  width: 100%;
-  justify-content: center;
+/* Empuja el contenido real por debajo de la barra superior */
+body{
+  padding-top:calc(env(safe-area-inset-top, 0px) + 52px);
+  background-color:#f8fafc;
 }
 
-.tab-item{
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--accent-dark);
-  background: #e7eef8;
-  border: 1px solid #d0d9e7;
-  cursor: pointer;
-  transition: background .25s, color .25s, border-color .25s;
-  user-select: none;
+/* Animaciones */
+.fade-in{
+  animation: fadeIn 0.25s ease-out;
+}
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(4px);}
+  to{opacity:1; transform:translateY(0);}
 }
 
-.tab-item.active{
-  background: var(--accent);
-  border-color: var(--accent-dark);
-  color: white;
+@keyframes fade{
+  from{opacity:0; transform:translateY(-4px);}
+  to{opacity:1; transform:translateY(0);}
 }
-
-.tab-item:hover{
-  background: #c9daf6;
-}
-
-
 </style>
 </head>
 
@@ -374,398 +305,89 @@ footer img{
     </div>
     <div class="safe-actions">
       <a href="javascript:history.back()" class="safe-btn" title="Volver atrás">
-        <img src="../iconos/atrastransparente.png" class="safe-icon">
+        <img src="../iconos/atrastransparente.png" class="safe-icon" alt="Atrás">
       </a>
       <a href="../index.html" class="safe-btn" title="Inicio">
-        <img src="../iconos/hometransparente.png" class="safe-icon">
+        <img src="../iconos/hometransparente.png" class="safe-icon" alt="Inicio">
       </a>
     </div>
   </div>
 </div>
 
 <header>
-  <div class="bar">
-    <div class="title">Tratamiento antitrombótico (aterotrombótico y afines)</div>
-  </div>
+  <div class="title">
+    <img src="aterotromboticoico.png" alt="Icono">Ictus aterotrombótico</div>
 </header>
 
-<div class="tabbar">
-  <div class="tabbar-inner">
-    <div class="tab-item active" data-target="escenarios">Escenarios clínicos</div>
-    <div class="tab-item" data-target="herramientas">Herramientas transversales</div>
+<main class="wrap">
+
+  <!-- TARJETA 1: SELECCIÓN DE ESCENARIO -->
+  <div class="block" id="escenario-section">
+    <h3>🩺 Tipo de ictus / escenario clínico</h3>
+    <label><b>Seleccione el escenario principal:</b></label>
+    <select id="escenario" onchange="mostrarTratamientoEscenario()">
+      <option value="" disabled selected>Seleccione un escenario…</option>
+      <option value="ictus_menor">Ictus minor / AIT de alto riesgo</option>
+      <option value="carotida">Estenosis carotídea extracraneal</option>
+      <option value="intracraneal">Estenosis intracraneal aterosclerótica</option>
+      <option value="vertebral">Estenosis vertebrales</option>
+      <option value="atero_sin_estenosis">Ictus aterotrombótico sin estenosis significativa</option>
+      <option value="lacunar">Ictus lacunar</option>
+      <option value="diseccion">Disección arterial (carótida / vertebral)</option>
+      <option value="carotid_web">Carotid Web</option>
+      <option value="trombo_aortico">Trombo mural aórtico</option>
+      <option value="estenosis_sin_intervencion">Estenosis crítica sin opción de intervención</option>
+    </select>
+    <p class="note">
+      Los escenarios se refieren al mecanismo aterotrombótico u otras fuentes de embolia arteria-arteria.
+    </p>
   </div>
-</div>
 
+  <!-- TARJETA 2: RECOMENDACIÓN PRINCIPAL -->
+  <div class="block" id="escenario-resultado">
+    <h3>✅ Recomendación</h3>
+    <p>Seleccione un escenario clínico para mostrar la recomendación orientativa de tratamiento antitrombótico.</p>
+  </div>
 
-<main>
+  <!-- TARJETA 3: HERRAMIENTAS TRANSVERSALES -->
+  <div class="block" id="herramientas-block">
+    <h3>📚 Consideraciones adicionales</h3>
+    <p class="note">
+      Elementos aplicables a varios escenarios: dosis de carga, duración de la triple terapia, manejo en anticoagulados y gastroprotección.
+    </p>
 
-<!-- =========================================================
-     BLOQUES PRINCIPALES
-========================================================= -->
-<span id="escenarios"></span>
-<!-- 1. Ictus menor / AIT -->
-<div class="block">
-  <div class="block-header">
-    <div class="info">
-      <img src="../iconos/utilidadesico.png">
-      <span class="block-title">1. Ictus menor / AIT de alto riesgo</span>
+    <div class="tools-wrap">
+      <button class="tool-chip" data-tool="carga">
+        <span class="emoji">⚡</span> Dosis de carga de antiagregantes
+      </button>
+      <button class="tool-chip" data-tool="triple_stent">
+        <span class="emoji">❸🅣</span> Triple terapia post-stent
+      </button>
+      <button class="tool-chip" data-tool="triple_sin_stent">
+        <span class="emoji">❸Ⓣ</span> Triple terapia sin stent
+      </button>
+      <button class="tool-chip" data-tool="ibp">
+        <span class="emoji">💊</span> IBP y clopidogrel
+      </button>
     </div>
-    <span class="block-arrow">›</span>
-  </div>
-  <div class="block-content">
-    <ul>
-      <li>NIHSS ≤ 3 o ABCD<sub>2</sub> ≥ 4.</li>
-      <li>DAPT (AAS + clopidogrel) 21–30 días, luego monoterapia.</li>
-      <li>Ticagrelor + AAS si clopidogrel no es adecuado (THALES).</li>
-    </ul>
-  </div>
-</div>
-
-<!-- 2. Carótida extracraneal -->
-<div class="block">
-  <div class="block-header">
-    <div class="info">
-      <img src="../iconos/utilidadesico.png">
-      <span class="block-title">2. Estenosis carotídea extracraneal</span>
-    </div>
-    <span class="block-arrow">›</span>
-  </div>
-  <div class="block-content">
-    <ul>
-
-      <li><strong>Sintomática moderada (50–69 %)</strong>  
-        <ul>
-          <li>Monoterapia (AAS o clopidogrel).</li>
-          <li>Valorar intervención si alto riesgo
-            <button class="note-btn" data-note="1">ⓘ</button>
-          </li>
-        </ul>
-      </li>
-
-      <li><strong>Sintomática crítica (≥70 %)</strong>  
-        <ul>
-          <li>EAC/ATP ≤ 2 semanas.</li>
-          <li>DAPT/AAS pre y post.</li>
-          <li>Stent carotídeo: DAPT 1–3 meses.</li>
-          <li>Si no intervención posible: DAPT 21–30 días.</li>
-        </ul>
-      </li>
-
-      <li><strong>Asintomática (≥50 %)</strong>  
-        <ul>
-          <li>Monoterapia.</li>
-          <li>Valorar intervención si alto riesgo
-            <button class="note-btn" data-note="2">ⓘ</button>
-          </li>
-        </ul>
-      </li>
-
-    </ul>
-  </div>
-</div>
-
-<!-- 3. Estenosis intracraneal -->
-<div class="block">
-  <div class="block-header">
-    <div class="info">
-      <img src="../iconos/utilidadesico.png">
-      <span class="block-title">3. Estenosis intracraneal aterosclerótica</span>
-    </div>
-    <span class="block-arrow">›</span>
-  </div>
-  <div class="block-content">
-    <ul>
-      <li><strong>Sintomática ≥70 %</strong>:  
-        <ul>
-          <li>DAPT 90 días, luego monoterapia.</li>
-          <li>Evitar intervencionismo salvo fracaso.</li>
-        </ul>
-      </li>
-      <li><strong>Asintomática</strong>:  
-        <ul>
-          <li>Monoterapia.</li>
-          <li>Seguimiento imagenológico
-            <button class="note-btn" data-note="3">ⓘ</button>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-</div>
-
-<!-- 4. Vertebrales -->
-<div class="block">
-  <div class="block-header">
-    <div class="info">
-      <img src="../iconos/utilidadesico.png">
-      <span class="block-title">4. Estenosis vertebrales</span>
-    </div>
-    <span class="block-arrow">›</span>
-  </div>
-  <div class="block-content">
-    <ul>
-
-      <li><strong>Extracraneal moderada (50–69 %)</strong>: monoterapia.</li>
-      <li><strong>Extracraneal crítica (≥70 %)</strong>:  
-        <ul>
-          <li>Monoterapia; valorar intervención.</li>
-          <li>DAPT 21–30 días si alto riesgo
-            <button class="note-btn" data-note="4">ⓘ</button>
-          </li>
-        </ul>
-      </li>
-
-      <li><strong>Intracraneal ≥70 %</strong>:  
-        <ul>
-          <li>DAPT 90 días.</li>
-          <li>Intervención sólo si fracaso médico.</li>
-        </ul>
-      </li>
-
-      <li><strong>Asintomática</strong>: monoterapia; valorar intervención si alto riesgo
-        <button class="note-btn" data-note="4">ⓘ</button>
-      </li>
-
-    </ul>
-  </div>
-</div>
-
-<!-- 5. Aterotrombótico sin estenosis -->
-<div class="block">
-  <div class="block-header">
-    <div class="info">
-      <img src="../iconos/utilidadesico.png">
-      <span class="block-title">5. Ictus aterotrombótico sin estenosis significativa</span>
-    </div>
-    <span class="block-arrow">›</span>
-  </div>
-  <div class="block-content">
-    <ul>
-      <li>Monoterapia antiagregante.</li>
-      <li>No DAPT crónica.</li>
-      <li>Control agresivo de FRV.</li>
-    </ul>
-  </div>
-</div>
-
-<!-- 6. Lacunar -->
-<div class="block">
-  <div class="block-header">
-    <div class="info">
-      <img src="../iconos/utilidadesico.png">
-      <span class="block-title">6. Ictus lacunar</span>
-    </div>
-    <span class="block-arrow">›</span>
-  </div>
-  <div class="block-content">
-    <ul>
-      <li>Monoterapia.</li>
-      <li>No indicada DAPT.</li>
-      <li>Control estricto de HTA/DM.</li>
-    </ul>
-  </div>
-</div>
-
-<!-- 7. Disección -->
-<div class="block">
-  <div class="block-header">
-    <div class="info">
-      <img src="../iconos/utilidadesico.png">
-      <span class="block-title">7. Disección arterial</span>
-    </div>
-    <span class="block-arrow">›</span>
-  </div>
-  <div class="block-content">
-    <ul>
-      <li>Sintomática: anticoagulación o monoterapia.</li>
-      <li>Asintomática: AAS.</li>
-      <li>Con stent: DAPT 1–3 meses.</li>
-      <li>Indicación de stent:
-        <button class="note-btn" data-note="5">ⓘ</button>
-      </li>
-    </ul>
-  </div>
-</div>
-
-<!-- 8. Carotid web -->
-<div class="block">
-  <div class="block-header">
-    <div class="info">
-      <img src="../iconos/utilidadesico.png">
-      <span class="block-title">8. Carotid Web</span>
-    </div>
-    <span class="block-arrow">›</span>
-  </div>
-  <div class="block-content">
-    <ul>
-      <li>Monoterapia.</li>
-      <li>Considerar intervención si alto riesgo
-        <button class="note-btn" data-note="6">ⓘ</button>
-      </li>
-      <li>No anticoagulación salvo coexistencia de otra fuente embólica.</li>
-    </ul>
-  </div>
-</div>
-
-<!-- 9. Trombo mural aórtico -->
-<div class="block">
-  <div class="block-header">
-    <div class="info">
-      <img src="../iconos/utilidadesico.png">
-      <span class="block-title">9. Trombo mural en aorta ascendente</span>
-    </div>
-    <span class="block-arrow">›</span>
-  </div>
-  <div class="block-content">
-    <ul>
-      <li>Anticoagulación oral (preferencia AVK).</li>
-      <li>Asociar AAS si placa compleja
-        <button class="note-btn" data-note="7">ⓘ</button>
-      </li>
-      <li>DAPT si contraindicación para anticoagulación.</li>
-      <li>Caso persistente: considerar cirugía o stent.</li>
-    </ul>
-  </div>
-</div>
-
-<!-- 10. Estenosis crítica sin opción de intervención -->
-<div class="block">
-  <div class="block-header">
-    <div class="info">
-      <img src="../iconos/utilidadesico.png">
-      <span class="block-title">10. Estenosis crítica sin intervención posible</span>
-    </div>
-    <span class="block-arrow">›</span>
-  </div>
-  <div class="block-content">
-    <ul>
-      <li>DAPT 21–30 días, luego monoterapia.</li>
-      <li>Especialmente útil si síntomas ≤14 días.</li>
-    </ul>
-  </div>
-</div>
-
-<span id="herramientas"></span>
-
-<h2 class="section-subtitle">Herramientas y consideraciones generales de tratamiento</h2>
-<p class="section-hint">
-  Módulos transversales aplicables a los distintos escenarios clínicos: dosis de carga,
-  duración de la triple terapia, manejo en pacientes anticoagulados y gastroprotección.
-</p>
-
-
-<!-- 11. Dosis de carga de antiagregantes -->
-<div class="block tool-block">
-  <div class="block-header">
-    <div class="info">
-      <img src="../iconos/utilidadesico.png" alt="">
-      <div>
-        <span class="block-title">11. Dosis de carga de antiagregantes</span><br>
-        <span class="tool-badge">Dosis inicial y mantenimiento</span>
-      </div>
-    </div>
-    <span class="block-arrow">›</span>
   </div>
 
-  <div class="block-content">
-    <ul>
-      <li><strong>AAS</strong>: carga 300 mg VO; luego 75–100 mg/día (máx. 3–5 días de dosis alta).</li>
-      <li><strong>Clopidogrel</strong>:
-        <ul>
-          <li>300 mg si &lt; 12 h desde el evento.</li>
-          <li>600 mg si ≥ 12 h desde el evento.</li>
-          <li>Mantenimiento 75 mg/día.</li>
-        </ul>
-      </li>
-      <li><strong>Ticagrelor</strong>: carga 180 mg; mantenimiento 90 mg/12 h.</li>
-    </ul>
-  </div>
-</div>
-
-<!-- 12. Triple terapia post-stent carotídeo -->
-<div class="block tool-block">
-  <div class="block-header">
-    <div class="info">
-      <img src="../iconos/utilidadesico.png" alt="">
-      <div>
-        <span class="block-title">12. Triple terapia post-stent carotídeo en anticoagulados</span><br>
-        <span class="tool-badge">Stent carotídeo + ACO</span>
-      </div>
-    </div>
-    <span class="block-arrow">›</span>
-  </div>
-
-  <div class="block-content">
-    <ul>
-      <li>Días 1–7: ACO + AAS + clopidogrel.</li>
-      <li>Días 8–30: ACO + clopidogrel.</li>
-      <li>&gt;30 días: ACO en monoterapia.</li>
-      <li>Prolongar hasta 14 días si muy alto riesgo
-        <button class="note-btn" data-note="8">ⓘ</button>
-      </li>
-      <li>IBP desde el inicio; preferir ACOD; evitar AAS más allá del 1er mes.</li>
-    </ul>
-  </div>
-</div>
-
-<!-- 13. Triple terapia en anticoagulados sin stent -->
-<div class="block tool-block">
-  <div class="block-header">
-    <div class="info">
-      <img src="../iconos/utilidadesico.png" alt="">
-      <div>
-        <span class="block-title">13. Triple terapia en anticoagulados con indicación de DAPT (sin stent)</span><br>
-        <span class="tool-badge">ACO + DAPT sin stent</span>
-      </div>
-    </div>
-    <span class="block-arrow">›</span>
-  </div>
-
-  <div class="block-content">
-    <ul>
-      <li>Días 1–7: ACO + AAS + clopidogrel.</li>
-      <li>Días 8–30: ACO + clopidogrel.</li>
-      <li>Días 31–90: ACO solo o ACO + clopidogrel si muy alto riesgo.</li>
-      <li>&gt;90 días: ACO en monoterapia.</li>
-      <li>Suspender AAS precozmente salvo indicación coronaria o vascular crítica.</li>
-    </ul>
-  </div>
-</div>
-
-<!-- 14. IBP y clopidogrel -->
-<div class="block tool-block">
-  <div class="block-header">
-    <div class="info">
-      <img src="../iconos/utilidadesico.png" alt="">
-      <div>
-        <span class="block-title">14. IBP y clopidogrel</span><br>
-        <span class="tool-badge">Gastroprotección</span>
-      </div>
-    </div>
-    <span class="block-arrow">›</span>
-  </div>
-
-  <div class="block-content">
-    <ul>
-      <li>Indicar IBP si &gt;65 años, úlcera o HDB previa, o AAS/ACO.</li>
-      <li>Preferir pantoprazol, lansoprazol, rabeprazol.</li>
-      <li>Evitar omeprazol/esomeprazol salvo ausencia de alternativas.</li>
-      <li>Iniciar IBP desde el primer día en DAPT o ACO + clopidogrel.</li>
-    </ul>
-  </div>
-</div>
+  <!-- DISCLAIMER -->
+  <section class="disclaimer-red">
+    <p>
+      <b>📛Advertencia.</b> Esta herramienta tiene carácter orientativo y no sustituye el juicio clínico del profesional ni los protocolos locales.
+      Las recomendaciones deben integrarse con la situación individual del paciente, las guías vigentes y la discusión multidisciplinar cuando proceda.
+    </p>
+  </section>
 
 </main>
 
-<!-- =========================================================
-     MODALES DE NOTAS
-========================================================= -->
-
-<div class="modal-overlay" id="note-modal">
+<!-- MODAL HERRAMIENTAS -->
+<div class="modal-overlay" id="tool-modal">
   <div class="modal">
-    <button class="modal-close">&times;</button>
-    <h2 id="note-title">Nota</h2>
-    <div id="note-content"></div>
+    <button class="modal-close" id="tool-modal-close">&times;</button>
+    <h2 id="tool-modal-title">Herramienta</h2>
+    <div id="tool-modal-content"></div>
   </div>
 </div>
 
@@ -774,144 +396,215 @@ footer img{
 </footer>
 
 <script>
-/* Botón atrás */
-document.addEventListener('DOMContentLoaded', ()=>{
+/* ============================
+   MAPA DE ESCENARIOS → TEXTO
+=============================== */
+const tratamientosEscenario = {
+  ictus_menor: `
+    <b>Ictus menor / AIT de alto riesgo</b><br><br>
+    <ul>
+      <li>Definición orientativa: NIHSS ≤ 3 o ABCD<sub>2</sub> ≥ 4, sin indicación de fibrinólisis/EVT o tras su realización.</li>
+      <li><b>Tratamiento:</b> DAPT (AAS + clopidogrel) durante 21–30 días, seguida de monoterapia antiagregante.</li>
+      <li>Alternativa: ticagrelor + AAS en pacientes en los que clopidogrel no es adecuado (p. ej. fallo previo o polimorfismos).</li>
+      <li>Evitar prolongar la DAPT más allá de 90 días salvo indicación vascular adicional.</li>
+    </ul>
+  `,
+  carotida: `
+    <b>Estenosis carotídea extracraneal</b><br><br>
+    <ul>
+      <li><b>Sintomática moderada (50–69 %):</b> monoterapia (AAS o clopidogrel). Valorar intervención (endarterectomía o stent) en pacientes de alto riesgo de recurrencia.</li>
+      <li><b>Sintomática crítica (≥70 %):</b> priorizar CEA/CAS en ≤ 14 días si no hay contraindicaciones. DAPT peri-procedimiento (AAS + clopidogrel) y tras stent DAPT 1–3 meses.</li>
+      <li><b>Si la estenosis crítica no es intervenible de inmediato:</b> DAPT 21–30 días y luego monoterapia.</li>
+      <li><b>Asintomática (≥50 %):</b> monoterapia; valorar intervención si alto riesgo anatómico/funcional y buena expectativa de vida.</li>
+    </ul>
+  `,
+  intracraneal: `
+    <b>Estenosis intracraneal aterosclerótica</b><br><br>
+    <ul>
+      <li><b>Sintomática ≥70 %:</b> DAPT durante 90 días, luego monoterapia. Control intensivo de factores de riesgo (PA, LDL, DM, tabaco).</li>
+      <li>Evitar intervencionismo (angioplastia/stent) de primera línea; reservar para fracaso del tratamiento médico óptimo.</li>
+      <li><b>Asintomática:</b> monoterapia antiagregante y seguimiento imagenológico periódico (RM/angio-TC o similar).</li>
+    </ul>
+  `,
+  vertebral: `
+    <b>Estenosis vertebrales</b><br><br>
+    <ul>
+      <li><b>Extracraneal 50–69 % sintomática:</b> monoterapia antiagregante.</li>
+      <li><b>Extracraneal ≥70 % sintomática:</b> monoterapia; valorar intervención en pacientes de alto riesgo de recurrencia. En ausencia de intervención inmediata, DAPT 21–30 días puede considerarse.</li>
+      <li><b>Intracraneal ≥70 % sintomática:</b> DAPT 90 días, luego monoterapia. Intervención sólo si fracaso del tratamiento médico.</li>
+      <li><b>Asintomática:</b> monoterapia; valorar intervención sólo en contextos muy seleccionados de alto riesgo.</li>
+    </ul>
+  `,
+  atero_sin_estenosis: `
+    <b>Ictus aterotrombótico sin estenosis significativa</b><br><br>
+    <ul>
+      <li>Placa carotídea/aórtica no crítica sin estenosis relevante (&lt;50 %) pero con características de vulnerabilidad.</li>
+      <li><b>Tratamiento:</b> monoterapia antiagregante (AAS o clopidogrel).</li>
+      <li>No se recomienda DAPT crónica; reservar DAPT corta si se asimila a un ictus menor/AIT de alto riesgo.</li>
+      <li>Fundamental el control intensivo de factores de riesgo vascular (hipolipemiantes de alta intensidad, control de PA, abandono de tabaco…).</li>
+    </ul>
+  `,
+  lacunar: `
+    <b>Ictus lacunar (pequeño vaso)</b><br><br>
+    <ul>
+      <li>Ictus de pequeño vaso (lacunar) típicamente asociado a lipohialinosis/arteriolosclerosis en pacientes hipertensos/diabéticos.</li>
+      <li><b>Tratamiento:</b> monoterapia antiagregante.</li>
+      <li>No está indicada la DAPT prolongada en ictus lacunares aislados.</li>
+      <li>Prioritario: control estricto de la presión arterial, de la glucemia y cese de hábitos tóxicos.</li>
+    </ul>
+  `,
+  diseccion: `
+    <b>Disección arterial (carótida o vertebral)</b><br><br>
+    <ul>
+      <li><b>Sintomática:</b> puede emplearse anticoagulación (ACOD/AVK) o monoterapia antiagregante; no existe superioridad clara de una estrategia sobre otra. Duración habitual 3–6 meses, con reevaluación por imagen.</li>
+      <li><b>Asintomática y estable:</b> AAS suele ser suficiente.</li>
+      <li>Si se implanta un stent por disección complicada (estenosis crítica, trombo flotante, hipoperfusión): DAPT 1–3 meses tras el stent.</li>
+    </ul>
+  `,
+  carotid_web: `
+    <b>Carotid Web</b><br><br>
+    <ul>
+      <li>Lesión no aterosclerótica en la carótida bulbosa, asociada a ictus isquémico por embolia arterio-arterial.</li>
+      <li><b>Tratamiento médico:</b> monoterapia antiagregante.</li>
+      <li>En pacientes con <b>ictus/AIT recurrentes, web prominente o trombosis adyacente</b>, valorar tratamiento intervencionista (stent o endarterectomía) en centros expertos.</li>
+      <li>No se recomienda anticoagulación crónica salvo coexistencia de otra fuente embólica (p. ej. FA).</li>
+    </ul>
+  `,
+  trombo_aortico: `
+    <b>Trombo mural aórtico (sobre todo aorta ascendente/arco)</b><br><br>
+    <ul>
+      <li><b>Tratamiento de primera línea:</b> anticoagulación oral, habitualmente con AVK (INR objetivo según protocolo local).</li>
+      <li>Si el trombo se asienta sobre una placa aterosclerótica compleja (ulcerada, irregular, móvil, con hemorragia intraplaca), puede considerarse añadir AAS a corto plazo, valorando cuidadosamente el riesgo hemorrágico.</li>
+      <li>Alternativa si contraindicación de anticoagulación: DAPT, asumiendo menor evidencia.</li>
+      <li>Si el trombo persiste pese a tratamiento óptimo o hay recurrencias embólicas, valorar opciones quirúrgicas o endovasculares (stent, exclusión).</li>
+    </ul>
+  `,
+  estenosis_sin_intervencion: `
+    <b>Estenosis crítica sin opción de intervención</b><br><br>
+    <ul>
+      <li>Estenosis carotídea o vertebral crítica en la que no es posible la revascularización (riesgo prohibitivo, anatomía desfavorable, rechazo del paciente, etc.).</li>
+      <li><b>Tratamiento:</b> DAPT durante 21–30 días tras el evento isquémico, seguida de monoterapia antiagregante.</li>
+      <li>La DAPT corta es especialmente útil si el ictus/AIT es reciente (≤14 días).</li>
+      <li>Posteriormente, continuar con monoterapia y control máximo de factores de riesgo.</li>
+    </ul>
+  `
+};
 
-  const backBtn = document.querySelector('.safe-btn[title="Volver atrás"]');
-  if(backBtn){
-    backBtn.addEventListener('click', e=>{
-      e.preventDefault();
-      if(history.length > 1) history.back();
-      else location.href='../index.html';
-    });
+/* ============================
+   MAPA DE HERRAMIENTAS → TEXTO
+=============================== */
+const toolsContent = {
+  carga: {
+    title: "Dosis de carga de antiagregantes",
+    html: `
+      <ul>
+        <li><b>AAS:</b> dosis de carga 300 mg VO (o IV según contexto). Posteriormente, 75–100 mg/día. No mantener dosis altas más de 3–5 días salvo indicación específica.</li>
+        <li><b>Clopidogrel:</b>
+          <ul>
+            <li>300 mg de carga si el inicio del ictus/AIT es &lt; 12 h.</li>
+            <li>600 mg de carga si el inicio es ≥ 12 h y se busca efecto rápido.</li>
+            <li>Mantenimiento: 75 mg/día.</li>
+          </ul>
+        </li>
+        <li><b>Ticagrelor:</b> dosis de carga 180 mg, seguida de 90 mg/12 h.</li>
+        <li>Evitar usar solo dosis de mantenimiento sin carga en pacientes naïve, ya que retrasa el efecto antiagregante.</li>
+      </ul>
+    `
+  },
+  triple_stent: {
+    title: "Triple terapia en pacientes anticoagulados con stent carotídeo",
+    html: `
+      <ul>
+        <li><b>Contexto:</b> paciente con indicación de anticoagulación crónica (FA, tromboembolismo venoso, etc.) que recibe un stent carotídeo.</li>
+        <li><b>Días 1–7:</b> triple terapia con ACO (ACOD o AVK) + AAS + clopidogrel.</li>
+        <li><b>Días 8–30:</b> ACO + clopidogrel.</li>
+        <li><b>Tras 1 mes:</b> ACO en monoterapia en la mayoría de casos.</li>
+        <li>En situaciones de <b>muy alto riesgo trombótico</b> (stent largo, bifurcación, trombo residual, múltiples ictus previos) la triple terapia puede prolongarse hasta 14 días.</li>
+        <li>Utilizar IBP desde el inicio y priorizar ACOD frente a AVK cuando no haya contraindicaciones, por mejor perfil de seguridad.</li>
+      </ul>
+    `
+  },
+  triple_sin_stent: {
+    title: "Triple terapia en anticoagulados con indicación de DAPT (sin stent)",
+    html: `
+      <ul>
+        <li><b>Contexto:</b> paciente con ACO crónica que precisa DAPT corta por ictus menor/AIT de alto riesgo, estenosis intracraneal sintomática, estenosis crítica no intervenible, etc.</li>
+        <li><b>Días 1–7:</b> ACO + AAS + clopidogrel (triple terapia).</li>
+        <li><b>Días 8–30:</b> ACO + clopidogrel.</li>
+        <li><b>Días 31–90:</b> ACO en monoterapia o ACO + clopidogrel si el riesgo trombótico sigue siendo muy alto y el riesgo hemorrágico es aceptable.</li>
+        <li><b>Más allá de 90 días:</b> en general, ACO en monoterapia.</li>
+        <li>Suspender AAS tan pronto como sea posible, salvo indicación coronaria o vascular muy clara. Asociar siempre IBP.</li>
+      </ul>
+    `
+  },
+  ibp: {
+    title: "IBP y clopidogrel",
+    html: `
+      <ul>
+        <li><b>Indicaciones de IBP:</b> edad &gt; 65 años, antecedentes de úlcera o hemorragia digestiva, uso concomitante de AAS, ACO, AINEs o corticoides, y cualquier escenario de antiagregación/anticoagulación intensiva.</li>
+        <li><b>Elección de IBP:</b> preferir pantoprazol, lansoprazol o rabeprazol por menor interacción con el metabolismo de clopidogrel (CYP2C19).</li>
+        <li>Evitar omeprazol y esomeprazol salvo ausencia de alternativas o indicación muy precisa.</li>
+        <li>En pacientes con DAPT o ACO + clopidogrel, iniciar IBP desde el primer día y mantener mientras dure la combinación de alto riesgo gastrointestinal.</li>
+      </ul>
+    `
+  }
+};
+
+/* ============================
+   MOSTRAR TRATAMIENTO ESCENARIO
+=============================== */
+function mostrarTratamientoEscenario(){
+  const select = document.getElementById('escenario');
+  const res = document.getElementById('escenario-resultado');
+  const val = select.value;
+
+  if(!val || !tratamientosEscenario[val]){
+    res.innerHTML = "<h3>✅ Recomendación</h3><p>Seleccione un escenario clínico para mostrar la recomendación orientativa de tratamiento antitrombótico.</p>";
+    return;
   }
 
-  /* Desplegables */
-  document.querySelectorAll('.block').forEach(block=>{
-    block.addEventListener('click', e=>{
-      if(!e.target.classList.contains('note-btn')){
-        block.classList.toggle('open');
-      }
+  res.classList.remove('fade-in');
+  void res.offsetWidth; // forzar repaint
+  res.classList.add('fade-in');
+
+  res.innerHTML = `
+    <h3>✅ Recomendación</h3>
+    <p>${tratamientosEscenario[val]}</p>
+  `;
+}
+
+/* ============================
+   MODAL HERRAMIENTAS
+=============================== */
+document.addEventListener('DOMContentLoaded', () => {
+
+  // Botones herramientas
+  const chips = document.querySelectorAll('.tool-chip');
+  const modalOverlay = document.getElementById('tool-modal');
+  const modalTitle = document.getElementById('tool-modal-title');
+  const modalContent = document.getElementById('tool-modal-content');
+  const modalClose = document.getElementById('tool-modal-close');
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const key = chip.dataset.tool;
+      const tool = toolsContent[key];
+      if(!tool) return;
+
+      modalTitle.textContent = tool.title;
+      modalContent.innerHTML = tool.html;
+      modalOverlay.style.display = 'flex';
     });
   });
 
-  /* Notas */
-  const notes = {
-    1: `
-      • Síntomas recientes (≤14 días)<br>
-      • AITs/ictus recurrentes<br>
-      • AITs fluctuantes/inestables<br>
-      • Placa ulcerada, irregular o extensa<br>
-      • Hipoperfusión cerebral<br>
-      • Bajo riesgo quirúrgico y buena expectativa de vida
-    `,
-    2: `
-      • Progresión de estenosis<br>
-      • Placa inestable (ulcerada/móvil/hemorrágica)<br>
-      • Velocidades Doppler >300 cm/s<br>
-      • Microembolias espontáneas<br>
-      • Infartos silentes recientes ipsilaterales<br>
-      • Ausencia de colaterales<br>
-      • Estenosis bilateral<br>
-      • Edad <75 años y bajo riesgo quirúrgico<br>
-      • Baja adherencia terapéutica
-    `,
-    3: `
-      <strong>Utilidad</strong><br>
-      • Detectar progresión<br>
-      • Infartos silentes<br>
-      • Evaluar eficacia tratamiento<br>
-      • Valorar hipoperfusión<br><br>
-      <strong>Modificación del tratamiento</strong><br>
-      • Recurrencia/hipoperfusión → intervención<br>
-      • Infartos silentes/progresión → reforzar antiagregación o FRV<br>
-      • Progresión sin síntomas → seguimiento estrecho
-    `,
-    4: `
-      • Síntomas vertebrobasilares ≤14 días<br>
-      • AITs/ictus recurrentes<br>
-      • AITs fluctuantes<br>
-      • Infartos silentes o recientes VB<br>
-      • Placa ulcerada/móvil en origen vertebral<br>
-      • Hipoperfusión<br>
-      • Estenosis bilateral / colaterales malas<br>
-      • Edad <75 años y buen riesgo de intervención
-    `,
-    5: `
-      • Estenosis crítica con hipoperfusión<br>
-      • Síntomas recurrentes pese a tratamiento<br>
-      • Trombo intraluminal flotante/embolígeno<br>
-      • Disección extensa/inestable con deterioro<br>
-      • Falsa luz aneurismática con expansión o riesgo de rotura<br>
-      • No indicado en disecciones asintomáticas
-    `,
-    6: `
-      • Ictus/AIT repetidos en mismo territorio<br>
-      • Web prominente/protruyente<br>
-      • Trombosis asociada<br>
-      • Estasis significativa del flujo<br>
-      • Edad <60 años sin otra causa embólica<br>
-      • Ausencia de FRV
-    `,
-    7: `
-      • Trombo sobre placa ulcerada, móvil o con hemorragia intraplaca<br>
-      • Asociar AAS si alto riesgo embólico<br>
-      • Uso individualizado y limitado (1–3 meses)
-    `,
-    8: `
-      • Stent largo o bifurcación<br>
-      • Placa ulcerada o trombo residual<br>
-      • Ictus/AIT múltiples previos<br>
-      • Paciente joven, bajo riesgo hemorrágico
-    `
-  };
-
-  const modalOverlay = document.getElementById('note-modal');
-  const modalTitle = document.getElementById('note-title');
-  const modalContent = document.getElementById('note-content');
-
-  document.querySelectorAll('.note-btn').forEach(btn=>{
-    btn.addEventListener('click', e=>{
-      e.stopPropagation(); 
-      const n = btn.dataset.note;
-      modalTitle.textContent = `Nota ${n}`;
-      modalContent.innerHTML = notes[n];
-      modalOverlay.style.display='flex';
-    });
+  modalClose.addEventListener('click', () => {
+    modalOverlay.style.display = 'none';
   });
 
-  document.querySelector('.modal-close').addEventListener('click', ()=>{
-    modalOverlay.style.display='none';
-  });
-
-  modalOverlay.addEventListener('click', e=>{
+  modalOverlay.addEventListener('click', (e) => {
     if(e.target === modalOverlay){
-      modalOverlay.style.display='none';
+      modalOverlay.style.display = 'none';
     }
-  });
-
-});
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', ()=>{
-
-  const tabs = document.querySelectorAll('.tab-item');
-
-  tabs.forEach(tab=>{
-    tab.addEventListener('click', ()=>{
-      // Activar pestaña
-      tabs.forEach(t=>t.classList.remove('active'));
-      tab.classList.add('active');
-
-      // Scroll suave
-      const targetId = tab.dataset.target;
-      const targetEl = document.getElementById(targetId);
-
-      const offset = (window.innerWidth < 600) ? 105 : 115;
-      const y = targetEl.getBoundingClientRect().top + window.scrollY - offset;
-
-      window.scrollTo({ top:y, behavior:'smooth' });
-    });
   });
 
 });

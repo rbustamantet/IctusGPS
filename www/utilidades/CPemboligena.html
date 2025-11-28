@@ -210,15 +210,18 @@ label.row:hover{
 
 /* FOOTER */
 footer{
-  width:100%;
-  margin:2rem 0 0;
+  width:100vw;
+  margin-top:2rem;
   padding:1.5rem 0;
   border-top:1px solid #e5e7eb;
   background:#ffffff;
   text-align:center;
-  box-shadow:0 -2px 6px rgba(0,0,0,0.04);
 }
-footer img { max-width:80%; height:auto; }
+footer img{
+  max-width:380px;
+  height:auto;
+  opacity:.96;
+}
 @media (min-width:600px){ footer img { max-width:380px; } }
 
 /* =========================================================
@@ -287,7 +290,7 @@ body{
 
   <!-- ÚNICO BLOQUE -->
   <div class="block" id="patologia-section">
-<h3><img src="cardiopatiasico.png" class="icon-h3"> Patología cardíaca embolígena</h3>
+<h3>🩺 Patología cardíaca embolígena</h3>
 
     <label><b>Seleccione la entidad principal:</b></label>
     <select id="patologia" onchange="mostrarFactoresPatologia()">
@@ -310,12 +313,12 @@ body{
 
 
 
-    <div class="block" id="patologia-resultado"><h3>Recomendación</h3></div>
+    <div class="block" id="patologia-resultado"><h3>✅ Recomendación</h3><p>Seleccione un escenario clínico para mostrar la recomendación orientativa de tratamiento.</p></div>
 
 <!-- DISCLAIMER -->
 <section class="disclaimer-red">
   <p>
-    <b>Advertencia.</b> Esta herramienta tiene carácter orientativo y no sustituye el juicio clínico del profesional ni los protocolos locales.
+    <b>📛Advertencia.</b> Esta herramienta tiene carácter orientativo y no sustituye el juicio clínico del profesional ni los protocolos locales.
     Las recomendaciones deben integrarse con la situación individual del paciente, las guías vigentes y la discusión multidisciplinar cuando proceda.
   </p>
 </section>
@@ -488,7 +491,7 @@ function mostrarRecomendacionPatologia(preliminar = false) {
 
   switch(patologia) {
     case "hipertrofica":
-      texto = "<b>Miocardiopatía hipertrófica</b> – Riesgo embólico elevado si coexistencia de FA.";
+      texto = "<b>📌 Miocardiopatía hipertrófica</b> – Riesgo embólico elevado si coexistencia de FA.";
       if (riesgos.includes("FA paroxística")) {
         recomendacion = "Anticoagulación indefinida (preferiblemente ACOD si no contraindicado), independientemente del CHA₂DS₂-VASc.";
         fuerza = "ACODS_PREFERIDOS";
@@ -499,7 +502,7 @@ function mostrarRecomendacionPatologia(preliminar = false) {
       break;
 
     case "iam":
-  texto = "<b>Infarto agudo de miocardio</b> – Mayor riesgo embólico si trombo cavitario o ictus periinfarto.";
+  texto = "<b>📌 Infarto agudo de miocardio</b> – Mayor riesgo embólico si trombo cavitario o ictus periinfarto.";
 
 
       const tieneTromboCavitario = riesgos.includes("Trombo cavitario");
@@ -530,7 +533,7 @@ function mostrarRecomendacionPatologia(preliminar = false) {
 
 
     case "dilatada":
-  texto = "<b>Miocardiopatía dilatada</b> – Riesgo embólico si trombo apical o FA concomitante.";
+  texto = "<b>📌 Miocardiopatía dilatada</b> – Riesgo embólico si trombo apical o FA concomitante.";
 
   // PRIORIDAD CORRECTA
 
@@ -553,7 +556,7 @@ function mostrarRecomendacionPatologia(preliminar = false) {
 
 
 case "isquemica":
-      texto = "<b>Miocardiopatía isquémica</b> – Riesgo embólico si hay zonas acinéticas, trombos murales o ictus cardioembólico " +
+      texto = "<b>📌 Miocardiopatía isquémica</b> – Riesgo embólico si hay zonas acinéticas, trombos murales o ictus cardioembólico " +
               "atribuible a una disfunción ventricular persistente.";
 
       const tieneTromboMural     = riesgos.includes("Trombo mural documentado");
@@ -596,7 +599,7 @@ case "isquemica":
       break;
 
     case "restrictiva":
-      texto = "<b>Miocardiopatía restrictiva</b> – FA y trombos auriculares frecuentes, especialmente en amiloidosis.";
+      texto = "<b>📌 Miocardiopatía restrictiva</b> – FA y trombos auriculares frecuentes, especialmente en amiloidosis.";
       if (riesgos.includes("FA documentada") || riesgos.includes("Trombos auriculares")) {
         recomendacion = "Anticoagulación (ACOD o AVK) indefinida independientemente del CHA₂DS₂-VASc.";
         fuerza = "ACODS_PREFERIDOS";
@@ -607,7 +610,7 @@ case "isquemica":
       break;
 
     case "tako":
-      texto = "<b>Miocardiopatía de Tako-Tsubo</b> – Riesgo embólico bajo; individualizar.";
+      texto = "<b>📌 Miocardiopatía de Tako-Tsubo</b> – Riesgo embólico bajo; individualizar.";
       if (riesgos.includes("FA concomitante")) {
         recomendacion = "Anticoagulación indefinida (ACOD o AVK) independientemente del CHA₂DS₂-VASc.";
         fuerza = "ACODS_PREFERIDOS";
@@ -621,7 +624,7 @@ case "isquemica":
       break;
 
     case "mixoma":
-      texto = "<b>Mixoma auricular</b> – Riesgo embólico relevante; indicación principal: cirugía.";
+      texto = "<b>📌 Mixoma auricular</b> – Riesgo embólico relevante; indicación principal: cirugía.";
       if (riesgos.includes("Ictus cardioembólico") || riesgos.includes("Trombo en aurícula")) {
         recomendacion = "Anticoagulación (preferiblemente AVK, pudiendo valorar ACOD) transitoria hasta la resección quirúrgica.";
         fuerza = "ANTICOAGULACION_TRANSITORIA";
@@ -632,7 +635,7 @@ case "isquemica":
       break;
 
    case "valvular":
-  texto = "<b>Patología valvular / Prótesis valvulares</b> – Riesgo embólico variable según tipo de válvula y presencia de FA.";
+  texto = "<b>📌 Patología valvular / Prótesis valvulares</b> – Riesgo embólico variable según tipo de válvula y presencia de FA.";
 
   const hasFAv = riesgos.includes("FA concomitante") || riesgos.includes("FA documentada") || riesgos.includes("FA Paroxística/Crónica documentada");
   const hasTEPrevio = riesgos.includes("Complicaciones tromboembólicas previas");
@@ -722,7 +725,7 @@ case "isquemica":
 
 
 case "endocarditis":
-  texto = "<b>Endocarditis infecciosa</b> – Riesgo extremadamente alto de hemorragia intracraneal, incluso en ictus isquémicos.";
+  texto = "<b>📌 Endocarditis infecciosa</b> – Riesgo extremadamente alto de hemorragia intracraneal, incluso en ictus isquémicos.";
 
   const neuro = riesgos.includes("Complicaciones neurológicas");
   const micoticos = riesgos.includes("Aneurismas micóticos");
@@ -745,7 +748,7 @@ case "endocarditis":
 
 
 case "sicksinus":
-  texto = "<b>Síndrome del seno enfermo</b> – La FA puede ser paroxística u oculta; la estratificación de riesgo sigue el CHA₂DS₂-VASc.";
+  texto = "<b>📌 Síndrome del seno enfermo</b> – La FA puede ser paroxística u oculta; la estratificación de riesgo sigue el CHA₂DS₂-VASc.";
  
  // 2️⃣ ICTUS CARDIOEMBÓLICO PREVIO (sin FA documentada)
   if (riesgos.includes("Antecedente de ictus/embolia sistémica")) {
@@ -777,7 +780,7 @@ case "sicksinus":
 
 
 case "auricula":
-  texto = "<b>Aurícula izquierda / orejuela</b> – El riesgo embólico depende de la presencia de trombo, valvulopatía mitral, FA y del remodelado auricular.";
+  texto = "<b>📌 Aurícula izquierda / orejuela</b> – El riesgo embólico depende de la presencia de trombo, valvulopatía mitral, FA y del remodelado auricular.";
 
   const tieneTrombo = riesgos.includes("Trombo en aurícula izquierda / orejuela");
   const estenosisMitral = riesgos.includes("Estenosis mitral moderada-severa");
@@ -865,7 +868,7 @@ switch (fuerza) {
 recomendacion += coletilla;
 
   const resumen = riesgos.length > 0 ? riesgos.join(", ") : "Ninguno";
-  resultadoDiv.innerHTML = `${texto}<br><b>Factores de riesgo presentes:</b> ${resumen}.<br><b>Recomendación orientativa:</b> ${recomendacion}`;
+  resultadoDiv.innerHTML = `${texto}<br><b>📎 Factores de riesgo presentes:</b> ${resumen}.<br><b>✅ Recomendación orientativa:</b> ${recomendacion}`;
 
 /* ============================
    RECOMENDACIÓN PRINCIPAL
