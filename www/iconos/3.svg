@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 64 64"
+  width="24"
+  height="24"
+>
+  <!-- Fondo transparente -->
+  <rect x="0" y="0" width="64" height="64" fill="none"/>
+
+  <!-- Halo suave exterior -->
+  <circle
+    cx="32"
+    cy="32"
+    r="30"
+    fill="#d9534f"
+  />
+
+  <!-- Círculo principal azul institucional -->
+  <circle
+    cx="32"
+    cy="32"
+    r="28"
+    fill="#fff7f7"
+  />
+
+  <!-- Número 3 en blanco -->
+  <text
+    x="32"
+    y="42"
+    text-anchor="middle"
+    font-family="Verdana, 'Segoe UI', sans-serif"
+    font-size="26"
+    fill="#0f3d83"
+    font-weight="bold"
+  >
+    3
+  </text>
+</svg>

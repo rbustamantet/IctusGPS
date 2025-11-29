@@ -324,6 +324,10 @@ select{
   margin-top:4px
 }
 
+.hidden-note{
+  display:none;
+}
+
 .ok{
   background:var(--ok-bg);
   border-color:var(--ok-ring)
@@ -493,6 +497,77 @@ body {
   padding-top: calc(env(safe-area-inset-top, 0px) + 52px);
   background-color: #fff;
 }
+/* =========================================================
+   MODAL INFORMATIVA
+========================================================= */
+
+.modal-info{
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.45);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:3000;
+}
+
+.modal-content{
+  background:#ffffff;
+  border-radius:14px;
+  padding:20px;
+  max-width:420px;
+  width:88%;
+  box-shadow:0 6px 20px rgba(0,0,0,0.25);
+  position:relative;
+  animation:fadeIn .25s ease;
+}
+
+.modal-text{
+  font-size:14px;
+  color:#1e293b;
+  line-height:1.5;
+  white-space:pre-wrap;
+}
+
+.modal-close{
+  position:absolute;
+  top:2px;
+  right:1px;
+  background:none;
+  border:none;
+  font-size:10px;
+  cursor:pointer;
+  color:#000;
+}
+
+.modal-close:hover{
+  color:#991b1b;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:scale(.95)}
+  to{opacity:1; transform:scale(1)}
+}
+
+/* Icono informativo */
+.info-line{
+  text-align:center;
+  margin-top:4px;
+}
+
+.info-icon{
+  cursor:pointer;
+  font-size:18px;
+  color:#000;
+  font-weight:700;
+  padding:0 2px;
+}
+
+.info-icon:hover{
+  color:#1c60c3;
+}
+
 </style>
 </head>
 
@@ -641,17 +716,22 @@ body {
 
   <!-- RoPE -->
   <div class="kpi">
-    <div class="box" id="ropeBox">
-      <div class="ttl">RoPE</div>
-      <div class="val" id="scoreVal">-</div>
-      <div class="mini" id="probVal">-</div>
-    </div>
-    <div class="box" id="classBox">
-      <div class="ttl">Categoría RoPE</div>
-      <div class="val" id="classVal">-</div>
-      <div class="mini" id="interpVal">-</div>
+  <div class="box" id="ropeBox">
+    <div class="ttl">RoPE <span class="info-icon" data-info="probVal">ℹ️</span></div>
+    <div class="val" id="scoreVal">-</div>
+    <!-- contenedor oculto para la probabilidad -->
+    <div class="mini hidden-note" id="probVal">-</div>
+    <div class="info-line">
     </div>
   </div>
+  <div class="box" id="classBox">
+    <div class="ttl">Categoría RoPE</div>
+    <div class="val" id="classVal">-</div>
+    <!-- contenedor oculto para la interpretación -->
+    <div class="mini hidden-note" id="interpVal">-</div>
+  </div>
+</div>
+
 
   <!-- Anat + Clínico -->
   <div class="kpi">
@@ -668,21 +748,28 @@ body {
   <!-- PASCAL + Recomendación en la misma fila -->
 <div class="kpi pascal-reco" style="grid-template-columns:1fr 1.4fr;">
 
-    <!-- PASCAL -->
-    <div class="box" id="pascalBox">
-      <div class="ttl">Clasificación PASCAL</div>
-      <div class="val" id="pascalVal">-</div>
-      <div class="mini" id="pascalNote">-</div>
+  <!-- PASCAL -->
+  <div class="box" id="pascalBox">
+    <div class="ttl">Clasificación PASCAL <span class="info-icon" data-info="pascalNote">ℹ️</span>
+</div>
+    <div class="val" id="pascalVal">-</div>
+    <!-- contenedor oculto para la nota PASCAL -->
+    <div class="mini hidden-note" id="pascalNote">-</div>
+    <div class="info-line">
     </div>
-
-    <!-- Recomendación orientativa -->
-    <div class="box" id="recBox">
-      <div class="ttl">Recomendación orientativa</div>
-      <div class="val" id="recVal">-</div>
-      <div class="mini" id="recNote">-</div>
-    </div>
-
   </div>
+
+  <!-- Recomendación orientativa -->
+  <div class="box" id="recBox">
+    <div class="ttl">Recomendación <span class="info-icon" data-info="recNote">ℹ️</span>
+</div>
+    <div class="val" id="recVal">-</div>
+    <!-- contenedor oculto para la nota de recomendación -->
+    <div class="mini hidden-note" id="recNote">-</div>
+    <div class="info-line">    </div>
+  </div>
+
+</div>
 
   <!-- Resumen -->
   <div id="resumenText"></div>
@@ -703,12 +790,18 @@ body {
 <footer>
   <img src="uibanner.png" alt="Unidad de Ictus Málaga" style="max-width:380px;height:auto;opacity:.96">
 </footer>
-
+<!-- VENTANA EMERGENTE -->
+<div id="modalInfo" class="modal-info">
+  <div class="modal-content">
+    <button class="modal-close" id="closeModal">❌</button>
+    <div id="modalText" class="modal-text"></div>
+  </div>
+</div>
 <script>
 /* Probabilidades RoPE */
 const PROB={
-  0:'28%',1:'30%',2:'35%',3:'44%',4:'55%',
-  5:'61%',6:'67%',7:'78%',8:'84%',9:'88%',10:'90%'
+  0:'28% de probabilidad del FOP como causa del ictus',1:'30% de probabilidad del FOP como causa del ictus',2:'35% de probabilidad del FOP como causa del ictus',3:'44% de probabilidad del FOP como causa del ictus',4:'55% de probabilidad del FOP como causa del ictus',
+  5:'61% de probabilidad del FOP como causa del ictus',6:'67% de probabilidad del FOP como causa del ictus',7:'78% de probabilidad del FOP como causa del ictus',8:'84% de probabilidad del FOP como causa del ictus',9:'88% de probabilidad del FOP como causa del ictus',10:'90% de probabilidad del FOP como causa del ictus'
 };
 
 /* IDs de campos */
@@ -737,7 +830,7 @@ function pascalClass(scoreRoPE){
     return {
       label:'Probable',
       tone:'ok',
-      note:'RoPE ≥7 y presencia de shunt grande y/o ASA: FOP probablemente causal; el cierre suele aportar mayor beneficio absoluto.'
+      note:'RoPE ≥7 y presencia de shunt grande y/o ASA: FOP probablemente causal.'
     };
   }
 
@@ -745,14 +838,32 @@ function pascalClass(scoreRoPE){
     return {
       label:'Improbable',
       tone:'bad',
-      note:'RoPE <7 y sin shunt grande/ASA: el FOP probablemente es un hallazgo incidental; suele preferirse manejo médico.'
+      note:'RoPE <7 y sin shunt grande/ASA: el FOP probablemente es un hallazgo incidental.'
     };
   }
+
+  if(scoreRoPE > 7 && !highRisk){
+    return {
+      label:'Posible',
+      tone:'warn',
+      note:'RoPE >7 y sin shunt grande/ASA: relación causal posible.'
+    };
+  }
+
+
+  if(scoreRoPE < 7 && highRisk){
+    return {
+      label:'Posible',
+      tone:'warn',
+      note:'RoPE <7 y presencia de shunt grande y/o ASA: relación causal posible.'
+    };
+  }
+
 
   return {
     label:'Posible',
     tone:'warn',
-    note:'Perfil intermedio (Posible): relación causal posible; valorar cierre en comité multidisciplinar.'
+    note:'Perfil intermedio (Posible): relación causal posible.'
   };
 }
 
@@ -924,7 +1035,32 @@ function copiar(){
 $('btnCalc').addEventListener('click',calcular);
 $('btnClear').addEventListener('click',borrar);
 $('btnCopy').addEventListener('click',copiar);
+
+/* =========================================================
+   MODAL DE INFORMACIÓN
+========================================================= */
+
+const modal = $('modalInfo');
+const modalText = $('modalText');
+const closeModal = $('closeModal');
+
+document.querySelectorAll('.info-icon').forEach(icon=>{
+  icon.addEventListener('click', ()=>{
+    const id = icon.dataset.info;
+    const txt = $(id).textContent.trim() || 'Sin información disponible.';
+    modalText.textContent = txt;
+    modal.style.display = 'flex';
+  });
+});
+
+closeModal.addEventListener('click', ()=> modal.style.display='none');
+modal.addEventListener('click', e=>{
+  if(e.target === modal) modal.style.display='none';
+});
+
+
 </script>
+
 
 <script src="../js/index.js"></script>
 
