@@ -146,13 +146,18 @@ header {
 .pill.tone-red{background:#fee2e2; color:#991b1b; border-color:#fecaca;}
 
 /* INTRO */
-.intro{max-width:980px;margin-inline:auto;padding:52px 16px 0;color:var(--muted);
-  font-size:.95rem;line-height:1.45;text-align:justify;}
-.intro strong{color:var(--accent);}
-
+.howto{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  box-shadow:0 2px 2px var(--muted);
+  padding:.5rem;
+  margin:.5rem 0 1rem;
+  font-size:14px;
+}
 /* ===== CUERPO ===== */
 body{margin:0; background:var(--bg); color:var(--ink); font-family:Verdana, Geneva, sans-serif;}
-.wrap{max-width:980px; margin:16px auto 48px; padding:22px 16px;}
+.wrap{max-width:980px; margin:16px auto 48px; padding:2px 16px;}
 .panel{background:#fff; border:1px solid var(--borde); border-radius:16px; padding:16px; box-shadow:0 2px 10px rgba(15,23,42,.06);}
 
 
@@ -226,6 +231,17 @@ footer{
 }
 footer img{max-width:320px;height:auto;opacity:.95}
 
+/* =========================================================
+   PADDING SUPERIOR DEL CONTENIDO
+========================================================= */
+
+/* Empuja el contenido real por debajo de la barra superior */
+body {
+  margin: 0;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 52px);
+  background-color: #fff;
+}
+
 </style>
 
 </head>
@@ -257,8 +273,7 @@ footer img{max-width:320px;height:auto;opacity:.95}
 </header>
 
 <main class="wrap">
-<section class="intro">
-  <p>La <b>Escala de Rankin Modificada (mRS)</b> es la herramienta más utilizada para medir el <b>grado de discapacidad o dependencia funcional global</b> de un paciente después de un ictus u otra enfermedad neurológica. Su resultado es el principal criterio de valoración clínica en <b>ensayos</b> y <b>práctica diaria</b> para evaluar la <b>eficacia </b>del tratamiento y el pronóstico a largo plazo del paciente. Seleccione el grado que describa el estado <b>habitual</b> del paciente. Priorice la capacidad real en la vida diaria.</p></section>
+<div class="howto">La <b>Escala de Rankin Modificada (mRS)</b> es la herramienta más utilizada para medir el <b>grado de discapacidad o dependencia funcional global</b> de un paciente después de un ictus u otra enfermedad neurológica. Su resultado es el principal criterio de valoración clínica en <b>ensayos</b> y <b>práctica diaria</b> para evaluar la <b>eficacia </b>del tratamiento y el pronóstico a largo plazo del paciente. Seleccione el grado que describa el estado <b>habitual</b> del paciente. Priorice la capacidad real en la vida diaria.</div>
 
   <section class="panel">
         <fieldset aria-describedby="ayuda" style="border:0; padding:0; margin:0">
@@ -361,10 +376,6 @@ footer img{max-width:320px;height:auto;opacity:.95}
 
       <div id="resumenText"></div>
 
-      <p class="note" style="margin-top:12px">
-        Referencia: van Swieten JC, Koudstaal PJ, Visser MC, Schouten HJ, van Gijn J. 
-        Interobserver agreement for the assessment of handicap in stroke patients. <em>Stroke</em>. 1988;19:604–607.
-      </p>
     </div>
   </section>
 

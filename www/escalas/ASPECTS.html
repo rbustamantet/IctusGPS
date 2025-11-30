@@ -129,18 +129,8 @@ header {
   text-align:center;
   text-transform:none; /* 🔹 estilo oración */
   z-index: 5;
+}
 
-}
-/* ==== Efecto estático visible sobre fondo azul ==== */
-.titulo-neon  {
-  position: relative;
-  z-index: 10;
-  color: #e9f2ff;
-  text-shadow:
-    0 0 6px rgba(15,61,131,0.9),
-    0 0 12px rgba(15,61,131,0.7),
-    0 2px 3px rgba(0,0,0,0.4);
-}
 /* =========================================================
    CABECERA
 ========================================================= */
@@ -187,11 +177,17 @@ html,body{
 }
 
 /* INTRO */
-.intro{max-width:980px;margin-inline:auto;padding:52px 16px 0;color:var(--muted);
-  font-size:.95rem;line-height:1.45;text-align:justify;}
-.intro strong{color:var(--accent);}
+.howto{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  box-shadow:0 2px 2px var(--muted);
+  padding:.5rem;
+  margin:.5rem 0 1rem;
+  font-size:14px;
+}
 
-.wrap{max-width:1080px;margin:14px auto 40px;padding:12px 14px;}
+.wrap{max-width:1080px;margin:14px auto 40px;padding:2px 14px;}
 
     .imgbox{background:#eef6ff;border:1px solid #dbeafe;border-radius:14px;padding:10px;margin:10px 0 16px}
     .imgbox img{width:100%;max-width:600px;height:auto;display:block;margin-left:auto;margin-right:auto;border-radius:4px;transition: all 0.3s ease-in-out;box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5);}
@@ -243,6 +239,17 @@ footer{
 }
 footer img{max-width:320px;height:auto;opacity:.95}
 
+/* =========================================================
+   PADDING SUPERIOR DEL CONTENIDO
+========================================================= */
+
+/* Empuja el contenido real por debajo de la barra superior */
+body {
+  margin: 0;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 52px);
+  background-color: #fff;
+}
+
 @media(max-width:768px){
   header{font-size:1.05rem;}
   main{padding:0.9rem 1rem;}
@@ -281,9 +288,7 @@ footer img{max-width:320px;height:auto;opacity:.95}
 
 
 <main class="wrap">
-<section class="intro">
-  <p>Sistema de puntuación radiológica rápido utilizado para evaluar el <b>daño isquémico temprano</b> en la tomografía computarizada (TC) cerebral en pacientes con ictus de la arteria cerebral media (ACM). Divide el territorio de la ACM en 10 áreas; por cada área afectada por <b>signos isquémicos tempranos</b>, se resta un punto de un máximo de 10. La puntuación final (0-10) es crucial para guiar la elegibilidad para tratamientos de reperfusión, como la trombectomía.</p>
-</section>
+<div class="howto">Sistema de puntuación radiológica rápido utilizado para evaluar el <b>daño isquémico temprano</b> en la tomografía computarizada (TC) cerebral en pacientes con ictus de la arteria cerebral media (ACM). Divide el territorio de la ACM en 10 áreas; por cada área afectada por <b>signos isquémicos tempranos</b>, se resta un punto de un máximo de 10. La puntuación final (0-10) es crucial para guiar la elegibilidad para tratamientos de reperfusión, como la trombectomía.</div>
   <section class="panel">
     <figure class="imgbox">
       <img src="../img/aspects.png" alt="Esquema de regiones ASPECTS">
