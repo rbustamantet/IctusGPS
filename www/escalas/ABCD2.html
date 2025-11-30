@@ -209,6 +209,19 @@ select:focus{outline:none;box-shadow:0 0 0 4px var(--accent-soft)}
 .actions {
   margin-left: auto;
 }
+
+/* Pie */
+footer{
+  width:100%;
+  margin:2rem 0 0;
+  padding:1.5rem 0;
+  border-top:1px solid #e5e7eb;
+  background:#ffffff;
+  text-align:center;
+  box-shadow:0 -2px 6px rgba(0,0,0,0.04);
+}
+footer img{max-width:320px;height:auto;opacity:.95}
+
 @media(max-width:768px){
   header{font-size:1.05rem;}
   main{padding:0.9rem 1rem;}
@@ -397,10 +410,8 @@ document.getElementById('btnCopy').addEventListener('click',copiar);
 document.addEventListener('DOMContentLoaded',calc);
 </script>
 
-<footer style="position:relative;left:50%;transform:translateX(-50%);width:100vw;
-  margin:2rem 0 0 0;padding:1.5rem 0;border-top:1px solid #e5e7eb;
-  background:#ffffff;text-align:center;box-shadow:0 -2px 6px rgba(0,0,0,0.04);">
-  <img src="uibanner.png" alt="Unidad de Ictus Málaga" style="max-width:380px;height:auto;opacity:.96;">
+<footer>
+  <img src="../img/uibanner.png" alt="Ictus GPS">
 </footer>
 <script src="js/index.js"></script>
 </body>

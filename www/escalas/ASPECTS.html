@@ -194,8 +194,11 @@ html,body{
 .wrap{max-width:1080px;margin:14px auto 40px;padding:12px 14px;}
 
     .imgbox{background:#eef6ff;border:1px solid #dbeafe;border-radius:14px;padding:10px;margin:10px 0 16px}
-    .imgbox img{width:100%;height:auto;display:block;border-radius:10px;border:1px solid #dbeafe}
-    .imgbox figcaption{margin-top:8px;font-size:12px;color:#233a66}
+    .imgbox img{width:100%;max-width:600px;height:auto;display:block;margin-left:auto;margin-right:auto;border-radius:4px;transition: all 0.3s ease-in-out;box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5);}
+.imgbox img:hover {
+  filter: brightness(140%); /* La hace un poco más brillante */
+}
+    .imgbox figcaption{margin-top:8px;font-size:12px;color:#233a66;text-align:center;}
 
 .sub{color:var(--muted);margin:2px 0 12px;font-size:0.9rem;}
 .panel{background:#fff;border:1px solid var(--border);border-radius:16px;padding:14px;box-shadow:0 8px 22px rgba(31,86,179,.06);}
@@ -228,6 +231,7 @@ input[type="checkbox"]{transform:scale(1.15);}
 .btn-secondary:hover{background:#e6ecff;}
 .btn-secondary.copiado{background:#0f3d83!important;color:#fff!important;border-color:#0f3d83!important;}
 
+/* Pie */
 footer{
   width:100%;
   margin:2rem 0 0;
@@ -237,6 +241,8 @@ footer{
   text-align:center;
   box-shadow:0 -2px 6px rgba(0,0,0,0.04);
 }
+footer img{max-width:320px;height:auto;opacity:.95}
+
 @media(max-width:768px){
   header{font-size:1.05rem;}
   main{padding:0.9rem 1rem;}
@@ -280,14 +286,13 @@ footer{
 </section>
   <section class="panel">
     <figure class="imgbox">
-      <img src="aspects.png" alt="Esquema de regiones ASPECTS">
-      <figcaption>Regiones: ínsula (I), caudado (C), lentiforme (L), cápsula interna (CI) y M1–M6.</figcaption>
+      <img src="../img/aspects.png" alt="Esquema de regiones ASPECTS">
     </figure>
 
     <div class="grid" id="checks">
       <label class="chk"><input class="r" type="checkbox"> I – Ínsula</label>
       <label class="chk"><input class="r" type="checkbox"> C – Caudado</label>
-      <label class="chk"><input class="r" type="checkbox"> L – Lentiforme</label>
+      <label class="chk"><input class="r" type="checkbox"> L – Lenticular</label>
       <label class="chk"><input class="r" type="checkbox"> CI – Cápsula interna</label>
       <label class="chk"><input class="r" type="checkbox"> M1 – Corteza insular anterior</label>
       <label class="chk"><input class="r" type="checkbox"> M2 – Corteza ACM anterior</label>
@@ -382,7 +387,7 @@ document.getElementById('btnCopiar').addEventListener('click', copiarASPECTS);
 </script>
 
 <footer>
-  <img src="uibanner.png" alt="Unidad de Ictus Málaga" style="max-width:380px;height:auto;opacity:.96;">
+  <img src="../img/uibanner.png" alt="Ictus GPS">
 </footer>
 <script src="js/index.js"></script>
 </body>
