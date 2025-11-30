@@ -6,95 +6,122 @@
 
   <title>Formulario JX10 - Inclusión/Exclusión</title>
   <style>
+    <style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 40px;
+    background-color: #f4f8fc;
+    color: #003366;
+  }
+  h1 {
+    color: #003366;
+    text-align: center;
+  }
+  fieldset {
+    margin-bottom: 30px;
+    border: 2px solid #005ea6;
+    background-color: #e8f1fa;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  legend {
+    font-weight: bold;
+    color: #003366;
+    padding: 0 10px;
+    font-size: 18px;
+  }
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1rem;
+  }
+
+  button, input[type="submit"] {
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid #005ea6;
+    background-color: white;
+    color: #005ea6;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover, input[type="submit"]:hover {
+    background-color: #e8f1fa !important;
+  }
+
+  .alerta-central {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 25px 40px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    display: none;
+    z-index: 9999;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  }
+  .roja {
+    background-color: #fbeaea;
+    color: #b00020;
+    border: 2px solid #f5c6cb;
+  }
+  .verde {
+    background-color: #e1f3f7;
+    color: #007c91;
+    border: 2px solid #a7d8e7;
+  }
+
+  #whatsappBtn {
+    display: inline-block;
+    margin-top: 20px;
+    background-color: #25D366;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  #whatsappBtn:hover {
+    background-color: #1ebe5b;
+  }
+
+  @media (max-width: 600px) {
     body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 40px;
-      background-color: #f4f8fc;
-      color: #003366;
+      font-size: 1.05rem;
+      margin: 20px;
     }
-    h1 {
-      color: #003366;
-      text-align: center;
-    }
+
     fieldset {
-      margin-bottom: 30px;
-      border: 2px solid #005ea6;
-      background-color: #e8f1fa;
-      padding: 20px;
-      border-radius: 8px;
+      padding: 15px;
     }
-    legend {
-      font-weight: bold;
-      color: #003366;
-      padding: 0 10px;
-      font-size: 18px;
-    }
+
     label {
-      display: block;
-      margin-bottom: 8px;
-    }
-    input[type="submit"] {
-      padding: 12px 24px;
-      background-color: #005ea6;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-      display: block;
-      margin: 30px auto;
-    }
-    input[type="submit"]:hover {
-      background-color: #004080;
+      font-size: 1.1rem;
     }
 
     .alerta-central {
-      position: fixed;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      padding: 25px 40px;
-      border-radius: 8px;
-      font-size: 20px;
-      font-weight: bold;
-      display: none;
-      z-index: 9999;
-      text-align: center;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
-    }
-    .roja {
-      background-color: #fbeaea;
-      color: #b00020;
-      border: 2px solid #f5c6cb;
-    }
-    .verde {
-      background-color: #e1f3f7;
-      color: #007c91;
-      border: 2px solid #a7d8e7;
+      width: 90%;
+      font-size: 1.1rem;
     }
 
-button:hover {
-  background-color: #e8f1fa !important;
-}
-
-    #whatsappBtn {
-      display: inline-block;
-      margin-top: 20px;
-      background-color: #25D366;
-      color: white;
-      padding: 12px 20px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 16px;
-    }
-    #whatsappBtn:hover {
-      background-color: #1ebe5b;
+    button, input[type="submit"] {
+      width: 100%;
+      font-size: 1.1rem;
     }
 
-@media (max-width: 600px) {
-  body {
-    font-size: 1.1rem;
+    div[style*="display: flex"] {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 15px !important;
+    }
   }
+</style>
+
   </style>
 </head>
 <body>
