@@ -118,7 +118,14 @@ header{
   margin:18px 0;
   box-shadow:0 2px 8px rgba(15,61,131,0.08);
 }
-
+.boton{
+  background: #FFF;
+  border-left:4px solid blue;
+  border-radius:14px;
+  padding:12px;
+  margin:18px 0;
+  box-shadow:0 2px 8px rgba(15,61,131,0.08);
+}
 select{
   padding:12px;
   border-radius:10px;
@@ -215,6 +222,33 @@ label.row:hover{
   color:#7d1a1a;
 }
 
+.arrow{
+  font-size:1.1rem;
+  transition:transform 0.25s ease;
+  color:#0f3d83;
+}
+
+.biblio-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+  padding:4px 0;
+}
+
+.biblio-content {
+  max-height: 0;
+  overflow-y: auto;
+  margin-top: 10px;
+  padding: 0px;
+  font-size:0.65rem;
+  transition:max-height 0.35s ease, padding 0.3s ease;
+}
+
+.biblio-content.open{
+  max-height:300;
+  padding-top:10px;
+}
 
 /* Pie */
 footer{
@@ -258,7 +292,23 @@ body{
     transform:translateY(0);
   }
 }
-
+.boton-opcion {
+display: inline-block;
+font-weight: bold;
+font-size: 1rem;
+padding: 12px 24px;
+margin: 2px 2px;
+color: blue;
+border: 1px solid blue;
+background-color: #e9f1ff;
+border-radius: 14px;
+cursor: pointer;
+transition: background-color 0.2s, color 0.2s;
+}
+.boton-opcion:hover {
+background-color: blue;
+color: white;
+}
 </style>
 </head>
 
@@ -318,8 +368,17 @@ body{
 
 
 
-    <div class="block" id="patologia-resultado"><h3>✅ Recomendación</h3><p>Seleccione un escenario clínico para mostrar la recomendación orientativa de tratamiento.</p></div>
+<div id="patologia-resultado">
+<h3>✅ Recomendación</h3>
+<p>Seleccione un escenario clínico para mostrar la recomendación orientativa de tratamiento.</p>
+</div>
 
+
+<!-- BOTONES DE ACCION -->
+<div class="boton" id="botones-patologia" style="display:none; margin-top: 2px; text-align:center;">
+<button onclick="borrarFormulario()" class="boton-opcion">Borrar</button>
+<button onclick="copiarResumen()" class="boton-opcion">Copiar recomendación</button>
+</div>
 <!-- DISCLAIMER -->
 <section class="disclaimer-red">
   <p>
@@ -327,6 +386,86 @@ body{
     Las recomendaciones deben integrarse con la situación individual del paciente, las guías vigentes y la discusión multidisciplinar cuando proceda.
   </p>
 </section>
+<div class="howto">
+<div class="biblio-header" onclick="toggleBiblio()">
+   <h3 style="margin:0; display:flex; align-items:center; gap:8px;">📚 Bibliografía</h3>
+    <span id="biblio-arrow" class="arrow">▼</span>
+  </div>
+<div id="biblio-contenido" class="biblio-content">
+
+  <ol style="margin:0; padding-left:20px; line-height:1.45;">
+
+    <!-- GENERAL DE CARDIOEMBOLISMO -->
+    <li>Arboix A, Alió J. Cardioembolic stroke: clinical features, cardiac disorders and prognosis. <i>Cerebrovasc Dis</i>. 2010;29:321–330.</li>
+    <li>Sacchetti D, Furie KL, Yaghi S. Cardioembolic Stroke: Mechanisms & Therapeutics. <i>Semin Neurol</i>. 2017;37:370–387.</li>
+    <li>Yaghi S, Bernstein RA, Passman R, Okin PM. Cryptogenic stroke: targeted workup for occult cardiac disease. <i>Stroke</i>. 2024.</li>
+    <li>Peciña JL et al. Cardiac imaging for embolic stroke of undetermined source. <i>JACC</i>. 2021;77(8):1024–1038.</li>
+
+    <!-- MIOCARDIOPATÍA HIPERTRÓFICA -->
+    <li>Guttmann OP et al. Atrial fibrillation and thromboembolism in hypertrophic cardiomyopathy. <i>Heart</i>. 2014;100:465–472.</li>
+    <li>O'Mahony C et al. Atrial Fibrillation in HCM: disease mechanisms and outcomes. <i>JACC</i>. 2019.</li>
+
+    <!-- INFARTO AGUDO DE MIOCARDIO / TROMBO VENTRICULAR -->
+    <li>McCarthy CP et al. Left ventricular thrombus after acute MI. <i>JAMA Cardiol</i>. 2019;4:642–651.</li>
+    <li>Attenhofer Jost CH et al. Imaging of LV thrombus: echo, CT and MRI. <i>JACC Img</i>. 2020.</li>
+    <li>Delewi R, et al. LV thrombus prevention & management after MI. <i>EHJ</i>. 2012;33:917–923.</li>
+
+    <!-- MIOCARDIOPATÍA DILATADA -->
+    <li>de Gregorio C. Ventricular thrombus in DCM: incidence & management. <i>Cardiology</i>. 2020.</li>
+    <li>Hsu JC et al. Thromboembolism risk in dilated cardiomyopathy. <i>Heart Rhythm</i>. 2016.</li>
+
+    <!-- MIOCARDIOPATÍA ISQUÉMICA -->
+    <li>Solomon SD et al. Ventricular remodeling after MI and embolic risk. <i>NEJM</i>. 2010.</li>
+    <li>Weinsaft JW et al. LV thrombus: MRI vs echo accuracy. <i>JACC Img</i>. 2009.</li>
+    <li>Yaghi S, Kamel H. Ischemic cardiomyopathy & embolic stroke. <i>Stroke</i>. 2017.</li>
+
+    <!-- MIOCARDIOPATÍA RESTRICTIVA -->
+    <li>Damy T, et al. Thromboembolic complications in amyloidosis. <i>EHJ</i>. 2021.</li>
+    <li>Dubrey S, Hawkins PN. Amyloid heart disease review. <i>BMJ</i>. 2020.</li>
+
+    <!-- TAKO-TSUBO -->
+    <li>Templin C et al. Takotsubo cardiomyopathy registry. <i>NEJM</i>. 2015.</li>
+    <li>Stiermaier T et al. LV thrombus in Tako-Tsubo: incidence & outcomes. <i>JACC</i>. 2016.</li>
+
+    <!-- MIXOMA AURICULAR / TUMORES CARDÍACOS -->
+    <li>Reynen K. Cardiac myxomas. <i>NEJM</i>. 1995;333:1610–1617.</li>
+    <li>Gowda RM et al. Embolic stroke from cardiac tumors. <i>Int J Cardiol</i>. 2003.</li>
+
+    <!-- ENDOCARDITIS INFECCIOSA -->
+    <li>Baddour LM et al. AHA Infective Endocarditis Guidelines. <i>Circulation</i>. 2015.</li>
+    <li>Habib G et al. ESC Guidelines for Infective Endocarditis. <i>Eur Heart J</i>. 2015.</li>
+    <li>Murdoch DR, et al. Neurological complications in endocarditis. <i>Lancet Neurol</i>. 2009.</li>
+
+    <!-- VALVULOPATÍAS / PRÓTESIS -->
+    <li>Baumgartner H et al. 2021 ESC/EACTS Guidelines for valvular heart disease.</li>
+    <li>Nishimura RA et al. 2020 ACC/AHA Guidelines for valve disease.</li>
+    <li>Kernan WN et al. Stroke prevention in valvular disease. <i>Stroke</i>. 2014.</li>
+    <li>Pibarot P, et al. TAVI: antithrombotic strategies. <i>JACC</i>. 2020.</li>
+
+    <!-- SÍNDROME DEL SENO ENFERMO / FA OCULTA -->
+    <li>Sanna T et al. CRYSTAL-AF: detection of occult AF after stroke. <i>NEJM</i>. 2014.</li>
+    <li>Steinberg JS et al. LOOP Study: AF screening and stroke risk. <i>Lancet</i>. 2021.</li>
+
+    <!-- AURÍCULA IZQUIERDA / OREJUELA -->
+    <li>Di Biase L et al. LA/LAA morphology & stroke risk. <i>Heart Rhythm</i>. 2012.</li>
+    <li>Fatkin D et al. LA enlargement as predictor of stroke. <i>EHJ</i>. 1994.</li>
+    <li>Glikson M et al. EHRA consensus on LAA occlusion. 2020.</li>
+
+    <!-- MASAS Y TROMBOS CARDÍACOS (GENERAL) -->
+    <li>Goyal P et al. Cardiac masses & thrombi: multimodality imaging. <i>JACC Img</i>. 2020.</li>
+    <li>Weinsaft JW et al. MRI vs echo for thrombus detection. <i>Circulation</i>. 2008.</li>
+
+    <!-- PREVENCIÓN / ESTRATEGIA ANTITROMBÓTICA -->
+    <li>Kernan WN et al. AHA/ASA Stroke Prevention Guidelines. <i>Stroke</i>. 2021.</li>
+    <li>Hindricks G et al. 2020 ESC Guidelines for Atrial Fibrillation (fundamentales para ACOD/AVK).</li>
+
+    <!-- SISTEMÁTICAS / REVISIÓN GLOBAL -->
+    <li>Giacalone G et al. Prevention strategies for cardioembolic stroke. <i>Open Neurol J</i>. 2010.</li>
+    <li>Bhat R et al. Embolic strokes of undetermined source: diagnosis & management. <i>Stroke</i>. 2021.</li>
+    <li>Yoshihara S et al. Cardiac causes of embolic stroke. <i>World J Radiol</i>. 2023.</li>
+  </ol>
+</div></div>
+
 
 <div id="toast" class="toast"></div>
 
@@ -489,10 +628,17 @@ function mostrarRecomendacionPatologia(preliminar = false) {
   let texto = "", recomendacion = "", fuerza = "INSUFICIENTE";
   let score = 0;
   const isFemale = riesgos.includes('Sexo Femenino (1 pto)');
+   if (patologia) {
+  document.getElementById('botones-patologia').style.display = 'block';
+} else {
+  document.getElementById('botones-patologia').style.display = 'none';
+}
   riesgos.forEach(r => {
     if (r.includes('2 ptos')) score += 2;
     else if (r.includes('1 pto')) score += 1;
-  });
+
+
+});
 
   switch(patologia) {
     case "hipertrofica":
@@ -921,6 +1067,42 @@ function mostrarFactoresPatologia() {
 
 
 
+function borrarFormulario() {
+document.getElementById("patologia").value = "";
+document.getElementById("patologia-factores").innerHTML = "";
+document.getElementById("patologia-resultado").innerHTML = "<h3>✅ Recomendación</h3><p>Seleccione un escenario clínico para mostrar la recomendación orientativa de tratamiento.</p>";
+document.getElementById("botones-patologia").style.display = "none";
+}
+
+
+function copiarResumen() {
+const texto = document.getElementById("patologia-resultado").innerText;
+navigator.clipboard.writeText(texto).then(() => {
+showToast("✅ Recomendación copiada al portapapeles.", "info");
+});
+}
+
+function toggleBiblio(){
+  const contenido = document.getElementById("biblio-contenido");
+  const arrow = document.getElementById("biblio-arrow");
+
+  if(contenido.classList.contains("open")){
+    contenido.classList.remove("open");
+    contenido.style.maxHeight = "0px";
+    arrow.style.transform = "rotate(0deg)";
+  } else {
+    contenido.classList.add("open");
+    contenido.style.maxHeight = contenido.scrollHeight + "px";
+    arrow.style.transform = "rotate(180deg)";
+  }
+}
+ 
+document.querySelectorAll('.biblio-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const content = btn.nextElementSibling;
+    content.style.display = (content.style.display === "none") ? "block" : "none";
+  });
+});
 
 </script>
 
