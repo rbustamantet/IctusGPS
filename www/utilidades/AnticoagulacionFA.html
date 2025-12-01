@@ -310,10 +310,78 @@ tfoot td{background:#f3f9ff;}
 }.toast.warn{background:#f57c00;}
 .toast.info{background:#1976d2;}
 
-/* Referencias */
-    #refContent{overflow:hidden;  border:1px solid #1976d2;background:#eef6ff;border-radius:9px;
-max-height:0;transition:max-height .4s ease}
-    #refContent.show{display:block!important;max-height:4000px}
+/* CABECERA DEL GLOSARIO */
+.glosario-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+  padding:4px 0;
+}
+
+.arrow{
+  font-size:1.1rem;
+  transition:transform 0.25s ease;
+  color:#0f3d83;
+}
+
+/* CONTENIDO COLAPSABLE */
+.glosario-content{
+  max-height:0;
+  font-size:0.65rem;
+  overflow:hidden;
+  transition:max-height 0.35s ease, padding 0.3s ease;
+  padding-top:0;
+}
+.glosario-content.open{
+  padding-top:10px;
+}
+
+.glosario-grid{
+  list-style:none;
+  margin:0;
+  padding-left:0;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:6px 20px;
+}
+
+.glosario-grid li{
+  padding:2px 0;
+}
+
+/* En pantallas grandes → 2 columnas */
+@media(min-width:700px){
+  .glosario-grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+
+.biblio-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+  padding:4px 0;
+}
+
+.biblio-content {
+  max-height: 0;
+  overflow-y: auto;
+  margin-top: 10px;
+  padding: 0px;
+  font-size:0.65rem;
+  transition:max-height 0.35s ease, padding 0.3s ease;
+}
+
+.biblio-content.open{
+  max-height:300;
+  padding-top:10px;
+}
+
+
+
     .back-btn{display:inline-block;margin:1.5rem auto 0;background:#0f3d83;color:#fff;text-decoration:none;font-weight:700;padding:.7rem 1.4rem;border-radius:10px;box-shadow:0 4px 10px rgba(15,61,131,.25);transition:background .2s,transform .1s,box-shadow .2s}
     .back-btn:hover{background:#1c60c3;transform:translateY(-1px);box-shadow:0 6px 12px rgba(15,61,131,.35)}
 
@@ -1089,12 +1157,17 @@ body {
     </script>
 
     <!-- Referencias / Bibliografía -->   
- <div class="card" id="referencias">
-   <div class="note" id="refNote">
-      <h2 id="refToggle" style="margin:0 0 8px;font-size:1em;cursor:pointer;">Referencias <span id="refArrow" style="font-size:1em;">▼</span></h2>
-      <div id="refContent" style="display:none;">
-<div>
-<ol>
+ <div class="card">
+   <div class="biblio-header" onclick="toggleBiblio()">
+    <h3 style="margin:0; display:flex; align-items:center; gap:8px;">
+      📚 Bibliografía
+    </h3>
+    <span id="biblio-arrow" class="arrow">▼</span>
+  </div>
+
+  <div id="biblio-contenido" class="biblio-content">
+    <ol style="margin:0; padding-left:20px; line-height:1.45;">
+
   <li>
     Friberg L, Rosenqvist M, Lip GYH. Evaluation of risk stratification schemes for ischaemic stroke and bleeding in 182,678 patients with atrial fibrillation.
     <i>Eur Heart J.</i> 2012;33(12):1500–1510.
@@ -1222,7 +1295,7 @@ body {
     <i>J Thromb Haemost.</i> 2021;19:1874–1882.
     <a href="https://www.jthjournal.org/article/S1538-7836(22)01848-7/fulltext" rel="noopener" target="_blank">Texto</a>
   </li>
-</ol> 
+</ol>
      </div></div>
 </div></div></div>
 
@@ -1334,6 +1407,42 @@ document.addEventListener("DOMContentLoaded", () => {
     if (btnPrint) btnPrint.style.display = "none";
   }
 });
+function toggleGlosario(){
+  const contenido = document.getElementById("glosario-contenido");
+  const arrow = document.getElementById("glosario-arrow");
+
+  if(contenido.classList.contains("open")){
+    contenido.classList.remove("open");
+    contenido.style.maxHeight = "0px";
+    arrow.style.transform = "rotate(0deg)";
+  } else {
+    contenido.classList.add("open");
+    contenido.style.maxHeight = contenido.scrollHeight + "px";
+    arrow.style.transform = "rotate(180deg)";
+  }
+}
+function toggleBiblio(){
+  const contenido = document.getElementById("biblio-contenido");
+  const arrow = document.getElementById("biblio-arrow");
+
+  if(contenido.classList.contains("open")){
+    contenido.classList.remove("open");
+    contenido.style.maxHeight = "0px";
+    arrow.style.transform = "rotate(0deg)";
+  } else {
+    contenido.classList.add("open");
+    contenido.style.maxHeight = contenido.scrollHeight + "px";
+    arrow.style.transform = "rotate(180deg)";
+  }
+}
+ 
+document.querySelectorAll('.biblio-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const content = btn.nextElementSibling;
+    content.style.display = (content.style.display === "none") ? "block" : "none";
+  });
+});
+
 </script>
 
 <footer>
