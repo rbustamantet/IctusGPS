@@ -72,6 +72,16 @@
   height: 44px;
   width: auto;
 }
+.hover-icon {
+  height: 28px;
+  width: auto;
+  transition: transform 0.3s, filter 0.3s;
+}
+.hover-icon:hover {
+  transform: scale(1.15);
+  filter: brightness(1.2) saturate(0.8);
+}
+
 .safe-actions {
   display: flex;
   gap: 10px;
@@ -288,14 +298,14 @@ footer img{max-width:320px;height:auto;opacity:.95}
       <div>
         <label for="age">Edad</label>
         <select id="age">
-          <option value="">Selecciona…</option>
-          <option value="5">≤ 30 años (+5)</option>
-          <option value="4">31–40 años (+4)</option>
-          <option value="3">41–50 años (+3)</option>
-          <option value="2">51–60 años (+2)</option>
-          <option value="1">61–70 años (+1)</option>
-          <option value="0">&gt; 70 años (+0)</option>
-        </select>
+  <option value="">Selecciona…</option>
+  <option value="5">18–29 años</option>
+  <option value="4">30–39 años</option>
+  <option value="3">40–49 años</option>
+  <option value="2">50–59 años</option>
+  <option value="1">60–69 años</option>
+  <option value="0">≥70 años</option>
+</select>
       </div>
 
       <div>
@@ -383,7 +393,13 @@ function calc(){
   $('scoreVal').textContent = s;
   $('probVal').textContent  = prob;
   $('classVal').textContent = cat;
-  $('interpVal').textContent= interpFor(s);
+  $('interpVal').innerHTML = `<span style="font-size:13px; display: flex; align-items: center; justify-content: center; gap: 10px; text-align: center;">
+  Consulte en Utilidades
+  <a href="../Utilidades/FOP.html">
+    <img src="../iconos/fopico.png" class="hover-icon">
+  </a>
+</span>`;
+
 
   ['probBox','classBox'].forEach(id=>{
     const el=$(id); el.classList.remove('ok','warn','bad'); el.classList.add(tone);
@@ -414,8 +430,6 @@ function mostrarResumen(s, prob, cat){
   ].forEach(([id,label])=>{
     t += `- ${label}: ${$(id).checked ? 'Sí' : 'No'}\n`;
   });
-
-  t += `\nInterpretación: ${interpFor(s)}`;
   $('resumenText').textContent = t;
 }
 
