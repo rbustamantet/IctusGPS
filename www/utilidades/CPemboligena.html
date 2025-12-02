@@ -118,14 +118,57 @@ header{
   margin:18px 0;
   box-shadow:0 2px 8px rgba(15,61,131,0.08);
 }
-.boton{
-  background: #FFF;
-  border-left:4px solid blue;
-  border-radius:14px;
-  padding:12px;
-  margin:18px 0;
-  box-shadow:0 2px 8px rgba(15,61,131,0.08);
+
+
+.actions{
+  margin-left:auto;
 }
+
+.actions{
+  display:flex;
+  gap:10px;
+  margin:16px;
+}
+
+.boton-opcion{
+  flex:1 1 32%;
+  border:none;
+  border-radius:10px;
+  padding:12px;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer
+}
+
+.boton-clear{
+  width: 25%;
+  background:#0f3d83;
+  color:#fff;
+  border:1px solid #2563eb
+}
+
+.boton-clear:hover{
+  background:#fff;
+  color:#0f3d83;
+}
+
+.boton-copy{
+  width: 70%;
+  background:#fff;
+  color:#0f3d83;
+  border:1px solid #2563eb
+}
+
+.boton-copy:hover{
+  background:#0f3d83;
+  color:#fff;
+}
+
+.boton-copy.copiado{
+  background:#0f3d83!important;
+  color:#fff!important
+}
+
 select{
   padding:12px;
   border-radius:10px;
@@ -188,21 +231,44 @@ label.row:hover{
   margin-top:8px;
 }
 
-/* TOAST */
-.toast{
-  position:fixed;
-  top:calc(env(safe-area-inset-top,0px) + 8px);
-  right:16px;
-  background:#b71c1c;
-  color:#fff;
-  padding:10px 14px;
-  border-radius:10px;
-  opacity:0;
-  pointer-events:none;
-  transition:.3s;
-  z-index:1200;
+/* =======================
+   TOAST INSTITUCIONAL
+======================= */
+.toast {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0px) + 100px);
+  right: 16px;
+  min-width: 220px;
+  max-width: 420px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  color: #0f3d83;
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  opacity: 0;
+  transform: translateX(40px);
+  pointer-events: none;
+
+  box-shadow: 0 4px 16px rgba(0,0,0,0.16);
+  transition: opacity 0.3s ease, transform 0.35s ease;
+
+  z-index: 2000;
 }
-.toast.show{opacity:1; pointer-events:auto;}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.toast-icon {
+  font-size: 1.25rem;
+}
+
 /* DISCLAIMER FINAL */
 .disclaimer-red{
   background:#fef2f2;
@@ -292,23 +358,7 @@ body{
     transform:translateY(0);
   }
 }
-.boton-opcion {
-display: inline-block;
-font-weight: bold;
-font-size: 1rem;
-padding: 12px 24px;
-margin: 2px 2px;
-color: blue;
-border: 1px solid blue;
-background-color: #e9f1ff;
-border-radius: 14px;
-cursor: pointer;
-transition: background-color 0.2s, color 0.2s;
-}
-.boton-opcion:hover {
-background-color: blue;
-color: white;
-}
+
 </style>
 </head>
 
@@ -341,7 +391,7 @@ color: white;
 
 <main class="wrap">
 
-<div class="howto">Las <b>cardiopatías embolígenas</b> no relacionadas con FA o FOP requieren una valoración individualizada del riesgo embólico. Esta herramienta permite identificar los <b>factores relevantes</b> de cada entidad y orientar la <b>estrategia antitrombótica</b> más adecuada según la evidencia disponible.</div>
+<div class="howto">Las <b>cardiopatías embolígenas</b> cuya etiología <b>primaria</b> es distinta de la fibrilación auricular o del foramen oval permeable presentan mecanismos <b>propios</b> de generación de embolias, aunque algunas de ellas puedan <b>coexistir o evolucionar</b> hacia fibrilación auricular. Esta herramienta permite identificar los factores de riesgo embólico específicos de cada entidad y orientar la estrategia antitrombótica más adecuada según la evidencia disponible.</div>
 
   <!-- ÚNICO BLOQUE -->
   <div class="block" id="patologia-section">
@@ -375,9 +425,9 @@ color: white;
 
 
 <!-- BOTONES DE ACCION -->
-<div class="boton" id="botones-patologia" style="display:none; margin-top: 2px; text-align:center;">
-<button onclick="borrarFormulario()" class="boton-opcion">Borrar</button>
-<button onclick="copiarResumen()" class="boton-opcion">Copiar recomendación</button>
+<div class="actions" id="botones-patologia" style="display:none; margin-top: 2px; text-align:center;">
+<button onclick="borrarFormulario()" class="boton-opcion boton-clear">Borrar</button>
+<button onclick="copiarResumen()" class="boton-opcion boton-copy">Copiar recomendación</button>
 </div>
 <!-- DISCLAIMER -->
 <section class="disclaimer-red">
@@ -387,13 +437,36 @@ color: white;
   </p>
 </section>
 <div class="howto">
-<div class="biblio-header" onclick="toggleBiblio()">
-   <h3 style="margin:0; display:flex; align-items:center; gap:8px;">📚 Bibliografía</h3>
-    <span id="biblio-arrow" class="arrow">▼</span>
-  </div>
-<div id="biblio-contenido" class="biblio-content">
+<details style="margin-top:1px;">
+      <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📚 Bibliografía</summary>
+      <div style="
+  margin-top:14px;
+  background:#ffffff;
+  border:1px solid #d0d7e1;
+  border-radius:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
+  overflow:hidden;
+  font-size:13px;
+  line-height:1.55;
+  color:#1e293b;
+">
 
-  <ol style="margin:0; padding-left:20px; line-height:1.45;">
+  <!-- Barra superior tipo guideline -->
+  <div style="
+    background:#0f3d83;
+    color:#ffffff;
+    padding:10px 14px;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:0.3px;
+  ">
+    📘 Referencias bibliográficas
+  </div>
+
+  <!-- Contenido -->
+  <div style="padding:16px 18px;">
+
+<ol style="margin:18px; padding-left:20px; font-size:10px; line-height:1.45;">
 
     <!-- GENERAL DE CARDIOEMBOLISMO -->
     <li>Arboix A, Alió J. Cardioembolic stroke: clinical features, cardiac disorders and prognosis. <i>Cerebrovasc Dis</i>. 2010;29:321–330.</li>
@@ -464,7 +537,11 @@ color: white;
     <li>Bhat R et al. Embolic strokes of undetermined source: diagnosis & management. <i>Stroke</i>. 2021.</li>
     <li>Yoshihara S et al. Cardiac causes of embolic stroke. <i>World J Radiol</i>. 2023.</li>
   </ol>
-</div></div>
+
+  </div>
+
+    </details>
+</div>
 
 
 <div id="toast" class="toast"></div>
@@ -575,7 +652,7 @@ function checkAutoCheckedAlarm(controlId) {
   const el = document.getElementById(controlId);
   if (autoCheckedState[controlId] && !el.checked) {
     el.checked = true;
-    showToast('⚠️ Esta casilla fue marcada automáticamente por la Patología Embolígena y NO debe desmarcarse (coherencia clínica).', 'warn');
+    showToast('Esta casilla fue marcada automáticamente por la Patología Embolígena y NO debe desmarcarse (coherencia clínica).', 'warn');
   }
 }
 
@@ -1078,7 +1155,7 @@ document.getElementById("botones-patologia").style.display = "none";
 function copiarResumen() {
 const texto = document.getElementById("patologia-resultado").innerText;
 navigator.clipboard.writeText(texto).then(() => {
-showToast("✅ Recomendación copiada al portapapeles.", "info");
+showToast("Recomendación copiada al portapapeles.", "info");
 });
 }
 
@@ -1103,6 +1180,45 @@ document.querySelectorAll('.biblio-toggle').forEach(btn => {
     content.style.display = (content.style.display === "none") ? "block" : "none";
   });
 });
+
+/* ============================
+   TOAST GLOBAL INSTITUCIONAL
+=============================== */
+function showToast(message, type = "info") {
+  const toast = document.getElementById("toast");
+
+  // Iconos según tipo
+  const icons = {
+    info: "ℹ️",
+    ok: "✅",
+    warn: "⚠️",
+    error: "❌"
+  };
+
+  // Colores institucionales
+  const colors = {
+    info: "#fff",
+    ok: "#166534",
+    warn: "#b45309",
+    error: "#b91c1c"
+  };
+
+  toast.style.background = colors[type] || colors.info;
+
+  toast.innerHTML = `
+    <span class="toast-icon">${icons[type] || icons.info}</span>
+    <span>${message}</span>
+  `;
+
+  // Mostrar
+  toast.classList.add("show");
+
+  // Ocultar a los 3 segundos
+  clearTimeout(toast.hideTimer);
+  toast.hideTimer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 3000);
+}
 
 </script>
 

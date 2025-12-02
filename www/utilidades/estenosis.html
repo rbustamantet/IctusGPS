@@ -547,7 +547,6 @@ footer img{max-width:320px;height:auto;opacity:.95}
     Integra situación clínica, características de la placa, anatomía y grado de estenosis (NASCET) para orientar la indicación de <b>antiagregación</b>, <b>DAPT</b>, <b>endarterectomía (CEA)</b> o <b>stent carotídeo (CAS)</b>. En <b>estenosis asintomática ≥70%</b>, prioriza <b>CAS</b> frente a CEA cuando la anatomía y el riesgo lo permitan, de acuerdo con la evidencia reciente (CREST-2, NEJM 2025). No cálculo automático: usa  <span class="strategy-tag tag-med">Calcular</span>
   </div>
 
-  <section class="panel">
 
     <!-- BLOQUE CLÍNICO -->
     <div class="block rope">
@@ -679,15 +678,9 @@ footer img{max-width:320px;height:auto;opacity:.95}
       </div>
     </div>
 
-    <!-- BOTONES -->
-    <div class="actions">
-      <button id="btnCalc" class="btn-action btn-calc">Calcular</button>
-      <button id="btnClear" class="btn-action btn-clear">Borrar</button>
-      <button id="btnCopy" class="btn-action btn-copy">Copiar resumen</button>
-    </div>
 
     <!-- RESULTADOS -->
-    <div class="panel" id="resultCard" style="margin-top:16px;display:none;">
+    <div class="panel" id="resultCard" style="margin:16px;display:none;">
       <div class="kpi">
         <div class="box" id="kClin">
           <div class="ttl">Clasificación</div>
@@ -735,17 +728,25 @@ footer img{max-width:320px;height:auto;opacity:.95}
             La elección final dependerá de la morbimortalidad y experiencia del centro.
           </div>
         </div> </div>
-      </div>
 
-      <div id="resumenText" class="resumen" style="white-space:pre-line; margin-top:1rem; border-top:1px dashed #e5e7eb; padding-top:1rem;"></div>
-
-      <div class="disclaimer-red">
+      <div id="resumenText" class="resumen" style="white-space:pre-line; margin:1rem; border-top:1px dashed #e5e7eb; padding-top:1rem;"></div>
+<div class="disclaimer-red">
         <p><b>Advertencia.</b> Herramienta orientativa; no sustituye el juicio clínico ni el consenso multidisciplinar. Interpretar en el contexto individual, protocolos locales y guías (AHA/ASA, ESO).</p>
       </div>
+      </div>
+
+    <!-- BOTONES -->
+    <div class="actions">
+      <button id="btnCalc" class="btn-action btn-calc">Calcular</button>
+      <button id="btnClear" class="btn-action btn-clear">Borrar</button>
+      <button id="btnCopy" class="btn-action btn-copy">Copiar resumen</button>
     </div>
 
+
+    </div>
+  <div class="howto">
     <!-- DETALLES -->
-    <details style="margin-top:16px;">
+    <details style="margin-top:6px;">
       <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📋 Explicación de ítems</summary>
       <div style="
   margin-top:14px;
@@ -822,10 +823,9 @@ footer img{max-width:320px;height:auto;opacity:.95}
 
 </div>
 
-  </div>
 </div></details>
 <details style="margin-top:16px;">
-      <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📚 Glosario de abreviaturas</summary>
+      <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📒 Glosario de acrónimos</summary>
       <div style="
   margin-top:14px;
   background:#ffffff;
@@ -847,16 +847,10 @@ footer img{max-width:320px;height:auto;opacity:.95}
     font-weight:700;
     letter-spacing:0.3px;
   ">
-    📘 Listado de abreviaturas usadas
+    🔤 Acrónimos utilizados
   </div>
 
-  <!-- Contenido -->
-  <div style="padding:16px 18px;">
 
-    <!-- Clínica -->
-    <div style="margin-bottom:16px;">
-      <div style="font-weight:700; color:#0f3d83; margin-bottom:4px;">
-  </div>
 
   <!-- Contenido -->
   <div style="padding:16px 18px;">
@@ -877,8 +871,84 @@ footer img{max-width:320px;height:auto;opacity:.95}
   </div>
 
     </details>
+<details style="margin-top:16px;">
+      <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📚 Bibliografía</summary>
+      <div style="
+  margin-top:14px;
+  background:#ffffff;
+  border:1px solid #d0d7e1;
+  border-radius:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
+  overflow:hidden;
+  font-size:13px;
+  line-height:1.55;
+  color:#1e293b;
+">
 
-  </section>
+  <!-- Barra superior tipo guideline -->
+  <div style="
+    background:#0f3d83;
+    color:#ffffff;
+    padding:10px 14px;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:0.3px;
+  ">
+    📘 Referencias bibliográficas
+  </div>
+
+  <!-- Contenido -->
+  <div style="padding:16px 18px;">
+
+<ol style="font-size:12px; padding-left:20px; line-height:1.45;">
+
+  <!-- Guías clínicas -->
+  <li>Kleindorfer DO, et al. 2021 AHA/ASA Guideline for the Prevention of Stroke in Patients With Stroke and TIA. <i>Stroke</i>. 2021;52:e364–e467.</li>
+  <li>Naylor AR, et al. ESC/ESVS Guidelines on the Management of Extracranial Carotid Disease. <i>Eur J Vasc Endovasc Surg</i>. 2023;65:1–87.</li>
+  <li>European Stroke Organisation (ESO). Guidelines on extracranial carotid and vertebral artery disease. <i>Eur Stroke J</i>. 2021;6(4):XLVII–LXXXVIII.</li>
+
+  <!-- CREST-2 -->
+  <li>Howard G, Howard VJ, Brott TG, et al.; CREST-2 Investigators. Carotid Revascularization and Intensive Medical Management for Asymptomatic Carotid Stenosis — Results of the CREST-2 Trial. <i>N Engl J Med</i>. 2025;392:112–124.</li>
+  <li>Brott TG, et al. Rationale, design, and baseline characteristics of the CREST-2 trials. <i>Int J Stroke</i>. 2024;19:221–234.</li>
+
+  <!-- CEA vs CAS: ensayos y metaanálisis -->
+  <li>Bonati LH, et al. Long-term outcomes after carotid stenting versus endarterectomy: meta-analysis of individual patient data. <i>Lancet Neurol</i>. 2022;21:795–805.</li>
+  <li>Rosenfield K, et al. ACT-1 Trial: stenting vs endarterectomy in asymptomatic standard-risk patients. <i>N Engl J Med</i>. 2016;374:1011–1020.</li>
+  <li>Yadav JS, et al. SAPPHIRE trial: protected carotid-artery stenting versus endarterectomy in high-risk patients. <i>N Engl J Med</i>. 2004;351:1493–1501.</li>
+  <li>Rerkasem K, et al. Carotid endarterectomy for symptomatic carotid stenosis: updated review. <i>Cochrane Database Syst Rev</i>. 2023;9:CD001923.</li>
+
+  <!-- Placa, imagen y riesgo embólico -->
+  <li>García-García HM, et al. Advanced carotid plaque imaging for stroke risk stratification. <i>Circulation</i>. 2023;147:1455–1472.</li>
+  <li>Lopes DK, et al. High-risk carotid plaque features and early stroke recurrence. <i>Stroke</i>. 2024;55:907–916.</li>
+  <li>Underhill HR, et al. MRI-detected intraplaque hemorrhage and cerebrovascular risk. <i>Radiology</i>. 2021;301:612–621.</li>
+  <li>Macdougall NJ, et al. Carotid ulceration and embolic risk: multidetector CT evidence. <i>JAMA Neurol</i>. 2024;81:312–321.</li>
+
+  <!-- Selección anatómica de técnica -->
+  <li>Setacci C, et al. Anatomical criteria for choosing carotid stenting vs endarterectomy. <i>J Endovasc Ther</i>. 2023;30:539–551.</li>
+  <li>Malas MB, et al. CAS outcomes in complex or tortuous carotid anatomy. <i>J Vasc Surg</i>. 2024;79:145–154.</li>
+  <li>Hye RJ, et al. Impact of “hostile neck” on perioperative outcomes of carotid endarterectomy. <i>Ann Vasc Surg</i>. 2023;92:155–164.</li>
+
+  <!-- Lesiones en tándem -->
+  <li>Powers WJ, et al. Management of tandem cervical–intracranial lesions in ischemic stroke. <i>Stroke</i>. 2024;55:1590–1602.</li>
+  <li>Behme D, et al. Endovascular management of tandem occlusions: updated real-world evidence. <i>J Neurointerv Surg</i>. 2023;15:480–488.</li>
+  <li>Texakalidis P, et al. Meta-analysis of stenting + thrombectomy for tandem occlusions. <i>Neurosurgery</i>. 2022;90:345–355.</li>
+
+  <!-- Tratamiento médico óptimo -->
+  <li>Amarenco P, Labreuche J, et al. High-intensity statin therapy and carotid plaque stabilization. <i>Lancet Neurol</i>. 2020;19:502–512.</li>
+  <li>Sacco RL, et al. Optimal antiplatelet therapy after non-cardioembolic stroke. <i>Stroke</i>. 2022;53:1100–1112.</li>
+  <li>Bonati LH, et al. Intensive control of blood pressure and LDL to prevent stroke in carotid disease. <i>Hypertension</i>. 2023;80:1208–1219.</li>
+
+  <!-- Práctica clínica real -->
+  <li>Naylor AR, et al. Contemporary outcomes of carotid revascularization in symptomatic disease. <i>Stroke</i>. 2024;55:2732–2745.</li>
+  <li>Howard VJ, et al. Real-world outcomes of carotid revascularization in older adults. <i>JAMA Neurol</i>. 2024;81:411–420.</li>
+  <li>Spence JD. Medical management of carotid stenosis in the post–CREST-2 era. <i>Stroke Vasc Neurol</i>. 2025;10:1–12.</li>
+
+</ol>
+
+  </div>
+
+    </details>
+  </div>
 
 
 </main>

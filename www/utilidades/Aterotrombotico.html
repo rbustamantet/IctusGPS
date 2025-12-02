@@ -386,23 +386,40 @@ body{
 }
 
 /* Botones copiar / borrar */
-.rec-btn{
-  background:#fff;
-  border:1px solid #cad7f5;
-  width:34px;
-  height:34px;
+.boton-opcion{
+  flex:1 1 32%;
+  border:none;
   border-radius:10px;
-  cursor:pointer;
-  font-size:1.1rem;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:background .2s, transform .1s;
+  padding:12px;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer
 }
-.rec-btn:hover{
-  background:#A1F7B5;
-  transform:translateY(-1px);
+
+.boton-clear{
+  width: 25%;
+  background:#0f3d83;
+  color:#fff;
+  border:1px solid #2563eb
 }
+
+.boton-clear:hover{
+  background:#fff;
+  color:#0f3d83;
+}
+
+.boton-copy{
+  width: 70%;
+  background:#fff;
+  color:#0f3d83;
+  border:1px solid #2563eb
+}
+
+.boton-copy:hover{
+  background:#0f3d83;
+  color:#fff;
+}
+
 </style>
 </head>
 
@@ -460,16 +477,18 @@ body{
   <div class="block" id="escenario-resultado">
     <div style="display:flex; justify-content:space-between; align-items:center;">
       <h3 style="margin:0;">✅ Recomendación</h3>
-      <div style="display:flex; gap:8px;">
-        <button class="rec-btn" onclick="copiarResumen()" title="Copiar resumen">📋</button>
-        <button class="rec-btn" onclick="borrarResumen()" title="Borrar contenido">🗑️</button>
-      </div>
+      
     </div>
 
     <p id="escenario-texto">
       Seleccione un escenario clínico para mostrar la recomendación orientativa de tratamiento antitrombótico.
     </p>
   </div>
+<div>
+<button class="boton-opcion boton-clear" onclick="borrarResumen()" title="Borrar contenido">Borrar</button>        
+<button class="boton-opcion boton-copy" onclick="copiarResumen()" title="Copiar resumen">Copiar resumen</button>
+      </div>
+
 
   <!-- TARJETA 3: HERRAMIENTAS TRANSVERSALES -->
   <div class="block" id="herramientas-block">
@@ -502,14 +521,36 @@ body{
     </p>
   </section>
 <div class="block" id="glosario-abreviaturas">
-  <div class="glosario-header" onclick="toggleGlosario()">
-    <h3 style="margin:0; display:flex; align-items:center; gap:8px;">
-      🔤 Abreviaturas
-    </h3>
-    <span id="glosario-arrow" class="arrow">▼</span>
+<details style="margin-top:1px;">
+      <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📒 Glosario de acrónimos</summary>
+      <div style="
+  margin-top:14px;
+  background:#ffffff;
+  border:1px solid #d0d7e1;
+  border-radius:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
+  overflow:hidden;
+  font-size:13px;
+  line-height:1.55;
+  color:#1e293b;
+">
+
+  <!-- Barra superior tipo guideline -->
+  <div style="
+    background:#0f3d83;
+    color:#ffffff;
+    padding:10px 14px;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:0.3px;
+  ">
+    🔤 Acrónimos utilizados
   </div>
 
-  <div id="glosario-contenido" class="glosario-content">
+  <!-- Contenido -->
+  <div style="padding:16px 18px;">
+
+<ol style="margin:18px; padding-left:20px; font-size:10px; line-height:1.45;">
     <ul class="glosario-grid">
     <li><b>AAS:</b> Ácido acetilsalicílico</li>
     <li><b>ACO:</b> Anticoagulación oral</li>
@@ -531,51 +572,95 @@ body{
     <li><b>RM:</b> Resonancia magnética</li>
     <li><b>TC:</b> Tomografía computarizada</li>
   </ul>
-<br>
-</div>
-  <div class="biblio-header" onclick="toggleBiblio()">
-    <h3 style="margin:0; display:flex; align-items:center; gap:8px;">
-      📚 Bibliografía
-    </h3>
-    <span id="biblio-arrow" class="arrow">▼</span>
+</div></details></div>
+  <div class="howto">
+<details style="margin-top:1px;">
+      <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📚 Bibliografía</summary>
+      <div style="
+  margin-top:14px;
+  background:#ffffff;
+  border:1px solid #d0d7e1;
+  border-radius:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
+  overflow:hidden;
+  font-size:13px;
+  line-height:1.55;
+  color:#1e293b;
+">
+
+  <!-- Barra superior tipo guideline -->
+  <div style="
+    background:#0f3d83;
+    color:#ffffff;
+    padding:10px 14px;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:0.3px;
+  ">
+    📘 Referencias bibliográficas
   </div>
 
-  <div id="biblio-contenido" class="biblio-content">
-    <ol style="margin:0; padding-left:20px; line-height:1.45;">
+  <!-- Contenido -->
+  <div style="padding:16px 18px;">
 
-      <li>Kernan WN, et al. <i>Guidelines for the prevention of stroke in patients with stroke and TIA.</i> Stroke. 2014;45:2160–2236.</li>
-      <li>European Stroke Organisation. <i>Guidelines on extracranial carotid and vertebral artery disease.</i> Eur Stroke J. 2021;6:XLVII–LXXXVIII.</li>
-      <li>Hindricks G, et al. <i>2020 ESC Guidelines for the diagnosis and management of atrial fibrillation.</i> Eur Heart J. 2020;41:373–498.</li>
+<ol style="margin:1px; padding-left:20px; font-size:10px; line-height:1.45;">
+  <!-- Guías clínicas -->
+  <li>Kleindorfer DO, et al. 2021 AHA/ASA Guideline for the Prevention of Stroke in Patients With Stroke and TIA. <i>Stroke</i>. 2021;52:e364–e467.</li>
+  <li>European Stroke Organisation (ESO). Guidelines on Extracranial Carotid and Vertebral Artery Disease. <i>Eur Stroke J</i>. 2021;6(4):XLVII–LXXXVIII.</li>
+  <li>Powers WJ, et al. 2019 AHA/ASA Guideline for Early Management of Acute Ischemic Stroke. <i>Stroke</i>. 2019;50:e344–e418.</li>
+  <li>Hindricks G, et al. 2020 ESC Guidelines for the Diagnosis and Management of Atrial Fibrillation. <i>Eur Heart J</i>. 2020;41:373–498.</li>
 
-      <li>Wang Y, et al. <i>Clopidogrel with aspirin in acute minor stroke or TIA.</i> NEJM. 2013. (CHANCE)</li>
-      <li>Johnston SC, et al. <i>Clopidogrel and aspirin in acute ischemic stroke and high-risk TIA.</i> NEJM. 2018. (POINT)</li>
-      <li>Johnston SC, et al. <i>Ticagrelor and aspirin or aspirin alone.</i> NEJM. 2020. (THALES)</li>
-      <li>Chimowitz MI, et al. <i>Stenting vs aggressive medical therapy.</i> NEJM. 2011. (SAMMPRIS)</li>
-      <li>Markus HS, et al. <i>CADISS trial.</i> Lancet Neurol. 2015.</li>
-      <li>Lopes RD, et al. <i>AUGUSTUS trial.</i> NEJM. 2019.</li>
-      <li>Dewilde WJ, et al. <i>WOEST trial.</i> Lancet. 2013.</li>
-      <li>Gibson CM, et al. <i>PIONEER AF-PCI.</i> NEJM. 2016.</li>
+  <!-- Ictus minor / AIT de alto riesgo: DAPT -->
+  <li>Wang Y, et al. Clopidogrel with aspirin in acute minor stroke or TIA. <i>NEJM</i>. 2013;369:11–19. (CHANCE)</li>
+  <li>Johnston SC, et al. Clopidogrel and aspirin in acute ischemic stroke and high-risk TIA. <i>NEJM</i>. 2018;379:215–225. (POINT)</li>
+  <li>Johnston SC, et al. Ticagrelor and aspirin or aspirin alone in acute ischemic stroke or TIA. <i>NEJM</i>. 2020;383:207–217. (THALES)</li>
 
-      <li>Amarenco P, et al. <i>Risk of stroke after TIA/minor stroke.</i> NEJM. 2016.</li>
-      <li>Spence JD. <i>Management of asymptomatic carotid stenosis.</i> Stroke Vasc Neurol. 2018.</li>
-      <li>Goyal M, et al. <i>Imaging carotid web.</i> Stroke. 2019.</li>
-      <li>Sajedi PI, et al. <i>Carotid bulb webs.</i> AJNR. 2017.</li>
-      <li>Yaghi S, et al. <i>AF detected after stroke.</i> Stroke. 2017.</li>
-      <li>Wityk RJ, et al. <i>Vertebral artery dissection.</i> Neurology. 1998.</li>
-      <li>Spence JD. <i>Aortic arch atheroma.</i> Curr Opin Neurol. 2020.</li>
-      <li>Markus HS, et al. <i>Perfusion imaging in carotid stenosis.</i> Stroke. 2021.</li>
-      <li>NASCET Investigators. <i>Endarterectomy for symptomatic stenosis.</i> NEJM. 1991.</li>
-      <li>Mega JL, et al. <i>CYP2C19 polymorphisms.</i> NEJM. 2009.</li>
-      <li>COGENT Investigators. <i>Clopidogrel ± Omeprazole.</i> NEJM. 2010.</li>
-      <li>EMA. <i>Safety communication: clopidogrel–omeprazole.</i> 2010.</li>
-      <li>Bhatt DL, et al. <i>GI risk reduction.</i> Circulation. 2008.</li>
-      <li>Antithrombotic Trialists’ Collaboration. <i>Meta-analysis of antiplatelet therapy.</i> BMJ. 2002.</li>
+  <!-- Estenosis carotídea / revascularización -->
+  <li>NASCET Investigators. Benefit of carotid endarterectomy in patients with symptomatic moderate or severe stenosis. <i>NEJM</i>. 1991;325:445–453.</li>
+  <li>ECST Investigators. Randomised trial of endarterectomy for symptomatic carotid stenosis. <i>Lancet</i>. 1991;337:1235–1243.</li>
+  <li>Bonati LH, et al. Long-term outcomes after stenting vs endarterectomy: meta-analysis. <i>Lancet Neurol</i>. 2015;14:755–765.</li>
+  <li>Howard G, et al. CREST-2 Investigators. Carotid Revascularization and Intensive Medical Management for Asymptomatic Carotid Stenosis. <i>NEJM</i>. 2025.</li>
 
-      <li><b>Howard G, et al. CREST-2.</b> <i>Carotid Revascularization and Intensive Medical Management for Asymptomatic Carotid Stenosis.</i> NEJM. 2025.</li>
-   
-    </ol>
-<br>
-</div>
+  <!-- Estenosis intracraneal -->
+  <li>Chimowitz MI, et al. Stenting versus aggressive medical therapy for intracranial stenosis. <i>NEJM</i>. 2011;365:993–1003. (SAMMPRIS)</li>
+  <li>Derdeyn CP, et al. Aggressive medical therapy for intracranial atherosclerosis. <i>Stroke</i>. 2014;45:2933–2939.</li>
+
+  <!-- Estenosis vertebrales -->
+  <li>Compter A, et al. Stenting versus medical therapy for vertebral artery stenosis. <i>Lancet Neurol</i>. 2015;14:606–614. (VIST)</li>
+  <li>Wityk RJ, et al. Noninvasive assessment of vertebral artery dissection. <i>Neurology</i>. 1998;50:1694–1698.</li>
+
+  <!-- Disección arterial -->
+  <li>Markus HS, et al. Antiplatelet vs anticoagulation for cervical artery dissection. <i>Lancet Neurol</i>. 2015;14:361–367. (CADISS)</li>
+
+  <!-- Carotid web -->
+  <li>Goyal M, et al. Carotid web and ischemic stroke. <i>Stroke</i>. 2019;50:1264–1271.</li>
+  <li>Sajedi PI, et al. Carotid bulb webs: radiologic appearance. <i>AJNR</i>. 2017;38:1399–1404.</li>
+
+  <!-- Trombo mural aórtico -->
+  <li>Spence JD. Aortic arch atheroma and stroke risk. <i>Curr Opin Neurol</i>. 2020;33:4–10.</li>
+  <li>Ferrero E, et al. Aortic mural thrombus: natural history and treatment. <i>J Vasc Surg</i>. 2020;72:1089–1097.</li>
+
+  <!-- Placa vulnerable / aterosclerosis -->
+  <li>Saba L, et al. Imaging biomarkers of carotid plaque vulnerability. <i>Radiology</i>. 2018;286:614–629.</li>
+  <li>Underhill HR, et al. MRI-detected intraplaque hemorrhage and cerebrovascular events. <i>Radiology</i>. 2021;301:612–621.</li>
+
+  <!-- Antiagregación / triple terapia -->
+  <li>Lopes RD, et al. Antithrombotic therapy after PCI in atrial fibrillation. <i>NEJM</i>. 2019;380:1509–1524. (AUGUSTUS)</li>
+  <li>Dewilde WJ, et al. Use of clopidogrel with or without aspirin in AF patients. <i>Lancet</i>. 2013;381:1107–1115. (WOEST)</li>
+  <li>Gibson CM, et al. Apixaban vs warfarin in PCI patients. <i>NEJM</i>. 2016;375:2423–2434. (PIONEER AF-PCI)</li>
+
+  <!-- Farmacología: IBP, clopidogrel, CYP2C19 -->
+  <li>Mega JL, et al. CYP2C19 genotype and response to clopidogrel. <i>NEJM</i>. 2009;360:354–362.</li>
+  <li>COGENT Investigators. Clopidogrel with or without omeprazole. <i>NEJM</i>. 2010;363:1909–1917.</li>
+  <li>EMA. Safety communication: clopidogrel–omeprazole interaction. 2010.</li>
+
+  <!-- Factores de riesgo / recurrencia -->
+  <li>Amarenco P, et al. One-year risk of stroke after TIA or minor stroke. <i>NEJM</i>. 2016;374:1533–1542.</li>
+  <li>Antithrombotic Trialists' Collaboration. Meta-analysis of antiplatelet therapy. <i>BMJ</i>. 2002;324:71–86.</li>
+
+</ol>
+
+</div></details>
 
 </div>
 

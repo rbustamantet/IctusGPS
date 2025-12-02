@@ -368,7 +368,7 @@ tfoot td{background:#f3f9ff;}
 
 .biblio-content {
   max-height: 0;
-  overflow-y: auto;
+  overflow-y: hidden;
   margin-top: 10px;
   padding: 0px;
   font-size:0.65rem;
@@ -376,7 +376,6 @@ tfoot td{background:#f3f9ff;}
 }
 
 .biblio-content.open{
-  max-height:300;
   padding-top:10px;
 }
 
@@ -606,7 +605,7 @@ body {
         </thead>
         <tbody></tbody>
         <tfoot>
-          <tr><td class="subtle" colspan="9"><b>Abreviaturas:</b> <b>RA</b>=riesgo anual de ictus; <b>RRR</b>=reducción relativa; <b>RRA</b>=reducción absoluta;
+          <tr><td class="subtle" colspan="9"><b>Acrónimos:</b> <b>RA</b>=riesgo anual de ictus; <b>RRR</b>=reducción relativa; <b>RRA</b>=reducción absoluta;
         <b>NNT</b>=nº necesario a tratar; <b>RS</b>=riesgo anual de sangrado mayor; <b>RRS</b>=riesgo relativo de sangrado vs VKA; <b>NNH</b>=nº necesario para dañar.</td></tr>
         <tr><td class="subtle2" colspan="9"><b>Nota:</b> coeficientes orientativos; adapta a tus fuentes.</td></tr>
 </tfoot>
@@ -1124,10 +1123,7 @@ body {
       el.addEventListener('input',autoCheckByInputs);
       el.addEventListener('change',autoCheckByInputs);
     });
-    ['condObesity','cAge65','cAge75','hElder','hRenal','cSc'].forEach(id=>{
-      const el=document.getElementById(id);
-      el.addEventListener('change',()=>checkAndFixContradictions(id));
-    });
+
     document.getElementById('btnCalc').addEventListener('click',e=>{
       e.preventDefault(); compute(); document.getElementById('calcMsg'); scrollToResult();
     });
@@ -1158,15 +1154,37 @@ body {
 
     <!-- Referencias / Bibliografía -->   
  <div class="card">
-   <div class="biblio-header" onclick="toggleBiblio()">
-    <h3 style="margin:0; display:flex; align-items:center; gap:8px;">
-      📚 Bibliografía
-    </h3>
-    <span id="biblio-arrow" class="arrow">▼</span>
+
+<details style="margin-top:1px;">
+      <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📚 Bibliografía</summary>
+      <div style="
+  margin-top:14px;
+  background:#ffffff;
+  border:1px solid #d0d7e1;
+  border-radius:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
+  overflow:hidden;
+  font-size:13px;
+  line-height:1.55;
+  color:#1e293b;
+">
+
+  <!-- Barra superior tipo guideline -->
+  <div style="
+    background:#0f3d83;
+    color:#ffffff;
+    padding:10px 14px;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:0.3px;
+  ">
+    📘 Referencias bibliográficas
   </div>
 
-  <div id="biblio-contenido" class="biblio-content">
-    <ol style="margin:0; padding-left:20px; line-height:1.45;">
+  <!-- Contenido -->
+  <div style="padding:16px 18px;">
+
+<ol style="font-size:12px; padding-left:20px; line-height:1.45;">
 
   <li>
     Friberg L, Rosenqvist M, Lip GYH. Evaluation of risk stratification schemes for ischaemic stroke and bleeding in 182,678 patients with atrial fibrillation.
@@ -1295,16 +1313,19 @@ body {
     <i>J Thromb Haemost.</i> 2021;19:1874–1882.
     <a href="https://www.jthjournal.org/article/S1538-7836(22)01848-7/fulltext" rel="noopener" target="_blank">Texto</a>
   </li>
-</ol>
-     </div></div>
-</div></div></div>
 
-    <script>
-      const refToggle=document.getElementById('refToggle');
-      const refContent=document.getElementById('refContent');
-      const refArrow=document.getElementById('refArrow');
-      refToggle.addEventListener('click',()=>{const isOpen=refContent.classList.toggle('show');refArrow.textContent=isOpen?'▲':'▼';});
-    </script>
+</ol>
+
+  </div>
+
+    </details>
+
+
+
+
+   </div></div>
+
+
 
     <!-- Componente universal de advertencia contextual -->
     <script>
@@ -1407,42 +1428,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (btnPrint) btnPrint.style.display = "none";
   }
 });
-function toggleGlosario(){
-  const contenido = document.getElementById("glosario-contenido");
-  const arrow = document.getElementById("glosario-arrow");
-
-  if(contenido.classList.contains("open")){
-    contenido.classList.remove("open");
-    contenido.style.maxHeight = "0px";
-    arrow.style.transform = "rotate(0deg)";
-  } else {
-    contenido.classList.add("open");
-    contenido.style.maxHeight = contenido.scrollHeight + "px";
-    arrow.style.transform = "rotate(180deg)";
-  }
-}
-function toggleBiblio(){
-  const contenido = document.getElementById("biblio-contenido");
-  const arrow = document.getElementById("biblio-arrow");
-
-  if(contenido.classList.contains("open")){
-    contenido.classList.remove("open");
-    contenido.style.maxHeight = "0px";
-    arrow.style.transform = "rotate(0deg)";
-  } else {
-    contenido.classList.add("open");
-    contenido.style.maxHeight = contenido.scrollHeight + "px";
-    arrow.style.transform = "rotate(180deg)";
-  }
-}
- 
-document.querySelectorAll('.biblio-toggle').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const content = btn.nextElementSibling;
-    content.style.display = (content.style.display === "none") ? "block" : "none";
-  });
-});
-
 </script>
 
 <footer>

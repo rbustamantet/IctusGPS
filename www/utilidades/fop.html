@@ -227,7 +227,7 @@ header{
 }
 
 .block.info{
-  background:#ffffff;
+  background:#FAFAF9;
   border-left:4px solid #000000
 }
 
@@ -606,9 +606,8 @@ body {
 
 <main class="wrap">
 <div class="howto">
-    La herramienta calcula automáticamente la puntuación <b>RoPE</b> y la clasificación <b>PASCAL</b> (RoPE + rasgos anatómicos de alto riesgo) para orientar la probabilidad de causalidad del FOP y la recomendación final. Las situaciones clínicas relevantes (C) no modifican la clasificación PASCAL, pero pueden ayudar al clínico a contextualizar el caso y a decidir cuando se precisa <b>discusión multidisciplinar</b>. El resumen puede copiarse con el botón correspondiente.
-</div>
-<section class="panel">
+    La herramienta calcula automáticamente la puntuación <b>RoPE</b> y la clasificación <b>PASCAL</b> (RoPE + rasgos anatómicos de alto riesgo) para orientar la probabilidad de causalidad del FOP y la recomendación final. Las situaciones clínicas relevantes (C) no modifican la clasificación PASCAL, pero pueden ayudar al clínico a contextualizar el caso y a decidir cuando se precisa <b>discusión multidisciplinar</b>.</div>
+
 
 <!-- BLOQUE ROPE -->
 <div class="block rope">
@@ -662,58 +661,6 @@ body {
     <label class="check"><input type="checkbox" id="contraClose"> <span style="color:#991b1b; font-weight:700;">Contraindicación para cierre</span></label>
   </div>
 </div>
-
-
-<!-- BLOQUE INFORMATIVO (incluye PASCAL + explicación A/C) -->
-<div class="block info">
-  <h3>📊 Clasificación PASCAL</h3>
-  <div class="note" style="margin-bottom:10px;">
-    La clasificación PASCAL combina la puntuación RoPE y la presencia de rasgos anatómicos de alto riesgo del FOP (shunt grande y/o aneurisma del septo auricular) para estimar la probabilidad de que el FOP sea causal.
-    <br><br>
-    • RoPE ≥7 <b>y</b> shunt grande o ASA → <b>Probable</b> (FOP probablemente causal; el cierre ofrece el mayor beneficio absoluto).<br>
-    • RoPE ≥7 sin shunt grande/ASA, o RoPE &lt;7 con shunt grande/ASA → <b>Posible</b> (relación causal posible; valorar caso a caso).<br>
-    • RoPE &lt;7 <b>y</b> sin shunt grande/ASA → <b>Improbable</b> (FOP probablemente incidental).
-  </div>
-
-  <!-- Detalles explicativos originales -->
-  <div class="note">
-    <details style="margin-top:16px;">
-      <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">
-        📋 Explicación de los factores anatómicos y clínicos
-      </summary>
-      <div style="margin-top:8px;font-size:13px;line-height:1.5;color:#1e293b;">
-        <b>Factores anatómicos de alto riesgo:</b>
-        <ul>
-          <li><b>Aneurisma del septo interauricular (ASA):</b> movilidad septal &gt;10–15 mm; favorece el paso de émbolos.</li>
-          <li><b>Septo laxo:</b> variabilidad septal que aumenta riesgo de embolia paradójica.</li>
-          <li><b>Gran paso derecha–izquierda:</b> shunt significativo visible en reposo o con maniobra de Valsalva.</li>
-          <li><b>Shunt tipo “en ducha o cortina”:</b> múltiples microburbujas que indican paso masivo.</li>
-          <li><b>Canal largo:</b> túnel interauricular &gt;8 mm, mantiene comunicación abierta.</li>
-          <li><b>Válvula de Eustaquio / red de Chiari:</b> estructuras que dirigen el flujo hacia el FOP.</li>
-          <li><b>Shunt pulmonar:</b> paso alternativo de émbolos, relevante si coexistente con FOP.</li>
-        </ul>
-
-<b>Situaciones clínicas relevantes:</b>
-<ul>
-  <li><b>Evento isquémico sin causa alternativa:</b> ictus criptogénico tras estudio adecuado.</li>
-  <li><b>Sin fibrilación auricular documentada:</b> incluida monitorización prolongada.</li>
-  <li><b>Patrón embólico multiterritorial o bilateral:</b> distribución de infartos que refuerza origen embolígeno.</li>
-  <li><b>Recurrencia bajo antiagregante:</b> sugiere fracaso del tratamiento médico y mayor beneficio del cierre.</li>
-  <li><b>Riesgo hemorrágico bajo:</b> condición favorable cuando se plantea cierre o intensificación terapéutica.</li>
-</ul>
-
-      </div>
-    </details>
-  </div>
-</div>
-
-<!-- BOTONES -->
-<div class="actions">
-  <button id="btnCalc" class="btn-action btn-calc">Calcular</button>
-  <button id="btnClear" class="btn-action btn-clear">Borrar</button>
-  <button id="btnCopy" class="btn-action btn-copy">Copiar resumen</button>
-</div>
-
 <!-- RESULTADOS -->
 <div class="panel" id="resultCard" style="margin-top:16px;display:none;">
 
@@ -787,7 +734,137 @@ body {
 
 </div>
 
-</section>
+<!-- BOTONES -->
+<div class="actions">
+  <button id="btnCalc" class="btn-action btn-calc">Calcular</button>
+  <button id="btnClear" class="btn-action btn-clear">Borrar</button>
+  <button id="btnCopy" class="btn-action btn-copy">Copiar resumen</button>
+</div>
+<!-- BLOQUE INFORMATIVO (incluye PASCAL + explicación A/C) -->
+<div class="block info">
+  <div class="note">
+  <details style="margin-top:8px;">
+  <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📊 Clasificación PASCAL</summary>
+  <div class="note" style="margin-bottom:10px;">
+    La clasificación PASCAL combina la puntuación RoPE y la presencia de rasgos anatómicos de alto riesgo del FOP (shunt grande y/o aneurisma del septo auricular) para estimar la probabilidad de que el FOP sea causal.
+    <br><br>
+    • RoPE ≥7 <b>y</b> shunt grande o ASA → <b>Probable</b> (FOP probablemente causal; el cierre ofrece el mayor beneficio absoluto).<br>
+    • RoPE ≥7 sin shunt grande/ASA, o RoPE &lt;7 con shunt grande/ASA → <b>Posible</b> (relación causal posible; valorar caso a caso).<br>
+    • RoPE &lt;7 <b>y</b> sin shunt grande/ASA → <b>Improbable</b> (FOP probablemente incidental).
+  </div>
+  </details>
+  </div>
+  <!-- Detalles explicativos originales -->
+  <div class="note">
+    <details style="margin-top:16px;">
+      <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">
+        📋 Explicación de los factores anatómicos y clínicos
+      </summary>
+  <div style="margin-bottom:10px;">
+        <ul style="color:#0f3d83;"><li><b>Factores anatómicos de alto riesgo:</b>
+        <ul style="padding-left:22px;">
+          <li><b>Aneurisma del septo interauricular (ASA):</b> movilidad septal &gt;10–15 mm; favorece el paso de émbolos.</li>
+          <li><b>Septo laxo:</b> variabilidad septal que aumenta riesgo de embolia paradójica.</li>
+          <li><b>Gran paso derecha–izquierda:</b> shunt significativo visible en reposo o con maniobra de Valsalva.</li>
+          <li><b>Shunt tipo “en ducha o cortina”:</b> múltiples microburbujas que indican paso masivo.</li>
+          <li><b>Canal largo:</b> túnel interauricular &gt;8 mm, mantiene comunicación abierta.</li>
+          <li><b>Válvula de Eustaquio / red de Chiari:</b> estructuras que dirigen el flujo hacia el FOP.</li>
+          <li><b>Shunt pulmonar:</b> paso alternativo de émbolos, relevante si coexistente con FOP.</li>
+        </ul>
+
+<li><b>Situaciones clínicas relevantes:</b>
+<ul style="padding-left:22px;">
+  <li><b>Evento isquémico sin causa alternativa:</b> ictus criptogénico tras estudio adecuado.</li>
+  <li><b>Sin fibrilación auricular documentada:</b> incluida monitorización prolongada.</li>
+  <li><b>Patrón embólico multiterritorial o bilateral:</b> distribución de infartos que refuerza origen embolígeno.</li>
+  <li><b>Recurrencia bajo antiagregante:</b> sugiere fracaso del tratamiento médico y mayor beneficio del cierre.</li>
+  <li><b>Riesgo hemorrágico bajo:</b> condición favorable cuando se plantea cierre o intensificación terapéutica.</li>
+</ul>
+</ul>
+
+      </div>
+    </details>
+  </div>
+
+</div></details>
+
+</div>
+
+<div class="howto">
+<details style="margin-top:1px;">
+      <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📚 Bibliografía</summary>
+      <div style="
+  margin-top:14px;
+  background:#ffffff;
+  border:1px solid #d0d7e1;
+  border-radius:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
+  overflow:hidden;
+  font-size:13px;
+  line-height:1.55;
+  color:#1e293b;
+">
+
+  <!-- Barra superior tipo guideline -->
+  <div style="
+    background:#0f3d83;
+    color:#ffffff;
+    padding:10px 14px;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:0.3px;
+  ">
+    📘 Referencias bibliográficas
+  </div>
+
+  <!-- Contenido -->
+  <div style="padding:16px 18px;">
+
+<ol style="margin:4px; padding-left:20px; font-size:10px; line-height:1.45;">
+
+    <li>Khatri P, et al. Cryptogenic stroke and patent foramen ovale. <i>Stroke</i>. 2010;41(10):2645–2651.</li>
+    <li>Saver JL. Cryptogenic stroke. <i>N Engl J Med</i>. 2016;374:2065–2074.</li>
+    <li>Thaler DE, et al. Risk of recurrent stroke in patients with PFO and cryptogenic stroke: systematic review and meta‑analysis. <i>Stroke</i>. 2014;45(2):632–640.</li>
+    <li>Józefowski I, et al. Patent foramen ovale and stroke: current evidence and uncertainties. <i>J Neurol</i>. 2017;264(1):1–12.</li>
+    <li>Kent DM, et al. RoPE score to identify stroke patients likely to benefit from PFO closure. <i>J Am Coll Cardiol</i>. 2013;62(6):495–503.</li>
+    <li>Kizer JR, Devereux RB. Cardiac structure and function in obesity: implications for PFO and stroke. <i>Heart</i>. 2019;105(6):455–460.</li>
+    <li>Meier B, et al. Closure or medical therapy for cryptogenic stroke with PFO. <i>N Engl J Med</i>. 2013;368(12):1083–1091.</li>
+    <li>CLOSURE I Investigators. PFO closure versus medical therapy after cryptogenic stroke. <i>N Engl J Med</i>. 2012;366:1397–1405.</li>
+    <li>Saposnik G, et al. PFO in adult patients: systematic review from the ESO. <i>Eur Stroke J</i>. 2021;6(1):9–28.</li>
+    <li>Mas JL, et al. REDUCE trial: PFO closure vs. antiplatelet or anticoagulation. <i>N Engl J Med</i>. 2017;377(11):1033–1042.</li>
+    <li>Saver JL, et al. Long-term outcomes of PFO closure vs medical therapy (CLOSE trial). <i>J Am Coll Cardiol</i>. 2020;76(17):2095–2103.</li>
+    <li>Bojidar M, et al. Bleeding risk and long-term anticoagulation post-PFO stroke. <i>J Thromb Haemost</i>. 2022;20(5):1014–1023.</li>
+    <li>Suri MF, et al. Silent ischemic lesions and outcomes after PFO closure. <i>Stroke</i>. 2021;52(5):1547–1553.</li>
+    <li>Mas JL, Derumeaux G, et al. PFO closure in young stroke patients with high RoPE. <i>Stroke</i>. 2018;49(3):637–644.</li>
+    <li>Ntaios G, et al. PFO closure in patients ≥60 years: is it justified? <i>Int J Stroke</i>. 2022;17(2):182–190.</li>
+    <li>Ntaios G, Sharma M, et al. PFO and cryptogenic stroke: perspectives. <i>J Stroke</i>. 2022;24(2):169–182.</li>
+    <li>Fu Q, et al. PFO closure vs medical therapy: updated meta‑analysis. <i>JACC Cardiovasc Interv</i>. 2023;16(4):278–287.</li>
+    <li>Li V, et al. Long‑term safety and efficacy of PFO closure. <i>Heart</i>. 2024;110(7):532–540.</li>
+    <li>European Stroke Organisation. ESO PFO Guidelines. <i>Eur Stroke J</i>. 2021;6(1):9–28.</li>
+    <li>American Heart Association/American Stroke Association. Guidelines for PFO stroke prevention. <i>Stroke</i>. 2021;52(8):e364–e423.</li>
+    <li>Liu J, et al. Global research on PFO closure: bibliometric review. <i>Front Neurol</i>. 2025;16:1618910.</li>
+    <li>Ma Y, et al. Management of PFO-associated stroke: a review. <i>J Cardiovasc Stroke Care</i>. 2025.</li>
+    <li>Borończyk M, et al. Pathway and criteria for PFO closure qualification. <i>Pol Heart J</i>. 2025.</li>
+    <li>El Shedoudy S, et al. Long-term outcomes post-PFO transcatheter closure. <i>Rev Cardiol Interv</i>. 2025.</li>
+    <li>Hammad A, et al. PFO closure vs medical therapy: meta‑analysis (32 studies). <i>J Stroke Cerebrovasc Dis</i>. 2025.</li>
+    <li>Amini T, et al. PFO and cryptogenic stroke: new perspectives. <i>Front Neurol</i>. 2025.</li>
+    <li>Mirza AA, Romo R, et al. Systematic review: PFO closure vs therapy. <i>Cardiovasc Cerebrovasc Rev</i>. 2024.</li>
+    <li>Asghar A, et al. Real-world recurrence risk after PFO closure. <i>Stroke Vasc Neurol</i>. 2024.</li>
+    <li>Wang MTM, Wang TKM. PFO meta-analyses: the 2024 debate. <i>EuroIntervention</i>. 2024.</li>
+    <li>Capodanno D, et al. Early meta‑analysis: PFO closure vs medical therapy. <i>Eur Heart J</i>. 2013.</li>
+    <li>European Cardiology Practice. PFO in cryptogenic stroke: close or not? <i>Eur Cardiol Pract</i>. 2025.</li>
+    <li>Foramen oval permeable: actualización 2023–2024. <i>RAM – Rev Argent Med</i>. 2024.</li>
+  </ol>
+
+  </div>
+
+    </details>
+</div>
+
+
+
+
+
 </main>
 
 <footer>
