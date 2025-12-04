@@ -121,7 +121,7 @@ header{
 }
 
 .block{
-  background:#fff;
+  background:linear-gradient(to bottom, #f2f7ff, #e9f1ff);
   border-radius:14px;
   border-left:4px solid #0f3d83;
   padding:16px;
@@ -331,6 +331,43 @@ select:focus{
 }
 .info-icon:hover {
   background:#16a34a;}
+/* =======================
+   TOAST INSTITUCIONAL
+======================= */
+.toast {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0px) + 100px);
+  right: 16px;
+  min-width: 220px;
+  max-width: 420px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  color: #0f3d83;
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  opacity: 0;
+  transform: translateX(40px);
+  pointer-events: none;
+
+  box-shadow: 0 4px 16px rgba(0,0,0,0.16);
+  transition: opacity 0.3s ease, transform 0.35s ease;
+
+  z-index: 2000;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.toast-icon {
+  font-size: 1.25rem;
+}
 
 /* DISCLAIMER FINAL */
 .disclaimer-red{
@@ -386,8 +423,17 @@ body{
 }
 
 /* Botones copiar / borrar */
+.actions{
+  margin-left:auto;
+}
+
+.actions{
+  display:none;
+  gap:10px;
+  margin:0px;
+}
 .boton-opcion{
-  flex:1 1 32%;
+  flex:1 1 20%;
   border:none;
   border-radius:10px;
   padding:12px;
@@ -397,19 +443,17 @@ body{
 }
 
 .boton-clear{
-  width: 25%;
-  background:#0f3d83;
-  color:#fff;
+  background:#fff;
+  color:#0f3d83;
   border:1px solid #2563eb
 }
 
 .boton-clear:hover{
-  background:#fff;
-  color:#0f3d83;
+  background:#0f3d83;
+  color:#fff;
 }
 
 .boton-copy{
-  width: 70%;
   background:#fff;
   color:#0f3d83;
   border:1px solid #2563eb
@@ -418,6 +462,27 @@ body{
 .boton-copy:hover{
   background:#0f3d83;
   color:#fff;
+}
+
+/* BOTONES EN BLOQUE PARA MÓVILES */
+@media (max-width: 600px) {
+  .tools-wrap {
+    flex-direction: column;
+    align-items: stretch; /* que ocupen el ancho completo */
+    gap: 12px;
+  }
+
+  .tool-chip {
+    width: 100%;
+    justify-content: center; /* centra icono + texto */
+    font-size: 1rem;
+    padding: 12px;
+  }
+
+  .tool-chip img,
+  .tool-chip span.emoji {
+    margin-right: 6px;
+  }
 }
 
 </style>
@@ -484,9 +549,9 @@ body{
       Seleccione un escenario clínico para mostrar la recomendación orientativa de tratamiento antitrombótico.
     </p>
   </div>
-<div>
+<div class="actions">
 <button class="boton-opcion boton-clear" onclick="borrarResumen()" title="Borrar contenido">Borrar</button>        
-<button class="boton-opcion boton-copy" onclick="copiarResumen()" title="Copiar resumen">Copiar resumen</button>
+<button class="boton-opcion boton-copy" onclick="copiarResumen()" title="Copiar resumen">Copiar recomendación</button>
       </div>
 
 
@@ -685,7 +750,7 @@ body{
 =============================== */
 const tratamientosEscenario = {
   ictus_menor: `
-    <b>Ictus minor / AIT de alto riesgo</b><br><br>
+    <b>Ictus minor / AIT de alto riesgo</b><br>
     <ul>
       <li>Definición orientativa: NIHSS ≤ 3 o ABCD<sub>2</sub> ≥ 4, sin indicación de fibrinólisis/EVT o tras su realización.</li>
       <li><b>Tratamiento:</b> DAPT (AAS + clopidogrel) durante 21–30 días, seguida de monoterapia antiagregante.</li>
@@ -696,7 +761,7 @@ const tratamientosEscenario = {
     </ul>
   `,
   carotida: `
-    <b>Estenosis carotídea extracraneal</b><br><br>
+    <b>Estenosis carotídea extracraneal</b>
     <ul>
       <li><b>Sintomática moderada (50–69 %):</b> monoterapia (AAS o clopidogrel). Valorar intervención (endarterectomía o stent) en pacientes de alto riesgo de recurrencia
         <span class="info-icon" data-info="nota1">ℹ️</span>
@@ -708,7 +773,7 @@ const tratamientosEscenario = {
     </ul>
   `,
   intracraneal: `
-    <b>Estenosis intracraneal aterosclerótica</b><br><br>
+    <b>Estenosis intracraneal aterosclerótica</b>
     <ul>
       <li><b>Sintomática ≥70 %:</b> DAPT durante 90 días, luego monoterapia. Control intensivo de factores de riesgo (PA, LDL, DM, tabaco).</li>
       <li>Evitar intervencionismo (angioplastia/stent) de primera línea; reservar para fracaso del tratamiento médico óptimo.</li>
@@ -718,7 +783,7 @@ const tratamientosEscenario = {
     </ul>
   `,
   vertebral: `
-    <b>Estenosis vertebrales</b><br><br>
+    <b>Estenosis vertebrales</b>
     <ul>
       <li><b>Extracraneal 50–69 % sintomática:</b> monoterapia antiagregante (AAS o clopidogrel).</li>
       <li><b>Extracraneal ≥70 % sintomática:</b> monoterapia; valorar intervención en pacientes de alto riesgo de recurrencia.
@@ -733,7 +798,7 @@ const tratamientosEscenario = {
     </ul>
   `,
   atero_sin_estenosis: `
-    <b>Ictus aterotrombótico sin estenosis significativa</b><br><br>
+    <b>Ictus aterotrombótico sin estenosis significativa</b>
     <ul>
       <li>Placa carotídea/aórtica no crítica sin estenosis relevante (&lt;50 %) pero con características de vulnerabilidad.</li>
       <li><b>Tratamiento:</b> monoterapia antiagregante (AAS o clopidogrel).</li>
@@ -742,7 +807,7 @@ const tratamientosEscenario = {
     </ul>
   `,
   lacunar: `
-    <b>Ictus lacunar (pequeño vaso)</b><br><br>
+    <b>Ictus lacunar (pequeño vaso)</b>
     <ul>
       <li>Ictus de pequeño vaso (lacunar) típicamente asociado a lipohialinosis/arteriolosclerosis en pacientes hipertensos/diabéticos.</li>
       <li><b>Tratamiento:</b> monoterapia antiagregante.</li>
@@ -751,7 +816,7 @@ const tratamientosEscenario = {
     </ul>
   `,
   diseccion: `
-    <b>Disección arterial (carótida o vertebral)</b><br><br>
+    <b>Disección arterial (carótida o vertebral)</b>
     <ul>
       <li><b>Sintomática:</b> puede emplearse anticoagulación (ACOD/AVK) o monoterapia antiagregante; no existe superioridad clara de una estrategia sobre otra. Duración habitual 3–6 meses, con reevaluación por imagen.</li>
       <li><b>Asintomática y estable:</b> AAS suele ser suficiente.</li>
@@ -761,7 +826,7 @@ const tratamientosEscenario = {
     </ul>
   `,
   carotid_web: `
-    <b>Carotid Web</b><br><br>
+    <b>Carotid Web</b>
     <ul>
       <li>Lesión no aterosclerótica en la bulbo carotídeo-ACI, asociada a ictus isquémico por embolia arterio-arterial.</li>
       <li><b>Tratamiento médico:</b> monoterapia antiagregante.</li>
@@ -772,7 +837,7 @@ const tratamientosEscenario = {
     </ul>
   `,
   trombo_aortico: `
-    <b>Trombo mural aórtico (sobre todo aorta ascendente/arco)</b><br><br>
+    <b>Trombo mural aórtico (sobre todo aorta ascendente/arco)</b>
     <ul>
       <li><b>Tratamiento de primera línea:</b> anticoagulación oral, habitualmente con AVK (INR objetivo según protocolo local).</li>
       <li>Si el trombo se asienta sobre una placa aterosclerótica compleja (ulcerada, irregular, móvil, con hemorragia intraplaca), puede considerarse añadir AAS a corto plazo, valorando cuidadosamente el riesgo hemorrágico
@@ -783,7 +848,7 @@ const tratamientosEscenario = {
     </ul>
   `,
   estenosis_sin_intervencion: `
-    <b>Estenosis crítica sin opción de intervención</b><br><br>
+    <b>Estenosis crítica sin opción de intervención</b>
     <ul>
       <li>Estenosis carotídea o vertebral crítica en la que no es posible la revascularización (riesgo prohibitivo, anatomía desfavorable, rechazo del paciente, etc.).</li>
       <li><b>Tratamiento:</b> DAPT durante 21–30 días tras el evento isquémico, seguida de monoterapia antiagregante.</li>
@@ -946,19 +1011,27 @@ function mostrarTratamientoEscenario(){
   const val = select.value;
   const res = document.getElementById('escenario-resultado');
   const texto = document.getElementById('escenario-texto');
+  const actions = document.querySelector('.actions');
 
   if(!val || !tratamientosEscenario[val]){
     res.classList.remove('fade-in');
     texto.innerHTML = "Seleccione un escenario clínico para mostrar la recomendación orientativa de tratamiento antitrombótico.";
+    
+    // Oculta botones cuando no hay recomendación
+    actions.style.display = "none";
     return;
   }
 
   res.classList.remove('fade-in');
-  void res.offsetWidth; // forzar repaint
+  void res.offsetWidth;
   res.classList.add('fade-in');
 
   texto.innerHTML = tratamientosEscenario[val];
+
+  // Muestra botones cuando hay recomendación
+  actions.style.display = "flex";
 }
+
 
 /* ============================
    MODAL HERRAMIENTAS + NOTAS
@@ -1010,18 +1083,58 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ============================
+   TOAST GLOBAL INSTITUCIONAL
+=============================== */
+function showToast(message, type = "info") {
+  const toast = document.getElementById("toast");
+
+  // Iconos según tipo
+  const icons = {
+    info: "ℹ️",
+    ok: "✅",
+    warn: "⚠️",
+    error: "❌"
+  };
+
+  // Colores institucionales
+  const colors = {
+    info: "#fff",
+    ok: "#166534",
+    warn: "#b45309",
+    error: "#b91c1c"
+  };
+
+  toast.style.background = colors[type] || colors.info;
+
+  toast.innerHTML = `
+    <span class="toast-icon">${icons[type] || icons.info}</span>
+    <span>${message}</span>
+  `;
+
+  // Mostrar
+  toast.classList.add("show");
+
+  // Ocultar a los 3 segundos
+  clearTimeout(toast.hideTimer);
+  toast.hideTimer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 3000);
+}
+
+
+
+/* ============================
    COPIAR y BORRAR RESUMEN
 =============================== */
 function copiarResumen(){
   const cont = document.getElementById('escenario-texto');
   const baseText = cont.innerText.trim();
-
+  
   if(!baseText || baseText.includes("Seleccione un escenario clínico")){
-    alert("No hay recomendación para copiar.");
+    showToast("No hay recomendación");
     return;
   }
 
-  // Buscar notas presentes en el HTML (por data-info)
   const iconos = cont.querySelectorAll('.info-icon');
   let notasIncluidas = [];
 
@@ -1032,13 +1145,11 @@ function copiarResumen(){
     }
   });
 
-  // Construir texto final
   let finalText = baseText;
 
   if(notasIncluidas.length > 0){
     finalText += "\n\nNotas clínicas:\n";
     notasIncluidas.forEach(key => {
-      // Convertir el HTML de la nota a texto plano manteniendo estructura
       const div = document.createElement('div');
       div.innerHTML = notas[key];
       const notaPlano = div.innerText.trim();
@@ -1046,50 +1157,27 @@ function copiarResumen(){
     });
   }
 
-  // Copiar
   navigator.clipboard.writeText(finalText)
-    .then(() => alert("Resumen (incluyendo notas) copiado al portapapeles."))
-    .catch(() => alert("Error al copiar."));
+    .then(() => showToast("Recomendación copiada"))
+    .catch(() => showToast("Error al copiar"));
 }
-
 
 function borrarResumen(){
   document.getElementById('escenario').selectedIndex = 0;
   document.getElementById('escenario-texto').innerHTML =
     "Seleccione un escenario clínico para mostrar la recomendación orientativa de tratamiento antitrombótico.";
+
   const res = document.getElementById('escenario-resultado');
   res.classList.remove('fade-in');
-}
-function toggleGlosario(){
-  const contenido = document.getElementById("glosario-contenido");
-  const arrow = document.getElementById("glosario-arrow");
 
-  if(contenido.classList.contains("open")){
-    contenido.classList.remove("open");
-    contenido.style.maxHeight = "0px";
-    arrow.style.transform = "rotate(0deg)";
-  } else {
-    contenido.classList.add("open");
-    contenido.style.maxHeight = contenido.scrollHeight + "px";
-    arrow.style.transform = "rotate(180deg)";
-  }
+  // Oculta los botones también al borrar
+  document.querySelector('.actions').style.display = "none";
 }
-function toggleBiblio(){
-  const contenido = document.getElementById("biblio-contenido");
-  const arrow = document.getElementById("biblio-arrow");
 
-  if(contenido.classList.contains("open")){
-    contenido.classList.remove("open");
-    contenido.style.maxHeight = "0px";
-    arrow.style.transform = "rotate(0deg)";
-  } else {
-    contenido.classList.add("open");
-    contenido.style.maxHeight = contenido.scrollHeight + "px";
-    arrow.style.transform = "rotate(180deg)";
-  }
-}
 
 </script>
+<div id="toast" class="toast"></div>
+
 
 </body>
 </html>

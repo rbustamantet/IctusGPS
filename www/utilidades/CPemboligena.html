@@ -120,18 +120,18 @@ header{
 }
 
 
+/* Botones copiar / borrar */
 .actions{
   margin-left:auto;
 }
 
 .actions{
-  display:flex;
+  display:none;
   gap:10px;
-  margin:16px;
+  margin:0px;
 }
-
 .boton-opcion{
-  flex:1 1 32%;
+  flex:1 1 20%;
   border:none;
   border-radius:10px;
   padding:12px;
@@ -141,19 +141,17 @@ header{
 }
 
 .boton-clear{
-  width: 25%;
-  background:#0f3d83;
-  color:#fff;
+  background:#fff;
+  color:#0f3d83;
   border:1px solid #2563eb
 }
 
 .boton-clear:hover{
-  background:#fff;
-  color:#0f3d83;
+  background:#0f3d83;
+  color:#fff;
 }
 
 .boton-copy{
-  width: 70%;
   background:#fff;
   color:#0f3d83;
   border:1px solid #2563eb
@@ -162,11 +160,6 @@ header{
 .boton-copy:hover{
   background:#0f3d83;
   color:#fff;
-}
-
-.boton-copy.copiado{
-  background:#0f3d83!important;
-  color:#fff!important
 }
 
 select{
@@ -274,7 +267,7 @@ label.row:hover{
   background:#fef2f2;
   border:1px solid #fecaca;
   border-radius:12px;
-  margin:0 auto;
+  margin:8px auto;
   padding:1rem;
   max-width:1080px;
   box-shadow:0 2px 8px rgba(185,28,28,0.05);
@@ -419,13 +412,14 @@ body{
 
 
 <div id="patologia-resultado">
-<h3>✅ Recomendación</h3>
-<p>Seleccione un escenario clínico para mostrar la recomendación orientativa de tratamiento.</p>
+  <h3>✅ Recomendación</h3>
+  <p id="patologia-texto">Seleccione un escenario clínico para mostrar la recomendación orientativa de tratamiento.</p>
 </div>
 
+<div id="botones-patologia" style="display:none; margin-top: 2px; text-align:center;"></div>
 
 <!-- BOTONES DE ACCION -->
-<div class="actions" id="botones-patologia" style="display:none; margin-top: 2px; text-align:center;">
+<div class="actions"> 
 <button onclick="borrarFormulario()" class="boton-opcion boton-clear">Borrar</button>
 <button onclick="copiarResumen()" class="boton-opcion boton-copy">Copiar recomendación</button>
 </div>
@@ -705,11 +699,15 @@ function mostrarRecomendacionPatologia(preliminar = false) {
   let texto = "", recomendacion = "", fuerza = "INSUFICIENTE";
   let score = 0;
   const isFemale = riesgos.includes('Sexo Femenino (1 pto)');
-   if (patologia) {
-  document.getElementById('botones-patologia').style.display = 'block';
+const actions = document.querySelector('.actions');
+
+if (patologia) {
+  actions.style.display = "flex";   // Muestra los botones
 } else {
-  document.getElementById('botones-patologia').style.display = 'none';
+  actions.style.display = "none";   // Los oculta si no hay selección
 }
+
+
   riesgos.forEach(r => {
     if (r.includes('2 ptos')) score += 2;
     else if (r.includes('1 pto')) score += 1;
@@ -1096,7 +1094,7 @@ switch (fuerza) {
 recomendacion += coletilla;
 
   const resumen = riesgos.length > 0 ? riesgos.join(", ") : "Ninguno";
-  resultadoDiv.innerHTML = `${texto}<br><b>📎 Factores de riesgo presentes:</b> ${resumen}.<br><b>✅ Recomendación orientativa:</b> ${recomendacion}`;
+  resultadoDiv.innerHTML = `${texto}<br><b>📎 Factores de riesgo presentes:</b> ${resumen}.<br><br><b>✅ Recomendación orientativa:</b> ${recomendacion}`;
 
 /* ============================
    RECOMENDACIÓN PRINCIPAL
@@ -1145,17 +1143,20 @@ function mostrarFactoresPatologia() {
 
 
 function borrarFormulario() {
-document.getElementById("patologia").value = "";
-document.getElementById("patologia-factores").innerHTML = "";
-document.getElementById("patologia-resultado").innerHTML = "<h3>✅ Recomendación</h3><p>Seleccione un escenario clínico para mostrar la recomendación orientativa de tratamiento.</p>";
-document.getElementById("botones-patologia").style.display = "none";
+  document.getElementById("patologia").value = "";
+  document.getElementById("patologia-factores").innerHTML = "";
+  document.getElementById("patologia-resultado").innerHTML =
+    "<h3>✅ Recomendación</h3><p>Seleccione un escenario clínico para mostrar la recomendación orientativa de tratamiento.</p>";
+
+  document.querySelector('.actions').style.display = "none";   // ⬅️ Oculta los botones
 }
+
 
 
 function copiarResumen() {
 const texto = document.getElementById("patologia-resultado").innerText;
 navigator.clipboard.writeText(texto).then(() => {
-showToast("Recomendación copiada al portapapeles.", "info");
+showToast("Recomendación copiada", "info");
 });
 }
 
