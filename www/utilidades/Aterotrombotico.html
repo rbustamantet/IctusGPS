@@ -633,7 +633,6 @@ body{
     <li><b>INR:</b> Cociente internacional normalizado</li>
     <li><b>LDL:</b> Lipoproteínas de baja densidad</li>
     <li><b>NIHSS:</b> National Institutes of Health Stroke Scale</li>
-    <li><b>PA:</b> Presión arterial</li>
     <li><b>RM:</b> Resonancia magnética</li>
     <li><b>TC:</b> Tomografía computarizada</li>
   </ul>
@@ -752,7 +751,7 @@ const tratamientosEscenario = {
   ictus_menor: `
     <b>Ictus minor / AIT de alto riesgo</b><br>
     <ul>
-      <li>Definición orientativa: NIHSS ≤ 3 o ABCD<sub>2</sub> ≥ 4, sin indicación de fibrinólisis/EVT o tras su realización.</li>
+      <li>Ictus isquémico con NIHSS ≤ 3 y déficit no discapacitante, o AIT con ABCD² ≥ 4<span class="info-icon" data-info="nota0">ℹ️</span>, en ausencia de indicación de fibrinólisis o trombectomía, o tras su realización cuando el paciente queda sin déficit clínicamente discapacitante.</li>
       <li><b>Tratamiento:</b> DAPT (AAS + clopidogrel) durante 21–30 días, seguida de monoterapia antiagregante.</li>
       <li>Alternativa: ticagrelor + AAS en pacientes en los que clopidogrel no es adecuado (p. ej. fallo previo o polimorfismos).</li>
       <li>Evitar prolongar la DAPT más allá de 90 días salvo indicación vascular adicional.</li>
@@ -766,18 +765,18 @@ const tratamientosEscenario = {
       <li><b>Sintomática moderada (50–69 %):</b> monoterapia (AAS o clopidogrel). Valorar intervención (endarterectomía o stent) en pacientes de alto riesgo de recurrencia
         <span class="info-icon" data-info="nota1">ℹ️</span>
       </li>
-      <li><b>Sintomática crítica (≥70 %):</b> priorizar CEA/CAS en ≤ 14 días si no hay contraindicaciones. DAPT peri-procedimiento (AAS + clopidogrel) y, tras stent, DAPT 1–3 meses.</li>
+      <li><b>Sintomática crítica (≥70 %):</b> priorizar CAS/CEA en ≤ 14 días si no hay contraindicaciones. DAPT peri-procedimiento (AAS + clopidogrel) y, tras stent, DAPT 1–3 meses.</li>
       <li><b>Si la estenosis crítica no es intervenible de inmediato:</b> DAPT 21–30 días y luego monoterapia.</li>
-      <li><b>Asintomática (≥70 %):</b> tratamiento médico intensivo como primera opción (riesgo anual muy bajo). CEA sin beneficio claro; CAS solo en centros muy expertos y casos seleccionados (progresión, síntomas nuevos, placa compleja, pacientes jóvenes).<span class="info-icon" data-info="nota2">ℹ️</span>
+      <li><b>Asintomática (≥70 %):</b> tratamiento médico intensivo como primera opción (riesgo anual bajo). CEA sin beneficio claro; CAS en centros muy expertos y siempre asociado a tratamiento médico intensivo <span class="info-icon" data-info="nota2">ℹ️</span>
 </li>
     </ul>
   `,
   intracraneal: `
     <b>Estenosis intracraneal aterosclerótica</b>
     <ul>
-      <li><b>Sintomática ≥70 %:</b> DAPT durante 90 días, luego monoterapia. Control intensivo de factores de riesgo (PA, LDL, DM, tabaco).</li>
-      <li>Evitar intervencionismo (angioplastia/stent) de primera línea; reservar para fracaso del tratamiento médico óptimo.</li>
-      <li><b>Asintomática:</b> monoterapia antiagregante y seguimiento imagenológico periódico (RM/angio-TC o similar)
+      <li><b>Sintomática ≥70 %:</b> DAPT durante 90 días, luego monoterapia. Control intensivo de factores de riesgo (HTA, LDL, DM, tabaco).</li>
+      <li>Evitar angioplastia/stent como primera opción; considerar en centros expertos solo si hay recurrencias isquémicas pese a tratamiento médico óptimo.</li>
+      <li><b>Asintomática:</b> monoterapia antiagregante y seguimiento imagenológico periódico (RM/angio-TC o similar) para vigilar progresión y aparición de lesiones silentes
         <span class="info-icon" data-info="nota3">ℹ️</span>
       </li>
     </ul>
@@ -803,7 +802,7 @@ const tratamientosEscenario = {
       <li>Placa carotídea/aórtica no crítica sin estenosis relevante (&lt;50 %) pero con características de vulnerabilidad.</li>
       <li><b>Tratamiento:</b> monoterapia antiagregante (AAS o clopidogrel).</li>
       <li>No se recomienda DAPT crónica; reservar DAPT corta si se asimila a un ictus menor/AIT de alto riesgo.</li>
-      <li>Fundamental el control intensivo de factores de riesgo vascular (hipolipemiantes de alta intensidad, control de PA, abandono de tabaco…).</li>
+      <li>Fundamental el control intensivo de factores de riesgo vascular (hipolipemiantes de alta intensidad, control de TA, abandono de tabaco…).</li>
     </ul>
   `,
   lacunar: `
@@ -811,7 +810,7 @@ const tratamientosEscenario = {
     <ul>
       <li>Ictus de pequeño vaso (lacunar) típicamente asociado a lipohialinosis/arteriolosclerosis en pacientes hipertensos/diabéticos.</li>
       <li><b>Tratamiento:</b> monoterapia antiagregante.</li>
-      <li>No está indicada la DAPT prolongada en ictus lacunares aislados.</li>
+      <li>No está indicada la DAPT prolongada en ictus lacunares aislados, aumenta el riesgo hemorrágico sin beneficio demostrado.</li>
       <li>Prioritario: control estricto de la presión arterial, de la glucemia y cese de hábitos tóxicos.</li>
     </ul>
   `,
@@ -828,7 +827,7 @@ const tratamientosEscenario = {
   carotid_web: `
     <b>Carotid Web</b>
     <ul>
-      <li>Lesión no aterosclerótica en la bulbo carotídeo-ACI, asociada a ictus isquémico por embolia arterio-arterial.</li>
+      <li>Lesión no aterosclerótica en bulbo carotídeo-ACI, asociada a ictus isquémico por embolia arterio-arterial.</li>
       <li><b>Tratamiento médico:</b> monoterapia antiagregante.</li>
       <li>En pacientes con <b>ictus/AIT recurrentes, web prominente o trombosis adyacente</b>, valorar tratamiento intervencionista (stent o endarterectomía) en centros expertos
         <span class="info-icon" data-info="nota6">ℹ️</span>
@@ -839,7 +838,7 @@ const tratamientosEscenario = {
   trombo_aortico: `
     <b>Trombo mural aórtico (sobre todo aorta ascendente/arco)</b>
     <ul>
-      <li><b>Tratamiento de primera línea:</b> anticoagulación oral, habitualmente con AVK (INR objetivo según protocolo local).</li>
+      <li><b>Tratamiento de primera línea:</b> anticoagulación oral, habitualmente con AVK, manteniendo INR en rango terapéutico (2–3).</li>
       <li>Si el trombo se asienta sobre una placa aterosclerótica compleja (ulcerada, irregular, móvil, con hemorragia intraplaca), puede considerarse añadir AAS a corto plazo, valorando cuidadosamente el riesgo hemorrágico
         <span class="info-icon" data-info="nota7">ℹ️</span>
       </li>
@@ -862,8 +861,12 @@ const tratamientosEscenario = {
    NOTAS CLÍNICAS (PDF)
 =============================== */
 const notas = {
+   nota0: `
+    <b>AIT de alto riesgo</b><br>
+    • Aunque ABCD² 4–5 es riesgo moderado en la escala original, a efectos terapéuticos se considera <b>ABCD² ≥ 4</b> como AIT de alto riesgo.
+  `,
   nota1: `
-    <b>Estenosis carotídea sintomática de alto riesgo</b><br><br>
+    <b>Estenosis carotídea sintomática de alto riesgo</b><br>
     • Síntomas recientes (≤14 días)<br>
     • AITs o ictus recurrentes en el mismo territorio<br>
     • AITs fluctuantes o inestables<br>
@@ -873,7 +876,7 @@ const notas = {
     • Bajo riesgo quirúrgico y buena expectativa de vida
   `,
   nota2: `
-    <b>Estenosis carotídea asintomática de alto riesgo</b><br><br>
+    <b>Estenosis carotídea asintomática de alto riesgo</b><br>
     • Progresión del grado de estenosis<br>
     • Placa inestable (ulcerada, móvil, hemorrágica)<br>
     • Velocidades Doppler &gt;300 cm/s<br>
@@ -885,7 +888,7 @@ const notas = {
     • Baja adherencia al tratamiento médico
   `,
   nota3: `
-    <b>Seguimiento de estenosis intracraneales</b><br><br>
+    <b>Seguimiento de estenosis intracraneales</b><br>
     <u>Utilidad</u><br>
     • Detectar progresión de la estenosis<br>
     • Identificar infartos silentes nuevos<br>
@@ -897,7 +900,7 @@ const notas = {
     • Si hay progresión sin síntomas ni hallazgos funcionales → mantener tratamiento médico y seguimiento estrecho
   `,
   nota4: `
-    <b>Estenosis vertebral de alto riesgo</b><br><br>
+    <b>Estenosis vertebral de alto riesgo</b><br>
     • Síntomas vertebrobasilares recientes (≤14 días)<br>
     • AITs o ictus recurrentes en territorio posterior<br>
     • AITs inestables o fluctuantes<br>
@@ -908,7 +911,7 @@ const notas = {
     • Edad &lt;75 años, bajo riesgo de intervención y buena expectativa de vida
   `,
   nota5: `
-    <b>Indicación de intervención en disección arterial</b><br><br>
+    <b>Indicación de intervención en disección arterial</b><br>
     • Estenosis crítica con hipoperfusión cerebral sintomática<br>
     • Síntomas recurrentes pese a tratamiento médico adecuado<br>
     • Trombo intraluminal flotante o embolígeno persistente<br>
@@ -918,22 +921,23 @@ const notas = {
     • Post-stent: DAPT 1–3 meses, luego monoterapia antiagregante
   `,
   nota6: `
-    <b>Alto riesgo embólico en Carotid Web</b><br><br>
+    <b>Criterios de alarma en Carotid Web</b><br>
     • Episodios de ictus o AIT repetidos en el mismo territorio<br>
     • Web prominente o protruyente hacia el lumen en imagen<br>
     • Presencia de trombo asociado<br>
     • Reducción significativa del flujo o estasis en bulbo carotídeo<br>
     • Edad &lt;60 años sin otra causa embólica evidente<br>
-    • Posible afectación bilateral incidental
+    • Afectación bilateral<br><br>
+    🔶 La presencia de recurrencias, trombo asociado, estasis significativa o web prominente son criterios mayores para valorar intervención. La edad joven y la afectación bilateral actúan como factores de apoyo, pero no constituyen indicación aislada.
   `,
   nota7: `
-    <b>Asociación AVK + AAS en trombo mural aórtico</b><br><br>
+    <b>Asociación AVK + AAS en trombo mural aórtico</b><br>
     • Trombo sobre placa ulcerada, irregular, móvil o con hemorragia intraplaca<br>
     • Puede considerarse añadir AAS si alto riesgo embólico o coexistencia de enfermedad aterotrombótica<br>
     • Asociar de forma individualizada y limitada (1–3 meses) por aumento del riesgo hemorrágico
   `,
   nota8: `
-    <b>Prolongación de triple terapia hasta 14 días</b><br><br>
+    <b>Prolongación de triple terapia hasta 14 días</b><br>
     • Stent carotídeo largo o en bifurcación<br>
     • Placa ulcerada, trombo mural o estenosis crítica residual<br>
     • AITs o ictus múltiples previos en el mismo territorio<br>
@@ -986,7 +990,8 @@ const toolsContent = {
         <li><b>Días 8–30:</b> ACO + clopidogrel.</li>
         <li><b>Días 31–90:</b> ACO en monoterapia o ACO + clopidogrel si el riesgo trombótico sigue siendo muy alto y el riesgo hemorrágico es aceptable.</li>
         <li><b>Más allá de 90 días:</b> en general, ACO en monoterapia.</li>
-        <li>Suspender AAS tan pronto como sea posible, salvo indicación coronaria o vascular muy clara. Asociar siempre IBP.</li>
+        <li>Suspender AAS tan pronto como sea posible, salvo indicación coronaria o vascular muy clara.</li>
+        <li>Asociar siempre IBP.</li>
       </ul>
     `
   },
@@ -998,9 +1003,21 @@ const toolsContent = {
         <li><b>Elección de IBP:</b> preferir pantoprazol, lansoprazol o rabeprazol por menor interacción con el metabolismo de clopidogrel (CYP2C19).</li>
         <li>Evitar omeprazol y esomeprazol salvo ausencia de alternativas o indicación muy precisa.</li>
         <li>En pacientes con DAPT o ACO + clopidogrel, iniciar IBP desde el primer día y mantener mientras dure la combinación de alto riesgo gastrointestinal.</li>
+        <li><b>Los anti-H2 (p. ej., famotidina) no sustituyen la gastroprotección de un IBP y no deben usarse como alternativa cuando el riesgo gastrointestinal es alto.</b></li>
       </ul>
     `
-  }
+  },
+  rgi: {
+    title: "Riesgo gastrointestinal",
+    html: `
+      <ul>
+        <li> IBP indicado en: ≥65 años, antecedente de úlcera/hemorragia digestiva, ERC/hepatopatía, anemia o fragilidad, H. pylori no tratado, y uso concomitante de AAS, ACO, AINEs o corticoides.</li>
+        <li><b>Obligatorio</b> IBP si el paciente recibe <b>DAPT</b> o <b>ACO + clopidogrel</b> (terapia antitrombótica intensiva).</li>
+        <li>En clopidogrel en monoterapia con riesgo GI bajo → <b>no es necesario IBP ni anti-H2</b>.</li>
+        <li><b>Los anti-H2 (p. ej., famotidina) no sustituyen la gastroprotección de un IBP y no deben usarse como alternativa cuando el riesgo gastrointestinal es alto.</b></li>
+      </ul>
+    `
+  },
 };
 
 /* ============================
