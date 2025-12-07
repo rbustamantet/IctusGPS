@@ -351,6 +351,16 @@ footer img{
   background: rgba(255, 60, 60, 1);
 }
 
+/* 🔒 Bloqueo total del scroll en esta página */
+html, body {
+  overflow: hidden !important; 
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
 </style>
 </head>
 <body>
@@ -492,6 +502,50 @@ function exitApp() {
 }
 </script>
 
+<div id="rotate-lock" style="
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: #0f3d83;
+  color: white;
+  font-family: Verdana, sans-serif;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  z-index: 999999;
+">
+  <div>
+    <svg width="70" height="70" viewBox="0 0 24 24" fill="none"
+         stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+         style="margin-bottom:14px; opacity:0.9">
+      <rect x="3" y="4" width="18" height="14" rx="2"/>
+      <line x1="3" y1="10" x2="21" y2="10"/>
+    </svg>
+    <p style="font-size:1.1rem; line-height:1.4">
+      La pantalla de inicio no permite el modo horizontal.<br>Sí puede usarse en el resto de la app.<br>Gire el dispositivo a modo vertical.
+    </p>
+  </div>
+</div>
+
+<script>
+/* 🔄 Bloqueo de rotación: muestra overlay si está en horizontal */
+function checkOrientation() {
+  const lock = document.getElementById("rotate-lock");
+
+  if (window.matchMedia("(orientation: landscape)").matches &&
+      window.innerWidth < 900) {
+    lock.style.display = "flex";
+  } else {
+    lock.style.display = "none";
+  }
+}
+
+window.addEventListener("orientationchange", checkOrientation);
+window.addEventListener("resize", checkOrientation);
+document.addEventListener("DOMContentLoaded", checkOrientation);
+</script>
 
 </body>
 </html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Información del fármaco</title>
+<meta name="theme-color" content="#0f3d83">
+
+<style>
+:root{
+  --azul:#0f3d83;
+  --ink:#0e1a33;
+  --bg:#ffffff;
+}
+
+body{
+  margin:0;
+  padding:0;
+  height:100vh;
+  font-family:system-ui, sans-serif;
+  position:relative;
+  overflow:hidden;
+}
+
+body::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:url("img/farmaco.png") center center / cover no-repeat;
+  filter:blur(10px);
+  transform:scale(1.08); /* evita bordes al hacer blur */
+  z-index:-1;
+}
+
+
+/* Contenedor general */
+.wrapper{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:33vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:16px;
+  box-sizing:border-box;
+}
+
+
+/* Imagen promocional centrada */
+.bg-img{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;  /* 👈 nunca recorta */
+  object-position:center top; /* mostramos siempre la parte superior */
+  z-index:-1;
+}
+
+
+.card{
+  width:92%;
+  max-width:420px;
+  padding:18px 20px;
+  border-radius:18px;
+
+  /* Fondo semitransparente + desenfoque dinámico */
+  background:rgba(255,255,255,0.25);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+
+  /* Borde tipo vidrio */
+  border:1px solid rgba(255,255,255,0.4);
+
+  /* Sombra suave */
+  box-shadow:0 6px 24px rgba(0,0,0,0.25);
+
+  text-align:center; 
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:12px;
+  color:rgba(15,61,131,0.7); /* mejor legibilidad sobre fondo difuminado */
+}
+
+
+/* Botón */
+.btn{
+  display:inline-block;
+  padding:10px 20px;
+  color:white;
+  background:rgba(15,61,131,0.7);   /* azul institucional translúcido */
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:600;
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,0.3);
+  transition:0.2s;
+}
+
+.btn:hover{
+  background:rgba(15,61,131,0.9);
+  transform:scale(1.02);
+}
+
+
+/* Animación */
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+<img src="img/farmaco.png" class="bg-img">
+<div class="wrapper">
+
+    <!-- Tarjeta de contenido -->
+    <div class="card"><b>Un nuevo enfoque para la reducción<br>significativa y sostenida del colesterol LDL<br>en pacientes con alto riesgo cardiovascular</b><a href="advertencia.html" class="btn">Continuar a Ictus GPS</a>
+    </div>
+
+</div>
+</body>
+</html>
