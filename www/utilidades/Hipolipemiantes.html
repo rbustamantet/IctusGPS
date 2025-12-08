@@ -173,18 +173,37 @@ header{
   margin-right:8px;
 }
 
+/* Bloque "Cómo usar" al estilo FOP */
+
 .howto{
   background:#fff;
   border:1px solid var(--border);
   border-radius:14px;
-  box-shadow:0 2px 2px var(--muted);
+  box-shadow:0 2px 2px rgba(15,23,42,0.06);
   padding:1rem;
   margin:.3rem 0 1rem;
   font-size:14px
 }
 
-.grid{display:grid; gap:1rem}
-@media (min-width:900px){ .grid{grid-template-columns:1.15fr .85fr} }
+/* Layout principal */
+/* Una sola columna siempre */
+.grid{
+  display:block;     /* antes era grid */
+  width:100%;
+}
+
+/* Eliminar columnas en pantallas grandes */
+@media (min-width:900px){
+  .grid{
+    display:block;
+  }
+}
+
+/* Asegurar separación entre secciones */
+.grid > section,
+.grid > aside{
+  margin-bottom: 20px;
+}
 
 .card{
   background:var(--card);
@@ -194,6 +213,8 @@ header{
   box-shadow:0 2px 10px var(--shadow)
 }
 .card h2{font-size:16px;margin:.25rem 0 .75rem}
+
+/* Campos */
 fieldset{border:1px solid var(--border); border-radius:12px; padding:.75rem; margin:.75rem 0}
 legend{font-weight:700; font-size:13px; padding:0 .35rem; color:#1e3a8a}
 label{display:block; font-size:13px; margin:.4rem 0}
@@ -208,21 +229,14 @@ input[type="number"], select{
   font-size:14px
 }
 .hint{color:var(--muted); font-size:12px}
-.btns{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem}
-button{
-  appearance:none;
-  border:1px solid #c7d2fe;
-  background:#2563eb;
-  color:#fff;
-  border-radius:12px;
-  padding:.6rem .9rem;
-  font-weight:700;
-  font-size:14px;
-  cursor:pointer
+
+/* Resultado principal (contenedor) */
+.results{
+  padding-left:0;
+  border-left:none;
 }
-button.secondary{background:#dbeafe; color:#1e3a8a; border-color:#bfdbfe}
-button.ghost{background:#fff; color:#0f172a; border-color:var(--border)}
-.results{border-left:4px solid #2563eb; padding-left:.9rem}
+
+/* Píldoras y bloques de resultado clínico */
 .pill{
   display:inline-block;
   padding:.15rem .5rem;
@@ -232,8 +246,18 @@ button.ghost{background:#fff; color:#0f172a; border-color:var(--border)}
   border:1px solid var(--border);
   background:#f1f5f9
 }
-.ok{color:#0a7f3f} .warn{color:#b45309} .err{color:#b91c1c}
-.result-block{margin:.75rem 0; padding:.75rem; border:1px dashed var(--border); border-radius:12px; background:#fafafa}
+.ok{color:#0a7f3f} 
+.warn{color:#b45309} 
+.err{color:#b91c1c}
+
+.result-block{
+  margin:.75rem 0;
+  padding:.75rem;
+  border:1px dashed var(--border);
+  border-radius:12px;
+  background:#fafafa
+}
+
 .kbd{
   font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
   font-size:12px;
@@ -242,6 +266,7 @@ button.ghost{background:#fff; color:#0f172a; border-color:var(--border)}
   padding:.05rem .35rem;
   border-radius:6px
 }
+
 .hr{height:1px;background:var(--border);margin:1rem 0}
 .footnote,.disclaimer{font-size:12px; color:#64748b}
 .hide{display:none !important}
@@ -255,6 +280,121 @@ button.ghost{background:#fff; color:#0f172a; border-color:var(--border)}
   font-weight:700
 }
 
+/* =========================================================
+   KPI AL ESTILO FOP (4 cajas)
+========================================================= */
+.kpi{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:10px;
+}
+
+.box{
+  border:1.5px dashed #c7dbff;
+  border-radius:14px;
+  padding:14px;
+  background:#f8fbff;
+  text-align:center;
+}
+
+.ttl{
+  font-size:14px;
+  color:#334155;
+  font-weight:800;
+  margin-bottom:2px;
+}
+
+.val{
+  font-size:22px;
+  font-weight:900;
+  color:#0b2c5f;
+}
+
+.mini{
+  font-size:12px;
+  color:#64748b;
+  margin-top:4px;
+}
+
+/* Tonos sobre las cajas, sin romper .ok/.warn existentes en texto */
+.box.ok{
+  background:var(--ok-bg);
+  border-color:var(--ok-ring);
+}
+.box.warn{
+  background:var(--mid-bg);
+  border-color:var(--mid-ring);
+}
+.box.bad{
+  background:var(--bad-bg);
+  border-color:var(--bad-ring);
+}
+.box.ok .val{color:var(--ok);}
+.box.warn .val{color:var(--mid);}
+.box.bad .val{color:var(--bad);}
+
+/* =========================================================
+   BOTONES AL ESTILO FOP
+========================================================= */
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:16px;
+}
+
+.btn-action{
+  flex:1 1 32%;
+  border:none;
+  border-radius:10px;
+  padding:12px;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.btn-calc{
+  background:#0f3d83;
+  color:#fff;
+  border:1px solid #0f3d83;
+}
+.btn-calc:hover{
+  background:#1c60c3;
+}
+
+.btn-clear{
+  background:#fff;
+  color:#0b2c5f;
+  border:1px solid #2563eb;
+}
+.btn-clear:hover{
+  background:#eff6ff;
+}
+
+.btn-copy{
+  background:#fff;
+  color:#0f3d83;
+  border:1px solid #2563eb;
+}
+.btn-copy:hover{
+  background:#eff6ff;
+}
+
+/* Resumen para copiar (visible, estilo FOP) */
+#resumenText{
+  white-space:pre-wrap;
+  font-size:13px;
+  color:#0f172a;
+  margin-top:12px;
+  border:1px dashed var(--borde);
+  border-radius:10px;
+  padding:10px 12px;
+  background:#f8fafc;
+  line-height:1.45;
+}
+
+/* Toast */
 .toast{
   position:fixed;
   bottom:16px;
@@ -271,6 +411,7 @@ button.ghost{background:#fff; color:#0f172a; border-color:var(--border)}
 }
 .toast.show{opacity:1; transform:translateY(0)}
 
+/* Detalles bibliográficos */
 details.ref{margin-top:1rem}
 details.ref summary{cursor:pointer; font-weight:700; color:#1e3a8a}
 details.ref .refbox{
@@ -282,7 +423,7 @@ details.ref .refbox{
 }
 
 @media print{
-  .appbar,.btns,.howto{display:none !important}
+  .appbar,.actions,.howto{display:none !important}
   .wrap{padding:.25rem}
   .result-block{border:1px solid #999}
 }
@@ -310,45 +451,6 @@ details.ref .refbox{
   color:#991b1b;
 }
 
-/* =========================================================
-   BLOQUE CABECERA DE RESULTADOS
-========================================================= */
-.result-header {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 6px;
-  padding: 10px 0 14px;
-  margin-bottom: 12px;
-  border-bottom: 1px solid var(--border);
-}
-
-.result-row {
-  display: grid;
-  grid-template-columns: 140px 1fr;
-  gap: 6px;
-  align-items: center;
-  font-size: 14px;
-}
-
-.result-row .pill {
-  width: fit-content;
-}
-
-.result-value {
-  font-weight: 600;
-  color: #0f172a;
-}
-
-.result-value.ok { color: var(--ok); }
-.result-value.warn { color: var(--mid); }
-.result-value.bad { color: var(--bad); }
-
-@media (max-width:420px){
-  .result-row{
-    grid-template-columns:1fr;
-  }
-}
-
 /* Pie */
 footer{
   width:100%;
@@ -360,7 +462,6 @@ footer{
   box-shadow:0 -2px 6px rgba(0,0,0,0.04);
 }
 footer img{max-width:320px;height:auto;opacity:.95}
-
 
 /* =========================================================
    MEDIA QUERIES
@@ -380,6 +481,48 @@ body {
   margin: 0;
   padding-top: calc(env(safe-area-inset-top, 0px) + 52px);
   background-color: #fff;
+}
+
+/* =========================================================
+   BLOQUES ESTILO FOP: ROPE / CLIN / ANAT
+========================================================= */
+
+/* --- ROPE (Azul) --- */
+.block-rope {
+  background: linear-gradient(to bottom, #eef4ff, #dbe7ff);
+  border-left: 4px solid #0f3d83;
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 6px rgba(15,61,131,0.15);
+}
+
+/* --- CLIN (Verde sanitario) --- */
+.block-clin {
+  background: #ecfdf5;
+  border-left: 4px solid #059669;
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 6px rgba(5,150,105,0.15);
+}
+
+/* --- ANAT (Beige cálido) --- */
+.block-anat {
+  background: #fff9e8;
+  border-left: 4px solid #d4a94f;
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 6px rgba(180,141,56,0.15);
+}
+
+/* Encabezado interno estilo FOP */
+.block-title {
+  font-size: 15px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: #0f3d83;
 }
 
 </style>
@@ -414,27 +557,26 @@ body {
   </div>
 </header>
 
-<div class="wrap">
+<main class="wrap">
   <div class="howto">
     <b>Cómo usar:</b> seleccione el escenario clínico, describa el tratamiento actual (incluyendo dosis de estatina si procede) e introduzca el C-LDL.
     Pulse <span class="tag">Calcular</span> para obtener el objetivo y la actitud clínica. El motor aplica la <i>“regla del 6%”</i> al doblar dosis de estatina y calcula la <i>distancia al objetivo</i>.
   </div>
-</div>
 
 <div class="wrap grid">
   <section class="card">
     <h2>Seleccionar supuestos</h2>
 
     <form id="formLipidos" autocomplete="off">
-      <fieldset>
-        <legend>1) Escenario clínico</legend>
+<fieldset class="block-rope">
+  <div class="block-title">🩺 Escenario clínico</div>
         <label><input type="radio" name="escenario" value="aterotrombotico" required> Ictus/AIT <b>aterotrombótico</b> <span class="kbd">&lt;55 mg/dl</span></label>
         <label><input type="radio" name="escenario" value="no_aterotrombotico"> Ictus/AIT <b>no aterotrombótico</b> <span class="kbd">&lt;70 mg/dl</span></label>
         <label><input type="radio" name="escenario" value="hemorragico"> Ictus <b>hemorrágico</b> (individualizar) <span class="kbd">&lt;70 mg/dl</span></label>
       </fieldset>
 
-      <fieldset>
-        <legend>2) Tratamiento hipolipemiante <b>actual</b></legend>
+      <fieldset class="block-clin">
+  <div class="block-title">💊 Tratamiento hipolipemiante actual</div>
         <label><input type="radio" name="tratamiento" value="ninguno" required> Sin hipolipemiante</label>
         <label><input type="radio" name="tratamiento" value="mono_estatina"> Estatina en monoterapia</label>
         <div id="bloqueEstatina" class="row hide" style="margin:.25rem 0 .5rem">
@@ -461,8 +603,8 @@ body {
         <label style="margin-top:.35rem"><input type="checkbox" id="ingreso"> Paciente actualmente ingresado (fase hospitalaria)</label>
       </fieldset>
 
-      <fieldset>
-        <legend>3) Analítica</legend>
+      <fieldset class="block-anat">
+  <div class="block-title">🩸 Analítica</div>
         <div class="row">
           <label> C-LDL actual (mg/dl)
             <input type="number" id="ldl" min="0" step="1" placeholder="p. ej., 118" required>
@@ -474,11 +616,12 @@ body {
         <label><input type="checkbox" id="lpaAlta"> Lp(a) elevada / relevante (si se conoce)</label>
       </fieldset>
 
-      <div class="btns">
-        <button type="submit" id="btnCalcular">Calcular</button>
-        <button type="button" class="secondary" id="btnLimpiar">Borrar</button>
-        <button type="button" class="ghost no-print" id="btnPrint">Imprimir</button>
-        <button type="button" class="secondary no-print" id="btnCopiar">Copiar</button>
+      <!-- BOTONES AL ESTILO FOP (manteniendo IDs) -->
+      <div class="actions">
+        <button type="submit" id="btnCalcular" class="btn-action btn-calc">Calcular</button>
+        <button type="button" class="btn-action btn-clear" id="btnLimpiar">Borrar</button>
+        <button type="button" class="btn-action btn-copy no-print" id="btnPrint">Imprimir</button>
+        <button type="button" class="btn-action btn-copy no-print" id="btnCopiar">Copiar resumen</button>
       </div>
     </form>
   </section>
@@ -488,7 +631,6 @@ body {
     <div id="resultado" class="results">
       <p class="hint">Complete los supuestos y pulse <span class="tag">Calcular</span>.</p>
     </div>
-    <div class="hr"></div>
 
     <!-- Disclaimer final con fondo rojo tenue (inicialmente oculto) -->
     <div class="disclaimer-red hide" id="disclaimerFinal">
@@ -498,32 +640,49 @@ body {
         de riesgo, comorbilidades y disponibilidad terapéutica. El tratamiento hipolipemiante debe ajustarse siempre
         bajo supervisión médica.
       </small></p>
-    </div>
+    </div>  
 
-    <!-- Evidencia VESALIUS-CV -->
-    <details class="ref" id="vesaliusBlock">
-      <summary>Evidencia reciente: VESALIUS-CV (NEJM 2025)</summary>
-      <div class="refbox">
-        <small>
-          <b>VESALIUS-CV</b> evaluó evolocumab frente a placebo en 12.257 pacientes con aterosclerosis o diabetes,
-          sin infarto ni ictus previos y con C-LDL ≥90 mg/dl, ya en tratamiento hipolipemiante optimizado.
-          Tras 4,6 años de seguimiento:
-          <ul style="margin-top:4px">
-            <li><b>Reducción del 25&nbsp;%</b> en 3-point MACE (muerte coronaria, IAM o ictus isquémico).</li>
-            <li><b>Reducción del 19&nbsp;%</b> en 4-point MACE (añadiendo revascularización isquémica).</li>
-            <li>Descenso adicional de C-LDL ≈<b>55&nbsp;%</b> (mediana ≈45&nbsp;mg/dl) sin señal de toxicidad relevante.</li>
-          </ul>
-          Refuerza la seguridad de objetivos de C-LDL muy bajos y respalda el uso precoz de inhibidores PCSK9
-          en pacientes de muy alto riesgo que no alcanzan objetivo pese a tratamiento óptimo.
-        </small>
-      </div>
-    </details>
+   
 
-    <details class="ref">
-      <summary>Referencias bibliográficas</summary>
-      <div class="refbox">
-        <small>
-          <ol style="margin:0;padding-left:1.1rem">
+<!-- Resumen clínico tipo FOP -->
+<div class="wrap">
+  <div id="resumenText"></div>
+</div></aside>
+ <div class="howto">
+    
+
+
+<details style="margin-top:1px;">
+      <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📚 Bibliografía</summary>
+      <div style="
+  margin-top:14px;
+  background:#ffffff;
+  border:1px solid #d0d7e1;
+  border-radius:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
+  overflow:hidden;
+  font-size:13px;
+  line-height:1.55;
+  color:#1e293b;
+">
+
+  <!-- Barra superior tipo guideline -->
+  <div style="
+    background:#0f3d83;
+    color:#ffffff;
+    padding:10px 14px;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:0.3px;
+  ">
+    📘 Referencias bibliográficas
+  </div>
+
+  <!-- Contenido -->
+  <div style="padding:16px 18px;">
+
+<ol style="margin:18px; padding-left:20px; font-size:10px; line-height:1.45;">
+
             <li>Mach F, et&nbsp;al. 2019 ESC/EAS Guidelines for the management of dyslipidaemias. <em>Eur Heart J</em>.</li>
             <li>Visseren FLJ, et&nbsp;al. 2021 ESC Guidelines on cardiovascular disease prevention. <em>Eur Heart J</em>.</li>
             <li>Kleindorfer DO, et&nbsp;al. 2021 AHA/ASA Guideline for the Prevention of Stroke in Patients With Stroke and TIA. <em>Stroke</em>.</li>
@@ -537,9 +696,49 @@ body {
         </small>
       </div>
     </details>
-  </aside>
-</div>
+<!-- Evidencia VESALIUS-CV -->
+ <details style="margin-top:1px;">
+      <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">🚨 Evidencia reciente</summary>
+      <div style="
+  margin-top:14px;
+  background:#ffffff;
+  border:1px solid #d0d7e1;
+  border-radius:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
+  overflow:hidden;
+  font-size:13px;
+  line-height:1.55;
+  color:#1e293b;
+">
 
+  <!-- Barra superior tipo guideline -->
+  <div style="
+    background:#0f3d83;
+    color:#ffffff;
+    padding:10px 14px;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:0.3px;
+  ">
+    📰 VESALIUS-CV (NEJM 2025)
+  </div>
+
+  <!-- Contenido -->
+  <div style="padding:16px 18px;">
+
+          <b>VESALIUS-CV</b> evaluó evolocumab frente a placebo en 12.257 pacientes con aterosclerosis o diabetes,
+          sin infarto ni ictus previos y con C-LDL ≥90 mg/dl, ya en tratamiento hipolipemiante optimizado.
+          Tras 4,6 años de seguimiento:
+          <ul style="margin-top:4px">
+            <li><b>Reducción del 25&nbsp;%</b> en 3-point MACE (muerte coronaria, IAM o ictus isquémico).</li>
+            <li><b>Reducción del 19&nbsp;%</b> en 4-point MACE (añadiendo revascularización isquémica).</li>
+            <li>Descenso adicional de C-LDL ≈<b>55&nbsp;%</b> (mediana ≈45&nbsp;mg/dl) sin señal de toxicidad relevante.</li>
+          </ul>
+          Refuerza la seguridad de objetivos de C-LDL muy bajos y respalda el uso precoz de inhibidores PCSK9
+          en pacientes de muy alto riesgo que no alcanzan objetivo pese a tratamiento óptimo.
+      </div>
+    </details>
+</div>
 <div id="toast" class="toast">Copiado al portapapeles</div>
 
 <script>
@@ -861,37 +1060,20 @@ body {
   }
 
   async function copiarResumen(){
-    const $$r = n => ($$('input[name="'+n+'"]:checked')[0]||{}).value;
-    const escenario=$$r('escenario');
-    const tratamiento=$$r('tratamiento');
-    const ingreso=$('#ingreso').checked;
-    const ldl=parseFloat($('#ldl').value);
-    const ldlBasal=$('#ldlBasal').value ? parseFloat($('#ldlBasal').value) : null;
-    const lpaAlta=$('#lpaAlta').checked;
-
-    let tipoEstatina=null, dosisEstatina=null;
-    if(tratamiento==='mono_estatina' || tratamiento==='estatina_ezetimiba'){
-      tipoEstatina=$('#tipoEstatina').value || null;
-      if(tipoEstatina==='atorvastatina' || tipoEstatina==='rosuvastatina'){
-        const v=$('#dosisEstatina').value; if(v) dosisEstatina=parseInt(v,10);
-      }
-    }
-    if(!escenario || !tratamiento || isNaN(ldl)){
-      alert('Complete los campos obligatorios antes de copiar el resumen.');
+    const texto = $('#resumenText').textContent.trim();
+    if(!texto){
+      alert('Primero calcule una recomendación.');
       return;
     }
-    const obj=objetivoLDL(escenario), delta=Math.max(0, ldl-obj);
-    const pctRed=pctReduccion(ldl, ldlBasal);
-    const payload={escenario,tratamiento,ingreso,ldl,ldlBasal,lpaAlta,pctRed,tipoEstatina,dosisEstatina,obj,delta};
-    const tmp=construirRecomendacion(payload);
-    const html=tmp.recs.join('') + (tmp.avisos.length? `<p>${tmp.avisos.join(' ')}</p>`:'') + tmp.notas.join('');
-    const texto=ensamblarResumenTXT(payload, html);
 
     try{
       await navigator.clipboard.writeText(texto);
       mostrarToast('Copiado al portapapeles');
     }catch(e){
-      const ta=document.createElement('textarea'); ta.value=texto; document.body.appendChild(ta); ta.select();
+      const ta=document.createElement('textarea'); 
+      ta.value=texto; 
+      document.body.appendChild(ta); 
+      ta.select();
       try{
         document.execCommand('copy');
         mostrarToast('Copiado al portapapeles');
@@ -904,7 +1086,9 @@ body {
   }
 
   function mostrarToast(msg){
-    const t=$('#toast'); t.textContent=msg; t.classList.add('show');
+    const t=$('#toast'); 
+    t.textContent=msg; 
+    t.classList.add('show');
     setTimeout(()=>t.classList.remove('show'), 1800);
   }
 
@@ -926,67 +1110,78 @@ body {
       }
       if(!tipoEstatina){
         $('#resultado').innerHTML=`<p class="err">Indique el <strong>tipo de estatina</strong>.</p>`;
+        $('#resumenText').textContent = '';
+        $('#disclaimerFinal').classList.add('hide');
         return;
       }
       if((tipoEstatina==='atorvastatina'||tipoEstatina==='rosuvastatina') && !dosisEstatina){
         $('#resultado').innerHTML=`<p class="err">Indique la <strong>dosis actual</strong> de la estatina.</p>`;
+        $('#resumenText').textContent = '';
+        $('#disclaimerFinal').classList.add('hide');
         return;
       }
     }
 
     if(!escenario || !tratamiento || isNaN(ldl)){
       $('#resultado').innerHTML = `<p class="err">Complete todos los campos obligatorios.</p>`;
-      return;
+      $('#resumenText').textContent = '';
+      $('#disclaimerFinal').classList.add('hide');
+    return;
     }
 
     const pctRed=pctReduccion(ldl, ldlBasal);
     const payload={escenario,tratamiento,ingreso,ldl,ldlBasal,lpaAlta,pctRed,tipoEstatina,dosisEstatina};
     const {recs,avisos,notas,obj,delta}=construirRecomendacion(payload);
 
+    /* Cabecera de resultados al estilo KPI FOP (4 cajas) */
     let html='';
     html += `
-<div class="result-header">
-
-  <div class="result-row">
-    <div class="pill">Escenario</div>
-    <div class="result-value">${textoEscenario(escenario)}</div>
+<div class="kpi">
+  <div class="box">
+    <div class="ttl">Escenario</div>
+    <div class="val">${textoEscenario(escenario)}</div>
   </div>
 
-  <div class="result-row">
-    <div class="pill">C-LDL</div>
-    <div class="result-value">${ldl} mg/dl</div>
+  <div class="box">
+    <div class="ttl">C-LDL actual</div>
+    <div class="val">${ldl} mg/dl</div>
   </div>
 
-  <div class="result-row">
-    <div class="pill">Objetivo</div>
-    <div class="result-value">&lt;${obj} mg/dl</div>
+  <div class="box">
+    <div class="ttl">Objetivo</div>
+    <div class="val">&lt;${obj} mg/dl</div>
   </div>
 
-  <div class="result-row">
-    <div class="pill">Distancia</div>
-    <div class="result-value ${delta===0 ? 'ok' : delta<=10 ? 'warn' : 'bad'}">
-      ${delta} mg/dl
-    </div>
+  <div class="box ${delta===0 ? 'ok' : (delta<=10 ? 'warn' : 'bad')}">
+    <div class="ttl">Distancia / reducción</div>
+    <div class="val">${delta} mg/dl</div>
+    ${pctRed!==null ? `<div class="mini">Reducción: ${pctRed}%</div>` : ''}
   </div>
-
-  ${pctRed!==null ? `
-  <div class="result-row">
-    <div class="pill">Reducción</div>
-    <div class="result-value ${pctRed>=50 ? 'ok' : 'bad'}">${pctRed}%</div>
-  </div>` : ''}
-
-  <div class="result-row">
-    <div class="pill">Tratamiento</div>
-    <div class="result-value">${textoTratamiento(payload)}</div>
-  </div>
-
 </div>
 `;
     html+=`<div class="hr"></div>`;
     html+=recs.join('');
     if(avisos.length) html+=`<div class="result-block warn"><strong>Notas:</strong> ${avisos.join(' ')}</div>`;
     if(notas.length) html+=notas.join('');
+
     $('#resultado').innerHTML=html;
+// 🔵 Scroll suave al bloque de resultados
+const target = document.getElementById("resultado");
+if (target) {
+  // Ajuste para safe-top + header (como en FOP)
+  const headerOffset = 135; 
+  const y = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+
+  window.scrollTo({
+    top: y,
+    behavior: "smooth"
+  });
+}
+
+    // Construir resumen textual y mostrarlo en #resumenText
+    const htmlPlano = recs.join('') + (avisos.length? `<p>${avisos.join(' ')}</p>`:'') + notas.join('');
+    const resumen = ensamblarResumenTXT({...payload, obj, delta}, htmlPlano);
+    $('#resumenText').textContent = resumen;
 
     // Mostrar el disclaimer solo tras obtener resultado válido
     $('#disclaimerFinal').classList.remove('hide');
@@ -997,13 +1192,14 @@ body {
     $('#bloqueEstatina').classList.add('hide');
     $('#wrapDosis').style.display='block';
     $('#notaOtra').style.display='none';
-    $('#resultado').innerHTML = `<p class="hint">Complete los supuestos y pulse <strong>Calcular</strong>.</p>`;
+    $('#resultado').innerHTML = `<p class="hint">Complete los supuestos y pulse <span class="tag">Calcular</span>.</p>`;
     $('#disclaimerFinal').classList.add('hide');
-// 🔵 Scroll al inicio suavemente
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+    $('#resumenText').textContent = '';
+    // Scroll al inicio suavemente
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
   });
 
   $('#btnPrint').addEventListener('click', ()=>{
@@ -1098,7 +1294,7 @@ body {
 </script>
 
 <script src="../js/index.js"></script>
-
+</main>
 <footer>
   <img src="../img/uibanner.png" alt="Ictus GPS">
 </footer>
