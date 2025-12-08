@@ -402,7 +402,7 @@ select{
   border:1px solid #fecaca;
   border-radius:12px;
   padding:14px 16px;
-  margin:18px 0 0 0;
+  margin:18px 0 18px 0;
   box-shadow:0 2px 8px rgba(185,28,28,0.05);
 }
 .disclaimer-red p{
@@ -1415,7 +1415,7 @@ if (tandemTratable){
   $('resumenText').textContent = resumen;
   $('resultCard').style.display = 'block';
 const target = document.getElementById("resultCard");
-const headerOffset = 100;   // ajustable según tu header y safe-top
+const headerOffset = 120;   // ajustable según tu header y safe-top
 const y = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
 
 window.scrollTo({

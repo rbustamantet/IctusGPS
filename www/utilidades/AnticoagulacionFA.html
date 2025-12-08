@@ -186,7 +186,17 @@ html,body,.wrap,.card,label,input,select,button,table,p,h1,h2,h3,li{
   font-size:14px;
 }
 .card{
+  background:#eff6ff;
+  border-radius:14px;
+  border-left:4px solid var(--azul-institucional);
+  box-shadow:0 3px 14px rgba(16,71,119,.12);
+  padding:16px;
+  margin:12px 0;
+}
+
+.card-result{
   background:#fff;
+  border-left:4px solid #10b981;
   border-radius:14px;
   box-shadow:0 3px 14px rgba(16,71,119,.12);
   padding:16px;
@@ -196,6 +206,12 @@ html,body,.wrap,.card,label,input,select,button,table,p,h1,h2,h3,li{
 .grid{display:grid; gap:12px;}
 .g-2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
 .g-3{grid-template-columns:repeat(auto-fit,minmax(40%,1fr));}
+/* Grid específico para los datos del paciente */
+@media (min-width: 900px){
+  .patient-grid{
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
 
 label{font-weight:600;font-size:.92rem;color:#0f3f66;display:block;margin-bottom:6px;}
 label.row{font-weight:400;}
@@ -256,7 +272,7 @@ tfoot td{background:#f3f9ff;}
 .subtle{color:#345;opacity:.85;}
 .subtle2{background:#fff5f5;color:#660000;opacity:.85;}
 .sticky-result{position:relative}
-.result-anchor{scroll-margin-top:84px}
+.result-anchor{scroll-margin-top:120px}
 
 .sep{height:1px;background:#e7f0fb;margin:14px 0;}
 
@@ -478,9 +494,9 @@ body {
 
     <!-- Datos del paciente -->
     <div class="card">
-      <h2 style="margin:0 0 8px;">Datos del paciente</h2>
-      <div class="grid g-2">
-        <div>
+  <h2 style="margin:0 0 8px;">Datos del paciente</h2>
+  <div class="grid g-2 patient-grid">
+    <div>
           <label for="age">Edad (años)</label>
           <input id="age" inputmode="numeric" max="110" min="18" placeholder="p. ej., 74" type="number"/>
         </div>
@@ -501,7 +517,6 @@ body {
               <option value="lb">lb</option>
             </select>
           </div>
-          <small class="hint">Puedes introducir kg o lb.</small>
         </div>
         <div>
           <label for="scr">Creatinina sérica</label>
@@ -512,14 +527,13 @@ body {
               <option value="umol">µmol/L</option>
             </select>
           </div>
-          <small class="hint">Para µmol/L, el sistema convierte a mg/dL (/ 88.4).</small>
         </div>
       </div>
 
       <div class="sep"></div>
       <div class="grid g-2">
         <div>
-          <label>Factores CHA<sub>2</sub>DS<sub>2</sub>-VASc</label>
+          <label>CHA<sub>2</sub>DS<sub>2</sub>-VA/CHA<sub>2</sub>DS<sub>2</sub>-VASc</label>
           <label class="row" for="cSc"><input id="cSc" type="checkbox"/> Sexo femenino</label>
           <label class="row" for="cAge65"><input id="cAge65" type="checkbox"/> Edad 65–74 años</label>
           <label class="row" for="cAge75"><input id="cAge75" type="checkbox"/> Edad ≥ 75 años (2 pt)</label>
@@ -571,24 +585,22 @@ body {
     </div>
 
     <!-- Resultados -->
-    <div class="card sticky-result result-anchor" id="resultCard">
+    <div class="card-result sticky-result result-anchor" id="resultCard">
       <h2 style="margin:0 0 8px;">Resultados</h2>
       <div class="grid g-3">
         <div>
-          <div><b>CHA<sub>2</sub>DS<sub>2</sub>-VA</b>: <span class="pill ok" id="scoreVA">–</span>
-            &nbsp;<span class="muted">(sin sexo)</span></div>
+          <div><b>CHA<sub>2</sub>DS<sub>2</sub>-VA</b>: <span class="pill ok" id="scoreVA">–</span></div>
           <div><b>HAS-BLED</b>: <span class="pill ok" id="scoreHASBLED">–</span></div>
-          <div class="muted">CHA<sub>2</sub>DS<sub>2</sub>-VASc clásico: <span id="scoreVASc">–</span></div>
+          <div class="muted"><small>CHA<sub>2</sub>DS<sub>2</sub>-VASc: <span id="scoreVASc">–</span></small></div>
+          <div><b>ClCr:</b> <span id="crcl">–</span> ml/min</div><small> <div class="muted">(SCr: <span id="scrConv">–</span> mg/dL)</span></small></div>
         </div>
         <div>
-          <div><b>Riesgo anual de ictus (sin tto): <span class="pill okr"><span id="annualStroke">–</span>%</span></b></div>
-          <div><b>Riesgo anual de sangrado(*): <span class="pill okr"><span id="annualBleed">–</span>%</span></b></div>
-          <div class="muted"><sup>*</sup>En pacientes con FA y VKA</div>
+          <div><b>RI: <span class="pill okr"><span id="annualStroke">–</span>%</span></b>
+          <span class="muted"><small>⚠️ Riesgo anual de ictus en pacientes no anticoagulados</small></span></div>
+          <div><b>RS: <span class="pill okr"><span id="annualBleed">–</span>%</span></b>
+          <span class="muted"><small>⚠️ Riesgo anual de sangrado mayor en pacientes con FA y VKA</small></span></div>
         </div>
-        <div>
-          <div><b>Aclaramiento de creatinina:</b> <span id="crcl" class="doseTag">–</span> ml/min</div>
-          <div class="muted">Conversión SCr: <span id="scrConv" class="doseTag">–</span> mg/dL</div>
-        </div>
+        
       </div>
 
       <div class="sep"></div>
@@ -597,7 +609,7 @@ body {
       <table id="comparative">
         <thead>
           <tr>
-            <th>Estrategia</th><th class="right">RA</th><th class="right">RRR</th>
+            <th>Estrategia</th><th class="right">RI</th><th class="right">RRR</th>
             <th class="right col-rra">RRA</th><th class="right">NNT</th>
             <th class="right">RS</th><th class="right col-rrs">RRS</th><th class="right">NNH</th>
             <th class="right">Adecuación clínica</th>
@@ -605,25 +617,12 @@ body {
         </thead>
         <tbody></tbody>
         <tfoot>
-          <tr><td class="subtle" colspan="9"><b>Acrónimos:</b> <b>RA</b>=riesgo anual de ictus; <b>RRR</b>=reducción relativa; <b>RRA</b>=reducción absoluta;
-        <b>NNT</b>=nº necesario a tratar; <b>RS</b>=riesgo anual de sangrado mayor; <b>RRS</b>=riesgo relativo de sangrado vs VKA; <b>NNH</b>=nº necesario para dañar.</td></tr>
+          <tr><td class="subtle" colspan="9"><b>RI</b>=riesgo anual de ictus; <b>RRR</b>=reducción relativa de riesgo; <b>RRA</b>=reducción absoluta de riesgo;<b>NNT</b>=nº necesario a tratar; <b>RS</b>=riesgo anual de sangrado mayor; <b>RRS</b>=riesgo relativo de sangrado vs VKA; <b>NNH</b>=nº necesario para dañar.</td></tr>
         <tr><td class="subtle2" colspan="9"><b>Nota:</b> coeficientes orientativos; adapta a tus fuentes.</td></tr>
 </tfoot>
       </table>
 
-      <!-- NUEVO: Disclaimer bajo la tabla (umbral renal + seguimiento) -->
-      <div class="renal-disclaimer" id="renalDisclaimer">
-        <div class="note">
-          <b>Ajuste por función renal (FA; EMA/ESC):</b>
-          <ul class="list-min">
-            <li><b>Apixabán</b>: 2,5 mg/12 h si <b>≥2</b> criterios (edad ≥80 a, peso ≤60 kg, SCr ≥1,5 mg/dL) <i>o</i> <b>ClCr 15–29</b> mL/min. Evitar si <b>ClCr &lt;15</b> o diálisis (EMA).</li>
-            <li><b>Dabigatrán</b>: <b>110 mg/12 h</b> si <b>ClCr 30–50</b> mL/min (o riesgo hemorrágico alto); <b>contraindicado &lt;30</b>.</li>
-            <li><b>Rivaroxabán</b>: <b>15 mg/24 h</b> si <b>ClCr 15–49</b> mL/min; <b>contraindicado &lt;15</b>.</li>
-            <li><b>Edoxabán</b>: <b>30 mg/24 h</b> si <b>ClCr 15–50</b> mL/min o ≤60 kg o inhibidor potente P-gp; <b>evitar &lt;15</b>. <span class="muted">Menor eficacia si <b>ClCr &gt;95</b> (etiqueta FDA).</span></li>
-          </ul>
-          <div class="subtle"><b>Seguimiento de función renal:</b> cada 6–12 meses si ClCr &gt;60; cada 3–6 meses si 30–60; cada 1–3 meses si &lt;30 o en ancianos/frágiles.</div>
-        </div>
-      </div>
+      
 
       <div class="sep"></div>
       <h3 style="margin:0 0 6px;">Recomendaciones individualizadas</h3>
@@ -638,6 +637,7 @@ body {
       <div class="btnbar">
         <button type="button" class="ghost" id="btnPrint" disabled>Imprimir informe</button>
         <button type="button" class="ghost" id="btnCopy" disabled>Copiar informe</button>
+                      <button type="button" class="ghost" id="btnResetResults">Borrar</button>
       </div>
     </div>
 
@@ -1141,20 +1141,163 @@ body {
       document.getElementById('btnCopy').disabled=true;
       
 
-
-
       __lastReport=null;
       window.scrollTo({top:0,behavior:'smooth'}); applyColumnStriping();
     });
     document.getElementById('btnPrint').addEventListener('click', (e)=>{ e.preventDefault(); printReport(); });
     document.getElementById('btnCopy').addEventListener('click', (e)=>{ e.preventDefault(); copyReport(); });
+    document.getElementById('btnResetResults').addEventListener('click', (e) => {
+  e.preventDefault();
+  document.getElementById('btnReset').click();
+});
 
     window.addEventListener('DOMContentLoaded', autoCheckByInputs);
     </script>
 
     <!-- Referencias / Bibliografía -->   
- <div class="card">
+ <div class="howto">
+<details style="margin-top:1px;">
+      <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">💦 Función renal</summary>
+      <div style="
+  margin-top:14px;
+  background:#ffffff;
+  border:1px solid #d0d7e1;
+  border-radius:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
+  overflow:hidden;
+  font-size:13px;
+  line-height:1.55;
+  color:#1e293b;
+">
 
+  <!-- Barra superior tipo guideline -->
+  <div style="
+    background:#0f3d83;
+    color:#ffffff;
+    padding:10px 14px;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:0.3px;
+  ">
+    💊 Ajuste de ACOD por función renal
+  </div>
+
+  <!-- Contenido -->
+  <div style="padding:16px 18px;">
+
+<ul style="font-size:12px; padding-left:20px; line-height:1.45;">
+            <li><b>Apixabán</b>: 2,5 mg/12 h si <b>≥2</b> criterios (edad ≥80 a, peso ≤60 kg, SCr ≥1,5 mg/dL) <i>o</i> <b>ClCr 15–29</b> mL/min. Evitar si <b>ClCr &lt;15</b> o diálisis (EMA).</li>
+            <li><b>Dabigatrán</b>: <b>110 mg/12 h</b> si <b>ClCr 30–50</b> mL/min (o riesgo hemorrágico alto); <b>contraindicado &lt;30</b>.</li>
+            <li><b>Rivaroxabán</b>: <b>15 mg/24 h</b> si <b>ClCr 15–49</b> mL/min; <b>contraindicado &lt;15</b>.</li>
+            <li><b>Edoxabán</b>: <b>30 mg/24 h</b> si <b>ClCr 15–50</b> mL/min o ≤60 kg o inhibidor potente P-gp; <b>evitar &lt;15</b>. <span class="muted">Menor eficacia si <b>ClCr &gt;95</b> (etiqueta FDA).</span></li>
+          </ul>
+          <div><b>Seguimiento de función renal:</b> cada 6–12 meses si ClCr &gt;60; cada 3–6 meses si 30–60; cada 1–3 meses si &lt;30 o en ancianos/frágiles.</div>
+        </div>
+      </details>
+<br>
+<details style="margin-top:1px;">
+  <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📒 Glosario de acrónimos</summary>
+
+  <div style="
+    margin-top:14px;
+    background:#ffffff;
+    border:1px solid #d0d7e1;
+    border-radius:10px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.05);
+    overflow:hidden;
+    font-size:13px;
+    line-height:1.55;
+    color:#1e293b;
+  ">
+
+    <!-- Barra superior tipo guideline -->
+    <div style="
+      background:#0f3d83;
+      color:#ffffff;
+      padding:10px 14px;
+      font-size:14px;
+      font-weight:700;
+      letter-spacing:0.3px;
+    ">
+      🔤 Acrónimos utilizados
+    </div>
+
+    <!-- Contenido -->
+ <div style="padding:16px 18px;">
+
+  <style>
+    /* 1 columna por defecto */
+    .glosario-columns {
+      column-count: 1;
+      column-gap: 32px;
+    }
+
+    /* En pantallas grandes → 2 columnas */
+    @media (min-width: 900px){
+      .glosario-columns {
+        column-count: 2;
+      }
+    }
+  </style>
+
+  <ul class="glosario-columns" style="font-size:12px; padding-left:20px; line-height:1.45;">
+
+
+  <li><b>ACOD</b> (o <b>DOAC</b>): Anticoagulantes orales de acción directa.</li>
+  <li><b>AINEs</b>: Antiinflamatorios no esteroideos.</li>
+
+  <li><b>Ao</b>: Aorta.</li>
+  <li><b>CHA<sub>2</sub>DS<sub>2</sub>-VA</b>: Escala de riesgo embólico sin el punto por sexo femenino.</li>
+
+  <li><b>CHA<sub>2</sub>DS<sub>2</sub>-VASc</b>: Escala de riesgo embólico en fibrilación auricular.</li>
+
+  <li><b>ClCr</b>: Aclaramiento de creatinina (Cockcroft–Gault).</li>
+  <li><b>DOAC</b>: Direct Oral Anticoagulants.</li>
+  <li><b>EAP</b>: Enfermedad arterial periférica.</li>
+  <li><b>EM</b>: Estenosis mitral.</li>
+  <li><b>EMA</b>: Agencia Europea del Medicamento.</li>
+
+  <li><b>ERC</b>: Enfermedad renal crónica.</li>
+
+  <li><b>FDA</b>: Food and Drug Administration.</li>
+  <li><b>FA</b>: Fibrilación auricular.</li>
+
+  <li><b>GI</b>: Gastrointestinal.</li>
+  <li><b>GU</b>: Genitourinario.</li>
+
+  <li><b>HAS-BLED</b>: Escala de riesgo de sangrado mayor.</li>
+  <li><b>HDA</b>: Hemorragia digestiva alta.</li>
+  <li><b>HIC</b>: Hemorragia intracraneal.</li>
+  <li><b>HTA</b> / <b>HTN</b>: Hipertensión arterial.</li>
+
+  <li><b>IAM</b>: Infarto agudo de miocardio.</li>
+  <li><b>IMC</b>: Índice de masa corporal.</li>
+
+  <li><b>NNH</b>: Número necesario para dañar.</li>
+  <li><b>NNT</b>: Número necesario para tratar.</li>
+  <li><b>NOAC</b>: Non–vitamin K Oral Anticoagulants.</li>
+
+  <li><b>P-gp</b>: P-glicoproteína.</li>
+
+  <li><b>RI</b>: Riesgo anual de ictus.</li>
+  <li><b>RRA</b>: Reducción absoluta del riesgo.</li>
+  <li><b>RRR</b>: Reducción relativa del riesgo.</li>
+  <li><b>RS</b>: Riesgo anual de sangrado mayor.</li>
+
+  <li><b>SCr</b>: Creatinina sérica.</li>
+  <li><b>SNG</b> / <b>NGT</b>: Sonda nasogástrica.</li>
+
+  <li><b>VKA</b>: Antagonistas de la vitamina K.</li>
+  <li><b>VI</b>: Ventrículo izquierdo.</li>
+
+</ul>
+
+    </div>
+  </div>
+</details>
+
+
+<br>
 <details style="margin-top:1px;">
       <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📚 Bibliografía</summary>
       <div style="

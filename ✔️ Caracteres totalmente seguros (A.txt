@@ -1,0 +1,19 @@
+✔️ Caracteres totalmente seguros (ASCII 7-bit)
+
+Estos siempre funcionan:
+
+Barra vertical: | ← SEGURA
+
+Guion simple: -
+
+Comillas rectas: ' y "
+
+Signos + y – ascii: + y -
+
+Guion bajo: _
+
+Paréntesis: ( )
+
+Todos los dígitos y letras A–Z a–z
+
+ASCII puro = compatibilidad garantizada.

@@ -203,7 +203,7 @@ header{
   /* Layout principal */
   .wrap{max-width:1080;margin:16px auto 28px;padding:0 16px}
   .sub{color:#4b5b7a;margin:0 0 16px}
-  .panel{background:#f3f7ff;border:1px solid var(--borde);border-radius:16px;padding:14px;box-shadow:0 8px 22px rgba(31,86,179,.06)}
+  .panel{background:#f3f7ff;border:1px solid var(--borde);border-left:4px solid #0f3d83;border-radius:16px;padding:14px;box-shadow:0 8px 22px rgba(31,86,179,.06)}
 
   /* Tabs tipo de paciente */
   .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
@@ -223,7 +223,7 @@ header{
   .chips{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 10px}
   .chip{font-size:var(--fs-chip);border:1px solid var(--borde);background:#eef6ff;color:#1e3a8a;border-radius:999px;padding:6px 10px;font-weight:700}
 
-  .card{margin-top:12px;background:#fff;border:1px solid var(--borde);border-radius:16px;padding:14px;box-shadow:0 8px 22px rgba(31,86,179,.07);position:relative}
+  .card{margin-top:12px;background:#fff;border-left:4px solid #10b981;border-radius:14px;padding:14px;box-shadow:0 8px 22px rgba(31,86,179,.07);position:relative}
 
   /* KPI */
   .kpi{display:grid;grid-template-columns:1fr;gap:10px}
@@ -257,8 +257,14 @@ header{
 
   /* Botones Copiar/Imprimir */
   .btnbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-  .btn{border:2px solid var(--borde);background:#fff;color:#0b2c5f;border-radius:999px;padding:10px 14px;font-weight:800;cursor:pointer}
-  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  .btn{border:2px solid var(--borde);background:#fff;color:#0f3d83;border-radius:999px;padding:10px 14px;font-weight:800;cursor:pointer}
+  .btn.primary{border:2px solid var(--borde);background:#fff;color:#0f3d83;border-radius:999px;padding:10px 14px;font-weight:800;cursor:pointer}
+  .btn:hover{
+  background:#0f3d83;
+  color:#fff;}
+  .btn.primary:hover{
+  background:#0f3d83;
+  color:#fff;}
   .btn:disabled{opacity:.5;cursor:not-allowed}
 
   /* No cortar palabras */
@@ -285,21 +291,20 @@ header{
 /* =======================================================
    DISCLAIMER FINAL — fondo rojo tenue
 ======================================================= */
+/* DISCLAIMER FINAL */
 .disclaimer-red{
-  background:#fef2f2;             /* rojo muy claro */
-  border:1px solid #fecaca;       /* borde rosado suave */
+  background:#fff7f7;
+  border-left:4px solid #d9534f;
   border-radius:12px;
-  padding:14px 16px;
-  margin:0px auto 0;
-  max-width:960px;
-  box-shadow:0 2px 8px rgba(185,28,28,0.05);
+  margin:1rem 0 0;
+  padding:.3rem 1rem;
+  max-width:1080px;
+  box-shadow:0 1px 4px rgba(217,83,79,0.05);
 }
 .disclaimer-red p{
-  margin:0;
-  color:#7f1d1d;                  /* texto rojo oscuro */
-  font-size:14px;
-  line-height:1.5;
-  text-align:left;
+  color:#7d1a1a;
+  font-size:0.9rem;
+}
 }
 .disclaimer-red b{
   color:#991b1b;
@@ -373,10 +378,9 @@ Insulinoterapia
   
    <div class="howto">
   <strong>Cómo usar:</strong> seleccione el tipo de paciente, introduzca los datos clínicos y pulse el modo correspondiente. 
-  Calcula automáticamente las dosis basales, bolus y pauta de corrección según el protocolo activo, generando 
-  <strong>recomendaciones individualizadas</strong> y opción de copia del informe.
+  Calcula automáticamente las dosis basales, bolus y pauta de corrección según el protocolo activo, dando opción de copia del informe.
 </div>
-<div class="wrap">
+<div>
   <section class="panel" id="panel">
     <div class="tabs" role="tablist" aria-label="Tipo de paciente">
       <button class="tab" id="tab-ado"    role="tab" aria-selected="true"  aria-controls="pane-ado">ADO</button>
@@ -422,7 +426,8 @@ Insulinoterapia
         <label class="chip-radio"><input type="radio" name="estado" value="nocome">No come</label>
       </div>
     </div>
-
+</div>
+<div>
     <!-- Resultados -->
     <div id="card" class="card" style="display:none">
       <div id="chips" class="chips"></div>
@@ -454,16 +459,26 @@ Insulinoterapia
       </div>
 
       <!-- Botones Copiar / Imprimir -->
-      <div class="btnbar">
-        <button type="button" id="btnCopy" class="btn" disabled>Copiar informe</button>
-        <button type="button" id="btnPrint" class="btn primary" disabled>Imprimir</button>
-        <span class="mini" id="btnHint">Se habilitan al generar resultados.</span>
-      </div>
+<div class="btnbar">
+  <button type="button" id="btnClear" class="btn">Borrar</button>
+  <button type="button" id="btnCopy" class="btn" disabled>Copiar informe</button>
+  <button type="button" id="btnPrint" class="btn primary" disabled>Imprimir</button>
+</div>
+
     </div>
   </section>
 
 
 </div>
+<!-- Disclaimer final con fondo rojo tenue -->
+<div class="disclaimer-red">
+  <p>
+    Esta herramienta tiene carácter orientativo y no sustituye el juicio clínico del profesional sanitario.
+    Las recomendaciones y dosis calculadas deben interpretarse en el contexto individual de cada paciente 
+    y conforme a los protocolos locales de insulinoterapia.
+  </p>
+</div>
+
 </main>
 
 <script>
@@ -520,7 +535,7 @@ Insulinoterapia
   }
 
   /* Pauta de corrección */
-  const RANGOS = ['<80 mg/dL','80–129','130–149','150–199','200–249','250–299','300–349','>349'];
+const RANGOS = ['<80 mg/dL','80-129','130-149','150-199','200-249','250-299','300-349','>349'];
   const CORR = { A:[-1,0,0,1,2,3,4,5], B:[-1,0,1,1,3,5,7,8], C:[-2,0,1,2,4,7,10,12] };
   function corrTableHTML(letra, come){
     const vals = CORR[letra] || [];
@@ -660,6 +675,10 @@ Insulinoterapia
     $('#card').style.display='block';
     setPill(letra);
 
+// Scroll suave a la tarjeta de resultados
+scrollToCard();
+
+
     /* Guardar informe y habilitar botones */
     __lastReport = {
       ts: new Date().toISOString(),
@@ -667,13 +686,13 @@ Insulinoterapia
       letra, basal, bolus, dtd, des, com, cen,
       bullets: bullets.map(stripHTML)
     };
-    btnCopy.disabled=false; btnPrint.disabled=false; btnHint.textContent='Puedes copiar o imprimir el informe.';
+    btnCopy.disabled=false; btnPrint.disabled=false;
   }
 
   function pintarError(msg){
     $('#chips').innerHTML = `<span class="chip" style="background:#fef2f2;border-color:#fecaca;color:#b91c1c">Error: ${msg}</span>`;
     $('#card').style.display='block';
-    __lastReport=null; btnCopy.disabled=true; btnPrint.disabled=true; btnHint.textContent='Se habilitan al generar resultados.';
+    __lastReport=null; btnCopy.disabled=true; btnPrint.disabled=true;
   }
 
   ['input','change'].forEach(ev=>{
@@ -685,50 +704,90 @@ Insulinoterapia
   document.addEventListener('DOMContentLoaded', ()=>{ selectMode('ado'); clearAndCalc(); });
 
   /* ===== Informe: copiar (texto plano) ===== */
-  async function copyReport(){
-    if(!__lastReport) return;
-    const r=__lastReport;
-    const fecha=new Date(r.ts).toLocaleString('es-ES');
+async function copyReport(){
+  if(!__lastReport) return;
+  const r = __lastReport;
+  const fecha = new Date(r.ts).toLocaleString('es-ES');
 
-    const datos=[];
-    datos.push(`• Tipo de paciente: ${r.modo==='ado'?'ADO':(r.modo==='ins'?'Insulina':(r.modo==='insado'?'Insulina + ADO':'Sin DM (G>150)'))}`);
-    datos.push(`• Estado: ${r.come?'Come':'No come'}`);
-    if(r.peso!=null) datos.push(`• Peso: ${r.peso} kg`);
-    if(r.dti!=null) datos.push(`• DTI: ${r.dti} UI/día`);
-    if(r.glucTxt)   datos.push(`• Glucemia al ingreso: ${r.glucTxt}`);
-    datos.push(`• Protocolo de corrección: ${r.letra}`);
+  /* ---- Seccion DATOS ---- */
+  const datos = [];
+  const tipoTxt = 
+    r.modo === 'ado'    ? 'ADO' :
+    r.modo === 'ins'    ? 'Insulina' :
+    r.modo === 'insado' ? 'Insulina + ADO' :
+                          'Sin DM (G>150)';
 
-    const dosis=[
-      `• Basal: ${r.basal} UI`,
-      r.come?`• Desayuno: ${r.des} UI`:'',
-      r.come?`• Comida: ${r.com} UI`:'',
-      r.come?`• Cena: ${r.cen} UI`:'',
-      `• DTD: ${r.dtd} UI${r.come?`  |  Bolus total: ${r.bolus} UI`:''}`
-    ].filter(Boolean);
+  datos.push("• Tipo de paciente: " + tipoTxt);
+  datos.push("• Estado: " + (r.come ? "Come" : "No come"));
+  if(r.peso != null) datos.push("• Peso: " + r.peso + " kg");
+  if(r.dti  != null) datos.push("• DTI: " + r.dti + " UI/dia");
+  if(r.glucTxt)       datos.push("• Glucemia al ingreso: " + r.glucTxt);
+  datos.push("• Protocolo de correccion: " + r.letra);
 
-    const recs = (r.bullets && r.bullets.length) ? ['Recomendaciones:', ...r.bullets.map(x=>`• ${x}`)] : [];
+  /* ---- Seccion DOSIS ---- */
+  const dosis = [
+    "• Basal: " + r.basal + " UI",
+    r.come ? "• Desayuno: " + r.des + " UI" : "",
+    r.come ? "• Comida: "   + r.com + " UI" : "",
+    r.come ? "• Cena: "     + r.cen + " UI" : "",
+    "• DTD: " + r.dtd + " UI" + (r.come ? "  |  Bolus total: " + r.bolus + " UI" : "")
+  ].filter(Boolean);
 
-    const txt =
-`Informe - Dosificación de Insulina
-Generado: ${fecha}
+  /* ---- Recomendaciones ---- */
+  const recs = (r.bullets && r.bullets.length)
+    ? ["Recomendaciones:", ...r.bullets.map(x => "• " + x)]
+    : [];
 
-DATOS
-${datos.join('\n')}
+  /* ---- Tabla ASCII de pauta de correccion ---- */
+  const rangos = [
+    "<80 mg/dL",
+    "80-129",
+    "130-149",
+    "150-199",
+    "200-249",
+    "250-299",
+    "300-349",
+    ">349"
+  ];
 
-DOSIS
-${dosis.join('\n')}
-${recs.length?('\n'+recs.join('\n')):''}
-`;
+  const corrVals = CORR[r.letra] || [];
 
-    try{
-      await navigator.clipboard.writeText(txt);
-      const prev = btnCopy.textContent;
-      btnCopy.textContent = 'Copiado ✓';
-      setTimeout(()=>{btnCopy.textContent=prev;},1600);
-    }catch(e){
-      alert('No se pudo copiar al portapapeles.');
-    }
+  const tabla = [];
+  tabla.push("PAUTA DE CORRECCION - Protocolo " + r.letra);
+  tabla.push("Glucemia capilar   | Unidades a anadir");
+  tabla.push("------------------------------------------");
+
+  rangos.forEach((rg, i) => {
+    const v = corrVals[i];
+    const txt = v === 0 ? "0" : (v > 0 ? "+" + v : "" + v);
+    tabla.push(rg.padEnd(18) + " | " + txt);
+  });
+
+  /* ---- Construccion del texto final ---- */
+  const txt =
+"INFORME - DOSIFICACION DE INSULINA\n" +
+"Generado: " + fecha + "\n\n" +
+
+"DATOS\n" +
+datos.join("\n") + "\n\n" +
+
+"DOSIS\n" +
+dosis.join("\n") + "\n\n" +
+
+(recs.length ? recs.join("\n") + "\n\n" : "") +
+
+tabla.join("\n") + "\n";
+
+  /* ---- Copia al portapapeles ---- */
+  try{
+    await navigator.clipboard.writeText(txt);
+    const prev = btnCopy.textContent;
+    btnCopy.textContent = "Copiado ✓";
+    setTimeout(()=>{ btnCopy.textContent = prev; }, 1600);
+  }catch(e){
+    alert("No se pudo copiar al portapapeles.");
   }
+}
 
   /* ===== Informe: imprimir (HTML limpio UTF-8) ===== */
   function printReport(){
@@ -810,6 +869,52 @@ ${recs.length?('\n'+recs.join('\n')):''}
     w.document.open(); w.document.write(html); w.document.close();
   }
 
+/* ===== Botón BORRAR (reset total + scroll top) ===== */
+function clearAll(){
+
+  /* ---- Reset de los inputs ---- */
+  $('#peso').value = '';
+  $('#dti').value  = '';
+
+  // Glucemia: vuelve a "desconocida/<150"
+  const g = document.querySelector('input[name="g"][value="desconocida"]');
+  if (g) g.checked = true;
+
+  // Estado: desmarcar ambos
+  document.querySelectorAll('input[name="estado"]').forEach(r => r.checked = false);
+
+  /* ---- Reset del modo (vuelve a ADO) ---- */
+  selectMode('ado');    // Esto ya oculta/enseña los campos correctos
+
+  /* ---- Borrar resultados ---- */
+  $('#chips').innerHTML = '';
+  $('#proto').style.display = 'none';
+  $('#corrBox').innerHTML = '';
+  $('#badge').innerHTML = '';
+
+  $('#basal').textContent = '—';
+  $('#bolus').textContent = '—';
+  $('#dtd').textContent   = '—';
+  $('#des').textContent   = '—';
+  $('#com').textContent   = '—';
+  $('#cen').textContent   = '—';
+
+  $('#card').style.display = 'none';
+
+  /* ---- Reset del estado del informe ---- */
+  __lastReport = null;
+  btnCopy.disabled = true;
+  btnPrint.disabled = true;
+
+  /* ---- Pastilla superior ---- */
+  setPill();
+
+  /* ---- Scroll arriba ---- */
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+$('#btnClear').addEventListener('click', clearAll);
+
   btnCopy.addEventListener('click', copyReport);
   btnPrint.addEventListener('click', printReport);
 // Activa la sombra al hacer scroll
@@ -820,15 +925,16 @@ ${recs.length?('\n'+recs.join('\n')):''}
   s();
 })();
 
+function scrollToCard(){
+  const card = document.querySelector('#card');
+  if(!card) return;
+  const offset = 120; // margen para safe-top + header
+  const top = card.getBoundingClientRect().top + window.scrollY - offset;
+  window.scrollTo({ top, behavior: 'smooth' });
+}
+
+
 </script>
-<!-- Disclaimer final con fondo rojo tenue -->
-<div class="disclaimer-red">
-  <p>
-    Esta herramienta tiene carácter orientativo y no sustituye el juicio clínico del profesional sanitario.
-    Las recomendaciones y dosis calculadas deben interpretarse en el contexto individual de cada paciente 
-    y conforme a los protocolos locales de insulinoterapia.
-  </p>
-</div>
 <footer>
   <img src="../img/uibanner.png" alt="Ictus GPS">
 </footer>
