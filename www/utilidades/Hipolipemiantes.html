@@ -999,6 +999,11 @@ body {
     $('#notaOtra').style.display='none';
     $('#resultado').innerHTML = `<p class="hint">Complete los supuestos y pulse <strong>Calcular</strong>.</p>`;
     $('#disclaimerFinal').classList.add('hide');
+// 🔵 Scroll al inicio suavemente
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
   });
 
   $('#btnPrint').addEventListener('click', ()=>{

@@ -1434,6 +1434,11 @@ function borrar(){
   const tag = $('tagDAPT');
   if (tag) tag.style.display = 'none';
   $('resumenText').textContent = '';
+// 🔵 Scroll al inicio suavemente
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
 
 function copiar(){

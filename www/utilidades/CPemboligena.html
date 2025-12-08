@@ -388,7 +388,7 @@ body{
 
   <!-- ÚNICO BLOQUE -->
   <div class="block" id="patologia-section">
-<h3>🩺 Patología cardíaca embolígena</h3>
+    <h3>🩺 Patología cardíaca embolígena</h3>
 
     <label><b>Seleccione la entidad principal:</b></label>
     <select id="patologia" onchange="mostrarFactoresPatologia()">
@@ -407,58 +407,58 @@ body{
     </select>
 
     <div id="patologia-factores" style="margin-top:12px;"></div>
-</div>
-
-
-
-<div id="patologia-resultado">
-  <h3>✅ Recomendación</h3>
-  <p id="patologia-texto">Seleccione un escenario clínico para mostrar la recomendación orientativa de tratamiento.</p>
-</div>
-
-<div id="botones-patologia" style="display:none; margin-top: 2px; text-align:center;"></div>
-
-<!-- BOTONES DE ACCION -->
-<div class="actions"> 
-<button onclick="borrarFormulario()" class="boton-opcion boton-clear">Borrar</button>
-<button onclick="copiarResumen()" class="boton-opcion boton-copy">Copiar recomendación</button>
-</div>
-<!-- DISCLAIMER -->
-<section class="disclaimer-red">
-  <p>
-    <b>📛Advertencia.</b> Esta herramienta tiene carácter orientativo y no sustituye el juicio clínico del profesional ni los protocolos locales.
-    Las recomendaciones deben integrarse con la situación individual del paciente, las guías vigentes y la discusión multidisciplinar cuando proceda.
-  </p>
-</section>
-<div class="howto">
-<details style="margin-top:1px;">
-      <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📚 Bibliografía</summary>
-      <div style="
-  margin-top:14px;
-  background:#ffffff;
-  border:1px solid #d0d7e1;
-  border-radius:10px;
-  box-shadow:0 2px 6px rgba(0,0,0,0.05);
-  overflow:hidden;
-  font-size:13px;
-  line-height:1.55;
-  color:#1e293b;
-">
-
-  <!-- Barra superior tipo guideline -->
-  <div style="
-    background:#0f3d83;
-    color:#ffffff;
-    padding:10px 14px;
-    font-size:14px;
-    font-weight:700;
-    letter-spacing:0.3px;
-  ">
-    📘 Referencias bibliográficas
   </div>
 
-  <!-- Contenido -->
-  <div style="padding:16px 18px;">
+  <div id="patologia-resultado">
+    <h3>✅ Recomendación</h3>
+    <p id="patologia-texto">Seleccione un escenario clínico para mostrar la recomendación orientativa de tratamiento.</p>
+  </div>
+
+  <div id="botones-patologia" style="display:none; margin-top: 2px; text-align:center;"></div>
+
+  <!-- BOTONES DE ACCION -->
+  <div class="actions"> 
+    <button onclick="borrarFormulario()" class="boton-opcion boton-clear">Borrar</button>
+    <button onclick="copiarResumen()" class="boton-opcion boton-copy">Copiar recomendación</button>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <section class="disclaimer-red">
+    <p>
+      <b>📛Advertencia.</b> Esta herramienta tiene carácter orientativo y no sustituye el juicio clínico del profesional ni los protocolos locales.
+      Las recomendaciones deben integrarse con la situación individual del paciente, las guías vigentes y la discusión multidisciplinar cuando proceda.
+    </p>
+  </section>
+
+  <div class="howto">
+    <details style="margin-top:1px;">
+      <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📚 Bibliografía</summary>
+      <div style="
+        margin-top:14px;
+        background:#ffffff;
+        border:1px solid #d0d7e1;
+        border-radius:10px;
+        box-shadow:0 2px 6px rgba(0,0,0,0.05);
+        overflow:hidden;
+        font-size:13px;
+        line-height:1.55;
+        color:#1e293b;
+      ">
+
+        <!-- Barra superior tipo guideline -->
+        <div style="
+          background:#0f3d83;
+          color:#ffffff;
+          padding:10px 14px;
+          font-size:14px;
+          font-weight:700;
+          letter-spacing:0.3px;
+        ">
+          📘 Referencias bibliográficas
+        </div>
+
+        <!-- Contenido -->
+        <div style="padding:16px 18px;">
 
 <ol style="margin:18px; padding-left:20px; font-size:10px; line-height:1.45;">
 
@@ -532,37 +532,94 @@ body{
     <li>Yoshihara S et al. Cardiac causes of embolic stroke. <i>World J Radiol</i>. 2023.</li>
   </ol>
 
+        </div>
+
+      </div>
+    </details>
   </div>
 
-    </details>
-</div>
+  <div id="toast" class="toast"></div>
 
+</main>
 
-<div id="toast" class="toast"></div>
+<footer>
+  <img src="../img/uibanner.png" alt="Ictus GPS">
+</footer>
 
 <script>
 /* ============================
    FACTORES POR PATOLOGÍA
 =============================== */
 const factoresPatologia = {
-  hipertrofica: ['FA paroxística'],
-  iam: ['IAM anterior extenso', 'FE < 40%', 'Trombo cavitario', 'Ictus periinfarto'],
-  dilatada: ['FE ≤ 28%', 'Trombo apical', 'FA concomitante'],
-  isquemica: ['Zonas acinéticas o hipocinéticas', 'Trombo mural documentado', 'FE ≤ 35%', 'Antecedente de ictus cardioembólico'],
-  restrictiva: ['FA documentada', 'Trombos auriculares', 'Amiloidosis confirmada'],
-  tako: ['FA concomitante', 'Trombo ventricular', 'FE < 40%'],
-  mixoma: ['Trombo en aurícula', 'Ictus cardioembólico'],
-  valvular: ['Válvula mecánica', 'Prótesis Biológica Aórtica (TAVI/Quirúrgica)', 'Prótesis Biológica Mitral/Tricúspide', 'Estenosis mitral moderada-severa', 'FA concomitante', 'Complicaciones tromboembólicas previas'],
-  endocarditis: ['Complicaciones neurológicas', 'Aneurismas micóticos'],
-  sicksinus: ['FA Paroxística/Crónica documentada', 'Antecedente de ictus/embolia sistémica'],
-auricula: [
-  'Trombo en aurícula izquierda / orejuela',
-  'Estenosis mitral moderada-severa',
+  hipertrofica: [
+    'FA paroxística',
+    'Ictus isquémico agudo'
+  ],
+  iam: [
+    'IAM anterior extenso',
+    'FE < 40%',
+    'Trombo cavitario',
+    'Ictus isquémico agudo'
+  ],
+  dilatada: [
+    'FE ≤ 28%',
+    'Trombo apical',
+    'FA concomitante',
+    'Ictus isquémico agudo'
+  ],
+  isquemica: [
+    'Zonas acinéticas o hipocinéticas',
+    'Trombo mural documentado',
+    'FE ≤ 35%',
+    'Ictus isquémico agudo'
+  ],
+  restrictiva: [
+    'FA documentada',
+    'Trombos auriculares',
+    'Amiloidosis confirmada',
+    'Ictus isquémico agudo'
+  ],
+  tako: [
+    'FA concomitante',
+    'Trombo ventricular',
+    'FE < 40%',
+    'Ictus isquémico agudo'
+  ],
+  mixoma: [
+  'Trombo en aurícula',
   'FA concomitante',
-  'Dilatación auricular severa',
-  'FEVI < 35%',
-  'Ictus cardioembólico previo'
-]
+  'Retraso quirúrgico',
+  'Ictus isquémico agudo'
+],
+  valvular: [
+    'Válvula mecánica',
+    'Prótesis Biológica Aórtica (TAVI/Quirúrgica)',
+    'Prótesis Biológica Mitral/Tricúspide',
+    'Estenosis mitral moderada-severa',
+    'FA concomitante',
+    'Trombo valvular',
+    'Complicaciones tromboembólicas previas',
+    'Ictus isquémico agudo'
+  ],
+  endocarditis: [
+    'Complicaciones neurológicas',
+    'Aneurismas micóticos',
+    'Ictus isquémico agudo'
+  ],
+  sicksinus: [
+    'FA Paroxística/Crónica documentada',
+    'Antecedente de ictus/embolia sistémica',
+    'Ictus isquémico agudo'
+  ],
+  auricula: [
+    'Trombo en aurícula izquierda / orejuela',
+    'Estenosis mitral moderada-severa',
+    'FA concomitante',
+    'Dilatación auricular severa',
+    'FEVI < 35%',
+    'Evento cardioembólico previo',
+    'Ictus isquémico agudo'
+  ]
 };
 
 const patologiaAutoChecks = {
@@ -642,9 +699,13 @@ function aplicarAutoChecks() {
   autoCheckByInputs();
 }
 
+function autoCheckByInputs(){
+  // Función placeholder por si está definida en otras páginas/JS compartido
+}
+
 function checkAutoCheckedAlarm(controlId) {
   const el = document.getElementById(controlId);
-  if (autoCheckedState[controlId] && !el.checked) {
+  if (autoCheckedState[controlId] && el && !el.checked) {
     el.checked = true;
     showToast('Esta casilla fue marcada automáticamente por la Patología Embolígena y NO debe desmarcarse (coherencia clínica).', 'warn');
   }
@@ -657,462 +718,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-function actualizarPatologia() {
-  aplicarAutoChecks();
-  updateEscalasVisibility();
-  mostrarRecomendacionPatologia(true);
-}
-
-function mostrarFactoresPatologia() {
-  const div = document.getElementById("patologia-factores");
-  const resultadoDiv = document.getElementById("patologia-resultado");
-  const patologia = document.getElementById("patologia").value;
-  div.innerHTML = "";
-  resultadoDiv.innerHTML = "";
-
-
-
-  if (factoresPatologia[patologia]) {
-    factoresPatologia[patologia].forEach(factor => {
-      const label = document.createElement("label");
-      label.classList.add("row");
-      label.innerHTML = `<input type='checkbox' value="${factor}"> ${factor}`;
-      div.appendChild(label);
-    });
-    document.querySelectorAll("#patologia-factores input[type='checkbox']").forEach(cb => {
-      cb.addEventListener('change', actualizarPatologia);
-    });
-    actualizarPatologia();
-  } else {
-    aplicarAutoChecks();
-    resultadoDiv.textContent = "Seleccione una patología para ver los factores de riesgo específicos.";
-    updateEscalasVisibility();
-  }
-}
-
-function mostrarRecomendacionPatologia(preliminar = false) {
-  const patologia = document.getElementById("patologia").value;
-  const checks = document.querySelectorAll("#patologia-factores input[type='checkbox']:checked");
-  const riesgos = Array.from(checks).map(el => el.value);
-  const resultadoDiv = document.getElementById("patologia-resultado");
-  
-  let texto = "", recomendacion = "", fuerza = "INSUFICIENTE";
-  let score = 0;
-  const isFemale = riesgos.includes('Sexo Femenino (1 pto)');
-const actions = document.querySelector('.actions');
-
-if (patologia) {
-  actions.style.display = "flex";   // Muestra los botones
-} else {
-  actions.style.display = "none";   // Los oculta si no hay selección
-}
-
-
-  riesgos.forEach(r => {
-    if (r.includes('2 ptos')) score += 2;
-    else if (r.includes('1 pto')) score += 1;
-
-
-});
-
-  switch(patologia) {
-    case "hipertrofica":
-      texto = "<b>📌 Miocardiopatía hipertrófica</b> – Riesgo embólico elevado si coexistencia de FA.";
-      if (riesgos.includes("FA paroxística")) {
-        recomendacion = "Anticoagulación indefinida (preferiblemente ACOD si no contraindicado), independientemente del CHA₂DS₂-VASc.";
-        fuerza = "ACODS_PREFERIDOS";
-      } else {
-        recomendacion = "No se indica anticoagulación si no hay FA.";
-        fuerza = "NO_ANTICOAGULAR";
-      }
-      break;
-
-    case "iam":
-  texto = "<b>📌 Infarto agudo de miocardio</b> – Mayor riesgo embólico si trombo cavitario o ictus periinfarto.";
-
-
-      const tieneTromboCavitario = riesgos.includes("Trombo cavitario");
-      const tieneIctusPeriinfarto = riesgos.includes("Ictus periinfarto");
-
-      // 1️⃣ Ictus periinfarto → anticoagulación TRANSITORIA 3–6 meses
-      if (tieneIctusPeriinfarto) {
-        recomendacion =
-          "Anticoagulación (ACOD o AVK) durante 3–6 meses tras el ictus periinfarto, " +
-          "con reevaluación por imagen cardiaca. Si no persiste trombo ni otra fuente cardioembólica, " +
-          "no se mantiene anticoagulación indefinida.";
-        fuerza = "ANTICOAGULACION_TRANSITORIA";
-
-      // 2️⃣ Trombo cavitario sin ictus periinfarto → también transitoria
-      } else if (tieneTromboCavitario) {
-        recomendacion =
-          "Anticoagulación (ACOD o AVK) 3–6 meses, con control ecocardiográfico hasta la resolución del trombo cavitario.";
-        fuerza = "ANTICOAGULACION_TRANSITORIA";
-
-      // 3️⃣ IAM sin trombo ni ictus periinfarto → no AC sistemática
-      } else {
-        recomendacion =
-          "En ausencia de ictus periinfarto o trombo cavitario, no se recomienda anticoagulación sistemática " +
-          "por el solo hecho del IAM.";
-        fuerza = "NO_ANTICOAGULAR";
-      }
-      break;
-
-
-    case "dilatada":
-  texto = "<b>📌 Miocardiopatía dilatada</b> – Riesgo embólico si trombo apical o FA concomitante.";
-
-  // PRIORIDAD CORRECTA
-
-  // 1️⃣ FA → anticoagulación indefinida
-  if (riesgos.includes("FA concomitante")) {
-    recomendacion = "Anticoagulación indefinida (ACOD o AVK). ";
-    fuerza = "ACODS_PREFERIDOS";
-
-  // 2️⃣ Trombo apical → anticoagulación transitoria
-  } else if (riesgos.includes("Trombo apical")) {
-    recomendacion = "Anticoagulación (ACOD o AVK) 3–6 meses, con reevaluación por imagen hasta resolución del trombo.";
-    fuerza = "ANTICOAGULACION_TRANSITORIA";
-
-  // 3️⃣ Sin FA y sin trombo
-  } else {
-    recomendacion = "No se indica anticoagulación sistemática sin trombo ni FA.";
-    fuerza = "NO_ANTICOAGULAR";
-  }
-  break;
-
-
-case "isquemica":
-      texto = "<b>📌 Miocardiopatía isquémica</b> – Riesgo embólico si hay zonas acinéticas, trombos murales o ictus cardioembólico " +
-              "atribuible a una disfunción ventricular persistente.";
-
-      const tieneTromboMural     = riesgos.includes("Trombo mural documentado");
-      const tieneFEbaja          = riesgos.includes("FE ≤ 35%");
-      const tieneAcinesia        = riesgos.includes("Zonas acinéticas o hipocinéticas");
-      const ictusCardioPrevio    = riesgos.includes("Antecedente de ictus cardioembólico");
-
-      // 1️⃣ Trombo mural → anticoagulación TRANSITORIA 3–6 meses
-      if (tieneTromboMural) {
-        recomendacion =
-          "Anticoagulación (AVK o ACOD) durante 3–6 meses, con reevaluación por imagen hasta la resolución del trombo mural. " +
-          "Si el trombo desaparece y no hay FA ni otra fuente embólica persistente, no se mantiene anticoagulación indefinida.";
-        fuerza = "ANTICOAGULACION_TRANSITORIA";
-
-      // 2️⃣ Ictus cardioembólico + disfunción estructural (FE baja o acinesia) → AC INDEFINIDA
-      } else if (ictusCardioPrevio && (tieneFEbaja || tieneAcinesia)) {
-        recomendacion =
-          "Ictus cardioembólico en el contexto de miocardiopatía isquémica con disfunción ventricular relevante " +
-          "(FE ≤35% y/o zonas acinéticas). Recomendable anticoagulación (ACOD o AVK) indefinida como prevención secundaria, " +
-          "si no hay contraindicaciones.";
-        fuerza = "ACODS_PREFERIDOS";
-
-      // 3️⃣ Ictus cardioembólico pero SIN FE baja ni acinesia → NO justifica AC indefinida
-      } else if (ictusCardioPrevio && !tieneFEbaja && !tieneAcinesia) {
-        recomendacion =
-          "Ictus cardioembólico previo sin disfunción sistólica significativa ni zonas acinéticas demostradas. " +
-          "La miocardiopatía isquémica sin alteraciones estructurales relevantes no se considera fuente cardioembólica " +
-          "crónica por sí misma. No se recomienda anticoagulación indefinida; debe reevaluarse la etiología (p. ej. ESUS, FA oculta) " +
-          "y seguir las guías de ictus criptogénico.";
-        fuerza = "NO_ANTICOAGULAR";
-
-      // 4️⃣ Sin trombo ni ictus cardioembólico → no AC sistemática
-      } else {
-        recomendacion =
-          "Sin trombo mural documentado ni ictus cardioembólico atribuible a disfunción ventricular, " +
-          "no se indica anticoagulación sistemática en la miocardiopatía isquémica. Manejo habitual con antiagregación " +
-          "y tratamiento óptimo de la cardiopatía.";
-        fuerza = "NO_ANTICOAGULAR";
-      }
-      break;
-
-    case "restrictiva":
-      texto = "<b>📌 Miocardiopatía restrictiva</b> – FA y trombos auriculares frecuentes, especialmente en amiloidosis.";
-      if (riesgos.includes("FA documentada") || riesgos.includes("Trombos auriculares")) {
-        recomendacion = "Anticoagulación (ACOD o AVK) indefinida independientemente del CHA₂DS₂-VASc.";
-        fuerza = "ACODS_PREFERIDOS";
-      } else {
-        recomendacion = "Sin FA ni trombos, no se indica anticoagulación sistemática.";
-        fuerza = "NO_ANTICOAGULAR";
-      }
-      break;
-
-    case "tako":
-      texto = "<b>📌 Miocardiopatía de Tako-Tsubo</b> – Riesgo embólico bajo; individualizar.";
-      if (riesgos.includes("FA concomitante")) {
-        recomendacion = "Anticoagulación indefinida (ACOD o AVK) independientemente del CHA₂DS₂-VASc.";
-        fuerza = "ACODS_PREFERIDOS";
-      } else if (riesgos.includes("Trombo ventricular")) {
-        recomendacion = "Anticoagulación (AVK o ACOD) 3 meses o hasta resolución del trombo.";
-        fuerza = "ANTICOAGULACION_TRANSITORIA";
-      } else {
-        recomendacion = "No se recomienda anticoagulación por defecto; valorar si persiste disfunción grave.";
-        fuerza = "NO_ANTICOAGULAR";
-      }
-      break;
-
-    case "mixoma":
-      texto = "<b>📌 Mixoma auricular</b> – Riesgo embólico relevante; indicación principal: cirugía.";
-      if (riesgos.includes("Ictus cardioembólico") || riesgos.includes("Trombo en aurícula")) {
-        recomendacion = "Anticoagulación (preferiblemente AVK, pudiendo valorar ACOD) transitoria hasta la resección quirúrgica.";
-        fuerza = "ANTICOAGULACION_TRANSITORIA";
-      } else {
-        recomendacion = "Sin ictus ni trombo visible, se prioriza la cirugía; anticoagulación no sistemática.";
-        fuerza = "NO_ANTICOAGULAR";
-      }
-      break;
-
-   case "valvular":
-  texto = "<b>📌 Patología valvular / Prótesis valvulares</b> – Riesgo embólico variable según tipo de válvula y presencia de FA.";
-
-  const hasFAv = riesgos.includes("FA concomitante") || riesgos.includes("FA documentada") || riesgos.includes("FA Paroxística/Crónica documentada");
-  const hasTEPrevio = riesgos.includes("Complicaciones tromboembólicas previas");
-
-  const isMecánica = riesgos.includes("Válvula mecánica");
-  const isEM_MS = riesgos.includes("Estenosis mitral moderada-severa");
-  const isBioMitral = riesgos.includes("Prótesis Biológica Mitral/Tricúspide");
-  const isBioAortica = riesgos.includes("Prótesis Biológica Aórtica (TAVI/Quirúrgica)");
-
-  // ============================================================
-  // 1️⃣ VÁLVULA MECÁNICA → AVK SIEMPRE (ACOD CONTRAINDICADOS)
-  // ============================================================
-  if (isMecánica) {
-    recomendacion =
-      "Anticoagulación de por vida con AVK (INR según posición y tipo de prótesis). " +
-      "Los ACOD están contraindicados en válvulas mecánicas.";
-    fuerza = "VKA_OBLIGATORIO";
-    break;
-  }
-
-  // ============================================================
-  // 2️⃣ ESTENOSIS MITRAL MODERADA-SEVERA (RMS/EM-MS)
-  // ============================================================
-  if (isEM_MS) {
-    if (hasFAv || hasTEPrevio) {
-      recomendacion =
-        "Anticoagulación indefinida con AVK. " +
-        "Los ACOD están contraindicados en estenosis mitral moderada-severa con FA.";
-      fuerza = "VKA_OBLIGATORIO";
-    } else {
-      recomendacion =
-        "En estenosis mitral moderada-severa en ritmo sinusal, no se recomienda anticoagulación sistemática. " ;
-      fuerza = "ANTIAGREGACION_PREFERIDA";
-    }
-    break;
-  }
-
-  // ============================================================
-  // 3️⃣ PRÓTESIS BIOLÓGICA MITRAL O TRICÚSPIDE
-  // ============================================================
-  if (isBioMitral) {
-    if (hasFAv || hasTEPrevio) {
-      recomendacion =
-        "Anticoagulación indefinida (ACOD o AVK) por presencia de FA o eventos tromboembólicos previos.";
-      fuerza = "ACODS_PREFERIDOS";
-    } else {
-      recomendacion =
-        "Anticoagulación con AVK o ACOD durante 3–6 meses tras el implante (especialmente si posición mitral). " +
-        "Después, AAS en monoterapia si ritmo sinusal. " +
-        "En prótesis tricúspide aislada, suele ser suficiente AAS desde el inicio.";
-      fuerza = "";
-    }
-    break;
-  }
-
-  // ============================================================
-  // 4️⃣ PRÓTESIS BIOLÓGICA AÓRTICA (TAVI o quirúrgica)
-  // ============================================================
-  if (isBioAortica) {
-    if (hasFAv || hasTEPrevio) {
-      recomendacion =
-        "Anticoagulación indefinida (ACOD o AVK) por presencia de FA o eventos tromboembólicos previos.";
-      fuerza = "ACODS_PREFERIDOS";
-    } else {
-      recomendacion =
-        "AAS en monoterapia como estrategia estándar. " +
-        "La DAPT solo está indicada si existe un stent coronario implantado < 3 meses; no por la TAVI en sí.";
-      fuerza = "ANTIAGREGACION_PREFERIDA";
-    }
-    break;
-  }
-
-  // ============================================================
-  // 5️⃣ RESTO DE CARDIOPATÍA VALVULAR NO PRINCIPAL
-  // ============================================================
-  if (hasFAv) {
-    recomendacion =
-      "Anticoagulación (ACOD o AVK) según CHA₂DS₂-VASc, por la presencia de FA en el contexto de valvulopatía no mecánica.";
-    fuerza = "ACODS_PREFERIDOS";
-  } else {
-    recomendacion =
-      "Sin FA ni prótesis mecánica, no se recomienda anticoagulación sistemática. " +
-      "Suele bastar antiagregación (AAS) o vigilancia clínica.";
-    fuerza = "NO_ANTICOAGULAR";
-  }
-  break;
-
-
-case "endocarditis":
-  texto = "<b>📌 Endocarditis infecciosa</b> – Riesgo extremadamente alto de hemorragia intracraneal, incluso en ictus isquémicos.";
-
-  const neuro = riesgos.includes("Complicaciones neurológicas");
-  const micoticos = riesgos.includes("Aneurismas micóticos");
-
-  if (neuro || micoticos) {
-    recomendacion =
-      "Evitar anticoagulación. Suspender AVK/ACOD si estaban en uso salvo indicación absolutamente imprescindible (p. ej., válvula mecánica). " +
-      "Tras un ictus isquémico en el contexto de endocarditis, la anticoagulación aumenta el riesgo de transformación hemorrágica y de ruptura de aneurismas micóticos. " +
-      "Reevaluación tras 1–2 semanas y tras neuroimagen de control.";
-    fuerza = "NO_ANTICOAGULAR";
-
-  } else {
-    recomendacion =
-      "No se recomienda anticoagulación durante la endocarditis activa salvo indicación esencial (p. ej., válvula mecánica). " +
-      "Decisión a individualizar en equipo multidisciplinar.";
-    fuerza = "NO_ANTICOAGULAR";
-  }
-
-  break;
-
-
-case "sicksinus":
-  texto = "<b>📌 Síndrome del seno enfermo</b> – La FA puede ser paroxística u oculta; la estratificación de riesgo sigue el CHA₂DS₂-VASc.";
- 
- // 2️⃣ ICTUS CARDIOEMBÓLICO PREVIO (sin FA documentada)
-  if (riesgos.includes("Antecedente de ictus/embolia sistémica")) {
-
-    recomendacion =
-      "Anticoagulación indefinida (ACOD o AVK). Incluso en ausencia de FA documentada, un ictus cardioembólico en contexto de SSE es altamente sugestivo de FA oculta.";
-    fuerza = "ACODS_PREFERIDOS";
-
-  }
-
-  // 1️⃣ FA DOCUMENTADA → AC según CHA₂DS₂-VASc
-  else if (riesgos.includes("FA Paroxística/Crónica documentada")) {
-
-    recomendacion =
-      "Anticoagulación si el CHA₂DS₂-VASc lo indica. En el SSE la FA suele ser intermitente, por lo que debe evaluarse el riesgo embólico real mediante la escala.";
-    fuerza = "ACODS_PREFERIDOS";
-
-  }
-
-  // 3️⃣ SIN FA NI ICTUS → no AC
-  else {
-
-    recomendacion =
-      "No se recomienda anticoagulación en ausencia de FA documentada o ictus cardioembólico previo. Se aconseja monitorización prolongada por riesgo de FA silente.";
-    fuerza = "NO_ANTICOAGULAR";
-
-  }
-  break;
-
-
-case "auricula":
-  texto = "<b>📌 Aurícula izquierda / orejuela</b> – El riesgo embólico depende de la presencia de trombo, valvulopatía mitral, FA y del remodelado auricular.";
-
-  const tieneTrombo = riesgos.includes("Trombo en aurícula izquierda / orejuela");
-  const estenosisMitral = riesgos.includes("Estenosis mitral moderada-severa");
-  const tieneFA = riesgos.includes("FA concomitante");
-  const dilatacionSevera = riesgos.includes("Dilatación auricular severa");
-  const feviBaja = riesgos.includes("FEVI < 35%");
-  const ictusPrevio = riesgos.includes("Ictus cardioembólico previo");
-
-  // 1️⃣ ESTENOSIS MITRAL → AVK siempre
-  if (estenosisMitral) {
-    recomendacion =
-      "Anticoagulación obligatoria con AVK (ACOD contraindicados). Si existe trombo, mantener AVK y realizar control por imagen hasta su resolución.";
-    fuerza = "VKA_OBLIGATORIO";
-  }
-
-  // 2️⃣ FA CONCOMITANTE → INDICACIÓN ABSOLUTA
-  else if (tieneFA) {
-    recomendacion =
-      "Anticoagulación indefinida (ACOD o AVK). La FA implica estasis auricular y riesgo cardioembólico incluso sin trombo visible.";
-    fuerza = "ACODS_PREFERIDOS";
-  }
-
-  // 3️⃣ TROMBO DOCUMENTADO (sin EM y sin FA)
-  else if (tieneTrombo) {
-    recomendacion =
-      "Anticoagulación 3–6 meses (ACOD o AVK) con control por imagen hasta resolución. Tras la resolución, individualizar si mantener antiagregación o suspender.";
-    fuerza = "ANTICOAGULACION_TRANSITORIA";
-  }
-
-  // 4️⃣ Aurícula muy enferma sin trombo
-  else if (dilatacionSevera && feviBaja) {
-    recomendacion =
-      "Considerar anticoagulación (ACOD o AVK) por alto riesgo embólico asociado a dilatación severa y FEVI <35%, especialmente si sospecha de FA subclínica.";
-    fuerza = "CONSIDERAR_ACOD";
-  }
-
-  // 5️⃣ Ictus previo embólico atribuible a aurícula
-  else if (ictusPrevio) {
-  recomendacion =
-    "Ictus cardioembólico previo. Sin FA, trombo o estenosis mitral moderada–severa, no se indica anticoagulación indefinida. Reevaluar etiología y monitorizar FA oculta.";
-  fuerza = "NO_ANTICOAGULAR";
-}
-
-
-  // 6️⃣ Caso basal (sin nada relevante)
-  else {
-    recomendacion =
-      "Sin trombo, sin FA y sin valvulopatía mitral significativa, no se recomienda anticoagulación sistemática.";
-    fuerza = "NO_ANTICOAGULAR";
-  }
-  break;
-
-
-
-
-    default:
-      texto = "Seleccione una patología.";
-      recomendacion = "A la espera de selección y factores de riesgo.";
-      fuerza = "INSUFICIENTE";
-  }
-// === COLETILLA SEGÚN FUERZA ===
-let coletilla = "";
-
-switch (fuerza) {
-  case "ACODS_PREFERIDOS":
-    coletilla = " ACOD preferidos por mejor perfil eficacia/seguridad.";
-    break;
-  case "ANTICOAGULACION_TRANSITORIA":
-    coletilla = " Anticoagulación temporal con reevaluación por imagen.";
-    break;
-  case "VKA_OBLIGATORIO":
-    coletilla = " ACOD contraindicados: solo AVK.";
-    break;
-  case "NO_ANTICOAGULAR":
-    coletilla = " No se recomienda anticoagulación.";
-    break;
-  case "ANTIAGREGACION_PREFERIDA":
-    coletilla = " Antiagregación según perfil clínico.";
-    break;
-}
-
-
-
-// Añadir coletilla al texto de recomendación
-recomendacion += coletilla;
-
-  const resumen = riesgos.length > 0 ? riesgos.join(", ") : "Ninguno";
-  resultadoDiv.innerHTML = `${texto}<br><b>📎 Factores de riesgo presentes:</b> ${resumen}.<br><br><b>✅ Recomendación orientativa:</b> ${recomendacion}`;
-
-/* ============================
-   RECOMENDACIÓN PRINCIPAL
-=============================== */
-resultadoDiv.classList.remove("fade-in");
-void resultadoDiv.offsetWidth; // Forzar repaint
-resultadoDiv.classList.add("fade-in");
-
-
-  const patTxt = patologia === "" ? "No seleccionada" : texto.replace(/<\/?b>/g, '');
-  document.getElementById('patologia-rec-final').innerHTML =
-    `<b>Patología:</b> ${patTxt}<br><b>Recomendación:</b> ${recomendacion}`;
-
-  return {fuerza, recomendacion};
-}
-
-
-
 /* ============================
    MOSTRAR FACTORES
 =============================== */
@@ -1124,7 +729,11 @@ function mostrarFactoresPatologia() {
   div.innerHTML = "";
   res.innerHTML = "";
 
-  if (!p) return;
+  if (!p || !factoresPatologia[p]) {
+    res.innerHTML = "<h3>✅ Recomendación</h3><p>Seleccione una patología para ver los factores de riesgo específicos.</p>";
+    document.querySelector('.actions').style.display = "none";
+    return;
+  }
 
   factoresPatologia[p].forEach(f => {
     const l = document.createElement("label");
@@ -1133,14 +742,665 @@ function mostrarFactoresPatologia() {
     div.appendChild(l);
   });
 
-  document.querySelectorAll("#patologia-factores input")
-    .forEach(cb => cb.addEventListener("change", () => mostrarRecomendacionPatologia()));
+  document.querySelectorAll("#patologia-factores input[type='checkbox']")
+    .forEach(cb => cb.addEventListener("change", actualizarPatologia));
 
-  mostrarRecomendacionPatologia();
+  aplicarAutoChecks();
+  updateEscalasVisibility();
+  actualizarPatologia();
 }
 
+function actualizarPatologia() {
+  aplicarAutoChecks();
+  updateEscalasVisibility();
+  mostrarRecomendacionPatologia(true);
+}
+
+/* ============================
+   RECOMENDACIÓN PRINCIPAL
+=============================== */
+function mostrarRecomendacionPatologia(preliminar = false) {
+  const patologia = document.getElementById("patologia").value;
+  const checks = document.querySelectorAll("#patologia-factores input[type='checkbox']:checked");
+  const riesgos = Array.from(checks).map(el => el.value);
+  const resultadoDiv = document.getElementById("patologia-resultado");
+  const actions = document.querySelector('.actions');
+
+  let texto = "", recomendacion = "", fuerza = "INSUFICIENTE";
+  let score = 0;
+  const isFemale = riesgos.includes('Sexo Femenino (1 pto)');
+  const hasIctus = riesgos.includes('Ictus isquémico agudo');
+
+  if (patologia) {
+    actions.style.display = "flex";
+  } else {
+    actions.style.display = "none";
+  }
+
+  riesgos.forEach(r => {
+    if (r.includes('2 ptos')) score += 2;
+    else if (r.includes('1 pto')) score += 1;
+  });
+
+  switch(patologia) {
+    case "hipertrofica":
+      texto = "<b>📌 Miocardiopatía hipertrófica</b> – Riesgo embólico elevado si coexistencia de FA.";
+      if (riesgos.includes("FA paroxística")) {
+        recomendacion = "Anticoagulación indefinida (preferiblemente ACOD si no contraindicado), independientemente del CHA₂DS₂-VASc.";
+        fuerza = "ACODS_PREFERIDOS";
+      } else if (hasIctus) {
+        recomendacion = "Ictus isquémico agudo en paciente con miocardiopatía hipertrófica sin FA documentada: no se indica anticoagulación por la cardiopatía. Manejo como ictus criptogénico/ESUS y búsqueda de FA oculta.";
+        fuerza = "NO_ANTICOAGULAR";
+      } else {
+        recomendacion = "Sin FA documentada, no se indica anticoagulación sistemática.";
+        fuerza = "NO_ANTICOAGULAR";
+      }
+      break;
+
+    case "iam":
+      texto = "<b>📌 Infarto agudo de miocardio</b> – Mayor riesgo embólico si trombo cavitario o ictus periinfarto.";
+      const tieneTromboCavitario = riesgos.includes("Trombo cavitario");
+      const tieneIctusPeriinfarto = riesgos.includes("Ictus periinfarto");
+      const feBajaIAM = riesgos.includes("FE < 40%");
+
+      if (tieneIctusPeriinfarto || hasIctus) {
+        recomendacion =
+          "Ictus isquémico en el contexto de IAM: se recomienda anticoagulación (ACOD o AVK) durante 3–6 meses, con reevaluación por imagen cardíaca. " +
+          "Si no persiste trombo ni otra fuente cardioembólica, no se mantiene anticoagulación indefinida.";
+        fuerza = "ANTICOAGULACION_TRANSITORIA";
+      } else if (tieneTromboCavitario) {
+        recomendacion =
+          "Trombo cavitario tras IAM: anticoagulación (ACOD o AVK) 3–6 meses, con control ecocardiográfico hasta la resolución del trombo.";
+        fuerza = "ANTICOAGULACION_TRANSITORIA";
+      } else {
+        recomendacion =
+          "En ausencia de ictus isquémico agudo, ictus periinfarto o trombo cavitario, no se recomienda anticoagulación sistemática solo por el IAM.";
+        fuerza = "NO_ANTICOAGULAR";
+      }
+      break;
+
+    case "dilatada":
+      texto = "<b>📌 Miocardiopatía dilatada</b> – Riesgo embólico si trombo apical, FE muy deprimida o FA concomitante.";
+
+      const tieneFADilatada = riesgos.includes("FA concomitante");
+      const tieneTromboApical = riesgos.includes("Trombo apical");
+      const feMuyBaja = riesgos.includes("FE ≤ 28%");
+
+      if (tieneFADilatada) {
+        recomendacion = "Anticoagulación indefinida (ACOD o AVK), independientemente del CHA₂DS₂-VASc, por presencia de FA en el contexto de miocardiopatía dilatada.";
+        fuerza = "ACODS_PREFERIDOS";
+      } else if (tieneTromboApical) {
+        recomendacion = "Trombo apical en miocardiopatía dilatada: anticoagulación (ACOD o AVK) 3–6 meses, con reevaluación por imagen hasta la resolución del trombo.";
+        fuerza = "ANTICOAGULACION_TRANSITORIA";
+      } else if (hasIctus && feMuyBaja) {
+        recomendacion =
+          "Ictus isquémico agudo en miocardiopatía dilatada con FE muy deprimida (≤ 28%): considerar anticoagulación temporal (3–6 meses), individualizando según riesgo hemorrágico. " +
+          "El mecanismo puede ser cardioembólico por estasis ventricular severa.";
+        fuerza = "CONSIDERAR_ACOD";
+      } else if (hasIctus && !feMuyBaja) {
+        recomendacion =
+          "Ictus isquémico agudo en miocardiopatía dilatada sin FA, sin trombo y sin FE muy deprimida: la miocardiopatía no justifica anticoagulación por sí sola. Manejo como ictus criptogénico/ESUS.";
+        fuerza = "NO_ANTICOAGULAR";
+      } else {
+        recomendacion = "Sin FA, sin trombo apical y sin FE muy deprimida, no se indica anticoagulación sistemática por la miocardiopatía dilatada.";
+        fuerza = "NO_ANTICOAGULAR";
+      }
+      break;
+
+    case "isquemica":
+      texto = "<b>📌 Miocardiopatía isquémica</b> – Riesgo embólico si hay zonas acinéticas, trombos murales o ictus cardioembólico atribuible a una disfunción ventricular persistente.";
+
+      const tieneTromboMural     = riesgos.includes("Trombo mural documentado");
+      const tieneFEbaja          = riesgos.includes("FE ≤ 35%");
+      const tieneAcinesia        = riesgos.includes("Zonas acinéticas o hipocinéticas");
+      const ictusCardioPrevio    = riesgos.includes("Antecedente de ictus cardioembólico");
+
+      if (tieneTromboMural) {
+        recomendacion =
+          "Trombo mural en miocardiopatía isquémica: anticoagulación (AVK o ACOD) durante 3–6 meses, con reevaluación por imagen hasta la resolución del trombo. " +
+          "Si el trombo desaparece y no hay FA ni otra fuente embólica persistente, no se mantiene anticoagulación indefinida.";
+        fuerza = "ANTICOAGULACION_TRANSITORIA";
+      } else if ((ictusCardioPrevio || (hasIctus && (tieneFEbaja || tieneAcinesia))) && (tieneFEbaja || tieneAcinesia)) {
+        recomendacion =
+          "Ictus cardioembólico en el contexto de miocardiopatía isquémica con disfunción ventricular relevante (FE ≤ 35% y/o zonas acinéticas). " +
+          "Es razonable anticoagulación (ACOD o AVK) indefinida como prevención secundaria, si no hay contraindicaciones.";
+        fuerza = "ACODS_PREFERIDOS";
+      } else if (ictusCardioPrevio && !tieneFEbaja && !tieneAcinesia) {
+        recomendacion =
+          "Antecedente de ictus cardioembólico sin disfunción sistólica significativa ni zonas acinéticas demostradas. " +
+          "La miocardiopatía isquémica sin alteraciones estructurales relevantes no se considera fuente cardioembólica crónica por sí misma. " +
+          "No se recomienda anticoagulación indefinida; reevaluar la etiología (p. ej., ESUS, FA oculta).";
+        fuerza = "NO_ANTICOAGULAR";
+      } else if (hasIctus && !tieneFEbaja && !tieneAcinesia && !tieneTromboMural) {
+        recomendacion =
+          "Ictus isquémico agudo sin trombo mural ni disfunción ventricular relevante: la miocardiopatía isquémica estable no explica de forma clara el ictus. " +
+          "Manejo como ictus criptogénico/ESUS y búsqueda dirigida de FA oculta u otras fuentes embólicas.";
+        fuerza = "NO_ANTICOAGULAR";
+      } else {
+        recomendacion =
+          "Sin trombo mural, sin ictus cardioembólico atribuible a disfunción ventricular y sin FE muy reducida o zonas acinéticas extensas, " +
+          "no se indica anticoagulación sistemática en la miocardiopatía isquémica. Manejo habitual con antiagregación y tratamiento óptimo de la cardiopatía.";
+        fuerza = "NO_ANTICOAGULAR";
+      }
+      break;
+
+    case "restrictiva":
+      texto = "<b>📌 Miocardiopatía restrictiva / amiloidosis</b> – FA y trombos auriculares frecuentes, con riesgo tromboembólico elevado incluso en ritmo sinusal.";
+      if (hasIctus) {
+        recomendacion =
+          "Ictus isquémico agudo en el contexto de miocardiopatía restrictiva/amiloidosis: se recomienda anticoagulación (ACOD o AVK) indefinida " +
+          "independientemente del CHA₂DS₂-VASc, salvo contraindicación mayor.";
+        fuerza = "ACODS_PREFERIDOS";
+      } else if (riesgos.includes("FA documentada") || riesgos.includes("Trombos auriculares")) {
+        recomendacion = "Anticoagulación (ACOD o AVK) indefinida independientemente del CHA₂DS₂-VASc, por alto riesgo tromboembólico intrínseco.";
+        fuerza = "ACODS_PREFERIDOS";
+      } else {
+        recomendacion = "Sin FA, sin trombos y sin ictus, no se indica anticoagulación sistemática, aunque debe mantenerse alta sospecha y seguimiento estrecho.";
+        fuerza = "NO_ANTICOAGULAR";
+      }
+      break;
+
+    case "tako":
+      texto = "<b>📌 Miocardiopatía de Tako-Tsubo</b> – Riesgo embólico global bajo; aumenta si existe trombo ventricular, FE muy reducida o FA.";
+
+      const tieneFATako = riesgos.includes("FA concomitante");
+      const tieneTromboV = riesgos.includes("Trombo ventricular");
+      const feBajaTako   = riesgos.includes("FE < 40%");
+
+      if (tieneTromboV) {
+        recomendacion = "Trombo ventricular en miocardiopatía de Tako-Tsubo: anticoagulación (AVK o ACOD) durante unos 3 meses o hasta la completa resolución del trombo en los estudios de imagen.";
+        fuerza = "ANTICOAGULACION_TRANSITORIA";
+      } else if (tieneFATako) {
+        recomendacion = "FA concomitante en Tako-Tsubo: anticoagulación indefinida (ACOD o AVK), independientemente del CHA₂DS₂-VASc.";
+        fuerza = "ACODS_PREFERIDOS";
+      } else if (feBajaTako && hasIctus) {
+        recomendacion =
+          "Ictus isquémico agudo en miocardiopatía de Tako-Tsubo con FE < 40%: considerar anticoagulación temporal (4–12 semanas), " +
+          "con reevaluación por ecocardiografía o RM cardíaca, dado el posible origen cardioembólico.";
+        fuerza = "CONSIDERAR_ACOD";
+      } else if (feBajaTako && !hasIctus) {
+        recomendacion =
+          "FE < 40% sin ictus ni trombo en Tako-Tsubo: no se recomienda anticoagulación sistemática; valorar caso a caso según extensión de la acinesia apical y otros factores de riesgo.";
+        fuerza = "NO_ANTICOAGULAR";
+      } else if (hasIctus && !feBajaTako) {
+        recomendacion =
+          "Ictus isquémico agudo en Tako-Tsubo con FE preservada y sin trombo: el síndrome de Tako-Tsubo no se considera la causa demostrada del ictus; " +
+          "manejo como ictus criptogénico/ESUS.";
+        fuerza = "NO_ANTICOAGULAR";
+      } else {
+        recomendacion = "No se recomienda anticoagulación por defecto en Tako-Tsubo sin trombo, sin FE muy reducida ni FA concomitante.";
+        fuerza = "NO_ANTICOAGULAR";
+      }
+      break;
+
+    case "mixoma":
+  texto = "<b>📌 Mixoma auricular</b> – Tumor intracardíaco con alto riesgo embólico de origen tumoral. La resección quirúrgica es el tratamiento definitivo.";
+
+  const tieneTromboAur = riesgos.includes("Trombo en aurícula");
+  const tieneFAMixoma  = riesgos.includes("FA concomitante");
+  const retrasoQx      = riesgos.includes("Retraso quirúrgico");
+  const ictusMixoma    = riesgos.includes("Ictus isquémico agudo"); // Ictus tumoral, NO cardioembólico por FA
+
+  /* ============================================================
+     1) TROMBO AURICULAR → AC TRANSITORIA SIEMPRE
+     (Es la única situación donde la AC previene embolia)
+     ============================================================ */
+  if (tieneTromboAur) {
+    // Si además hay FA: AC es obligada durante el trombo,
+    // y luego dependerá del CHA2DS2-VASc real del paciente.
+    if (tieneFAMixoma) {
+      recomendacion =
+        "Mixoma auricular con trombo y fibrilación auricular: se recomienda anticoagulación (ACOD o AVK) de forma transitoria hasta la resección quirúrgica. " +
+        "Tras ello, la necesidad de anticoagulación indefinida dependerá del CHA₂DS₂-VASc (sin sumar el ictus tumoral).";
+      fuerza = "";
+      break;
+    }
+
+    // Trombo SIN FA
+    recomendacion =
+      "Mixoma auricular con trombo asociado: se recomienda anticoagulación (ACOD o AVK) de forma transitoria hasta la resección quirúrgica. " +
+      "El trombo es una fuente embólica prevenible mediante anticoagulación.";
+    fuerza = "";
+    break;
+  }
+
+  /* ============================================================
+     2) FA + ICTUS TUMORAL → NO sumar 2 puntos al CHA2DS2-VASc
+     ============================================================ */
+  if (tieneFAMixoma && ictusMixoma) {
+    recomendacion =
+      "Fibrilación auricular concomitante con ictus tumoral (por mixoma): el ictus NO debe contabilizarse como evento previo en el CHA₂DS₂-VASc. " +
+      "Anticoagulación solo si el CHA₂DS₂-VASc lo indica por los demás factores del paciente. ";
+    fuerza = "AC_SEGUN_CHA2DS2VASc";
+    break;
+  }
+
+  /* ============================================================
+     3) FA SIN ICTUS TUMORAL NI TROMBO → CHA2DS2-VASc REAL
+     ============================================================ */
+  if (tieneFAMixoma) {
+    recomendacion =
+      "Fibrilación auricular concomitante: anticoagulación según CHA₂DS₂-VASc, sin considerar el ictus tumoral como evento previo. " +
+      "El mixoma no altera la indicación de anticoagulación en FA.";
+    fuerza = "AC_SEGUN_CHA2DS2VASc";
+    break;
+  }
+
+  /* ============================================================
+     4) ICTUS TUMORAL SIN FA NI TROMBO → NO anticoagulación
+     ============================================================ */
+  if (ictusMixoma) {
+    recomendacion =
+      "Ictus isquémico en el contexto de mixoma auricular sin trombo ni FA: la embolia es de origen tumoral y la anticoagulación no previene recurrencias. " +
+      "La resección quirúrgica urgente es el tratamiento definitivo.";
+    fuerza = "NO_ANTICOAGULAR";
+    break;
+  }
+
+  /* ============================================================
+     5) RETRASO QUIRÚRGICO → AC opcional (beneficio incierto)
+     ============================================================ */
+  if (retrasoQx) {
+    recomendacion =
+      "Retraso temporal en la cirugía del mixoma: la anticoagulación puede considerarse individualmente como estrategia puente, " +
+      "aunque su eficacia para prevenir embolias de origen tumoral es limitada. Decisión caso por caso.";
+    fuerza = "CONSIDERAR_ACOD";
+    break;
+  }
+
+  /* ============================================================
+     6) MIXOMA SIN FACTORES → NO anticoagular
+     ============================================================ */
+  recomendacion =
+    "Mixoma auricular sin ictus, sin trombo y sin FA: no se recomienda anticoagulación. La resección quirúrgica precoz es prioritaria.";
+  fuerza = "NO_ANTICOAGULAR";
+  break;
 
 
+
+
+    case "valvular":
+  texto = "<b>📌 Patología valvular / Prótesis valvulares</b> – Riesgo embólico variable según tipo de válvula, presencia de FA, trombo y eventos previos.";
+
+  const hasFAv        = riesgos.includes("FA concomitante") || riesgos.includes("FA documentada") || riesgos.includes("FA Paroxística/Crónica documentada");
+  const hasTEPrevio   = riesgos.includes("Complicaciones tromboembólicas previas");
+  const hasTromboValv = riesgos.includes("Trombo valvular");
+
+  const isMecánica    = riesgos.includes("Válvula mecánica");
+  const isEM_MS       = riesgos.includes("Estenosis mitral moderada-severa");
+  const isBioMitral   = riesgos.includes("Prótesis Biológica Mitral/Tricúspide");
+  const isBioAortica  = riesgos.includes("Prótesis Biológica Aórtica (TAVI/Quirúrgica)");
+
+if (hasFAv && (hasIctus || hasTEPrevio)) {
+    recomendacion =
+      "Fibrilación auricular con ictus isquémico agudo o evento cardioembólico previo: se recomienda anticoagulación indefinida. " +
+      "La indicación no depende del CHA₂DS₂-VASc, porque el riesgo embólico ya está demostrado.";
+    fuerza = "ACODS_PREFERIDOS"; // o AVK si está en contexto valvular/EM-MS
+    break;
+}
+  /* =========================================================
+     1) VÁLVULA MECÁNICA (CON O SIN TROMBO)
+     ========================================================= */
+  if (isMecánica) {
+    if (hasTromboValv) {
+      recomendacion =
+        "Trombo en prótesis valvular mecánica: situación de alto riesgo. Se recomienda anticoagulación con AVK (ACOD contraindicados), " +
+        "asociada a valoración urgente para posible fibrinólisis o cirugía según gradiente y situación clínica. Mantener AVK de por vida.";
+    } else {
+      recomendacion =
+        "Válvula mecánica: anticoagulación de por vida con AVK (INR según posición y tipo de prótesis). Los ACOD están contraindicados.";
+    }
+    fuerza = "VKA_OBLIGATORIO";
+    break;
+  }
+
+  /* =========================================================
+     2) ESTENOSIS MITRAL MODERADA–SEVERA (VÁLVULA NATIVA)
+     ========================================================= */
+  if (isEM_MS) {
+    if (hasFAv || hasTEPrevio || hasIctus || hasTromboValv) {
+      recomendacion =
+        "Estenosis mitral moderada-severa con FA, trombo auricular/valvular o evento embólico (ictus/embolia sistémica) previo: " +
+        "se recomienda anticoagulación indefinida con AVK. Los ACOD están contraindicados.";
+      fuerza = "VKA_OBLIGATORIO";
+    } else {
+      recomendacion =
+        "Estenosis mitral moderada-severa en ritmo sinusal, sin trombo ni eventos embólicos previos: no se recomienda anticoagulación sistemática. " +
+        "Seguimiento estrecho y tratamiento de la valvulopatía según guías.";
+      fuerza = "ANTIAGREGACION_PREFERIDA";
+    }
+    break;
+  }
+
+  /* =========================================================
+     3) PRÓTESIS BIOLÓGICA MITRAL / TRICÚSPIDE
+     ========================================================= */
+  if (isBioMitral) {
+    if (hasTromboValv) {
+      if (hasFAv || hasTEPrevio || hasIctus) {
+        recomendacion =
+          "Trombo en prótesis biológica mitral/tricúspide con FA o evento tromboembólico previo: " +
+          "anticoagulación (AVK o ACOD) al menos 3–6 meses, con control de imagen hasta la resolución del trombo, " +
+          "y posteriormente mantenimiento de anticoagulación indefinida por la FA/evento previo.";
+        fuerza = "ACODS_PREFERIDOS";
+      } else {
+        recomendacion =
+          "Trombo en prótesis biológica mitral/tricúspide sin FA ni eventos previos: anticoagulación (AVK o ACOD) durante 3–6 meses, " +
+          "con control de imagen hasta la resolución del trombo. Tras la resolución, reevaluar necesidad de continuar o suspender la anticoagulación.";
+        fuerza = "ANTICOAGULACION_TRANSITORIA";
+      }
+    } else {
+      if (hasFAv || hasTEPrevio || hasIctus) {
+        recomendacion =
+          "Prótesis biológica mitral/tricúspide con FA o eventos tromboembólicos previos: anticoagulación indefinida (ACOD o AVK).";
+        fuerza = "ACODS_PREFERIDOS";
+      } else {
+        recomendacion =
+          "Prótesis biológica mitral/tricúspide sin FA ni eventos previos: anticoagulación (preferentemente AVK, pudiendo valorar ACOD) " +
+          "durante los primeros 3–6 meses tras el implante, especialmente en posición mitral, y posteriormente AAS en monoterapia si se mantiene el ritmo sinusal.";
+        fuerza = "ANTIAGREGACION_PREFERIDA";
+      }
+    }
+    break;
+  }
+
+  /* =========================================================
+     4) PRÓTESIS BIOLÓGICA AÓRTICA (TAVI / QUIRÚRGICA)
+     ========================================================= */
+  if (isBioAortica) {
+    if (hasTromboValv) {
+      if (hasFAv || hasTEPrevio || hasIctus) {
+        recomendacion =
+          "Trombo en prótesis biológica aórtica con FA o evento tromboembólico previo: anticoagulación (AVK o ACOD) al menos 3–6 meses " +
+          "hasta resolución del trombo, con posterior mantenimiento indefinido por la FA/evento.";
+        fuerza = "ACODS_PREFERIDOS";
+      } else {
+        recomendacion =
+          "Trombo en prótesis biológica aórtica sin FA ni eventos previos: anticoagulación (AVK o ACOD) 3–6 meses con control de imagen. " +
+          "Tras la resolución, puede suspenderse la anticoagulación si no aparece FA u otra indicación.";
+        fuerza = "ANTICOAGULACION_TRANSITORIA";
+      }
+    } else {
+      if (hasFAv || hasTEPrevio || hasIctus) {
+        recomendacion =
+          "Prótesis biológica aórtica (TAVI/quirúrgica) con FA o eventos tromboembólicos previos: anticoagulación indefinida (ACOD o AVK).";
+        fuerza = "ACODS_PREFERIDOS";
+      } else {
+        recomendacion =
+          "Prótesis biológica aórtica sin FA ni eventos previos: AAS en monoterapia como estrategia estándar. " +
+          "La doble antiagregación solo está indicada si existe un stent coronario implantado recientemente, no por la prótesis aórtica en sí.";
+        fuerza = "ANTIAGREGACION_PREFERIDA";
+      }
+    }
+    break;
+  }
+
+  /* =========================================================
+     5) OTRA VALVULOPATÍA NO MECÁNICA, SIN PRÓTESIS
+     (insuficiencia mitral/aórtica, EM ligera, etc.)
+     ========================================================= */
+  if (hasTromboValv) {
+    if (hasFAv || hasTEPrevio || hasIctus) {
+      recomendacion =
+        "Trombo valvular en contexto de valvulopatía no mecánica con FA o evento tromboembólico previo: " +
+        "anticoagulación (ACOD o AVK) al menos 3–6 meses hasta la resolución del trombo, y posteriormente mantenimiento indefinido " +
+        "por la FA o la embolia previa.";
+      fuerza = "ACODS_PREFERIDOS";
+    } else {
+      recomendacion =
+        "Trombo valvular en valvulopatía no mecánica sin FA ni eventos previos: anticoagulación (ACOD o AVK) 3–6 meses " +
+        "con control de imagen hasta la resolución. Tras la resolución, la anticoagulación puede suspenderse si no aparece FA u otra indicación independiente.";
+      fuerza = "ANTICOAGULACION_TRANSITORIA";
+    }
+  } else if (hasFAv) {
+    recomendacion =
+      "Valvulopatía no mecánica con FA: anticoagulación (ACOD o AVK) según CHA₂DS₂-VASc, como en cualquier FA no valvular significativa.";
+    fuerza = "ACODS_PREFERIDOS";
+  } else if (hasIctus) {
+    recomendacion =
+      "Ictus isquémico agudo en paciente con valvulopatía no mecánica, sin FA ni trombo valvular: no se recomienda anticoagulación " +
+      "por la valvulopatía; manejo como ictus criptogénico/ESUS con búsqueda dirigida de FA oculta u otras fuentes embólicas.";
+    fuerza = "NO_ANTICOAGULAR";
+  } else {
+    recomendacion =
+      "Valvulopatía no mecánica sin FA, sin trombo valvular y sin eventos embólicos previos: no se recomienda anticoagulación sistemática.";
+    fuerza = "NO_ANTICOAGULAR";
+  }
+  break;
+
+
+
+    case "endocarditis":
+      texto = "<b>📌 Endocarditis infecciosa</b> – Riesgo muy elevado de hemorragia intracraneal, incluso en ictus isquémicos.";
+      const neuro = riesgos.includes("Complicaciones neurológicas");
+      const micoticos = riesgos.includes("Aneurismas micóticos");
+
+      if (hasIctus || neuro || micoticos) {
+        recomendacion =
+          "Ictus isquémico o complicaciones neurológicas en el contexto de endocarditis: evitar anticoagulación. " +
+          "Suspender AVK/ACOD si estaban en uso salvo indicación absolutamente imprescindible (p. ej., válvula mecánica). " +
+          "El riesgo de transformación hemorrágica y de rotura de aneurismas micóticos es muy alto. Reevaluar tras 1–2 semanas y neuroimagen de control.";
+        fuerza = "NO_ANTICOAGULAR";
+      } else {
+        recomendacion =
+          "Durante la fase activa de la endocarditis infecciosa no se recomienda anticoagulación, salvo indicación esencial (p. ej., válvula mecánica). " +
+          "Decisión a individualizar en equipo multidisciplinar (cardiología, neurología, infecciosas, cirugía cardíaca).";
+        fuerza = "NO_ANTICOAGULAR";
+      }
+      break;
+
+    case "sicksinus":
+  texto = "<b>📌 Síndrome del seno enfermo</b> – La FA puede ser paroxística u oculta; la estratificación de riesgo sigue el CHA₂DS₂-VASc, salvo en pacientes con ictus previo, donde se asume FA subclínica como mecanismo probable.";
+
+  const ictusPrevioSSE = riesgos.includes("Antecedente de ictus/embolia sistémica");
+  const faSSE          = riesgos.includes("FA Paroxística/Crónica documentada");
+  const ictusAgudoSSE  = riesgos.includes("Ictus isquémico agudo");
+
+ 
+  if (ictusAgudoSSE && faSSE) {
+    recomendacion =
+      "Síndrome del seno enfermo con ictus isquémico agudo y FA documentada: se recomienda anticoagulación indefinida (ACOD o AVK). ";
+    fuerza = "ACODS_PREFERIDOS";
+    break;
+  }
+
+  if (ictusPrevioSSE && faSSE) {
+    recomendacion =
+      "Síndrome del seno enfermo con antecedente de ictus/embolia sistémica y FA documentada: se recomienda anticoagulación indefinida (ACOD o AVK). ";
+    fuerza = "ACODS_PREFERIDOS";
+    break;
+  }
+
+ // 1) PRIORIDAD MÁXIMA: ANTECEDENTE DE ICTUS → AC INDEFINIDA
+  if (ictusPrevioSSE) {
+    recomendacion =
+      "Síndrome del seno enfermo con antecedente de ictus/embolia sistémica: se recomienda anticoagulación indefinida (ACOD o AVK), " +
+      "al considerarse muy probable la existencia de FA oculta como origen del evento. ACOD preferidos salvo contraindicación.";
+    fuerza = "ACODS_PREFERIDOS";
+    break;
+  }
+
+  // 2) FA DOCUMENTADA → AC según CHA2DS2-VASc
+  if (faSSE) {
+    recomendacion =
+      "Fibrilación auricular documentada: la anticoagulación debe seguir el CHA₂DS₂-VASc. ACOD preferidos salvo contraindicación.";
+    fuerza = "ACODS_PREFERIDOS";
+    break;
+  }
+
+  // 3) ICTUS AGUDO → Considerar AC por sospecha de FA oculta
+  if (ictusAgudoSSE) {
+    recomendacion =
+      "Ictus isquémico agudo sin FA documentada en un paciente con síndrome del seno enfermo: existe alta probabilidad de FA oculta. " +
+      "Se recomienda anticoagulación indefinida (ACOD o AVK), al considerarse muy probable la existencia de FA oculta como origen del evento. ACOD preferidos salvo contraindicación.";
+    fuerza = "ACODS_PREFERIDOS";
+    break;
+  }
+
+  // 4) Sin FA ni ictus → No anticoagular
+  recomendacion =
+    "Síndrome del seno enfermo sin FA documentada ni ictus previo: no se recomienda anticoagulación. " +
+    "Monitorización periódica/prolongada por riesgo de FA silente.";
+  fuerza = "NO_ANTICOAGULAR";
+  break;
+
+
+    case "auricula":
+  texto = "<b>📌 Aurícula izquierda / orejuela</b> – El riesgo embólico depende sobre todo de la presencia de trombo, valvulopatía mitral significativa o FA; el remodelado auricular severo contribuye al riesgo principalmente como marcador de FA subclínica.";
+
+  const tieneTrombo     = riesgos.includes("Trombo en aurícula izquierda / orejuela");
+  const estenosisMitral = riesgos.includes("Estenosis mitral moderada-severa");
+  const tieneFA         = riesgos.includes("FA concomitante");
+  const dilatacionSevera= riesgos.includes("Dilatación auricular severa");
+  const feviBaja        = riesgos.includes("FEVI < 35%");
+  const ictusPrevioLA   = riesgos.includes("Evento cardioembólico previo");
+  const ictusAgudoLA    = hasIctus;   // "Ictus isquémico agudo" marcado
+
+  // 1) ESTENOSIS MITRAL MODERADA-SEVERA
+  if (estenosisMitral) {
+    if (tieneFA || tieneTrombo || ictusPrevioLA || ictusAgudoLA) {
+      // EM-MS + FA y/o trombo y/o ictus → AVK indefinido
+      recomendacion =
+        "Estenosis mitral moderada-severa con FA, trombo auricular o evento embólico previo: " +
+        "se recomienda anticoagulación indefinida con AVK (ACOD contraindicados). " +
+        "Si existe trombo, mantener AVK y realizar control por imagen hasta su resolución.";
+      fuerza = "VKA_OBLIGATORIO";
+    } else {
+      // EM-MS en ritmo sinusal, sin trombo ni eventos previos
+      recomendacion =
+        "Estenosis mitral moderada-severa en ritmo sinusal, sin trombo ni eventos embólicos previos: " +
+        "no se recomienda anticoagulación sistemática. Suele bastar antiagregación y vigilancia clínica, " +
+        "de acuerdo con las guías de valvulopatía mitral.";
+      fuerza = "ANTIAGREGACION_PREFERIDA";
+    }
+    break;
+  }
+
+if (tieneFA && (hasIctus || ictusPrevioLA)) {
+    recomendacion =
+      "Fibrilación auricular con ictus isquémico agudo o evento cardioembólico previo: se recomienda anticoagulación indefinida. " +
+      "La indicación no depende del CHA₂DS₂-VASc, porque el riesgo embólico ya está demostrado.";
+    fuerza = "ACODS_PREFERIDOS"; // o AVK si está en contexto valvular/EM-MS
+    break;
+}
+
+  // 2) TROMBO EN AURÍCULA / OREJUELA (sin EM-MS)
+  if (tieneTrombo && tieneFA) {
+    // Trombo + FA
+    recomendacion =
+      "Trombo en aurícula izquierda/orejuela en paciente con FA: anticoagulación con AVK o ACOD al menos 3–6 meses, " +
+      "con control por imagen hasta la completa resolución del trombo. Tras la resolución, mantener anticoagulación indefinida " +
+      "por la FA, según CHA₂DS₂-VASc y riesgo hemorrágico.";
+    fuerza = "ACODS_PREFERIDOS";
+    break;
+  } else if (tieneTrombo) {
+    // Trombo sin FA ni EM-MS
+    recomendacion =
+      "Trombo en aurícula izquierda/orejuela sin estenosis mitral moderada-severa ni FA: " +
+      "anticoagulación 3–6 meses (ACOD o AVK) con control por imagen hasta su resolución. " +
+      "Tras la resolución, si no existe FA, estenosis mitral moderada-severa ni otras indicaciones vasculares, puede suspenderse toda terapia antitrombótica. La antiagregación solo debe mantenerse o iniciarse si está indicada por otra patología (p. ej., enfermedad aterosclerótica), no por el trombo auricular. ";
+    fuerza = "ANTICOAGULACION_TRANSITORIA";
+    break;
+  }
+
+  // 3) FA CONCOMITANTE (sin EM-MS ni trombo)
+  if (tieneFA) {
+    recomendacion =
+      "FA concomitante con remodelado auricular: anticoagulación indefinida (ACOD o AVK) según CHA₂DS₂-VASc. " +
+      "La FA implica estasis auricular y riesgo cardioembólico incluso sin trombo visible.";
+    fuerza = "ACODS_PREFERIDOS";
+    break;
+  }
+
+  // 4) AURÍCULA MUY DILATADA + FEVI BAJA, CON ICTUS AGUDO
+  if (dilatacionSevera && feviBaja && ictusAgudoLA) {
+    recomendacion =
+      "Ictus isquémico agudo en el contexto de aurícula muy dilatada y FEVI < 35%, sin FA ni trombo visibles: " +
+      "puede considerarse anticoagulación (ACOD o AVK) por alto riesgo embólico, especialmente si se sospecha FA subclínica. " +
+      "Decisión individualizada según riesgo hemorrágico y posibilidad de monitorización prolongada.";
+    fuerza = "CONSIDERAR_ACOD";
+    break;
+  }
+
+  // 5) AURÍCULA MUY DILATADA + FEVI BAJA, SIN ICTUS
+  if (dilatacionSevera && feviBaja && !ictusAgudoLA) {
+    recomendacion =
+      "Aurícula muy dilatada con FEVI < 35% sin ictus ni trombo: la anticoagulación no es sistemática, " +
+      "pero puede considerarse en presencia de otros factores de riesgo y sospecha de FA subclínica. " +
+      "Es razonable monitorización prolongada para detectar FA oculta.";
+    fuerza = "CONSIDERAR_ACOD";
+    break;
+  }
+
+  // 6) ICTUS CARDIOEMBÓLICO PREVIO ATRIBUIDO A LA AURÍCULA (situación actual estable)
+  if (ictusPrevioLA) {
+    recomendacion =
+      "Ictus cardioembólico previo atribuido a la aurícula izquierda, pero actualmente sin FA, trombo ni estenosis mitral moderada-severa: " +
+      "no se indica automáticamente anticoagulación indefinida. Es necesario reevaluar la etiología, optimizar la búsqueda de FA oculta " +
+      "y decidir individualmente según nuevos hallazgos.";
+    fuerza = "NO_ANTICOAGULAR";
+    break;
+  }
+
+  // 7) ICTUS AGUDO SIN HALLAZGOS ESTRUCTURALES RELEVANTES
+  if (ictusAgudoLA) {
+    recomendacion =
+      "Ictus isquémico agudo sin trombo, sin FA y sin estenosis mitral moderada-severa: " +
+      "no se recomienda anticoagulación por defecto en base a la aurícula. Manejo como ictus criptogénico/ESUS, " +
+      "con vigilancia estrecha y búsqueda de FA oculta.";
+    fuerza = "NO_ANTICOAGULAR";
+    break;
+  }
+
+  // 8) SITUACIÓN BASAL SIN MARCADORES DE ALTO RIESGO
+  recomendacion =
+    "Sin trombo, sin FA y sin valvulopatía mitral significativa, no se recomienda anticoagulación sistemática " +
+    "por la aurícula izquierda/orejuela. Mantener control clínico y ecocardiográfico según la cardiopatía de base.";
+  fuerza = "NO_ANTICOAGULAR";
+  break;
+
+
+    default:
+      texto = "Seleccione una patología.";
+      recomendacion = "A la espera de selección y factores de riesgo.";
+      fuerza = "INSUFICIENTE";
+  }
+
+  // Coletillas según fuerza
+  let coletilla = "";
+
+  switch (fuerza) {
+    case "ACODS_PREFERIDOS":
+      coletilla = " ACOD preferidos por mejor perfil eficacia/seguridad, salvo contraindicaciones específicas.";
+      break;
+    case "ANTICOAGULACION_TRANSITORIA":
+      coletilla = " Anticoagulación temporal con reevaluación por imagen y situación clínica.";
+      break;
+    case "VKA_OBLIGATORIO":
+      coletilla = " ACOD contraindicados: se recomienda solo AVK.";
+      break;
+    case "NO_ANTICOAGULAR":
+      coletilla = " No se recomienda anticoagulación sistemática por esta cardiopatía en el escenario descrito.";
+      break;
+    case "ANTIAGREGACION_PREFERIDA":
+      coletilla = " Antiagregación según perfil clínico y guías de prevención secundaria de ictus.";
+      break;
+    case "CONSIDERAR_ACOD":
+      coletilla = " Decisión de anticoagulación a individualizar, valorando riesgo embólico y hemorrágico.";
+      break;
+  }
+
+  recomendacion += coletilla;
+
+  const resumen = riesgos.length > 0 ? riesgos.join(", ") : "Ninguno";
+  resultadoDiv.innerHTML = `${texto}<br><b>📎 Factores de riesgo presentes:</b> ${resumen}.<br><br><b>✅ Recomendación orientativa:</b> ${recomendacion}`;
+
+  resultadoDiv.classList.remove("fade-in");
+  void resultadoDiv.offsetWidth;
+  resultadoDiv.classList.add("fade-in");
+
+  return {fuerza, recomendacion};
+}
 
 function borrarFormulario() {
   document.getElementById("patologia").value = "";
@@ -1148,21 +1408,28 @@ function borrarFormulario() {
   document.getElementById("patologia-resultado").innerHTML =
     "<h3>✅ Recomendación</h3><p>Seleccione un escenario clínico para mostrar la recomendación orientativa de tratamiento.</p>";
 
-  document.querySelector('.actions').style.display = "none";   // ⬅️ Oculta los botones
+  document.querySelector('.actions').style.display = "none";
+
+  // 🔵 Scroll al inicio suavemente
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
 
 
-
 function copiarResumen() {
-const texto = document.getElementById("patologia-resultado").innerText;
-navigator.clipboard.writeText(texto).then(() => {
-showToast("Recomendación copiada", "info");
-});
+  const texto = document.getElementById("patologia-resultado").innerText;
+  navigator.clipboard.writeText(texto).then(() => {
+    showToast("Recomendación copiada", "info");
+  });
 }
 
 function toggleBiblio(){
   const contenido = document.getElementById("biblio-contenido");
   const arrow = document.getElementById("biblio-arrow");
+
+  if(!contenido || !arrow) return;
 
   if(contenido.classList.contains("open")){
     contenido.classList.remove("open");
@@ -1174,7 +1441,7 @@ function toggleBiblio(){
     arrow.style.transform = "rotate(180deg)";
   }
 }
- 
+
 document.querySelectorAll('.biblio-toggle').forEach(btn => {
   btn.addEventListener('click', () => {
     const content = btn.nextElementSibling;
@@ -1188,7 +1455,6 @@ document.querySelectorAll('.biblio-toggle').forEach(btn => {
 function showToast(message, type = "info") {
   const toast = document.getElementById("toast");
 
-  // Iconos según tipo
   const icons = {
     info: "ℹ️",
     ok: "✅",
@@ -1196,7 +1462,6 @@ function showToast(message, type = "info") {
     error: "❌"
   };
 
-  // Colores institucionales
   const colors = {
     info: "#fff",
     ok: "#166534",
@@ -1211,24 +1476,14 @@ function showToast(message, type = "info") {
     <span>${message}</span>
   `;
 
-  // Mostrar
   toast.classList.add("show");
 
-  // Ocultar a los 3 segundos
   clearTimeout(toast.hideTimer);
   toast.hideTimer = setTimeout(() => {
     toast.classList.remove("show");
   }, 3000);
 }
-
 </script>
-
-
-</main>
-
-<footer>
-  <img src="../img/uibanner.png" alt="Ictus GPS">
-</footer>
 
 </body>
 </html>

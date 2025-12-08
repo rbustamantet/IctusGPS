@@ -1189,6 +1189,11 @@ function borrarResumen(){
 
   // Oculta los botones también al borrar
   document.querySelector('.actions').style.display = "none";
+// 🔵 Scroll al inicio suavemente
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
 
 

@@ -1094,6 +1094,11 @@ function borrar(){
 
   $('resultCard').style.display='none';
   $('resumenText').textContent='';
+// 🔵 Scroll al inicio suavemente
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
 
 /* Copiar resumen */
