@@ -463,6 +463,11 @@ body{
   background:#0f3d83;
   color:#fff;
 }
+.boton-copy.copiado {
+  background: #0f3d83 !important;
+  color: #fff !important;
+  border-color: #0f3d83 !important;
+}
 
 /* BOTONES EN BLOQUE PARA MÓVILES */
 @media (max-width: 600px) {
@@ -1029,6 +1034,7 @@ function mostrarTratamientoEscenario(){
   const res = document.getElementById('escenario-resultado');
   const texto = document.getElementById('escenario-texto');
   const actions = document.querySelector('.actions');
+  
 
   if(!val || !tratamientosEscenario[val]){
     res.classList.remove('fade-in');
@@ -1147,8 +1153,8 @@ function copiarResumen(){
   const cont = document.getElementById('escenario-texto');
   const baseText = cont.innerText.trim();
   
+  // Si no hay contenido real que copiar, no hace nada
   if(!baseText || baseText.includes("Seleccione un escenario clínico")){
-    showToast("No hay recomendación");
     return;
   }
 
@@ -1175,8 +1181,19 @@ function copiarResumen(){
   }
 
   navigator.clipboard.writeText(finalText)
-    .then(() => showToast("Recomendación copiada"))
-    .catch(() => showToast("Error al copiar"));
+    .then(() => {
+      const btn = document.querySelector(".boton-copy");
+      
+      btn.classList.add("copiado");
+      const oldText = btn.textContent;
+      btn.textContent = "Copiado";
+
+      setTimeout(() => {
+        btn.classList.remove("copiado");
+        btn.textContent = oldText;
+      }, 1500);
+    })
+    .catch(() => {});
 }
 
 function borrarResumen(){

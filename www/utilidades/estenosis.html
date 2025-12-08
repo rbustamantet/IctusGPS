@@ -1029,6 +1029,7 @@ function calcular(){
   // Si falta clínica o grado, ocultar panel
   if (!clin || !grado){
     $('resultCard').style.display = 'none';
+
     return;
   }
 
@@ -1413,7 +1414,14 @@ if (tandemTratable){
 
   $('resumenText').textContent = resumen;
   $('resultCard').style.display = 'block';
-}
+const target = document.getElementById("resultCard");
+const headerOffset = 100;   // ajustable según tu header y safe-top
+const y = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+
+window.scrollTo({
+  top: y,
+  behavior: "smooth"
+});}
 
 /* ==========================
    Borrar y copiar

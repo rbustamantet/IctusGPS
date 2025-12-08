@@ -161,6 +161,11 @@ header{
   background:#0f3d83;
   color:#fff;
 }
+.boton-copy.copiado {
+  background: #0f3d83 !important;
+  color: #fff !important;
+  border-color: #0f3d83 !important;
+}
 
 select{
   padding:12px;
@@ -1419,10 +1424,31 @@ function borrarFormulario() {
 
 
 function copiarResumen() {
-  const texto = document.getElementById("patologia-resultado").innerText;
-  navigator.clipboard.writeText(texto).then(() => {
-    showToast("Recomendación copiada", "info");
-  });
+  // Obtener el texto plano del panel
+  const texto = document.getElementById("patologia-resultado").innerText.trim();
+  if (!texto || texto.includes("Seleccione un escenario clínico")) {
+    return; // Nada que copiar
+  }
+
+  // Copiar al portapapeles
+  navigator.clipboard.writeText(texto)
+    .then(() => {
+      const btn = document.querySelector(".boton-copy");
+      
+      // Guardar texto original del botón
+      const oldText = btn.textContent;
+
+      // Cambiar apariencia temporal
+      btn.classList.add("copiado");
+      btn.textContent = "Copiado";
+
+      // Volver al estado inicial tras 1,5 s
+      setTimeout(() => {
+        btn.classList.remove("copiado");
+        btn.textContent = oldText;
+      }, 1500);
+    })
+    .catch(() => {});
 }
 
 function toggleBiblio(){
