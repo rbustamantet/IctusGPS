@@ -390,6 +390,11 @@ function calc(){
 function borrar(){
   ['a','b','c','d','di'].forEach(id=>document.getElementById(id).value='0');
   calc();
+// 🔵 Scroll al inicio suavemente
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
 
 function copiar(){

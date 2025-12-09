@@ -434,6 +434,11 @@ function borrar(){
   $('resultCard').style.display='none';
   const pill=$('pill'); pill.className='pill pill-init'; pill.textContent='RoPE: —';
   $('resumenText').textContent='';
+// 🔵 Scroll al inicio suavemente
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
 
 function copiar(){

@@ -482,6 +482,11 @@ function borrar(){
   const radios = document.querySelectorAll('input[name="mrs"]');
   radios.forEach(r => r.checked = false);
   renderResultado(null);
+// 🔵 Scroll al inicio suavemente
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
 function copiar(){
   const t = document.getElementById('resumenText').textContent.trim();

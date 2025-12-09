@@ -744,6 +744,11 @@ document.getElementById('comentarios').addEventListener('input', actualizar);
 document.getElementById('btnClear').addEventListener('click', ()=>{
   document.querySelectorAll('select').forEach(s=> s.selectedIndex = 0);
   actualizar();
+// 🔵 Scroll al inicio suavemente
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 });
 
 document.getElementById('btnCopy').addEventListener('click', ()=>{

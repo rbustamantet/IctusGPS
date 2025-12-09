@@ -430,6 +430,11 @@ function borrar(){
   el('resumenText').textContent = '';
 
   setPillFromScore(NaN);
+// 🔵 Scroll al inicio suavemente
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
 
 // Botón Copiar resumen

@@ -367,7 +367,13 @@ function calcular(){
   });
   el('resumenText').textContent=resumen;
 }
-function borrar(){ids.forEach(id=>el(id).value='');el('resultado').style.display='none';updateHeaderPill();}
+function borrar(){ids.forEach(id=>el(id).value='');el('resultado').style.display='none';updateHeaderPill();
+// 🔵 Scroll al inicio suavemente
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
 function copiar(){
   const txt=el('resumenText').textContent.trim();
   if(!txt)return;

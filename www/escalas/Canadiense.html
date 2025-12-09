@@ -402,6 +402,11 @@ function borrar(){
   el('resumenText').textContent='';
   setPill(NaN);
   toggleMotor();
+// 🔵 Scroll al inicio suavemente
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
 function copiar(){
   const datos=calcular();

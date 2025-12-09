@@ -364,6 +364,11 @@ function calcular(){
 function borrar(){
   items.forEach(([id])=>document.getElementById(id).selectedIndex=0);
   calcular();
+// 🔵 Scroll al inicio suavemente
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
 function copiar(){
   const total=document.getElementById('totalVal').textContent;

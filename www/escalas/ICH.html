@@ -361,6 +361,11 @@ function calcular(){
 
 function resetForm(){
   el('calcForm').reset();el('resultCard').style.display='none';updatePill();
+// 🔵 Scroll al inicio suavemente
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
 
 function copiar(){

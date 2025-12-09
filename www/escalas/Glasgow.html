@@ -338,7 +338,13 @@ function calc(){
   else resumen+="Interpretación: coma grave; requiere control intensivo y valoración urgente de causas reversibles.";
   document.getElementById('resumenText').textContent=resumen;
 }
-function borrar(){['e','v','m'].forEach(id=>document.getElementById(id).selectedIndex=0);calc();}
+function borrar(){['e','v','m'].forEach(id=>document.getElementById(id).selectedIndex=0);calc();
+// 🔵 Scroll al inicio suavemente
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
 function copiar(){
   const t=document.getElementById('resumenText').textContent.trim();
   if(!t)return;

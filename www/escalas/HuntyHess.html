@@ -359,6 +359,11 @@ function calcular(){
 function borrar(){
   el('grado').value='';el('plusOne').checked=false;
   el('resultCard').classList.remove('show');updatePill();
+// 🔵 Scroll al inicio suavemente
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
 function copiar(){
   const txt=el('resumenText').textContent.trim();

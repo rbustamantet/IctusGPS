@@ -380,6 +380,11 @@ function calc() {
 function borrar() {
   ['cisternal', 'espesor', 'coagulos', 'ivhich'].forEach(id => document.getElementById(id).selectedIndex = 0);
   calc();
+// 🔵 Scroll al inicio suavemente
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
 
 function copiar() {

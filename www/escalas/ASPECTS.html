@@ -360,6 +360,11 @@ function actualizar(){
 function borrarASPECTS(){
   document.querySelectorAll('.r').forEach(ch => ch.checked = false);
   actualizar();
+// 🔵 Scroll al inicio suavemente
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
 
 function copiarASPECTS(){

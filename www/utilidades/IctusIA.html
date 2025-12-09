@@ -447,17 +447,72 @@ footer img{
 
 <script>
 /* =========================================================
-   PROCESOS BÁSICOS: CARGA DE IMAGEN
+   REFERENCIAS DOM
 ========================================================= */
-const dropzone = document.getElementById("dropzone");
-const fileInput = document.getElementById("fileInput");
-const imagenBase = document.getElementById("imagenBase");
-const maskCanvas = document.getElementById("maskOverlay");
-const maskCtx = maskCanvas.getContext("2d");
-let imgLoaded = false;
+const dropzone        = document.getElementById("dropzone");
+const fileInput       = document.getElementById("fileInput");
+const imagenBase      = document.getElementById("imagenBase");
+const maskCanvas      = document.getElementById("maskOverlay");
+const maskCtx         = maskCanvas.getContext("2d");
 
-dropzone.addEventListener("click", () => fileInput.click());
-fileInput.addEventListener("change", (e)=> loadImage(e.target.files[0]));
+const tipoImagenSel   = document.getElementById("tipoImagen");
+const sensibilidadSel = document.getElementById("sensibilidad");
+const suavizadoSel    = document.getElementById("suavizado");
+const compHCheck      = document.getElementById("comparacionHemisferica");
+
+const maskOpacity     = document.getElementById("maskOpacity");
+const maskOpacityVal  = document.getElementById("maskOpacityVal");
+const toggleMask      = document.getElementById("toggleMask");
+
+const btnDetectar     = document.getElementById("btnDetectar");
+const btnBorrarMask   = document.getElementById("btnBorrarMask");
+const btnResetTodo    = document.getElementById("btnResetTodo");
+
+const areaLesionEl    = document.getElementById("areaLesion");
+const asimetriaEl     = document.getElementById("asimetriaLesion");
+const confianzaEl     = document.getElementById("confianzaDetector");
+const listaTerritorios= document.getElementById("listaTerritorios");
+
+let imgLoaded = false;
+// si algún día añades botón “Voltear”, cambia esta bandera:
+let imagenInvertida = false;
+
+/* =========================================================
+   UTILIDADES GENERALES
+========================================================= */
+function avg(arr){
+  if(!arr.length) return 0;
+  return arr.reduce((a,b)=>a+b,0)/arr.length;
+}
+
+function percentileFromHist(hist, total, p){
+  const target = total * p;
+  let acc = 0;
+  for(let i=0;i<256;i++){
+    acc += hist[i] || 0;
+    if(acc >= target) return i;
+  }
+  return 255;
+}
+
+function resizeMaskCanvas(){
+  const rect = imagenBase.getBoundingClientRect();
+  const w = Math.max(1, Math.round(rect.width));
+  const h = Math.max(1, Math.round(rect.height));
+  maskCanvas.width  = w;
+  maskCanvas.height = h;
+}
+
+/* =========================================================
+   CARGA DE IMAGEN
+========================================================= */
+dropzone.addEventListener("click", ()=> fileInput.click());
+
+fileInput.addEventListener("change", e=>{
+  if(e.target.files && e.target.files[0]){
+    loadImage(e.target.files[0]);
+  }
+});
 
 ["dragenter","dragover","dragleave","drop"].forEach(ev=>{
   dropzone.addEventListener(ev, e=>{
@@ -473,9 +528,10 @@ dropzone.addEventListener("drop", e=>{
 });
 
 window.addEventListener("paste", e=>{
-  const items = e.clipboardData.items;
+  const items = e.clipboardData && e.clipboardData.items;
+  if(!items) return;
   for(const it of items){
-    if(it.type.startsWith("image/")){
+    if(it.type && it.type.startsWith("image/")){
       loadImage(it.getAsFile());
       break;
     }
@@ -483,41 +539,304 @@ window.addEventListener("paste", e=>{
 });
 
 function loadImage(file){
-  if(!file) return;
   const reader = new FileReader();
   reader.onload = ()=>{
     imagenBase.onload = ()=>{
       imgLoaded = true;
       imagenBase.style.display = "block";
       resizeMaskCanvas();
+      maskCtx.clearRect(0,0,maskCanvas.width,maskCanvas.height);
+      // reset resultados
+      actualizarResultados(null,null,null,null);
     };
     imagenBase.src = reader.result;
   };
   reader.readAsDataURL(file);
 }
 
-function resizeMaskCanvas(){
-  maskCanvas.width = imagenBase.clientWidth;
-  maskCanvas.height = imagenBase.clientHeight;
+/* =========================================================
+   CONTROL DE MÁSCARA
+========================================================= */
+maskOpacity.addEventListener("input", e=>{
+  const v = parseFloat(e.target.value);
+  maskOpacityVal.textContent = Math.round(v*100)+"%";
+  maskCanvas.style.opacity = v;
+});
+maskCanvas.style.opacity = parseFloat(maskOpacity.value);
+
+toggleMask.addEventListener("change", e=>{
+  maskCanvas.style.display = e.target.checked ? "block" : "none";
+});
+toggleMask.dispatchEvent(new Event("change"));
+
+/* =========================================================
+   ESTADÍSTICAS DE IMAGEN
+========================================================= */
+function computeStats(imgData, w, h){
+  const data = imgData.data;
+  const hist = new Array(256).fill(0);
+  const half = Math.floor(w/2);
+
+  let vals = [];
+  let leftVals = [];
+  let rightVals = [];
+
+  for(let y=0;y<h;y++){
+    for(let x=0;x<w;x++){
+      const idx = (y*w + x)*4;
+      const r = data[idx], g = data[idx+1], b = data[idx+2];
+
+      // excluir fondo muy negro
+      if(r<5 && g<5 && b<5) continue;
+
+      const val = 0.3*r + 0.59*g + 0.11*b;
+      const v = Math.max(0, Math.min(255, Math.round(val)));
+      hist[v]++;
+      vals.push(v);
+      if(x<half) leftVals.push(v); else rightVals.push(v);
+    }
+  }
+
+  const m  = avg(vals);
+  const ml = avg(leftVals);
+  const mr = avg(rightVals);
+  let s2 = 0;
+  for(const v of vals) s2 += (v-m)*(v-m);
+  const std = vals.length ? Math.sqrt(s2/vals.length) : 0;
+
+  return {
+    hist,
+    total: vals.length,
+    mean: m,
+    std: std,
+    meanLeft: ml,
+    meanRight: mr
+  };
 }
 
 /* =========================================================
-   MÁSCARA: OPACIDAD Y VISIBILIDAD
+   MORFOLOGÍA / COMPONENTES CONECTADOS
 ========================================================= */
-document.getElementById("maskOpacity").addEventListener("input", e=>{
-  const v = parseFloat(e.target.value);
-  document.getElementById("maskOpacityVal").textContent = Math.round(v*100)+"%";
-  maskCanvas.style.opacity = v;
-});
+function smoothMask(binaryMask, w, h, iterations){
+  if(!iterations) return binaryMask;
+  let src = binaryMask;
+  for(let it=0;it<iterations;it++){
+    const dst = new Uint8Array(w*h);
+    for(let y=1;y<h-1;y++){
+      for(let x=1;x<w-1;x++){
+        let c=0;
+        for(let dy=-1;dy<=1;dy++){
+          for(let dx=-1;dx<=1;dx++){
+            const nx=x+dx, ny=y+dy;
+            if(src[ny*w+nx]) c++;
+          }
+        }
+        if(c>=5) dst[y*w+x]=1;
+      }
+    }
+    src = dst;
+  }
+  return src;
+}
 
-document.getElementById("toggleMask").addEventListener("change", e=>{
-  maskCanvas.style.display = e.target.checked ? "block" : "none";
-});
+function extractLargestComponent(binaryMask, w, h){
+  const visited = new Uint8Array(w*h);
+  const dirs = [[1,0],[-1,0],[0,1],[0,-1]];
+  let bestComp = [];
+  let bestSize = 0;
+
+  for(let y=0;y<h;y++){
+    for(let x=0;x<w;x++){
+      const idx = y*w + x;
+      if(!binaryMask[idx] || visited[idx]) continue;
+
+      let stack = [idx];
+      let comp  = [];
+      visited[idx] = 1;
+
+      while(stack.length){
+        const p = stack.pop();
+        comp.push(p);
+        const px = p % w;
+        const py = (p / w)|0;
+
+        for(const [dx,dy] of dirs){
+          const nx = px+dx, ny = py+dy;
+          if(nx<0||ny<0||nx>=w||ny>=h) continue;
+          const ni = ny*w+nx;
+          if(binaryMask[ni] && !visited[ni]){
+            visited[ni]=1;
+            stack.push(ni);
+          }
+        }
+      }
+
+      if(comp.length>bestSize){
+        bestSize = comp.length;
+        bestComp = comp;
+      }
+    }
+  }
+
+  return bestComp;
+}
+
+function renderMask(binaryMask, w, h){
+  const img = maskCtx.createImageData(w,h);
+  const d   = img.data;
+  for(let i=0;i<w*h;i++){
+    if(binaryMask[i]){
+      const idx = i*4;
+      d[idx]   = 255;
+      d[idx+1] = 0;
+      d[idx+2] = 0;
+      d[idx+3] = 185;
+    }
+  }
+  maskCtx.putImageData(img,0,0);
+}
 
 /* =========================================================
-   DETECTOR LIGERO (versión básica)
+   DETECTORES POR MODALIDAD
 ========================================================= */
-document.getElementById("btnDetectar").addEventListener("click", detectarLesion);
+// DWI / FLAIR: hiperintensidad
+function detectHyperintensity(imgData, w, h, sensibilidad, usarCompH){
+  const stats = computeStats(imgData,w,h);
+  if(!stats.total) return null;
+
+  const baseP = 0.94 + (sensibilidad-1)*0.01; // 0.94–0.98
+  const pHigh = Math.max(0.90, Math.min(0.99, baseP));
+  let thr     = percentileFromHist(stats.hist, stats.total, pHigh);
+
+  if(usarCompH){
+    const diff = Math.abs(stats.meanLeft - stats.meanRight);
+    thr -= diff*0.05; // baja ligeramente el umbral si hay asimetría
+  }
+
+  const data   = imgData.data;
+  const binary = new Uint8Array(w*h);
+  const marginX = Math.floor(w*0.05);
+  const marginY = Math.floor(h*0.05);
+
+  for(let y=marginY; y<h-marginY; y++){
+    for(let x=marginX; x<w-marginX; x++){
+      const idx = (y*w+x)*4;
+      const r = data[idx], g = data[idx+1], b = data[idx+2];
+
+      if(r<5 && g<5 && b<5) continue; // fondo
+
+      const val = 0.3*r + 0.59*g + 0.11*b;
+      if(val >= thr){
+        binary[y*w+x] = 1;
+      }
+    }
+  }
+
+  return {binary, stats};
+}
+
+// ADC / TC: hipodensidad / hipointensidad
+function detectHypointensity(imgData, w, h, sensibilidad, usarCompH){
+  const stats = computeStats(imgData,w,h);
+  if(!stats.total) return null;
+
+  const baseP = 0.13 - (sensibilidad-1)*0.015; // 0.13–0.07
+  const pLow  = Math.max(0.02, Math.min(0.25, baseP));
+  let thr     = percentileFromHist(stats.hist, stats.total, pLow);
+
+  if(usarCompH){
+    const diff = Math.abs(stats.meanLeft - stats.meanRight);
+    thr += diff*0.05; // sube umbral si hay mucha asimetría global
+  }
+
+  const data   = imgData.data;
+  const binary = new Uint8Array(w*h);
+  const marginX = Math.floor(w*0.05);
+  const marginY = Math.floor(h*0.05);
+
+  for(let y=marginY; y<h-marginY; y++){
+    for(let x=marginX; x<w-marginX; x++){
+      const idx = (y*w+x)*4;
+      const r = data[idx], g = data[idx+1], b = data[idx+2];
+      if(r<5 && g<5 && b<5) continue; // fondo
+
+      const val = 0.3*r + 0.59*g + 0.11*b;
+      if(val > 240) continue;        // excluir hueso muy brillante
+
+      if(val <= thr){
+        binary[y*w+x] = 1;
+      }
+    }
+  }
+
+  return {binary, stats};
+}
+
+/* =========================================================
+   ORIENTACIÓN NEUROIMAGEN
+   (radiológica: pantalla izq = hemisferio derecho)
+========================================================= */
+function hemisferioDesdeImagen(cx, w, invertida){
+  const ladoPantalla = (cx < w/2) ? "izquierda" : "derecha";
+  let hemi = (ladoPantalla === "izquierda") ? "derecho" : "izquierdo";
+  if(invertida){
+    hemi = (hemi === "derecho") ? "izquierdo" : "derecho";
+  }
+  return hemi;
+}
+
+/* =========================================================
+   CLASIFICACIÓN VASCULAR PRO (orientativa)
+========================================================= */
+function clasificarTerritorioVascular(cx, cy, w, h, modo){
+  const xNorm = cx / w;
+  const yNorm = cy / h;
+
+  const dx = xNorm - 0.5;
+  const dy = yNorm - 0.5;
+  const r  = Math.sqrt(dx*dx + dy*dy); // 0 centro profundo, >0.3 cortical
+
+  let territorio = "";
+  let detalles   = [];
+  let segmentos  = [];
+
+  // corte supratentorial estándar
+  if(yNorm < 0.25){
+    territorio = "ACA";
+    segmentos.push("A2–A3 (pericallosa/callosomarginal)");
+  } else if(yNorm < 0.40){
+    territorio = "ACM (tronco superior)";
+    segmentos.push(r < 0.25 ? "Segmento M2 insular/suprainsular" : "Segmento M3 cortical frontoparietal");
+  } else if(yNorm < 0.60){
+    if(r < 0.22){
+      territorio = "Perforantes profundas";
+      segmentos.push("Lenticuloestriadas / talamoperforantes (M1–M2 proximal)");
+    } else {
+      territorio = "ACM (tronco inferior)";
+      segmentos.push("M2 insular / M3 opercular y cortical lateral");
+    }
+  } else if(yNorm < 0.80){
+    territorio = "Zona de transición ACM/PCA";
+    detalles.push("Posible watershed distal parietal-occipital");
+    segmentos.push("Ramas parietales posteriores (M4) o P2");
+  } else {
+    territorio = "PCA";
+    if(yNorm > 0.88) segmentos.push("Segmento P3 cortical occipital");
+    else segmentos.push("Segmento P2 parieto-occipital");
+  }
+
+  // ligero ajuste según modalidad
+  if(modo === "adc" || modo === "tc" && territorio === "Perforantes profundas"){
+    detalles.push("Patrón compatible con infarto lacunar / microangiopatía.");
+  }
+
+  return {territorio, detalles, segmentos};
+}
+
+/* =========================================================
+   DETECCIÓN PRINCIPAL
+========================================================= */
+btnDetectar.addEventListener("click", detectarLesion);
 
 function detectarLesion(){
   if(!imgLoaded){
@@ -529,136 +848,161 @@ function detectarLesion(){
   const w = maskCanvas.width;
   const h = maskCanvas.height;
 
-  // Volcar imagen en canvas temporal
-  const temp = document.createElement("canvas");
-  temp.width = w;
-  temp.height = h;
-  const tctx = temp.getContext("2d");
+  const tmp   = document.createElement("canvas");
+  tmp.width   = w;
+  tmp.height  = h;
+  const tctx  = tmp.getContext("2d");
   tctx.drawImage(imagenBase, 0, 0, w, h);
-
   const imgData = tctx.getImageData(0,0,w,h);
-  const data = imgData.data;
 
-  // Parámetros
-  const sensibilidad = parseInt(document.getElementById("sensibilidad").value);
-  const compH = document.getElementById("comparacionHemisferica").checked;
+  const sensibilidad = parseInt(sensibilidadSel.value,10);
+  const suavizado    = parseInt(suavizadoSel.value,10);
+  const usarCompH    = compHCheck.checked;
 
-  // División hemisférica
-  const half = Math.floor(w/2);
-  let leftVals = [], rightVals = [];
-
-  for(let y=0; y<h; y++){
-    for(let x=0; x<w; x++){
-      const i = (y*w + x)*4;
-      const val = data[i]*0.3 + data[i+1]*0.59 + data[i+2]*0.11; // luminancia
-      if(x<half) leftVals.push(val);
-      else rightVals.push(val);
-    }
+  // decidir modo efectivo
+  let modo = tipoImagenSel.value;
+  if(modo === "auto"){
+    const stats = computeStats(imgData,w,h);
+    const hist = stats.hist;
+    const total= stats.total || 1;
+    let veryDark=0, veryBright=0;
+    for(let i=0;i<20;i++) veryDark += hist[i];
+    for(let i=235;i<256;i++) veryBright += hist[i];
+    const fracDark = veryDark/total;
+    const fracBright=veryBright/total;
+    // heurístico bruto
+    if(fracDark>0.15 && fracBright>0.10) modo = "tc";
+    else modo = "dwi";
   }
 
-  const meanLeft = avg(leftVals);
-  const meanRight = avg(rightVals);
-  const diff = meanLeft - meanRight;
-
-  // Umbral básico
-  let threshold = sensibilidad * 5;
-  if(compH){
-    threshold += Math.abs(diff)*0.5;
+  let result = null;
+  if(modo === "dwi" || modo === "flair"){
+    result = detectHyperintensity(imgData,w,h,sensibilidad,usarCompH);
+  } else { // "adc" o "tc"
+    result = detectHypointensity(imgData,w,h,sensibilidad,usarCompH);
   }
 
-  // Crear máscara
-  const mask = maskCtx.getImageData(0,0,w,h);
-  const mdata = mask.data;
+  maskCtx.clearRect(0,0,w,h);
 
-  for(let y=0; y<h; y++){
-    for(let x=0; x<w; x++){
-      const i = (y*w + x)*4;
-      const val = data[i]*0.3 + data[i+1]*0.59 + data[i+2]*0.11;
-
-      let isLesion = false;
-
-      if(compH){
-        // Detector por asimetría
-        if(x<half && val < meanLeft - threshold) isLesion = true;
-        if(x>=half && val < meanRight - threshold) isLesion = true;
-      } else {
-        if(val < (meanLeft+meanRight)/2 - threshold) isLesion = true;
-      }
-
-      if(isLesion){
-        mdata[i] = 255;   // rojo
-        mdata[i+1] = 0;
-        mdata[i+2] = 0;
-        mdata[i+3] = 180; // alpha
-      } else {
-        mdata[i+3] = 0;
-      }
-    }
+  if(!result || !result.binary){
+    actualizarResultados(null,null,null,modo);
+    alert("No se han detectado áreas claramente anómalas con los parámetros actuales.");
+    return;
   }
 
-  maskCtx.putImageData(mask,0,0);
+  // suavizado + componente principal
+  const smoothed = smoothMask(result.binary, w, h, suavizado);
+  const lesionComp = extractLargestComponent(smoothed, w, h);
 
-  actualizarResultados(mask);
+  if(!lesionComp.length){
+    actualizarResultados(null,null,null,modo);
+    alert("No se ha identificado una lesión bien delimitada.");
+    return;
+  }
+
+  // construir mapa binario nuevo solo con la lesión principal
+  const binaryMain = new Uint8Array(w*h);
+  for(const idx of lesionComp) binaryMain[idx] = 1;
+
+  renderMask(binaryMain, w, h);
+
+  actualizarResultados(binaryMain, w, h, modo);
 }
 
 /* =========================================================
-   RESULTADOS (cálculo aproximado)
+   RESULTADOS + VASCULAR
 ========================================================= */
-function actualizarResultados(maskData){
-  const w = maskCanvas.width;
-  const h = maskCanvas.height;
-  const data = maskData.data;
-
-  let cnt = 0;
-  for(let i=3; i<data.length; i+=4){
-    if(data[i]>0) cnt++;
+function actualizarResultados(binaryMask, w, h, modo){
+  if(!binaryMask){
+    areaLesionEl.textContent = "–";
+    asimetriaEl.textContent  = "–";
+    confianzaEl.textContent  = "–";
+    listaTerritorios.innerHTML = "";
+    return;
   }
 
-  const areaPx = cnt;
-  const areaCm2 = (areaPx / (w*h)) * 100; // área ficticia
+  let count = 0;
+  let sumX = 0, sumY = 0;
 
-  document.getElementById("areaLesion").textContent = areaCm2.toFixed(2)+" cm²";
-  document.getElementById("asimetriaLesion").textContent = "aprox.";
-  document.getElementById("confianzaDetector").textContent = "media";
+  for(let y=0;y<h;y++){
+    for(let x=0;x<w;x++){
+      const idx = y*w + x;
+      if(binaryMask[idx]){
+        count++;
+        sumX += x;
+        sumY += y;
+      }
+    }
+  }
 
-  // Territorio ficticio por ahora (luego enlazamos mapas reales)
-  const lista = document.getElementById("listaTerritorios");
-  lista.innerHTML = `
-    <li>ACM izquierda – tronco superior (estimado)</li>
-    <li>Lenticuloestriadas (baja probabilidad)</li>
-  `;
-}
+  if(!count){
+    areaLesionEl.textContent = "0 cm²";
+    asimetriaEl.textContent  = "baja";
+    confianzaEl.textContent  = "baja";
+    listaTerritorios.innerHTML = "<li>Sin lesión bien definida.</li>";
+    return;
+  }
 
-function avg(a){
-  return a.reduce((x,y)=>x+y,0) / a.length;
+  const cx = sumX / count;
+  const cy = sumY / count;
+
+  const areaPx  = count;
+  const areaCm2 = (areaPx / (w*h)) * 100;   // escala ficticia, solo comparativa
+  areaLesionEl.textContent = areaCm2.toFixed(2) + " cm²";
+
+  const hemi = hemisferioDesdeImagen(cx, w, imagenInvertida);
+  asimetriaEl.textContent = "hemisferio " + hemi;
+
+  let conf = "media";
+  if(areaCm2 < 1.0) conf = "baja";
+  else if(areaCm2 > 25) conf = "media-baja (lesión muy extensa / posible ruido)";
+  else conf = "media-alta";
+  confianzaEl.textContent = conf;
+
+  const clasif = clasificarTerritorioVascular(cx, cy, w, h, modo);
+  const territorio = clasif.territorio || "territorio indeterminado";
+
+  let html = "";
+  html += `<li>Lesión en hemisferio <strong>${hemi}</strong>.</li>`;
+  html += `<li>Territorio vascular principal: <strong>${territorio}</strong>.</li>`;
+
+  if(clasif.segmentos && clasif.segmentos.length){
+    html += `<li>Segmento/s sugeridos: ${clasif.segmentos.join("; ")}.</li>`;
+  }
+  if(clasif.detalles && clasif.detalles.length){
+    html += `<li>${clasif.detalles.join(" ")}</li>`;
+  }
+  html += `<li>Modalidad analizada: <strong>${modo.toUpperCase()}</strong> (clasificación orientativa).</li>`;
+
+  listaTerritorios.innerHTML = html;
 }
 
 /* =========================================================
-   BORRAR MÁSCARA / REINICIAR
+   BOTONES BORRAR / REINICIAR
 ========================================================= */
-document.getElementById("btnBorrarMask").addEventListener("click", ()=>{
+btnBorrarMask.addEventListener("click", ()=>{
   maskCtx.clearRect(0,0,maskCanvas.width,maskCanvas.height);
+  actualizarResultados(null,null,null,null);
 });
 
-document.getElementById("btnResetTodo").addEventListener("click", ()=>{
+btnResetTodo.addEventListener("click", ()=>{
   imagenBase.src = "";
   imagenBase.style.display="none";
   maskCtx.clearRect(0,0,maskCanvas.width,maskCanvas.height);
   imgLoaded = false;
-
-  document.getElementById("areaLesion").textContent="–";
-  document.getElementById("asimetriaLesion").textContent="–";
-  document.getElementById("confianzaDetector").textContent="–";
-  document.getElementById("listaTerritorios").innerHTML="";
+  actualizarResultados(null,null,null,null);
 });
 
 /* =========================================================
-   AJUSTES POR REDIMENSIONADO
+   REDIMENSIONADO
 ========================================================= */
 window.addEventListener("resize", ()=>{
-  if(imgLoaded) resizeMaskCanvas();
+  if(!imgLoaded) return;
+  resizeMaskCanvas();
 });
 </script>
+
+
 
 <script src="js/index.js"></script>
 

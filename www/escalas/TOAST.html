@@ -537,6 +537,11 @@ footer img{max-width:320px;height:auto;opacity:.95}
     resultCard.style.display='none'; secondaryCard.style.display='none';
     err.style.display='none'; note.style.display='none';
     updatePill('—');
+// 🔵 Scroll al inicio suavemente
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
   }
 
   function copiar(){
