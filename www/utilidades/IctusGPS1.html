@@ -539,51 +539,6 @@ details.help .help-body{
 }
 
 /* =========================================================
-   GALERÍA DE MAPAS (MINIATURAS)
-========================================================= */
-.map-gallery{
-  display:grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap:12px;
-  margin-top:.5rem;
-}
-
-.map-thumb{
-  border:1px solid var(--borde);
-  border-radius:8px;
-  background:#fff;
-  padding:6px;
-  cursor:pointer;
-  text-align:center;
-  box-shadow:0 1px 2px rgba(0,0,0,0.1);
-  transition:transform .15s, box-shadow .15s, border-color .15s;
-}
-
-.map-thumb:hover{
-  transform:scale(1.03);
-  box-shadow:0 2px 6px rgba(0,0,0,0.15);
-  border-color:var(--accent-light);
-}
-
-.map-thumb.selected{
-  border:2px solid var(--accent-light);
-  box-shadow:0 0 0 3px rgba(37,99,235,0.25);
-}
-
-.map-thumb img{
-  width:100%;
-  height:auto;
-  border-radius:6px;
-  object-fit:cover;
-}
-
-.map-thumb-name{
-  font-size:.85rem;
-  margin-top:4px;
-  color:var(--ink);
-}
-
-/* =========================================================
    PIE
 ========================================================= */
 footer{
@@ -710,10 +665,10 @@ footer img{
         <select id="selectorSet"></select>
       </div>
 
-      <!-- Galería de mapas -->
+      <!-- Selector de mapa concreto -->
       <div class="field">
-        <label>Selecciona mapa:</label>
-        <div id="mapGallery" class="map-gallery"></div>
+        <label for="selectorMapa">Selecciona mapa:</label>
+        <select id="selectorMapa"></select>
       </div>
 
       <div class="hint small" id="mapHint"></div>
@@ -742,6 +697,7 @@ const scaleBadge   = document.getElementById('scaleBadge');
 const fileInput    = document.getElementById('fileInput');
 
 const selectorSet  = document.getElementById('selectorSet');
+const selectorMapa = document.getElementById('selectorMapa');
 const mapHint      = document.getElementById('mapHint');
 
 const opacidad     = document.getElementById('opacidad');
@@ -795,11 +751,11 @@ const mapSets = {
   corticales: {
     label: 'Arterias y ramas corticales',
     maps: [
-      {id:'mapa1', name:'Protuberancia',         src:'img/a01.png'},
-      {id:'mapa2', name:'Mesencéfalo',          src:'img/a02.png'},
-      {id:'mapa3', name:'III ventrículo',       src:'img/a03.png'},
+      {id:'mapa1', name:'Protuberancia',        src:'img/a01.png'},
+      {id:'mapa2', name:'Mesencéfalo',         src:'img/a02.png'},
+      {id:'mapa3', name:'III ventrículo',      src:'img/a03.png'},
       {id:'mapa4', name:'Cuerpos ventriculares',src:'img/a04.png'},
-      {id:'mapa5', name:'Frontoparietal',       src:'img/a05.png'}
+      {id:'mapa5', name:'Frontoparietal',      src:'img/a05.png'}
     ],
     legendHTML: `
       <h3>Arterias y ramas corticales</h3>
@@ -871,7 +827,7 @@ const mapSets = {
 };
 
 /* =========================================================
-   SELECT JUEGO DE MAPAS
+   RELLENO DE SELECTS Y LEYENDA
 ========================================================= */
 function populateSetSelect(){
   selectorSet.innerHTML = '';
@@ -883,76 +839,26 @@ function populateSetSelect(){
   }
 }
 
-/* =========================================================
-   GALERÍA DE MINIATURAS
-========================================================= */
-function populateMapGallery(setKey){
-  const gallery = document.getElementById("mapGallery");
-  gallery.innerHTML = "";
-
+function populateMapOptions(setKey){
   const set = mapSets[setKey];
+  selectorMapa.innerHTML = '';
 
-  set.maps.forEach((m)=>{
-    const div = document.createElement("div");
-    div.className = "map-thumb";
-    div.dataset.mapid = m.id;
-
-    const img = document.createElement("img");
-    img.src = m.src;
-    img.alt = m.name;
-
-    const name = document.createElement("div");
-    name.className = "map-thumb-name";
-    name.textContent = m.name;
-
-    div.appendChild(img);
-    div.appendChild(name);
-
-    div.addEventListener("click", ()=>{
-      seleccionarMapaDesdeGaleria(m.id);
-    });
-
-    gallery.appendChild(div);
+  set.maps.forEach((m, idx)=>{
+    const opt = document.createElement('option');
+    opt.value = m.id;
+    opt.textContent = m.name + (m.src ? '' : ' (no configurado)');
+    if (idx === 0) opt.selected = true;
+    selectorMapa.appendChild(opt);
   });
 
-  // leyenda del set
   leyendaBox.innerHTML = set.legendHTML;
   mapHint.textContent = '';
-
-  // seleccionar el primer mapa por defecto
-  const first = gallery.querySelector(".map-thumb");
-  if (first) first.classList.add("selected");
 }
 
-/* Seleccionar un mapa al pulsar miniatura */
-function seleccionarMapaDesdeGaleria(id){
-  const set = mapSets[selectorSet.value];
-  const entry = set.maps.find(m => m.id === id);
-
-  // marcar seleccionado visualmente
-  document.querySelectorAll(".map-thumb").forEach(t => t.classList.remove("selected"));
-  const thumb = document.querySelector(`.map-thumb[data-mapid="${id}"]`);
-  if (thumb) thumb.classList.add("selected");
-
-  if (!imagenMedica.src){
-    mapHint.textContent = "Mapa seleccionado. Carga una imagen para visualizarlo.";
-  } else if (entry && entry.src){
-    cargarMapa(entry.src);
-    mapHint.textContent = "";
-  } else {
-    mapaImg.hidden = true;
-    mapHint.textContent = "El mapa seleccionado no tiene imagen configurada.";
-  }
-}
-
-/* Obtener src del mapa actualmente seleccionado en la galería */
 function getCurrentMapSrc(){
-  const selected = document.querySelector(".map-thumb.selected");
-  if (!selected) return null;
-
   const set = mapSets[selectorSet.value];
-  const entry = set.maps.find(m => m.id === selected.dataset.mapid);
-
+  const chosenId = selectorMapa.value;
+  const entry = set.maps.find(m=>m.id===chosenId);
   return entry ? entry.src : null;
 }
 
@@ -1119,18 +1025,29 @@ window.addEventListener('resize', ()=>{
 });
 
 /* =========================================================
-   SELECTOR DE JUEGO DE MAPAS
+   SELECTORES DE SET Y MAPA
 ========================================================= */
 selectorSet.addEventListener('change', ()=>{
-  populateMapGallery(selectorSet.value);
-
+  populateMapOptions(selectorSet.value);
   if (imagenMedica.src){
     const src = getCurrentMapSrc();
-    if (src){ cargarMapa(src); }
-    else {
+    if (src){
+      cargarMapa(src);
+    } else {
       mapaImg.hidden = true;
       mapHint.textContent = 'El mapa seleccionado no tiene imagen configurada.';
     }
+  }
+});
+
+selectorMapa.addEventListener('change', ()=>{
+  if (!imagenMedica.src) return;
+  const src = getCurrentMapSrc();
+  if (src){
+    cargarMapa(src);
+  } else {
+    mapaImg.hidden = true;
+    mapHint.textContent = 'El mapa seleccionado no tiene imagen configurada.';
   }
 });
 
@@ -1329,7 +1246,8 @@ document.addEventListener('keydown', e=>{
 window.addEventListener('DOMContentLoaded', ()=>{
   populateSetSelect();
   selectorSet.value = 'infra_supra';
-  populateMapGallery('infra_supra');
+  populateMapOptions('infra_supra');
+
   actualizarOpacidad(parseFloat(opacidad.value));
 });
 </script>

@@ -321,6 +321,59 @@ footer img{max-width:320px;height:auto;opacity:.95}
   body{font-size:0.96rem;}
 }
 
+.gal-light img{
+  animation: zoomIn .25s ease-out;
+}
+
+@keyframes zoomIn {
+  0% { opacity:0; transform:scale(.85); }
+  100% { opacity:1; transform:scale(1); }
+}
+
+/* Overlay clicable para cerrar */
+.gal-overlay-close{
+  position:absolute;
+  inset:0;
+  z-index:1;        /* capa base */
+  background:transparent;
+}
+
+/* Imagen por encima del overlay */
+.gal-light img{
+  position:relative;
+  z-index:3;
+}
+
+/* Flechas y botón cerrar aún por encima */
+.gal-prev,
+.gal-next,
+.gal-close{
+  z-index:4 !important;
+}
+
+.creditos-img{
+  max-width:700px;
+  margin:1.5rem auto 0;
+  font-size:.9rem;
+  line-height:1.35;
+  color:#475569; /* gris suave */
+  padding:0.8rem 1rem;
+  border-top:1px solid #e5e7eb;
+  opacity:0.9;
+}
+
+.creditos-img strong{
+  color:#0f3d83; /* azul institucional */
+  font-weight:700;
+  font-size:0.8rem;
+}
+
+.creditos-img .correo-creditos{
+  font-weight:700;
+  color:#0f3d83;
+}
+
+
 /* =========================================================
    PADDING SUPERIOR DEL CONTENIDO
 ========================================================= */
@@ -511,14 +564,16 @@ body {
 </div>
 
 <!-- LIGHTBOXES (sin cambios) -->
-<div aria-hidden="true" class="gal-light" id="l4ee2f2de">
+<div aria-hidden="true" class="gal-light" id="l4ee2f2de"><a class="gal-overlay-close" href="#galeria-territorios"></a>
+
   <a aria-label="Anterior" class="gal-prev" href="#la8d45fb9">⟨</a>
   <a aria-label="Siguiente" class="gal-next" href="#la538cf20">⟩</a>
   <a aria-label="Cerrar" class="gal-close" href="#galeria-territorios">✕</a>
   <img alt="Territorios vasculares supratentoriales — esquema síntesis (General overview)" src="img/tv01.png">
 </div>
 
-<div aria-hidden="true" class="gal-light" id="la538cf20">
+<div aria-hidden="true" class="gal-light" id="la538cf20"><a class="gal-overlay-close" href="#galeria-territorios"></a>
+
   <a aria-label="Anterior" class="gal-prev" href="#l4ee2f2de">⟨</a>
   <a aria-label="Siguiente" class="gal-next" href="#l4c5f8a44">⟩</a>
   <a aria-label="Cerrar" class="gal-close" href="#galeria-territorios">✕</a>
@@ -526,7 +581,8 @@ body {
 
 </div>
 
-<div aria-hidden="true" class="gal-light" id="l4c5f8a44">
+<div aria-hidden="true" class="gal-light" id="l4c5f8a44"><a class="gal-overlay-close" href="#galeria-territorios"></a>
+
   <a aria-label="Anterior" class="gal-prev" href="#la538cf20">⟨</a>
   <a aria-label="Siguiente" class="gal-next" href="#l47a3ef7d">⟩</a>
   <a aria-label="Cerrar" class="gal-close" href="#galeria-territorios">✕</a>
@@ -534,7 +590,8 @@ body {
 >
 </div>
 
-<div aria-hidden="true" class="gal-light" id="l47a3ef7d">
+<div aria-hidden="true" class="gal-light" id="l47a3ef7d"><a class="gal-overlay-close" href="#galeria-territorios"></a>
+
   <a aria-label="Anterior" class="gal-prev" href="#l4c5f8a44">⟨</a>
   <a aria-label="Siguiente" class="gal-next" href="#l54e9c272">⟩</a>
   <a aria-label="Cerrar" class="gal-close" href="#galeria-territorios">✕</a>
@@ -542,7 +599,8 @@ body {
 >
 </div>
 
-<div aria-hidden="true" class="gal-light" id="l54e9c272">
+<div aria-hidden="true" class="gal-light" id="l54e9c272"><a class="gal-overlay-close" href="#galeria-territorios"></a>
+
   <a aria-label="Anterior" class="gal-prev" href="#l47a3ef7d">⟨</a>
   <a aria-label="Siguiente" class="gal-next" href="#lc0f801fc">⟩</a>
   <a aria-label="Cerrar" class="gal-close" href="#galeria-territorios">✕</a>
@@ -550,7 +608,8 @@ body {
 >
 </div>
 
-<div aria-hidden="true" class="gal-light" id="lc0f801fc">
+<div aria-hidden="true" class="gal-light" id="lc0f801fc"><a class="gal-overlay-close" href="#galeria-territorios"></a>
+
   <a aria-label="Anterior" class="gal-prev" href="#l54e9c272">⟨</a>
   <a aria-label="Siguiente" class="gal-next" href="#lad6b7fea">⟩</a>
   <a aria-label="Cerrar" class="gal-close" href="#galeria-territorios">✕</a>
@@ -558,7 +617,8 @@ body {
 
 </div>
 
-<div aria-hidden="true" class="gal-light" id="lad6b7fea">
+<div aria-hidden="true" class="gal-light" id="lad6b7fea"><a class="gal-overlay-close" href="#galeria-territorios"></a>
+
   <a aria-label="Anterior" class="gal-prev" href="#lc0f801fc">⟨</a>
   <a aria-label="Siguiente" class="gal-next" href="#lf667051f">⟩</a>
   <a aria-label="Cerrar" class="gal-close" href="#galeria-territorios">✕</a>
@@ -567,7 +627,8 @@ body {
 </div>
 
 
-<div aria-hidden="true" class="gal-light" id="lf667051f">
+<div aria-hidden="true" class="gal-light" id="lf667051f"><a class="gal-overlay-close" href="#galeria-territorios"></a>
+
   <a aria-label="Anterior" class="gal-prev" href="#lad6b7fea">⟨</a>
   <a aria-label="Siguiente" class="gal-next" href="#l922e023f">⟩</a>
   <a aria-label="Cerrar" class="gal-close" href="#galeria-territorios">✕</a>
@@ -575,7 +636,8 @@ body {
 >
 </div>
 
-<div aria-hidden="true" class="gal-light" id="l922e023f">
+<div aria-hidden="true" class="gal-light" id="l922e023f"><a class="gal-overlay-close" href="#galeria-territorios"></a>
+
   <a aria-label="Anterior" class="gal-prev" href="#lf667051f">⟨</a>
   <a aria-label="Siguiente" class="gal-next" href="#le1541af7">⟩</a>
   <a aria-label="Cerrar" class="gal-close" href="#galeria-territorios">✕</a>
@@ -583,7 +645,8 @@ body {
 >
 </div>
 
-<div aria-hidden="true" class="gal-light" id="le1541af7">
+<div aria-hidden="true" class="gal-light" id="le1541af7"><a class="gal-overlay-close" href="#galeria-territorios"></a>
+
   <a aria-label="Anterior" class="gal-prev" href="#l922e023f">⟨</a>
   <a aria-label="Siguiente" class="gal-next" href="#la8d45fb9">⟩</a>
   <a aria-label="Cerrar" class="gal-close" href="#galeria-territorios">✕</a>
@@ -591,13 +654,26 @@ body {
 >
 </div>
 
-<div aria-hidden="true" class="gal-light" id="la8d45fb9">
+<div aria-hidden="true" class="gal-light" id="la8d45fb9"><a class="gal-overlay-close" href="#galeria-territorios"></a>
+
   <a aria-label="Anterior" class="gal-prev" href="#le1541af7">⟨</a>
   <a aria-label="Siguiente" class="gal-next" href="#l4ee2f2de">⟩</a>
   <a aria-label="Cerrar" class="gal-close" href="#galeria-territorios">✕</a>
   <img alt="Perforantes y núcleos grises (ganglios basales y tálamo) / Deep perforators (basal ganglia &amp; thalamus)"                src="img/tv11.png"
 >
 </div>
+
+ <div class="howto">
+ <details>
+      <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">🧾 Créditos</summary>
+<span class="creditos-img"><p>Las ilustraciones neuroanatómicas, mapas vasculares y esquemas incluidos en esta sección proceden de diversas fuentes docentes y recursos abiertos recopilados a lo largo de los años con fines estrictamente educativos. Se ha intentado respetar siempre la licencia original y el uso razonable para docencia clínica.  
+    <br>
+    Si alguna imagen tiene derechos específicos de autor no identificados y su propietario desea recibir un crédito explícito, aportar información adicional o solicitar su retirada, puede contactar en: <span class="correo-creditos">administrador@ictusgps.com</span>.
+    <br>
+    Si alguna autoría no ha podido ser reconocida adecuadamente, será corregida de inmediato tras la notificación pertinente.<p></span>
+  </div>
+      </div>
+    </details>
 </main>
 
 
