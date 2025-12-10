@@ -25,6 +25,8 @@
   --alert-bg:#fef3f2;
   --alert-border:#f5c2c0;
   --azul-institucional:#0f3d83;
+  --muted:#64748b;
+
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -148,6 +150,15 @@ main{
   background:#fff;
   border-radius:12px;
   box-shadow:0 2px 10px rgba(0,0,0,0.04);
+}
+.howto{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  box-shadow:0 2px 2px var(--muted);
+  padding:1rem;
+  margin:.6rem 0 1rem;
+  font-size:14px;
 }
 
 h2.section-title{
@@ -386,7 +397,7 @@ a:hover{
 
 <main>
 
-  <p>Cuidados clínicos protocolizados para los pacientes ingresados en la Unidad de Ictus, según tipo de ictus y situación clínica.</p>
+  <div class="howto">Cuidados clínicos protocolizados para los pacientes ingresados en la Unidad de Ictus, según tipo de ictus y situación clínica.</div>
 
   <!-- ============================
        ATENCIÓN AL PACIENTE
@@ -429,7 +440,6 @@ a:hover{
   <div class="accordion">
     <div class="accordion-header" data-acc="neuro">
 <img src="../iconos/neurologicas.png" class="accordion-icon" alt=""><span>Complicaciones neurológicas</span>
-      <img src="../iconos/flecha_derecha.png" class="accordion-icon" alt="">
     </div>
     <div class="accordion-content">
       <ol class="protocol-list">
@@ -450,7 +460,6 @@ a:hover{
   <div class="accordion">
     <div class="accordion-header" data-acc="sistemicas">
 <img src="../iconos/sistemicas.png" class="accordion-icon" alt=""><span>Complicaciones sistémicas</span>
-      <img src="../iconos/flecha_derecha.png" class="accordion-icon" alt="">
     </div>
     <div class="accordion-content">
       <ol class="protocol-list">
@@ -496,7 +505,6 @@ a:hover{
   <div class="accordion">
     <div class="accordion-header" data-acc="especificos">
 <img src="../iconos/especificos.png" class="accordion-icon" alt=""><span>Protocolos específicos</span>
-      <img src="../iconos/flecha_derecha.png" class="accordion-icon" alt="">
     </div>
     <div class="accordion-content">
       <ol class="protocol-list">
@@ -518,78 +526,74 @@ a:hover{
 </footer>
 
 <script src="js/index.js"></script>
+
 <script>
-// ACORDEONES IctusGPS
-document.addEventListener("DOMContentLoaded", () => {
-  const accordions = document.querySelectorAll(".accordion");
-
-  accordions.forEach(acc => {
-    const header = acc.querySelector(".accordion-header");
-    const content = acc.querySelector(".accordion-content");
-    const icon = acc.querySelector(".accordion-icon");
-
-    header.addEventListener("click", () => {
-      const isOpen = content.style.maxHeight;
-
-      // Cerrar todos
-      document.querySelectorAll(".accordion-content").forEach(c => {
-        c.style.maxHeight = null;
-        c.classList.remove("open");
-      });
-      document.querySelectorAll(".accordion-icon").forEach(i => {
-        i.style.transform = "rotate(0deg)";
-      });
-
-      // Abrir si estaba cerrado
-      if (!isOpen) {
-        content.style.maxHeight = content.scrollHeight + "px";
-        content.classList.add("open");
-        icon.style.transform = "rotate(90deg)";
-      }
-    });
-  });
-});
-</script>
-<script>
+// ACORDEONES IctusGPS - Solo uno abierto
 document.addEventListener("DOMContentLoaded", () => {
 
   const headers = document.querySelectorAll(".accordion-header");
+  const contents = document.querySelectorAll(".accordion-content");
   const saved = JSON.parse(localStorage.getItem("accordionState") || "{}");
+
+  // Cerrar todos al inicio
+  contents.forEach(c => {
+    c.style.maxHeight = null;
+    c.classList.remove("open");
+  });
 
   headers.forEach(header => {
     const id = header.dataset.acc;
     const content = header.nextElementSibling;
     const icon = header.querySelector(".accordion-icon:last-of-type");
 
-    // RESTAURAR ESTADO
-    if(saved[id]){
-      header.classList.add("open");
+    // Restaurar estado
+    if (saved[id]) {
       content.style.maxHeight = content.scrollHeight + "px";
       content.classList.add("open");
-      if(icon) icon.style.transform = "rotate(90deg)";
+      if (icon) icon.style.transform = "rotate(90deg)";
     }
 
-    // GUARDAR CAMBIOS
     header.addEventListener("click", () => {
-      const isOpen = header.classList.toggle("open");
 
-      if(isOpen){
+      // SI SE QUIERE ABRIR ESTE, PRIMERO CIERRA TODOS
+      contents.forEach(c => {
+        if (c !== content) {
+          c.style.maxHeight = null;
+          c.classList.remove("open");
+        }
+      });
+
+      document.querySelectorAll(".accordion-icon:last-of-type").forEach(i => {
+        if (i !== icon) i.style.transform = "rotate(0deg)";
+      });
+
+      // Alternancia del acordeón actual
+      const isOpening = !content.classList.contains("open");
+
+      if (isOpening) {
+        // Abrir este
         content.style.maxHeight = content.scrollHeight + "px";
         content.classList.add("open");
-        if(icon) icon.style.transform = "rotate(90deg)";
+        if (icon) icon.style.transform = "rotate(90deg)";
       } else {
+        // Cerrar este
         content.style.maxHeight = null;
         content.classList.remove("open");
-        if(icon) icon.style.transform = "rotate(0deg)";
+        if (icon) icon.style.transform = "rotate(0deg)";
       }
 
-      saved[id] = isOpen;
+      // Guardar estado en localStorage
+      headers.forEach(h => {
+        const hid = h.dataset.acc;
+        saved[hid] = (h === header && isOpening);
+      });
+
       localStorage.setItem("accordionState", JSON.stringify(saved));
     });
   });
-
 });
 </script>
+
 
 <script>
 

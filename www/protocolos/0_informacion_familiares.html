@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+      viewport-fit=cover">
+    <title>Información para familiares – Unidad de Ictus</title>
+    <meta name="theme-color" content="#0f3d83">
+    <link rel="icon" type="image/png" sizes="192x192"
+      href="../iconos/ictusgps.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+      href="../iconos/ictusgps.png">
+    <style>
+/* =========================================================
+   VARIABLES Y BASE
+========================================================= */
+:root{
+  --bg:#f9fafc;
+  --ink:#0e1a33;
+  --accent:#164a8a;
+  --accent-light:#d7e3f8;
+  --accent-dark:#0f3d83;
+  --border:#e5e9f2;
+  --alert:#b30000;
+  --alert-bg:#fef3f2;
+  --alert-border:#f5c2c0;
+  --azul-institucional:#0f3d83;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+
+body{
+  font-family: Verdana, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height:1.6;
+  margin:0;
+  padding-top:calc(env(safe-area-inset-top,0px) + 52px); /* ✅ Empuja el contenido bajo la barra */
+}
+
+/* =========================================================
+   SAFE-TOP
+========================================================= */
+.safe-top{
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  height:calc(env(safe-area-inset-top,0px) + 52px);
+  background:var(--azul-institucional);
+  z-index:1001;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding-top:env(safe-area-inset-top,0px);
+}
+
+.safe-content{
+  width:100%;
+  max-width:1080px;
+  padding:6px 16px 8px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.safe-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.safe-mini{
+  width:44px;
+  height:44px;
+  object-fit:contain;
+  padding:4px;
+  box-shadow:0 0 4px rgba(0,0,0,0.1);
+}
+
+.safe-logo{
+  height:44px;
+  width:auto;
+}
+
+.safe-actions{
+  display:flex;
+  gap:10px;
+}
+
+.safe-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid white;
+  border-radius: 50%;
+  transition: background .25s, border-color .25s, transform .1s;
+}
+.safe-btn:hover {
+  background: #01c5fe;
+  border: 1px solid white;
+}
+.safe-btn:active { transform: scale(0.95); }
+.safe-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+/* =========================================================
+   CABECERA
+========================================================= */
+header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  backdrop-filter:blur(6px);
+  background:var(--accent-dark);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  box-shadow:0 2px 6px rgba(0,0,0,0.08);
+  color:#fff;
+}
+.bar{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:8px 18px;
+}
+.title{
+  font-size:1.3rem;
+  font-weight:700;
+  color:#fff;
+  text-align:center;
+  text-transform:none;
+}
+
+/* =========================================================
+   CONTENIDO
+========================================================= */
+main{
+  max-width:850px;
+  margin:0 auto;
+  padding:1rem 1.25rem 2.5rem;
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.04);
+}
+
+p{margin:0.75rem 0;text-align:justify;}
+a{color:var(--accent-dark);text-decoration:none;}
+a:hover{text-decoration:underline;color:var(--accent);}
+strong,b{color:var(--accent-dark);}
+h2,h3{color:var(--accent-dark);margin-top:1.2rem;font-size:1.05rem;}
+ul{margin:0.6rem 0 0.6rem 1.2rem;}
+li{margin:0.3rem 0;}
+hr{border:none;border-top:1px solid var(--border);margin:1.4rem 0;}
+img{max-width:100%;border-radius:8px;margin:1rem auto;display:block;}
+
+.alert{
+  text-align:center;
+  background:#fef3f2;
+  border:1px solid #f5c2c0;
+  border-radius:6px;
+  padding:0.8rem;
+  color:#800000;
+  font-weight:700;
+  margin-top:1rem;
+}
+
+.related{
+  margin-top:1.6rem;
+  background:var(--accent-light);
+  padding:1rem;
+  border-radius:8px;
+}
+.related h3{margin:0 0 .5rem 0;color:var(--accent-dark);font-size:1rem;}
+.related ol{margin:0;padding-left:1.2rem;}
+.related li{margin:0.25rem 0;}
+
+.back-btn{
+  display:inline-block;
+  margin-top:1.5rem;
+  background:var(--accent-dark);
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
+  padding:0.6rem 1.2rem;
+  border-radius:8px;
+  transition:background .2s, transform .1s;
+  text-align:center;
+}
+.back-btn:hover{
+  background:#1c60c3;
+  color:#fff;
+  transform:translateY(-1px);
+}
+
+/* =========================================================
+   PIE
+========================================================= */
+/* Pie */
+footer{
+  width:100%;
+  margin:2rem 0 0;
+  padding:1.5rem 0;
+  border-top:1px solid #e5e7eb;
+  background:#ffffff;
+  text-align:center;
+  box-shadow:0 -2px 6px rgba(0,0,0,0.04);
+}
+footer img{max-width:320px;height:auto;opacity:.95}
+</style>
+  </head>
+  <body>
+    <!-- =====================================================
+     SAFE-TOP
+===================================================== -->
+    <div class="safe-top">
+      <div class="safe-content">
+        <!-- Grupo izquierdo -->
+        <div class="safe-left"> <img src="../iconos/protocolosico.png"
+            alt="Icono Protocolos" class="safe-mini"> <img
+            src="../img/topbar.png" alt="IctusGPS" class="safe-logo"> </div>
+        <!-- Botones de acción -->
+        <div class="safe-actions"> <a href="javascript:history.back()"
+            class="safe-btn" title="Volver atrás"> <img
+              src="../iconos/atrastransparente.png" alt="Atrás"
+              class="safe-icon"> </a> <a href="../index.html"
+            class="safe-btn" title="Volver al inicio"> <img
+              src="../iconos/hometransparente.png" alt="Inicio"
+              class="safe-icon"> </a> </div>
+      </div>
+    </div>
+    <!-- =====================================================
+     CABECERA STICKY
+===================================================== -->
+    <header>
+      <div class="bar">
+        <div class="title"> Información para familiares </div>
+      </div>
+    </header>
+    <!-- =====================================================
+     CONTENIDO PRINCIPAL
+===================================================== -->
+    <main>
+      <div class="howto">
+        <p align="justify">Esta hoja informativa está dirigida a los
+          familiares de pacientes ingresados en la Unidad de Ictus.
+          Resume cómo funciona la unidad, qué cuidados recibe el
+          paciente y qué pueden esperar durante el ingreso.</p>
+      </div>
+      <!-- PANEL PRINCIPAL -->
+      <div class="panel" align="justify">
+        <hr width="100%" size="2">
+        <h2>📌 ¿Qué es un ictus?</h2>
+        <p>El ictus es una alteración brusca de la circulación cerebral
+          que provoca un déficit neurológico. Puede ser:</p>
+        <ul>
+          <li><strong>Ictus isquémico:</strong> obstrucción de una
+            arteria cerebral.</li>
+          <li><strong>Ictus hemorrágico:</strong> sangrado dentro del
+            cerebro o sus cubiertas.</li>
+        </ul>
+        <p>El tratamiento rápido y especializado mejora el pronóstico.
+          Por ello, su familiar ha ingresado en una Unidad de Ictus.</p>
+        <hr width="100%" size="2"> </div>
+      <div class="panel" align="justify">
+        <h2>➡️ ¿Por qué su familiar está en la Unidad de Ictus?</h2>
+        El ingreso en la Unidad de Ictus permite una monitorización
+        neurológica y cardiaca continua, así como un control estricto de
+        la tensión arterial, la glucemia y otros parámetros que influyen
+        directamente en la evolución del ictus. En este entorno se
+        aplican medidas específicas para prevenir complicaciones como la
+        aspiración, las infecciones o la trombosis, y se administran los
+        tratamientos especializados indicados según el tipo de ictus.
+        Además, se realiza una valoración temprana por rehabilitación.
+        Todos estos cuidados, especialmente durante las primeras <strong
+          data-start="897" data-end="912">48–72 horas</strong>,
+        contribuyen a <strong data-start="928" data-end="980">limitar
+          la extensión final de la lesión cerebral</strong>, por lo que
+        la atención intensiva en esta fase es fundamental para el
+        pronóstico del paciente.</div>
+      <div class="panel" align="justify">
+        <hr width="100%" size="2">
+        <h2>🧭 Funcionamiento de la Unidad</h2>
+        <ul>
+          <li><strong>Horarios de visita: </strong>Durante el horario
+            de visita puede permanecer una persona por paciente. Los
+            familiares pueden ir intercambiándose dentro de dicho
+            horario. Los tramos de visita son: <br>
+          </li>
+          <ul>
+            <li>13:30-14:30</li>
+            <li>19:00-20:00<br>
+            </li>
+          </ul>
+          <li><strong>Higiene:</strong> lavado de manos.</li>
+          <li><strong>Acompañamiento:</strong> no suele permitirse
+            acompañamiento continuo para garantizar control clínico y
+            descanso.</li>
+          <li><strong>Objetos personales:</strong> evite traer objetos
+            de valor.</li>
+        </ul>
+      </div>
+      <div class="panel" align="justify">
+        <hr width="100%" size="2">
+        <h2>⌛ Primeras 24–72 horas</h2>
+        <p data-start="237" data-end="552">El tiempo de estancia
+          habitual en la Unidad de Ictus es de <strong data-start="326"
+            data-end="341">48–72 horas</strong>, ya que es el periodo
+          crítico en el que las medidas de monitorización y tratamiento
+          pueden <strong data-start="433" data-end="475">limitar la
+            extensión del daño cerebral</strong>, prevenir
+          complicaciones y detectar de forma precoz cualquier
+          empeoramiento.</p>
+        <p data-start="554" data-end="685">Durante este tiempo se van
+          realizando las pruebas diagnósticas necesarias para definir el
+          tipo de ictus, su causa y el mejor tratamiento, así como
+          aquellas que se precisen si aparecen complicaciones en la
+          evolución.</p>
+        <p data-start="820" data-end="1064">Una vez superada esta fase y
+          alcanzada la estabilidad clínica, el paciente suele ser
+          trasladado a la <strong data-start="921" data-end="964">planta
+
+            de hospitalización de Neurología</strong>, donde se
+          continúan los cuidados, estudios complementarios y la
+          planificación de la rehabilitación.</p>
+        <p data-start="1066" data-end="1229">La evolución en este
+          periodo puede ser muy variable. Algunos pacientes presentan
+          mejoría, mientras que otros pueden mantenerse sin cambios o
+          incluso experimentar cierto empeoramiento según la naturaleza
+          del ictus y su evolución clínica.</p>
+      </div>
+      <div class="panel" align="justify">
+        <hr width="100%" size="2">
+        <h2>🗨️ Comunicación con el equipo sanitario</h2>
+        <ul>
+        </ul>
+        <p data-start="277" data-end="708">La información clínica se
+          transmite preferentemente durante los <strong
+            data-start="384" data-end="406">horarios de visita</strong>,
+          momento en que el médico responsable puede informar del
+          diagnóstico, la evolución y el plan de tratamiento.<br
+            data-start="515" data-end="518">
+          Si surgiera alguna <strong data-start="537" data-end="576">incidencia
+
+            o complicación relevante</strong>, el equipo sanitario
+          contactará con el paciente o su familia para proporcionar la
+          información necesaria fuera del horario habitual.</p>
+        <p data-start="710" data-end="999">La información se ofrece <strong
+            data-start="735" data-end="773">en primer lugar al propio
+            paciente</strong>, siempre que su situación lo permita.
+          Asimismo, podrá comunicarse a sus familiares u otras personas
+          <strong data-start="874" data-end="916">únicamente si el
+            paciente las autoriza</strong> o, cuando no sea posible
+          obtener dicha autorización, a sus representantes legales.</p>
+        <p data-start="1001" data-end="1120">El personal de enfermería
+          es la referencia para dudas prácticas sobre cuidados, horarios
+          y funcionamiento de la Unidad.</p>
+        <ul>
+        </ul>
+      </div>
+      <div class="panel" align="justify">
+        <hr width="100%" size="2">
+        <h2>🛡️ Prevención de complicaciones</h2>
+        <ul>
+        </ul>
+        En la Unidad de Ictus se aplican medidas específicas orientadas
+        a prevenir complicaciones frecuentes, entre ellas el control
+        riguroso de la tensión arterial, la valoración de la deglución
+        para reducir el riesgo de aspiración, la movilización precoz
+        cuando las condiciones clínicas lo permiten, la prevención de la
+        trombosis venosa mediante estrategias adecuadas y la
+        monitorización continua del ritmo cardiaco y de la respiración.
+        <ul>
+        </ul>
+      </div>
+      <div class="panel" align="justify">
+        <hr width="100%" size="2">
+        <h2>💪 Rehabilitación y recuperación</h2>
+        <ul>
+        </ul>
+        Se inician las <strong data-start="333" data-end="422">medidas
+          y valoraciones que permiten orientar y favorecer la
+          recuperación del paciente</strong>, siempre de acuerdo con su
+        situación clínica. Cuando es seguro hacerlo, se comienza la
+        movilización precoz y se solicita la intervención del
+        especialista en Rehabilitación y del equipo de Fisioterapia. A
+        lo largo de este proceso se valoran la fuerza y la movilidad, el
+        lenguaje y la comprensión, la deglución y el riesgo de
+        aspiración, así como el equilibrio y la marcha, estos últimos
+        únicamente cuando el estado clínico del paciente permite
+        realizarlos con seguridad.
+        <ul>
+        </ul>
+      </div>
+      <div class="panel" align="justify">
+        <hr width="100%" size="2"></div>
+      <div class="panel">
+        <h2 align="justify">🫂 ¿Qué pueden hacer los familiares?</h2>
+        <div align="justify">
+          <ul>
+          </ul>
+          Los familiares pueden contribuir de forma importante al
+          bienestar del paciente. Es útil hablarle con calma y claridad
+          y ayudar a mantener un entorno tranquilo que favorezca su
+          descanso. Es fundamental <strong data-start="432"
+            data-end="526">no ofrecerle nada por boca —ni comida ni
+            bebida— hasta que el equipo sanitario lo autorice</strong>,
+          ya que algunos pacientes presentan alteraciones de la
+          deglución que pueden provocar atragantamientos o aspiraciones.
+          También deben respetar los horarios de la Unidad, informar al
+          personal si perciben cualquier cambio relevante en el estado
+          del paciente y colaborar más adelante en la organización de su
+          vuelta a casa y en la adaptación del entorno para facilitar su
+          recuperación.<br>
+          <img src="../img/horario.png" alt="Familiares en UI"
+            width="400" height="286" align="middle"><br>
+        </div>
+        <ul>
+        </ul>
+      </div>
+      <a href="index.html" class="back-btn">Volver al índice</a> </main>
+    <!-- page-wrap -->
+    <footer> <img src="../img/uibanner.png" alt="Ictus GPS"> </footer>
+    <script src="js/index.js"></script>
+  </body>
+</html>
