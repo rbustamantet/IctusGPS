@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0f3d83">
-<title>ASPECTS — Signos precoces de isquemia en TC (ACM)</title>
+  <head>
 
-<!-- ICONOS Y MANIFIESTO -->
-<link rel="manifest" href="../site.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
-<link rel="shortcut icon" href="../iconos/ictusgps.png">
-
-<style>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+      viewport-fit=cover">
+    <meta name="theme-color" content="#0f3d83">
+    <title>ASPECTS — Signos precoces de isquemia en TC (ACM)</title>
+    <!-- ICONOS Y MANIFIESTO -->
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192"
+      href="../iconos/ictusgps.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+      href="../iconos/ictusgps.png">
+    <link rel="shortcut icon" href="../iconos/ictusgps.png">
+    <style>
 :root{
   --bg:#f9fafc;
   --ink:#0e1a33;
@@ -257,78 +260,76 @@ body {
 }
 
 </style>
-</head>
-
-<body>
-<!-- SAFE TOP -->
-<div class="safe-top">
-  <div class="safe-content">
-    <div class="safe-left">
-      <img src="../iconos/escalasico.png" alt="Icono Escalas" class="safe-mini">
-      <img src="../img/topbar.png" alt="IctusGPS" class="safe-logo">
-    </div>
-    <div class="safe-actions">
-      <a href="javascript:history.back()" class="safe-btn" title="Volver atrás">
-        <img src="../iconos/atrastransparente.png" alt="Atrás" class="safe-icon">
-      </a>
-      <a href="../index.html" class="safe-btn" title="Volver al inicio">
-        <img src="../iconos/hometransparente.png" alt="Inicio" class="safe-icon">
-      </a>
-    </div>
-  </div>
-</div>
-
-<header>
-  <div class="bar">
-    <div class="title"><img src="../iconos/aspects.png" alt="ASPECTS">ASPECTS</div>
-    <output id="pill" class="pill">10</output>
-  </div>
-</header>
-
-
-
-<main class="wrap">
-<div class="howto">Sistema de puntuación radiológica rápido utilizado para evaluar el <b>daño isquémico temprano</b> en la tomografía computarizada (TC) cerebral en pacientes con ictus de la arteria cerebral media (ACM). Divide el territorio de la ACM en 10 áreas; por cada área afectada por <b>signos isquémicos tempranos</b>, se resta un punto de un máximo de 10. La puntuación final (0-10) es crucial para guiar la elegibilidad para tratamientos de reperfusión, como la trombectomía.</div>
-  <section class="panel">
-    <figure class="imgbox">
-      <img src="../img/aspects.png" alt="Esquema de regiones ASPECTS">
-    </figure>
-
-    <div class="grid" id="checks">
-      <label class="chk"><input class="r" type="checkbox"> I – Ínsula</label>
-      <label class="chk"><input class="r" type="checkbox"> C – Caudado</label>
-      <label class="chk"><input class="r" type="checkbox"> L – Lenticular</label>
-      <label class="chk"><input class="r" type="checkbox"> CI – Cápsula interna</label>
-      <label class="chk"><input class="r" type="checkbox"> M1 – Corteza insular anterior</label>
-      <label class="chk"><input class="r" type="checkbox"> M2 – Corteza ACM anterior</label>
-      <label class="chk"><input class="r" type="checkbox"> M3 – Corteza ACM posterior</label>
-      <label class="chk"><input class="r" type="checkbox"> M4 – Corteza ACM alta anterior</label>
-      <label class="chk"><input class="r" type="checkbox"> M5 – Corteza ACM alta lateral</label>
-      <label class="chk"><input class="r" type="checkbox"> M6 – Corteza ACM alta posterior</label>
-    </div>
-
-    <div class="chips" id="chips"></div>
-
-    <div class="kpi">
-      <div class="box">
-        <h4>ASPECTS</h4>
-        <div class="big" id="scoreVal">10</div>
-      </div>
-      <div class="box tone-green" id="catBox">
-        <h4>Categoría</h4>
-        <div class="big" id="catVal">Favorable (≥7)</div>
+  </head>
+  <body>
+    <!-- SAFE TOP -->
+    <div class="safe-top">
+      <div class="safe-content">
+        <div class="safe-left"> <img src="../iconos/escalasico.png"
+            alt="Icono Escalas" class="safe-mini"> <img
+            src="../img/topbar.png" alt="IctusGPS" class="safe-logo"> </div>
+        <div class="safe-actions"> <a href="javascript:history.back()"
+            class="safe-btn" title="Volver atrás"> <img
+              src="../iconos/atrastransparente.png" alt="Atrás"
+              class="safe-icon"> </a> <a href="../index.html"
+            class="safe-btn" title="Volver al inicio"> <img
+              src="../iconos/hometransparente.png" alt="Inicio"
+              class="safe-icon"> </a> </div>
       </div>
     </div>
-
-    <div class="actions-inline">
-      <button id="btnBorrar" type="button" class="btn-secondary">Borrar</button>
-      <button id="btnCopiar" type="button" class="btn-secondary">Copiar resumen</button>
-    </div>
-  </section>
-
-</main>
-
-<script>
+    <header>
+      <div class="bar">
+        <div class="title"><img src="../iconos/aspects.png"
+            alt="ASPECTS">ASPECTS</div>
+        <output id="pill" class="pill">10</output> </div>
+    </header>
+    <main class="wrap">
+      <div class="howto" align="justify">Sistema de puntuación
+        radiológica rápido utilizado para evaluar el <b>daño isquémico
+          temprano</b> en la tomografía computarizada (TC) cerebral en
+        pacientes con ictus de la arteria cerebral media (ACM). Divide
+        el territorio de la ACM en 10 áreas; por cada área afectada por
+        <b>signos isquémicos tempranos</b>, se resta un punto de un
+        máximo de 10. La puntuación final (0-10) es crucial para guiar
+        la elegibilidad para tratamientos de reperfusión, como la
+        trombectomía.</div>
+      <section class="panel">
+        <figure class="imgbox"> <img src="../img/aspects.png"
+            alt="Esquema de regiones ASPECTS"> </figure>
+        <div class="grid" id="checks"> <label class="chk"><input
+              class="r" type="checkbox"> I – Ínsula</label> <label
+            class="chk"><input class="r" type="checkbox"> C – Caudado</label>
+          <label class="chk"><input class="r" type="checkbox"> L –
+            Lenticular</label> <label class="chk"><input class="r"
+              type="checkbox"> CI – Cápsula interna</label> <label
+            class="chk"><input class="r" type="checkbox"> M1 – Corteza
+            insular anterior</label> <label class="chk"><input
+              class="r" type="checkbox"> M2 – Corteza ACM anterior</label>
+          <label class="chk"><input class="r" type="checkbox"> M3 –
+            Corteza ACM posterior</label> <label class="chk"><input
+              class="r" type="checkbox"> M4 – Corteza ACM alta anterior</label>
+          <label class="chk"><input class="r" type="checkbox"> M5 –
+            Corteza ACM alta lateral</label> <label class="chk"><input
+              class="r" type="checkbox"> M6 – Corteza ACM alta posterior</label>
+        </div>
+        <div class="chips" id="chips"></div>
+        <div class="kpi">
+          <div class="box">
+            <h4>ASPECTS</h4>
+            <div class="big" id="scoreVal">10</div>
+          </div>
+          <div class="box tone-green" id="catBox">
+            <h4>Categoría</h4>
+            <div class="big" id="catVal">Favorable (≥7)</div>
+          </div>
+        </div>
+        <div class="actions-inline"> <button id="btnBorrar"
+            type="button" class="btn-secondary">Borrar</button> <button
+            id="btnCopiar" type="button" class="btn-secondary">Copiar
+            resumen</button> </div>
+      </section>
+    </main>
+    <script>
 const GE = '≥', LE = '≤', ND = '–';
 
 function actualizarPill(score){
@@ -395,11 +396,8 @@ document.querySelectorAll('.r').forEach(ch => ch.addEventListener('change', actu
 document.getElementById('btnBorrar').addEventListener('click', borrarASPECTS);
 document.getElementById('btnCopiar').addEventListener('click', copiarASPECTS);
 </script>
-
-<footer>
-  <img src="../img/uibanner.png" alt="Ictus GPS">
-</footer>
-<script src="js/index.js"></script>
-</body>
+    <footer> <img src="../img/uibanner.png" alt="Ictus GPS">
+    </footer>
+    <script src="js/index.js"></script>
+  </body>
 </html>
-

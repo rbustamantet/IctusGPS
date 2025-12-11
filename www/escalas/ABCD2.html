@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="manifest" href="../site.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
-<link rel="shortcut icon" href="../iconos/ictusgps.png">
-<meta name="theme-color" content="#0f3d83">
-<title>ABCD² — Riesgo de ictus tras AIT</title>
-<style>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192"
+      href="../iconos/ictusgps.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+      href="../iconos/ictusgps.png">
+    <link rel="shortcut icon" href="../iconos/ictusgps.png">
+    <meta name="theme-color" content="#0f3d83">
+    <title>ABCD² — Riesgo de ictus tras AIT</title>
+    <style>
 :root{
   --bg:#f9fafc;
   --ink:#0e1a33;
@@ -247,109 +251,120 @@ body {
 
 
 </style>
-
-
-</head>
-<body>
-<!-- SAFE-TOP -->
-<div class="safe-top">
-  <div class="safe-content">
-    <div class="safe-left">
-      <img src="../iconos/escalasico.png" alt="Icono Escalas" class="safe-mini">
-      <img src="../img/topbar.png" alt="IctusGPS" class="safe-logo">
-    </div>
-    <div class="safe-actions">
-      <a href="javascript:history.back()" class="safe-btn" title="Volver atrás">
-        <img src="../iconos/atrastransparente.png" alt="Atrás" class="safe-icon">
-      </a>
-      <a href="../index.html" class="safe-btn" title="Volver al inicio">
-        <img src="../iconos/hometransparente.png" alt="Inicio" class="safe-icon">
-      </a>
-    </div>
-  </div>
-</div>
-
-<header>
-  <div class="bar">
-    <div class="title"><img src="../iconos/abcd2.png" alt="ABCD²">ABCD²</div>
-    <output id="pill" class="pill" aria-live="polite" aria-atomic="true" aria-label="Puntuación ABCD²">—</output>
-  </div>
-</header>
-
-
-
-
-<main class="wrap">
-<div class="howto">Herramienta clínica para estimar el <b>riesgo de sufrir un ictus isquémico en los días siguientes a un Ataque Isquémico Transitorio</b>. Su resultado clasifica el riesgo como <b>Bajo, Moderado o Alto</b>, guiando la urgencia del estudio etiológico y el manejo clínico para prevenir un ictus inminente.<div class="howto" style="
-  margin-top:12px;
-  background:#fff7d6;
-  border-left:4px solid #d97706;
-  padding:0.75rem 1rem;
-  font-size:14px;
-">
-  🩺<b>Nota aclaratoria:</b> la clasificación original ABCD² establece los grupos 
-  <i>Bajo (0–3)</i>, <i>Moderado (4–5)</i> y <i>Alto (6–7)</i>. Sin embargo, en los ensayos 
-  CHANCE y POINT y en las guías AHA/ASA y ESO se utiliza <b>ABCD² ≥ 4</b> como criterio 
-  operativo para definir <b>AIT de alto riesgo</b> en la selección de pacientes candidatos 
-  a doble antiagregación precoz.
-</div></div>
-
-
-    <section class="panel">
-    <div class="grid">
-      <div><label for="a">Edad ≥ 60 años</label>
-        <select id="a"><option value="0">No (0)</option><option value="1">Sí (1)</option></select>
-      </div>
-      <div><label for="b">Tensión arterial inicial ≥ 140/90</label>
-        <select id="b"><option value="0">No (0)</option><option value="1">Sí (1)</option></select>
-      </div>
-      <div><label for="c">Clínica</label>
-        <select id="c">
-          <option value="0">Otro (0)</option>
-          <option value="1">Déficit del habla sin paresia (1)</option>
-          <option value="2">Debilidad unilateral (2)</option>
-        </select>
-      </div>
-      <div><label for="d">Duración</label>
-        <select id="d">
-          <option value="0">&lt; 10 min (0)</option>
-          <option value="1">10–59 min (1)</option>
-          <option value="2">≥ 60 min (2)</option>
-        </select>
-      </div>
-      <div><label for="di">Diabetes</label>
-        <select id="di"><option value="0">No (0)</option><option value="1">Sí (1)</option></select>
+  </head>
+  <body>
+    <!-- SAFE-TOP -->
+    <div class="safe-top">
+      <div class="safe-content">
+        <div class="safe-left"> <img src="../iconos/escalasico.png"
+            alt="Icono Escalas" class="safe-mini"> <img
+            src="../img/topbar.png" alt="IctusGPS" class="safe-logo"> </div>
+        <div class="safe-actions"> <a href="javascript:history.back()"
+            class="safe-btn" title="Volver atrás"> <img
+              src="../iconos/atrastransparente.png" alt="Atrás"
+              class="safe-icon"> </a> <a href="../index.html"
+            class="safe-btn" title="Volver al inicio"> <img
+              src="../iconos/hometransparente.png" alt="Inicio"
+              class="safe-icon"> </a> </div>
       </div>
     </div>
-
-    <div id="resultCard" class="card" role="region" aria-live="polite" aria-atomic="true">
-      <div class="kpi">
-        <div class="box">
-          <div class="ttl">Puntuación ABCD²</div>
-          <div class="val" id="scoreVal">—</div>
-          <div class="mini">Rango: 0–7</div>
-        </div>
-        <div class="box" id="boxCat">
-          <div class="ttl">Riesgo</div>
-          <div class="val" id="riskLabel">—</div>
-          <div class="mini">Bajo 0–3 · Moderado 4–5 · Alto 6–7</div>
+    <header>
+      <div class="bar">
+        <div class="title"><img src="../iconos/abcd2.png" alt="ABCD²">ABCD²</div>
+        <output id="pill" class="pill" aria-live="polite"
+          aria-atomic="true" aria-label="Puntuación ABCD²">—</output>
+        &nbsp; </div>
+    </header>
+    <main class="wrap">
+      <div class="howto">
+        <div align="justify">Herramienta clínica para estimar el <b>riesgo
+            de sufrir un ictus isquémico en los días siguientes a un
+            Ataque Isquémico Transitorio</b>. Su resultado clasifica el
+          riesgo como <b>Bajo, Moderado o Alto</b>, guiando la urgencia
+          del estudio etiológico y el manejo clínico para prevenir un
+          ictus inminente.</div>
+        <div class="howto" style=" margin-top:12px; background:#fff7d6;
+          border-left:4px solid #d97706; padding:0.75rem 1rem;
+          font-size:14px;
+          " align="justify"> 🩺<b>Nota aclaratoria:</b> la clasificación
+          original ABCD² establece los grupos <i>Bajo (0–3)</i>, <i>Moderado
+            (4–5)</i> y <i>Alto (6–7)</i>. Sin embargo, en los ensayos
+          CHANCE y POINT y en las guías AHA/ASA y ESO se utiliza <b>ABCD²
+            ≥ 4</b> como criterio operativo para definir <b>AIT de alto
+            riesgo</b> en la selección de pacientes candidatos a doble
+          antiagregación precoz.
         </div>
       </div>
-      <div class="kpi3">
-        <div class="box" id="risk2"><div class="ttl">Riesgo a 2 días</div><div class="val" id="p2">—</div></div>
-        <div class="box" id="risk7"><div class="ttl">Riesgo a 7 días</div><div class="val" id="p7">—</div></div>
-        <div class="box" id="risk90"><div class="ttl">Riesgo a 90 días</div><div class="val" id="p90">—</div></div>
-      </div>
-
-      <div class="actions">
-        <button id="btnClear" class="btn-action btn-clear">Borrar</button>
-        <button id="btnCopy" class="btn-action btn-copy">Copiar resumen</button>
-      </div>
-    </div>
-  </section>
-</main>
-
-<script>
+      <section class="panel">
+        <div class="grid">
+          <div><label for="a">Edad ≥ 60 años</label>
+            <select id="a">
+              <option value="0" selected="selected">No (0)</option>
+              <option value="1">Sí (1)</option>
+            </select>
+          </div>
+          <div><label for="b">Tensión arterial inicial ≥ 140/90</label>
+            <select id="b">
+              <option value="0" selected="selected">No (0)</option>
+              <option value="1">Sí (1)</option>
+            </select>
+          </div>
+          <div><label for="c">Clínica</label>
+            <select id="c">
+              <option value="0" selected="selected">Otro (0)</option>
+              <option value="1">Déficit del habla sin paresia (1)</option>
+              <option value="2">Debilidad unilateral (2)</option>
+            </select>
+          </div>
+          <div><label for="d">Duración</label>
+            <select id="d">
+              <option value="0" selected="selected">&lt; 10 min (0)</option>
+              <option value="1">10–59 min (1)</option>
+              <option value="2">≥ 60 min (2)</option>
+            </select>
+          </div>
+          <div><label for="di">Diabetes</label>
+            <select id="di">
+              <option value="0" selected="selected">No (0)</option>
+              <option value="1">Sí (1)</option>
+            </select>
+          </div>
+        </div>
+        <div id="resultCard" class="card" role="region"
+          aria-live="polite" aria-atomic="true">
+          <div class="kpi">
+            <div class="box">
+              <div class="ttl">Puntuación ABCD²</div>
+              <div class="val" id="scoreVal">—</div>
+              <div class="mini">Rango: 0–7</div>
+            </div>
+            <div class="box" id="boxCat">
+              <div class="ttl">Riesgo</div>
+              <div class="val" id="riskLabel">—</div>
+              <div class="mini">Bajo 0–3 · Moderado 4–5 · Alto 6–7</div>
+            </div>
+          </div>
+          <div class="kpi3">
+            <div class="box" id="risk2">
+              <div class="ttl">Riesgo a 2 días</div>
+              <div class="val" id="p2">—</div>
+            </div>
+            <div class="box" id="risk7">
+              <div class="ttl">Riesgo a 7 días</div>
+              <div class="val" id="p7">—</div>
+            </div>
+            <div class="box" id="risk90">
+              <div class="ttl">Riesgo a 90 días</div>
+              <div class="val" id="p90">—</div>
+            </div>
+          </div>
+          <div class="actions"> <button id="btnClear" class="btn-action
+              btn-clear">Borrar</button> <button id="btnCopy"
+              class="btn-action btn-copy">Copiar resumen</button> </div>
+        </div>
+      </section>
+    </main>
+    <script>
 const RISK_MAP = {
   bajo:     {p2:'1,0 %', p7:'1,2 %', p90:'3,1 %'},
   moderado: {p2:'4,1 %', p7:'5,9 %', p90:'9,8 %'},
@@ -443,10 +458,8 @@ document.getElementById('btnClear').addEventListener('click',borrar);
 document.getElementById('btnCopy').addEventListener('click',copiar);
 document.addEventListener('DOMContentLoaded',calc);
 </script>
-
-<footer>
-  <img src="../img/uibanner.png" alt="Ictus GPS">
-</footer>
-<script src="js/index.js"></script>
-</body>
+    <footer> <img src="../img/uibanner.png" alt="Ictus GPS">
+    </footer>
+    <script src="js/index.js"></script>
+  </body>
 </html>

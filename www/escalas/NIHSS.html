@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="manifest" href="../site.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
-<link rel="shortcut icon" href="../iconos/ictusgps.png">
-<meta name="theme-color" content="#0f3d83">
-<title>Escala del NIH para el Ictus (NIHSS)</title>
+  <head>
 
-<style>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192"
+      href="../iconos/ictusgps.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+      href="../iconos/ictusgps.png">
+    <link rel="shortcut icon" href="../iconos/ictusgps.png">
+    <meta name="theme-color" content="#0f3d83">
+    <title>Escala del NIH para el Ictus (NIHSS)</title>
+    <style>
 :root{
   --bg:#f8fafc; --ink:#0f172a; --borde:#e5e7eb; --borde2:#dbeafe;
   --accent:#2563eb; --accent-ink:#1e3a8a; --accent-dark:#0f3d83;
@@ -118,18 +121,10 @@ header {
   font-size: 1.4rem;
   font-weight: 700;
   color: #fff;
-}
-/* =========================================================
-   CABECERA
-========================================================= */
-/* ... (reglas existentes) ... */
-
-
-.title {
   display: flex; /* <-- NUEVO: Habilita flexbox para alinear el icono */
   align-items: center; /* <-- NUEVO: Centra el icono y el texto verticalmente */
-  /* ... (otras reglas de title) ... */
 }
+
 .title img {
   width: 32px; /* Define el tamaño del icono */
   height: 32px;
@@ -277,7 +272,6 @@ footer img{max-width:320px;height:auto;opacity:.95}
 body {
   margin: 0;
   padding-top: calc(env(safe-area-inset-top, 0px) + 52px);
-  background-color: #fff;
 }
 
 @media(max-width:768px){
@@ -287,359 +281,351 @@ body {
 }
 
 </style>
-
-</head>
-<body>
-
-<!-- SAFE-TOP -->
-<div class="safe-top">
-  <div class="safe-content">
-    <div class="safe-left">
-      <img src="../iconos/escalasico.png" alt="Icono Escalas" class="safe-mini">
-      <img src="../img/topbar.png" alt="IctusGPS" class="safe-logo">
-    </div>
-    <div class="safe-actions">
-      <a href="javascript:history.back()" class="safe-btn" title="Volver atrás">
-        <img src="../iconos/atrastransparente.png" alt="Atrás" class="safe-icon">
-      </a>
-      <a href="../index.html" class="safe-btn" title="Volver al inicio">
-        <img src="../iconos/hometransparente.png" alt="Inicio" class="safe-icon">
-      </a>
-    </div>
-  </div>
-</div>
-
-<header>
-  <div class="bar">
-    <div class="title"><img src="../iconos/nihss.png" alt="NIHSS">NIHSS</div>
-        <output id="pill" class="pill" aria-live="polite" aria-atomic="true">–</output>
-  </div>
-</header>
-
-
-
-<main class="wrap">  
-<div class="howto">La escala NIHSS (National Institutes of Health Stroke Scale) es la herramienta más utilizada para cuantificar el <b>déficit neurológico</b> causado por un ictus isquémico o hemorrágico. Evalúa 15 ítems (conciencia, lenguaje, función motora, sensibilidad, ataxia) en una puntuación de 0 a 42. Su resultado es crucial para determinar la <b>elegibilidad para tratamientos de reperfusión</b> (fibrinolisis/trombectomía) y para monitorizar la <b>evolución clínica</b> del paciente.</div>
-  <section class="panel">
-    <p class="note">Complete los ítems; la puntuación total y la interpretación se actualizan automáticamente.</p>
-
-    <!-- ===== BLOQUES NIHSS ===== -->
-    <div id="formBlocks">
-      <!-- Generación manual para control fino de etiquetas y ayudas -->
-      <!-- 1a -->
-      <div class="coll default-open" data-id="n1a">
-        <div class="coll-head" tabindex="0">
-          <span class="arrow" aria-hidden="true">▸</span>
-          <span class="ttl"><strong>1a. Nivel de conciencia</strong></span>
-          <button class="help" type="button" data-help="n1a">Ayuda</button>
-        </div>
-        <div class="coll-body">
-          <label for="n1a">Seleccione una opción</label>
-          <select id="n1a">
-            <option value="0">0 - Alerta</option>
-            <option value="1">1 - Somnoliento</option>
-            <option value="2">2 - Estupor</option>
-            <option value="3">3 - Coma</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- 1b -->
-      <div class="coll default-open" data-id="n1b">
-        <div class="coll-head" tabindex="0">
-          <span class="arrow" aria-hidden="true">▸</span>
-          <span class="ttl"><strong>1b. Preguntas LOC</strong></span>
-          <button class="help" type="button" data-help="n1b">Ayuda</button>
-        </div>
-        <div class="coll-body">
-          <label for="n1b">Seleccione una opción</label>
-          <select id="n1b">
-            <option value="0">0 - Ambas respuestas correctas</option>
-            <option value="1">1 - Una respuesta correcta</option>
-            <option value="2">2 - Ninguna respuesta correcta</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- 1c -->
-      <div class="coll default-open" data-id="n1c">
-        <div class="coll-head" tabindex="0">
-          <span class="arrow" aria-hidden="true">▸</span>
-          <span class="ttl"><strong>1c. Comandos LOC</strong></span>
-          <button class="help" type="button" data-help="n1c">Ayuda</button>
-        </div>
-        <div class="coll-body">
-          <label for="n1c">Seleccione una opción</label>
-          <select id="n1c">
-            <option value="0">0 - Cumple ambas órdenes</option>
-            <option value="1">1 - Cumple una orden</option>
-            <option value="2">2 - No cumple órdenes</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- 2 Mirada -->
-      <div class="coll default-open" data-id="n2">
-        <div class="coll-head" tabindex="0">
-          <span class="arrow" aria-hidden="true">▸</span>
-          <span class="ttl"><strong>2. Mirada</strong></span>
-          <button class="help" type="button" data-help="n2">Ayuda</button>
-        </div>
-        <div class="coll-body">
-          <label for="n2">Seleccione una opción</label>
-          <select id="n2">
-            <option value="0">0 - Normal</option>
-            <option value="1">1 - Parálisis parcial de la mirada</option>
-            <option value="2">2 - Parálisis completa o desviación forzada</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- 3 Campos visuales -->
-      <div class="coll default-open" data-id="n3">
-        <div class="coll-head" tabindex="0">
-          <span class="arrow" aria-hidden="true">▸</span>
-          <span class="ttl"><strong>3. Campos visuales</strong></span>
-          <button class="help" type="button" data-help="n3">Ayuda</button>
-        </div>
-        <div class="coll-body">
-          <label for="n3">Seleccione una opción</label>
-          <select id="n3">
-            <option value="0">0 - Normal</option>
-            <option value="1">1 - Defecto parcial o cuadrantanopsia</option>
-            <option value="2">2 - Hemianopsia completa</option>
-            <option value="3">3 - Ceguera, hemianopsia bilateral</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- 4 Parálisis facial -->
-      <div class="coll default-open" data-id="n4">
-        <div class="coll-head" tabindex="0">
-          <span class="arrow" aria-hidden="true">▸</span>
-          <span class="ttl"><strong>4. Parálisis facial</strong></span>
-          <button class="help" type="button" data-help="n4">Ayuda</button>
-        </div>
-        <div class="coll-body">
-          <label for="n4">Seleccione una opción</label>
-          <select id="n4">
-            <option value="0">0 - Normal</option>
-            <option value="1">1 - Paresia leve, asimetría de la sonrisa</option>
-            <option value="2">2 - Paresia parcial</option>
-            <option value="3">3 - Parálisis completa</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- 5a/b Motor brazos -->
-      <div class="coll default-open" data-id="n5a">
-        <div class="coll-head" tabindex="0">
-          <span class="arrow" aria-hidden="true">▸</span>
-          <span class="ttl"><strong>5a. Motor brazo izquierdo</strong></span>
-          <button class="help" type="button" data-help="n5">Ayuda</button>
-        </div>
-        <div class="coll-body">
-          <label for="n5a">Seleccione una opción</label>
-          <select id="n5a">
-            <option value="0">0 - No cae</option>
-            <option value="1">1 - Cae antes de 10 segundos sin tocar plano</option>
-            <option value="2">2 - Algún esfuerzo contra la gravedad</option>
-            <option value="3">3 - Sin esfuerzo contra la gravedad</option>
-            <option value="4">4 - Sin movimiento</option>
-            <option value="0" data-un="1">UN - No evaluable (amputación o articulación fijada)</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="coll default-open" data-id="n5b">
-        <div class="coll-head" tabindex="0">
-          <span class="arrow" aria-hidden="true">▸</span>
-          <span class="ttl"><strong>5b. Motor brazo derecho</strong></span>
-          <button class="help" type="button" data-help="n5">Ayuda</button>
-        </div>
-        <div class="coll-body">
-          <label for="n5b">Seleccione una opción</label>
-          <select id="n5b">
-            <option value="0">0 - No cae</option>
-            <option value="1">1 - Cae antes de 10 segundos sin tocar plano</option>
-            <option value="2">2 - Algún esfuerzo contra la gravedad</option>
-            <option value="3">3 - Sin esfuerzo contra la gravedad</option>
-            <option value="4">4 - Sin movimiento</option>
-            <option value="0" data-un="1">UN - No evaluable (amputación o articulación fijada)</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- 6a/b Motor piernas -->
-      <div class="coll default-open" data-id="n6a">
-        <div class="coll-head" tabindex="0">
-          <span class="arrow" aria-hidden="true">▸</span>
-          <span class="ttl"><strong>6a. Motor pierna izquierda</strong></span>
-          <button class="help" type="button" data-help="n6">Ayuda</button>
-        </div>
-        <div class="coll-body">
-          <label for="n6a">Seleccione una opción</label>
-          <select id="n6a">
-            <option value="0">0 - No cae</option>
-            <option value="1">1 - Cae antes de 5 segundos sin tocar plano</option>
-            <option value="2">2 - Algún esfuerzo contra la gravedad</option>
-            <option value="3">3 - Sin esfuerzo contra la gravedad</option>
-            <option value="4">4 - Sin movimiento</option>
-            <option value="0" data-un="1">UN - No evaluable (amputación o articulación fijada)</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="coll default-open" data-id="n6b">
-        <div class="coll-head" tabindex="0">
-          <span class="arrow" aria-hidden="true">▸</span>
-          <span class="ttl"><strong>6b. Motor pierna derecha</strong></span>
-          <button class="help" type="button" data-help="n6">Ayuda</button>
-        </div>
-        <div class="coll-body">
-          <label for="n6b">Seleccione una opción</label>
-          <select id="n6b">
-            <option value="0">0 - No cae</option>
-            <option value="1">1 - Cae antes de 5 segundos sin tocar plano</option>
-            <option value="2">2 - Algún esfuerzo contra la gravedad</option>
-            <option value="3">3 - Sin esfuerzo contra la gravedad</option>
-            <option value="4">4 - Sin movimiento</option>
-            <option value="0" data-un="1">UN - No evaluable (amputación o articulación fijada)</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- 7 Ataxia -->
-      <div class="coll default-open" data-id="n7">
-        <div class="coll-head" tabindex="0">
-          <span class="arrow" aria-hidden="true">▸</span>
-          <span class="ttl"><strong>7. Ataxia</strong></span>
-          <button class="help" type="button" data-help="n7">Ayuda</button>
-        </div>
-        <div class="coll-body">
-          <label for="n7">Seleccione una opción</label>
-          <select id="n7">
-            <option value="0">0 - Ausente, plejia, defecto de comprensión</option>
-            <option value="1">1 - En una extremidad</option>
-            <option value="2">2 - En dos extremidades</option>
-            <option value="0" data-un="1">UN - No evaluable (amputación o articulación fijada)</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- 8 Sensibilidad -->
-      <div class="coll default-open" data-id="n8">
-        <div class="coll-head" tabindex="0">
-          <span class="arrow" aria-hidden="true">▸</span>
-          <span class="ttl"><strong>8. Sensibilidad</strong></span>
-          <button class="help" type="button" data-help="n8">Ayuda</button>
-        </div>
-        <div class="coll-body">
-          <label for="n8">Seleccione una opción</label>
-          <select id="n8">
-            <option value="0">0 - Normal</option>
-            <option value="1">1 - Leve o moderada, afasia, estupor</option>
-            <option value="2">2 - Severa, bilateral o anestesia, coma</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- 9 Lenguaje -->
-      <div class="coll default-open" data-id="n9">
-        <div class="coll-head" tabindex="0">
-          <span class="arrow" aria-hidden="true">▸</span>
-          <span class="ttl"><strong>9. Lenguaje</strong></span>
-          <button class="help" type="button" data-help="n9">Ayuda</button>
-        </div>
-        <div class="coll-body">
-          <label for="n9">Seleccione una opción</label>
-          <select id="n9">
-            <option value="0">0 - Normal</option>
-            <option value="1">1 - Afasia leve o moderada</option>
-            <option value="2">2 - Afasia severa (Broca, Wernicke)</option>
-            <option value="3">3 - Mutismo, afasia global, coma</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- 10 Disartria -->
-      <div class="coll default-open" data-id="n10">
-        <div class="coll-head" tabindex="0">
-          <span class="arrow" aria-hidden="true">▸</span>
-          <span class="ttl"><strong>10. Disartria</strong></span>
-          <button class="help" type="button" data-help="n10">Ayuda</button>
-        </div>
-        <div class="coll-body">
-          <label for="n10">Seleccione una opción</label>
-          <select id="n10">
-            <option value="0">0 - Normal</option>
-            <option value="1">1 - Leve o moderada</option>
-            <option value="2">2 - Severa, ininteligible, mutismo</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- 11 Negligencia -->
-      <div class="coll default-open" data-id="n11">
-        <div class="coll-head" tabindex="0">
-          <span class="arrow" aria-hidden="true">▸</span>
-          <span class="ttl"><strong>11. Extinción o negligencia</strong></span>
-          <button class="help" type="button" data-help="n11">Ayuda</button>
-        </div>
-        <div class="coll-body">
-          <label for="n11">Seleccione una opción</label>
-          <select id="n11">
-            <option value="0">0 - Ausente</option>
-            <option value="1">1 - Solo una modalidad: visual, táctil, espacial, corporal</option>
-            <option value="2">2 - Severa, más de una modalidad</option>
-          </select>
-        </div>
+  </head>
+  <body>
+    <!-- SAFE-TOP -->
+    <div class="safe-top">
+      <div class="safe-content">
+        <div class="safe-left"> <img src="../iconos/escalasico.png"
+            alt="Icono Escalas" class="safe-mini"> <img
+            src="../img/topbar.png" alt="IctusGPS" class="safe-logo"> </div>
+        <div class="safe-actions"> <a href="javascript:history.back()"
+            class="safe-btn" title="Volver atrás"> <img
+              src="../iconos/atrastransparente.png" alt="Atrás"
+              class="safe-icon"> </a> <a href="../index.html"
+            class="safe-btn" title="Volver al inicio"> <img
+              src="../iconos/hometransparente.png" alt="Inicio"
+              class="safe-icon"> </a> </div>
       </div>
     </div>
-
-<!-- COMENTARIOS -->
-<div class="card" id="comentariosCard" style="margin-top:18px;">
-  <label for="comentarios" style="font-weight:900;color:#0b1f44;display:block;margin-bottom:6px;">
-    Comentarios
-  </label>
-  <textarea id="comentarios" placeholder="Añada observaciones o detalles clínicos..."
-    style="width:95%;min-height:80px;resize:vertical;font-size:14px;font-family:Verdana, sans-serif;
+    <header>
+      <div class="bar">
+        <div class="title"><img src="../iconos/nihss.png" alt="NIHSS">NIHSS</div>
+        <output id="pill" class="pill" aria-live="polite"
+          aria-atomic="true">–</output> </div>
+    </header>
+    <main class="wrap">
+      <div class="howto" align="justify">La escala NIHSS (National
+        Institutes of Health Stroke Scale) es la herramienta más
+        utilizada para cuantificar el <b>déficit neurológico</b>
+        causado por un ictus isquémico o hemorrágico. Evalúa 15 ítems
+        (conciencia, lenguaje, función motora, sensibilidad, ataxia) en
+        una puntuación de 0 a 42. Su resultado es crucial para
+        determinar la <b>elegibilidad para tratamientos de reperfusión</b>
+        (fibrinolisis/trombectomía) y para monitorizar la <b>evolución
+          clínica</b> del paciente.</div>
+      <section class="panel">
+        <p class="note">Complete los ítems; la puntuación total y la
+          interpretación se actualizan automáticamente.</p>
+        <!-- ===== BLOQUES NIHSS ===== -->
+        <div id="formBlocks">
+          <!-- Generación manual para control fino de etiquetas y ayudas -->
+          <!-- 1a -->
+          <div class="coll default-open" data-id="n1a">
+            <div class="coll-head" tabindex="0"> <span class="arrow"
+                aria-hidden="true">▸</span> <span class="ttl"><strong>1a.
+                  Nivel de conciencia</strong></span> <button
+                class="help" type="button" data-help="n1a">Ayuda</button>
+            </div>
+            <div class="coll-body"> <label for="n1a">Seleccione una
+                opción</label>
+              <select id="n1a">
+                <option value="0" selected="selected">0 - Alerta</option>
+                <option value="1">1 - Somnoliento</option>
+                <option value="2">2 - Estupor</option>
+                <option value="3">3 - Coma</option>
+              </select>
+            </div>
+          </div>
+          <!-- 1b -->
+          <div class="coll default-open" data-id="n1b">
+            <div class="coll-head" tabindex="0"> <span class="arrow"
+                aria-hidden="true">▸</span> <span class="ttl"><strong>1b.
+                  Preguntas LOC</strong></span> <button class="help"
+                type="button" data-help="n1b">Ayuda</button> </div>
+            <div class="coll-body"> <label for="n1b">Seleccione una
+                opción</label>
+              <select id="n1b">
+                <option value="0" selected="selected">0 - Ambas
+                  respuestas correctas</option>
+                <option value="1">1 - Una respuesta correcta</option>
+                <option value="2">2 - Ninguna respuesta correcta</option>
+              </select>
+            </div>
+          </div>
+          <!-- 1c -->
+          <div class="coll default-open" data-id="n1c">
+            <div class="coll-head" tabindex="0"> <span class="arrow"
+                aria-hidden="true">▸</span> <span class="ttl"><strong>1c.
+                  Comandos LOC</strong></span> <button class="help"
+                type="button" data-help="n1c">Ayuda</button> </div>
+            <div class="coll-body"> <label for="n1c">Seleccione una
+                opción</label>
+              <select id="n1c">
+                <option value="0" selected="selected">0 - Cumple ambas
+                  órdenes</option>
+                <option value="1">1 - Cumple una orden</option>
+                <option value="2">2 - No cumple órdenes</option>
+              </select>
+            </div>
+          </div>
+          <!-- 2 Mirada -->
+          <div class="coll default-open" data-id="n2">
+            <div class="coll-head" tabindex="0"> <span class="arrow"
+                aria-hidden="true">▸</span> <span class="ttl"><strong>2.
+                  Mirada</strong></span> <button class="help"
+                type="button" data-help="n2">Ayuda</button> </div>
+            <div class="coll-body"> <label for="n2">Seleccione una
+                opción</label>
+              <select id="n2">
+                <option value="0" selected="selected">0 - Normal</option>
+                <option value="1">1 - Parálisis parcial de la mirada</option>
+                <option value="2">2 - Parálisis completa o desviación
+                  forzada</option>
+              </select>
+            </div>
+          </div>
+          <!-- 3 Campos visuales -->
+          <div class="coll default-open" data-id="n3">
+            <div class="coll-head" tabindex="0"> <span class="arrow"
+                aria-hidden="true">▸</span> <span class="ttl"><strong>3.
+                  Campos visuales</strong></span> <button class="help"
+                type="button" data-help="n3">Ayuda</button> </div>
+            <div class="coll-body"> <label for="n3">Seleccione una
+                opción</label>
+              <select id="n3">
+                <option value="0" selected="selected">0 - Normal</option>
+                <option value="1">1 - Defecto parcial o cuadrantanopsia</option>
+                <option value="2">2 - Hemianopsia completa</option>
+                <option value="3">3 - Ceguera, hemianopsia bilateral</option>
+              </select>
+            </div>
+          </div>
+          <!-- 4 Parálisis facial -->
+          <div class="coll default-open" data-id="n4">
+            <div class="coll-head" tabindex="0"> <span class="arrow"
+                aria-hidden="true">▸</span> <span class="ttl"><strong>4.
+                  Parálisis facial</strong></span> <button class="help"
+                type="button" data-help="n4">Ayuda</button> </div>
+            <div class="coll-body"> <label for="n4">Seleccione una
+                opción</label>
+              <select id="n4">
+                <option value="0" selected="selected">0 - Normal</option>
+                <option value="1">1 - Paresia leve, asimetría de la
+                  sonrisa</option>
+                <option value="2">2 - Paresia parcial</option>
+                <option value="3">3 - Parálisis completa</option>
+              </select>
+            </div>
+          </div>
+          <!-- 5a/b Motor brazos -->
+          <div class="coll default-open" data-id="n5a">
+            <div class="coll-head" tabindex="0"> <span class="arrow"
+                aria-hidden="true">▸</span> <span class="ttl"><strong>5a.
+                  Motor brazo izquierdo</strong></span> <button
+                class="help" type="button" data-help="n5">Ayuda</button>
+            </div>
+            <div class="coll-body"> <label for="n5a">Seleccione una
+                opción</label>
+              <select id="n5a">
+                <option value="0" selected="selected">0 - No cae</option>
+                <option value="1">1 - Cae antes de 10 segundos sin tocar
+                  plano</option>
+                <option value="2">2 - Algún esfuerzo contra la gravedad</option>
+                <option value="3">3 - Sin esfuerzo contra la gravedad</option>
+                <option value="4">4 - Sin movimiento</option>
+                <option value="0" data-un="1">UN - No evaluable
+                  (amputación o articulación fijada)</option>
+              </select>
+            </div>
+          </div>
+          <div class="coll default-open" data-id="n5b">
+            <div class="coll-head" tabindex="0"> <span class="arrow"
+                aria-hidden="true">▸</span> <span class="ttl"><strong>5b.
+                  Motor brazo derecho</strong></span> <button
+                class="help" type="button" data-help="n5">Ayuda</button>
+            </div>
+            <div class="coll-body"> <label for="n5b">Seleccione una
+                opción</label>
+              <select id="n5b">
+                <option value="0" selected="selected">0 - No cae</option>
+                <option value="1">1 - Cae antes de 10 segundos sin tocar
+                  plano</option>
+                <option value="2">2 - Algún esfuerzo contra la gravedad</option>
+                <option value="3">3 - Sin esfuerzo contra la gravedad</option>
+                <option value="4">4 - Sin movimiento</option>
+                <option value="0" data-un="1">UN - No evaluable
+                  (amputación o articulación fijada)</option>
+              </select>
+            </div>
+          </div>
+          <!-- 6a/b Motor piernas -->
+          <div class="coll default-open" data-id="n6a">
+            <div class="coll-head" tabindex="0"> <span class="arrow"
+                aria-hidden="true">▸</span> <span class="ttl"><strong>6a.
+                  Motor pierna izquierda</strong></span> <button
+                class="help" type="button" data-help="n6">Ayuda</button>
+            </div>
+            <div class="coll-body"> <label for="n6a">Seleccione una
+                opción</label>
+              <select id="n6a">
+                <option value="0" selected="selected">0 - No cae</option>
+                <option value="1">1 - Cae antes de 5 segundos sin tocar
+                  plano</option>
+                <option value="2">2 - Algún esfuerzo contra la gravedad</option>
+                <option value="3">3 - Sin esfuerzo contra la gravedad</option>
+                <option value="4">4 - Sin movimiento</option>
+                <option value="0" data-un="1">UN - No evaluable
+                  (amputación o articulación fijada)</option>
+              </select>
+            </div>
+          </div>
+          <div class="coll default-open" data-id="n6b">
+            <div class="coll-head" tabindex="0"> <span class="arrow"
+                aria-hidden="true">▸</span> <span class="ttl"><strong>6b.
+                  Motor pierna derecha</strong></span> <button
+                class="help" type="button" data-help="n6">Ayuda</button>
+            </div>
+            <div class="coll-body"> <label for="n6b">Seleccione una
+                opción</label>
+              <select id="n6b">
+                <option value="0" selected="selected">0 - No cae</option>
+                <option value="1">1 - Cae antes de 5 segundos sin tocar
+                  plano</option>
+                <option value="2">2 - Algún esfuerzo contra la gravedad</option>
+                <option value="3">3 - Sin esfuerzo contra la gravedad</option>
+                <option value="4">4 - Sin movimiento</option>
+                <option value="0" data-un="1">UN - No evaluable
+                  (amputación o articulación fijada)</option>
+              </select>
+            </div>
+          </div>
+          <!-- 7 Ataxia -->
+          <div class="coll default-open" data-id="n7">
+            <div class="coll-head" tabindex="0"> <span class="arrow"
+                aria-hidden="true">▸</span> <span class="ttl"><strong>7.
+                  Ataxia</strong></span> <button class="help"
+                type="button" data-help="n7">Ayuda</button> </div>
+            <div class="coll-body"> <label for="n7">Seleccione una
+                opción</label>
+              <select id="n7">
+                <option value="0" selected="selected">0 - Ausente,
+                  plejia, defecto de comprensión</option>
+                <option value="1">1 - En una extremidad</option>
+                <option value="2">2 - En dos extremidades</option>
+                <option value="0" data-un="1">UN - No evaluable
+                  (amputación o articulación fijada)</option>
+              </select>
+            </div>
+          </div>
+          <!-- 8 Sensibilidad -->
+          <div class="coll default-open" data-id="n8">
+            <div class="coll-head" tabindex="0"> <span class="arrow"
+                aria-hidden="true">▸</span> <span class="ttl"><strong>8.
+                  Sensibilidad</strong></span> <button class="help"
+                type="button" data-help="n8">Ayuda</button> </div>
+            <div class="coll-body"> <label for="n8">Seleccione una
+                opción</label>
+              <select id="n8">
+                <option value="0" selected="selected">0 - Normal</option>
+                <option value="1">1 - Leve o moderada, afasia, estupor</option>
+                <option value="2">2 - Severa, bilateral o anestesia,
+                  coma</option>
+              </select>
+            </div>
+          </div>
+          <!-- 9 Lenguaje -->
+          <div class="coll default-open" data-id="n9">
+            <div class="coll-head" tabindex="0"> <span class="arrow"
+                aria-hidden="true">▸</span> <span class="ttl"><strong>9.
+                  Lenguaje</strong></span> <button class="help"
+                type="button" data-help="n9">Ayuda</button> </div>
+            <div class="coll-body"> <label for="n9">Seleccione una
+                opción</label>
+              <select id="n9">
+                <option value="0" selected="selected">0 - Normal</option>
+                <option value="1">1 - Afasia leve o moderada</option>
+                <option value="2">2 - Afasia severa (Broca, Wernicke)</option>
+                <option value="3">3 - Mutismo, afasia global, coma</option>
+              </select>
+            </div>
+          </div>
+          <!-- 10 Disartria -->
+          <div class="coll default-open" data-id="n10">
+            <div class="coll-head" tabindex="0"> <span class="arrow"
+                aria-hidden="true">▸</span> <span class="ttl"><strong>10.
+                  Disartria</strong></span> <button class="help"
+                type="button" data-help="n10">Ayuda</button> </div>
+            <div class="coll-body"> <label for="n10">Seleccione una
+                opción</label>
+              <select id="n10">
+                <option value="0" selected="selected">0 - Normal</option>
+                <option value="1">1 - Leve o moderada</option>
+                <option value="2">2 - Severa, ininteligible, mutismo</option>
+              </select>
+            </div>
+          </div>
+          <!-- 11 Negligencia -->
+          <div class="coll default-open" data-id="n11">
+            <div class="coll-head" tabindex="0"> <span class="arrow"
+                aria-hidden="true">▸</span> <span class="ttl"><strong>11.
+                  Extinción o negligencia</strong></span> <button
+                class="help" type="button" data-help="n11">Ayuda</button>
+            </div>
+            <div class="coll-body"> <label for="n11">Seleccione una
+                opción</label>
+              <select id="n11">
+                <option value="0" selected="selected">0 - Ausente</option>
+                <option value="1">1 - Solo una modalidad: visual,
+                  táctil, espacial, corporal</option>
+                <option value="2">2 - Severa, más de una modalidad</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!-- COMENTARIOS -->
+        <div class="card" id="comentariosCard" style="margin-top:18px;">
+          <label for="comentarios"
+            style="font-weight:900;color:#0b1f44;display:block;margin-bottom:6px;">
+            Comentarios </label> <textarea id="comentarios" placeholder="Añada observaciones o detalles clínicos..." style="width:95%;min-height:80px;resize:vertical;font-size:14px;font-family:Verdana, sans-serif;
            border:1px solid var(--borde);border-radius:10px;padding:10px 12px;line-height:1.45;
            background:#f9fafc;color:#0f172a;"></textarea>
-</div>
-
-
-    <!-- ACCIONES -->
-    <div class="actions">
-      <button id="btnClear" class="btn-action btn-clear" type="button">Borrar</button>
-      <button id="btnCopy" class="btn-action btn-copy" type="button">Copiar resumen</button>
-    </div>
-
-    <!-- RESULTADOS -->
-    <div id="resultCard" class="card">
-      <div class="kpi">
-        <div class="box" id="scoreBox"><div class="ttl">NIHSS total</div><div class="val" id="scoreVal">0</div></div>
-        <div class="box" id="defBox"><div class="ttl">Déficit</div><div class="val" id="sevVal">sin déficit</div></div>
+        </div>
+        <!-- ACCIONES -->
+        <div class="actions"> <button id="btnClear" class="btn-action
+            btn-clear" type="button">Borrar</button> <button
+            id="btnCopy" class="btn-action btn-copy" type="button">Copiar
+            resumen</button> </div>
+        <!-- RESULTADOS -->
+        <div id="resultCard" class="card">
+          <div class="kpi">
+            <div class="box" id="scoreBox">
+              <div class="ttl">NIHSS total</div>
+              <div class="val" id="scoreVal">0</div>
+            </div>
+            <div class="box" id="defBox">
+              <div class="ttl">Déficit</div>
+              <div class="val" id="sevVal">sin déficit</div>
+            </div>
+          </div>
+          <div class="chips" id="chips"></div>
+          <p class="note">Rangos orientativos: 0 = sin déficit • 1–4
+            leve • 5–15 moderado • 16–20 moderado-grave • ≥21 grave.</p>
+          <div id="resumenText" aria-label="Resumen para copiar"></div>
+        </div>
+      </section>
+    </main>
+    <!-- MODAL DE AYUDA -->
+    <div class="modal" id="modal" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <div class="modal-head">
+          <div class="modal-title" id="modal-title">Ayuda</div>
+          <button class="modal-close" id="modal-close"
+            aria-label="Cerrar">×</button> </div>
+        <div class="modal-body" id="modal-body">—</div>
       </div>
-      <div class="chips" id="chips"></div>
-      <p class="note">Rangos orientativos: 0 = sin déficit • 1–4 leve • 5–15 moderado • 16–20 moderado-grave • ≥21 grave.</p>
-      <div id="resumenText" aria-label="Resumen para copiar"></div>
     </div>
-  </section>
-</main>
-
-<!-- MODAL DE AYUDA -->
-<div class="modal" id="modal" role="dialog" aria-modal="true">
-  <div class="modal-card">
-    <div class="modal-head">
-      <div class="modal-title" id="modal-title">Ayuda</div>
-      <button class="modal-close" id="modal-close" aria-label="Cerrar">×</button>
-    </div>
-    <div class="modal-body" id="modal-body">—</div>
-  </div>
-</div>
-
-<script>
+    <script>
 /* ===== Utiles ===== */
 const MDASH = String.fromCharCode(8212);
 const campos = ['n1a','n1b','n1c','n2','n3','n4','n5a','n5b','n6a','n6b','n7','n8','n9','n10','n11'];
@@ -709,8 +695,15 @@ function actualizar(){
 
 function labelTextFor(id){
   const c = document.querySelector(`.coll[data-id="${id}"] .ttl`);
-  return c ? c.textContent.trim() : id;
+  if (!c) return id;
+
+  // Limpiar saltos de línea, tabuladores y espacios dobles
+  let txt = c.textContent
+      .replace(/\s+/g, ' ')   // sustituye múltiples espacios/saltos por uno
+      .trim();
+
 }
+
 function optionTextFor(id){
   const el = document.getElementById(id);
   const opt = el.options[el.selectedIndex];
@@ -737,12 +730,16 @@ function buildResumen(total, sev){
 document.querySelectorAll('select').forEach(s=>{
   s.addEventListener('change', actualizar);
   s.addEventListener('input', actualizar);
-// Actualizar resumen al escribir comentarios
-document.getElementById('comentarios').addEventListener('input', actualizar);
-
 });
+
+// Listener del textarea bien colocado fuera
+document.getElementById('comentarios')
+  .addEventListener('input', actualizar);
+
 document.getElementById('btnClear').addEventListener('click', ()=>{
   document.querySelectorAll('select').forEach(s=> s.selectedIndex = 0);
+  document.getElementById('comentarios').value = '';
+
   actualizar();
 // 🔵 Scroll al inicio suavemente
   window.scrollTo({
@@ -763,19 +760,32 @@ document.getElementById('btnCopy').addEventListener('click', ()=>{
 
 /* ===== Modal de ayuda ===== */
 const helpTexts = {
-  n1a:`<p>El investigador debe elegir una respuesta si hay obstáculos (intubación, barrera idiomática, vendajes). El valor 3 se asigna solo si no hay movimientos distintos a posturas reflejas ante dolor.</p>`,
-  n1b:`<p>Preguntar mes y edad. Deben ser correctas. Afásicos/estuporosos: puntuar 2. Si no puede hablar por causas no afásicas (intubación, disartria severa...), puntuar 1.</p>`,
-  n1c:`<p>Dar dos órdenes sencillas (p. ej., abrir/cerrar ojos; apretar/soltar). Se acepta intento inequívoco. Si no responde, mostrar la acción. Solo se valora el primer intento.</p>`,
-  n2:`<p>Explorar mirada horizontal (voluntaria o reflejos oculocefálicos). Desviación superable: 1. Parálisis aislada III/IV/VI: 1. Desviación forzada o parálisis completa: 2.</p>`,
-  n3:`<p>Confrontación de campos visuales. Asimetría definida/cuadrantanopsia: 1; hemianopsia: 2; ceguera/hemianopsia bilateral: 3. La extinción se usa también para el ítem 11.</p>`,
-  n4:`<p>Pedir mostrar dientes/elevar cejas/cerrar ojos. Si no comprende, valorar ante dolor. Retirar barreras que oculten la cara en lo posible.</p>`,
-  n5:`<p>Brazos a 90º sentado o 45º supino; registra caída antes de 10 s. Afásicos: alentar con tono y mímica. Amputación/fusión: “UN”.</p>`,
-  n6:`<p>Pierna a 30º en decúbito; registra caída antes de 5 s. Afásicos: alentar sin estímulo nocivo. Amputación/fusión: “UN”.</p>`,
-  n7:`<p>Busca lesión cerebelosa unilateral (dedo-nariz, talón-espinilla). Registrar ataxia desproporcionada a la debilidad. Amputación/fusión: “UN”.</p>`,
-  n8:`<p>Valorar respuesta a pinchazo. Solo pérdida atribuible al ictus. Pérdida severa/total bilateral o coma: 2.</p>`,
-  n9:`<p>Valorar comprensión y expresión (descripción de lámina, repetición/lectura). Intubados: escribir. Coma: 3.</p>`,
-  n10:`<p>Claridad del habla; no confundir con afasia. Si barrera física (intubación): incomprobable, no puntuar como disartria.</p>`,
-  n11:`<p>Identificar negligencia visual/táctil/espacial. Si solo una modalidad: 1; si más de una: 2. No es “UN”.</p>`
+  n1a:`<p>Este ítem valora el nivel general de alerta. El examinador debe determinar si el paciente está despierto, orientado al entorno o si requiere estímulos verbales o físicos para mantener la atención. La somnolencia implica necesidad de estimulación repetida; el estupor requiere estímulos vigorosos para cualquier respuesta. El coma se puntúa cuando no hay movimientos voluntarios ni respuestas organizadas, solo reflejas o ausencia total de respuesta.</p>
+`,
+  n1b:`<p>Evalúa orientación mediante dos preguntas sencillas cuyos resultados deben ser exactos. Si el paciente no puede hablar por barrera mecánica debe intentarse comunicación alternativa; si no es posible se puntúa según cooperación observable. En afasia o estupor se asigna la puntuación máxima. No se repiten las preguntas ni se aceptan aproximaciones.</p>
+`,
+  n1c:`<p>Valora la comprensión y ejecución de dos órdenes motoras simples. La ejecución debe ser inmediata y clara; se acepta intento inequívoco aunque incompleto. Si no comprende, puede demostrarse una vez la acción. La puntuación se basa siempre en el primer intento. Deben considerarse afasia, déficit motores o atención fluctuante.</p>
+`,
+  n2:`<p>Evalúa los movimientos conjugados horizontales, tanto voluntarios como reflejos. La desviación parcial o superable se puntúa como leve. La desviación forzada persistente o la parálisis completa no superable se consideran graves. Deben descartarse alteraciones oftalmológicas o mecánicas previas.</p>
+`,
+  n3:`<p>Valora los campos visuales por confrontación. Los defectos parciales como cuadrantanopsias puntúan leve; la hemianopsia completa se considera moderada; la ceguera o hemianopsia bilateral se puntúa como severa. Si el nivel de conciencia impide colaboración, se asigna el mayor déficit atribuible al ictus.</p>
+`,
+  n4:`<p>Evalúa la simetría facial en reposo y durante movimientos voluntarios como mostrar dientes, elevar cejas o cerrar los ojos con fuerza. Si el paciente no comprende, puede valorarse la respuesta ante estímulos. Las asimetrías leves puntúan 1, la paresia evidente en varias áreas 2 y la ausencia completa de movimiento facial 3. Se deben considerar obstáculos físicos como vendajes o edema.</p>
+`,
+  n5:`<p>Cada brazo se evalúa por separado elevándolo a 90° sentado o 45° en decúbito. Se observa si mantiene la posición durante 10 segundos. La caída lenta controlada se puntúa 1, el esfuerzo insuficiente contra gravedad 2, la incapacidad para superar gravedad 3 y la ausencia completa de movimiento 4. Amputación o articulación fijada se registran como UN. En afasia se utilizan estímulos no dolorosos y tono alentador.</p>
+`,
+  n6:`<p>Cada pierna se evalúa elevándola a 30° en decúbito. Se registra si cae antes de 5 segundos. Los criterios de esfuerzo, gravedad y ausencia de movimiento son equivalentes a los del brazo. Amputaciones o fusiones articulares se registran como UN. Evitar estímulos dolorosos salvo necesidad estricta.</p>
+`,
+  n7:`<p>Evalúa coordinación cerebelosa mediante dedo-nariz y talón-espinilla. La ataxia debe ser atribuible al ictus y no a debilidad, dolor o déficit sensorial. La afectación en una extremidad se puntúa 1 y en dos extremidades 2. Si hay plejia, amputación o imposibilidad no atribuible a la coordinación, se registra UN.</p>
+`,
+  n8:`<p>Valora percepción sensitiva mediante pinchazo comparado entre ambos lados. La disminución leve o moderada se puntúa 1, la pérdida grave o bilateral 2. En pacientes en coma o sin respuesta se asigna el mayor déficit atribuible al ictus. Solo deben puntuarse alteraciones justificables por la lesión aguda.</p>
+`,
+  n9:`<<p>Explora comprensión y expresión mediante denominación, repetición y descripción de una escena. La afasia leve o moderada permite cierta comunicación y se puntúa 1; la severa limita significativamente la expresión o comprensión y se puntúa 2; el mutismo, afasia global o coma se puntúan 3. En intubados debe intentarse comunicación escrita.</p>
+`,
+  n10:`<p>Valora la articulación del habla mediante lectura o repetición. La disartria leve o moderada es comprensible y puntúa 1; la severa produce habla ininteligible y puntúa 2. Si existe una barrera anatómica que impide evaluar (como intubación), no debe asignarse puntuación y se registra como no evaluable.</p>
+`,
+  n11:`<p>Evalúa la conciencia del paciente sobre estímulos visuales, táctiles y espaciales. La extinción a un solo lado en una modalidad puntúa 1, mientras que la negligencia grave o multimodal puntúa 2. Comprende fenómenos como ignorar estímulos en un hemicampo, negar la pertenencia de una extremidad o fallar repetidamente en estímulos simultáneos.</p>
+`
 };
 const modal = document.getElementById('modal');
 const modalTitle = document.getElementById('modal-title');
@@ -797,10 +807,8 @@ modal.addEventListener('click', (e)=>{ if(e.target===modal){ modal.classList.rem
 /* Init */
 document.addEventListener('DOMContentLoaded', actualizar);
 </script>
-
-<footer>
-  <img src="../img/uibanner.png" alt="Ictus GPS">
-</footer>
-<script src="js/index.js"></script>
-</body>
+    <footer> <img src="../img/uibanner.png" alt="Ictus GPS">
+    </footer>
+    <script src="js/index.js"></script>
+  </body>
 </html>

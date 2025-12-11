@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="manifest" href="../site.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
-<link rel="shortcut icon" href="../iconos/ictusgps.png">
-<meta name="theme-color" content="#0f3d83">
-<title>Escala de Fisher — Hemorragia Subaracnoidea</title>
+  <head>
 
-<style>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192"
+      href="../iconos/ictusgps.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+      href="../iconos/ictusgps.png">
+    <link rel="shortcut icon" href="../iconos/ictusgps.png">
+    <meta name="theme-color" content="#0f3d83">
+    <title>Escala de Fisher — Hemorragia Subaracnoidea</title>
+    <style>
 :root{
   --bg:#f9fafc;--ink:#0e1a33;--accent:#0f3d83;
   --border:#e5e9f2;--muted:#64748b;
@@ -227,80 +230,79 @@ body {
 }
 
 </style>
-
-</head>
-<body>
-<div class="safe-top">
-  <div class="safe-content">
-    <div class="safe-left">
-      <img src="../iconos/escalasico.png" alt="Icono Escalas" class="safe-mini">
-      <img src="../img/topbar.png" alt="IctusGPS" class="safe-logo">
+  </head>
+  <body>
+    <div class="safe-top">
+      <div class="safe-content">
+        <div class="safe-left"> <img src="../iconos/escalasico.png"
+            alt="Icono Escalas" class="safe-mini"> <img
+            src="../img/topbar.png" alt="IctusGPS" class="safe-logo"> </div>
+        <div class="safe-actions"> <a href="javascript:history.back()"
+            class="safe-btn"><img src="../iconos/atrastransparente.png"
+              class="safe-icon" alt="Atrás"></a> <a
+            href="../index.html" class="safe-btn"><img
+              src="../iconos/hometransparente.png" class="safe-icon"
+              alt="Inicio"></a> </div>
+      </div>
     </div>
-    <div class="safe-actions">
-      <a href="javascript:history.back()" class="safe-btn"><img src="../iconos/atrastransparente.png" class="safe-icon" alt="Atrás"></a>
-      <a href="../index.html" class="safe-btn"><img src="../iconos/hometransparente.png" class="safe-icon" alt="Inicio"></a>
-    </div>
-  </div>
-</div>
-
-<header>
-  <div class="bar">
-    <h1><img src="../iconos/fisher.png" alt="Fisher">Fisher</h1>
-      <output id="pill" class="pill pill-neutral" aria-live="polite">—</output>
-  </div>
-</header>
-
-<main class="wrap">
-<div class="howto">Evalúa la <b>cantidad de sangre</b> en el espacio subaracnoideo en la TC inicial tras una hemorragia subaracnoidea aneurismática. La puntuación (0–4) se correlaciona con el <b>riesgo de desarrollar vasoespasmo sintomático</b> y ayuda a guiar el manejo clínico.</div>
-
-  <section class="panel">
-    <p class="note">Clasificación tomográfica de hemorragia subaracnoidea según Fisher (1980).</p>
-
-    <div class="grid">
-      <div><label for="cisternal">Sangre cisternal visible</label>
-        <select id="cisternal">
-          <option value="">— Seleccione —</option>
-          <option value="no">No</option>
-          <option value="si">Sí</option>
-        </select></div>
-      <div><label for="espesor">Espesor máx. cisternal</label>
-        <select id="espesor">
-          <option value="">— Seleccione —</option>
-          <option value="sin">Sin sangre</option>
-          <option value="lt1">&lt; 1 mm</option>
-          <option value="gt1">&gt; 1 mm</option>
-        </select></div>
-      <div><label for="coagulos">Coágulos cisternales</label>
-        <select id="coagulos">
-          <option value="">— Seleccione —</option>
-          <option value="no">No</option>
-          <option value="si">Sí</option>
-        </select></div>
-      <div><label for="ivhich">HIV o HIP asociada</label>
-        <select id="ivhich">
-          <option value="">— Seleccione —</option>
-          <option value="no">No</option>
-          <option value="si">Sí</option>
-        </select></div>
-    </div>
-
-    <div class="box" id="resultBox">
-      <div class="ttl">Resultado</div>
-      <div class="val" id="gradoVal">—</div>
-      <div class="mini" id="descVal">—</div>
-    </div>
-
-    <div class="actions">
-      <button id="btnClear" class="btn-action btn-clear">Borrar</button>
-      <button id="btnCopy" class="btn-action btn-copy">Copiar resumen</button>
-    </div>
-
-    <div id="resumenText"></div>
-  </section>
-
-</main>
-
-<script>
+    <header>
+      <div class="bar">
+        <h1><img src="../iconos/fisher.png" alt="Fisher">Fisher</h1>
+        <output id="pill" class="pill pill-neutral" aria-live="polite">—</output>
+      </div>
+    </header>
+    <main class="wrap">
+      <div class="howto" align="justify">Evalúa la <b>cantidad de
+          sangre</b> en el espacio subaracnoideo en la TC inicial tras
+        una hemorragia subaracnoidea aneurismática. La puntuación (0–4)
+        se correlaciona con el <b>riesgo de desarrollar vasoespasmo
+          sintomático</b> y ayuda a guiar el manejo clínico.</div>
+      <section class="panel">
+        <p class="note">Clasificación tomográfica de hemorragia
+          subaracnoidea según Fisher (1980).</p>
+        <div class="grid">
+          <div><label for="cisternal">Sangre cisternal visible</label>
+            <select id="cisternal">
+              <option value="" selected="selected">— Seleccione —</option>
+              <option value="no">No</option>
+              <option value="si">Sí</option>
+            </select>
+          </div>
+          <div><label for="espesor">Espesor máx. cisternal</label>
+            <select id="espesor">
+              <option value="" selected="selected">— Seleccione —</option>
+              <option value="sin">Sin sangre</option>
+              <option value="lt1">&lt; 1 mm</option>
+              <option value="gt1">&gt; 1 mm</option>
+            </select>
+          </div>
+          <div><label for="coagulos">Coágulos cisternales</label>
+            <select id="coagulos">
+              <option value="" selected="selected">— Seleccione —</option>
+              <option value="no">No</option>
+              <option value="si">Sí</option>
+            </select>
+          </div>
+          <div><label for="ivhich">HIV o HIP asociada</label>
+            <select id="ivhich">
+              <option value="" selected="selected">— Seleccione —</option>
+              <option value="no">No</option>
+              <option value="si">Sí</option>
+            </select>
+          </div>
+        </div>
+        <div class="box" id="resultBox">
+          <div class="ttl">Resultado</div>
+          <div class="val" id="gradoVal">—</div>
+          <div class="mini" id="descVal">—</div>
+        </div>
+        <div class="actions"> <button id="btnClear" class="btn-action
+            btn-clear">Borrar</button> <button id="btnCopy"
+            class="btn-action btn-copy">Copiar resumen</button> </div>
+        <div id="resumenText"></div>
+      </section>
+    </main>
+    <script>
 const descripciones = {
   I: {
     t: 'Sin sangre visible en cisternas o surcos.',
@@ -406,11 +408,8 @@ document.getElementById('btnClear').addEventListener('click', borrar);
 document.getElementById('btnCopy').addEventListener('click', copiar);
 document.addEventListener('DOMContentLoaded', calc);
 </script>
-
-
-<footer>
-  <img src="../img/uibanner.png" alt="Ictus GPS">
-</footer>
-<script src="js/index.js"></script>
-</body>
+    <footer> <img src="../img/uibanner.png" alt="Ictus GPS">
+    </footer>
+    <script src="js/index.js"></script>
+  </body>
 </html>

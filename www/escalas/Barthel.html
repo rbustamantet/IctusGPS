@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0f3d83">
-<title>Escala de Barthel</title>
+  <head>
 
-<!-- ICONOS Y MANIFIESTO -->
-<link rel="manifest" href="../site.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
-<link rel="shortcut icon" href="../iconos/ictusgps.png">
-
-<style>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+      viewport-fit=cover">
+    <meta name="theme-color" content="#0f3d83">
+    <title>Escala de Barthel</title>
+    <!-- ICONOS Y MANIFIESTO -->
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192"
+      href="../iconos/ictusgps.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+      href="../iconos/ictusgps.png">
+    <link rel="shortcut icon" href="../iconos/ictusgps.png">
+    <style>
 :root{
   --bg:#f9fafc;
   --ink:#0e1a33;
@@ -248,59 +251,65 @@ body {
 }
 
 </style>
-</head>
-
-<body>
-<!-- SAFE-TOP -->
-<div class="safe-top">
-  <div class="safe-content">
-    <div class="safe-left">
-      <img src="../iconos/escalasico.png" alt="Icono Escalas" class="safe-mini">
-      <img src="../img/topbar.png" alt="IctusGPS" class="safe-logo">
+  </head>
+  <body>
+    <!-- SAFE-TOP -->
+    <div class="safe-top">
+      <div class="safe-content">
+        <div class="safe-left"> <img src="../iconos/escalasico.png"
+            alt="Icono Escalas" class="safe-mini"> <img
+            src="../img/topbar.png" alt="IctusGPS" class="safe-logo"> </div>
+        <div class="safe-actions"> <a href="javascript:history.back()"
+            class="safe-btn" title="Volver atrás"> <img
+              src="../iconos/atrastransparente.png" alt="Atrás"
+              class="safe-icon"> </a> <a href="../index.html"
+            class="safe-btn" title="Volver al inicio"> <img
+              src="../iconos/hometransparente.png" alt="Inicio"
+              class="safe-icon"> </a> </div>
+      </div>
     </div>
-    <div class="safe-actions">
-      <a href="javascript:history.back()" class="safe-btn" title="Volver atrás">
-        <img src="../iconos/atrastransparente.png" alt="Atrás" class="safe-icon">
-      </a>
-      <a href="../index.html" class="safe-btn" title="Volver al inicio">
-        <img src="../iconos/hometransparente.png" alt="Inicio" class="safe-icon">
-      </a>
-    </div>
-  </div>
-</div>
-
-<header>
-  <div class="bar">
-    <div class="title"><img src="../iconos/barthel.png" alt="Barthel">Barthel</div>
-    <output id="pill" class="pill">—</output>
-  </div>
-</header>
-
-
-<main class="container">
-<div class="howto">Evalúa la <strong>independencia funcional</strong> en las actividades básicas de la vida diaria (ABVD), puntuando la capacidad del paciente para realizar diez tareas cotidianas como comer, asearse, vestirse o deambular. La puntuación total oscila entre <strong>0 y 100</strong>, donde valores más altos indican mayor autonomía. Complete los campos seleccionando el nivel de independencia en cada ítem.</div>
-
-  <div class="card">
-    <form id="calcForm"><div id="campos"></div></form>
-  </div>
-
-  <div id="resultCard" class="card result">
-    <div id="errBox" class="err" role="alert"></div>
-    <div class="kpi">
-      <div class="box"><div class="ttl">Puntuación total (0–100)</div><div class="val" id="totalVal">—</div></div>
-      <div class="box"><div class="ttl">Ítems completados</div><div class="val"><span id="filledVal">0</span> / 10</div></div>
-    </div>
-    <div id="classBox" class="classBox" aria-live="polite">—</div>
-    <div class="actions">
-      <button id="btnBorrar" type="button" class="btn-secondary">Borrar</button>
-      <button id="btnCopiar" type="button" class="btn-secondary">Copiar resumen</button>
-    </div>
-    <div id="resumenText" aria-label="Resumen generado para copiar"></div>
-    <p class="hint">El resumen incluye puntuación, clasificación e ítems seleccionados.</p>
-  </div>
-</main>
-
-<script>
+    <header>
+      <div class="bar">
+        <div class="title"><img src="../iconos/barthel.png"
+            alt="Barthel">Barthel</div>
+        <output id="pill" class="pill">—</output> </div>
+    </header>
+    <main class="container">
+      <div class="howto" align="justify">Evalúa la <strong>independencia
+          funcional</strong> en las actividades básicas de la vida
+        diaria (ABVD), puntuando la capacidad del paciente para realizar
+        diez tareas cotidianas como comer, asearse, vestirse o
+        deambular. La puntuación total oscila entre <strong>0 y 100</strong>,
+        donde valores más altos indican mayor autonomía. Complete los
+        campos seleccionando el nivel de independencia en cada ítem.</div>
+      <div class="card">
+        <form id="calcForm">
+          <div id="campos"></div>
+        </form>
+      </div>
+      <div id="resultCard" class="card result">
+        <div id="errBox" class="err" role="alert"></div>
+        <div class="kpi">
+          <div class="box">
+            <div class="ttl">Puntuación total (0–100)</div>
+            <div class="val" id="totalVal">—</div>
+          </div>
+          <div class="box">
+            <div class="ttl">Ítems completados</div>
+            <div class="val"><span id="filledVal">0</span> / 10</div>
+          </div>
+        </div>
+        <div id="classBox" class="classBox" aria-live="polite">—</div>
+        <div class="actions"> <button id="btnBorrar" type="button"
+            class="btn-secondary">Borrar</button> <button
+            id="btnCopiar" type="button" class="btn-secondary">Copiar
+            resumen</button> </div>
+        <div id="resumenText" aria-label="Resumen generado para copiar"></div>
+        <p class="hint">El resumen incluye puntuación, clasificación e
+          ítems seleccionados.</p>
+      </div>
+    </main>
+    <script>
 // ====== CAMPOS ======
 const items = [
   ["comer","Comer",["Independiente (la comida está al alcance)",10],["Necesita ayuda",5],["Incapaz de alimentarse",0]],
@@ -408,10 +417,8 @@ document.getElementById('btnBorrar').addEventListener('click',borrar);
 document.getElementById('btnCopiar').addEventListener('click',copiar);
 document.addEventListener('DOMContentLoaded',calcular);
 </script>
-
-<footer>
-  <img src="../img/uibanner.png" alt="Ictus GPS">
-</footer>
-<script src="js/index.js"></script>
-</body>
+    <footer> <img src="../img/uibanner.png" alt="Ictus GPS">
+    </footer>
+    <script src="js/index.js"></script>
+  </body>
 </html>

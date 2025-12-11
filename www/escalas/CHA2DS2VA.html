@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="manifest" href="../site.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
-<link rel="shortcut icon" href="../iconos/ictusgps.png">
-<meta name="theme-color" content="#0f3d83">
-<title>CHA₂DS₂-VA — Riesgo de ictus en fibrilación auricular</title>
+  <head>
 
-<style>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192"
+      href="../iconos/ictusgps.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+      href="../iconos/ictusgps.png">
+    <link rel="shortcut icon" href="../iconos/ictusgps.png">
+    <meta name="theme-color" content="#0f3d83">
+    <title>CHA₂DS₂-VA — Riesgo de ictus en fibrilación auricular</title>
+    <style>
 :root{
   --bg:#f9fafc;--ink:#0e1a33;--accent:#0f3d83;
   --border:#e5e9f2;--muted:#64748b;
@@ -228,72 +231,95 @@ body {
 }
 
 </style>
-</head>
-
-<body>
-<div class="safe-top">
-  <div class="safe-content">
-    <div class="safe-left">
-      <img src="../iconos/escalasico.png" alt="Icono Escalas" class="safe-mini">
-      <img src="../img/topbar.png" alt="IctusGPS" class="safe-logo">
-    </div>
-    <div class="safe-actions">
-      <a href="javascript:history.back()" class="safe-btn"><img src="../iconos/atrastransparente.png" class="safe-icon" alt="Atrás"></a>
-      <a href="../index.html" class="safe-btn"><img src="../iconos/hometransparente.png" class="safe-icon" alt="Inicio"></a>
-    </div>
-  </div>
-</div>
-
-<header>
-  <div class="bar">
-    <h1><img src="../iconos/chadsva.png" alt="CHA₂DS₂-VA">CHA₂DS₂-VA</h1>
-    <output id="pill" class="pill pill-neutral">—</output>
-  </div>
-</header>
-
-
-
-<main class="container">
-<div class="howto">Calcula el <b>riesgo de ictus en fibrilación auricular</b> según la escala CHA₂DS₂-VA, que valora edad, hipertensión, diabetes, insuficiencia cardiaca, enfermedad vascular e ictus/AIT previo. La puntuación total (0–8) estima el <b>riesgo anual de ictus isquémico</b> y orienta la indicación de anticoagulación según las guías ESC 2024.</div>
-  <div class="card">
-    <form id="form">
-      <div class="note">Selecciona los factores de riesgo presentes:</div>
-      <div class="grid">
-        <div><label for="age">Edad</label>
-          <select id="age">
-            <option value="0">&lt;65 años (0)</option>
-            <option value="1">65–74 años (1)</option>
-            <option value="2">≥75 años (2)</option>
-          </select></div>
-        <div><label for="htn">Hipertensión</label>
-          <select id="htn"><option value="0">No (0)</option><option value="1">Sí (1)</option></select></div>
-        <div><label for="dm">Diabetes mellitus</label>
-          <select id="dm"><option value="0">No (0)</option><option value="1">Sí (1)</option></select></div>
-        <div><label for="hf">Insuficiencia cardiaca</label>
-          <select id="hf"><option value="0">No (0)</option><option value="1">Sí (1)</option></select></div>
-        <div><label for="vasc">Enfermedad vascular</label>
-          <select id="vasc"><option value="0">No (0)</option><option value="1">Sí (1)</option></select></div>
-        <div><label for="stroke">Ictus/AIT/embolia arterial previa</label>
-          <select id="stroke"><option value="0">No (0)</option><option value="2">Sí (2)</option></select></div>
+  </head>
+  <body>
+    <div class="safe-top">
+      <div class="safe-content">
+        <div class="safe-left"> <img src="../iconos/escalasico.png"
+            alt="Icono Escalas" class="safe-mini"> <img
+            src="../img/topbar.png" alt="IctusGPS" class="safe-logo"> </div>
+        <div class="safe-actions"> <a href="javascript:history.back()"
+            class="safe-btn"><img src="../iconos/atrastransparente.png"
+              class="safe-icon" alt="Atrás"></a> <a
+            href="../index.html" class="safe-btn"><img
+              src="../iconos/hometransparente.png" class="safe-icon"
+              alt="Inicio"></a> </div>
       </div>
-
-      <div id="resultCard" class="card result" style="margin-top:16px;display:none;">
-        <div class="score">
-<div class="ttl" style="font-size: 1.5rem; text-align: center; text-shadow: 2px 2px 6px rgba(0,0,0,0.25);"><b>Puntuación: <class="val" id="scoreVal">—</div>
-          <div class="score-label" id="scoreLabel"></b></div>
-        </div> <div id="resumenText"></div>
-
-        <div class="actions">
-          <button id="btnClear" type="button" class="btn-secondary">Borrar</button>
-          <button id="btnCopy" type="button" class="btn-secondary">Copiar resumen</button>
-        </div>
+    </div>
+    <header>
+      <div class="bar">
+        <h1><img src="../iconos/chadsva.png" alt="CHA₂DS₂-VA">CHA₂DS₂-VA</h1>
+        <output id="pill" class="pill pill-neutral">—</output> </div>
+    </header>
+    <main class="container">
+      <div class="howto" align="justify">Calcula el <b>riesgo de ictus
+          en fibrilación auricular</b> según la escala CHA₂DS₂-VA, que
+        valora edad, hipertensión, diabetes, insuficiencia cardiaca,
+        enfermedad vascular e ictus/AIT previo. La puntuación total
+        (0–8) estima el <b>riesgo anual de ictus isquémico</b> y
+        orienta la indicación de anticoagulación según las guías ESC
+        2024.</div>
+      <div class="card">
+        <form id="form">
+          <div class="note">Selecciona los factores de riesgo presentes:</div>
+          <div class="grid">
+            <div><label for="age">Edad</label>
+              <select id="age">
+                <option value="0" selected="selected">&lt;65 años (0)</option>
+                <option value="1">65–74 años (1)</option>
+                <option value="2">≥75 años (2)</option>
+              </select>
+            </div>
+            <div><label for="htn">Hipertensión</label>
+              <select id="htn">
+                <option value="0" selected="selected">No (0)</option>
+                <option value="1">Sí (1)</option>
+              </select>
+            </div>
+            <div><label for="dm">Diabetes mellitus</label>
+              <select id="dm">
+                <option value="0" selected="selected">No (0)</option>
+                <option value="1">Sí (1)</option>
+              </select>
+            </div>
+            <div><label for="hf">Insuficiencia cardiaca</label>
+              <select id="hf">
+                <option value="0" selected="selected">No (0)</option>
+                <option value="1">Sí (1)</option>
+              </select>
+            </div>
+            <div><label for="vasc">Enfermedad vascular</label>
+              <select id="vasc">
+                <option value="0" selected="selected">No (0)</option>
+                <option value="1">Sí (1)</option>
+              </select>
+            </div>
+            <div><label for="stroke">Ictus/AIT/embolia arterial previa</label>
+              <select id="stroke">
+                <option value="0" selected="selected">No (0)</option>
+                <option value="2">Sí (2)</option>
+              </select>
+            </div>
+          </div>
+          <div id="resultCard" class="card result"
+            style="margin-top:16px;display:none;">
+            <div class="score">
+              <div class="ttl" style="font-size: 1.5rem; text-align:
+                center; text-shadow: 2px 2px 6px rgba(0,0,0,0.25);"><b>Puntuación:
+                  <class="val" id="scoreVal">—</class="val"></b></div>
+              <b> </b>
+              <div class="score-label" id="scoreLabel"><b></b></div>
+            </div>
+            <div id="resumenText"></div>
+            <div class="actions"> <button id="btnClear" type="button"
+                class="btn-secondary">Borrar</button> <button
+                id="btnCopy" type="button" class="btn-secondary">Copiar
+                resumen</button> </div>
+          </div>
+        </form>
       </div>
-    </form>
-  </div>
-
-</main>
-
-<script>
+    </main>
+    <script>
 // ====== Riesgo anual aproximado por puntuación CHA2DS2-VA (ESC 2024) ======
 const RATE = {
   0: 0.5,
@@ -467,11 +493,7 @@ document.addEventListener('DOMContentLoaded', function(){
   el('btnCopy').addEventListener('click', copiar);
 });
 </script>
-
-
-
-<footer>
-  <img src="../img/uibanner.png" alt="Ictus GPS">
-</footer>
-</body>
+    <footer> <img src="../img/uibanner.png" alt="Ictus GPS">
+    </footer>
+  </body>
 </html>

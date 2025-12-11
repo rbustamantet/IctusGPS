@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="manifest" href="../site.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
-<link rel="shortcut icon" href="../iconos/ictusgps.png">
-<meta name="theme-color" content="#0f3d83">
-<title>ICH Score — Hemorragia Intracerebral</title>
-<style>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192"
+      href="../iconos/ictusgps.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+      href="../iconos/ictusgps.png">
+    <link rel="shortcut icon" href="../iconos/ictusgps.png">
+    <meta name="theme-color" content="#0f3d83">
+    <title>ICH Score — Hemorragia Intracerebral</title>
+    <style>
 :root{
   --bg:#f9fafc;
   --ink:#0e1a33;
@@ -233,95 +237,90 @@ body {
 }
 
 </style>
-
-</head>
-<body>
-  
-
-<div class="safe-top">
-  <div class="safe-content">
-    <div class="safe-left">
-      <img src="../iconos/escalasico.png" alt="Icono Escalas" class="safe-mini">
-      <img src="../img/topbar.png" alt="IctusGPS" class="safe-logo">
-    </div>
-    <div class="safe-actions">
-      <a href="javascript:history.back()" class="safe-btn" title="Volver atrás">
-        <img src="../iconos/atrastransparente.png" alt="Atrás" class="safe-icon">
-      </a>
-      <a href="../index.html" class="safe-btn" title="Volver al inicio">
-        <img src="../iconos/hometransparente.png" alt="Inicio" class="safe-icon">
-      </a>
-    </div>
-  </div>
-</div>
-
-<header>
-  <div class="bar">
-    <div class="title"><img src="../iconos/ich.png" alt="ICH SCORE">ICH</div>
-      <output id="pillTop" class="pill-top">—</output>
-  </div>
-</header>
-
-<main class="wrap">
-<div class="howto">El <b>ICH Score (Intracerebral Hemorrhage Score)</b> es un sistema de clasificación clínica simple y rápido diseñado para predecir la <b>mortalidad a 30 días</b> en pacientes que han sufrido una <b>hemorragia intracerebral</b>. Evalúa cinco factores fácilmente identificables en la cabecera del paciente y la tomografía. La puntuación resultante (0–6) permite una <b>estratificación de riesgo</b> clara para guiar las decisiones sobre la agresividad del manejo clínico.</div>
-
-  <div class="card">
-    <form id="calcForm" autocomplete="off">
-      <label for="gcs">Escala de Glasgow</label>
-      <select id="gcs">
-        <option value="-1">Seleccione…</option>
-        <option value="2">3–4 puntos (2)</option>
-        <option value="1">5–12 puntos (1)</option>
-        <option value="0">13–15 puntos (0)</option>
-      </select>
-
-      <label for="vol">Volumen del hematoma (ml)</label>
-      <select id="vol">
-        <option value="-1">Seleccione…</option>
-        <option value="1">≥ 30 ml (1)</option>
-        <option value="0">&lt; 30 ml (0)</option>
-      </select>
-
-      <label for="ivh">Extensión intraventricular</label>
-      <select id="ivh">
-        <option value="-1">Seleccione…</option>
-        <option value="1">Sí (1)</option>
-        <option value="0">No (0)</option>
-      </select>
-
-      <label for="infra">Origen infratentorial</label>
-      <select id="infra">
-        <option value="-1">Seleccione…</option>
-        <option value="1">Sí (1)</option>
-        <option value="0">No (0)</option>
-      </select>
-
-      <label for="edad">Edad</label>
-      <select id="edad">
-        <option value="-1">Seleccione…</option>
-        <option value="1">≥ 80 años (1)</option>
-        <option value="0">&lt; 80 años (0)</option>
-      </select>
-
-      <div class="actions">
-        <button id="btnReset" type="button" class="btn">Borrar</button>
-        <button id="btnCopy" type="button" class="btn">Copiar resumen</button>
+  </head>
+  <body>
+    <div class="safe-top">
+      <div class="safe-content">
+        <div class="safe-left"> <img src="../iconos/escalasico.png"
+            alt="Icono Escalas" class="safe-mini"> <img
+            src="../img/topbar.png" alt="IctusGPS" class="safe-logo"> </div>
+        <div class="safe-actions"> <a href="javascript:history.back()"
+            class="safe-btn" title="Volver atrás"> <img
+              src="../iconos/atrastransparente.png" alt="Atrás"
+              class="safe-icon"> </a> <a href="../index.html"
+            class="safe-btn" title="Volver al inicio"> <img
+              src="../iconos/hometransparente.png" alt="Inicio"
+              class="safe-icon"> </a> </div>
       </div>
-    </form>
-  </div>
-
-  <div id="resultCard" class="card" style="display:none">
-    <div class="kpi">
-      <div class="box"><div class="ttl">Puntuación ICH</div><div class="val" id="scoreVal">—</div></div>
-      <div class="box"><div class="ttl">Mortalidad 30 días</div><div class="val" id="mortVal">—</div></div>
     </div>
-
-    <div id="resumenText"></div>
-  </div>
-
-</main>
-
-<script>
+    <header>
+      <div class="bar">
+        <div class="title"><img src="../iconos/ich.png" alt="ICH SCORE">ICH</div>
+        <output id="pillTop" class="pill-top">—</output> </div>
+    </header>
+    <main class="wrap">
+      <div class="howto" align="justify">El <b>ICH Score (Intracerebral
+          Hemorrhage Score)</b> es un sistema de clasificación clínica
+        simple y rápido diseñado para predecir la <b>mortalidad a 30
+          días</b> en pacientes que han sufrido una <b>hemorragia
+          intracerebral</b>. Evalúa cinco factores fácilmente
+        identificables en la cabecera del paciente y la tomografía. La
+        puntuación resultante (0–6) permite una <b>estratificación de
+          riesgo</b> clara para guiar las decisiones sobre la
+        agresividad del manejo clínico.</div>
+      <div class="card">
+        <form id="calcForm" autocomplete="off"> <label for="gcs">Escala
+            de Glasgow</label>
+          <select id="gcs">
+            <option value="-1" selected="selected">Seleccione…</option>
+            <option value="2">3–4 puntos (2)</option>
+            <option value="1">5–12 puntos (1)</option>
+            <option value="0">13–15 puntos (0)</option>
+          </select>
+          <label for="vol">Volumen del hematoma (ml)</label>
+          <select id="vol">
+            <option value="-1" selected="selected">Seleccione…</option>
+            <option value="1">≥ 30 ml (1)</option>
+            <option value="0">&lt; 30 ml (0)</option>
+          </select>
+          <label for="ivh">Extensión intraventricular</label>
+          <select id="ivh">
+            <option value="-1" selected="selected">Seleccione…</option>
+            <option value="1">Sí (1)</option>
+            <option value="0">No (0)</option>
+          </select>
+          <label for="infra">Origen infratentorial</label>
+          <select id="infra">
+            <option value="-1" selected="selected">Seleccione…</option>
+            <option value="1">Sí (1)</option>
+            <option value="0">No (0)</option>
+          </select>
+          <label for="edad">Edad</label>
+          <select id="edad">
+            <option value="-1" selected="selected">Seleccione…</option>
+            <option value="1">≥ 80 años (1)</option>
+            <option value="0">&lt; 80 años (0)</option>
+          </select>
+          <div class="actions"> <button id="btnReset" type="button"
+              class="btn">Borrar</button> <button id="btnCopy"
+              type="button" class="btn">Copiar resumen</button> </div>
+        </form>
+      </div>
+      <div id="resultCard" class="card" style="display:none">
+        <div class="kpi">
+          <div class="box">
+            <div class="ttl">Puntuación ICH</div>
+            <div class="val" id="scoreVal">—</div>
+          </div>
+          <div class="box">
+            <div class="ttl">Mortalidad 30 días</div>
+            <div class="val" id="mortVal">—</div>
+          </div>
+        </div>
+        <div id="resumenText"></div>
+      </div>
+    </main>
+    <script>
 const mortMap={0:'0%',1:'13%',2:'26%',3:'72%',4:'97%',5:'100%',6:'100%'};
 function riskClassForPct(p){if(p<=25)return'low';if(p<=50)return'mod';if(p<=80)return'high';return'extreme';}
 function riskLabelForPct(p){if(p<=25)return'bajo';if(p<=50)return'moderado';if(p<=80)return'alto';return'extremo';}
@@ -386,10 +385,8 @@ el('btnReset').addEventListener('click',resetForm);
 el('btnCopy').addEventListener('click',copiar);
 document.addEventListener('DOMContentLoaded',()=>updatePill());
 </script>
-
-<footer>
-  <img src="../img/uibanner.png" alt="Ictus GPS">
-</footer>
-<script src="js/index.js"></script>
-</body>
+    <footer> <img src="../img/uibanner.png" alt="Ictus GPS">
+    </footer>
+    <script src="js/index.js"></script>
+  </body>
 </html>

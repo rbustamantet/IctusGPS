@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="manifest" href="../site.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
-<link rel="shortcut icon" href="../iconos/ictusgps.png">
-<meta name="theme-color" content="#0f3d83">
-<title>Escala de Rankin modificada (mRS)</title>
+  <head>
 
-<style>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192"
+      href="../iconos/ictusgps.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+      href="../iconos/ictusgps.png">
+    <link rel="shortcut icon" href="../iconos/ictusgps.png">
+    <meta name="theme-color" content="#0f3d83">
+    <title>Escala de Rankin modificada (mRS)</title>
+    <style>
 :root{
   --bg:#f9fafc;
   --ink:#0e1a33;
@@ -243,145 +246,157 @@ body {
 }
 
 </style>
-
-</head>
-<body>
- 
-<!-- SAFE-TOP -->
-<div class="safe-top">
-  <div class="safe-content">
-    <div class="safe-left">
-      <img src="../iconos/escalasico.png" alt="Icono Escalas" class="safe-mini">
-      <img src="../img/topbar.png" alt="IctusGPS" class="safe-logo">
-    </div>
-    <div class="safe-actions">
-      <a href="javascript:history.back()" class="safe-btn" title="Volver atrás">
-        <img src="../iconos/atrastransparente.png" alt="Atrás" class="safe-icon">
-      </a>
-      <a href="../index.html" class="safe-btn" title="Volver al inicio">
-        <img src="../iconos/hometransparente.png" alt="Inicio" class="safe-icon">
-      </a>
-    </div>
-  </div>
-</div>
-
-<header>
-  <div class="bar">
-    <div class="title"><img src="../iconos/rankin.png" alt="Rankin">Rankin</div>
-      <output id="pill" class="pill" aria-live="polite" aria-atomic="true">—</output>
-  </div>
-</header>
-
-<main class="wrap">
-<div class="howto">La <b>Escala de Rankin Modificada (mRS)</b> es la herramienta más utilizada para medir el <b>grado de discapacidad o dependencia funcional global</b> de un paciente después de un ictus u otra enfermedad neurológica. Su resultado es el principal criterio de valoración clínica en <b>ensayos</b> y <b>práctica diaria</b> para evaluar la <b>eficacia </b>del tratamiento y el pronóstico a largo plazo del paciente. Seleccione el grado que describa el estado <b>habitual</b> del paciente. Priorice la capacidad real en la vida diaria.</div>
-
-  <section class="panel">
-        <fieldset aria-describedby="ayuda" style="border:0; padding:0; margin:0">
-      <div class="options" role="radiogroup" aria-label="Escala de Rankin modificada">
-        <!-- 0 -->
-        <input class="radio" type="radio" id="mrs0" name="mrs" value="0">
-        <label class="option" for="mrs0">
-          <div class="badge">0</div>
-          <div>
-            <p class="opt-title">Sin síntomas</p>
-            <p class="opt-desc">Sin signos o síntomas residuales; vida previa sin limitaciones atribuibles al evento.</p>
-            <ul class="opt-hints"><li>Reincorporación completa a trabajo/actividades previas.</li></ul>
-          </div>
-        </label>
-
-        <!-- 1 -->
-        <input class="radio" type="radio" id="mrs1" name="mrs" value="1">
-        <label class="option" for="mrs1">
-          <div class="badge">1</div>
-          <div>
-            <p class="opt-title">Síntomas sin discapacidad significativa</p>
-            <p class="opt-desc">Síntomas leves pero puede realizar <strong>todas</strong> sus tareas habituales sin ayuda.</p>
-            <ul class="opt-hints"><li>Difiere de 2: aquí no hay limitación funcional relevante.</li></ul>
-          </div>
-        </label>
-
-        <!-- 2 -->
-        <input class="radio" type="radio" id="mrs2" name="mrs" value="2">
-        <label class="option" for="mrs2">
-          <div class="badge">2</div>
-          <div>
-            <p class="opt-title">Discapacidad leve</p>
-            <p class="opt-desc">No puede realizar <strong>todas</strong> las actividades previas, pero es independiente para autocuidado.</p>
-            <ul class="opt-hints">
-              <li>Independiente en aseo, vestido, alimentación y continencia.</li>
-              <li>Difiere de 3: no precisa ayuda física en AVD básicas.</li>
-            </ul>
-          </div>
-        </label>
-
-        <!-- 3 -->
-        <input class="radio" type="radio" id="mrs3" name="mrs" value="3">
-        <label class="option" for="mrs3">
-          <div class="badge">3</div>
-          <div>
-            <p class="opt-title">Discapacidad moderada</p>
-            <p class="opt-desc">Requiere <strong>alguna ayuda</strong> pero <strong>camina sin ayuda</strong> (bastón/andador permitido).</p>
-            <ul class="opt-hints">
-              <li>Puede necesitar ayuda en tareas domésticas o parte de AVD.</li>
-              <li>Difiere de 4: en 3 camina sin asistencia humana.</li>
-            </ul>
-          </div>
-        </label>
-
-        <!-- 4 -->
-        <input class="radio" type="radio" id="mrs4" name="mrs" value="4">
-        <label class="option" for="mrs4">
-          <div class="badge">4</div>
-          <div>
-            <p class="opt-title">Discapacidad moderada–severa</p>
-            <p class="opt-desc"><strong>No camina sin ayuda</strong> y <strong>no atiende</strong> sus necesidades corporales sin asistencia.</p>
-            <ul class="opt-hints"><li>Requiere ayuda para deambulación y AVD básicas.</li></ul>
-          </div>
-        </label>
-
-        <!-- 5 -->
-        <input class="radio" type="radio" id="mrs5" name="mrs" value="5">
-        <label class="option" for="mrs5">
-          <div class="badge">5</div>
-          <div>
-            <p class="opt-title">Discapacidad severa</p>
-            <p class="opt-desc"><strong>Encamado</strong>, <strong>incontinente</strong> y requiere <strong>cuidados continuos</strong>.</p>
-            <ul class="opt-hints"><li>Totalmente dependiente para todas las AVD.</li></ul>
-          </div>
-        </label>
-
-        <!-- 6 -->
-        <input class="radio" type="radio" id="mrs6" name="mrs" value="6">
-        <label class="option" for="mrs6">
-          <div class="badge">6</div>
-          <div>
-            <p class="opt-title">Fallecido</p>
-            <p class="opt-desc">Muerte.</p>
-          </div>
-        </label>
+  </head>
+  <body>
+    <!-- SAFE-TOP -->
+    <div class="safe-top">
+      <div class="safe-content">
+        <div class="safe-left"> <img src="../iconos/escalasico.png"
+            alt="Icono Escalas" class="safe-mini"> <img
+            src="../img/topbar.png" alt="IctusGPS" class="safe-logo"> </div>
+        <div class="safe-actions"> <a href="javascript:history.back()"
+            class="safe-btn" title="Volver atrás"> <img
+              src="../iconos/atrastransparente.png" alt="Atrás"
+              class="safe-icon"> </a> <a href="../index.html"
+            class="safe-btn" title="Volver al inicio"> <img
+              src="../iconos/hometransparente.png" alt="Inicio"
+              class="safe-icon"> </a> </div>
       </div>
-    </fieldset>
-
-    <!-- RESULTADOS -->
-    <div class="panel" id="resultCard" style="margin-top:16px;">
-      <div class="kpi">
-        <div class="box"><div class="ttl">Rankin modificado</div><div class="val" id="scoreVal">—</div></div>
-        <div class="box" id="riskBox"><div class="ttl">Interpretación</div><div class="val" id="riskVal">—</div></div>
-      </div>
-
-      <div class="actions">
-        <button id="btnClear" class="btn-action">Borrar</button>
-        <button id="btnCopy"  class="btn-action btn-copy">Copiar resumen</button>
-      </div>
-
-      <div id="resumenText"></div>
-
     </div>
-  </section>
-
-</main>
-
-<script>
+    <header>
+      <div class="bar">
+        <div class="title"><img src="../iconos/rankin.png" alt="Rankin">Rankin</div>
+        <output id="pill" class="pill" aria-live="polite"
+          aria-atomic="true">—</output> </div>
+    </header>
+    <main class="wrap">
+      <div class="howto" align="justify">La <b>Escala de Rankin
+          Modificada (mRS)</b> es la herramienta más utilizada para
+        medir el <b>grado de discapacidad o dependencia funcional
+          global</b> de un paciente después de un ictus u otra
+        enfermedad neurológica. Su resultado es el principal criterio de
+        valoración clínica en <b>ensayos</b> y <b>práctica diaria</b>
+        para evaluar la <b>eficacia </b>del tratamiento y el
+        pronóstico a largo plazo del paciente. Seleccione el grado que
+        describa el estado <b>habitual</b> del paciente. Priorice la
+        capacidad real en la vida diaria.</div>
+      <section class="panel">
+        <fieldset aria-describedby="ayuda" style="border:0; padding:0;
+          margin:0">
+          <div class="options" role="radiogroup" aria-label="Escala de
+            Rankin modificada">
+            <!-- 0 --> <input class="radio" id="mrs0" name="mrs"
+              value="0" type="radio"> <label class="option" for="mrs0">
+              <div class="badge">0</div>
+              <div>
+                <p class="opt-title">Sin síntomas</p>
+                <p class="opt-desc">Sin signos o síntomas residuales;
+                  vida previa sin limitaciones atribuibles al evento.</p>
+                <ul class="opt-hints">
+                  <li>Reincorporación completa a trabajo/actividades
+                    previas.</li>
+                </ul>
+              </div>
+            </label>
+            <!-- 1 --> <input class="radio" id="mrs1" name="mrs"
+              value="1" type="radio"> <label class="option" for="mrs1">
+              <div class="badge">1</div>
+              <div>
+                <p class="opt-title">Síntomas sin discapacidad
+                  significativa</p>
+                <p class="opt-desc">Síntomas leves pero puede realizar <strong>todas</strong>
+                  sus tareas habituales sin ayuda.</p>
+                <ul class="opt-hints">
+                  <li>Difiere de 2: aquí no hay limitación funcional
+                    relevante.</li>
+                </ul>
+              </div>
+            </label>
+            <!-- 2 --> <input class="radio" id="mrs2" name="mrs"
+              value="2" type="radio"> <label class="option" for="mrs2">
+              <div class="badge">2</div>
+              <div>
+                <p class="opt-title">Discapacidad leve</p>
+                <p class="opt-desc">No puede realizar <strong>todas</strong>
+                  las actividades previas, pero es independiente para
+                  autocuidado.</p>
+                <ul class="opt-hints">
+                  <li>Independiente en aseo, vestido, alimentación y
+                    continencia.</li>
+                  <li>Difiere de 3: no precisa ayuda física en AVD
+                    básicas.</li>
+                </ul>
+              </div>
+            </label>
+            <!-- 3 --> <input class="radio" id="mrs3" name="mrs"
+              value="3" type="radio"> <label class="option" for="mrs3">
+              <div class="badge">3</div>
+              <div>
+                <p class="opt-title">Discapacidad moderada</p>
+                <p class="opt-desc">Requiere <strong>alguna ayuda</strong>
+                  pero <strong>camina sin ayuda</strong>
+                  (bastón/andador permitido).</p>
+                <ul class="opt-hints">
+                  <li>Puede necesitar ayuda en tareas domésticas o parte
+                    de AVD.</li>
+                  <li>Difiere de 4: en 3 camina sin asistencia humana.</li>
+                </ul>
+              </div>
+            </label>
+            <!-- 4 --> <input class="radio" id="mrs4" name="mrs"
+              value="4" type="radio"> <label class="option" for="mrs4">
+              <div class="badge">4</div>
+              <div>
+                <p class="opt-title">Discapacidad moderada–severa</p>
+                <p class="opt-desc"><strong>No camina sin ayuda</strong>
+                  y <strong>no atiende</strong> sus necesidades
+                  corporales sin asistencia.</p>
+                <ul class="opt-hints">
+                  <li>Requiere ayuda para deambulación y AVD básicas.</li>
+                </ul>
+              </div>
+            </label>
+            <!-- 5 --> <input class="radio" id="mrs5" name="mrs"
+              value="5" type="radio"> <label class="option" for="mrs5">
+              <div class="badge">5</div>
+              <div>
+                <p class="opt-title">Discapacidad severa</p>
+                <p class="opt-desc"><strong>Encamado</strong>, <strong>incontinente</strong>
+                  y requiere <strong>cuidados continuos</strong>.</p>
+                <ul class="opt-hints">
+                  <li>Totalmente dependiente para todas las AVD.</li>
+                </ul>
+              </div>
+            </label>
+            <!-- 6 --> <input class="radio" id="mrs6" name="mrs"
+              value="6" type="radio"> <label class="option" for="mrs6">
+              <div class="badge">6</div>
+              <div>
+                <p class="opt-title">Fallecido</p>
+                <p class="opt-desc">Muerte.</p>
+              </div>
+            </label> </div>
+        </fieldset>
+        <!-- RESULTADOS -->
+        <div class="panel" id="resultCard" style="margin-top:16px;">
+          <div class="kpi">
+            <div class="box">
+              <div class="ttl">Rankin modificado</div>
+              <div class="val" id="scoreVal">—</div>
+            </div>
+            <div class="box" id="riskBox">
+              <div class="ttl">Interpretación</div>
+              <div class="val" id="riskVal">—</div>
+            </div>
+          </div>
+          <div class="actions"> <button id="btnClear"
+              class="btn-action">Borrar</button> <button id="btnCopy"
+              class="btn-action btn-copy">Copiar resumen</button> </div>
+          <div id="resumenText"></div>
+        </div>
+      </section>
+    </main>
+    <script>
 const SEP = ' \u2014 ';
 
 // Tonos para pill y kpi
@@ -514,10 +529,8 @@ document.readyState === 'loading'
   ? document.addEventListener('DOMContentLoaded', attach)
   : attach();
 </script>
-
-<footer>
-  <img src="../img/uibanner.png" alt="Ictus GPS">
-</footer>
-<script src="js/index.js"></script>
-</body>
+    <footer> <img src="../img/uibanner.png" alt="Ictus GPS">
+    </footer>
+    <script src="js/index.js"></script>
+  </body>
 </html>

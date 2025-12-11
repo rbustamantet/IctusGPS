@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="manifest" href="../site.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
-<link rel="shortcut icon" href="../iconos/ictusgps.png">
-<meta name="theme-color" content="#0f3d83">
-<title>Escala RoPE — Risk of Paradoxical Embolism</title>
+  <head>
 
-<style>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192"
+      href="../iconos/ictusgps.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+      href="../iconos/ictusgps.png">
+    <link rel="shortcut icon" href="../iconos/ictusgps.png">
+    <meta name="theme-color" content="#0f3d83">
+    <title>Escala RoPE — Risk of Paradoxical Embolism</title>
+    <style>
 :root{
   --bg:#f8fafc; --ink:#0f172a; --borde:#e5e7eb;
   --accent:#2563eb; 
@@ -258,99 +261,106 @@ footer img{max-width:320px;height:auto;opacity:.95}
 }
 
 </style>
-</head>
-<body>
-  
-<!-- SAFE-TOP -->
-<div class="safe-top">
-  <div class="safe-content">
-    <div class="safe-left">
-      <img src="../iconos/escalasico.png" alt="Icono Escalas" class="safe-mini">
-      <img src="../img/topbar.png" alt="IctusGPS" class="safe-logo">
-    </div>
-    <div class="safe-actions">
-      <a href="javascript:history.back()" class="safe-btn" title="Volver atrás">
-        <img src="../iconos/atrastransparente.png" alt="Atrás" class="safe-icon">
-      </a>
-      <a href="../index.html" class="safe-btn" title="Volver al inicio">
-        <img src="../iconos/hometransparente.png" alt="Inicio" class="safe-icon">
-      </a>
-    </div>
-  </div>
-</div>
-
-<header>
-  <div class="bar">
-    <div class="title"><img src="../iconos/rope.png" alt="RoPE">RoPE</div>
-      <output id="pill" class="pill pill-init" aria-live="polite" aria-atomic="true">—</output>
-  </div>
-</header>
-
-
-</header>
-
-<main class="wrap">
-<div class="howto">La escala <b>RoPE (Risk of Paradoxical Embolism)</b> es una herramienta clínica utilizada para estimar la <b>probabilidad de que un ictus isquémico sea causado por un Foramen Oval Permeable (FOP)</b>. La escala asigna puntos basándose en la edad del paciente y la ausencia de factores de riesgo vascular convencionales, proporcionando una puntuación final (0–10) que ayuda a determinar si el FOP es la causa probable del ictus (embolia paradójica) y orienta la decisión sobre el cierre percutáneo.</div>
-
-  <section class="panel">
-    <!-- Entradas -->
-    <div class="grid">
-      <div>
-        <label for="age">Edad</label>
-        <select id="age">
-  <option value="">Selecciona…</option>
-  <option value="5">18–29 años</option>
-  <option value="4">30–39 años</option>
-  <option value="3">40–49 años</option>
-  <option value="2">50–59 años</option>
-  <option value="1">60–69 años</option>
-  <option value="0">≥70 años</option>
-</select>
-      </div>
-
-      <div>
-        <label>Factores clínicos y neuroimagen</label>
-        <label class="check"><input type="checkbox" id="noHTN" value="1"> No hipertensión (+1)</label>
-        <label class="check"><input type="checkbox" id="noDM" value="1"> No diabetes (+1)</label>
-        <label class="check"><input type="checkbox" id="noSmoke" value="1"> No tabaquismo activo (+1)</label>
-        <label class="check"><input type="checkbox" id="noPrior" value="1"> No ictus/AIT previo (+1)</label>
-        <label class="check"><input type="checkbox" id="cortical" value="1"> Infarto cortical en neuroimagen (+1)</label>
+  </head>
+  <body>
+    <!-- SAFE-TOP -->
+    <div class="safe-top">
+      <div class="safe-content">
+        <div class="safe-left"> <img src="../iconos/escalasico.png"
+            alt="Icono Escalas" class="safe-mini"> <img
+            src="../img/topbar.png" alt="IctusGPS" class="safe-logo"> </div>
+        <div class="safe-actions"> <a href="javascript:history.back()"
+            class="safe-btn" title="Volver atrás"> <img
+              src="../iconos/atrastransparente.png" alt="Atrás"
+              class="safe-icon"> </a> <a href="../index.html"
+            class="safe-btn" title="Volver al inicio"> <img
+              src="../iconos/hometransparente.png" alt="Inicio"
+              class="safe-icon"> </a> </div>
       </div>
     </div>
-
-    <!-- Resultados -->
-    <div class="panel" id="resultCard" style="margin-top:16px; display:none;">
-      <div class="kpi">
-        <div class="box"><div class="ttl">RoPE</div><div class="val" id="scoreVal">-</div></div>
-        <div class="box" id="probBox"><div class="ttl">Probabilidad FOP causal</div><div class="val" id="probVal">-</div></div>
-      </div>
-
-      <div class="kpi">
-        <div class="box" id="classBox"><div class="ttl">Clasificación</div><div class="val" id="classVal">-</div></div>
-        <div class="box"><div class="ttl">Interpretación</div><div class="val" id="interpVal" style="font-size:16px">-</div></div>
-      </div>
-
-      <div class="actions">
-        <button id="btnClear" class="btn-action btn-clear">Borrar</button>
-        <button id="btnCopy" class="btn-action btn-copy">Copiar resumen</button>
-      </div>
-      <div id="resumenText"></div>
-    </div>
-
-    <details>
-      <summary>Abreviaturas y referencia</summary>
-      <ul>
-        <li><b>RoPE:</b> Risk of Paradoxical Embolism.</li>
-        <li><b>FOP:</b> Foramen Oval Permeable.</li>
-        <li><b>AIT:</b> Ataque Isquémico Transitorio.</li>
-        <li><b>Referencia:</b> Kent DM et al. <em>Neurology</em>. 2013;81(7):619–625.</li>
-      </ul>
-    </details>
-  </section>
-
-</main>
-
-<script>
+    <header>
+      <div class="bar">
+        <div class="title"><img src="../iconos/rope.png" alt="RoPE">RoPE</div>
+        <output id="pill" class="pill pill-init" aria-live="polite"
+          aria-atomic="true">—</output> </div>
+    </header>
+    <main class="wrap">
+      <div class="howto" align="justify">La escala <b>RoPE (Risk of
+          Paradoxical Embolism)</b> es una herramienta clínica utilizada
+        para estimar la <b>probabilidad de que un ictus isquémico sea
+          causado por un Foramen Oval Permeable (FOP)</b>. La escala
+        asigna puntos basándose en la edad del paciente y la ausencia de
+        factores de riesgo vascular convencionales, proporcionando una
+        puntuación final (0–10) que ayuda a determinar si el FOP es la
+        causa probable del ictus (embolia paradójica) y orienta la
+        decisión sobre el cierre percutáneo.</div>
+      <section class="panel">
+        <!-- Entradas -->
+        <div class="grid">
+          <div> <label for="age">Edad</label>
+            <select id="age">
+              <option value="" selected="selected">Selecciona…</option>
+              <option value="5">18–29 años</option>
+              <option value="4">30–39 años</option>
+              <option value="3">40–49 años</option>
+              <option value="2">50–59 años</option>
+              <option value="1">60–69 años</option>
+              <option value="0">≥70 años</option>
+            </select>
+          </div>
+          <div> <label>Factores clínicos y neuroimagen</label> <label
+              class="check"><input id="noHTN" value="1" type="checkbox">
+              No hipertensión (+1)</label> <label class="check"><input
+                id="noDM" value="1" type="checkbox"> No diabetes (+1)</label>
+            <label class="check"><input id="noSmoke" value="1"
+                type="checkbox"> No tabaquismo activo (+1)</label> <label
+              class="check"><input id="noPrior" value="1"
+                type="checkbox"> No ictus/AIT previo (+1)</label> <label
+              class="check"><input id="cortical" value="1"
+                type="checkbox"> Infarto cortical en neuroimagen (+1)</label>
+          </div>
+        </div>
+        <!-- Resultados -->
+        <div class="panel" id="resultCard" style="margin-top:16px;
+          display:none;">
+          <div class="kpi">
+            <div class="box">
+              <div class="ttl">RoPE</div>
+              <div class="val" id="scoreVal">-</div>
+            </div>
+            <div class="box" id="probBox">
+              <div class="ttl">Probabilidad FOP causal</div>
+              <div class="val" id="probVal">-</div>
+            </div>
+          </div>
+          <div class="kpi">
+            <div class="box" id="classBox">
+              <div class="ttl">Clasificación</div>
+              <div class="val" id="classVal">-</div>
+            </div>
+            <div class="box">
+              <div class="ttl">Interpretación</div>
+              <div class="val" id="interpVal" style="font-size:16px">-</div>
+            </div>
+          </div>
+          <div class="actions"> <button id="btnClear" class="btn-action
+              btn-clear">Borrar</button> <button id="btnCopy"
+              class="btn-action btn-copy">Copiar resumen</button> </div>
+          <div id="resumenText"></div>
+        </div>
+        <details>
+          <summary>Abreviaturas y referencia</summary>
+          <ul>
+            <li><b>RoPE:</b> Risk of Paradoxical Embolism.</li>
+            <li><b>FOP:</b> Foramen Oval Permeable.</li>
+            <li><b>AIT:</b> Ataque Isquémico Transitorio.</li>
+            <li><b>Referencia:</b> Kent DM et al. <em>Neurology</em>.
+              2013;81(7):619–625.</li>
+          </ul>
+        </details>
+      </section>
+    </main>
+    <script>
 const PROB={0:'28%',1:'30%',2:'35%',3:'44%',4:'55%',5:'61%',6:'67%',7:'78%',8:'84%',9:'88%',10:'90%'};
 
 function toneFor(score){
@@ -458,10 +468,8 @@ ids.forEach(id=>{
 document.getElementById('btnClear')?.addEventListener('click', borrar);
 document.getElementById('btnCopy')?.addEventListener('click', copiar);
 </script>
-
-<footer>
-  <img src="../img/uibanner.png" alt="Ictus GPS">
-</footer>
-<script src="js/index.js"></script>
-</body>
+    <footer> <img src="../img/uibanner.png" alt="Ictus GPS">
+    </footer>
+    <script src="js/index.js"></script>
+  </body>
 </html>

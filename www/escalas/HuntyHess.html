@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="manifest" href="../site.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
-<link rel="shortcut icon" href="../iconos/ictusgps.png">
-<meta name="theme-color" content="#0f3d83">
-<title>Hunt y Hess — Hemorragia Subaracnoidea</title>
-<style>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192"
+      href="../iconos/ictusgps.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+      href="../iconos/ictusgps.png">
+    <link rel="shortcut icon" href="../iconos/ictusgps.png">
+    <meta name="theme-color" content="#0f3d83">
+    <title>Hunt y Hess — Hemorragia Subaracnoidea</title>
+    <style>
 :root{
   --bg:#f9fafc;
   --ink:#0e1a33;
@@ -232,76 +236,74 @@ body {
 }
 
 </style>
-
-</head>
-<body>
-  <!-- SAFE-TOP -->
-<div class="safe-top">
-  <div class="safe-content">
-    <div class="safe-left">
-      <img src="../iconos/escalasico.png" alt="Icono Escalas" class="safe-mini">
-      <img src="../img/topbar.png" alt="IctusGPS" class="safe-logo">
-    </div>
-    <div class="safe-actions">
-      <a href="javascript:history.back()" class="safe-btn" title="Volver atrás">
-        <img src="../iconos/atrastransparente.png" alt="Atrás" class="safe-icon">
-      </a>
-      <a href="../index.html" class="safe-btn" title="Volver al inicio">
-        <img src="../iconos/hometransparente.png" alt="Inicio" class="safe-icon">
-      </a>
-    </div>
-  </div>
-</div>
-
-<header>
-  <div class="bar">
-    <div class="title"><img src="../iconos/huntyhess.png" alt="Hunt y Hess">Hunt y Hess</div>
-      <output id="pillTop" class="pill-top pill-top.neutral">—</output>
-  </div>
-</header>
-
-<main class="wrap">
-<div class="howto">Sistema de clasificación clínica utilizado para evaluar la <b>gravedad neurológica inicial tras una hemorragia subaracnoidea</b>. Clasifica a los pacientes en grados (I a V) según el dolor de cabeza y el nivel de conciencia, siendo crucial para predecir el <b>pronóstico</b> y determinar la urgencia del tratamiento.</div>
-
-  <div class="card">
-    <label for="grado">Grado clínico</label>
-    <select id="grado">
-      <option value="" selected>— Seleccione —</option>
-      <option value="0">0 — Aneurisma no roto</option>
-      <option value="I">I — Asintomático o cefalea leve</option>
-      <option value="Ia">Ia — Déficit focal sin signos meníngeos</option>
-      <option value="II">II — Cefalea/moderada rigidez o paresia de PC</option>
-      <option value="III">III — Somnolencia/confusión o focalidad leve</option>
-      <option value="IV">IV — Estupor o déficit moderado/severo</option>
-      <option value="V">V — Coma profundo o fallo vital</option>
-    </select>
-    <label class="check">
-      <input type="checkbox" id="plusOne">
-      +1 si hay enfermedad sistémica severa o vasoespasmo grave
-    </label>
-
-    <div class="actions">
-      <button id="btnClear" class="btn" type="button">Borrar</button>
-      <button id="btnCopy" class="btn" type="button">Copiar resumen</button>
-    </div>
-  </div>
-
-  <div id="resultCard" class="card result">
-    <div class="protocol" style="border-top:0;padding-top:0;">
-      <div id="badge" class="badge"></div>
-      <div>
-        <p id="gradeDesc" class="desc"></p>
-        <p id="mortalityTxt" style="margin-top:4px;font-size:13px;font-weight:600;"></p>
-        <p class="ref"><b>Referencia:</b> Hunt WE, Hess RM. <em>J Neurosurg</em>. 1968; 28:14–20.</p>
+  </head>
+  <body>
+    <!-- SAFE-TOP -->
+    <div class="safe-top">
+      <div class="safe-content">
+        <div class="safe-left"> <img src="../iconos/escalasico.png"
+            alt="Icono Escalas" class="safe-mini"> <img
+            src="../img/topbar.png" alt="IctusGPS" class="safe-logo"> </div>
+        <div class="safe-actions"> <a href="javascript:history.back()"
+            class="safe-btn" title="Volver atrás"> <img
+              src="../iconos/atrastransparente.png" alt="Atrás"
+              class="safe-icon"> </a> <a href="../index.html"
+            class="safe-btn" title="Volver al inicio"> <img
+              src="../iconos/hometransparente.png" alt="Inicio"
+              class="safe-icon"> </a> </div>
       </div>
     </div>
-    <div id="resumenText"></div>
-    <p class="note"><b>Nota:</b> orienta la gravedad inicial de la HSA; no sustituye al juicio clínico ni a otras escalas pronósticas.</p>
-  </div>
-
-</main>
-
-<script>
+    <header>
+      <div class="bar">
+        <div class="title"><img src="../iconos/huntyhess.png" alt="Hunt
+            y Hess">Hunt y Hess</div>
+        <output id="pillTop" class="pill-top pill-top.neutral">—</output>
+      </div>
+    </header>
+    <main class="wrap">
+      <div class="howto" align="justify">Sistema de clasificación
+        clínica utilizado para evaluar la <b>gravedad neurológica
+          inicial tras una hemorragia subaracnoidea</b>. Clasifica a los
+        pacientes en grados (I a V) según el dolor de cabeza y el nivel
+        de conciencia, siendo crucial para predecir el <b>pronóstico</b>
+        y determinar la urgencia del tratamiento.</div>
+      <div class="card"> <label for="grado">Grado clínico</label>
+        <select id="grado">
+          <option value="" selected="selected">— Seleccione —</option>
+          <option value="0">0 — Aneurisma no roto</option>
+          <option value="I">I — Asintomático o cefalea leve</option>
+          <option value="Ia">Ia — Déficit focal sin signos meníngeos</option>
+          <option value="II">II — Cefalea/moderada rigidez o paresia de
+            PC</option>
+          <option value="III">III — Somnolencia/confusión o focalidad
+            leve</option>
+          <option value="IV">IV — Estupor o déficit moderado/severo</option>
+          <option value="V">V — Coma profundo o fallo vital</option>
+        </select>
+        <label class="check"> <input id="plusOne" type="checkbox"> +1
+          si hay enfermedad sistémica severa o vasoespasmo grave </label>
+        <div class="actions"> <button id="btnClear" class="btn"
+            type="button">Borrar</button> <button id="btnCopy"
+            class="btn" type="button">Copiar resumen</button> </div>
+      </div>
+      <div id="resultCard" class="card result">
+        <div class="protocol" style="border-top:0;padding-top:0;">
+          <div id="badge" class="badge"></div>
+          <div>
+            <p id="gradeDesc" class="desc"></p>
+            <p id="mortalityTxt"
+              style="margin-top:4px;font-size:13px;font-weight:600;"></p>
+            <p class="ref"><b>Referencia:</b> Hunt WE, Hess RM. <em>J
+                Neurosurg</em>. 1968; 28:14–20.</p>
+          </div>
+        </div>
+        <div id="resumenText"></div>
+        <p class="note"><b>Nota:</b> orienta la gravedad inicial de la
+          HSA; no sustituye al juicio clínico ni a otras escalas
+          pronósticas.</p>
+      </div>
+    </main>
+    <script>
 const order=['0','I','Ia','II','III','IV','V'];
 const fullTxt={
   '0':'Aneurisma no roto.',
@@ -382,10 +384,8 @@ document.addEventListener('DOMContentLoaded',()=>{
   updatePill();
 });
 </script>
-
-<footer>
-  <img src="../img/uibanner.png" alt="Ictus GPS">
-</footer>
-<script src="js/index.js"></script>
-</body>
+    <footer> <img src="../img/uibanner.png" alt="Ictus GPS">
+    </footer>
+    <script src="js/index.js"></script>
+  </body>
 </html>

@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="manifest" href="../site.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
-<link rel="shortcut icon" href="../iconos/ictusgps.png">
-<meta name="theme-color" content="#0f3d83">
-<title>Escala de Glasgow (GCS)</title>
+  <head>
 
-<style>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192"
+      href="../iconos/ictusgps.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+      href="../iconos/ictusgps.png">
+    <link rel="shortcut icon" href="../iconos/ictusgps.png">
+    <meta name="theme-color" content="#0f3d83">
+    <title>Escala de Glasgow (GCS)</title>
+    <style>
 :root{
   --bg:#f9fafc;--ink:#0e1a33;--accent:#0f3d83;
   --border:#e5e9f2;--muted:#64748b;
@@ -223,88 +226,76 @@ body {
 }
 
 </style>
-
-
-</head>
-
-<body>
-
-<div class="safe-top">
-  <div class="safe-content">
-    <div class="safe-left">
-      <img src="../iconos/escalasico.png" alt="Icono Escalas" class="safe-mini">
-      <img src="../img/topbar.png" alt="IctusGPS" class="safe-logo">
-    </div>
-    <div class="safe-actions">
-      <a href="javascript:history.back()" class="safe-btn"><img src="../iconos/atrastransparente.png" class="safe-icon" alt="Atrás"></a>
-      <a href="../index.html" class="safe-btn"><img src="../iconos/hometransparente.png" class="safe-icon" alt="Inicio"></a>
-    </div>
-  </div>
-</div>
-
-<header>
-  <div class="bar">
-    <h1><img src="../iconos/glasgow.png" alt="Glasgow">Glasgow</h1>
-      <output id="pillTop" class="pill-top" aria-live="polite" aria-atomic="true">GCS —</output>
-  </div>
-</header>
-
-<main class="wrap">
-<div class="howto">Evalúa el <b>nivel de conciencia</b> de un paciente, midiendo la <b>respuesta ocular, verbal y motora</b>. La puntuación total (3-15) permite monitorizar el estado neurológico y clasificar la gravedad de la lesión cerebral (leve, moderada o grave).</div>
-
-<div class="container">
-  <div class="card">
-    <div class="row">
-      <div>
-        <label for="e">Apertura <u>O</u>cular</label>
-        <select id="e">
-          <option value="4">4 – Espontánea</option>
-          <option value="3">3 – A la voz</option>
-          <option value="2">2 – Al dolor</option>
-          <option value="1">1 – Ninguna</option>
-        </select>
-      </div>
-      <div>
-        <label for="v">Respuesta <u>V</u>erbal</label>
-        <select id="v">
-          <option value="5">5 – Orientado</option>
-          <option value="4">4 – Confuso</option>
-          <option value="3">3 – Palabras inapropiadas</option>
-          <option value="2">2 – Sonidos incomprensibles</option>
-          <option value="1">1 – Ninguna</option>
-        </select>
-      </div>
-      <div>
-        <label for="m">Respuesta <u>M</u>otora</label>
-        <select id="m">
-          <option value="6">6 – Obedece órdenes</option>
-          <option value="5">5 – Localiza dolor</option>
-          <option value="4">4 – Retira ante dolor</option>
-          <option value="3">3 – Flexión anormal</option>
-          <option value="2">2 – Extensión</option>
-          <option value="1">1 – Ninguna</option>
-        </select>
+  </head>
+  <body>
+    <div class="safe-top">
+      <div class="safe-content">
+        <div class="safe-left"> <img src="../iconos/escalasico.png"
+            alt="Icono Escalas" class="safe-mini"> <img
+            src="../img/topbar.png" alt="IctusGPS" class="safe-logo"> </div>
+        <div class="safe-actions"> <a href="javascript:history.back()"
+            class="safe-btn"><img src="../iconos/atrastransparente.png"
+              class="safe-icon" alt="Atrás"></a> <a
+            href="../index.html" class="safe-btn"><img
+              src="../iconos/hometransparente.png" class="safe-icon"
+              alt="Inicio"></a> </div>
       </div>
     </div>
-
-    <div class="scoreline" id="resultado">
-      GCS: <span class="score" id="out">—</span>
-      <span class="pill" id="band">—</span>
-    </div>
-
-<div class="actions">
-      <button id="btnClear" class="btn-action btn-clear">Borrar</button>
-      <button id="btnCopy" class="btn-action btn-copy">Copiar resumen</button>
-    </div>
-
-
-    <div id="resumenText"></div>
-  </div>
-
-</div>
-</main>
-
-<script>
+    <header>
+      <div class="bar">
+        <h1><img src="../iconos/glasgow.png" alt="Glasgow">Glasgow</h1>
+        <output id="pillTop" class="pill-top" aria-live="polite"
+          aria-atomic="true">GCS —</output> </div>
+    </header>
+    <main class="wrap">
+      <div class="howto" align="justify">Evalúa el <b>nivel de
+          conciencia</b> de un paciente, midiendo la <b>respuesta
+          ocular, verbal y motora</b>. La puntuación total (3-15)
+        permite monitorizar el estado neurológico y clasificar la
+        gravedad de la lesión cerebral (leve, moderada o grave).</div>
+      <div class="container">
+        <div class="card">
+          <div class="row">
+            <div> <label for="e">Apertura <u>O</u>cular</label>
+              <select id="e">
+                <option value="4" selected="selected">4 – Espontánea</option>
+                <option value="3">3 – A la voz</option>
+                <option value="2">2 – Al dolor</option>
+                <option value="1">1 – Ninguna</option>
+              </select>
+            </div>
+            <div> <label for="v">Respuesta <u>V</u>erbal</label>
+              <select id="v">
+                <option value="5" selected="selected">5 – Orientado</option>
+                <option value="4">4 – Confuso</option>
+                <option value="3">3 – Palabras inapropiadas</option>
+                <option value="2">2 – Sonidos incomprensibles</option>
+                <option value="1">1 – Ninguna</option>
+              </select>
+            </div>
+            <div> <label for="m">Respuesta <u>M</u>otora</label>
+              <select id="m">
+                <option value="6" selected="selected">6 – Obedece
+                  órdenes</option>
+                <option value="5">5 – Localiza dolor</option>
+                <option value="4">4 – Retira ante dolor</option>
+                <option value="3">3 – Flexión anormal</option>
+                <option value="2">2 – Extensión</option>
+                <option value="1">1 – Ninguna</option>
+              </select>
+            </div>
+          </div>
+          <div class="scoreline" id="resultado"> GCS: <span
+              class="score" id="out">—</span> <span class="pill"
+              id="band">—</span> </div>
+          <div class="actions"> <button id="btnClear" class="btn-action
+              btn-clear">Borrar</button> <button id="btnCopy"
+              class="btn-action btn-copy">Copiar resumen</button> </div>
+          <div id="resumenText"></div>
+        </div>
+      </div>
+    </main>
+    <script>
 function tone(t){if(t>=13)return"tone-green";if(t>=9)return"tone-amber";return"tone-red";}
 function clasificar(t){
   if(t>=13)return{label:"Leve",css:"leve",range:"13–15"};
@@ -359,10 +350,8 @@ document.getElementById('btnCopy').addEventListener('click',copiar);
 document.getElementById('btnClear').addEventListener('click',borrar);
 document.addEventListener('DOMContentLoaded',calc);
 </script>
-
-<footer>
-  <img src="../img/uibanner.png" alt="Ictus GPS">
-</footer>
-<script src="js/index.js"></script>
-</body>
+    <footer> <img src="../img/uibanner.png" alt="Ictus GPS">
+    </footer>
+    <script src="js/index.js"></script>
+  </body>
 </html>

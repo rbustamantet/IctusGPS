@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Clasificación TOAST - Ictus Isquémico</title>
-<link rel="manifest" href="../site.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
-<link rel="shortcut icon" href="../iconos/ictusgps.png">
-<meta name="theme-color" content="#0f3d83">
+  <head>
 
-<style>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Clasificación TOAST - Ictus Isquémico</title>
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192"
+      href="../iconos/ictusgps.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+      href="../iconos/ictusgps.png">
+    <link rel="shortcut icon" href="../iconos/ictusgps.png">
+    <meta name="theme-color" content="#0f3d83">
+    <style>
 :root{
   --bg:#f8fafc; --ink:#0f172a; --borde:#e5e7eb;
   --azul:#0b2c5f; --gris:#6b7280;
@@ -209,7 +212,7 @@ details.toast-collapsible > summary{
   border-bottom:1px solid #eef2f7; background:#eef6ff;
 }
 details[open].toast-collapsible > summary{ border-bottom-color:#e5edf9; }
-details.toast-collapsible .inner{ padding:12px 14px; }
+details.toast-collapsible .inner{ padding:12px 6px; }
 
 /* Icono caret */
 summary .caret{ display:inline-block; width:1em; text-align:center; font-weight:900; }
@@ -254,175 +257,193 @@ footer{
 }
 footer img{max-width:320px;height:auto;opacity:.95}
 </style>
-
-</head>
-<body>
-  
-<!-- SAFE-TOP -->
-<div class="safe-top">
-  <div class="safe-content">
-    <div class="safe-left">
-      <img src="../iconos/escalasico.png" alt="Icono Escalas" class="safe-mini">
-      <img src="../img/topbar.png" alt="IctusGPS" class="safe-logo">
-    </div>
-    <div class="safe-actions">
-      <a href="javascript:history.back()" class="safe-btn" title="Volver atrás">
-        <img src="../iconos/atrastransparente.png" alt="Atrás" class="safe-icon">
-      </a>
-      <a href="../index.html" class="safe-btn" title="Volver al inicio">
-        <img src="../iconos/hometransparente.png" alt="Inicio" class="safe-icon">
-      </a>
-    </div>
-  </div>
-</div>
-
-<header>
-  <div class="bar">
-    <div class="title"><img src="../iconos/toast.png" alt="TOAST">TOAST</div>
-      <output id="pill" class="pill" aria-live="polite" aria-atomic="true">—</output>
-  </div>
-</header>
-
-
-<main class="wrap">
-<section class="howto">La clasificación <b>TOAST (Trial of Org 10172 in Acute Stroke Treatment)</b> es un sistema <b>etiológico</b> utilizado para categorizar el subtipo de infarto cerebral isquémico, basándose en la causa subyacente. Define cinco categorías principales (Aterosclerosis de gran vaso, Cardioembolismo, Oclusión de pequeño vaso/Lacunar, Ictus de otra etiología e Ictus de etiología indeterminada). Su propósito principal es <b>homogeneizar la clasificación de los ictus en ensayos clínicos</b y guiar las decisiones terapéuticas y preventivas a largo plazo.</div>
-</section>
-
-<section class="panel" aria-labelledby="title-to">
-    <p class="note">Seleccione las condiciones diagnósticas más probables según estudios clínicos e imagenológicos.</p>
-
-    <div class="grid">
-      <div>
-        <label for="lvo">1. Lesión Arterial Aterosclerótica (LAA)</label>
-        <select id="lvo">
-          <option value="">Selecciona…</option>
-          <option value="none">Sin estenosis significativa ni placa de riesgo ipsilateral</option>
-          <option value="probable">Placa aterosclerótica ulcerada o irregular (&lt;50%)</option>
-          <option value="definite">Estenosis ≥50%/placa compleja relevante</option>
-        </select>
-        <p class="note">Incluye carótida, M1, vertebral o basilar.</p>
-      </div>
-
-      <div>
-        <label for="cardiac">2. Fuente Cardioembólica</label>
-        <select id="cardiac">
-          <option value="">Selecciona…</option>
-          <option value="none">No identificada</option>
-          <option value="definite">Alto riesgo (FA, trombo mural, prótesis mecánica, EM severa)</option>
-          <option value="minor">Riesgo menor/moderado (FOP, aneurisma septal, etc.)</option>
-        </select>
-      </div>
-
-      <div>
-        <label for="lacunar">3. Hallazgos Lacunares</label>
-        <select id="lacunar">
-          <option value="">Selecciona…</option>
-          <option value="none">No</option>
-          <option value="definite">Infarto lacunar típico (&lt;1.5 cm, perforantes)</option>
-        </select>
-      </div>
-
-      <div>
-        <label for="other">4. Otras Etiologías Definidas</label>
-        <select id="other">
-          <option value="">Selecciona…</option>
-          <option value="none">No</option>
-          <option value="definite">Sí (disección, vasculitis, trombofilia, vasoespasmo, etc.)</option>
-        </select>
+  </head>
+  <body>
+    <!-- SAFE-TOP -->
+    <div class="safe-top">
+      <div class="safe-content">
+        <div class="safe-left"> <img src="../iconos/escalasico.png"
+            alt="Icono Escalas" class="safe-mini"> <img
+            src="../img/topbar.png" alt="IctusGPS" class="safe-logo"> </div>
+        <div class="safe-actions"> <a href="javascript:history.back()"
+            class="safe-btn" title="Volver atrás"> <img
+              src="../iconos/atrastransparente.png" alt="Atrás"
+              class="safe-icon"> </a> <a href="../index.html"
+            class="safe-btn" title="Volver al inicio"> <img
+              src="../iconos/hometransparente.png" alt="Inicio"
+              class="safe-icon"> </a> </div>
       </div>
     </div>
-
-    <div id="err" class="note-warn" style="display:none;margin-top:12px"></div>
-  </section>
-
-  <!-- Tarjeta principal de resultados -->
-  <section class="card" id="resultCard" style="display:none">
-    <h3 class="kpi-title">Clasificación TOAST Final</h3>
-    <div class="conclusion" id="toastConclusion">—</div>
-    <div class="criteria" id="toastCriterios">—</div>
-    <div class="note-warn" id="toastNote" style="display:none"></div>
-
-    <div class="actions">
-      <button id="btnBorrar" class="btn-action" type="button">Borrar</button>
-      <button id="btnCopy" class="btn-action btn-copy" type="button">Copiar resumen</button>
-    </div>
-  </section>
-
-  <!-- Tarjeta secundaria (Resumen listo para HCE) -->
-  <section class="card" id="secondaryCard" style="display:none">
-    <h3 class="kpi-title">Resumen para historia clínica</h3>
-    <div id="resumenText"></div>
-  </section>
-
-  <!-- Colapsable 1: Criterios TOAST detallados -->
-  <details class="toast-collapsible" id="colCriteria">
-    <summary><span class="caret">▸</span> Criterios TOAST (detallados)</summary>
-    <div class="inner">
-      <ul style="margin:0 0 6px 18px">
-        <li><b>LAA </b>(Aterosclerosis de gran arteria): estenosis ≥50% o placa compleja ipsilateral al evento; sin fuente cardioembólica de alto riesgo.</li>
-        <li><b>CE </b>(Cardioembolismo): fuente cardíaca de alto riesgo (FA, trombo mural, prótesis mecánica, EM severa) sin LAA significativa.</li>
-        <li><b>SVO </b>(Pequeño vaso): infarto lacunar típico (&lt;1.5 cm) en territorio perforante; sin LAA ≥50% ni CE alto riesgo.</li>
-        <li><b>ODE </b>(Otra etiología definida): causa específica (p. ej., disección, vasculitis, trombofilia, vasoespasmo, etc.).</li>
-        <li><b>UE </b>(Indeterminada/Criptogénico): indeterminada (sin causa, múltiples posibles o evaluación incompleta).</li>
-      </ul>
-      <p class="note" style="margin-top:6px">TOAST: Trial of Org 10172 in Acute Stroke Treatment.</p>
-    </div>
-  </details>
-
-  <!-- Colapsable 2: Claves diagnósticas y diferenciales (TABLA) -->
-  <details class="toast-collapsible" id="colTable">
-    <summary><span class="caret">▸</span> 🩻 Claves diagnósticas y diferenciales</summary>
-    <div class="inner">
-      <div class="table-wrap">
-        <table class="table" aria-label="Claves diagnósticas y diferenciales">
-          <thead>
-            <tr>
-              <th>Tipo</th>
-              <th>Imagen</th>
-              <th>Clínica</th>
-              <th>Diagnóstico diferencial</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><b>LAA</b></td>
-              <td>Estenosis ≥50% o placa ulcerada en arteria relevante (carótida, M1, basilar, vertebral)</td>
-              <td>Ictus cortical o subcortical extenso, territorial; posible progresión/fluctuación</td>
-              <td>CE si embolismo distal; SVO si infarto pequeño sin estenosis significativa</td>
-            </tr>
-            <tr>
-              <td><b>CE</b></td>
-              <td>Infartos corticales o multiterritoriales; transformación hemorrágica temprana más frecuente</td>
-              <td>Inicio súbito con déficit máximo desde el comienzo; antecedentes de FA/fuente cardiaca</td>
-              <td>LAA si estenosis proximal; UE/ESUS si no hay fuente definida</td>
-            </tr>
-            <tr>
-              <td><b>SVO</b></td>
-              <td>Infarto profundo &lt;1.5 cm (núcleos, cápsula interna, tálamo, protuberancia)</td>
-              <td>Síndromes lacunares: motor/sensitivo puro, sin signos corticales</td>
-              <td>LAA si infarto mayor con estenosis; CE si embolismo distal en perforantes</td>
-            </tr>
-            <tr>
-              <td><b>ODE</b></td>
-              <td>Disección, vasculitis, trombosis venosa, trombofilia, vasoespasmo…</td>
-              <td>Variable según causa subyacente</td>
-              <td>Descartar LAA/CE/SVO si no se confirma la etiología específica</td>
-            </tr>
-            <tr>
-              <td><b>UE</b></td>
-              <td>No específico; a veces patrón embólico</td>
-              <td>Estudios negativos o más de una causa posible</td>
-              <td>ESUS, LAA leve o CE menor no confirmados</td>
-            </tr>
-          </tbody>
-        </table>
+    <header>
+      <div class="bar">
+        <div class="title"><img src="../iconos/toast.png" alt="TOAST">TOAST</div>
+        <output id="pill" class="pill" aria-live="polite"
+          aria-atomic="true">—</output> </div>
+    </header>
+    <main class="wrap">
+      <div align="justify">
+        <section class="howto">La clasificación <b>TOAST (Trial of Org
+            10172 in Acute Stroke Treatment)</b> es un sistema <b>etiológico</b>
+          utilizado para categorizar el subtipo de infarto cerebral
+          isquémico, basándose en la causa subyacente. Define cinco
+          categorías principales (Aterosclerosis de gran vaso,
+          Cardioembolismo, Oclusión de pequeño vaso/Lacunar, Ictus de
+          otra etiología e Ictus de etiología indeterminada). Su
+          propósito principal es <b>homogeneizar la clasificación de
+            los ictus en ensayos clínicos</b>
+        </section>
       </div>
-    </div>
-  </details>
-
-</main>
-
-<script>
+      <section class="panel" aria-labelledby="title-to">
+        <p class="note">Seleccione las condiciones diagnósticas más
+          probables según estudios clínicos e imagenológicos.</p>
+        <div class="grid">
+          <div> <label for="lvo">1. Lesión Arterial Aterosclerótica
+              (LAA)</label>
+            <select id="lvo">
+              <option value="" selected="selected">Selecciona…</option>
+              <option value="none">Sin estenosis significativa ni placa
+                de riesgo ipsilateral</option>
+              <option value="probable">Placa aterosclerótica ulcerada o
+                irregular (&lt;50%)</option>
+              <option value="definite">Estenosis ≥50%/placa compleja
+                relevante</option>
+            </select>
+            <p class="note">Incluye carótida, M1, vertebral o basilar.</p>
+          </div>
+          <div> <label for="cardiac">2. Fuente Cardioembólica</label>
+            <select id="cardiac">
+              <option value="" selected="selected">Selecciona…</option>
+              <option value="none">No identificada</option>
+              <option value="definite">Alto riesgo (FA, trombo mural,
+                prótesis mecánica, EM severa)</option>
+              <option value="minor">Riesgo menor/moderado (FOP,
+                aneurisma septal, etc.)</option>
+            </select>
+          </div>
+          <div> <label for="lacunar">3. Hallazgos Lacunares</label>
+            <select id="lacunar">
+              <option value="" selected="selected">Selecciona…</option>
+              <option value="none">No</option>
+              <option value="definite">Infarto lacunar típico (&lt;1.5
+                cm, perforantes)</option>
+            </select>
+          </div>
+          <div> <label for="other">4. Otras Etiologías Definidas</label>
+            <select id="other">
+              <option value="" selected="selected">Selecciona…</option>
+              <option value="none">No</option>
+              <option value="definite">Sí (disección, vasculitis,
+                trombofilia, vasoespasmo, etc.)</option>
+            </select>
+          </div>
+        </div>
+        <div id="err" class="note-warn"
+          style="display:none;margin-top:12px"></div>
+      </section>
+      <!-- Tarjeta principal de resultados -->
+      <section class="card" id="resultCard" style="display:none">
+        <h3 class="kpi-title">Clasificación TOAST Final</h3>
+        <div class="conclusion" id="toastConclusion">—</div>
+        <div class="criteria" id="toastCriterios">—</div>
+        <div class="note-warn" id="toastNote" style="display:none"></div>
+        <div class="actions"> <button id="btnBorrar" class="btn-action"
+            type="button">Borrar</button> <button id="btnCopy"
+            class="btn-action btn-copy" type="button">Copiar resumen</button>
+        </div>
+      </section>
+      <!-- Tarjeta secundaria (Resumen listo para HCE) -->
+      <section class="card" id="secondaryCard" style="display:none">
+        <h3 class="kpi-title">Resumen para historia clínica</h3>
+        <div id="resumenText"></div>
+      </section>
+      <!-- Colapsable 1: Criterios TOAST detallados -->
+      <details class="toast-collapsible" id="colCriteria">
+        <summary><span class="caret">▸</span> Criterios TOAST
+          (detallados)</summary>
+        <div class="inner">
+          <ul style="font-size:12px;">
+            <li><b>LAA </b>(Aterosclerosis de gran arteria): estenosis
+              ≥50% o placa compleja ipsilateral al evento; sin fuente
+              cardioembólica de alto riesgo.</li>
+            <li><b>CE </b>(Cardioembolismo): fuente cardíaca de alto
+              riesgo (FA, trombo mural, prótesis mecánica, EM severa)
+              sin LAA significativa.</li>
+            <li><b>SVO </b>(Pequeño vaso): infarto lacunar típico
+              (&lt;1.5 cm) en territorio perforante; sin LAA ≥50% ni CE
+              alto riesgo.</li>
+            <li><b>ODE </b>(Otra etiología definida): causa específica
+              (p. ej., disección, vasculitis, trombofilia, vasoespasmo,
+              etc.).</li>
+            <li><b>UE </b>(Indeterminada/Criptogénico): indeterminada
+              (sin causa, múltiples posibles o evaluación incompleta).</li>
+          </ul>
+          <p class="note" style="margin-top:6px">TOAST: Trial of Org
+            10172 in Acute Stroke Treatment.</p>
+        </div>
+      </details>
+      <!-- Colapsable 2: Claves diagnósticas y diferenciales (TABLA) -->
+      <details class="toast-collapsible" id="colTable">
+        <summary><span class="caret">▸</span> 🩻 Claves diagnósticas y
+          diferenciales</summary>
+        <div class="inner">
+          <div class="table-wrap">
+            <table class="table" aria-label="Claves diagnósticas y
+              diferenciales">
+              <thead> <tr>
+                  <th>Tipo</th>
+                  <th>Imagen</th>
+                  <th>Clínica</th>
+                  <th>Diagnóstico diferencial</th>
+                </tr>
+              </thead> <tbody>
+                <tr>
+                  <td><b>LAA</b></td>
+                  <td>Estenosis ≥50% o placa ulcerada en arteria
+                    relevante (carótida, M1, basilar, vertebral)</td>
+                  <td>Ictus cortical o subcortical extenso, territorial;
+                    posible progresión/fluctuación</td>
+                  <td>CE si embolismo distal; SVO si infarto pequeño sin
+                    estenosis significativa</td>
+                </tr>
+                <tr>
+                  <td><b>CE</b></td>
+                  <td>Infartos corticales o multiterritoriales;
+                    transformación hemorrágica temprana más frecuente</td>
+                  <td>Inicio súbito con déficit máximo desde el
+                    comienzo; antecedentes de FA/fuente cardiaca</td>
+                  <td>LAA si estenosis proximal; UE/ESUS si no hay
+                    fuente definida</td>
+                </tr>
+                <tr>
+                  <td><b>SVO</b></td>
+                  <td>Infarto profundo &lt;1.5 cm (núcleos, cápsula
+                    interna, tálamo, protuberancia)</td>
+                  <td>Síndromes lacunares: motor/sensitivo puro, sin
+                    signos corticales</td>
+                  <td>LAA si infarto mayor con estenosis; CE si
+                    embolismo distal en perforantes</td>
+                </tr>
+                <tr>
+                  <td><b>ODE</b></td>
+                  <td>Disección, vasculitis, trombosis venosa,
+                    trombofilia, vasoespasmo…</td>
+                  <td>Variable según causa subyacente</td>
+                  <td>Descartar LAA/CE/SVO si no se confirma la
+                    etiología específica</td>
+                </tr>
+                <tr>
+                  <td><b>UE</b></td>
+                  <td>No específico; a veces patrón embólico</td>
+                  <td>Estudios negativos o más de una causa posible</td>
+                  <td>ESUS, LAA leve o CE menor no confirmados</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+    </main>
+    <script>
 (function(){
   const $ = id => document.getElementById(id);
   const pill = $('pill');
@@ -571,11 +592,8 @@ footer img{max-width:320px;height:auto;opacity:.95}
   updatePill('—');
 })();
 </script>
-
-
-<footer>
-  <img src="../img/uibanner.png" alt="Ictus GPS">
-</footer>
-<script src="js/index.js"></script>
-</body>
+    <footer> <img src="../img/uibanner.png" alt="Ictus GPS">
+    </footer>
+    <script src="js/index.js"></script>
+  </body>
 </html>
