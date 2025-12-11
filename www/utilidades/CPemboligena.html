@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+  <head>
 
-<title>Otras cardiopatías embolígenas</title>
-<meta name="theme-color" content="#0f3d83">
-<link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
-
-<style>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Otras cardiopatías embolígenas</title>
+    <meta name="theme-color" content="#0f3d83">
+    <link rel="icon" type="image/png" sizes="192x192"
+      href="../iconos/ictusgps.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+      href="../iconos/ictusgps.png">
+    <style>
 /* VARIABLES BÁSICAS */
 :root{
   --bg:#f8fafc; 
@@ -358,200 +360,204 @@ body{
 }
 
 </style>
-</head>
-
-<body>
-
-<!-- SAFE TOP -->
-<div class="safe-top">
-  <div class="safe-content">
-    <div class="safe-left">
-      <img src="../iconos/utilidadesico.png" class="safe-mini">
-      <img src="../img/topbar.png" class="safe-logo">
-    </div>
-    <div class="safe-actions">
-      <a href="javascript:history.back()" class="safe-btn">
-        <img src="../iconos/atrastransparente.png" class="safe-icon">
-      </a>
-      <a href="../index.html" class="safe-btn">
-        <img src="../iconos/hometransparente.png" class="safe-icon">
-      </a>
-    </div>
-  </div>
-</div>
-
-<header>
-  <div class="title">
-    <img src="../iconos/cardiopatiasico.png">
-    Otras cardiopatías embolígenas
-  </div>
-</header>
-
-<main class="wrap">
-
-<div class="howto">Las <b>cardiopatías embolígenas</b> cuya etiología <b>primaria</b> es distinta de la fibrilación auricular o del foramen oval permeable presentan mecanismos <b>propios</b> de generación de embolias, aunque algunas de ellas puedan <b>coexistir o evolucionar</b> hacia fibrilación auricular. Esta herramienta permite identificar los factores de riesgo embólico específicos de cada entidad y orientar la estrategia antitrombótica más adecuada según la evidencia disponible.</div>
-
-  <!-- ÚNICO BLOQUE -->
-  <div class="block" id="patologia-section">
-    <h3>🩺 Patología cardíaca embolígena</h3>
-
-    <label><b>Seleccione la entidad principal:</b></label>
-    <select id="patologia" onchange="mostrarFactoresPatologia()">
-      <option value="" disabled selected>Seleccione una patología…</option>
-      <option value="hipertrofica">Miocardiopatía hipertrófica</option>
-      <option value="iam">Infarto agudo de miocardio</option>
-      <option value="dilatada">Miocardiopatía dilatada</option>
-      <option value="isquemica">Miocardiopatía isquémica</option>
-      <option value="restrictiva">Miocardiopatía restrictiva</option>
-      <option value="tako">Miocardiopatía de Tako-Tsubo</option>
-      <option value="mixoma">Mixoma auricular</option>
-      <option value="valvular">Prótesis valvulares / Cardiopatía valvular</option>
-      <option value="endocarditis">Endocarditis infecciosa</option>
-      <option value="sicksinus">Síndrome del seno enfermo</option>
-      <option value="auricula">Aurícula izquierda / orejuela</option>
-    </select>
-
-    <div id="patologia-factores" style="margin-top:12px;"></div>
-  </div>
-
-  <div id="patologia-resultado">
-    <h3>✅ Recomendación</h3>
-    <p id="patologia-texto">Seleccione un escenario clínico para mostrar la recomendación orientativa de tratamiento.</p>
-  </div>
-
-  <div id="botones-patologia" style="display:none; margin-top: 2px; text-align:center;"></div>
-
-  <!-- BOTONES DE ACCION -->
-  <div class="actions"> 
-    <button onclick="borrarFormulario()" class="boton-opcion boton-clear">Borrar</button>
-    <button onclick="copiarResumen()" class="boton-opcion boton-copy">Copiar recomendación</button>
-  </div>
-
-  <!-- DISCLAIMER -->
-  <section class="disclaimer-red">
-    <p>
-      <b>📛Advertencia.</b> Esta herramienta tiene carácter orientativo y no sustituye el juicio clínico del profesional ni los protocolos locales.
-      Las recomendaciones deben integrarse con la situación individual del paciente, las guías vigentes y la discusión multidisciplinar cuando proceda.
-    </p>
-  </section>
-
-  <div class="howto">
-    <details style="margin-top:1px;">
-      <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📚 Bibliografía</summary>
-      <div style="
-        margin-top:14px;
-        background:#ffffff;
-        border:1px solid #d0d7e1;
-        border-radius:10px;
-        box-shadow:0 2px 6px rgba(0,0,0,0.05);
-        overflow:hidden;
-        font-size:13px;
-        line-height:1.55;
-        color:#1e293b;
-      ">
-
-        <!-- Barra superior tipo guideline -->
-        <div style="
-          background:#0f3d83;
-          color:#ffffff;
-          padding:10px 14px;
-          font-size:14px;
-          font-weight:700;
-          letter-spacing:0.3px;
-        ">
-          📘 Referencias bibliográficas
+  </head>
+  <body>
+    <!-- SAFE TOP -->
+    <div class="safe-top">
+      <div class="safe-content">
+        <div class="safe-left"> <img src="../iconos/utilidadesico.png"
+            class="safe-mini"> <img src="../img/topbar.png"
+            class="safe-logo"> </div>
+        <div class="safe-actions"> <a href="javascript:history.back()"
+            class="safe-btn"> <img
+              src="../iconos/atrastransparente.png" class="safe-icon"> </a>
+          <a href="../index.html" class="safe-btn"> <img
+              src="../iconos/hometransparente.png" class="safe-icon"> </a>
         </div>
-
-        <!-- Contenido -->
-        <div style="padding:16px 18px;">
-
-<ol style="margin:8px; padding-left:20px; font-size:10px; line-height:1.45;">
-
-    <!-- GENERAL DE CARDIOEMBOLISMO -->
-    <li>Arboix A, Alió J. Cardioembolic stroke: clinical features, cardiac disorders and prognosis. <i>Cerebrovasc Dis</i>. 2010;29:321–330.</li>
-    <li>Sacchetti D, Furie KL, Yaghi S. Cardioembolic Stroke: Mechanisms & Therapeutics. <i>Semin Neurol</i>. 2017;37:370–387.</li>
-    <li>Yaghi S, Bernstein RA, Passman R, Okin PM. Cryptogenic stroke: targeted workup for occult cardiac disease. <i>Stroke</i>. 2024.</li>
-    <li>Peciña JL et al. Cardiac imaging for embolic stroke of undetermined source. <i>JACC</i>. 2021;77(8):1024–1038.</li>
-
-    <!-- MIOCARDIOPATÍA HIPERTRÓFICA -->
-    <li>Guttmann OP et al. Atrial fibrillation and thromboembolism in hypertrophic cardiomyopathy. <i>Heart</i>. 2014;100:465–472.</li>
-    <li>O'Mahony C et al. Atrial Fibrillation in HCM: disease mechanisms and outcomes. <i>JACC</i>. 2019.</li>
-
-    <!-- INFARTO AGUDO DE MIOCARDIO / TROMBO VENTRICULAR -->
-    <li>McCarthy CP et al. Left ventricular thrombus after acute MI. <i>JAMA Cardiol</i>. 2019;4:642–651.</li>
-    <li>Attenhofer Jost CH et al. Imaging of LV thrombus: echo, CT and MRI. <i>JACC Img</i>. 2020.</li>
-    <li>Delewi R, et al. LV thrombus prevention & management after MI. <i>EHJ</i>. 2012;33:917–923.</li>
-
-    <!-- MIOCARDIOPATÍA DILATADA -->
-    <li>de Gregorio C. Ventricular thrombus in DCM: incidence & management. <i>Cardiology</i>. 2020.</li>
-    <li>Hsu JC et al. Thromboembolism risk in dilated cardiomyopathy. <i>Heart Rhythm</i>. 2016.</li>
-
-    <!-- MIOCARDIOPATÍA ISQUÉMICA -->
-    <li>Solomon SD et al. Ventricular remodeling after MI and embolic risk. <i>NEJM</i>. 2010.</li>
-    <li>Weinsaft JW et al. LV thrombus: MRI vs echo accuracy. <i>JACC Img</i>. 2009.</li>
-    <li>Yaghi S, Kamel H. Ischemic cardiomyopathy & embolic stroke. <i>Stroke</i>. 2017.</li>
-
-    <!-- MIOCARDIOPATÍA RESTRICTIVA -->
-    <li>Damy T, et al. Thromboembolic complications in amyloidosis. <i>EHJ</i>. 2021.</li>
-    <li>Dubrey S, Hawkins PN. Amyloid heart disease review. <i>BMJ</i>. 2020.</li>
-
-    <!-- TAKO-TSUBO -->
-    <li>Templin C et al. Takotsubo cardiomyopathy registry. <i>NEJM</i>. 2015.</li>
-    <li>Stiermaier T et al. LV thrombus in Tako-Tsubo: incidence & outcomes. <i>JACC</i>. 2016.</li>
-
-    <!-- MIXOMA AURICULAR / TUMORES CARDÍACOS -->
-    <li>Reynen K. Cardiac myxomas. <i>NEJM</i>. 1995;333:1610–1617.</li>
-    <li>Gowda RM et al. Embolic stroke from cardiac tumors. <i>Int J Cardiol</i>. 2003.</li>
-
-    <!-- ENDOCARDITIS INFECCIOSA -->
-    <li>Baddour LM et al. AHA Infective Endocarditis Guidelines. <i>Circulation</i>. 2015.</li>
-    <li>Habib G et al. ESC Guidelines for Infective Endocarditis. <i>Eur Heart J</i>. 2015.</li>
-    <li>Murdoch DR, et al. Neurological complications in endocarditis. <i>Lancet Neurol</i>. 2009.</li>
-
-    <!-- VALVULOPATÍAS / PRÓTESIS -->
-    <li>Baumgartner H et al. 2021 ESC/EACTS Guidelines for valvular heart disease.</li>
-    <li>Nishimura RA et al. 2020 ACC/AHA Guidelines for valve disease.</li>
-    <li>Kernan WN et al. Stroke prevention in valvular disease. <i>Stroke</i>. 2014.</li>
-    <li>Pibarot P, et al. TAVI: antithrombotic strategies. <i>JACC</i>. 2020.</li>
-
-    <!-- SÍNDROME DEL SENO ENFERMO / FA OCULTA -->
-    <li>Sanna T et al. CRYSTAL-AF: detection of occult AF after stroke. <i>NEJM</i>. 2014.</li>
-    <li>Steinberg JS et al. LOOP Study: AF screening and stroke risk. <i>Lancet</i>. 2021.</li>
-
-    <!-- AURÍCULA IZQUIERDA / OREJUELA -->
-    <li>Di Biase L et al. LA/LAA morphology & stroke risk. <i>Heart Rhythm</i>. 2012.</li>
-    <li>Fatkin D et al. LA enlargement as predictor of stroke. <i>EHJ</i>. 1994.</li>
-    <li>Glikson M et al. EHRA consensus on LAA occlusion. 2020.</li>
-
-    <!-- MASAS Y TROMBOS CARDÍACOS (GENERAL) -->
-    <li>Goyal P et al. Cardiac masses & thrombi: multimodality imaging. <i>JACC Img</i>. 2020.</li>
-    <li>Weinsaft JW et al. MRI vs echo for thrombus detection. <i>Circulation</i>. 2008.</li>
-
-    <!-- PREVENCIÓN / ESTRATEGIA ANTITROMBÓTICA -->
-    <li>Kernan WN et al. AHA/ASA Stroke Prevention Guidelines. <i>Stroke</i>. 2021.</li>
-    <li>Hindricks G et al. 2020 ESC Guidelines for Atrial Fibrillation (fundamentales para ACOD/AVK).</li>
-
-    <!-- SISTEMÁTICAS / REVISIÓN GLOBAL -->
-    <li>Giacalone G et al. Prevention strategies for cardioembolic stroke. <i>Open Neurol J</i>. 2010.</li>
-    <li>Bhat R et al. Embolic strokes of undetermined source: diagnosis & management. <i>Stroke</i>. 2021.</li>
-    <li>Yoshihara S et al. Cardiac causes of embolic stroke. <i>World J Radiol</i>. 2023.</li>
-  </ol>
-
-        </div>
-
       </div>
-    </details>
-  </div>
-
-  <div id="toast" class="toast"></div>
-
-</main>
-
-<footer>
-  <img src="../img/uibanner.png" alt="Ictus GPS">
-</footer>
-
-<script>
+    </div>
+    <header>
+      <div class="title"> <img src="../iconos/cardiopatiasico.png">
+        Otras cardiopatías embolígenas </div>
+    </header>
+    <main class="wrap">
+      <div class="howto" align="justify">Las <b>cardiopatías
+          embolígenas</b> cuya etiología <b>primaria</b> es distinta de
+        la fibrilación auricular o del foramen oval permeable presentan
+        mecanismos <b>propios</b> de generación de embolias, aunque
+        algunas de ellas puedan <b>coexistir o evolucionar</b> hacia
+        fibrilación auricular. Esta herramienta permite identificar los
+        factores de riesgo embólico específicos de cada entidad y
+        orientar la estrategia antitrombótica más adecuada según la
+        evidencia disponible.</div>
+      <!-- ÚNICO BLOQUE -->
+      <div class="block" id="patologia-section">
+        <h3>🩺 Patología cardíaca embolígena</h3>
+        <label><b>Seleccione la entidad principal:</b></label>
+        <select id="patologia" onchange="mostrarFactoresPatologia()">
+          <option value="" disabled="disabled" selected="selected">Seleccione
+            una patología…</option>
+          <option value="hipertrofica">Miocardiopatía hipertrófica</option>
+          <option value="iam">Infarto agudo de miocardio</option>
+          <option value="dilatada">Miocardiopatía dilatada</option>
+          <option value="isquemica">Miocardiopatía isquémica</option>
+          <option value="restrictiva">Miocardiopatía restrictiva</option>
+          <option value="tako">Miocardiopatía de Tako-Tsubo</option>
+          <option value="mixoma">Mixoma auricular</option>
+          <option value="valvular">Prótesis valvulares / Cardiopatía
+            valvular</option>
+          <option value="endocarditis">Endocarditis infecciosa</option>
+          <option value="sicksinus">Síndrome del seno enfermo</option>
+          <option value="auricula">Aurícula izquierda / orejuela</option>
+        </select>
+        <div id="patologia-factores" style="margin-top:12px;"></div>
+      </div>
+      <div id="patologia-resultado">
+        <h3>✅ Recomendación</h3>
+        <p id="patologia-texto">Seleccione un escenario clínico para
+          mostrar la recomendación orientativa de tratamiento.</p>
+      </div>
+      <div id="botones-patologia" style="display:none; margin-top: 2px;
+        text-align:center;"></div>
+      <!-- BOTONES DE ACCION -->
+      <div class="actions"> <button onclick="borrarFormulario()"
+          class="boton-opcion boton-clear">Borrar</button> <button
+          onclick="copiarResumen()" class="boton-opcion boton-copy">Copiar
+          recomendación</button> </div>
+      <!-- DISCLAIMER -->
+      <section class="disclaimer-red">
+        <p align="justify"> <b>📛Advertencia.</b> Esta herramienta
+          tiene carácter orientativo y no sustituye el juicio clínico
+          del profesional ni los protocolos locales. Las recomendaciones
+          deben integrarse con la situación individual del paciente, las
+          guías vigentes y la discusión multidisciplinar cuando proceda.
+        </p>
+      </section>
+      <div class="howto">
+        <details style="margin-top:1px;">
+          <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📚
+            Bibliografía</summary>
+          <div style=" margin-top:14px; background:#ffffff; border:1px
+            solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
+            rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
+            line-height:1.55; color:#1e293b; ">
+            <!-- Barra superior tipo guideline -->
+            <div style=" background:#0f3d83; color:#ffffff; padding:10px
+              14px; font-size:14px; font-weight:700;
+              letter-spacing:0.3px; "> 📘 Referencias bibliográficas </div>
+            <!-- Contenido -->
+            <div style="padding:16px 18px;">
+              <ol style="margin:8px; padding-left:20px; font-size:10px;
+                line-height:1.45;">
+                <!-- GENERAL DE CARDIOEMBOLISMO -->
+                <li>Arboix A, Alió J. Cardioembolic stroke: clinical
+                  features, cardiac disorders and prognosis. <i>Cerebrovasc
+                    Dis</i>. 2010;29:321–330.</li>
+                <li>Sacchetti D, Furie KL, Yaghi S. Cardioembolic
+                  Stroke: Mechanisms &amp; Therapeutics. <i>Semin
+                    Neurol</i>. 2017;37:370–387.</li>
+                <li>Yaghi S, Bernstein RA, Passman R, Okin PM.
+                  Cryptogenic stroke: targeted workup for occult cardiac
+                  disease. <i>Stroke</i>. 2024.</li>
+                <li>Peciña JL et al. Cardiac imaging for embolic stroke
+                  of undetermined source. <i>JACC</i>.
+                  2021;77(8):1024–1038.</li>
+                <!-- MIOCARDIOPATÍA HIPERTRÓFICA -->
+                <li>Guttmann OP et al. Atrial fibrillation and
+                  thromboembolism in hypertrophic cardiomyopathy. <i>Heart</i>.
+                  2014;100:465–472.</li>
+                <li>O'Mahony C et al. Atrial Fibrillation in HCM:
+                  disease mechanisms and outcomes. <i>JACC</i>. 2019.</li>
+                <!-- INFARTO AGUDO DE MIOCARDIO / TROMBO VENTRICULAR -->
+                <li>McCarthy CP et al. Left ventricular thrombus after
+                  acute MI. <i>JAMA Cardiol</i>. 2019;4:642–651.</li>
+                <li>Attenhofer Jost CH et al. Imaging of LV thrombus:
+                  echo, CT and MRI. <i>JACC Img</i>. 2020.</li>
+                <li>Delewi R, et al. LV thrombus prevention &amp;
+                  management after MI. <i>EHJ</i>. 2012;33:917–923.</li>
+                <!-- MIOCARDIOPATÍA DILATADA -->
+                <li>de Gregorio C. Ventricular thrombus in DCM:
+                  incidence &amp; management. <i>Cardiology</i>. 2020.</li>
+                <li>Hsu JC et al. Thromboembolism risk in dilated
+                  cardiomyopathy. <i>Heart Rhythm</i>. 2016.</li>
+                <!-- MIOCARDIOPATÍA ISQUÉMICA -->
+                <li>Solomon SD et al. Ventricular remodeling after MI
+                  and embolic risk. <i>NEJM</i>. 2010.</li>
+                <li>Weinsaft JW et al. LV thrombus: MRI vs echo
+                  accuracy. <i>JACC Img</i>. 2009.</li>
+                <li>Yaghi S, Kamel H. Ischemic cardiomyopathy &amp;
+                  embolic stroke. <i>Stroke</i>. 2017.</li>
+                <!-- MIOCARDIOPATÍA RESTRICTIVA -->
+                <li>Damy T, et al. Thromboembolic complications in
+                  amyloidosis. <i>EHJ</i>. 2021.</li>
+                <li>Dubrey S, Hawkins PN. Amyloid heart disease review.
+                  <i>BMJ</i>. 2020.</li>
+                <!-- TAKO-TSUBO -->
+                <li>Templin C et al. Takotsubo cardiomyopathy registry.
+                  <i>NEJM</i>. 2015.</li>
+                <li>Stiermaier T et al. LV thrombus in Tako-Tsubo:
+                  incidence &amp; outcomes. <i>JACC</i>. 2016.</li>
+                <!-- MIXOMA AURICULAR / TUMORES CARDÍACOS -->
+                <li>Reynen K. Cardiac myxomas. <i>NEJM</i>.
+                  1995;333:1610–1617.</li>
+                <li>Gowda RM et al. Embolic stroke from cardiac tumors.
+                  <i>Int J Cardiol</i>. 2003.</li>
+                <!-- ENDOCARDITIS INFECCIOSA -->
+                <li>Baddour LM et al. AHA Infective Endocarditis
+                  Guidelines. <i>Circulation</i>. 2015.</li>
+                <li>Habib G et al. ESC Guidelines for Infective
+                  Endocarditis. <i>Eur Heart J</i>. 2015.</li>
+                <li>Murdoch DR, et al. Neurological complications in
+                  endocarditis. <i>Lancet Neurol</i>. 2009.</li>
+                <!-- VALVULOPATÍAS / PRÓTESIS -->
+                <li>Baumgartner H et al. 2021 ESC/EACTS Guidelines for
+                  valvular heart disease.</li>
+                <li>Nishimura RA et al. 2020 ACC/AHA Guidelines for
+                  valve disease.</li>
+                <li>Kernan WN et al. Stroke prevention in valvular
+                  disease. <i>Stroke</i>. 2014.</li>
+                <li>Pibarot P, et al. TAVI: antithrombotic strategies. <i>JACC</i>.
+                  2020.</li>
+                <!-- SÍNDROME DEL SENO ENFERMO / FA OCULTA -->
+                <li>Sanna T et al. CRYSTAL-AF: detection of occult AF
+                  after stroke. <i>NEJM</i>. 2014.</li>
+                <li>Steinberg JS et al. LOOP Study: AF screening and
+                  stroke risk. <i>Lancet</i>. 2021.</li>
+                <!-- AURÍCULA IZQUIERDA / OREJUELA -->
+                <li>Di Biase L et al. LA/LAA morphology &amp; stroke
+                  risk. <i>Heart Rhythm</i>. 2012.</li>
+                <li>Fatkin D et al. LA enlargement as predictor of
+                  stroke. <i>EHJ</i>. 1994.</li>
+                <li>Glikson M et al. EHRA consensus on LAA occlusion.
+                  2020.</li>
+                <!-- MASAS Y TROMBOS CARDÍACOS (GENERAL) -->
+                <li>Goyal P et al. Cardiac masses &amp; thrombi:
+                  multimodality imaging. <i>JACC Img</i>. 2020.</li>
+                <li>Weinsaft JW et al. MRI vs echo for thrombus
+                  detection. <i>Circulation</i>. 2008.</li>
+                <!-- PREVENCIÓN / ESTRATEGIA ANTITROMBÓTICA -->
+                <li>Kernan WN et al. AHA/ASA Stroke Prevention
+                  Guidelines. <i>Stroke</i>. 2021.</li>
+                <li>Hindricks G et al. 2020 ESC Guidelines for Atrial
+                  Fibrillation (fundamentales para ACOD/AVK).</li>
+                <!-- SISTEMÁTICAS / REVISIÓN GLOBAL -->
+                <li>Giacalone G et al. Prevention strategies for
+                  cardioembolic stroke. <i>Open Neurol J</i>. 2010.</li>
+                <li>Bhat R et al. Embolic strokes of undetermined
+                  source: diagnosis &amp; management. <i>Stroke</i>.
+                  2021.</li>
+                <li>Yoshihara S et al. Cardiac causes of embolic stroke.
+                  <i>World J Radiol</i>. 2023.</li>
+              </ol>
+            </div>
+          </div>
+        </details>
+      </div>
+      <div id="toast" class="toast"></div>
+    </main>
+    <footer> <img src="../img/uibanner.png" alt="Ictus GPS">
+    </footer>
+    <script>
 /* ============================
    FACTORES POR PATOLOGÍA
 =============================== */
@@ -1510,6 +1516,5 @@ function showToast(message, type = "info") {
   }, 3000);
 }
 </script>
-
-</body>
+  </body>
 </html>

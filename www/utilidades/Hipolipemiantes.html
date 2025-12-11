@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<link rel="manifest" href="../site.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
-<link rel="shortcut icon" href="../iconos/ictusgps.png">
-<meta name="theme-color" content="#0f3d83">
-<title>Hipolipemiantes</title>
-<style>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192"
+      href="../iconos/ictusgps.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+      href="../iconos/ictusgps.png">
+    <link rel="shortcut icon" href="../iconos/ictusgps.png">
+    <meta name="theme-color" content="#0f3d83">
+    <title>Hipolipemiantes</title>
+    <style>
 /* =========================================================
    VARIABLES GLOBALES
 ========================================================= */
@@ -526,219 +530,210 @@ body {
 }
 
 </style>
-</head>
-<body>
-
-<!-- SAFE-TOP -->
-<div class="safe-top">
-  <div class="safe-content">
-    <div class="safe-left">
-      <img src="../iconos/utilidadesico.png" class="safe-mini" alt="">
-      <img src="../img/topbar.png" class="safe-logo" alt="IctusGPS">
+  </head>
+  <body>
+    <!-- SAFE-TOP -->
+    <div class="safe-top">
+      <div class="safe-content">
+        <div class="safe-left"> <img src="../iconos/utilidadesico.png"
+            class="safe-mini" alt=""> <img src="../img/topbar.png"
+            class="safe-logo" alt="IctusGPS"> </div>
+        <div class="safe-actions"> <a href="javascript:history.back()"
+            class="safe-btn"> <img
+              src="../iconos/atrastransparente.png" class="safe-icon"
+              alt=""> </a> <a href="../index.html" class="safe-btn"> <img
+              src="../iconos/hometransparente.png" class="safe-icon"
+              alt=""> </a> </div>
+      </div>
     </div>
-
-    <div class="safe-actions">
-      <a href="javascript:history.back()" class="safe-btn">
-        <img src="../iconos/atrastransparente.png" class="safe-icon" alt="">
-      </a>
-      <a href="../index.html" class="safe-btn">
-        <img src="../iconos/hometransparente.png" class="safe-icon" alt="">
-      </a>
-    </div>
-  </div>
-</div>
-
-<!-- CABECERA -->
-<header>
-  <div class="bar">
-    <div class="title">
-      <img src="../iconos/hipolipemiantesico.png" alt="">Hipolipemiantes
-    </div>
-  </div>
-</header>
-
-<main class="wrap">
-  <div class="howto">
-    <b>Cómo usar:</b> seleccione el escenario clínico, describa el tratamiento actual (incluyendo dosis de estatina si procede) e introduzca el C-LDL.
-    Pulse <span class="tag">Calcular</span> para obtener el objetivo y la actitud clínica. El motor aplica la <i>“regla del 6%”</i> al doblar dosis de estatina y calcula la <i>distancia al objetivo</i>.
-  </div>
-
-<div class="wrap grid">
-
-
-    <form id="formLipidos" autocomplete="off">
-<fieldset class="block-rope">
-  <div class="block-title">🩺 Escenario clínico</div>
-        <label><input type="radio" name="escenario" value="aterotrombotico" required> Ictus/AIT <b>aterotrombótico</b> <span class="kbd">&lt;55 mg/dl</span></label>
-        <label><input type="radio" name="escenario" value="no_aterotrombotico"> Ictus/AIT <b>no aterotrombótico</b> <span class="kbd">&lt;70 mg/dl</span></label>
-        <label><input type="radio" name="escenario" value="hemorragico"> Ictus <b>hemorrágico</b> (individualizar) <span class="kbd">&lt;70 mg/dl</span></label>
-      </fieldset>
-
-      <fieldset class="block-clin">
-  <div class="block-title">💊 Tratamiento hipolipemiante actual</div>
-        <label><input type="radio" name="tratamiento" value="ninguno" required> Sin hipolipemiante</label>
-        <label><input type="radio" name="tratamiento" value="mono_estatina"> Estatina en monoterapia</label>
-        <div id="bloqueEstatina" class="row hide" style="margin:.25rem 0 .5rem">
-          <label> Tipo de estatina
-            <select id="tipoEstatina">
-              <option value="" disabled selected>— seleccione —</option>
-              <option value="atorvastatina">Atorvastatina</option>
-              <option value="rosuvastatina">Rosuvastatina</option>
-              <option value="otra">Otra (simva/prava/pitava…)</option>
-            </select>
-          </label>
-          <label id="wrapDosis"> Dosis actual (mg)
-            <select id="dosisEstatina">
-              <option value="" disabled selected>— seleccione —</option>
-            </select>
-          </label>
-          <div id="notaOtra" class="hint" style="grid-column:1/-1; display:none">Se considerará <strong>intensidad moderada</strong>.</div>
+    <!-- CABECERA -->
+    <header>
+      <div class="bar">
+        <div class="title"> <img src="../iconos/hipolipemiantesico.png"
+            alt="">Hipolipemiantes </div>
+      </div>
+    </header>
+    <main class="wrap">
+      <div class="howto" align="justify"> <b>Cómo usar:</b> seleccione
+        el escenario clínico, describa el tratamiento actual (incluyendo
+        dosis de estatina si procede) e introduzca el C-LDL. Pulse <span
+          class="tag">Calcular</span> para obtener el objetivo y la
+        actitud clínica. El motor aplica la <i>“regla del 6%”</i> al
+        doblar dosis de estatina y calcula la <i>distancia al objetivo</i>.
+      </div>
+      <div class="wrap grid">
+        <form id="formLipidos" autocomplete="off">
+          <fieldset class="block-rope">
+            <div class="block-title">🩺 Escenario clínico</div>
+            <label><input name="escenario" value="aterotrombotico"
+                required="" type="radio"> Ictus/AIT <b>aterotrombótico</b>
+              <span class="kbd">&lt;55 mg/dl</span></label> <label><input
+                name="escenario" value="no_aterotrombotico" type="radio">
+              Ictus/AIT <b>no aterotrombótico</b> <span class="kbd">&lt;70
+                mg/dl</span></label> <label><input name="escenario"
+                value="hemorragico" type="radio"> Ictus <b>hemorrágico</b>
+              (individualizar) <span class="kbd">&lt;70 mg/dl</span></label>
+          </fieldset>
+          <fieldset class="block-clin">
+            <div class="block-title">💊 Tratamiento hipolipemiante
+              actual</div>
+            <label><input name="tratamiento" value="ninguno" required=""
+                type="radio"> Sin hipolipemiante</label> <label><input
+                name="tratamiento" value="mono_estatina" type="radio">
+              Estatina en monoterapia</label>
+            <div id="bloqueEstatina" class="row hide"
+              style="margin:.25rem 0 .5rem"> <label> Tipo de estatina
+                <select id="tipoEstatina">
+                  <option value="" disabled="disabled"
+                    selected="selected">— seleccione —</option>
+                  <option value="atorvastatina">Atorvastatina</option>
+                  <option value="rosuvastatina">Rosuvastatina</option>
+                  <option value="otra">Otra (simva/prava/pitava…)</option>
+                </select>
+              </label> <label id="wrapDosis"> Dosis actual (mg)
+                <select id="dosisEstatina">
+                  <option value="" disabled="disabled"
+                    selected="selected">— seleccione —</option>
+                </select>
+              </label>
+              <div id="notaOtra" class="hint" style="grid-column:1/-1;
+                display:none">Se considerará <strong>intensidad
+                  moderada</strong>.</div>
+            </div>
+            <label><input name="tratamiento" value="ezetimiba_mono"
+                type="radio"> Ezetimiba en monoterapia</label> <label><input
+                name="tratamiento" value="estatina_ezetimiba"
+                type="radio"> Estatina + ezetimiba</label> <label
+              style="color:red; margin-top:.35rem"><input
+                id="intoleranciaStatinas" type="checkbox">
+              Intolerancia/contraindicación a estatinas</label> <label
+              style="color:red; margin-top:.35rem"><input
+                id="ezetimibaContra" type="checkbox">
+              Intolerancia/contraindicación a ezetimiba</label> <label
+              style="margin-top:.35rem"><input id="ingreso"
+                type="checkbox"> Paciente actualmente ingresado (fase
+              hospitalaria)</label> </fieldset>
+          <fieldset class="block-anat">
+            <div class="block-title">🩸 Analítica</div>
+            <div class="row"> <label> C-LDL actual (mg/dl) <input
+                  id="ldl" min="0" step="1" placeholder="p. ej., 118"
+                  required="" type="number"> </label> <label> C-LDL
+                basal (mg/dl) <span class="hint">(opcional)</span> <input
+                  id="ldlBasal" min="0" step="1" placeholder="si se
+                  conoce" type="number"> </label> </div>
+            <label><input id="lpaAlta" type="checkbox"> Lp(a) elevada /
+              relevante (si se conoce)</label> </fieldset>
+          <!-- BOTONES AL ESTILO FOP (manteniendo IDs) -->
+          <div class="actions"> <button type="submit" id="btnCalcular"
+              class="btn-action btn-calc">Calcular</button> <button
+              type="button" class="btn-action btn-clear" id="btnLimpiar">Borrar</button>
+            <button type="button" class="btn-action btn-copy no-print"
+              id="btnPrint">Imprimir</button> <button type="button"
+              class="btn-action btn-copy no-print" id="btnCopiar">Copiar
+              resumen</button> </div>
+        </form>
+        <aside class="card">
+          <h2>Resultados y recomendación</h2>
+          <div id="resultado" class="results">
+            <p class="hint">Complete los supuestos y pulse <span
+                class="tag">Calcular</span>.</p>
+          </div>
+          <!-- Resumen clínico tipo FOP -->
+          <div class="wrap">
+            <div id="resumenText"></div>
+          </div>
+        </aside>
+        <!-- Disclaimer final con fondo rojo tenue (inicialmente oculto) -->
+        <div class="disclaimer-red hide" id="disclaimerFinal">
+          <p>Esta herramienta tiene finalidad exclusivamente orientativa
+            y no sustituye el juicio clínico del facultativo. Las
+            recomendaciones se basan en guías ESC/EAS y AHA/ASA
+            vigentes, pero deben individualizarse según el perfil de
+            riesgo, comorbilidades y disponibilidad terapéutica. El
+            tratamiento hipolipemiante debe ajustarse siempre bajo
+            supervisión médica.</p>
         </div>
-        <label><input type="radio" name="tratamiento" value="ezetimiba_mono"> Ezetimiba en monoterapia</label>
-        <label><input type="radio" name="tratamiento" value="estatina_ezetimiba"> Estatina + ezetimiba</label>
-
-        <label style="color:red; margin-top:.35rem"><input type="checkbox" id="intoleranciaStatinas"> Intolerancia/contraindicación a estatinas</label>
-        <label style="color:red; margin-top:.35rem"><input type="checkbox" id="ezetimibaContra"> Intolerancia/contraindicación a ezetimiba</label>
-        <label style="margin-top:.35rem"><input type="checkbox" id="ingreso"> Paciente actualmente ingresado (fase hospitalaria)</label>
-      </fieldset>
-
-      <fieldset class="block-anat">
-  <div class="block-title">🩸 Analítica</div>
-        <div class="row">
-          <label> C-LDL actual (mg/dl)
-            <input type="number" id="ldl" min="0" step="1" placeholder="p. ej., 118" required>
-          </label>
-          <label> C-LDL basal (mg/dl) <span class="hint">(opcional)</span>
-            <input type="number" id="ldlBasal" min="0" step="1" placeholder="si se conoce">
-          </label>
+        <div class="howto">
+          <details style="margin-top:1px;">
+            <summary
+              style="cursor:pointer;font-weight:700;color:#0f3d83;">📚
+              Bibliografía</summary>
+            <div style=" margin-top:14px; background:#ffffff; border:1px
+              solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
+              rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
+              line-height:1.55; color:#1e293b;
+              ">
+              <!-- Barra superior tipo guideline -->
+              <div style=" background:#0f3d83; color:#ffffff;
+                padding:10px 14px; font-size:14px; font-weight:700;
+                letter-spacing:0.3px; "> 📘 Referencias bibliográficas </div>
+              <!-- Contenido -->
+              <div style="padding:16px 18px;">
+                <ol style="margin:8px; padding-left:20px;
+                  font-size:10px; line-height:1.45;">
+                  <li>Mach F, et&nbsp;al. 2019 ESC/EAS Guidelines for
+                    the management of dyslipidaemias. <em>Eur Heart J</em>.</li>
+                  <li>Visseren FLJ, et&nbsp;al. 2021 ESC Guidelines on
+                    cardiovascular disease prevention. <em>Eur Heart J</em>.</li>
+                  <li>Kleindorfer DO, et&nbsp;al. 2021 AHA/ASA Guideline
+                    for the Prevention of Stroke in Patients With Stroke
+                    and TIA. <em>Stroke</em>.</li>
+                  <li>Cannon CP, et&nbsp;al. IMPROVE-IT. <em>N Engl J
+                      Med</em> 2015.</li>
+                  <li>Sabatine MS, et&nbsp;al. FOURIER; Giugliano RP,
+                    et&nbsp;al. FOURIER-OLE. <em>N Engl J Med</em>.</li>
+                  <li>Schwartz GG, et&nbsp;al. ODYSSEY OUTCOMES. <em>N
+                      Engl J Med</em> 2018.</li>
+                  <li>Ray KK, et&nbsp;al. ORION-10/11 (inclisirán). <em>N
+                      Engl J Med</em> 2020.</li>
+                  <li>Nissen SE, et&nbsp;al. CLEAR Outcomes (ácido
+                    bempedoico). <em>N Engl J Med</em> 2023.</li>
+                  <li>Bohula EA, et&nbsp;al. VESALIUS-CV (evolocumab en
+                    pacientes sin IAM/ictus previos). <em>N Engl J Med</em>
+                    2025.</li>
+                </ol>
+              </div>
+            </div>
+          </details>
+          <br>
+          <!-- Evidencia VESALIUS-CV -->
+          <details style="margin-top:1px;" open="">
+            <summary
+              style="cursor:pointer;font-weight:700;color:#0f3d83;">🚨
+              Evidencia reciente</summary>
+            <div style=" margin-top:14px; background:#ffffff; border:1px
+              solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
+              rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
+              line-height:1.55; color:#1e293b;
+              ">
+              <!-- Barra superior tipo guideline -->
+              <div style=" background:#0f3d83; color:#ffffff;
+                padding:10px 14px; font-size:14px; font-weight:700;
+                letter-spacing:0.3px; "> 📰 VESALIUS-CV (NEJM 2025) </div>
+              <!-- Contenido -->
+              <div style="padding:16px 18px;" align="justify"> <b>VESALIUS-CV</b>
+                evaluó evolocumab frente a placebo en 12.257 pacientes
+                con aterosclerosis o diabetes, sin infarto ni ictus
+                previos y con C-LDL ≥90 mg/dl, ya en tratamiento
+                hipolipemiante optimizado. Tras 4,6 años de seguimiento:
+                <ul style="margin-top:4px">
+                  <li><b>Reducción del 25&nbsp;%</b> en 3-point MACE
+                    (muerte coronaria, IAM o ictus isquémico).</li>
+                  <li><b>Reducción del 19&nbsp;%</b> en 4-point MACE
+                    (añadiendo revascularización isquémica).</li>
+                  <li>Descenso adicional de C-LDL ≈<b>55&nbsp;%</b>
+                    (mediana ≈45&nbsp;mg/dl) sin señal de toxicidad
+                    relevante.</li>
+                </ul>
+                Refuerza la seguridad de objetivos de C-LDL muy bajos y
+                respalda el uso precoz de inhibidores PCSK9 en pacientes
+                de muy alto riesgo que no alcanzan objetivo pese a
+                tratamiento óptimo. </div>
+            </div>
+          </details>
         </div>
-        <label><input type="checkbox" id="lpaAlta"> Lp(a) elevada / relevante (si se conoce)</label>
-      </fieldset>
-
-      <!-- BOTONES AL ESTILO FOP (manteniendo IDs) -->
-      <div class="actions">
-        <button type="submit" id="btnCalcular" class="btn-action btn-calc">Calcular</button>
-        <button type="button" class="btn-action btn-clear" id="btnLimpiar">Borrar</button>
-        <button type="button" class="btn-action btn-copy no-print" id="btnPrint">Imprimir</button>
-        <button type="button" class="btn-action btn-copy no-print" id="btnCopiar">Copiar resumen</button>
-      </div>
-    </form>
-  
-
-  <aside class="card">
-    <h2>Resultados y recomendación</h2>
-    <div id="resultado" class="results">
-      <p class="hint">Complete los supuestos y pulse <span class="tag">Calcular</span>.</p>
-    </div>
-
-
-
-   
-
-<!-- Resumen clínico tipo FOP -->
-<div class="wrap">
-  <div id="resumenText"></div>
-</div></aside>
-
-    <!-- Disclaimer final con fondo rojo tenue (inicialmente oculto) -->
-    <div class="disclaimer-red hide" id="disclaimerFinal">
-      <p>Esta herramienta tiene finalidad exclusivamente orientativa y no sustituye el juicio clínico del facultativo.
-        Las recomendaciones se basan en guías ESC/EAS y AHA/ASA vigentes, pero deben individualizarse según el perfil
-        de riesgo, comorbilidades y disponibilidad terapéutica. El tratamiento hipolipemiante debe ajustarse siempre
-        bajo supervisión médica.</p></div>  
-
- <div class="howto">
- <details style="margin-top:1px;">
-      <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📚 Bibliografía</summary>
-      <div style="
-  margin-top:14px;
-  background:#ffffff;
-  border:1px solid #d0d7e1;
-  border-radius:10px;
-  box-shadow:0 2px 6px rgba(0,0,0,0.05);
-  overflow:hidden;
-  font-size:13px;
-  line-height:1.55;
-  color:#1e293b;
-">
-
-  <!-- Barra superior tipo guideline -->
-  <div style="
-    background:#0f3d83;
-    color:#ffffff;
-    padding:10px 14px;
-    font-size:14px;
-    font-weight:700;
-    letter-spacing:0.3px;
-  ">
-    📘 Referencias bibliográficas
-  </div>
-
-  <!-- Contenido -->
-  <div style="padding:16px 18px;">
-
-<ol style="margin:8px; padding-left:20px; font-size:10px; line-height:1.45;">
-
-            <li>Mach F, et&nbsp;al. 2019 ESC/EAS Guidelines for the management of dyslipidaemias. <em>Eur Heart J</em>.</li>
-            <li>Visseren FLJ, et&nbsp;al. 2021 ESC Guidelines on cardiovascular disease prevention. <em>Eur Heart J</em>.</li>
-            <li>Kleindorfer DO, et&nbsp;al. 2021 AHA/ASA Guideline for the Prevention of Stroke in Patients With Stroke and TIA. <em>Stroke</em>.</li>
-            <li>Cannon CP, et&nbsp;al. IMPROVE-IT. <em>N Engl J Med</em> 2015.</li>
-            <li>Sabatine MS, et&nbsp;al. FOURIER; Giugliano RP, et&nbsp;al. FOURIER-OLE. <em>N Engl J Med</em>.</li>
-            <li>Schwartz GG, et&nbsp;al. ODYSSEY OUTCOMES. <em>N Engl J Med</em> 2018.</li>
-            <li>Ray KK, et&nbsp;al. ORION-10/11 (inclisirán). <em>N Engl J Med</em> 2020.</li>
-            <li>Nissen SE, et&nbsp;al. CLEAR Outcomes (ácido bempedoico). <em>N Engl J Med</em> 2023.</li>
-            <li>Bohula EA, et&nbsp;al. VESALIUS-CV (evolocumab en pacientes sin IAM/ictus previos). <em>N Engl J Med</em> 2025.</li>
-          </ol>
-        </small>
-      </div>
-    </details>
-<br>
-<!-- Evidencia VESALIUS-CV -->
- <details style="margin-top:1px;">
-      <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">🚨 Evidencia reciente</summary>
-      <div style="
-  margin-top:14px;
-  background:#ffffff;
-  border:1px solid #d0d7e1;
-  border-radius:10px;
-  box-shadow:0 2px 6px rgba(0,0,0,0.05);
-  overflow:hidden;
-  font-size:13px;
-  line-height:1.55;
-  color:#1e293b;
-">
-
-  <!-- Barra superior tipo guideline -->
-  <div style="
-    background:#0f3d83;
-    color:#ffffff;
-    padding:10px 14px;
-    font-size:14px;
-    font-weight:700;
-    letter-spacing:0.3px;
-  ">
-    📰 VESALIUS-CV (NEJM 2025)
-  </div>
-
-  <!-- Contenido -->
-  <div style="padding:16px 18px;">
-
-          <b>VESALIUS-CV</b> evaluó evolocumab frente a placebo en 12.257 pacientes con aterosclerosis o diabetes,
-          sin infarto ni ictus previos y con C-LDL ≥90 mg/dl, ya en tratamiento hipolipemiante optimizado.
-          Tras 4,6 años de seguimiento:
-          <ul style="margin-top:4px">
-            <li><b>Reducción del 25&nbsp;%</b> en 3-point MACE (muerte coronaria, IAM o ictus isquémico).</li>
-            <li><b>Reducción del 19&nbsp;%</b> en 4-point MACE (añadiendo revascularización isquémica).</li>
-            <li>Descenso adicional de C-LDL ≈<b>55&nbsp;%</b> (mediana ≈45&nbsp;mg/dl) sin señal de toxicidad relevante.</li>
-          </ul>
-          Refuerza la seguridad de objetivos de C-LDL muy bajos y respalda el uso precoz de inhibidores PCSK9
-          en pacientes de muy alto riesgo que no alcanzan objetivo pese a tratamiento óptimo.
-      </div>
-    </details>
-</div>
-<div id="toast" class="toast">Copiado al portapapeles</div>
-
-<script>
+        <div id="toast" class="toast">Copiado al portapapeles</div>
+        <script>
 (function(){
   const $ = sel => document.querySelector(sel);
   const $$ = sel => Array.from(document.querySelectorAll(sel));
@@ -1289,11 +1284,10 @@ if (target) {
   toggleBloqueEstatina();
 })();
 </script>
-
-<script src="../js/index.js"></script>
-</main>
-<footer>
-  <img src="../img/uibanner.png" alt="Ictus GPS">
-</footer>
-</body>
+        <script src="../js/index.js"></script>
+      </div>
+    </main>
+    <footer> <img src="../img/uibanner.png" alt="Ictus GPS">
+    </footer>
+  </body>
 </html>

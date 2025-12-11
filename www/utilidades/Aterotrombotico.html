@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <head>
 
-<title>Ictus aterotrombótico</title>
-<meta name="theme-color" content="#0f3d83">
-<link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
-
-<style>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+      viewport-fit=cover">
+    <title>Ictus aterotrombótico</title>
+    <meta name="theme-color" content="#0f3d83">
+    <link rel="icon" type="image/png" sizes="192x192"
+      href="../iconos/ictusgps.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+      href="../iconos/ictusgps.png">
+    <style>
 /* VARIABLES BÁSICAS */
 :root{
   --bg:#f8fafc; 
@@ -491,265 +494,276 @@ body{
 }
 
 </style>
-</head>
-
-<body>
-
-<!-- SAFE TOP -->
-<div class="safe-top">
-  <div class="safe-content">
-    <div class="safe-left">
-      <img src="../iconos/utilidadesico.png" class="safe-mini" alt="Utilidades">
-      <img src="../img/topbar.png" class="safe-logo" alt="IctusGPS">
-    </div>
-    <div class="safe-actions">
-      <a href="javascript:history.back()" class="safe-btn" title="Volver atrás">
-        <img src="../iconos/atrastransparente.png" class="safe-icon" alt="Atrás">
-      </a>
-      <a href="../index.html" class="safe-btn" title="Inicio">
-        <img src="../iconos/hometransparente.png" class="safe-icon" alt="Inicio">
-      </a>
-    </div>
-  </div>
-</div>
-
-<header>
-  <div class="title">
-    <img src="../iconos/aterotromboticoico.png" alt="Icono">Ictus aterotrombótico
-  </div>
-</header>
-
-<main class="wrap">
-<div class="howto">El <b>ictus aterotrombótico</b> incluye tanto la <b>enfermedad aterosclerótica</b> de grandes vasos como los infartos relacionados con <b>placa inestable</b>, <b>hipoperfusión</b> o <b>embolia arterio-arterial</b>. La herramienta integra además escenarios arteriales especiales (<b>disección, carotid web, trombo mural</b>) y ofrece una orientación rápida del <b>tratamiento antitrombótico</b> en cada situación clínica.</div>
-  <!-- TARJETA 1: SELECCIÓN DE ESCENARIO -->
-  <div class="block" id="escenario-section">
-    <h3>🩺 Tipo de ictus / escenario clínico</h3>
-    <label><b>Seleccione el escenario principal:</b></label>
-    <select id="escenario" onchange="mostrarTratamientoEscenario()">
-      <option value="" disabled selected>Seleccione un escenario…</option>
-      <option value="ictus_menor">Ictus minor / AIT de alto riesgo</option>
-      <option value="carotida">Estenosis carotídea extracraneal</option>
-      <option value="intracraneal">Estenosis intracraneal aterosclerótica</option>
-      <option value="vertebral">Estenosis vertebrales</option>
-      <option value="atero_sin_estenosis">Ictus aterotrombótico sin estenosis significativa</option>
-      <option value="lacunar">Ictus lacunar</option>
-      <option value="diseccion">Disección arterial (carótida / vertebral)</option>
-      <option value="carotid_web">Carotid Web</option>
-      <option value="trombo_aortico">Trombo mural aórtico</option>
-      <option value="estenosis_sin_intervencion">Estenosis crítica sin opción de intervención</option>
-    </select>
-    <p class="note">
-      Los escenarios se refieren al mecanismo aterotrombótico u otras fuentes de embolia arteria-arteria.
-    </p>
-  </div>
-
-  <!-- TARJETA 2: RECOMENDACIÓN PRINCIPAL -->
-  <div class="block" id="escenario-resultado">
-    <div style="display:flex; justify-content:space-between; align-items:center;">
-      <h3 style="margin:0;">✅ Recomendación</h3>
-      
-    </div>
-
-    <p id="escenario-texto">
-      Seleccione un escenario clínico para mostrar la recomendación orientativa de tratamiento antitrombótico.
-    </p>
-  </div>
-<div class="actions">
-<button class="boton-opcion boton-clear" onclick="borrarResumen()" title="Borrar contenido">Borrar</button>        
-<button class="boton-opcion boton-copy" onclick="copiarResumen()" title="Copiar resumen">Copiar recomendación</button>
+  </head>
+  <body>
+    <!-- SAFE TOP -->
+    <div class="safe-top">
+      <div class="safe-content">
+        <div class="safe-left"> <img src="../iconos/utilidadesico.png"
+            class="safe-mini" alt="Utilidades"> <img
+            src="../img/topbar.png" class="safe-logo" alt="IctusGPS"> </div>
+        <div class="safe-actions"> <a href="javascript:history.back()"
+            class="safe-btn" title="Volver atrás"> <img
+              src="../iconos/atrastransparente.png" class="safe-icon"
+              alt="Atrás"> </a> <a href="../index.html"
+            class="safe-btn" title="Inicio"> <img
+              src="../iconos/hometransparente.png" class="safe-icon"
+              alt="Inicio"> </a> </div>
       </div>
-
-
-  <!-- TARJETA 3: HERRAMIENTAS TRANSVERSALES -->
-  <div class="block" id="herramientas-block">
-    <h3>📚 Consideraciones adicionales</h3>
-    <p class="note">
-      Elementos aplicables a varios escenarios: dosis de carga, duración de la triple terapia, manejo en anticoagulados y gastroprotección.
-    </p>
-
-    <div class="tools-wrap">
-      <button class="tool-chip" data-tool="carga">
-        <span class="emoji">⚡</span> Dosis de carga de antiagregantes
-      </button>
-      <button class="tool-chip" data-tool="triple_stent">
-        <img src="../iconos/3st.svg" alt="3"> Triple terapia post-stent
-      </button>
-      <button class="tool-chip" data-tool="triple_sin_stent">
-        <img src="../iconos/3.svg" alt="3"> Triple terapia sin stent
-      </button>
-      <button class="tool-chip" data-tool="ibp">
-        <span class="emoji">💊</span> IBP y clopidogrel
-      </button>
     </div>
-  </div>
-
-  <!-- DISCLAIMER -->
-  <section class="disclaimer-red">
-    <p>
-      <b>📛Advertencia.</b> Esta herramienta tiene carácter orientativo y no sustituye el juicio clínico del profesional ni los protocolos locales.
-      Las recomendaciones deben integrarse con la situación individual del paciente, las guías vigentes y la discusión multidisciplinar cuando proceda.
-    </p>
-  </section>
-
-  <div class="howto">
-<details style="margin-top:1px;">
-      <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📒 Glosario de acrónimos</summary>
-      <div style="
-  margin-top:14px;
-  background:#ffffff;
-  border:1px solid #d0d7e1;
-  border-radius:10px;
-  box-shadow:0 2px 6px rgba(0,0,0,0.05);
-  overflow:hidden;
-  font-size:13px;
-  line-height:1.55;
-  color:#1e293b;
-">
-
-  <!-- Barra superior tipo guideline -->
-  <div style="
-    background:#0f3d83;
-    color:#ffffff;
-    padding:10px 14px;
-    font-size:14px;
-    font-weight:700;
-    letter-spacing:0.3px;
-  ">
-    🔤 Acrónimos utilizados
-  </div>
-
-  <!-- Contenido -->
-  <div style="padding:16px 18px;">
-
-<ol style="margin:8px; padding-left:20px; font-size:10px; line-height:1.45;">
-    <ul class="glosario-grid">
-    <li><b>AAS:</b> Ácido acetilsalicílico</li>
-    <li><b>ACO:</b> Anticoagulación oral</li>
-    <li><b>ACOD:</b> Anticoagulante oral de acción directa</li>
-    <li><b>AIT:</b> Ataque isquémico transitorio</li>
-    <li><b>AVK:</b> Antagonistas de la vitamina K</li>
-    <li><b>CAS:</b> Stent carotídeo (carotid artery stenting)</li>
-    <li><b>CEA:</b> Endarterectomía carotídea (carotid endarterectomy)</li>
-    <li><b>DAPT:</b> Doble antiagregación plaquetaria (dual antiplatelet therapy)</li>
-    <li><b>DM:</b> Diabetes mellitus</li>
-    <li><b>DTC:</b> Doppler transcraneal</li>
-    <li><b>FA:</b> Fibrilación auricular</li>
-    <li><b>FRV:</b> Factores de riesgo vascular</li>
-    <li><b>IBP:</b> Inhibidor de la bomba de protones</li>
-    <li><b>INR:</b> Cociente internacional normalizado</li>
-    <li><b>LDL:</b> Lipoproteínas de baja densidad</li>
-    <li><b>NIHSS:</b> National Institutes of Health Stroke Scale</li>
-    <li><b>RM:</b> Resonancia magnética</li>
-    <li><b>TC:</b> Tomografía computarizada</li>
-  </ul>
-</div></details>
-<br>
-<details style="margin-top:1px;">
-      <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📚 Bibliografía</summary>
-      <div style="
-  margin-top:14px;
-  background:#ffffff;
-  border:1px solid #d0d7e1;
-  border-radius:10px;
-  box-shadow:0 2px 6px rgba(0,0,0,0.05);
-  overflow:hidden;
-  font-size:13px;
-  line-height:1.55;
-  color:#1e293b;
-">
-
-  <!-- Barra superior tipo guideline -->
-  <div style="
-    background:#0f3d83;
-    color:#ffffff;
-    padding:10px 14px;
-    font-size:14px;
-    font-weight:700;
-    letter-spacing:0.3px;
-  ">
-    📘 Referencias bibliográficas
-  </div>
-
-  <!-- Contenido -->
-  <div style="padding:16px 18px;">
-
-<ol style="margin:1px; padding-left:20px; font-size:10px; line-height:1.45;">
-  <!-- Guías clínicas -->
-  <li>Kleindorfer DO, et al. 2021 AHA/ASA Guideline for the Prevention of Stroke in Patients With Stroke and TIA. <i>Stroke</i>. 2021;52:e364–e467.</li>
-  <li>European Stroke Organisation (ESO). Guidelines on Extracranial Carotid and Vertebral Artery Disease. <i>Eur Stroke J</i>. 2021;6(4):XLVII–LXXXVIII.</li>
-  <li>Powers WJ, et al. 2019 AHA/ASA Guideline for Early Management of Acute Ischemic Stroke. <i>Stroke</i>. 2019;50:e344–e418.</li>
-  <li>Hindricks G, et al. 2020 ESC Guidelines for the Diagnosis and Management of Atrial Fibrillation. <i>Eur Heart J</i>. 2020;41:373–498.</li>
-
-  <!-- Ictus minor / AIT de alto riesgo: DAPT -->
-  <li>Wang Y, et al. Clopidogrel with aspirin in acute minor stroke or TIA. <i>NEJM</i>. 2013;369:11–19. (CHANCE)</li>
-  <li>Johnston SC, et al. Clopidogrel and aspirin in acute ischemic stroke and high-risk TIA. <i>NEJM</i>. 2018;379:215–225. (POINT)</li>
-  <li>Johnston SC, et al. Ticagrelor and aspirin or aspirin alone in acute ischemic stroke or TIA. <i>NEJM</i>. 2020;383:207–217. (THALES)</li>
-
-  <!-- Estenosis carotídea / revascularización -->
-  <li>NASCET Investigators. Benefit of carotid endarterectomy in patients with symptomatic moderate or severe stenosis. <i>NEJM</i>. 1991;325:445–453.</li>
-  <li>ECST Investigators. Randomised trial of endarterectomy for symptomatic carotid stenosis. <i>Lancet</i>. 1991;337:1235–1243.</li>
-  <li>Bonati LH, et al. Long-term outcomes after stenting vs endarterectomy: meta-analysis. <i>Lancet Neurol</i>. 2015;14:755–765.</li>
-  <li>Howard G, et al. CREST-2 Investigators. Carotid Revascularization and Intensive Medical Management for Asymptomatic Carotid Stenosis. <i>NEJM</i>. 2025.</li>
-
-  <!-- Estenosis intracraneal -->
-  <li>Chimowitz MI, et al. Stenting versus aggressive medical therapy for intracranial stenosis. <i>NEJM</i>. 2011;365:993–1003. (SAMMPRIS)</li>
-  <li>Derdeyn CP, et al. Aggressive medical therapy for intracranial atherosclerosis. <i>Stroke</i>. 2014;45:2933–2939.</li>
-
-  <!-- Estenosis vertebrales -->
-  <li>Compter A, et al. Stenting versus medical therapy for vertebral artery stenosis. <i>Lancet Neurol</i>. 2015;14:606–614. (VIST)</li>
-  <li>Wityk RJ, et al. Noninvasive assessment of vertebral artery dissection. <i>Neurology</i>. 1998;50:1694–1698.</li>
-
-  <!-- Disección arterial -->
-  <li>Markus HS, et al. Antiplatelet vs anticoagulation for cervical artery dissection. <i>Lancet Neurol</i>. 2015;14:361–367. (CADISS)</li>
-
-  <!-- Carotid web -->
-  <li>Goyal M, et al. Carotid web and ischemic stroke. <i>Stroke</i>. 2019;50:1264–1271.</li>
-  <li>Sajedi PI, et al. Carotid bulb webs: radiologic appearance. <i>AJNR</i>. 2017;38:1399–1404.</li>
-
-  <!-- Trombo mural aórtico -->
-  <li>Spence JD. Aortic arch atheroma and stroke risk. <i>Curr Opin Neurol</i>. 2020;33:4–10.</li>
-  <li>Ferrero E, et al. Aortic mural thrombus: natural history and treatment. <i>J Vasc Surg</i>. 2020;72:1089–1097.</li>
-
-  <!-- Placa vulnerable / aterosclerosis -->
-  <li>Saba L, et al. Imaging biomarkers of carotid plaque vulnerability. <i>Radiology</i>. 2018;286:614–629.</li>
-  <li>Underhill HR, et al. MRI-detected intraplaque hemorrhage and cerebrovascular events. <i>Radiology</i>. 2021;301:612–621.</li>
-
-  <!-- Antiagregación / triple terapia -->
-  <li>Lopes RD, et al. Antithrombotic therapy after PCI in atrial fibrillation. <i>NEJM</i>. 2019;380:1509–1524. (AUGUSTUS)</li>
-  <li>Dewilde WJ, et al. Use of clopidogrel with or without aspirin in AF patients. <i>Lancet</i>. 2013;381:1107–1115. (WOEST)</li>
-  <li>Gibson CM, et al. Apixaban vs warfarin in PCI patients. <i>NEJM</i>. 2016;375:2423–2434. (PIONEER AF-PCI)</li>
-
-  <!-- Farmacología: IBP, clopidogrel, CYP2C19 -->
-  <li>Mega JL, et al. CYP2C19 genotype and response to clopidogrel. <i>NEJM</i>. 2009;360:354–362.</li>
-  <li>COGENT Investigators. Clopidogrel with or without omeprazole. <i>NEJM</i>. 2010;363:1909–1917.</li>
-  <li>EMA. Safety communication: clopidogrel–omeprazole interaction. 2010.</li>
-
-  <!-- Factores de riesgo / recurrencia -->
-  <li>Amarenco P, et al. One-year risk of stroke after TIA or minor stroke. <i>NEJM</i>. 2016;374:1533–1542.</li>
-  <li>Antithrombotic Trialists' Collaboration. Meta-analysis of antiplatelet therapy. <i>BMJ</i>. 2002;324:71–86.</li>
-
-</ol>
-
-</div></details>
-
-</div>
-
-</main>
-
-<!-- MODAL HERRAMIENTAS / NOTAS -->
-<div class="modal-overlay" id="tool-modal">
-  <div class="modal">
-    <button class="modal-close" id="tool-modal-close">❌</button>
-    <h2 id="tool-modal-title">Herramienta</h2>
-    <div id="tool-modal-content"></div>
-  </div>
-</div>
-
-<footer>
-  <img src="../img/uibanner.png" alt="Ictus GPS">
-</footer>
-
-<script>
+    <header>
+      <div class="title"> <img src="../iconos/aterotromboticoico.png"
+          alt="Icono">Ictus aterotrombótico </div>
+    </header>
+    <main class="wrap">
+      <div class="howto" align="justify">El <b>ictus aterotrombótico</b>
+        incluye tanto la <b>enfermedad aterosclerótica</b> de grandes
+        vasos como los infartos relacionados con <b>placa inestable</b>,
+        <b>hipoperfusión</b> o <b>embolia arterio-arterial</b>. La
+        herramienta integra además escenarios arteriales especiales (<b>disección,
+          carotid web, trombo mural</b>) y ofrece una orientación rápida
+        del <b>tratamiento antitrombótico</b> en cada situación
+        clínica.</div>
+      <!-- TARJETA 1: SELECCIÓN DE ESCENARIO -->
+      <div class="block" id="escenario-section">
+        <h3>🩺 Tipo de ictus / escenario clínico</h3>
+        <label><b>Seleccione el escenario principal:</b></label>
+        <select id="escenario" onchange="mostrarTratamientoEscenario()">
+          <option value="" disabled="disabled" selected="selected">Seleccione
+            un escenario…</option>
+          <option value="ictus_menor">Ictus minor / AIT de alto riesgo</option>
+          <option value="carotida">Estenosis carotídea extracraneal</option>
+          <option value="intracraneal">Estenosis intracraneal
+            aterosclerótica</option>
+          <option value="vertebral">Estenosis vertebrales</option>
+          <option value="atero_sin_estenosis">Ictus aterotrombótico sin
+            estenosis significativa</option>
+          <option value="lacunar">Ictus lacunar</option>
+          <option value="diseccion">Disección arterial (carótida /
+            vertebral)</option>
+          <option value="carotid_web">Carotid Web</option>
+          <option value="trombo_aortico">Trombo mural aórtico</option>
+          <option value="estenosis_sin_intervencion">Estenosis crítica
+            sin opción de intervención</option>
+        </select>
+        <p class="note"> Los escenarios se refieren al mecanismo
+          aterotrombótico u otras fuentes de embolia arteria-arteria. </p>
+      </div>
+      <!-- TARJETA 2: RECOMENDACIÓN PRINCIPAL -->
+      <div class="block" id="escenario-resultado">
+        <div style="display:flex; justify-content:space-between;
+          align-items:center;">
+          <h3 style="margin:0;">✅ Recomendación</h3>
+        </div>
+        <p id="escenario-texto"> Seleccione un escenario clínico para
+          mostrar la recomendación orientativa de tratamiento
+          antitrombótico. </p>
+      </div>
+      <div class="actions">
+        <button class="boton-opcion boton-clear"
+          onclick="borrarResumen()" title="Borrar contenido">Borrar</button>
+        <button class="boton-opcion boton-copy"
+          onclick="copiarResumen()" title="Copiar resumen">Copiar
+          recomendación</button> </div>
+      <!-- TARJETA 3: HERRAMIENTAS TRANSVERSALES -->
+      <div class="block" id="herramientas-block">
+        <h3>📚 Consideraciones adicionales</h3>
+        <p class="note"> Elementos aplicables a varios escenarios: dosis
+          de carga, duración de la triple terapia, manejo en
+          anticoagulados y gastroprotección. </p>
+        <div class="tools-wrap"> <button class="tool-chip"
+            data-tool="carga"> <span class="emoji">⚡</span> Dosis de
+            carga de antiagregantes </button> <button
+            class="tool-chip" data-tool="triple_stent"> <img
+              src="../iconos/3st.svg" alt="3"> Triple terapia post-stent
+          </button> <button class="tool-chip"
+            data-tool="triple_sin_stent"> <img src="../iconos/3.svg"
+              alt="3"> Triple terapia sin stent </button> <button
+            class="tool-chip" data-tool="ibp"> <span class="emoji">💊</span>
+            IBP y clopidogrel </button> </div>
+      </div>
+      <!-- DISCLAIMER -->
+      <section class="disclaimer-red">
+        <p align="justify"> <b>📛Advertencia.</b> Esta herramienta
+          tiene carácter orientativo y no sustituye el juicio clínico
+          del profesional ni los protocolos locales. Las recomendaciones
+          deben integrarse con la situación individual del paciente, las
+          guías vigentes y la discusión multidisciplinar cuando proceda.
+        </p>
+      </section>
+      <div class="howto">
+        <details style="margin-top:1px;">
+          <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📒
+            Glosario de acrónimos</summary>
+          <div style=" margin-top:14px; background:#ffffff; border:1px
+            solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
+            rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
+            line-height:1.55; color:#1e293b;
+            ">
+            <!-- Barra superior tipo guideline -->
+            <div style=" background:#0f3d83; color:#ffffff; padding:10px
+              14px; font-size:14px; font-weight:700;
+              letter-spacing:0.3px; "> 🔤 Acrónimos utilizados </div>
+            <!-- Contenido -->
+            <div style="padding:16px 18px;">
+              <ol style="margin:8px; padding-left:20px; font-size:10px;
+                line-height:1.45;">
+                <ul class="glosario-grid">
+                  <li><b>AAS:</b> Ácido acetilsalicílico</li>
+                  <li><b>ACO:</b> Anticoagulación oral</li>
+                  <li><b>ACOD:</b> Anticoagulante oral de acción directa</li>
+                  <li><b>AIT:</b> Ataque isquémico transitorio</li>
+                  <li><b>AVK:</b> Antagonistas de la vitamina K</li>
+                  <li><b>CAS:</b> Stent carotídeo (carotid artery
+                    stenting)</li>
+                  <li><b>CEA:</b> Endarterectomía carotídea (carotid
+                    endarterectomy)</li>
+                  <li><b>DAPT:</b> Doble antiagregación plaquetaria
+                    (dual antiplatelet therapy)</li>
+                  <li><b>DM:</b> Diabetes mellitus</li>
+                  <li><b>DTC:</b> Doppler transcraneal</li>
+                  <li><b>FA:</b> Fibrilación auricular</li>
+                  <li><b>FRV:</b> Factores de riesgo vascular</li>
+                  <li><b>IBP:</b> Inhibidor de la bomba de protones</li>
+                  <li><b>INR:</b> Cociente internacional normalizado</li>
+                  <li><b>LDL:</b> Lipoproteínas de baja densidad</li>
+                  <li><b>NIHSS:</b> National Institutes of Health Stroke
+                    Scale</li>
+                  <li><b>RM:</b> Resonancia magnética</li>
+                  <li><b>TC:</b> Tomografía computarizada</li>
+                </ul>
+              </ol>
+            </div>
+          </div>
+        </details>
+        <br>
+        <details style="margin-top:1px;">
+          <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📚
+            Bibliografía</summary>
+          <div style=" margin-top:14px; background:#ffffff; border:1px
+            solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
+            rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
+            line-height:1.55; color:#1e293b;
+            ">
+            <!-- Barra superior tipo guideline -->
+            <div style=" background:#0f3d83; color:#ffffff; padding:10px
+              14px; font-size:14px; font-weight:700;
+              letter-spacing:0.3px; "> 📘 Referencias bibliográficas </div>
+            <!-- Contenido -->
+            <div style="padding:16px 18px;">
+              <ol style="margin:1px; padding-left:20px; font-size:10px;
+                line-height:1.45;">
+                <!-- Guías clínicas -->
+                <li>Kleindorfer DO, et al. 2021 AHA/ASA Guideline for
+                  the Prevention of Stroke in Patients With Stroke and
+                  TIA. <i>Stroke</i>. 2021;52:e364–e467.</li>
+                <li>European Stroke Organisation (ESO). Guidelines on
+                  Extracranial Carotid and Vertebral Artery Disease. <i>Eur
+                    Stroke J</i>. 2021;6(4):XLVII–LXXXVIII.</li>
+                <li>Powers WJ, et al. 2019 AHA/ASA Guideline for Early
+                  Management of Acute Ischemic Stroke. <i>Stroke</i>.
+                  2019;50:e344–e418.</li>
+                <li>Hindricks G, et al. 2020 ESC Guidelines for the
+                  Diagnosis and Management of Atrial Fibrillation. <i>Eur
+                    Heart J</i>. 2020;41:373–498.</li>
+                <!-- Ictus minor / AIT de alto riesgo: DAPT -->
+                <li>Wang Y, et al. Clopidogrel with aspirin in acute
+                  minor stroke or TIA. <i>NEJM</i>. 2013;369:11–19.
+                  (CHANCE)</li>
+                <li>Johnston SC, et al. Clopidogrel and aspirin in acute
+                  ischemic stroke and high-risk TIA. <i>NEJM</i>.
+                  2018;379:215–225. (POINT)</li>
+                <li>Johnston SC, et al. Ticagrelor and aspirin or
+                  aspirin alone in acute ischemic stroke or TIA. <i>NEJM</i>.
+                  2020;383:207–217. (THALES)</li>
+                <!-- Estenosis carotídea / revascularización -->
+                <li>NASCET Investigators. Benefit of carotid
+                  endarterectomy in patients with symptomatic moderate
+                  or severe stenosis. <i>NEJM</i>. 1991;325:445–453.</li>
+                <li>ECST Investigators. Randomised trial of
+                  endarterectomy for symptomatic carotid stenosis. <i>Lancet</i>.
+                  1991;337:1235–1243.</li>
+                <li>Bonati LH, et al. Long-term outcomes after stenting
+                  vs endarterectomy: meta-analysis. <i>Lancet Neurol</i>.
+                  2015;14:755–765.</li>
+                <li>Howard G, et al. CREST-2 Investigators. Carotid
+                  Revascularization and Intensive Medical Management for
+                  Asymptomatic Carotid Stenosis. <i>NEJM</i>. 2025.</li>
+                <!-- Estenosis intracraneal -->
+                <li>Chimowitz MI, et al. Stenting versus aggressive
+                  medical therapy for intracranial stenosis. <i>NEJM</i>.
+                  2011;365:993–1003. (SAMMPRIS)</li>
+                <li>Derdeyn CP, et al. Aggressive medical therapy for
+                  intracranial atherosclerosis. <i>Stroke</i>.
+                  2014;45:2933–2939.</li>
+                <!-- Estenosis vertebrales -->
+                <li>Compter A, et al. Stenting versus medical therapy
+                  for vertebral artery stenosis. <i>Lancet Neurol</i>.
+                  2015;14:606–614. (VIST)</li>
+                <li>Wityk RJ, et al. Noninvasive assessment of vertebral
+                  artery dissection. <i>Neurology</i>.
+                  1998;50:1694–1698.</li>
+                <!-- Disección arterial -->
+                <li>Markus HS, et al. Antiplatelet vs anticoagulation
+                  for cervical artery dissection. <i>Lancet Neurol</i>.
+                  2015;14:361–367. (CADISS)</li>
+                <!-- Carotid web -->
+                <li>Goyal M, et al. Carotid web and ischemic stroke. <i>Stroke</i>.
+                  2019;50:1264–1271.</li>
+                <li>Sajedi PI, et al. Carotid bulb webs: radiologic
+                  appearance. <i>AJNR</i>. 2017;38:1399–1404.</li>
+                <!-- Trombo mural aórtico -->
+                <li>Spence JD. Aortic arch atheroma and stroke risk. <i>Curr
+                    Opin Neurol</i>. 2020;33:4–10.</li>
+                <li>Ferrero E, et al. Aortic mural thrombus: natural
+                  history and treatment. <i>J Vasc Surg</i>.
+                  2020;72:1089–1097.</li>
+                <!-- Placa vulnerable / aterosclerosis -->
+                <li>Saba L, et al. Imaging biomarkers of carotid plaque
+                  vulnerability. <i>Radiology</i>. 2018;286:614–629.</li>
+                <li>Underhill HR, et al. MRI-detected intraplaque
+                  hemorrhage and cerebrovascular events. <i>Radiology</i>.
+                  2021;301:612–621.</li>
+                <!-- Antiagregación / triple terapia -->
+                <li>Lopes RD, et al. Antithrombotic therapy after PCI in
+                  atrial fibrillation. <i>NEJM</i>. 2019;380:1509–1524.
+                  (AUGUSTUS)</li>
+                <li>Dewilde WJ, et al. Use of clopidogrel with or
+                  without aspirin in AF patients. <i>Lancet</i>.
+                  2013;381:1107–1115. (WOEST)</li>
+                <li>Gibson CM, et al. Apixaban vs warfarin in PCI
+                  patients. <i>NEJM</i>. 2016;375:2423–2434. (PIONEER
+                  AF-PCI)</li>
+                <!-- Farmacología: IBP, clopidogrel, CYP2C19 -->
+                <li>Mega JL, et al. CYP2C19 genotype and response to
+                  clopidogrel. <i>NEJM</i>. 2009;360:354–362.</li>
+                <li>COGENT Investigators. Clopidogrel with or without
+                  omeprazole. <i>NEJM</i>. 2010;363:1909–1917.</li>
+                <li>EMA. Safety communication: clopidogrel–omeprazole
+                  interaction. 2010.</li>
+                <!-- Factores de riesgo / recurrencia -->
+                <li>Amarenco P, et al. One-year risk of stroke after TIA
+                  or minor stroke. <i>NEJM</i>. 2016;374:1533–1542.</li>
+                <li>Antithrombotic Trialists' Collaboration.
+                  Meta-analysis of antiplatelet therapy. <i>BMJ</i>.
+                  2002;324:71–86.</li>
+              </ol>
+            </div>
+          </div>
+        </details>
+      </div>
+    </main>
+    <!-- MODAL HERRAMIENTAS / NOTAS -->
+    <div class="modal-overlay" id="tool-modal">
+      <div class="modal"> <button class="modal-close"
+          id="tool-modal-close">❌</button>
+        <h2 id="tool-modal-title">Herramienta</h2>
+        <div id="tool-modal-content"></div>
+      </div>
+    </div>
+    <footer> <img src="../img/uibanner.png" alt="Ictus GPS">
+    </footer>
+    <script>
 /* ============================
    MAPA DE ESCENARIOS → TEXTO
 =============================== */
@@ -1216,8 +1230,6 @@ function borrarResumen(){
 
 
 </script>
-<div id="toast" class="toast"></div>
-
-
-</body>
+    <div id="toast" class="toast"></div>
+  </body>
 </html>

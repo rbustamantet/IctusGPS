@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <link rel="manifest" href="../site.webmanifest">
-  <link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
-  <link rel="shortcut icon" href="../iconos/ictusgps.png">
-  <meta name="theme-color" content="#0f3d83">
-  <title>Ictus GPS</title>
+  <head>
 
-  <style>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+      viewport-fit=cover">
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192"
+      href="../iconos/ictusgps.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+      href="../iconos/ictusgps.png">
+    <link rel="shortcut icon" href="../iconos/ictusgps.png">
+    <meta name="theme-color" content="#0f3d83">
+    <title>Ictus GPS</title>
+    <style>
 /* =========================================================
    VARIABLES GLOBALES
 ========================================================= */
@@ -610,123 +614,114 @@ footer img{
   body{font-size:0.96rem;}
 }
   </style>
-</head>
-
-<body>
-<!-- SAFE-TOP -->
-<div class="safe-top">
-  <div class="safe-content">
-    <div class="safe-left">
-      <img src="../iconos/utilidadesico.png" class="safe-mini" alt="">
-      <img src="../img/topbar.png" class="safe-logo" alt="Ictus GPS">
-    </div>
-
-    <div class="safe-actions">
-      <a href="javascript:history.back()" class="safe-btn" aria-label="Volver">
-        <img src="../iconos/atrastransparente.png" class="safe-icon" alt="">
-      </a>
-      <a href="../index.html" class="safe-btn" aria-label="Inicio">
-        <img src="../iconos/hometransparente.png" class="safe-icon" alt="">
-      </a>
-    </div>
-  </div>
-</div>
-
-<!-- CABECERA -->
-<header>
-  <div class="bar">
-    <div class="title">
-      <img src="../iconos/ictusgpsico.png" alt="">
-      Ictus GPS
-    </div>
-  </div>
-</header>
-
-<!-- CONTENIDO PRINCIPAL -->
-<main>
-  <div class="howto">
-    Carga una imagen de TC o RM y ajusta sobre ella el mapa arterial seleccionado.  
-    Puedes mover, ampliar, voltear y modificar la opacidad para facilitar la correlación anatómica.  
-    La herramienta permite comparar cortes axiales con mapas predefinidos para identificar territorios vasculares.
-  </div>
-
-  <div class="content">
-    <!-- PANEL IZQUIERDO -->
-    <div class="panel">
-      <h2>Imagen médica (TC/RM)</h2>
-      <div class="toolbar">
-        <input type="file" accept="image/*" id="fileInput" style="max-width:220px" />
-        <button type="button" id="btnFlip">Voltear horizontal</button>
-        <button type="button" id="btnReset">Reiniciar</button>
+  </head>
+  <body>
+    <!-- SAFE-TOP -->
+    <div class="safe-top">
+      <div class="safe-content">
+        <div class="safe-left"> <img src="../iconos/utilidadesico.png"
+            class="safe-mini" alt=""> <img src="../img/topbar.png"
+            class="safe-logo" alt="Ictus GPS"> </div>
+        <div class="safe-actions"> <a href="javascript:history.back()"
+            class="safe-btn" aria-label="Volver"> <img
+              src="../iconos/atrastransparente.png" class="safe-icon"
+              alt=""> </a> <a href="../index.html" class="safe-btn"
+            aria-label="Inicio"> <img
+              src="../iconos/hometransparente.png" class="safe-icon"
+              alt=""> </a> </div>
       </div>
-
-      <div class="overlay-container" id="contenedor">
-        <div id="dropzone" class="dropzone" title="Haz clic para elegir archivo">
-          <strong>Arrastra aquí una imagen</strong>
-          <div class="hint">o haz clic para seleccionar</div>
-          <div class="hint">también puedes <strong>pegar</strong> (Ctrl/Cmd+V)</div>
+    </div>
+    <!-- CABECERA -->
+    <header>
+      <div class="bar">
+        <div class="title"> <img src="../iconos/ictusgpsico.png" alt="">
+          Ictus GPS </div>
+      </div>
+    </header>
+    <!-- CONTENIDO PRINCIPAL -->
+    <main>
+      <div class="howto" align="justify"> Carga una imagen de TC o RM y
+        ajusta sobre ella el mapa arterial seleccionado. Puedes mover,
+        ampliar, voltear y modificar la opacidad para facilitar la
+        correlación anatómica. La herramienta permite comparar cortes
+        axiales con mapas predefinidos para identificar territorios
+        vasculares. </div>
+      <div class="content">
+        <!-- PANEL IZQUIERDO -->
+        <div class="panel">
+          <h2>Imagen médica (TC/RM)</h2>
+          <div class="toolbar"> <input accept="image/*" id="fileInput"
+              style="max-width:220px" type="file"> <button
+              type="button" id="btnFlip">Voltear horizontal</button> <button
+              type="button" id="btnReset">Reiniciar</button> </div>
+          <div class="overlay-container" id="contenedor">
+            <div id="dropzone" class="dropzone" title="Haz clic para
+              elegir archivo"> <strong>Arrastra aquí una imagen</strong>
+              <div class="hint">o haz clic para seleccionar</div>
+              <div class="hint">también puedes <strong>pegar</strong>
+                (Ctrl/Cmd+V)</div>
+            </div>
+            <div id="scaleBadge" class="scale-badge">100%</div>
+            <img id="imagenCargada" alt="" aria-hidden="true"> <img
+              id="mapaReferencia" src="" alt="Mapa superpuesto"
+              hidden=""> </div>
+          <!-- Opacidad bajo la imagen -->
+          <div class="field" id="opacidadBlock"> <label for="opacidad">Opacidad
+              del mapa:</label> <input id="opacidad" min="0" max="1"
+              step="0.01" value="0.5" type="range"> <span
+              id="opacidadVal" aria-live="polite"
+              style="color:#475569;margin-left:.35rem;">50%</span> </div>
+          <!-- AYUDA: desplegable -->
+          <details class="help" id="helpPanel">
+            <summary>Ayuda y atajos</summary>
+            <div class="help-body" aria-live="polite">
+              <h3>Uso rápido</h3>
+              <ul>
+                <li><strong>Cargar imagen:</strong> clic en el panel,
+                  arrastrar y soltar o <span class="kbd">Ctrl</span>/<span
+                    class="kbd">⌘</span>+<span class="kbd">V</span>.</li>
+                <li><strong>Arrastrar:</strong> clic/tocar y arrastra
+                  sobre el mapa.</li>
+                <li><strong>Zoom:</strong> rueda (PC) o pellizco (móvil)
+                  centrado en el puntero.</li>
+                <li><strong>Reajustar:</strong> botón “Reiniciar” o
+                  tecla <span class="kbd">R</span>/<span class="kbd">0</span>.</li>
+              </ul>
+              <h3>Atajos de teclado</h3>
+              <ul>
+                <li><span class="kbd">←</span> <span class="kbd">→</span>
+                  <span class="kbd">↑</span> <span class="kbd">↓</span>&nbsp;
+                  mover el mapa.</li>
+                <li><span class="kbd">+</span>/<span class="kbd">=</span>
+                  y <span class="kbd">-</span>&nbsp; zoom in/out.</li>
+                <li><span class="kbd">R</span> / <span class="kbd">0</span>&nbsp;
+                  ajustar al corte base.</li>
+                <li><span class="kbd">F</span>&nbsp; voltear imagen
+                  médica.</li>
+              </ul>
+            </div>
+          </details>
         </div>
-        <div id="scaleBadge" class="scale-badge">100%</div>
-        <img id="imagenCargada" alt="" aria-hidden="true" />
-        <img id="mapaReferencia" src="" alt="Mapa superpuesto" hidden />
-      </div>
-
-      <!-- Opacidad bajo la imagen -->
-      <div class="field" id="opacidadBlock">
-        <label for="opacidad">Opacidad del mapa:</label>
-        <input type="range" id="opacidad" min="0" max="1" step="0.01" value="0.5" />
-        <span id="opacidadVal" aria-live="polite" style="color:#475569;margin-left:.35rem;">50%</span>
-      </div>
-
-      <!-- AYUDA: desplegable -->
-      <details class="help" id="helpPanel">
-        <summary>Ayuda y atajos</summary>
-        <div class="help-body" aria-live="polite">
-          <h3>Uso rápido</h3>
-          <ul>
-            <li><strong>Cargar imagen:</strong> clic en el panel, arrastrar y soltar o <span class="kbd">Ctrl</span>/<span class="kbd">⌘</span>+<span class="kbd">V</span>.</li>
-            <li><strong>Arrastrar:</strong> clic/tocar y arrastra sobre el mapa.</li>
-            <li><strong>Zoom:</strong> rueda (PC) o pellizco (móvil) centrado en el puntero.</li>
-            <li><strong>Reajustar:</strong> botón “Reiniciar” o tecla <span class="kbd">R</span>/<span class="kbd">0</span>.</li>
-          </ul>
-          <h3>Atajos de teclado</h3>
-          <ul>
-            <li><span class="kbd">←</span> <span class="kbd">→</span> <span class="kbd">↑</span> <span class="kbd">↓</span>&nbsp; mover el mapa.</li>
-            <li><span class="kbd">+</span>/<span class="kbd">=</span> y <span class="kbd">-</span>&nbsp; zoom in/out.</li>
-            <li><span class="kbd">R</span> / <span class="kbd">0</span>&nbsp; ajustar al corte base.</li>
-            <li><span class="kbd">F</span>&nbsp; voltear imagen médica.</li>
-          </ul>
+        <!-- PANEL DERECHO -->
+        <div class="panel">
+          <h2>Mapa de referencia</h2>
+          <!-- Selector de juego de mapas -->
+          <div class="field"> <label for="selectorSet">Juego de mapas:</label>
+            <select id="selectorSet">
+            </select>
+          </div>
+          <!-- Galería de mapas -->
+          <div class="field"> <label>Selecciona mapa:</label>
+            <div id="mapGallery" class="map-gallery"></div>
+          </div>
+          <div class="hint small" id="mapHint"></div>
+          <div id="leyenda"></div>
         </div>
-      </details>
-    </div>
-
-    <!-- PANEL DERECHO -->
-    <div class="panel">
-      <h2>Mapa de referencia</h2>
-
-      <!-- Selector de juego de mapas -->
-      <div class="field">
-        <label for="selectorSet">Juego de mapas:</label>
-        <select id="selectorSet"></select>
       </div>
-
-      <!-- Galería de mapas -->
-      <div class="field">
-        <label>Selecciona mapa:</label>
-        <div id="mapGallery" class="map-gallery"></div>
-      </div>
-
-      <div class="hint small" id="mapHint"></div>
-      <div id="leyenda"></div>
-    </div>
-  </div>
-</main>
-
-<footer>
-  <img src="../img/uibanner.png" alt="Ictus GPS">
-</footer>
-
-<script>
+    </main>
+    <footer> <img src="../img/uibanner.png" alt="Ictus GPS">
+    </footer>
+    <script>
 /* =========================================================
    UTILIDADES BÁSICAS
 ========================================================= */
@@ -1332,10 +1327,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
   populateMapGallery('infra_supra');
   actualizarOpacidad(parseFloat(opacidad.value));
 });
-</script>
-
-<!-- Script general de la PWA / app (mantengo tu referencia original) -->
-<script src="js/index.js"></script>
-
-</body>
+</script><!-- Script general de la PWA / app (mantengo tu referencia original) -->
+    <script src="js/index.js"></script>
+  </body>
 </html>

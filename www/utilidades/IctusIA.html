@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Detección automática de lesión cerebral | Ictus GPS</title>
+  <head>
 
-<link rel="manifest" href="../site.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
-<link rel="shortcut icon" href="../iconos/ictusgps.png">
-<meta name="theme-color" content="#0f3d83">
-
-<style>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+      viewport-fit=cover">
+    <title>Detección automática de lesión cerebral | Ictus GPS</title>
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192"
+      href="../iconos/ictusgps.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+      href="../iconos/ictusgps.png">
+    <link rel="shortcut icon" href="../iconos/ictusgps.png">
+    <meta name="theme-color" content="#0f3d83">
+    <style>
 /* =========================================================
    VARIABLES GLOBALES
 ========================================================= */
@@ -304,148 +307,114 @@ footer img{
 }
 
 </style>
-</head>
-
-<body>
-
-<!-- =========================================================
+  </head>
+  <body>
+    <!-- =========================================================
      SAFE-TOP
 ========================================================= -->
-<div class="safe-top">
-  <div class="safe-content">
-    <div class="safe-left">
-      <img src="../iconos/utilidadesico.png" class="safe-mini" alt="">
-      <img src="../img/topbar.png" class="safe-logo" alt="Ictus GPS">
+    <div class="safe-top">
+      <div class="safe-content">
+        <div class="safe-left"> <img src="../iconos/utilidadesico.png"
+            class="safe-mini" alt=""> <img src="../img/topbar.png"
+            class="safe-logo" alt="Ictus GPS"> </div>
+        <div class="safe-actions"> <a href="javascript:history.back()"
+            class="safe-btn"><img src="../iconos/atrastransparente.png"
+              class="safe-icon"></a> <a href="../index.html"
+            class="safe-btn"><img src="../iconos/hometransparente.png"
+              class="safe-icon"></a> </div>
+      </div>
     </div>
-
-    <div class="safe-actions">
-      <a href="javascript:history.back()" class="safe-btn"><img src="../iconos/atrastransparente.png" class="safe-icon"></a>
-      <a href="../index.html" class="safe-btn"><img src="../iconos/hometransparente.png" class="safe-icon"></a>
-    </div>
-  </div>
-</div>
-
-<!-- =========================================================
+    <!-- =========================================================
      HEADER
 ========================================================= -->
-<header>
-  <div class="bar">
-    <img src="../iconos/ictusgpsico.png">
-    <span style="font-size:1.3rem;font-weight:700;">Detección automática de lesión (TC/RM)</span>
-  </div>
-</header>
-
-<!-- =========================================================
+    <header>
+      <div class="bar"> <img src="../iconos/ictusgpsico.png"> <span
+          style="font-size:1.3rem;font-weight:700;">Detección automática
+          de lesión (TC/RM)</span> </div>
+    </header>
+    <!-- =========================================================
      CONTENIDO PRINCIPAL
 ========================================================= -->
-<div class="wrap">
-
-<div class="howto">
-  Carga una imagen de TC o RM para detectar automáticamente áreas sospechosas de lesión y estimar el territorio vascular probable.  
-  La herramienta funciona localmente en tu dispositivo y no envía datos a ningún servidor.
-</div>
-
-<main>
-
-<!-- =========================================================
+    <div class="wrap">
+      <div class="howto" align="justify"> Carga una imagen de TC o RM
+        para detectar automáticamente áreas sospechosas de lesión y
+        estimar el territorio vascular probable. La herramienta funciona
+        localmente en tu dispositivo y no envía datos a ningún servidor.
+      </div>
+      <main>
+        <!-- =========================================================
      PANEL IZQUIERDO
 ========================================================= -->
-<div class="left-panel">
-  <h2>Imagen</h2>
-
-  <div id="dropzone" class="dropzone">
-    <strong>Arrastra aquí una imagen de TC o RM</strong>
-    <div class="hint">o haz clic para seleccionar</div>
-  </div>
-
-  <input type="file" id="fileInput" accept="image/*" style="display:none;">
-
-  <div id="contenedorImagen">
-    <img id="imagenBase" alt="">
-    <canvas id="maskOverlay"></canvas>
-  </div>
-
-  <div class="opacity-control">
-    <label for="maskOpacity">Opacidad de la máscara:</label>
-    <input type="range" id="maskOpacity" min="0" max="1" step="0.01" value="0.6">
-    <span id="maskOpacityVal">60%</span>
-  </div>
-
-  <div>
-    <input type="checkbox" id="toggleMask" checked>
-    <label for="toggleMask">Mostrar máscara de lesión</label>
-  </div>
-</div>
-
-<!-- =========================================================
+        <div class="left-panel">
+          <h2>Imagen</h2>
+          <div id="dropzone" class="dropzone"> <strong>Arrastra aquí
+              una imagen de TC o RM</strong>
+            <div class="hint">o haz clic para seleccionar</div>
+          </div>
+          <input id="fileInput" accept="image/*" style="display:none;"
+            type="file">
+          <div id="contenedorImagen"> <img id="imagenBase" alt=""> <canvas
+              id="maskOverlay"></canvas> </div>
+          <div class="opacity-control"> <label for="maskOpacity">Opacidad
+              de la máscara:</label> <input id="maskOpacity" min="0"
+              max="1" step="0.01" value="0.6" type="range"> <span
+              id="maskOpacityVal">60%</span> </div>
+          <div> <input id="toggleMask" checked="checked"
+              type="checkbox"> <label for="toggleMask">Mostrar máscara
+              de lesión</label> </div>
+        </div>
+        <!-- =========================================================
      PANEL DERECHO
 ========================================================= -->
-<div class="right-panel">
-
-  <div class="panel-box">
-    <h2>Parámetros del detector</h2>
-
-    <div class="field">
-      <label for="tipoImagen">Tipo de imagen</label>
-      <select id="tipoImagen">
-        <option value="auto">Detección automática</option>
-        <option value="tc">TC simple</option>
-        <option value="dwi">RM DWI</option>
-        <option value="flair">RM FLAIR</option>
-        <option value="adc">RM ADC</option>
-      </select>
+        <div class="right-panel">
+          <div class="panel-box">
+            <h2>Parámetros del detector</h2>
+            <div class="field"> <label for="tipoImagen">Tipo de imagen</label>
+              <select id="tipoImagen">
+                <option value="auto" selected="selected">Detección
+                  automática</option>
+                <option value="tc">TC simple</option>
+                <option value="dwi">RM DWI</option>
+                <option value="flair">RM FLAIR</option>
+                <option value="adc">RM ADC</option>
+              </select>
+            </div>
+            <div class="field"> <label>Sensibilidad</label> <input
+                id="sensibilidad" min="1" max="5" value="3" type="range">
+              <div class="hint small">A mayor sensibilidad, mayor
+                detección pero más ruido.</div>
+            </div>
+            <div class="field"> <label>Suavizado</label> <input
+                id="suavizado" min="0" max="3" value="1" type="range"> </div>
+            <div class="field"> <input id="comparacionHemisferica"
+                checked="checked" type="checkbox"> <label
+                for="comparacionHemisferica">Usar comparación
+                hemisférica</label> </div>
+          </div>
+          <div class="panel-box">
+            <h2>Acciones</h2>
+            <button id="btnDetectar" class="btn-primary">Detectar lesión</button>
+            <button id="btnBorrarMask">Borrar máscara</button> <button
+              id="btnResetTodo">Reiniciar</button> </div>
+          <div class="result-card">
+            <h3>Resumen de la lesión</h3>
+            <p>Área estimada: <strong id="areaLesion">–</strong></p>
+            <p>Asimetría hemisférica: <strong id="asimetriaLesion">–</strong></p>
+            <p>Confianza del detector: <strong id="confianzaDetector">–</strong></p>
+          </div>
+          <div class="result-card">
+            <h3>Territorio probable</h3>
+            <ul id="listaTerritorios">
+            </ul>
+          </div>
+          <div class="nota"> ⚠ Esta herramienta es orientativa y no
+            sustituye la interpretación experta. </div>
+        </div>
+      </main>
     </div>
-
-    <div class="field">
-      <label>Sensibilidad</label>
-      <input type="range" id="sensibilidad" min="1" max="5" value="3">
-      <div class="hint small">A mayor sensibilidad, mayor detección pero más ruido.</div>
-    </div>
-
-    <div class="field">
-      <label>Suavizado</label>
-      <input type="range" id="suavizado" min="0" max="3" value="1">
-    </div>
-
-    <div class="field">
-      <input type="checkbox" id="comparacionHemisferica" checked>
-      <label for="comparacionHemisferica">Usar comparación hemisférica</label>
-    </div>
-  </div>
-
-  <div class="panel-box">
-    <h2>Acciones</h2>
-    <button id="btnDetectar" class="btn-primary">Detectar lesión</button>
-    <button id="btnBorrarMask">Borrar máscara</button>
-    <button id="btnResetTodo">Reiniciar</button>
-  </div>
-
-  <div class="result-card">
-    <h3>Resumen de la lesión</h3>
-    <p>Área estimada: <strong id="areaLesion">–</strong></p>
-    <p>Asimetría hemisférica: <strong id="asimetriaLesion">–</strong></p>
-    <p>Confianza del detector: <strong id="confianzaDetector">–</strong></p>
-  </div>
-
-  <div class="result-card">
-    <h3>Territorio probable</h3>
-    <ul id="listaTerritorios"></ul>
-  </div>
-
-  <div class="nota">
-    ⚠ Esta herramienta es orientativa y no sustituye la interpretación experta.
-  </div>
-
-</div>
-</main>
-
-</div>
-
-<footer>
-  <img src="../img/uibanner.png" alt="Ictus GPS">
-</footer>
-
-<script>
+    <footer> <img src="../img/uibanner.png" alt="Ictus GPS">
+    </footer>
+    <script>
 /* =========================================================
    REFERENCIAS DOM
 ========================================================= */
@@ -1001,10 +970,6 @@ window.addEventListener("resize", ()=>{
   resizeMaskCanvas();
 });
 </script>
-
-
-
-<script src="js/index.js"></script>
-
-</body>
+    <script src="js/index.js"></script>
+  </body>
 </html>

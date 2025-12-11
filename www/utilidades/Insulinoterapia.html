@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="manifest" href="../site.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
-<link rel="shortcut icon" href="../iconos/ictusgps.png">
-<meta name="theme-color" content="#0f3d83">
-<title>Insulinoterapia</title>
-<style>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192"
+      href="../iconos/ictusgps.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+      href="../iconos/ictusgps.png">
+    <link rel="shortcut icon" href="../iconos/ictusgps.png">
+    <meta name="theme-color" content="#0f3d83">
+    <title>Insulinoterapia</title>
+    <style>
   :root{
     --bg:#f8fafc; --ink:#0f172a; --card:#ffffff;
     --ring:#c7dbff; --borde:#dbeafe; --borde2:#e2e8f0;
@@ -342,146 +346,143 @@ body {
   background-color: #fff;
 }
   </style>
-</head>
-<body>
-<!-- SAFE-TOP -->
-<div class="safe-top">
-  <div class="safe-content">
-    <div class="safe-left">
-      <img src="../iconos/utilidadesico.png" class="safe-mini" alt="">
-      <img src="../img/topbar.png" class="safe-logo" alt="IctusGPS">
-    </div>
-
-    <div class="safe-actions">
-      <a href="javascript:history.back()" class="safe-btn">
-        <img src="../iconos/atrastransparente.png" class="safe-icon">
-      </a>
-      <a href="../index.html" class="safe-btn">
-        <img src="../iconos/hometransparente.png" class="safe-icon">
-      </a>
-    </div>
-  </div>
-</div>
-
-<!-- CABECERA -->
-<header>
-  <div class="bar">
-    <div class="title">
-      <img src="../iconos/insulinoterapiaico.png" alt="">
-Insulinoterapia
-    </div>
-  </div>
-</header>
-
-<main class="wrap">
-
-  
-   <div class="howto">
-  <strong>Cómo usar:</strong> seleccione el tipo de paciente, introduzca los datos clínicos y pulse el modo correspondiente. 
-  Calcula automáticamente las dosis basales, bolus y pauta de corrección según el protocolo activo, dando opción de copia del informe.
-</div>
-<div>
-  <section class="panel" id="panel">
-    <div class="tabs" role="tablist" aria-label="Tipo de paciente">
-      <button class="tab" id="tab-ado"    role="tab" aria-selected="true"  aria-controls="pane-ado">ADO</button>
-      <button class="tab" id="tab-ins"    role="tab" aria-selected="false" aria-controls="pane-ins">Insulina</button>
-      <button class="tab" id="tab-insado" role="tab" aria-selected="false" aria-controls="pane-insado">Insulina + ADO</button>
-      <button class="tab" id="tab-sindm"  role="tab" aria-selected="false" aria-controls="pane-sindm">Sin DM conocida (Glu>150)</button>
-      <output id="pill" class="pill" aria-live="polite" aria-atomic="true">Prot -</output>
-    </div>
-
-    <div class="row">
-      <div id="colPeso" hidden>
-        <label class="top" for="peso">Peso (kg)</label>
-        <input id="peso" type="number" min="1" step="1" placeholder="Ej.: 72">
-      </div>
-      <div id="colDTI" hidden>
-        <label class="top" for="dti">DTI domiciliaria (UI/día)</label>
-        <input id="dti" type="number" min="1" step="1" placeholder="Ej.: 56">
-      </div>
-    </div>
-
-    <div id="bloqueGluc" hidden style="margin-top:10px">
-      <label class="top">Glucemia al ingreso</label>
-      <div class="radios">
-  <label class="chip-radio">
-    <input type="radio" name="g" value="desconocida" checked>
-    Desconocida / &lt;150
-  </label>
-  <label class="chip-radio">
-    <input type="radio" name="g" value="entre150_200">
-    150–200
-  </label>
-  <label class="chip-radio">
-    <input type="radio" name="g" value="mayor_200">
-    &gt;200
-  </label>
-</div>
-    </div>
-
-    <div style="margin-top:10px">
-      <label class="top">Estado</label>
-      <div class="radios">
-        <label class="chip-radio"><input type="radio" name="estado" value="come">Come</label>
-        <label class="chip-radio"><input type="radio" name="estado" value="nocome">No come</label>
-      </div>
-    </div>
-</div>
-<div>
-    <!-- Resultados -->
-    <div id="card" class="card" style="display:none">
-      <div id="chips" class="chips"></div>
-
-      <div class="kpi" id="kpis">
-        <div class="box"><div class="ttl">Dosis Basal</div><div class="val"><span id="basal">—</span> UI</div></div>
-        <div class="box hide" id="boxBolus">
-          <div class="ttl">Bolus total</div><div class="val"><span id="bolus">—</span> UI</div>
-        </div>
-        <div class="box hide" id="boxDTD">
-          <div class="ttl">DTD</div><div class="val"><span id="dtd">—</span> UI</div>
+  </head>
+  <body>
+    <!-- SAFE-TOP -->
+    <div class="safe-top">
+      <div class="safe-content">
+        <div class="safe-left"> <img src="../iconos/utilidadesico.png"
+            class="safe-mini" alt=""> <img src="../img/topbar.png"
+            class="safe-logo" alt="IctusGPS"> </div>
+        <div class="safe-actions"> <a href="javascript:history.back()"
+            class="safe-btn"> <img
+              src="../iconos/atrastransparente.png" class="safe-icon"> </a>
+          <a href="../index.html" class="safe-btn"> <img
+              src="../iconos/hometransparente.png" class="safe-icon"> </a>
         </div>
       </div>
-
-      <div class="meals" id="meals">
-        <div class="box"><div class="ttl">Desayuno</div><div class="val"><span id="des">—</span> UI</div><div class="mini">(30%)</div></div>
-        <div class="box"><div class="ttl">Comida</div>  <div class="val"><span id="com">—</span> UI</div><div class="mini">(40%)</div></div>
-        <div class="box"><div class="ttl">Cena</div>    <div class="val"><span id="cen">—</span> UI</div><div class="mini">(30%)</div></div>
-      </div>
-
-      <!-- Protocolo -->
-      <div class="protocol" id="proto" style="display:none">
-        <div id="badge" class="badge" aria-hidden="true"></div>
-        <div>
-          <p class="proto-title">Protocolo de corrección: <b id="protoName">—</b></p>
-          <ul class="proto-list" id="protoList"></ul>
-        </div>
-        <div id="corrBox" class="corr"></div>
-      </div>
-
-      <!-- Botones Copiar / Imprimir -->
-<div class="btnbar">
-  <button type="button" id="btnClear" class="btn">Borrar</button>
-  <button type="button" id="btnCopy" class="btn" disabled>Copiar informe</button>
-  <button type="button" id="btnPrint" class="btn primary" disabled>Imprimir</button>
-</div>
-
     </div>
-  </section>
-
-
-</div>
-<!-- Disclaimer final con fondo rojo tenue -->
-<div class="disclaimer-red">
-  <p>
-    Esta herramienta tiene carácter orientativo y no sustituye el juicio clínico del profesional sanitario.
-    Las recomendaciones y dosis calculadas deben interpretarse en el contexto individual de cada paciente 
-    y conforme a los protocolos locales de insulinoterapia.
-  </p>
-</div>
-
-</main>
-
-<script>
+    <!-- CABECERA -->
+    <header>
+      <div class="bar">
+        <div class="title"> <img src="../iconos/insulinoterapiaico.png"
+            alt="">
+          Insulinoterapia </div>
+      </div>
+    </header>
+    <main class="wrap">
+      <div class="howto" align="justify"> <strong>Cómo usar:</strong>
+        seleccione el tipo de paciente, introduzca los datos clínicos y
+        pulse el modo correspondiente. Calcula automáticamente las dosis
+        basales, bolus y pauta de corrección según el protocolo activo,
+        dando opción de copia del informe.
+      </div>
+      <div>
+        <section class="panel" id="panel">
+          <div class="tabs" role="tablist" aria-label="Tipo de paciente">
+            <button class="tab" id="tab-ado" role="tab"
+              aria-selected="true" aria-controls="pane-ado">ADO</button>
+            <button class="tab" id="tab-ins" role="tab"
+              aria-selected="false" aria-controls="pane-ins">Insulina</button>
+            <button class="tab" id="tab-insado" role="tab"
+              aria-selected="false" aria-controls="pane-insado">Insulina
+              + ADO</button> <button class="tab" id="tab-sindm"
+              role="tab" aria-selected="false"
+              aria-controls="pane-sindm">Sin DM conocida (Glu&gt;150)</button>
+            <output id="pill" class="pill" aria-live="polite"
+              aria-atomic="true">Prot -</output> </div>
+          <div class="row">
+            <div id="colPeso" hidden=""> <label class="top" for="peso">Peso
+                (kg)</label> <input id="peso" min="1" step="1"
+                placeholder="Ej.: 72" type="number"> </div>
+            <div id="colDTI" hidden=""> <label class="top" for="dti">DTI
+                domiciliaria (UI/día)</label> <input id="dti" min="1"
+                step="1" placeholder="Ej.: 56" type="number"> </div>
+          </div>
+          <div id="bloqueGluc" style="margin-top:10px" hidden=""> <label
+              class="top">Glucemia al ingreso</label>
+            <div class="radios"> <label class="chip-radio"> <input
+                  name="g" value="desconocida" checked="checked"
+                  type="radio"> Desconocida / &lt;150 </label> <label
+                class="chip-radio"> <input name="g"
+                  value="entre150_200" type="radio"> 150–200 </label> <label
+                class="chip-radio"> <input name="g" value="mayor_200"
+                  type="radio"> &gt;200 </label>
+            </div>
+          </div>
+          <div style="margin-top:10px"> <label class="top">Estado</label>
+            <div class="radios"> <label class="chip-radio"><input
+                  name="estado" value="come" type="radio">Come</label> <label
+                class="chip-radio"><input name="estado" value="nocome"
+                  type="radio">No come</label> </div>
+          </div>
+        </section>
+      </div>
+      <div>
+        <!-- Resultados -->
+        <div id="card" class="card" style="display:none">
+          <div id="chips" class="chips"></div>
+          <div class="kpi" id="kpis">
+            <div class="box">
+              <div class="ttl">Dosis Basal</div>
+              <div class="val"><span id="basal">—</span> UI</div>
+            </div>
+            <div class="box hide" id="boxBolus">
+              <div class="ttl">Bolus total</div>
+              <div class="val"><span id="bolus">—</span> UI</div>
+            </div>
+            <div class="box hide" id="boxDTD">
+              <div class="ttl">DTD</div>
+              <div class="val"><span id="dtd">—</span> UI</div>
+            </div>
+          </div>
+          <div class="meals" id="meals">
+            <div class="box">
+              <div class="ttl">Desayuno</div>
+              <div class="val"><span id="des">—</span> UI</div>
+              <div class="mini">(30%)</div>
+            </div>
+            <div class="box">
+              <div class="ttl">Comida</div>
+              <div class="val"><span id="com">—</span> UI</div>
+              <div class="mini">(40%)</div>
+            </div>
+            <div class="box">
+              <div class="ttl">Cena</div>
+              <div class="val"><span id="cen">—</span> UI</div>
+              <div class="mini">(30%)</div>
+            </div>
+          </div>
+          <!-- Protocolo -->
+          <div class="protocol" id="proto" style="display:none">
+            <div id="badge" class="badge" aria-hidden="true"></div>
+            <div>
+              <p class="proto-title">Protocolo de corrección: <b
+                  id="protoName">—</b></p>
+              <ul class="proto-list" id="protoList">
+              </ul>
+            </div>
+            <div id="corrBox" class="corr"></div>
+          </div>
+          <!-- Botones Copiar / Imprimir -->
+          <div class="btnbar"> <button type="button" id="btnClear"
+              class="btn">Borrar</button> <button type="button"
+              id="btnCopy" class="btn" disabled="disabled">Copiar
+              informe</button> <button type="button" id="btnPrint"
+              class="btn primary" disabled="disabled">Imprimir</button>
+          </div>
+        </div>
+      </div>
+      <!-- Disclaimer final con fondo rojo tenue -->
+      <div class="disclaimer-red">
+        <p align="justify"> Esta herramienta tiene carácter orientativo
+          y no sustituye el juicio clínico del profesional sanitario.
+          Las recomendaciones y dosis calculadas deben interpretarse en
+          el contexto individual de cada paciente y conforme a los
+          protocolos locales de insulinoterapia. </p>
+      </div>
+    </main>
+    <script>
   (function(){const a=document.querySelector('.bar');const s=()=>a.classList.toggle('scrolled',window.scrollY>8);document.addEventListener('scroll',s,{passive:true});s();})();
   const $ = sel => document.querySelector(sel);
 
@@ -935,9 +936,8 @@ function scrollToCard(){
 
 
 </script>
-<footer>
-  <img src="../img/uibanner.png" alt="Ictus GPS">
-</footer>
-<script src="../js/index.js"></script>
-</body></div>
+    <footer> <img src="../img/uibanner.png" alt="Ictus GPS">
+    </footer>
+    <script src="../js/index.js"></script>
+  </body>
 </html>

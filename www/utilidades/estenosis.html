@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Estenosis carotídea</title>
-<link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
-<meta name="theme-color" content="#0f3d83">
+  <head>
 
-<style>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Estenosis carotídea</title>
+    <link rel="icon" type="image/png" sizes="192x192"
+      href="../iconos/ictusgps.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+      href="../iconos/ictusgps.png">
+    <meta name="theme-color" content="#0f3d83">
+    <style>
 :root{
   /* Paleta básica */
   --bg:#f8fafc;
@@ -512,448 +515,426 @@ footer img{max-width:320px;height:auto;opacity:.95}
   }
 }
 </style>
-</head>
-
-<body>
-<!-- SAFE-TOP -->
-<div class="safe-top">
-  <div class="safe-content">
-    <div class="safe-left">
-      <img src="../iconos/utilidadesico.png" alt="Icono Utilidades" class="safe-mini">
-      <img src="../img/topbar.png" alt="IctusGPS" class="safe-logo">
+  </head>
+  <body>
+    <!-- SAFE-TOP -->
+    <div class="safe-top">
+      <div class="safe-content">
+        <div class="safe-left"> <img src="../iconos/utilidadesico.png"
+            alt="Icono Utilidades" class="safe-mini"> <img
+            src="../img/topbar.png" alt="IctusGPS" class="safe-logo"> </div>
+        <div class="safe-actions"> <a href="javascript:history.back()"
+            class="safe-btn" title="Volver atrás"> <img
+              src="../iconos/atrastransparente.png" alt="Atrás"
+              class="safe-icon"> </a> <a href="../index.html"
+            class="safe-btn" title="Volver al inicio"> <img
+              src="../iconos/hometransparente.png" alt="Inicio"
+              class="safe-icon"> </a> </div>
+      </div>
     </div>
-    <div class="safe-actions">
-      <a href="javascript:history.back()" class="safe-btn" title="Volver atrás">
-        <img src="../iconos/atrastransparente.png" alt="Atrás" class="safe-icon">
-      </a>
-      <a href="../index.html" class="safe-btn" title="Volver al inicio">
-        <img src="../iconos/hometransparente.png" alt="Inicio" class="safe-icon">
-      </a>
-    </div>
-  </div>
-</div>
-
-<header>
-  <div class="bar">
-    <div class="title">
-      <img src="../iconos/estenosisico.png" alt="Estenosis carotídea">
-      Estenosis carotídea
-    </div>
-  </div>
-</header>
-
-<main class="wrap">
-  <div class="howto">
-    Integra situación clínica, características de la placa, anatomía y grado de estenosis (NASCET) para orientar la indicación de <b>antiagregación</b>, <b>DAPT</b>, <b>endarterectomía (CEA)</b> o <b>stent carotídeo (CAS)</b>. En <b>estenosis asintomática ≥70%</b>, prioriza <b>CAS</b> frente a CEA cuando la anatomía y el riesgo lo permitan, de acuerdo con la evidencia reciente (CREST-2, NEJM 2025). No cálculo automático: usa  <span class="strategy-tag tag-med">Calcular</span>
-  </div>
-
-
-    <!-- BLOQUE CLÍNICO -->
-    <div class="block rope">
-      <h3>🩺 Situación clínica</h3>
-      <div class="grid cols-2">
-        <div>
-          <label><b>Clínica neurológica</b></label>
-          <label class="check"><input type="radio" name="clin" id="sxReciente"> Ictus/AIT ≤14 días</label>
-          <label class="check"><input type="radio" name="clin" id="sxAntiguo"> Ictus/AIT &gt;14 días</label>
-          <label class="check"><input type="radio" name="clin" id="asint"> Asintomática</label>
-        </div>
-
-        <div>
-          <label><b>Condiciones generales</b></label>
-
-<div class="item-condicion">
-  <input type="checkbox" id="contraInterv">
-  <span class="info-icon" tabindex="0">ℹ️</span>
-  <span class="texto-cond">Contraindicación para intervenir</span>
-  <div class="tooltiptext">
-    Situación médica o anatómica que impide la revascularización 
-    (p. ej. fragilidad extrema, comorbilidad severa, otras).
-  </div>
-</div>
-
-<div class="item-condicion">
-  <input type="checkbox" id="vidaMenor5">
-  <span class="info-icon" tabindex="0">ℹ️</span>
-  <span class="texto-cond">Expectativa de vida ≤5 años</span>
-  <div class="tooltiptext">
-    Paciente con expectativa de vida limitada (&le;5 años) a pesar de un 
-    tratamiento óptimo de sus comorbilidades. En estos casos el beneficio 
-    de una revascularización carotídea es muy discutible.
-  </div>
-</div>
-
-<div class="item-condicion">
-  <input type="checkbox" id="riesgoCEAbajo">
-  <span class="info-icon" tabindex="0">ℹ️</span>
-  <span class="texto-cond">Riesgo perioperatorio CEA bajo</span>
-  <div class="tooltiptext">
-    Probabilidad estimada de complicaciones neurológicas o muerte 
-    dentro de los límites aceptables para considerar endarterectomía carotídea 
-    (≤6% sintomáticos, ≤3% asintomáticos).
-  </div>
-</div>
-
+    <header>
+      <div class="bar">
+        <div class="title"> <img src="../iconos/estenosisico.png"
+            alt="Estenosis carotídea"> Estenosis carotídea </div>
+      </div>
+    </header>
+    <main class="wrap">
+      <div class="howto" align="justify"> Integra situación clínica,
+        características de la placa, anatomía y grado de estenosis
+        (NASCET) para orientar la indicación de <b>antiagregación</b>,
+        <b>DAPT</b>, <b>endarterectomía (CEA)</b> o <b>stent carotídeo
+          (CAS)</b>. En <b>estenosis asintomática ≥70%</b>, prioriza <b>CAS</b>
+        frente a CEA cuando la anatomía y el riesgo lo permitan, de
+        acuerdo con la evidencia reciente (CREST-2, NEJM 2025). No
+        cálculo automático: usa <span class="strategy-tag tag-med">Calcular</span>
+      </div>
+      <!-- BLOQUE CLÍNICO -->
+      <div class="block rope">
+        <h3>🩺 Situación clínica</h3>
+        <div class="grid cols-2">
+          <div> <label><b>Clínica neurológica</b></label> <label
+              class="check"><input name="clin" id="sxReciente"
+                type="radio"> Ictus/AIT ≤14 días</label> <label
+              class="check"><input name="clin" id="sxAntiguo"
+                type="radio"> Ictus/AIT &gt;14 días</label> <label
+              class="check"><input name="clin" id="asint" type="radio">
+              Asintomática</label> </div>
+          <div> <label><b>Condiciones generales</b></label>
+            <div class="item-condicion"> <input id="contraInterv"
+                type="checkbox"> <span class="info-icon" tabindex="0">ℹ️</span>
+              <span class="texto-cond">Contraindicación para intervenir</span>
+              <div class="tooltiptext"> Situación médica o anatómica que
+                impide la revascularización (p. ej. fragilidad extrema,
+                comorbilidad severa, otras). </div>
+            </div>
+            <div class="item-condicion"> <input id="vidaMenor5"
+                type="checkbox"> <span class="info-icon" tabindex="0">ℹ️</span>
+              <span class="texto-cond">Expectativa de vida ≤5 años</span>
+              <div class="tooltiptext"> Paciente con expectativa de vida
+                limitada (≤5 años) a pesar de un tratamiento óptimo de
+                sus comorbilidades. En estos casos el beneficio de una
+                revascularización carotídea es muy discutible. </div>
+            </div>
+            <div class="item-condicion"> <input id="riesgoCEAbajo"
+                type="checkbox"> <span class="info-icon" tabindex="0">ℹ️</span>
+              <span class="texto-cond">Riesgo perioperatorio CEA bajo</span>
+              <div class="tooltiptext"> Probabilidad estimada de
+                complicaciones neurológicas o muerte dentro de los
+                límites aceptables para considerar endarterectomía
+                carotídea (≤6% sintomáticos, ≤3% asintomáticos). </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-
-    <!-- BLOQUE PLACA / ANATOMÍA -->
-    <div class="block anat">
-  <h3>🌀 Características de la placa y anatomía</h3>
-  <div class="grid cols-2">
-
-    <!-- Placa compleja / alto riesgo embólico -->
-    <div class="item-condicion">
-      <input type="checkbox" id="placaCompleja">
-      <span class="info-icon" tabindex="0">ℹ️</span>
-      <span class="texto-cond">Placa de alto riesgo</span>
-      <div class="tooltiptext">
-        Placa con características de inestabilidad:
-        ulcerada o irregular, hipodensa, heterogénea, con hemorragia intraplaca
-        y/o trombo adherido. Asociada a mayor riesgo de embolia cerebral.
-      </div>
-    </div>
-
-    <!-- Cuello hostil / alto riesgo quirúrgico (CEA) -->
-    <div class="item-condicion">
-      <input type="checkbox" id="cuelloHostil">
-      <span class="info-icon" tabindex="0">ℹ️</span>
-      <span class="texto-cond">Cuello hostil</span>
-      <div class="tooltiptext">
-        Condiciones que aumentan claramente el riesgo de endarterectomía:
-        radioterapia cervical previa, reestenosis tras CEA, estenosis cervical muy alta,
-        cirugía cervical previa compleja, oclusión contralateral con mala circulación
-        colateral, estenosis intrastent, etc.
-      </div>
-    </div>
-
-    <!-- Dificultad para tratamiento endovascular (CAS) -->
-    <div class="item-condicion">
-      <input type="checkbox" id="endoDificil">
-      <span class="info-icon" tabindex="0">ℹ️</span>
-      <span class="texto-cond">Acceso endovascular complejo</span>
-      <div class="tooltiptext">
-        Dificultad significativa para el abordaje endovascular:
-        tortuosidad o calcificación severa en el segmento carotídeo,
-        arco aórtico tipo III o muy elongado o calcificado, troncos supraaórticos hostiles, etc.
-      </div>
-    </div>
-
-    <!-- Lesión distal no tratable -->
-    <div class="item-condicion">
-      <input type="checkbox" id="distalPresente">
-      <span class="info-icon" tabindex="0">ℹ️</span>
-      <span class="texto-cond">Estenosis distal ipsilateral no tratable</span>
-      <div class="tooltiptext">
-        Lesión intracraneal crítica distal a la carótida, sin opción razonable
-        de tratamiento endovascular. Suele limitar o anular el beneficio de revascularizar la carótida.
-      </div>
-    </div>
-
-    <!-- Lesión distal tratable (tándem tratable) -->
-    <div class="item-condicion">
-      <input type="checkbox" id="distalTratable">
-      <span class="info-icon" tabindex="0">ℹ️</span>
-      <span class="texto-cond">Estenosis distal ipsilateral tratable</span>
-      <div class="tooltiptext">
-        Lesión intracraneal o distal asociada, susceptible de tratamiento endovascular
-        en el mismo acto que la revascularización cervical (lesión en tándem tratable).
-        En estos casos suele preferirse una estrategia endovascular (CAS + tratamiento distal).
-      </div>
-    </div>
-
-  </div>
-</div>
-
-
-    <!-- BLOQUE GRADO -->
-    <div class="block clin">
-      <h3>📈 Grado de estenosis (NASCET)</h3>
-      <div class="inline-options" role="group" aria-label="Grado NASCET">
-        <label class="check"><input type="radio" name="grado" id="glt50"> &lt;50%</label>
-        <label class="check"><input type="radio" name="grado" id="g50a69"> 50–69%</label>
-        <label class="check"><input type="radio" name="grado" id="g70a99"> 70–99%</label>
-        <label class="check"><input type="radio" name="grado" id="gOclusion"> Oclusión total</label>
-      </div>
-    </div>
-
-
-    <!-- RESULTADOS -->
-    <div class="panel" id="resultCard" style="margin:16px;display:none;">
-      <div class="kpi">
-        <div class="box" id="kClin">
-          <div class="ttl">Clasificación</div>
-          <div class="val" id="valClin">-</div>
-        </div>
-        <div class="box" id="kGrado">
-          <div class="ttl">Grado</div>
-          <div class="val" id="valGrado">-</div>
+      <!-- BLOQUE PLACA / ANATOMÍA -->
+      <div class="block anat">
+        <h3>🌀 Características de la placa y anatomía</h3>
+        <div class="grid cols-2">
+          <!-- Placa compleja / alto riesgo embólico -->
+          <div class="item-condicion"> <input id="placaCompleja"
+              type="checkbox"> <span class="info-icon" tabindex="0">ℹ️</span>
+            <span class="texto-cond">Placa de alto riesgo</span>
+            <div class="tooltiptext"> Placa con características de
+              inestabilidad: ulcerada o irregular, hipodensa,
+              heterogénea, con hemorragia intraplaca y/o trombo
+              adherido. Asociada a mayor riesgo de embolia cerebral. </div>
+          </div>
+          <!-- Cuello hostil / alto riesgo quirúrgico (CEA) -->
+          <div class="item-condicion"> <input id="cuelloHostil"
+              type="checkbox"> <span class="info-icon" tabindex="0">ℹ️</span>
+            <span class="texto-cond">Cuello hostil</span>
+            <div class="tooltiptext"> Condiciones que aumentan
+              claramente el riesgo de endarterectomía: radioterapia
+              cervical previa, reestenosis tras CEA, estenosis cervical
+              muy alta, cirugía cervical previa compleja, oclusión
+              contralateral con mala circulación colateral, estenosis
+              intrastent, etc. </div>
+          </div>
+          <!-- Dificultad para tratamiento endovascular (CAS) -->
+          <div class="item-condicion"> <input id="endoDificil"
+              type="checkbox"> <span class="info-icon" tabindex="0">ℹ️</span>
+            <span class="texto-cond">Acceso endovascular complejo</span>
+            <div class="tooltiptext"> Dificultad significativa para el
+              abordaje endovascular: tortuosidad o calcificación severa
+              en el segmento carotídeo, arco aórtico tipo III o muy
+              elongado o calcificado, troncos supraaórticos hostiles,
+              etc. </div>
+          </div>
+          <!-- Lesión distal no tratable -->
+          <div class="item-condicion"> <input id="distalPresente"
+              type="checkbox"> <span class="info-icon" tabindex="0">ℹ️</span>
+            <span class="texto-cond">Estenosis distal ipsilateral no
+              tratable</span>
+            <div class="tooltiptext"> Lesión intracraneal crítica distal
+              a la carótida, sin opción razonable de tratamiento
+              endovascular. Suele limitar o anular el beneficio de
+              revascularizar la carótida. </div>
+          </div>
+          <!-- Lesión distal tratable (tándem tratable) -->
+          <div class="item-condicion"> <input id="distalTratable"
+              type="checkbox"> <span class="info-icon" tabindex="0">ℹ️</span>
+            <span class="texto-cond">Estenosis distal ipsilateral
+              tratable</span>
+            <div class="tooltiptext"> Lesión intracraneal o distal
+              asociada, susceptible de tratamiento endovascular en el
+              mismo acto que la revascularización cervical (lesión en
+              tándem tratable). En estos casos suele preferirse una
+              estrategia endovascular (CAS + tratamiento distal). </div>
+          </div>
         </div>
       </div>
-
-      <div class="kpi">
-        <div class="box" id="kRiesgo">
-          <div class="ttl">Riesgo</div>
-          <div class="val" id="valRiesgo">-</div>
-          <div class="mini" id="miniRiesgo">-</div>
-        </div>
-        <div class="box" id="kTandem">
-          <div class="ttl">Tándem</div>
-          <div class="val" id="valTandem">-</div>
-          <div class="mini" id="miniTandem">-</div>
-        </div>
+      <!-- BLOQUE GRADO -->
+      <div class="block clin">
+        <h3>📈 Grado de estenosis (NASCET)</h3>
+        <div class="inline-options" role="group" aria-label="Grado
+          NASCET"> <label class="check"><input name="grado" id="glt50"
+              type="radio"> &lt;50%</label> <label class="check"><input
+              name="grado" id="g50a69" type="radio"> 50–69%</label> <label
+            class="check"><input name="grado" id="g70a99" type="radio">
+            70–99%</label> <label class="check"><input name="grado"
+              id="gOclusion" type="radio"> Oclusión total</label> </div>
       </div>
-
-      <!-- Recomendación ocupa todo el ancho -->
-      <div style="margin-top:12px;">
-        <div class="box" id="recBox">
-          <div class="ttl">Recomendada</div>
-          <div class="val" id="recVal">-</div>
-          <div class="mini" id="recNote">-</div>
-          <div class="mini" id="postTx">-</div> <!-- tratamiento asociado/postprocedimiento -->
+      <!-- RESULTADOS -->
+      <div class="panel" id="resultCard"
+        style="margin:16px;display:none;">
+        <div class="kpi">
+          <div class="box" id="kClin">
+            <div class="ttl">Clasificación</div>
+            <div class="val" id="valClin">-</div>
+          </div>
+          <div class="box" id="kGrado">
+            <div class="ttl">Grado</div>
+            <div class="val" id="valGrado">-</div>
+          </div>
         </div>
-      </div>
-
-      <div style="margin-top:12px;">
-        <div class="box" id="contraBox">
-          <div class="ttl">Contraindicada</div>
-          <div class="val" id="contraVal">-</div>
-        </div></div>
+        <div class="kpi">
+          <div class="box" id="kRiesgo">
+            <div class="ttl">Riesgo</div>
+            <div class="val" id="valRiesgo">-</div>
+            <div class="mini" id="miniRiesgo">-</div>
+          </div>
+          <div class="box" id="kTandem">
+            <div class="ttl">Tándem</div>
+            <div class="val" id="valTandem">-</div>
+            <div class="mini" id="miniTandem">-</div>
+          </div>
+        </div>
+        <!-- Recomendación ocupa todo el ancho -->
+        <div style="margin-top:12px;">
+          <div class="box" id="recBox">
+            <div class="ttl">Recomendada</div>
+            <div class="val" id="recVal">-</div>
+            <div class="mini" id="recNote">-</div>
+            <div class="mini" id="postTx">-</div>
+            <!-- tratamiento asociado/postprocedimiento --> </div>
+        </div>
+        <div style="margin-top:12px;">
+          <div class="box" id="contraBox">
+            <div class="ttl">Contraindicada</div>
+            <div class="val" id="contraVal">-</div>
+          </div>
+        </div>
         <div style="margin-top:12px;">
           <div class="box" id="prefBox">
-          <div class="ttl">Preferencia local</div>
-          <div class="val" id="prefVal">-</div>
-          <div class="mini">
-            La elección final dependerá de la morbimortalidad y experiencia del centro.
+            <div class="ttl">Preferencia local</div>
+            <div class="val" id="prefVal">-</div>
+            <div class="mini"> La elección final dependerá de la
+              morbimortalidad y experiencia del centro. </div>
           </div>
-        </div> </div>
-
-      <div id="resumenText" class="resumen" style="white-space:pre-line; margin:1rem; border-top:1px dashed #e5e7eb; padding-top:1rem;"></div>
-<div class="disclaimer-red">
-        <p><b>Advertencia.</b> Herramienta orientativa; no sustituye el juicio clínico ni el consenso multidisciplinar. Interpretar en el contexto individual, protocolos locales y guías (AHA/ASA, ESO).</p>
+        </div>
+        <div id="resumenText" class="resumen" style="white-space:pre-line; margin:1rem; border-top:1px dashed #e5e7eb; padding-top:1rem;"></div>
+        <div class="disclaimer-red">
+          <p><b>Advertencia.</b> Herramienta orientativa; no sustituye
+            el juicio clínico ni el consenso multidisciplinar.
+            Interpretar en el contexto individual, protocolos locales y
+            guías (AHA/ASA, ESO).</p>
+        </div>
       </div>
+      <!-- BOTONES -->
+      <div class="actions"> <button id="btnCalc" class="btn-action
+          btn-calc">Calcular</button> <button id="btnClear"
+          class="btn-action btn-clear">Borrar</button> <button
+          id="btnCopy" class="btn-action btn-copy">Copiar resumen</button>
       </div>
-
-    <!-- BOTONES -->
-    <div class="actions">
-      <button id="btnCalc" class="btn-action btn-calc">Calcular</button>
-      <button id="btnClear" class="btn-action btn-clear">Borrar</button>
-      <button id="btnCopy" class="btn-action btn-copy">Copiar resumen</button>
-    </div>
-
-
-    </div>
-  <div class="howto">
-    <!-- DETALLES -->
-    <details style="margin-top:6px;">
-      <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📋 Explicación de ítems</summary>
-      <div style="
-  margin-top:14px;
-  background:#ffffff;
-  border:1px solid #d0d7e1;
-  border-radius:10px;
-  box-shadow:0 2px 6px rgba(0,0,0,0.05);
-  overflow:hidden;
-  font-size:13px;
-  line-height:1.55;
-  color:#1e293b;
-">
-
-  <!-- Barra superior tipo guideline -->
-  <div style="
-    background:#0f3d83;
-    color:#ffffff;
-    padding:10px 14px;
-    font-size:14px;
-    font-weight:700;
-    letter-spacing:0.3px;
-  ">
-    📘 Resumen de criterios (AHA/ASA · ESO)
-  </div>
-
-  <!-- Contenido -->
-  <div style="padding:16px 18px;">
-
-    <!-- Clínica -->
-    <div style="margin-bottom:16px;">
-      <div style="font-weight:700; color:#0f3d83; margin-bottom:4px;">
-        🩺 Clínica
+      <div class="howto">
+        <!-- DETALLES -->
+        <details style="margin-top:6px;">
+          <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📋
+            Explicación de ítems</summary>
+          <div style=" margin-top:14px; background:#ffffff; border:1px
+            solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
+            rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
+            line-height:1.55; color:#1e293b;
+            ">
+            <!-- Barra superior tipo guideline -->
+            <div style=" background:#0f3d83; color:#ffffff; padding:10px
+              14px; font-size:14px; font-weight:700;
+              letter-spacing:0.3px; "> 📘 Resumen de criterios (AHA/ASA
+              · ESO) </div>
+            <!-- Contenido -->
+            <div style="padding:16px 18px;">
+              <!-- Clínica -->
+              <div style="margin-bottom:16px;">
+                <div style="font-weight:700; color:#0f3d83;
+                  margin-bottom:4px;"> 🩺 Clínica </div>
+                <ul style="margin:0; padding-left:18px;">
+                  <li><b>Ictus/AIT ≤14 días:</b> máxima prioridad de
+                    intervención.</li>
+                  <li><b>Ictus/AIT &gt;14 días:</b> beneficio reducido;
+                    individualizar según riesgo y comorbilidad.</li>
+                  <li><b>Asintomática:</b> considerar revascularización
+                    solo en estenosis ≥70% con expectativa de vida
+                    suficiente y riesgo perioperatorio bajo.</li>
+                </ul>
+              </div>
+              <!-- Placa / Anatomía -->
+              <div style="margin-bottom:16px;">
+                <div style="font-weight:700; color:#0f3d83;
+                  margin-bottom:4px;"> 🌀 Placa / Anatomía </div>
+                <ul style="margin:0; padding-left:18px;">
+                  <li><b>Placa compleja:</b> ulcerada, trombótica,
+                    hipodensa, heterogénea o hemorrágica → mayor riesgo
+                    embólico.</li>
+                  <li><b>Cuello hostil:</b> radioterapia cervical,
+                    reestenosis pos-CEA, estenosis cervical alta,
+                    intrastent u oclusión contralateral → incrementa
+                    riesgo quirúrgico; favorece CAS.</li>
+                  <li><b>Acceso endovascular complejo:</b> tortuosidad
+                    carotídea severa, arco aórtico tipo III o troncos
+                    supraaórticos hostiles → preferible CEA.</li>
+                  <li><b>Lesión distal intracraneal:</b>
+                    <ul style="margin:4px 0 0; padding-left:18px;">
+                      <li><i>No tratable:</i> descarta beneficio de
+                        CEA/CAS.</li>
+                      <li><i>Tratable:</i> prioriza CAS por la
+                        posibilidad de abordaje combinado («tándem
+                        tratable»).</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <!-- Grado NASCET -->
+              <div>
+                <div style="font-weight:700; color:#0f3d83;
+                  margin-bottom:4px;"> 📈 Grado NASCET </div>
+                <ul style="margin:0; padding-left:18px;">
+                  <li><b>&lt;50%:</b> manejo médico.</li>
+                  <li><b>50–69%:</b> beneficio selectivo, principalmente
+                    en sintomáticos (individualizar).</li>
+                  <li><b>70–99% sintomáticos:</b> beneficio claro de
+                    revascularización si riesgo ≤6%.</li>
+                  <li><b>70–99% asintomáticos:</b> considerar
+                    revascularización; <b>CAS preferible</b> frente a
+                    CEA según CREST-2. CEA solo cuando CAS esté
+                    desaconsejado por la anatomía y el riesgo quirúrgico
+                    sea muy bajo (≤3%).</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details style="margin-top:16px;">
+          <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📒
+            Glosario de acrónimos</summary>
+          <div style=" margin-top:14px; background:#ffffff; border:1px
+            solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
+            rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
+            line-height:1.55; color:#1e293b;
+            ">
+            <!-- Barra superior tipo guideline -->
+            <div style=" background:#0f3d83; color:#ffffff; padding:10px
+              14px; font-size:14px; font-weight:700;
+              letter-spacing:0.3px; "> 🔤 Acrónimos utilizados </div>
+            <!-- Contenido -->
+            <div style="padding:16px 18px;">
+              <ul style="margin:0; padding-left:18px;">
+                <li><b>AAS</b>: ácido acetilsalicílico</li>
+                <li><b>AIT</b>: ataque isquémico transitorio</li>
+                <li><b>AS</b>: antiagregación simple</li>
+                <li><b>CAS</b>: <i>carotid artery stenting</i> (stent
+                  carotídeo)</li>
+                <li><b>CEA</b>: <i>carotid endarterectomy</i>
+                  (endarterectomía carotídea)</li>
+                <li><b>CREST-2</b>: ensayo de revascularización
+                  carotídea en estenosis asintomática</li>
+                <li><b>DAPT</b>: doble antiagregación plaquetaria</li>
+                <li><b>EV</b>: expectativa de vida</li>
+                <li><b>MDT</b>: equipo multidisciplinar</li>
+                <li><b>NASCET</b>: método de medición del porcentaje de
+                  estenosis carotídea</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+        <details style="margin-top:16px;">
+          <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📚
+            Bibliografía</summary>
+          <div style=" margin-top:14px; background:#ffffff; border:1px
+            solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
+            rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
+            line-height:1.55; color:#1e293b;
+            ">
+            <!-- Barra superior tipo guideline -->
+            <div style=" background:#0f3d83; color:#ffffff; padding:10px
+              14px; font-size:14px; font-weight:700;
+              letter-spacing:0.3px; "> 📘 Referencias bibliográficas </div>
+            <!-- Contenido -->
+            <div style="padding:16px 18px;">
+              <ol style="font-size:12px; padding-left:20px;
+                line-height:1.45;">
+                <!-- Guías clínicas -->
+                <li>Kleindorfer DO, et al. 2021 AHA/ASA Guideline for
+                  the Prevention of Stroke in Patients With Stroke and
+                  TIA. <i>Stroke</i>. 2021;52:e364–e467.</li>
+                <li>Naylor AR, et al. ESC/ESVS Guidelines on the
+                  Management of Extracranial Carotid Disease. <i>Eur J
+                    Vasc Endovasc Surg</i>. 2023;65:1–87.</li>
+                <li>European Stroke Organisation (ESO). Guidelines on
+                  extracranial carotid and vertebral artery disease. <i>Eur
+                    Stroke J</i>. 2021;6(4):XLVII–LXXXVIII.</li>
+                <!-- CREST-2 -->
+                <li>Howard G, Howard VJ, Brott TG, et al.; CREST-2
+                  Investigators. Carotid Revascularization and Intensive
+                  Medical Management for Asymptomatic Carotid Stenosis —
+                  Results of the CREST-2 Trial. <i>N Engl J Med</i>.
+                  2025;392:112–124.</li>
+                <li>Brott TG, et al. Rationale, design, and baseline
+                  characteristics of the CREST-2 trials. <i>Int J
+                    Stroke</i>. 2024;19:221–234.</li>
+                <!-- CEA vs CAS: ensayos y metaanálisis -->
+                <li>Bonati LH, et al. Long-term outcomes after carotid
+                  stenting versus endarterectomy: meta-analysis of
+                  individual patient data. <i>Lancet Neurol</i>.
+                  2022;21:795–805.</li>
+                <li>Rosenfield K, et al. ACT-1 Trial: stenting vs
+                  endarterectomy in asymptomatic standard-risk patients.
+                  <i>N Engl J Med</i>. 2016;374:1011–1020.</li>
+                <li>Yadav JS, et al. SAPPHIRE trial: protected
+                  carotid-artery stenting versus endarterectomy in
+                  high-risk patients. <i>N Engl J Med</i>.
+                  2004;351:1493–1501.</li>
+                <li>Rerkasem K, et al. Carotid endarterectomy for
+                  symptomatic carotid stenosis: updated review. <i>Cochrane
+                    Database Syst Rev</i>. 2023;9:CD001923.</li>
+                <!-- Placa, imagen y riesgo embólico -->
+                <li>García-García HM, et al. Advanced carotid plaque
+                  imaging for stroke risk stratification. <i>Circulation</i>.
+                  2023;147:1455–1472.</li>
+                <li>Lopes DK, et al. High-risk carotid plaque features
+                  and early stroke recurrence. <i>Stroke</i>.
+                  2024;55:907–916.</li>
+                <li>Underhill HR, et al. MRI-detected intraplaque
+                  hemorrhage and cerebrovascular risk. <i>Radiology</i>.
+                  2021;301:612–621.</li>
+                <li>Macdougall NJ, et al. Carotid ulceration and embolic
+                  risk: multidetector CT evidence. <i>JAMA Neurol</i>.
+                  2024;81:312–321.</li>
+                <!-- Selección anatómica de técnica -->
+                <li>Setacci C, et al. Anatomical criteria for choosing
+                  carotid stenting vs endarterectomy. <i>J Endovasc
+                    Ther</i>. 2023;30:539–551.</li>
+                <li>Malas MB, et al. CAS outcomes in complex or tortuous
+                  carotid anatomy. <i>J Vasc Surg</i>. 2024;79:145–154.</li>
+                <li>Hye RJ, et al. Impact of “hostile neck” on
+                  perioperative outcomes of carotid endarterectomy. <i>Ann
+                    Vasc Surg</i>. 2023;92:155–164.</li>
+                <!-- Lesiones en tándem -->
+                <li>Powers WJ, et al. Management of tandem
+                  cervical–intracranial lesions in ischemic stroke. <i>Stroke</i>.
+                  2024;55:1590–1602.</li>
+                <li>Behme D, et al. Endovascular management of tandem
+                  occlusions: updated real-world evidence. <i>J
+                    Neurointerv Surg</i>. 2023;15:480–488.</li>
+                <li>Texakalidis P, et al. Meta-analysis of stenting +
+                  thrombectomy for tandem occlusions. <i>Neurosurgery</i>.
+                  2022;90:345–355.</li>
+                <!-- Tratamiento médico óptimo -->
+                <li>Amarenco P, Labreuche J, et al. High-intensity
+                  statin therapy and carotid plaque stabilization. <i>Lancet
+                    Neurol</i>. 2020;19:502–512.</li>
+                <li>Sacco RL, et al. Optimal antiplatelet therapy after
+                  non-cardioembolic stroke. <i>Stroke</i>.
+                  2022;53:1100–1112.</li>
+                <li>Bonati LH, et al. Intensive control of blood
+                  pressure and LDL to prevent stroke in carotid disease.
+                  <i>Hypertension</i>. 2023;80:1208–1219.</li>
+                <!-- Práctica clínica real -->
+                <li>Naylor AR, et al. Contemporary outcomes of carotid
+                  revascularization in symptomatic disease. <i>Stroke</i>.
+                  2024;55:2732–2745.</li>
+                <li>Howard VJ, et al. Real-world outcomes of carotid
+                  revascularization in older adults. <i>JAMA Neurol</i>.
+                  2024;81:411–420.</li>
+                <li>Spence JD. Medical management of carotid stenosis in
+                  the post–CREST-2 era. <i>Stroke Vasc Neurol</i>.
+                  2025;10:1–12.</li>
+              </ol>
+            </div>
+          </div>
+        </details>
       </div>
-      <ul style="margin:0; padding-left:18px;">
-        <li><b>Ictus/AIT ≤14 días:</b> máxima prioridad de intervención.</li>
-        <li><b>Ictus/AIT >14 días:</b> beneficio reducido; individualizar según riesgo y comorbilidad.</li>
-        <li><b>Asintomática:</b> considerar revascularización solo en estenosis ≥70% con expectativa de vida suficiente y riesgo perioperatorio bajo.</li>
-      </ul>
-    </div>
-
-    <!-- Placa / Anatomía -->
-    <div style="margin-bottom:16px;">
-      <div style="font-weight:700; color:#0f3d83; margin-bottom:4px;">
-        🌀 Placa / Anatomía
-      </div>
-      <ul style="margin:0; padding-left:18px;">
-        <li><b>Placa compleja:</b> ulcerada, trombótica, hipodensa, heterogénea o hemorrágica → mayor riesgo embólico.</li>
-        <li><b>Cuello hostil:</b> radioterapia cervical, reestenosis pos-CEA, estenosis cervical alta, intrastent u oclusión contralateral → incrementa riesgo quirúrgico; favorece CAS.</li>
-        <li><b>Acceso endovascular complejo:</b> tortuosidad carotídea severa, arco aórtico tipo III o troncos supraaórticos hostiles → preferible CEA.</li>
-        <li><b>Lesión distal intracraneal:</b>
-          <ul style="margin:4px 0 0; padding-left:18px;">
-            <li><i>No tratable:</i> descarta beneficio de CEA/CAS.</li>
-            <li><i>Tratable:</i> prioriza CAS por la posibilidad de abordaje combinado («tándem tratable»).</li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-
-    <!-- Grado NASCET -->
-    <div>
-      <div style="font-weight:700; color:#0f3d83; margin-bottom:4px;">
-        📈 Grado NASCET
-      </div>
-      <ul style="margin:0; padding-left:18px;">
-        <li><b>&lt;50%:</b> manejo médico.</li>
-        <li><b>50–69%:</b> beneficio selectivo, principalmente en sintomáticos (individualizar).</li>
-        <li><b>70–99% sintomáticos:</b> beneficio claro de revascularización si riesgo ≤6%.</li>
-        <li><b>70–99% asintomáticos:</b> considerar revascularización; <b>CAS preferible</b> frente a CEA según CREST-2. CEA solo cuando CAS esté desaconsejado por la anatomía y el riesgo quirúrgico sea muy bajo (≤3%).</li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-   
-
-</div>
-
-</div></details>
-<details style="margin-top:16px;">
-      <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📒 Glosario de acrónimos</summary>
-      <div style="
-  margin-top:14px;
-  background:#ffffff;
-  border:1px solid #d0d7e1;
-  border-radius:10px;
-  box-shadow:0 2px 6px rgba(0,0,0,0.05);
-  overflow:hidden;
-  font-size:13px;
-  line-height:1.55;
-  color:#1e293b;
-">
-
-  <!-- Barra superior tipo guideline -->
-  <div style="
-    background:#0f3d83;
-    color:#ffffff;
-    padding:10px 14px;
-    font-size:14px;
-    font-weight:700;
-    letter-spacing:0.3px;
-  ">
-    🔤 Acrónimos utilizados
-  </div>
-
-
-
-  <!-- Contenido -->
-  <div style="padding:16px 18px;">
-    <ul style="margin:0; padding-left:18px;">
-
-      <li><b>AAS</b>: ácido acetilsalicílico</li>
-      <li><b>AIT</b>: ataque isquémico transitorio</li>
-      <li><b>AS</b>: antiagregación simple</li>
-      <li><b>CAS</b>: <i>carotid artery stenting</i> (stent carotídeo)</li>
-      <li><b>CEA</b>: <i>carotid endarterectomy</i> (endarterectomía carotídea)</li>
-      <li><b>CREST-2</b>: ensayo de revascularización carotídea en estenosis asintomática</li>
-      <li><b>DAPT</b>: doble antiagregación plaquetaria</li>
-      <li><b>EV</b>: expectativa de vida</li>
-      <li><b>MDT</b>: equipo multidisciplinar</li>
-      <li><b>NASCET</b>: método de medición del porcentaje de estenosis carotídea</li>
-
-    </ul>
-  </div>
-
-    </details>
-<details style="margin-top:16px;">
-      <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📚 Bibliografía</summary>
-      <div style="
-  margin-top:14px;
-  background:#ffffff;
-  border:1px solid #d0d7e1;
-  border-radius:10px;
-  box-shadow:0 2px 6px rgba(0,0,0,0.05);
-  overflow:hidden;
-  font-size:13px;
-  line-height:1.55;
-  color:#1e293b;
-">
-
-  <!-- Barra superior tipo guideline -->
-  <div style="
-    background:#0f3d83;
-    color:#ffffff;
-    padding:10px 14px;
-    font-size:14px;
-    font-weight:700;
-    letter-spacing:0.3px;
-  ">
-    📘 Referencias bibliográficas
-  </div>
-
-  <!-- Contenido -->
-  <div style="padding:16px 18px;">
-
-<ol style="font-size:12px; padding-left:20px; line-height:1.45;">
-
-  <!-- Guías clínicas -->
-  <li>Kleindorfer DO, et al. 2021 AHA/ASA Guideline for the Prevention of Stroke in Patients With Stroke and TIA. <i>Stroke</i>. 2021;52:e364–e467.</li>
-  <li>Naylor AR, et al. ESC/ESVS Guidelines on the Management of Extracranial Carotid Disease. <i>Eur J Vasc Endovasc Surg</i>. 2023;65:1–87.</li>
-  <li>European Stroke Organisation (ESO). Guidelines on extracranial carotid and vertebral artery disease. <i>Eur Stroke J</i>. 2021;6(4):XLVII–LXXXVIII.</li>
-
-  <!-- CREST-2 -->
-  <li>Howard G, Howard VJ, Brott TG, et al.; CREST-2 Investigators. Carotid Revascularization and Intensive Medical Management for Asymptomatic Carotid Stenosis — Results of the CREST-2 Trial. <i>N Engl J Med</i>. 2025;392:112–124.</li>
-  <li>Brott TG, et al. Rationale, design, and baseline characteristics of the CREST-2 trials. <i>Int J Stroke</i>. 2024;19:221–234.</li>
-
-  <!-- CEA vs CAS: ensayos y metaanálisis -->
-  <li>Bonati LH, et al. Long-term outcomes after carotid stenting versus endarterectomy: meta-analysis of individual patient data. <i>Lancet Neurol</i>. 2022;21:795–805.</li>
-  <li>Rosenfield K, et al. ACT-1 Trial: stenting vs endarterectomy in asymptomatic standard-risk patients. <i>N Engl J Med</i>. 2016;374:1011–1020.</li>
-  <li>Yadav JS, et al. SAPPHIRE trial: protected carotid-artery stenting versus endarterectomy in high-risk patients. <i>N Engl J Med</i>. 2004;351:1493–1501.</li>
-  <li>Rerkasem K, et al. Carotid endarterectomy for symptomatic carotid stenosis: updated review. <i>Cochrane Database Syst Rev</i>. 2023;9:CD001923.</li>
-
-  <!-- Placa, imagen y riesgo embólico -->
-  <li>García-García HM, et al. Advanced carotid plaque imaging for stroke risk stratification. <i>Circulation</i>. 2023;147:1455–1472.</li>
-  <li>Lopes DK, et al. High-risk carotid plaque features and early stroke recurrence. <i>Stroke</i>. 2024;55:907–916.</li>
-  <li>Underhill HR, et al. MRI-detected intraplaque hemorrhage and cerebrovascular risk. <i>Radiology</i>. 2021;301:612–621.</li>
-  <li>Macdougall NJ, et al. Carotid ulceration and embolic risk: multidetector CT evidence. <i>JAMA Neurol</i>. 2024;81:312–321.</li>
-
-  <!-- Selección anatómica de técnica -->
-  <li>Setacci C, et al. Anatomical criteria for choosing carotid stenting vs endarterectomy. <i>J Endovasc Ther</i>. 2023;30:539–551.</li>
-  <li>Malas MB, et al. CAS outcomes in complex or tortuous carotid anatomy. <i>J Vasc Surg</i>. 2024;79:145–154.</li>
-  <li>Hye RJ, et al. Impact of “hostile neck” on perioperative outcomes of carotid endarterectomy. <i>Ann Vasc Surg</i>. 2023;92:155–164.</li>
-
-  <!-- Lesiones en tándem -->
-  <li>Powers WJ, et al. Management of tandem cervical–intracranial lesions in ischemic stroke. <i>Stroke</i>. 2024;55:1590–1602.</li>
-  <li>Behme D, et al. Endovascular management of tandem occlusions: updated real-world evidence. <i>J Neurointerv Surg</i>. 2023;15:480–488.</li>
-  <li>Texakalidis P, et al. Meta-analysis of stenting + thrombectomy for tandem occlusions. <i>Neurosurgery</i>. 2022;90:345–355.</li>
-
-  <!-- Tratamiento médico óptimo -->
-  <li>Amarenco P, Labreuche J, et al. High-intensity statin therapy and carotid plaque stabilization. <i>Lancet Neurol</i>. 2020;19:502–512.</li>
-  <li>Sacco RL, et al. Optimal antiplatelet therapy after non-cardioembolic stroke. <i>Stroke</i>. 2022;53:1100–1112.</li>
-  <li>Bonati LH, et al. Intensive control of blood pressure and LDL to prevent stroke in carotid disease. <i>Hypertension</i>. 2023;80:1208–1219.</li>
-
-  <!-- Práctica clínica real -->
-  <li>Naylor AR, et al. Contemporary outcomes of carotid revascularization in symptomatic disease. <i>Stroke</i>. 2024;55:2732–2745.</li>
-  <li>Howard VJ, et al. Real-world outcomes of carotid revascularization in older adults. <i>JAMA Neurol</i>. 2024;81:411–420.</li>
-  <li>Spence JD. Medical management of carotid stenosis in the post–CREST-2 era. <i>Stroke Vasc Neurol</i>. 2025;10:1–12.</li>
-
-</ol>
-
-  </div>
-
-    </details>
-  </div>
-
-
-</main>
-
-<script>
+    </main>
+    <script>
 // Utilidad corta
 const $ = id => document.getElementById(id);
 
@@ -1487,13 +1468,9 @@ $('btnClear').addEventListener('click', borrar);
 const btnCopyEl = $('btnCopy');
 if (btnCopyEl) btnCopyEl.addEventListener('click', copiar);
 </script>
-
-
-<footer>
-  <img src="../img/uibanner.png" alt="Ictus GPS">
-</footer>
-
-<!-- Si este index.js es tu core común, lo mantengo -->
-<script src="js/index.js"></script>
-</body>
+    <footer> <img src="../img/uibanner.png" alt="Ictus GPS">
+    </footer>
+    <!-- Si este index.js es tu core común, lo mantengo -->
+    <script src="js/index.js"></script>
+  </body>
 </html>

@@ -527,9 +527,9 @@ body {
               Sexo femenino</label> <label class="row" for="cAge65"><input
                 id="cAge65" type="checkbox"> Edad 65–74 años</label> <label
               class="row" for="cAge75"><input id="cAge75"
-                type="checkbox"> Edad ≥ 75 años (2 pt)</label> <label
+                type="checkbox"> Edad≥75 años (2 pt)</label> <label
               class="row" for="cCongest"><input id="cCongest"
-                type="checkbox"> Insuficiencia cardiaca / disfunción VI</label>
+                type="checkbox"> Insuficiencia cardiaca/disfunción VI</label>
             <label class="row" for="cStroke"><input id="cStroke"
                 type="checkbox"> Ictus/AIT/TE previo (2 pt)</label> <label
               class="row" for="cHTN"><input id="cHTN" type="checkbox">
@@ -538,7 +538,7 @@ body {
               class="row" for="cVasc"><input id="cVasc" type="checkbox">
               Vascular (IAM, placa Ao, EAP)</label> </div>
           <div> <label>HAS-BLED</label> <label class="row" for="hHTN"><input
-                id="hHTN" type="checkbox"> HTA (&gt;160 mmHg sist.)</label>
+                id="hHTN" type="checkbox"> HTA (TAS&gt;160 mmHg)</label>
             <label class="row" for="hRenal"><input id="hRenal"
                 title="Autorrelleno si SCr ≥2.26 mg/dL (~200 µmol/L) o
                 ClCr &lt;30 ml/min" type="checkbox"> Disfunción renal
@@ -552,7 +552,7 @@ body {
                 type="checkbox"> INR lábil (si en VKA)</label> <label
               class="row" for="hElder"><input id="hElder"
                 title="Autorrelleno si edad &gt;65 años" type="checkbox">
-              Edad &gt;65</label> <label class="row" for="hDrugs"><input
+              Edad&gt;65</label> <label class="row" for="hDrugs"><input
                 id="hDrugs" type="checkbox"> Fármacos (antiagregantes,
               AINEs...)</label> <label class="row" for="hAlcohol"><input
                 id="hAlcohol" type="checkbox"> Alcohol</label> </div>
@@ -564,25 +564,24 @@ body {
                 type="checkbox"> Alto riesgo/antecedente de hemorragia
               intracraneal</label> <label class="row"><input
                 id="condICHprev" type="checkbox"> Angiopatía amiloide
-              cerebral</label> <label class="row"><input
+              cerebral probable</label> <label class="row"><input
                 id="condGIbleed" type="checkbox"> Antecedente de
               hemorragia digestiva severa</label> <label class="row"><input
                 id="condOncoGI" type="checkbox"> Neoplasia GI/GU activa</label>
             <label class="row"><input id="condCirrhosis" type="checkbox">
               Hepatopatía avanzada (Child-Pugh B–C)</label> <label
               class="row"><input id="condNoOACabs" type="checkbox">
-              Riesgo hemorrágico inaceptable/contraindicación absoluta a
+              Riesgo hemorrágico inaceptable/contraindicación a
               ACO</label> <label class="row"><input id="condLAAprog"
-                type="checkbox"> Centro con programa de cierre de
+                type="checkbox"> Disponibilidad de cierre de
               orejuela (o derivación posible)</label> </div>
           <div> <label class="row"><input id="condValvular"
-                type="checkbox"> Prótesis valvular mecánica o EM
-              reumática significativa</label> <label class="row"><input
+                type="checkbox"> Prótesis valvular mecánica o estenosis mitral significativa</label> <label class="row"><input
                 id="condDysphagia" type="checkbox">
               Disfagia/administración por SNG</label> <label
               class="row"><input id="condObesity" title="Autorrelleno si
                 peso &gt;120 kg (o IMC &gt;40, si disponible)"
-                type="checkbox"> Obesidad mórbida (IMC &gt;40 o &gt;120
+                type="checkbox"> Obesidad mórbida (IMC&gt;40 o &gt;120
               kg)</label> <label class="row"><input id="condPolypharm"
                 type="checkbox"> Polimedicación/intolerancia a
               interacciones</label><label class="row"><input
@@ -791,127 +790,198 @@ body {
     }
     ['condObesity','cAge65','cAge75','hElder','hRenal','cSc'].forEach(id=>document.getElementById(id).addEventListener('change',()=>checkAndFixContradictions(id)));
 
-    /* ===== Reglas clínicas (incluye riñón) ===== */
-    function buildClinicalRules(context){
-      const {crcl,age,special,weightKg}=context;
-      const prefer={"VKA":new Set(),"Apixabán":new Set(),"Dabigatrán":new Set(),"Edoxabán":new Set(),"Rivaroxabán":new Set()};
-      const avoid={"VKA":new Set(),"Apixabán":new Set(),"Dabigatrán":new Set(),"Edoxabán":new Set(),"Rivaroxabán":new Set()};
-      const notes=[];
+   /* ===== Reglas clínicas (incluye riñón y bloque ≥80) ===== */
+function buildClinicalRules(context){
+  const {crcl, age, special, weightKg, hasbled} = context;
 
-      // Disfagia / SNG
-      if(special.dysphagia){
-        avoid.Dabigatrán.add("Disfagia/SNG (no abrir cápsula)");
-        prefer.Apixabán.add("Compatible triturado/SNG");
-        prefer.Rivaroxabán.add("Compatible triturado/SNG (>=15 mg con comida)");
-        prefer.VKA.add("Se puede triturar/SNG");
-        notes.push("Disfagia/SNG: evitar dabigatrán; apixabán, rivaroxabán o VKA son opciones.");
-      }
+  const prefer = {
+    "VKA":        new Set(),
+    "Apixabán":   new Set(),
+    "Dabigatrán": new Set(),
+    "Edoxabán":   new Set(),
+    "Rivaroxabán":new Set()
+  };
 
-      // Función renal
-      if(isFinite(crcl)){
-        if(crcl<15){
-          prefer.VKA.add("ERC terminal (<15 mL/min) o diálisis");
-          avoid.Dabigatrán.add("ERC terminal");
-          avoid.Rivaroxabán.add("ERC terminal");
-          avoid.Edoxabán.add("ERC terminal");
-          avoid.Apixabán.add("No recomendado por EMA en ERC terminal/diálisis");
-          notes.push("ClCr <15 mL/min o diálisis: preferir VKA; evitar ACOD.");
-        }else if(crcl>=15&&crcl<30){
-          prefer.Apixabán.add("ERC 15–29 (baja excreción renal)");
-          avoid.Dabigatrán.add("ERC 15–29 (contraindicado si <30)");
-          notes.push("ClCr 15–29 mL/min: preferir apixabán; evitar dabigatrán; ajustar rivaroxabán/edoxabán.");
-        }else if(crcl>95){
-          avoid.Edoxabán.add("Menor eficacia si ClCr >95 mL/min (FDA, Savaysa)");
-          notes.push("ClCr >95 mL/min: evitar edoxabán por menor eficacia relativa (FA no valvular).");
-        }
-      }
+  const avoid = {
+    "VKA":        new Set(),
+    "Apixabán":   new Set(),
+    "Dabigatrán": new Set(),
+    "Edoxabán":   new Set(),
+    "Rivaroxabán":new Set()
+  };
 
+  const notes = [];
 
-      // Otros condicionantes
-      if(special.giBleed){prefer.Apixabán.add("Mejor perfil GI");avoid.Rivaroxabán.add("Más sangrado GI");avoid.Dabigatrán.add("Más sangrado GI (150 mg)");avoid.Edoxabán.add("Más sangrado GI");notes.push("Antecedente de HDA severa: preferir apixabán.");}
-      if(special.ichRisk){prefer.Apixabán.add("Menor HIC vs VKA");prefer.Edoxabán.add("Menor HIC vs VKA");avoid.VKA.add("Más HIC vs ACOD");notes.push("Alto riesgo de HIC: priorizar ACOD (apixabán/edoxabán).");}
-      if(special.valvular){prefer.VKA.add("Prótesis mecánica/EM reumática (indicación absoluta)");avoid.Apixabán.add("No indicado");avoid.Dabigatrán.add("No indicado");avoid.Edoxabán.add("No indicado");avoid.Rivaroxabán.add("No indicado");notes.push("Prótesis mecánica/EM reumática significativa: VKA obligatorio.");}
-      if(special.polypharm){prefer.Apixabán.add("Menos interacciones globales");prefer.Edoxabán.add("Menos interacciones globales");avoid.VKA.add("Múltiples interacciones");notes.push("Polimedicación: preferir apixabán/edoxabán.");}
-      if(special.cirrhosis){prefer.VKA.add("Hepatopatía avanzada");avoid.Apixabán.add("Evitar Child C");avoid.Dabigatrán.add("Evitar Child C");avoid.Edoxabán.add("Evitar Child C");avoid.Rivaroxabán.add("Evitar Child C");notes.push("Hepatopatía avanzada: preferir VKA; evitar ACOD en Child C.");}
-      const over120=isFinite(weightKg)&&weightKg>120;
-      if(special.obesity||over120){prefer.VKA.add("Obesidad mórbida");avoid.Dabigatrán.add("Evidencia limitada");avoid.Edoxabán.add("Evidencia limitada");notes.push("Obesidad mórbida: preferir VKA; si ACOD, mejor apixabán/rivaroxabán.");}
-      if(special.oncoGI){prefer.VKA.add("Alternativa en tumor GI/GU activo");avoid.Rivaroxabán.add("Mayor riesgo GI");avoid.Dabigatrán.add("Mayor riesgo GI");avoid.Edoxabán.add("Mayor riesgo GI");prefer.Apixabán.add("Perfil GI favorable");notes.push("Neoplasia GI/GU activa: preferible apixabán o VKA.");}
-      if(age>=80){prefer.Apixabán.add("Mejor balance en ancianos");avoid.Dabigatrán.add("Evitar 150 mg en ancianos");notes.push("Anciano frágil: apixabán suele ser la opción más segura.");}
-      if(special.poorINR){avoid.VKA.add("Difícil monitorización INR");prefer.Apixabán.add("Sin INR rutinario");prefer.Rivaroxabán.add("Sin INR rutinario");prefer.Edoxabán.add("Sin INR rutinario");prefer.Dabigatrán.add("Sin INR rutinario");notes.push("Si no se puede monitorizar INR: preferir ACOD.");}
-      if(special.qd){prefer.Rivaroxabán.add("Posología QD");prefer.Edoxabán.add("Posología QD");notes.push("Preferencia por dosis única diaria: rivaroxabán o edoxabán.");}
-
-      // Inductor potente de P-gp
-      if (special.pgpInd) {
-        prefer.VKA.add("Inductor potente de P-gp (evitar infraexposición de ACOD)");
-        avoid.Dabigatrán.add("Altamente dependiente de P-gp → riesgo de infraexposición marcada");
-        avoid.Edoxabán.add("Inductor potente de P-gp → menor exposición y posible pérdida de eficacia");
-        notes.push(
-          "Inductor potente de P-gp (rifampicina, carbamazepina, fenitoína, fenobarbital/primidona, Hierba de San Juan): " +
-          "evitar dabigatrán y, siempre que sea posible, edoxabán; preferir VKA u otra alternativa no dependiente de P-gp."
-        );
-      }
-
-
-// Inhibidor potente de P-gp
-if (special.pgp) {
-  // Dabigatrán: evitar si ClCr <50 mL/min (altamente dependiente de P-gp)
-  if (isFinite(crcl) && crcl < 50) {
-    avoid.Dabigatrán.add("Inhibidor potente de P-gp con ClCr <50 mL/min: evitar dabigatrán");
-    notes.push("Inhibidor potente de P-gp con ClCr <50 mL/min: evitar dabigatrán y preferir alternativas menos dependientes de P-gp.");
+  // Disfagia / SNG
+  if (special.dysphagia){
+    avoid.Dabigatrán.add("Disfagia/SNG (no abrir cápsula)");
+    prefer.Apixabán.add("Compatible triturado/SNG");
+    prefer.Rivaroxabán.add("Compatible triturado/SNG (>=15 mg con comida)");
+    prefer.VKA.add("Se puede triturar/SNG");
+    notes.push("Disfagia/SNG: evitar dabigatrán; apixabán, rivaroxabán o VKA son opciones.");
   }
 
-  // El resto de la recomendación práctica general de P-gp
-  notes.push("Inhibidor potente de P-gp (p. ej., verapamilo, dronedarona, quinidina, ciclosporina, tacrolimus, ritonavir): preferir ACOD menos dependientes de P-gp o VKA en pacientes con alto riesgo hemorrágico o polimedicación.");
-}
+  // Función renal
+  if (isFinite(crcl)){
+    if (crcl < 15){
+      prefer.VKA.add("ERC terminal (<15 mL/min) o diálisis");
+      avoid.Dabigatrán.add("ERC terminal");
+      avoid.Rivaroxabán.add("ERC terminal");
+      avoid.Edoxabán.add("ERC terminal");
+      avoid.Apixabán.add("No recomendado por EMA en ERC terminal/diálisis");
+      notes.push("ClCr <15 mL/min o diálisis: preferir VKA; evitar ACOD.");
+    } else if (crcl >= 15 && crcl < 30){
+      prefer.Apixabán.add("ERC 15–29 (baja excreción renal)");
+      avoid.Dabigatrán.add("ERC 15–29 (contraindicado si <30)");
+      notes.push("ClCr 15–29 mL/min: preferir apixabán; evitar dabigatrán; ajustar rivaroxabán/edoxabán.");
+    } else if (crcl > 95){
+      avoid.Edoxabán.add("Menor eficacia si ClCr >95 mL/min (FDA, Savaysa)");
+      notes.push("ClCr >95 mL/min: evitar edoxabán por menor eficacia relativa (FA no valvular).");
+    }
+  }
 
+  // GI, ICH, valvular, etc. (igual que ya tenías)
+  if (special.giBleed){
+    prefer.Apixabán.add("Mejor perfil GI");
+    avoid.Rivaroxabán.add("Más sangrado GI");
+    avoid.Dabigatrán.add("Más sangrado GI (150 mg)");
+    avoid.Edoxabán.add("Más sangrado GI");
+    notes.push("Antecedente de HDA severa: preferir apixabán.");
+  }
 
-  // ============================================
-  // CYP3A4: inhibidores e inductores potentes
-  // ============================================
+  if (special.ichRisk){
+    prefer.Apixabán.add("Menor HIC vs VKA");
+    prefer.Edoxabán.add("Menor HIC vs VKA");
+    avoid.VKA.add("Más HIC vs ACOD");
+    notes.push("Alto riesgo de HIC: priorizar ACOD (apixabán/edoxabán).");
+  }
 
-  // Inhibidor potente de CYP3A4
-  if (special.cypInhib) {
+  if (special.valvular){
+    prefer.VKA.add("Prótesis mecánica/EM reumática (indicación absoluta)");
+    avoid.Apixabán.add("No indicado");
+    avoid.Dabigatrán.add("No indicado");
+    avoid.Edoxabán.add("No indicado");
+    avoid.Rivaroxabán.add("No indicado");
+    notes.push("Prótesis mecánica/EM reumática significativa: VKA obligatorio.");
+  }
 
-    // Evitar ACOD dependientes de CYP3A4
+  if (special.polypharm){
+    prefer.Apixabán.add("Menos interacciones globales");
+    prefer.Edoxabán.add("Menos interacciones globales");
+    avoid.VKA.add("Múltiples interacciones");
+    notes.push("Polimedicación: preferir apixabán/edoxabán.");
+  }
+
+  if (special.cirrhosis){
+    prefer.VKA.add("Hepatopatía avanzada");
+    avoid.Apixabán.add("Evitar Child C");
+    avoid.Dabigatrán.add("Evitar Child C");
+    avoid.Edoxabán.add("Evitar Child C");
+    avoid.Rivaroxabán.add("Evitar Child C");
+    notes.push("Hepatopatía avanzada: preferir VKA; evitar ACOD en Child C.");
+  }
+
+  const over120 = isFinite(weightKg) && weightKg > 120;
+  if (special.obesity || over120){
+    prefer.VKA.add("Obesidad mórbida");
+    avoid.Dabigatrán.add("Evidencia limitada");
+    avoid.Edoxabán.add("Evidencia limitada");
+    notes.push("Obesidad mórbida: preferir VKA; si ACOD, mejor apixabán/rivaroxabán.");
+  }
+
+  if (special.oncoGI){
+    prefer.VKA.add("Alternativa en tumor GI/GU activo");
+    avoid.Rivaroxabán.add("Mayor riesgo GI");
+    avoid.Dabigatrán.add("Mayor riesgo GI");
+    avoid.Edoxabán.add("Mayor riesgo GI");
+    prefer.Apixabán.add("Perfil GI favorable");
+    notes.push("Neoplasia GI/GU activa: preferible apixabán o VKA.");
+  }
+
+  // 🔶 BLOQUE ≥80 años (propuesta intermedia)
+  if (age >= 80){
+    // Apixabán preferido siempre
+    prefer.Apixabán.add("Mejor balance beneficio/riesgo en ≥80 años");
+
+    // Dabigatrán solo se desaconseja si hay otro factor de riesgo
+    const dabHighRisk =
+      special.giBleed ||
+      special.oncoGI ||
+      (hasbled >= 3) ||
+      (isFinite(crcl) && crcl >= 30 && crcl < 50);
+
+    if (dabHighRisk){
+      avoid.Dabigatrán.add(
+        "Evitar dabigatrán en ≥80 años con HDA/neoplasia GI, HAS-BLED alto o ClCr 30–50 mL/min"
+      );
+    }
+
+    notes.push(
+      "En ≥80 años suele preferirse apixabán; dabigatrán solo si no hay HDA/neoplasia GI, HAS-BLED alto ni ClCr 30–50 mL/min."
+    );
+  }
+
+  if (special.poorINR){
+    avoid.VKA.add("Difícil monitorización INR");
+    prefer.Apixabán.add("Sin INR rutinario");
+    prefer.Rivaroxabán.add("Sin INR rutinario");
+    prefer.Edoxabán.add("Sin INR rutinario");
+    prefer.Dabigatrán.add("Sin INR rutinario");
+    notes.push("Si no se puede monitorizar INR: preferir ACOD.");
+  }
+
+  if (special.qd){
+    prefer.Rivaroxabán.add("Posología QD");
+    prefer.Edoxabán.add("Posología QD");
+    notes.push("Preferencia por dosis única diaria: rivaroxabán o edoxabán.");
+  }
+
+  // Inductor potente de P-gp
+  if (special.pgpInd){
+    prefer.VKA.add("Inductor potente de P-gp (evitar infraexposición de ACOD)");
+    avoid.Dabigatrán.add("Altamente dependiente de P-gp → riesgo de infraexposición marcada");
+    avoid.Edoxabán.add("Inductor potente de P-gp → menor exposición y posible pérdida de eficacia");
+    notes.push(
+      "Inductor potente de P-gp: evitar dabigatrán y, siempre que sea posible, edoxabán; preferir VKA u otra alternativa no dependiente de P-gp."
+    );
+  }
+
+  // Inhibidor potente de P-gp
+  if (special.pgp){
+    if (isFinite(crcl) && crcl < 50){
+      avoid.Dabigatrán.add("Inhibidor potente de P-gp con ClCr <50 mL/min: evitar dabigatrán");
+      notes.push("Inhibidor potente de P-gp con ClCr <50 mL/min: evitar dabigatrán.");
+    }
+    notes.push(
+      "Inhibidor potente de P-gp: preferir ACOD menos dependientes de P-gp o VKA en pacientes de alto riesgo."
+    );
+  }
+
+  // Inhibidor CYP3A4
+  if (special.cypInhib){
     avoid.Apixabán.add("Inhibidor potente de CYP3A4 (riesgo de sobreexposición)");
     avoid.Rivaroxabán.add("Inhibidor potente de CYP3A4 (riesgo de sobreexposición)");
-
-    // Edoxabán: NO se evita. Metabolismo CYP3A4 mínimo.
     prefer.Edoxabán.add("Metabolismo CYP3A4 mínimo → opción más segura");
-
-    // Dabigatrán tampoco se afecta por CYP3A4
     prefer.Dabigatrán.add("No depende de CYP3A4");
-
     notes.push(
-      "Inhibidor potente de CYP3A4 (azoles sistémicos, inhibidores de proteasa, claritromicina, cobicistat): " +
-      "evitar rivaroxabán y usar precaución con apixabán. Edoxabán y dabigatrán no se ven afectados por esta vía."
+      "Inhibidor potente de CYP3A4: evitar rivaroxabán y usar precaución con apixabán; edoxabán y dabigatrán no se ven afectados por esta vía."
     );
-}
+  }
 
-
-  // Inductor potente de CYP3A4
- if (special.cypInduc) {
-
-    // Evitar ACOD muy dependientes de CYP3A4
+  // Inductor CYP3A4
+  if (special.cypInduc){
     avoid.Apixabán.add("Inductor potente de CYP3A4 (riesgo de infraexposición)");
     avoid.Rivaroxabán.add("Inductor potente de CYP3A4 (riesgo de infraexposición)");
-
-    // Edoxabán NO debe evitarse (metabolismo CYP3A4 mínimo)
     prefer.Edoxabán.add("Menor metabolismo CYP3A4 → opción más segura");
-    
-    // Dabigatrán tampoco se afecta por CYP3A4
     prefer.Dabigatrán.add("No depende de CYP3A4");
-
-    // Mensaje clínico
     notes.push(
-      "Inductor potente de CYP3A4 (rifampicina, carbamazepina, fenitoína, fenobarbital, hierba de San Juan): " +
-      "evitar rivaroxabán y apixabán. Edoxabán y dabigatrán son alternativas razonables. Valorar preferencia por VKA."
+      "Inductor potente de CYP3A4: evitar rivaroxabán y apixabán; edoxabán y dabigatrán son alternativas razonables (valorar VKA)."
     );
+  }
+
+  return {prefer, avoid, notes};
 }
 
-
-  return {prefer,avoid,notes};
-}
 
 
     /* ===== Posología (actualizada) ===== */
@@ -1079,7 +1149,7 @@ const noOAC = (noOAC_byLowRisk || noOAC_byHighBleed) && !special.valvular;
 
 
       // Reglas clínicas
-      const {prefer,avoid,notes}=buildClinicalRules({crcl,age,special,weightKg});
+const {prefer,avoid,notes}=buildClinicalRules({crcl,age,special,weightKg,hasbled});
 
      // Añadir nota específica si está en la “zona gris” de CHA2DS2-VASc
 if (considerOAC_byBorderline && !noOAC && !special.valvular) {
