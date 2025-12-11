@@ -974,6 +974,43 @@ function buildClinicalRules(context){
     );
   }
 
+// 🔥 INHIBIDOR DUAL POTENTE (P-gp + CYP3A4)
+if (special.pgp && special.cypInhib) {
+
+  // Preferir VKA
+  prefer.VKA.add("Inhibidor dual potente (P-gp + CYP3A4)");
+
+  // Evitar TODOS los ACOD
+  avoid.Apixabán.add("Evitar con inhibidor dual potente");
+  avoid.Rivaroxabán.add("Evitar con inhibidor dual potente");
+  avoid.Dabigatrán.add("Evitar con inhibidor dual potente");
+  avoid.Edoxabán.add("Evitar con inhibidor dual potente");
+
+  // Nota clínica
+  notes.push(
+    "Inhibidor dual potente (P-gp + CYP3A4): interacción muy intensa. Evitar TODOS los ACOD y usar VKA."
+  );
+}
+
+// 🔥 INDUCTOR DUAL POTENTE (P-gp + CYP3A4)
+if (special.pgpInd && special.cypInduc) {
+
+  // Preferir VKA
+  prefer.VKA.add("Inductor dual potente (P-gp + CYP3A4)");
+
+  // Evitar TODOS los ACOD
+  avoid.Apixabán.add("Evitar con inductor dual potente");
+  avoid.Rivaroxabán.add("Evitar con inductor dual potente");
+  avoid.Dabigatrán.add("Evitar con inductor dual potente");
+  avoid.Edoxabán.add("Evitar con inductor dual potente");
+
+  // Nota clínica
+  notes.push(
+    "Inductor dual potente (P-gp + CYP3A4): riesgo extremo de infraexposición. Evitar TODOS los ACOD y usar VKA."
+  );
+}
+
+
   return {prefer, avoid, notes};
 }
 
@@ -1633,388 +1670,156 @@ function copyReport(){
     </script>
       <!-- Referencias / Bibliografía -->
       <div class="howto">
-        <details style="margin-top:14px;">
-          <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📉
+<details style="margin-top:14px;">
+  <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">🧬 Interacciones farmacológicas</summary>
 
-            Inhibidores potentes de P-gp</summary>
-          <div style=" margin-top:14px; background:#ffffff; border:1px
-            solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
-            rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
-            line-height:1.55; color:#1e293b; ">
-            <!-- Barra superior tipo guideline -->
-            <div style=" background:#0f3d83; color:#ffffff; padding:10px
-              14px; font-size:14px; font-weight:700;
-              letter-spacing:0.3px; "> 📈 Interacciones farmacológicas:
-              inhibidores potentes de P-gp </div>
-            <!-- Contenido -->
-            <div style="padding:16px 18px;">
-              <p style="margin:0 0 10px 0;"> Los inhibidores potentes de
-                <b>P-gp (glicoproteína-P)</b> aumentan
-                significativamente la absorción y exposición plasmática
-                de los ACOD que dependen de este transportador
-                intestinal y renal. El grado de interacción es <b>diferente
+  <div style="margin-top:14px; background:#ffffff; border:1px solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.05); overflow:hidden; font-size:13px; line-height:1.55; color:#1e293b;">
 
-                  para cada ACOD</b>. </p>
-              <ul style="font-size:12px; padding-left:20px;
-                line-height:1.45;">
-                <li><b>Ejemplos de inhibidores potentes de P-gp:</b>
-                  verapamilo, dronedarona, quinidina, amiodarona,
-                  diltiazem, ketoconazol, itraconazol, posaconazol,
-                  ciclosporina, tacrolimus, ritonavir.</li>
-                <li><b>Dabigatrán</b> (altamente dependiente de P-gp): <b>evitar</b>
-                  inhibidores potentes si <b>ClCr &lt;50 mL/min</b>. Si
-                  ClCr ≥50, considerar dosis 110 mg/12 h según riesgo
-                  hemorrágico.</li>
-                <li><b>Apixabán</b>: los inhibidores potentes de P-gp
-                  pueden aumentar la exposición. <b>No se ajusta la
-                    dosis solo por P-gp</b>, pero debe extremarse la
-                  precaución en pacientes que ya cumplen criterios de
-                  dosis reducida o presentan riesgo hemorrágico elevado.</li>
-                <li><b>Rivaroxabán</b>: la inhibición aislada de P-gp
-                  puede elevar la exposición; usar <b>precaución</b> y
-                  valorar alternativas si concurren otros factores de
-                  riesgo de sangrado.</li>
-                <li><b>Edoxabán</b>: si el paciente recibe un inhibidor
-                  potente de <b>P-gp</b> (verapamilo, dronedarona,
-                  quinidina, ciclosporina), <b>reducir la dosis a 30
-                    mg/24 h</b>, independientemente de peso o función
-                  renal.</li>
-              </ul>
-              <div style="margin-top:8px;"> <b>Recomendación práctica:</b>
-                ante el uso de inhibidores potentes de P-gp, preferir
-                ACOD menos dependientes de este transportador cuando
-                exista riesgo hemorrágico aumentado o polimedicación. </div>
-              <div style="margin-top:4px; color:#475569;
-                font-size:12px;"> Consultar ficha técnica EMA/FDA para
-                cada ACOD ante combinaciones específicas. </div>
-            </div>
-          </div>
-        </details>
-        <details style="margin-top:14px;">
-          <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📈
+    <!-- CABECERA -->
+    <div style="background:#0f3d83; color:#ffffff; padding:10px 14px; font-size:14px; font-weight:700; letter-spacing:0.3px;">
+      🔥 Inhibidores e inductores de P-gp y CYP3A4
+    </div>
 
-            Inductores potentes de P-gp</summary>
-          <div style=" margin-top:14px; background:#ffffff; border:1px
-            solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
-            rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
-            line-height:1.55; color:#1e293b; ">
-            <!-- Barra superior tipo guideline -->
-            <div style=" background:#0f3d83; color:#ffffff; padding:10px
-              14px; font-size:14px; font-weight:700;
-              letter-spacing:0.3px; "> 📉 Interacciones farmacológicas:
-              inductores potentes de P-gp </div>
-            <!-- Contenido -->
-            <div style="padding:16px 18px;">
-              <p style="margin:0 0 10px 0;"> Los <b>inductores potentes
-                  de P-gp</b> reducen de forma significativa la
-                absorción y la exposición plasmática de los ACOD
-                dependientes de este transportador intestinal y renal.
-                El resultado es una <b>infraexposición farmacológica</b>
-                y un posible <b>riesgo de pérdida de eficacia</b>,
-                especialmente relevante en fibrilación auricular y
-                tromboembolismo venoso. </p>
-              <ul style="font-size:12px; padding-left:20px;
-                line-height:1.45;">
-                <li><b>Ejemplos de inductores potentes de P-gp:</b>
-                  rifampicina, carbamazepina, fenitoína, fenobarbital,
-                  primidona, <i>Hierba de San Juan (Hypericum)</i>.</li>
-                <li><b>Dabigatrán</b> (muy dependiente de P-gp): <b>evitar</b>
-                  su uso en combinación con inductores potentes de P-gp
-                  por riesgo de <b>infraexposición marcada</b> y
-                  disminución de eficacia.</li>
-                <li><b>Edoxabán</b>: los inductores potentes de P-gp
-                  reducen su exposición; considerar <b>evitarlo</b> y
-                  preferir alternativas no dependientes de P-gp cuando
-                  sea posible.</li>
-                <li><b>Rivaroxabán</b>: la inducción de P-gp reduce la
-                  exposición; <b>evitar</b> si el fármaco inductor
-                  también actúa sobre CYP3A4 (rifampicina, fenitoína,
-                  carbamazepina).</li>
-                <li><b>Apixabán</b>: usar <b>precaución</b>; evitar si
-                  el inductor es dual P-gp + CYP3A4 (rifampicina,
-                  carbamazepina, fenitoína), por riesgo de
-                  infraexposición significativa.</li>
-              </ul>
-              <div style="margin-top:8px;"> <b>Recomendación práctica:</b>
-                ante inductores potentes de P-gp, preferir <b>VKA</b> o
-                ACOD con menor dependencia de este transportador para
-                reducir el riesgo de fallo terapéutico. </div>
-              <div style="margin-top:4px; color:#475569;
-                font-size:12px;"> Revisar la ficha técnica EMA/FDA ante
-                combinaciones específicas y en presencia de otros
-                inductores metabólicos (p. ej., CYP3A4). </div>
-            </div>
-          </div>
-        </details>
-        <br>
-        <details style="margin-top:1px;">
-          <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📉
+    <div style="padding:16px 18px;">
+      <p style="margin:0 0 12px 0;">
+        Los ACOD dependen en distinta medida de <b>P-gp</b> (transporte intestinal/renal) y <b>CYP3A4</b> (metabolismo hepático). 
+        Los fármacos que inhiben o inducen estas vías pueden producir <b>sobreexposición → hemorragia</b> o 
+        <b>infraexposición → fallo embólico</b>. 
+        Las combinaciones <b>mixtas</b> (P-gp + CYP3A4) son las más relevantes clínicamente.
+      </p>
 
-            Inhibidores potentes de CYP3A4</summary>
-          <div style=" margin-top:14px; background:#ffffff; border:1px
-            solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
-            rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
-            line-height:1.55; color:#1e293b; ">
-            <!-- Barra tipo guideline -->
-            <div style=" background:#0f3d83; color:#ffffff; padding:10px
-              14px; font-size:14px; font-weight:700;
-              letter-spacing:0.3px; "> 📈 Interacciones con inhibidores
-              potentes de CYP3A4 </div>
-            <!-- Contenido -->
-            <div style="padding:16px 18px;">
-              <p style="margin-bottom:8px;"> Los inhibidores potentes de
-                <b>CYP3A4</b> (p. ej.: <i>ketoconazol, itraconazol,
-                  claritromicina, ritonavir, cobicistat</i>) pueden
-                aumentar de forma significativa los niveles plasmáticos
-                de los ACOD que dependen del metabolismo hepático por
-                esta vía. </p>
-              <ul style="font-size:12px; padding-left:20px;
-                line-height:1.45;">
-                <li><b>Apixabán</b>: se metaboliza parcialmente por
-                  CYP3A4. <b>Evitar la coadministración</b> con
-                  inhibidores potentes de CYP3A4, especialmente si el
-                  paciente ya cumple criterios de dosis reducida. <span
-                    class="muted">Puede aumentar de forma importante la
-                    exposición.</span> </li>
-                <li><b>Rivaroxabán</b>: depende en mayor medida de
-                  CYP3A4. <b>Contraindicado o no recomendado</b> con
-                  inhibidores potentes de CYP3A4 debido al marcado
-                  aumento de sus niveles plasmáticos.</li>
-                <li><b>Edoxabán</b>: el metabolismo por CYP3A4 es <b>mínimo</b>.
-                  Los inhibidores potentes de CYP3A4 <b>no requieren
-                    ajuste de dosis</b>. <span class="muted">La
-                    interacción relevante es por P-gp, no por CYP3A4.</span>
-                </li>
-                <li><b>Dabigatrán</b>: <b>no se metaboliza por CYP450</b>.
-                  Los inhibidores de CYP3A4 <b>no afectan de forma
-                    significativa</b> a sus concentraciones. <span
-                    class="muted">La vía importante es P-gp.</span> </li>
-              </ul>
-              <div style="color:#334155; font-size:12px;
-                margin-top:10px;"> <b>Resumen práctico:</b> evitar <b>rivaroxabán</b>
-                y precaución/evitar <b>apixabán</b> con inhibidores
-                potentes de CYP3A4; <b>edoxabán</b> y <b>dabigatrán</b>
-                no precisan ajuste por esta vía metabólica. </div>
-            </div>
-          </div>
-        </details>
-        <br>
-        <details style="margin-top:1px;">
-          <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📈
+      <!-- ========================= -->
+      <!-- INHIBIDORES DE P-gp -->
+      <!-- ========================= -->
 
-            Inductores potentes de CYP3A4</summary>
-          <div style=" margin-top:14px; background:#ffffff; border:1px
-            solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
-            rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
-            line-height:1.55; color:#1e293b; ">
-            <!-- Barra tipo guideline -->
-            <div style=" background:#0f3d83; color:#ffffff; padding:10px
-              14px; font-size:14px; font-weight:700;
-              letter-spacing:0.3px; "> 📉 Interacciones con inductores
-              potentes de CYP3A4 </div>
-            <!-- Contenido -->
-            <div style="padding:16px 18px;">
-              <p style="margin-bottom:8px;"> Los inductores potentes de
-                <b>CYP3A4</b> (p. ej.: <i>rifampicina, carbamazepina,
-                  fenitoína, fenobarbital, primidona, hierba de San Juan</i>)
-                pueden <b>reducir de forma marcada</b> las
-                concentraciones plasmáticas de ciertos ACOD,
-                disminuyendo su eficacia anticoagulante. </p>
-              <ul style="font-size:12px; padding-left:20px;
-                line-height:1.45;">
-                <li><b>Rivaroxabán</b>: metabolizado en gran parte por
-                  CYP3A4. Los inductores potentes pueden disminuir su
-                  exposición entre 50–80%. <b>Evitar</b> o considerar
-                  alternativa, por riesgo de infra-anticoagulación. </li>
-                <li><b>Apixabán</b>: el metabolismo por CYP3A4 es
-                  relevante, aunque menor que en rivaroxabán. Los
-                  inductores potentes reducen significativamente sus
-                  niveles. <b>No recomendado</b> salvo ausencia total
-                  de alternativas y monitorización estrecha. </li>
-                <li><b>Edoxabán</b>: metabolismo por CYP3A4 <b>mínimo</b>.
-                  Los inductores potentes de CYP3A4 <b>no producen un
-                    descenso clínicamente relevante</b> de sus niveles.
-                  <span class="muted">La vía de interacción relevante en
-                    edoxabán es P-gp, no CYP3A4.</span> </li>
-                <li><b>Dabigatrán</b>: <b>no se metaboliza por CYP450</b>.
-                  Los inductores de CYP3A4 <b>no afectan la
-                    farmacocinética</b>, pero si el fármaco es también
-                  inductor de P-gp (p. ej., rifampicina), <b>puede
-                    reducirse marcadamente su absorción</b>. <span
-                    class="muted">El problema en dabigatrán no es
-                    CYP3A4, sino P-gp.</span> </li>
-              </ul>
-              <div style="color:#334155; font-size:12px;
-                margin-top:10px;"> <b>Resumen práctico:</b> evitar <b>rivaroxabán</b>
-                y preferir evitar <b>apixabán</b> con inductores
-                potentes de CYP3A4; <b>edoxabán</b> no se afecta por
-                CYP3A4; <b>dabigatrán</b> solo se ve comprometido si el
-                inductor también actúa sobre <b>P-gp</b>. </div>
-            </div>
-          </div>
-        </details>
-        <details style="margin-top:14px;">
-          <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">
-            🤯 Interacciones complejas: P-gp + CYP3A4 </summary>
-          <div style=" margin-top:14px; background:#ffffff; border:1px
-            solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
-            rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
-            line-height:1.55; color:#1e293b; ">
-            <!-- Barra tipo guideline -->
-            <div style=" background:#0f3d83; color:#ffffff; padding:10px
-              14px; font-size:14px; font-weight:700;
-              letter-spacing:0.3px; "> 🕸️ Interacciones combinadas:
-              inhibición / inducción de P-gp y CYP3A4 </div>
-            <div style="padding:16px 18px;">
-              <p style="margin:0 0 10px 0;"> Muchos fármacos actúan
-                simultáneamente sobre <b>P-gp</b> (transportador
-                intestinal y renal) y <b>CYP3A4</b> (enzima metabólica
-                hepática), produciendo interacciones mixtas que afectan
-                de forma desigual a cada ACOD. </p>
-              <p style="margin:0 0 12px 0;"> Comprender estas
-                interacciones duales permite seleccionar el
-                anticoagulante más seguro y eficaz en escenarios de
-                polimedicación, oncología, cardiología o enfermedades
-                infecciosas. </p>
-              <!-- Ejemplos de fármacos duales -->
-              <ul style="font-size:12px; padding-left:20px;
-                line-height:1.45; margin-bottom:14px;">
-                <li><b>Inductores potentes duales (P-gp + CYP3A4):</b>
-                  rifampicina, carbamazepina, fenitoína, fenobarbital,
-                  primidona, Hierba de San Juan.</li>
-                <li><b>Inhibidores potentes duales (P-gp + CYP3A4):</b>
-                  ketoconazol, itraconazol, posaconazol, voriconazol,
-                  claritromicina, inhibidores de proteasa, cobicistat.</li>
-              </ul>
-              <div style="margin:10px 0; font-weight:700;
-                color:#0f3d83;">Efectos sobre cada ACOD</div>
-              <ul style="font-size:12px; padding-left:20px;
-                line-height:1.45;">
-                <!-- Dabigatrán -->
-                <li><b>Dabigatrán</b> (muy dependiente de P-gp;
-                  metabolismo CYP3A4 irrelevante):<br>
-                  • <b>Inhibidores duales → sobreexposición</b>
-                  marcada: evitar si ClCr &lt;50 mL/min; considerar 110
-                  mg/12 h si ClCr ≥50.<br>
-                  • <b>Inductores duales → infraexposición importante</b>:
-                  evitar dabigatrán. </li>
-                <!-- Apixabán -->
-                <li><b>Apixabán</b> (metabolismo mixto: CYP3A4 25–30% +
-                  P-gp):<br>
-                  • <b>Inhibidores duales → aumento significativo de
-                    exposición</b>: considerar reducción si cumple
-                  criterios o evitar.<br>
-                  • <b>Inductores duales → caída importante del AUC</b>:
-                  evitar apixabán si el inductor es potente
-                  (rifampicina, carbamazepina). </li>
-                <!-- Rivaroxabán -->
-                <li><b>Rivaroxabán</b> (dependiente de CYP3A4 30–35% y
-                  P-gp):<br>
-                  • <b>Inhibidores duales → sobreexposición → evitar</b>
-                  en la mayoría de escenarios clínicos.<br>
-                  • <b>Inductores duales → infraexposición → evitar</b>
-                  por riesgo de fallo terapéutico. </li>
-                <!-- Edoxabán -->
-                <li><b>Edoxabán</b> (P-gp importante; metabolismo CYP3A4
-                  mínimo):<br>
-                  • <b>Inhibidores duales:</b> ajustar a <b>30 mg/24 h</b>
-                  si hay inhibidor potente de P-gp.<br>
-                  • <b>Inductores duales:</b> riesgo de infraexposición
-                  → preferible evitar cuando exista alternativa mejor. </li>
-              </ul>
-              <div style="margin-top:12px;"> <b>Recomendación práctica
-                  combinada:</b><br>
-                En presencia de inductores o inhibidores que actúan
-                simultáneamente sobre P-gp y CYP3A4, <b>valorar
-                  preferentemente VKA</b> o un ACOD con dependencia
-                mínima de la vía afectada. </div>
-              <div style="margin-top:6px; color:#475569;
-                font-size:12px;"> Consultar ficha técnica EMA/FDA para
-                cada combinación específica. </div>
-            </div>
-          </div>
-        </details>
-        <details style="margin-top:14px;">
-          <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">
-            💡 Algoritmo rápido para interacciones con ACOD </summary>
-          <div style=" margin-top:14px; background:#ffffff; border:1px
-            solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
-            rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
-            line-height:1.55; color:#1e293b; ">
-            <!-- Cabecera -->
-            <div style=" background:#0f3d83; color:#ffffff; padding:10px
-              14px; font-size:14px; font-weight:700;
-              letter-spacing:0.3px; "> 🔁 Cómo pensar las interacciones
-              con ACOD en 10 segundos </div>
-            <!-- Contenido -->
-            <div style="padding:16px 18px;">
-              <p style="margin:0 0 12px 0;"> Las interacciones de los
-                ACOD pueden entenderse con un algoritmo mental muy
-                simple si se distinguen tres grupos: <b>P-gp</b>, <b>CYP3A4</b>
-                y <b>mixtos</b>. Cada grupo afecta de forma diferente a
-                cada ACOD. </p>
-              <!-- INHIBIDORES -->
-              <h4 style="margin:12px 0 6px 0;color:#0f3d83;">🟥
-                INHIBIDORES (aumentan la exposición)</h4>
-              <ul style="font-size:12px; padding-left:20px;
-                line-height:1.45;">
-                <li><b>Inhibidores SOLO de P-gp</b> → Aumentan mucho <b>dabigatrán</b>
-                  y <b>edoxabán</b>. Ej.: verapamilo, dronedarona,
-                  quinidina, amiodarona, diltiazem, ciclosporina. </li>
-                <li><b>Inhibidores SOLO de CYP3A4</b> → Aumentan <b>apixabán</b>
-                  y <b>rivaroxabán</b>. Ej.: fluconazol, eritromicina,
-                  diltiazem (débil), zumo de pomelo. </li>
-                <li><b>Inhibidores MIXTOS (P-gp + CYP3A4)</b> — los más
-                  potentes → Aumentan TODOS los ACOD (especial riesgo en
-                  apixabán y rivaroxabán). Ej.: ketoconazol,
-                  itraconazol, posaconazol, voriconazol, claritromicina,
-                  ritonavir, cobicistat. </li>
-              </ul>
-              <div style="margin:8px 0 12px 0; font-size:12px;
-                color:#b91c1c;"> ⚠️ Regla rápida: si el fármaco inhibe
-                AMBAS vías → el ACOD casi siempre debe evitarse. </div>
-              <!-- INDUCTORES -->
-              <h4 style="margin:12px 0 6px 0;color:#0f3d83;">🟦
-                INDUCTORES (disminuyen la exposición → fallo
-                terapéutico)</h4>
-              <ul style="font-size:12px; padding-left:20px;
-                line-height:1.45;">
-                <li><b>Inductores SOLO de P-gp</b> → Reducen sobre todo
-                  <b>dabigatrán</b> y <b>edoxabán</b>. Ej.: rifabutina,
-                  dexametasona (altas dosis). </li>
-                <li><b>Inductores SOLO de CYP3A4</b> → Reducen <b>apixabán</b>
-                  y <b>rivaroxabán</b>. Ej.: bosentan, efavirenz,
-                  nafcillina. </li>
-                <li><b>Inductores MIXTOS (P-gp + CYP3A4)</b> — los
-                  peligrosos de verdad → Infraexposición GRAVE de TODOS
-                  los ACOD. Ej.: <b>rifampicina, carbamazepina,
-                    fenitoína, fenobarbital, primidona, Hierba de San
-                    Juan</b>. </li>
-              </ul>
-              <div style="margin:8px 0 12px 0; font-size:12px;
-                color:#b91c1c;"> ⚠️ Regla rápida: si induce P-gp +
-                CYP3A4 → el ACOD suele quedar contraindicado. Usar VKA.
-              </div>
-              <!-- RESUMEN -->
-              <h4 style="margin:12px 0 6px 0;color:#0f3d83;">📌 Resumen
-                ultrarrápido</h4>
-              <ul style="font-size:12px; padding-left:20px;
-                line-height:1.45;">
-                <li><b>Dabigatrán</b> → muy sensible a <b>P-gp</b>.
-                  Inhibidores ↑; inductores ↓↓↓.</li>
-                <li><b>Edoxabán</b> → dependiente de P-gp; ajustar 30
-                  mg/24 h si inhibidor potente.</li>
-                <li><b>Apixabán</b> → sensible a <b>CYP3A4</b> y algo a
-                  P-gp.</li>
-                <li><b>Rivaroxabán</b> → muy dependiente de <b>CYP3A4</b>.</li>
-              </ul>
-              <div style="margin-top:12px; font-size:12px;
-                color:#475569;"> Para combinaciones específicas,
-                consultar ficha técnica EMA/FDA. Este algoritmo está
-                optimizado para toma de decisiones rápidas en clínica. </div>
-            </div>
-          </div>
-        </details>
+      <h4 style="margin:16px 0 6px 0;color:#0f3d83;">🟥 Inhibidores potentes de P-gp</h4>
+      <p style="margin:0 0 6px 0;">
+        Aumentan notablemente la absorción y exposición de ACOD sensibles a P-gp.
+      </p>
+      <p style="font-size:12px;"><b>Ejemplos (potentes):</b> dronedarona, quinidina, verapamilo, ketoconazol, itraconazol, posaconazol, claritromicina, ciclosporina, ritonavir, cobicistat.</p>
+
+      <ul style="font-size:12px; padding-left:20px; line-height:1.45;">
+        <li><b>Dabigatrán</b> (muy dependiente de P-gp): evitar si <b>ClCr &lt;50</b>; considerar <b>110 mg/12 h</b> si ClCr ≥50.</li>
+        <li><b>Edoxabán</b>: si inhibidor de P-gp → <b>reducir a 30 mg/24 h</b>.</li>
+        <li><b>Apixabán</b>: ↑ exposición; precaución si ya cumple criterios de dosis reducida.</li>
+        <li><b>Rivaroxabán</b>: ↑ niveles; precaución, especialmente si hay otros factores de sangrado.</li>
+      </ul>
+
+      <!-- ========================= -->
+      <!-- INDUCTORES DE P-gp -->
+      <!-- ========================= -->
+
+      <h4 style="margin:16px 0 6px 0;color:#0f3d83;">🟦 Inductores potentes de P-gp</h4>
+      <p style="font-size:12px;"><b>Ejemplos:</b> rifampicina, carbamazepina, fenitoína, fenobarbital, primidona, Hierba de San Juan.</p>
+
+      <ul style="font-size:12px; padding-left:20px; line-height:1.45;">
+        <li><b>Dabigatrán</b>: infraexposición marcada → <b>evitar</b>.</li>
+        <li><b>Edoxabán</b>: ↓ niveles → evitar si existe alternativa.</li>
+        <li><b>Apixabán / Rivaroxabán</b>: evitar si el inductor también afecta CYP3A4 (inductores mixtos).</li>
+      </ul>
+
+      <div style="font-size:12px; color:#b91c1c; margin-bottom:10px;">
+        ⚠️ Regla rápida: si induce P-gp → dabigatrán y edoxabán quedan muy comprometidos.
+      </div>
+
+      <!-- ========================= -->
+      <!-- INHIBIDORES DE CYP3A4 -->
+      <!-- ========================= -->
+
+      <h4 style="margin:16px 0 6px 0;color:#0f3d83;">🟥 Inhibidores potentes de CYP3A4</h4>
+      <p style="font-size:12px;"><b>Ejemplos:</b> ketoconazol, itraconazol, posaconazol, voriconazol, claritromicina, eritromicina, ritonavir, cobicistat, nefazodona.</p>
+
+      <ul style="font-size:12px; padding-left:20px; line-height:1.45;">
+        <li><b>Rivaroxabán</b>: depende bastante de CYP3A4 → <b>evitar</b>.</li>
+        <li><b>Apixabán</b>: ↑ exposición → evitar o extremar precaución.</li>
+        <li><b>Edoxabán</b>: metabolismo mínimo por CYP3A4 → <b>sin ajuste</b>.</li>
+        <li><b>Dabigatrán</b>: no depende de CYP450 → sin efecto relevante.</li>
+      </ul>
+
+      <!-- ========================= -->
+      <!-- INDUCTORES DE CYP3A4 -->
+      <!-- ========================= -->
+
+      <h4 style="margin:16px 0 6px 0;color:#0f3d83;">🟦 Inductores potentes de CYP3A4</h4>
+      <p style="font-size:12px;"><b>Ejemplos:</b> rifampicina, carbamazepina, fenitoína, fenobarbital, primidona, Hierba de San Juan.</p>
+
+      <ul style="font-size:12px; padding-left:20px; line-height:1.45;">
+        <li><b>Rivaroxabán</b>: ↓↓↓ exposición → <b>evitar</b>.</li>
+        <li><b>Apixabán</b>: ↓ niveles → no recomendado.</li>
+        <li><b>Edoxabán</b>: apenas afectado.</li>
+        <li><b>Dabigatrán</b>: solo afectado si también induce P-gp (inductores mixtos).</li>
+      </ul>
+
+      <!-- ========================= -->
+      <!-- INTERACCIONES MIXTAS -->
+      <!-- ========================= -->
+
+      <h4 style="margin:16px 0 6px 0;color:#0f3d83;">🟪 Combinación mixta (P-gp + CYP3A4)</h4>
+      <p style="font-size:12px;">
+        Son las interacciones más potentes y clínicamente peligrosas.
+      </p>
+      <p style="font-size:12px;"><b>Ejemplos:</b> ketoconazol, itraconazol, posaconazol, voriconazol, claritromicina, ritonavir, cobicistat (inhibidores); rifampicina, carbamazepina, fenitoína, fenobarbital, primidona, Hierba de San Juan (inductores).</p>
+
+      <ul style="font-size:12px; padding-left:20px; line-height:1.45;">
+        <li><b>Dabigatrán</b>: inhibidores → sobreexposición; inductores → evitar siempre.</li>
+        <li><b>Apixabán</b>: inhibidores → evitar; inductores → evitar.</li>
+        <li><b>Rivaroxabán</b>: inhibidores → evitar; inductores → evitar.</li>
+        <li><b>Edoxabán</b>: inhibidores → 30 mg/24 h; inductores → preferible evitar.</li>
+      </ul>
+    </div>
+  </div>
+<div style="margin-top:16px; padding:12px; background:#fff7f7; border:1px solid #f0b4b4; border-radius:8px;">
+  <div style="font-weight:700; color:#b91c1c; margin-bottom:6px;">
+    ⚠️ ¿Por qué los inhibidores duales potentes (P-gp + CYP3A4) obligan a evitar TODOS los ACOD?
+  </div>
+  <p style="margin:0; font-size:13px; line-height:1.45; color:#1e293b;">
+    Aunque <b>dabigatrán</b> y <b>edoxabán</b> dependen sobre todo de <b>P-gp</b> y apenas del metabolismo por CYP3A4, 
+    los fármacos que inhiben de forma potente <b>CYP3A4</b> (ketoconazol, itraconazol, posaconazol, voriconazol, 
+    claritromicina, cobicistat, ritonavir) son <u>al mismo tiempo inhibidores potentes de P-gp</u>.  
+    Esto produce una <b>inhibición dual</b> que:
+    <ul style="margin:6px 0 0 16px; padding:0; font-size:12px; line-height:1.45; color:#1e293b;">
+      <li>↑↑ Absorción intestinal (inhibición de P-gp intestinal)</li>
+      <li>↑↑ Exposición sistémica por ↓↓ aclaramiento renal (inhibición de P-gp renal)</li>
+      <li>↑↑ Acumulación impredecible incluso en ACOD con metabolismo mínimo por CYP3A4</li>
+    </ul>
+    El resultado son incrementos peligrosos de los niveles plasmáticos:  
+    <b>+140% en dabigatrán</b> con ketoconazol,  
+    <b>+87% en edoxabán</b> con inhibidores duales.  
+    Por ello, los <b>inhibidores duales potentes → contraindicación práctica de TODOS los ACOD</b>.  
+    La opción recomendada es <b>VKA </b>.
+  </p>
+</div>
+
+<div style="margin-top:16px; padding:12px; background:#f0f7ff; border:1px solid #b7d4f5; border-radius:8px;">
+  <div style="font-weight:700; color:#0f3d83; margin-bottom:6px;">
+    ⚠️ ¿Por qué los inductores duales potentes (P-gp + CYP3A4) también contraindican TODOS los ACOD?
+  </div>
+  <p style="margin:0; font-size:13px; line-height:1.45; color:#1e293b;">
+    Los inductores potentes clásicos (rifampicina, carbamazepina, fenitoína, fenobarbital, primidona, Hierba de San Juan) 
+    activan de forma simultánea <b>P-gp</b> y <b>CYP3A4</b>.  
+    Esto produce:
+    <ul style="margin:6px 0 0 16px; padding:0; font-size:12px; line-height:1.45; color:#1e293b;">
+      <li>↓↓↓ Absorción (inductor de P-gp → expulsión intestinal)</li>
+      <li>↓↓↓ Exposición sistémica (CYP3A4 acelera el metabolismo)</li>
+      <li>↓↓↓ Biodisponibilidad real → riesgo extremo de <b>fallo embólico</b></li>
+    </ul>
+    La magnitud del descenso de niveles plasmáticos puede ser devastadora:  
+    <b>−80% en rivaroxabán</b>, <b>−70% en apixabán</b>,  
+    <b>−60% en dabigatrán</b> y <b>−50% en edoxabán</b>.  
+    Por ello, los <b>inductores duales potentes → evitar TODOS los ACOD</b>.  
+    Alternativa recomendada: <b>VKA</b>.
+  </p>
+</div>
+
+<div style="margin-top:16px; padding:10px; background:#FFFFDB; border:1px solid #d1d5db; border-radius:8px; font-size:13px; color:black;">
+  <div style="font-weight:700; color:#764E12; margin-bottom:6px;">📌 Regla Clínica Final</div>
+  • <b>Inhibidor dual potente</b> (P-gp + CYP3A4) → <u>riesgo hemorrágico prohibitivo</u> → evitar ACOD → usar VKA.<br>
+  • <b>Inductor dual potente</b> (P-gp + CYP3A4) → <u>infraexposición severa</u> → evitar ACOD → usar VKA.<br>
+  • Si no estás seguro si un fármaco es dual → <b>trátalo como dual</b> hasta comprobar ficha técnica EMA/FDA.
+</div>
+
+</details>
+
         <details style="margin-top:14px;">
           <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">👥
 
