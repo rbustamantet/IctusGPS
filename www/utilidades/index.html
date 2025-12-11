@@ -183,7 +183,6 @@ li{margin:0.3rem 0;}
   gap:16px;
   margin-top:22px;
 }
-@media(min-width:520px){.grid{grid-template-columns:repeat(1,minmax(0,1fr));}}
 @media(min-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
 
 /* =========================================================
@@ -203,9 +202,9 @@ li{margin:0.3rem 0;}
   transition:transform .25s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease;
 }
 .card:hover{
-  transform:translateY(-2px);
+  transform: translateY(-2px);
   background:#01c5fe;
-  box-shadow:0 0 14px rgba(127,179,255,0.35);
+  box-shadow:0 0 10px rgba(127,179,255,0.28);
 }
 
 .ic{
@@ -226,6 +225,7 @@ li{margin:0.3rem 0;}
 .card:hover .icon img{
   transform:scale(1.25);
   filter:brightness(1.50);
+  will-change: transform;
 }
 
 .card h3{
