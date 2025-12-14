@@ -703,18 +703,18 @@ body {
         <h3 style="margin:0 0 6px;">Interacciones farmacológicas</h3>
         <div class="grid g-2">
           <div>
-            <!-- INHIBIDOR P-gp --> <label class="row"> <input
-                id="condPgp" type="checkbox"> <span class="chip-info" data-info="inhpgp">ℹ️</span><span> Inhibidor potente
+            <!-- INHIBIDOR P-gp --> <label class="row"><span class="chip-info" data-info="inhpgp">ℹ️</span> <input
+                id="condPgp" type="checkbox"> <span> Inhibidor potente
                 de P-gp  </span>
             </label>
-            <!-- INDUCTOR P-gp  <label class="row"> <input
-                id="condPgInd" type="checkbox"> <span class="chip-info" data-info="dual">ℹ️</span><span> Inductor potente
+            <!-- INDUCTOR P-gp  <label class="row"> <span class="chip-info" data-info="dual">ℹ️</span><input
+                id="condPgInd" type="checkbox"> <span> Inductor potente
                 de P-gp  </span> </label> -->
-            <!-- INHIBIDOR CYP3A4 --> <label class="row"> <input
-                id="condCYPinh" type="checkbox"> <span class="chip-info" data-info="inhcyp">ℹ️</span><span> Inhibidor
+            <!-- INHIBIDOR CYP3A4 --> <label class="row"><span class="chip-info" data-info="inhcyp">ℹ️</span> <input
+                id="condCYPinh" type="checkbox"> <span> Inhibidor
                 potente de CYP3A4  </span></label>
-            <!-- INDUCTOR CYP3A4 --> <label class="row"> <input
-                id="condCYPind" type="checkbox"> <span class="chip-info" data-info="dual">ℹ️</span><span> Inductor
+            <!-- INDUCTOR CYP3A4 --> <label class="row"><span class="chip-info" data-info="dual">ℹ️</span> <input
+                id="condCYPind" type="checkbox"> <span> Inductor
                 potente dual de P-gp y CYP3A4  </span> </label>
           </div>
         </div>
@@ -1877,7 +1877,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('click', function (e) {
     const icon = e.target.closest('.chip-info');
     if (!icon) return;
-ul>
+
     e.preventDefault();
 
     const key = icon.dataset.info;
