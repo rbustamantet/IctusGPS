@@ -448,6 +448,115 @@ body {
   padding-top: calc(env(safe-area-inset-top, 0px) + 52px);
   background-color: #fff;
 }
+
+.chip-info{
+  margin-left:6px;
+  cursor:pointer;
+  font-weight:700;
+  color:#0f3d83;
+}
+
+.modal-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.35);
+  z-index:3000;
+  align-items:center;
+  justify-content:center;
+}
+
+.modal{
+  background:#fff;
+  max-width:520px;
+  width:90%;
+  border-radius:12px;
+  padding:16px 18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+
+.modal-close{
+  float:right;
+  border:none;
+  background:none;
+  font-size:1.1rem;
+  cursor:pointer;
+}
+/* ==========================================================
+   MODALES DE INTERACCIONES — ESTILO INSTITUCIONAL MEJORADO
+========================================================== */
+
+/* --- Animación suave al abrir el modal --- */
+.modal {
+  animation: modalFadeUp 0.28s ease-out;
+}
+
+@keyframes modalFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Títulos dentro del modal --- */
+.modal h4 {
+  margin-top: 8px;
+  margin-bottom: 4px;
+  font-size: 1rem;
+  color: var(--azul-dark);
+}
+
+/* ==========================================================
+   LISTAS EN COLUMNAS (solamente UL largos)
+========================================================== */
+
+/* UL normal */
+.modal ul {
+  padding-left: 20px;
+  margin-top: 6px;
+  margin-bottom: 18px;
+  list-style: disc;
+  position: relative;
+}
+
+/* UL largos (≥7 elementos) → 2 columnas */
+.modal ul:has(li:nth-child(7)) {
+  column-count: 2;
+  column-gap: 32px;
+}
+
+/* Línea vertical independiente del comportamiento de columnas */
+.modal ul:has(li:nth-child(7))::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 1px);
+  width: 1px;
+  background: #d0d7e1; /* borde institucional suave */
+  pointer-events: none;
+}
+
+/* Evitar que los bullet se corten entre columnas */
+.modal ul li {
+  break-inside: avoid-column;
+  margin-bottom: 6px;
+}
+
+/* En móvil → 1 columna sin línea */
+@media (max-width: 480px) {
+  .modal ul {
+    column-count: 1 !important;
+  }
+  .modal ul::before {
+    display: none !important;
+  }
+}
+
 </style>
   </head>
   <body>
@@ -487,7 +596,7 @@ body {
       </div>
       <!-- Datos del paciente -->
       <div class="card">
-        <h2 style="margin:0 0 8px;">Datos del paciente</h2>
+        <h2 style="margin:0 0 8px;">👤Datos del paciente</h2>
         <div class="grid g-2 patient-grid">
           <div> <label for="age">Edad (años)</label> <input id="age"
               inputmode="numeric" max="110" min="18" placeholder="p.
@@ -552,7 +661,7 @@ body {
                 type="checkbox"> INR lábil (si en VKA)</label> <label
               class="row" for="hElder"><input id="hElder"
                 title="Autorrelleno si edad &gt;65 años" type="checkbox">
-              Edad&gt;65</label> <label class="row" for="hDrugs"><input
+              Edad&gt;65 años</label> <label class="row" for="hDrugs"><input
                 id="hDrugs" type="checkbox"> Fármacos (antiagregantes,
               AINEs...)</label> <label class="row" for="hAlcohol"><input
                 id="hAlcohol" type="checkbox"> Alcohol</label> </div>
@@ -595,24 +704,18 @@ body {
         <div class="grid g-2">
           <div>
             <!-- INHIBIDOR P-gp --> <label class="row"> <input
-                id="condPgp" type="checkbox"> <span> Inhibidor potente
-                de P-gp <span style="font-size:12px; color:#64748b;">
-                  (dronedarona, quinidina, verapamilo, ketoconazol, itraconazol, posaconazol, claritromicina, ciclosporina, ritonavir, cobicistat)</span> </span>
+                id="condPgp" type="checkbox"> <span class="chip-info" data-info="inhpgp">ℹ️</span><span> Inhibidor potente
+                de P-gp  </span>
             </label>
-            <!-- INDUCTOR P-gp --> <label class="row"> <input
-                id="condPgInd" type="checkbox"> <span> Inductor potente
-                de P-gp <span style="font-size:12px; color:#64748b;">
-                  (rifampicina, carbamazepina, fenitoína, fenobarbital, primidona, Hierba de San Juan)</span> </span> </label>
+            <!-- INDUCTOR P-gp  <label class="row"> <input
+                id="condPgInd" type="checkbox"> <span class="chip-info" data-info="dual">ℹ️</span><span> Inductor potente
+                de P-gp  </span> </label> -->
             <!-- INHIBIDOR CYP3A4 --> <label class="row"> <input
-                id="condCYPinh" type="checkbox"> <span> Inhibidor
-                potente de CYP3A4 <span style="font-size:12px;
-                  color:#64748b;"> (ketoconazol, itraconazol, posaconazol, voriconazol, claritromicina, eritromicina, ritonavir, cobicistat, nefazodona) </span> </span></label>
+                id="condCYPinh" type="checkbox"> <span class="chip-info" data-info="inhcyp">ℹ️</span><span> Inhibidor
+                potente de CYP3A4  </span></label>
             <!-- INDUCTOR CYP3A4 --> <label class="row"> <input
-                id="condCYPind" type="checkbox"> <span> Inductor
-                potente de CYP3A4 <span style="font-size:12px;
-                  color:#64748b;"> (rifampicina, carbamazepina,
-                  fenitoína, fenobarbital, primidona, Hierba de San
-                  Juan)</span> </span> </label>
+                id="condCYPind" type="checkbox"> <span class="chip-info" data-info="dual">ℹ️</span><span> Inductor
+                potente dual de P-gp y CYP3A4  </span> </label>
           </div>
         </div>
         <br>
@@ -625,7 +728,7 @@ body {
       <!-- Resultados -->
       <div class="card-result sticky-result result-anchor"
         id="resultCard">
-        <h2 style="margin:0 0 8px;">Resultados</h2>
+        <h2 style="margin:0 0 8px;">📊Resultados</h2>
         <div class="grid g-3">
           <div>
             <div><b>CHA<sub>2</sub>DS<sub>2</sub>-VA</b>: <span
@@ -948,7 +1051,7 @@ function buildClinicalRules(context){
       notes.push("Inhibidor potente de P-gp con ClCr <50 mL/min: evitar dabigatrán.");
     }
     notes.push(
-      "Inhibidor potente de P-gp: preferir ACOD menos dependientes de P-gp o VKA en pacientes de alto riesgo."
+      "Inhibidor potente de P-gp: preferir ACOD menos dependientes de P-gp, como apixabán o rivaroxabán, o VKA en pacientes de alto riesgo."
     );
   }
 
@@ -963,6 +1066,7 @@ function buildClinicalRules(context){
     );
   }
 
+/*
   // Inductor CYP3A4
   if (special.cypInduc){
     avoid.Apixabán.add("Inductor potente de CYP3A4 (riesgo de infraexposición)");
@@ -973,6 +1077,7 @@ function buildClinicalRules(context){
       "Inductor potente de CYP3A4: evitar rivaroxabán y apixabán; edoxabán y dabigatrán son alternativas razonables (valorar VKA)."
     );
   }
+*/
 
 // 🔥 INHIBIDOR DUAL POTENTE (P-gp + CYP3A4)
 if (special.pgp && special.cypInhib) {
@@ -993,7 +1098,7 @@ if (special.pgp && special.cypInhib) {
 }
 
 // 🔥 INDUCTOR DUAL POTENTE (P-gp + CYP3A4)
-if (special.pgpInd && special.cypInduc) {
+if (special.cypInduc) {
 
   // Preferir VKA
   prefer.VKA.add("Inductor dual potente (P-gp + CYP3A4)");
@@ -1667,7 +1772,163 @@ function copyReport(){
 });
 
     window.addEventListener('DOMContentLoaded', autoCheckByInputs);
+
+
     </script>
+<script>
+
+/* ==========================================================
+   LISTAS PARA LOS MODALES DE INTERACCIONES
+========================================================== */
+
+const infoInteracciones = {
+
+
+/* ==========================================================
+   Inhibidor potente de P-gp
+========================================================== */
+
+  inhpgp: {
+    titulo: "Inhibidores potentes de P-gp",
+    html: `
+      <p>
+        Fármacos que inhiben de forma <b>potente y clínicamente relevante</b> la glicoproteína P (P-gp).
+      </p>
+
+      <ul>
+        <li>🎯Dronedarona</li>
+        <li>🎯Quinidina</li>
+        <li>🎯Ciclosporina</li>
+        <li>☯️Ketoconazol</li>
+        <li>☯️Itraconazol</li>
+        <li>☯️Posaconazol</li>
+        <li>☯️Voriconazol</li>
+        <li>☯️Ritonavir</li>
+        <li>☯️Cobicistat</li>
+        <li>☯️Atazanavir</li>
+        <li>☯️Darunavir</li>
+        <li>☯️Nelfinavir</li>
+        <li>☯️Saquinavir</li>
+        <li>☯️Claritromicina</li>
+        <li>☯️Eritromicina</li>
+</ul>
+<hr>
+      <p>🎯Selectivo 🔹🔹🔹 ☯️Dual</p>
+    `
+  },
+
+  inhcyp: {
+    titulo: "Inhibidores potentes de CYP3A4",
+    html: `
+      <p>
+        Fármacos que inhiben de forma <b>potente</b> el metabolismo mediado por CYP3A4.
+      </p>
+
+      <ul>
+        <li>🎯Fluconazol</li>
+        <li>🎯Nefazodona</li>
+        <li>☯️Ketoconazol</li>
+        <li>☯️Itraconazol</li>
+        <li>☯️Posaconazol</li>
+        <li>☯️Voriconazol</li>
+        <li>☯️Ritonavir</li>
+        <li>☯️Cobicistat</li>
+        <li>☯️Atazanavir</li>
+        <li>☯️Darunavir</li>
+        <li>☯️Nelfinavir</li>
+        <li>☯️Saquinavir</li>
+        <li>☯️Claritromicina</li>
+        <li>☯️Eritromicina</li>
+</ul>
+<hr>
+      <p>🎯Selectivo 🔹🔹🔹 ☯️Dual</p>
+    `
+  },
+
+  dual: {
+    titulo: "Inductores duales",
+    html: `
+      <p>
+        Fármacos que <b>inducen simultáneamente CYP3A4 y la glicoproteína P (P-gp)</b>,
+        produciendo alteraciones farmacocinéticas <b>clínicamente relevantes</b> de los ACOD.
+      </p>
+      <h4>🔵 Inductores duales</h4>
+      <ul>
+        <li>☯️Rifampicina</li>
+        <li>☯️Rifabutina</li>
+        <li>☯️Carbamazepina</li>
+        <li>☯️Fenitoína</li>
+        <li>☯️Fenobarbital</li>
+        <li>☯️Primidona</li>
+        <li>☯️Hierba de San Juan</li>
+      </ul>
+<hr>
+      <p>☯️Dual</p>
+    `
+  },
+
+};  /* ✅ CIERRE REAL DEL OBJETO */
+
+/* ===== Lógica del modal (puede ir aquí o en otro script) ===== */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  // ===== Abrir (delegación) =====
+  document.addEventListener('click', function (e) {
+    const icon = e.target.closest('.chip-info');
+    if (!icon) return;
+ul>
+    e.preventDefault();
+
+    const key = icon.dataset.info;
+    const data = infoInteracciones[key];
+    if (!data) return;
+
+    const t = document.getElementById('modal-info-title');
+    const c = document.getElementById('modal-info-content');
+    const m = document.getElementById('modal-info');
+    if (!t || !c || !m) return;
+
+    t.textContent = data.titulo;
+    c.innerHTML = data.html;
+    m.style.display = 'flex';
+  }, true); // captura OK
+
+  // ===== Cerrar (X) =====
+  const btnClose = document.getElementById('modal-info-close');
+  if (btnClose) {
+    btnClose.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const m = document.getElementById('modal-info');
+      if (m) m.style.display = 'none';
+    });
+  }
+
+  // ===== Cerrar (clic fuera del modal) =====
+  const overlay = document.getElementById('modal-info');
+  if (overlay) {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) overlay.style.display = 'none';
+    });
+  }
+
+  // (Opcional) Cerrar con ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const m = document.getElementById('modal-info');
+      if (m) m.style.display = 'none';
+    }
+  });
+
+});
+
+
+
+</script>
+
+
+
       <!-- Referencias / Bibliografía -->
       <div class="howto">
 <details style="margin-top:14px;">
@@ -1686,7 +1947,10 @@ function copyReport(){
         Los fármacos que inhiben o inducen estas vías pueden producir <b>sobreexposición → hemorragia</b> o 
         <b>infraexposición → fallo embólico</b>. 
         Las combinaciones <b>mixtas</b> (P-gp + CYP3A4) son las más relevantes clínicamente.
-      </p>
+      </p><p style="font-size:12px; color:#334155;">
+  🏷️ El término <b>exposición</b> se refiere a la biodisponibilidad sistémica global 
+  (concentraciones plasmáticas y AUC).
+</p>
 
       <!-- ========================= -->
       <!-- INHIBIDORES DE P-gp -->
@@ -1694,39 +1958,23 @@ function copyReport(){
 
       <h4 style="margin:16px 0 6px 0;color:#0f3d83;">🟥 Inhibidores potentes de P-gp</h4>
       <p style="margin:0 0 6px 0;">
-        Aumentan notablemente la absorción y exposición de ACOD sensibles a P-gp.
-      </p>
-      <p style="font-size:12px;"><b>Ejemplos (potentes):</b> dronedarona, quinidina, verapamilo, ketoconazol, itraconazol, posaconazol, claritromicina, ciclosporina, ritonavir, cobicistat.</p>
+        Aumentan notablemente la absorción y exposición de ACOD sensibles a P-gp.  Muchos inhibidores potentes de P-gp son también inhibidores de CYP3A4, constituyendo interacciones <b>duales</b> de alto impacto clínico.
+</p>
+      <p style="font-size:12px;"><b>Ejemplos:</b> dronedarona, quinidina, verapamilo, ketoconazol, itraconazol, posaconazol, claritromicina, ciclosporina, ritonavir, cobicistat.</p>
 
       <ul style="font-size:12px; padding-left:20px; line-height:1.45;">
         <li><b>Dabigatrán</b> (muy dependiente de P-gp): evitar si <b>ClCr &lt;50</b>; considerar <b>110 mg/12 h</b> si ClCr ≥50.</li>
         <li><b>Edoxabán</b>: si inhibidor de P-gp → <b>reducir a 30 mg/24 h</b>.</li>
         <li><b>Apixabán</b>: ↑ exposición; precaución si ya cumple criterios de dosis reducida.</li>
-        <li><b>Rivaroxabán</b>: ↑ niveles; precaución, especialmente si hay otros factores de sangrado.</li>
+        <li><b>Rivaroxabán</b>: ↑ exposición; precaución, especialmente si hay otros factores de sangrado.</li>
       </ul>
 
-      <!-- ========================= -->
-      <!-- INDUCTORES DE P-gp -->
-      <!-- ========================= -->
-
-      <h4 style="margin:16px 0 6px 0;color:#0f3d83;">🟦 Inductores potentes de P-gp</h4>
-      <p style="font-size:12px;"><b>Ejemplos:</b> rifampicina, carbamazepina, fenitoína, fenobarbital, primidona, Hierba de San Juan.</p>
-
-      <ul style="font-size:12px; padding-left:20px; line-height:1.45;">
-        <li><b>Dabigatrán</b>: infraexposición marcada → <b>evitar</b>.</li>
-        <li><b>Edoxabán</b>: ↓ niveles → evitar si existe alternativa.</li>
-        <li><b>Apixabán / Rivaroxabán</b>: evitar si el inductor también afecta CYP3A4 (inductores mixtos).</li>
-      </ul>
-
-      <div style="font-size:12px; color:#b91c1c; margin-bottom:10px;">
-        ⚠️ Regla rápida: si induce P-gp → dabigatrán y edoxabán quedan muy comprometidos.
-      </div>
-
+      
       <!-- ========================= -->
       <!-- INHIBIDORES DE CYP3A4 -->
       <!-- ========================= -->
-
       <h4 style="margin:16px 0 6px 0;color:#0f3d83;">🟥 Inhibidores potentes de CYP3A4</h4>
+      <p style="margin:0 0 6px 0;"> En la práctica clínica, los inhibidores potentes de CYP3A4 suelen inhibir simultáneamente P-gp, generando <b>inhibición dual</b>.</p>
       <p style="font-size:12px;"><b>Ejemplos:</b> ketoconazol, itraconazol, posaconazol, voriconazol, claritromicina, eritromicina, ritonavir, cobicistat, nefazodona.</p>
 
       <ul style="font-size:12px; padding-left:20px; line-height:1.45;">
@@ -1736,36 +1984,31 @@ function copyReport(){
         <li><b>Dabigatrán</b>: no depende de CYP450 → sin efecto relevante.</li>
       </ul>
 
-      <!-- ========================= -->
-      <!-- INDUCTORES DE CYP3A4 -->
-      <!-- ========================= -->
+      <h4 style="margin:16px 0 6px 0;color:#0f3d83;">🟪 Inductores potentes (P-gp + CYP3A4)</h4>
 
-      <h4 style="margin:16px 0 6px 0;color:#0f3d83;">🟦 Inductores potentes de CYP3A4</h4>
-      <p style="font-size:12px;"><b>Ejemplos:</b> rifampicina, carbamazepina, fenitoína, fenobarbital, primidona, Hierba de San Juan.</p>
+<p style="margin:0 0 6px 0;">
+  En la práctica clínica, <b>todos los inductores potentes relevantes</b> 
+  inducen simultáneamente <b>P-gp</b> y <b>CYP3A4</b>.  
+  No existen inductores selectivos clínicamente útiles.
+</p>
 
-      <ul style="font-size:12px; padding-left:20px; line-height:1.45;">
-        <li><b>Rivaroxabán</b>: ↓↓↓ exposición → <b>evitar</b>.</li>
-        <li><b>Apixabán</b>: ↓ niveles → no recomendado.</li>
-        <li><b>Edoxabán</b>: apenas afectado.</li>
-        <li><b>Dabigatrán</b>: solo afectado si también induce P-gp (inductores mixtos).</li>
-      </ul>
+<p style="font-size:12px;">
+  <b>Ejemplos:</b> rifampicina, rifabutina, carbamazepina, fenitoína, 
+  fenobarbital, primidona, Hierba de San Juan.
+</p>
 
-      <!-- ========================= -->
-      <!-- INTERACCIONES MIXTAS -->
-      <!-- ========================= -->
+<ul style="font-size:12px; padding-left:20px; line-height:1.45;">
+  <li><b>Dabigatrán</b>: ↓↓↓ exposición → <b>evitar siempre</b>.</li>
+  <li><b>Apixabán</b>: ↓↓↓ exposición → <b>evitar</b>.</li>
+  <li><b>Rivaroxabán</b>: ↓↓↓ exposición → <b>evitar</b>.</li>
+  <li><b>Edoxabán</b>: ↓↓↓ exposición → <b>evitar</b>.</li>
+</ul>
 
-      <h4 style="margin:16px 0 6px 0;color:#0f3d83;">🟪 Combinación mixta (P-gp + CYP3A4)</h4>
-      <p style="font-size:12px;">
-        Son las interacciones más potentes y clínicamente peligrosas.
-      </p>
-      <p style="font-size:12px;"><b>Ejemplos:</b> ketoconazol, itraconazol, posaconazol, voriconazol, claritromicina, ritonavir, cobicistat (inhibidores); rifampicina, carbamazepina, fenitoína, fenobarbital, primidona, Hierba de San Juan (inductores).</p>
+<div style="color:#b91c1c; margin-top:6px;">
+  <b>🛑 Regla clínica: inductor potente = inductor dual</b> ➔ 
+  <b>todos los ACOD quedan contraindicados</b>.
+</div>
 
-      <ul style="font-size:12px; padding-left:20px; line-height:1.45;">
-        <li><b>Dabigatrán</b>: inhibidores → sobreexposición; inductores → evitar siempre.</li>
-        <li><b>Apixabán</b>: inhibidores → evitar; inductores → evitar.</li>
-        <li><b>Rivaroxabán</b>: inhibidores → evitar; inductores → evitar.</li>
-        <li><b>Edoxabán</b>: inhibidores → 30 mg/24 h; inductores → preferible evitar.</li>
-      </ul>
     </div>
   </div>
 <div style="margin-top:16px; padding:12px; background:#fff7f7; border:1px solid #f0b4b4; border-radius:8px;">
@@ -1775,7 +2018,7 @@ function copyReport(){
   <p style="margin:0; font-size:13px; line-height:1.45; color:#1e293b;">
     Aunque <b>dabigatrán</b> y <b>edoxabán</b> dependen sobre todo de <b>P-gp</b> y apenas del metabolismo por CYP3A4, 
     los fármacos que inhiben de forma potente <b>CYP3A4</b> (ketoconazol, itraconazol, posaconazol, voriconazol, 
-    claritromicina, cobicistat, ritonavir) son <u>al mismo tiempo inhibidores potentes de P-gp</u>.  
+    claritromicina, cobicistat, ritonavir) son al mismo tiempo inhibidores potentes de P-gp.  
     Esto produce una <b>inhibición dual</b> que:
     <ul style="margin:6px 0 0 16px; padding:0; font-size:12px; line-height:1.45; color:#1e293b;">
       <li>↑↑ Absorción intestinal (inhibición de P-gp intestinal)</li>
@@ -1813,8 +2056,8 @@ function copyReport(){
 
 <div style="margin-top:16px; padding:10px; background:#FFFFDB; border:1px solid #d1d5db; border-radius:8px; font-size:13px; color:black;">
   <div style="font-weight:700; color:#764E12; margin-bottom:6px;">📌 Regla Clínica Final</div>
-  • <b>Inhibidor dual potente</b> (P-gp + CYP3A4) → <u>riesgo hemorrágico prohibitivo</u> → evitar ACOD → usar VKA.<br>
-  • <b>Inductor dual potente</b> (P-gp + CYP3A4) → <u>infraexposición severa</u> → evitar ACOD → usar VKA.<br>
+  • <b>Inhibidor dual potente</b> (P-gp + CYP3A4) → <b>riesgo hemorrágico prohibitivo</b> → evitar ACOD → usar VKA.<br>
+  • <b>Inductor dual potente</b> (P-gp + CYP3A4) → <b>infraexposición severa</b> → evitar ACOD → usar VKA.<br>
   • Si no estás seguro si un fármaco es dual → <b>trátalo como dual</b> hasta comprobar ficha técnica EMA/FDA.
 </div>
 
@@ -2025,6 +2268,7 @@ function copyReport(){
                   de acción directa.</li>
                 <li><b>AINEs</b>: Antiinflamatorios no esteroideos.</li>
                 <li><b>Ao</b>: Aorta.</li>
+                <li><b>AUC</b>: (área bajo la curva) cuantifica la exposición sistémica total a un fármaco a lo largo del tiempo.</li>
                 <li><b>CHA<sub>2</sub>DS<sub>2</sub>-VA</b>: Escala de
                   riesgo embólico sin el punto por sexo femenino.</li>
                 <li><b>CHA<sub>2</sub>DS<sub>2</sub>-VASc</b>: Escala de
@@ -2264,5 +2508,16 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
     <footer> <img src="../img/uibanner.png" alt="Ictus GPS"> </footer>
+<div class="modal-overlay" id="modal-info">
+  <div class="modal">
+    <button class="modal-close" id="modal-info-close">🔙</button>
+    <h3 id="modal-info-title"></h3>
+    <div id="modal-info-content"></div>
+  </div>
+</div>
+</div>
+
+</div>
+
   </body>
 </html>

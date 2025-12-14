@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<title>ACO Manager</title>
+<meta name="theme-color" content="#0f3d83">
+
+<!-- ICONOS -->
+<link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
+
+<!-- CSS GLOBAL + CSS ESPECÍFICO -->
+<link rel="stylesheet" href="../css/ictusgps.css">
+<link rel="stylesheet" href="../css/switching.css">
+
+</head>
+
+<body>
+
+<!-- ==========================================================
+     SAFE TOP INSTITUCIONAL
+========================================================== -->
+<div class="safe-top">
+  <div class="safe-content">
+    <div class="safe-left">
+      <img src="../iconos/utilidadesico.png" class="safe-mini" alt="">
+      <img src="../img/topbar.png" class="safe-logo" alt="Ictus GPS">
+    </div>
+
+    <div class="safe-actions">
+      <a href="javascript:history.back()" class="safe-btn" title="Volver">
+        <img src="../iconos/atrastransparente.png" class="safe-icon" alt="">
+      </a>
+
+      <a href="../index.html" class="safe-btn" title="Inicio">
+        <img src="../iconos/hometransparente.png" class="safe-icon" alt="">
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================================
+     HEADER PRINCIPAL
+========================================================== -->
+<header>
+  <div class="title">
+    <img src="../iconos/anticoagulacionico.png" alt="">
+    ACO Manager
+  </div>
+</header>
+
+<!-- ==========================================================
+     CONTENIDO PRINCIPAL
+========================================================== -->
+<main class="wrap">
+<form id="formSwitching">
+
+  <!-- INTRODUCCIÓN / DESCRIPCIÓN -->
+  <div class="howto" align="justify">
+    Herramienta clínica avanzada para guiar el <b>cambio entre anticoagulantes</b>, el <b>ajuste por función renal</b>, el manejo de <b>interacciones farmacológicas</b> y la planificación de <b>pausas perioperatorias</b> o <b>punción lumbar</b>. Genera recomendaciones individualizadas y coherentes con el escenario clínico seleccionado.
+  </div>
+
+
+  <!-- ==========================================================
+       SECCIÓN 1 – DATOS BÁSICOS DEL PACIENTE
+  =========================================================== -->
+  <div class="switch-section">
+
+    <h3>👤 Datos del paciente</h3>
+
+    <div class="switch-grid">
+
+      <div>
+        <label class="switch-label">Edad</label>
+        <input type="number" id="edad" class="switch-input" placeholder="años">
+      </div>
+
+      <div>
+        <label class="switch-label">Peso</label>
+        <input type="number" id="peso" class="switch-input" placeholder="kg">
+      </div>
+
+      <div>
+        <label class="switch-label">Sexo</label>
+        <select id="sexo" class="switch-input">
+          <option value="" disabled selected>Seleccione…</option>
+          <option value="h">Hombre</option>
+          <option value="m">Mujer</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="switch-label">Creatinina</label>
+        <input type="number" id="creat" class="switch-input" placeholder="mg/dL">
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <!-- ==========================================================
+       SECCIÓN 2 – ESCENARIO DE SWITCHING
+  =========================================================== -->
+  <div class="switch-section">
+
+    <h3>📍 Escenario clínico</h3>
+
+    <label class="switch-label"></label>
+    <select id="escenario" class="switch-input">
+      <option value="" disabled selected>Seleccione…</option>
+      <option value="interaccion">Actitud ante interacción farmacológica</option>
+      <option value="renal">Ajuste según función renal</option>
+      <option value="acod_acod">Cambio de ACOD a ACOD</option>
+      <option value="acod_vka">Cambio de ACOD a AVK</option>
+      <option value="vka_acod">Cambio de AVK a ACOD</option>
+      <option value="procedimiento">Pausa para Intervención quirúrgica</option>
+      <option value="puncion_lumbar">Pausa para Punción lumbar</option>
+      <option value="sangrado">Reinicio tras sangrado</option>
+    </select>
+
+  </div>
+
+
+
+  <!-- ==========================================================
+       SECCIÓN 3 – MEDICACIONES IMPLICADAS
+  =========================================================== -->
+  <div class="switch-section">
+
+    <h3>💊 Medicación</h3>
+
+    <div class="switch-grid">
+
+      <div>
+        <label class="switch-label">Fármaco actual</label>
+        <select id="ac_actual" class="switch-input">
+          <option value="" disabled selected>Seleccione…</option>
+          <option value="apixaban">Apixabán</option>
+          <option value="rivaroxaban">Rivaroxabán</option>
+          <option value="dabigatran">Dabigatrán</option>
+          <option value="edoxaban">Edoxabán</option>
+          <option value="avk">Antivitamina K (AVK)</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="switch-label">Nuevo fármaco</label>
+        <select id="ac_nuevo" class="switch-input">
+          <option value="" disabled selected>Seleccione…</option>
+          <option value="apixaban">Apixabán</option>
+          <option value="rivaroxaban">Rivaroxabán</option>
+          <option value="dabigatran">Dabigatrán</option>
+          <option value="edoxaban">Edoxabán</option>
+          <option value="avk">Antivitamina K (AVK)</option>
+        </select>
+      </div>
+
+    </div>
+
+  </div>
+
+
+<!-- ==========================================================
+     SECCIÓN NUEVA – INTERACCIONES (estilo FA)
+========================================================== -->
+<div class="switch-section">
+
+  <h3>🔀 Interacciones farmacológicas</h3>
+  <p class="note">Seleccione uno o varios grupos según los medicamentos del paciente.</p>
+
+  <div class="switch-chips">
+
+  <div class="switch-chip chip-dual" data-int="dual">
+  🔴 Inhibidor/inductor dual
+  <span class="chip-info" data-info="dual">ℹ️</span>
+</div>
+
+<div class="switch-chip chip-pgp" data-int="pgp">
+  🟠 Inhibidor potente de P-gp
+  <span class="chip-info" data-info="pgp">ℹ️</span>
+</div>
+
+<div class="switch-chip chip-cyp" data-int="cyp">
+  🟡 Inhibidor potente de CYP3A4
+  <span class="chip-info" data-info="cyp">ℹ️</span>
+</div>
+
+<div class="switch-chip chip-otros" data-int="otros">
+  ⚪ Otros
+  <span class="chip-info" data-info="otros">ℹ️</span>
+</div>
+
+
+</div>
+
+
+</div>
+
+
+<!-- ==========================================================
+     SECCIÓN BOTÓN CALCULAR
+========================================================== -->
+<div class="switch-section" style="text-align:center;">
+  <button id="btnCalcular" type="button" class="boton-opcion boton-copy boton-full">
+    Generar recomendación
+  </button>
+</div>
+
+
+
+
+
+
+  <!-- ==========================================================
+       RESULTADO DEL SWITCHING
+  =========================================================== -->
+  <div class="switch-section switch-result" id="resultado">
+
+    <p id="resultado-texto">
+      <!-- Aquí insertará la lógica JS -->
+    </p>
+
+    <div class="switch-actions">
+<button id="btnCopiar" type="button" class="boton-opcion boton-copy">Copiar</button>
+<button id="btnBorrar" type="button" class="boton-opcion boton-clear">Borrar</button>
+    </div>
+
+  </div>
+
+
+
+
+  <!-- DISCLAIMER -->
+  <section class="disclaimer-red">
+    <p align="justify">
+      <b>⚠️ Advertencia.</b> Esta herramienta es un <b>apoyo</b> a la decisión clínica; no sustituye el juicio profesional, la valoración individual del paciente ni los
+          <b>protocolos/guías locales actualizados</b>. Ante discrepancias, <b>prevalecen los protocolos vigentes</b> y el criterio del equipo responsable.
+    </p>
+  </section>
+
+</form>
+</main>
+
+
+
+<!-- ==========================================================
+     MODAL INSTITUCIONAL  
+========================================================== -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" id="modal-cerrar">🔙</button>
+    <h2 id="modal-titulo">Nota</h2>
+    <div id="modal-contenido"></div>
+  </div>
+</div>
+
+
+
+<!-- ==========================================================
+     JS (Vacío por ahora)
+========================================================== -->
+
+<script>
+
+
+/* ==========================================================
+   UTILIDADES BÁSICAS
+========================================================== */
+
+function calcClCr(edad, peso, creatinina, sexo){
+  if(!edad || !peso || !creatinina) return null;
+
+  let cl = ((140 - edad) * peso) / (72 * creatinina);
+  if(sexo === "m") cl = cl * 0.85;
+
+  return Math.round(cl);
+}
+
+function obtenerInteracciones() {
+  const activos = document.querySelectorAll(".switch-chip.active");
+  const lista = [];
+  activos.forEach(ch => lista.push(ch.dataset.int));
+  return lista;
+}
+
+/* ==========================================================
+   MÓDULOS CLÍNICOS
+========================================================== */
+
+function moduloRenal(datos){
+  const cl = datos.clcr;
+  if (cl === null || cl === undefined) return "";
+
+
+  const esc = datos.escenario || "";
+  const esProcedimiento =
+    esc === "procedimiento" ||
+    esc === "puncion_lumbar" ||
+    esc === "sangrado";
+
+  // <15     → ACOD desaconsejado
+  // 15–29   → evitar dabigatrán; retrasos amplios
+  // 30–49   → retrasar 12–24 h
+  // ≥50     → función renal aceptable
+
+  if (cl < 15){
+    return "Insuficiencia renal grave (ClCr < 15 mL/min) → evitar ACOD; preferir AVK o heparina. Reinicio del ACOD no recomendado.";
+  }
+
+  if (cl < 30){
+    if (esProcedimiento){
+      return "ClCr 15–29 mL/min → riesgo muy elevado de acumulación del ACOD. No reiniciar antes de 24–48 h tras el procedimiento, aunque la técnica permitiría un reinicio más precoz. Evitar dabigatrán.";
+    } else {
+      return "ClCr 15–29 mL/min → retrasar el reinicio del ACOD 24–48 h. Evitar dabigatrán por riesgo de acumulación.";
+    }
+  }
+
+  if (cl < 50){
+    if (esProcedimiento){
+      return "ClCr 30–49 mL/min → aclaramiento enlentecido del ACOD. No reiniciar antes de 12–24 h, aunque el procedimiento permita reinicio más precoz.";
+    } else {
+      return "ClCr 30–49 mL/min → retrasar el reinicio del ACOD 12–24 h por aclaramiento reducido.";
+    }
+  }
+
+  return "Función renal adecuada (ClCr ≥ 50 mL/min) → reinicio estándar según procedimiento/escenario.";
+}
+
+
+function moduloInteracciones(datos){
+  const ints = datos.interacciones || [];
+  if (!ints.length) return "";
+
+  const esc = datos.escenario || "";
+  const esProcedimiento = (esc === "procedimiento" || esc === "puncion_lumbar" || esc === "sangrado");
+
+  const rec = [];
+
+  if (ints.includes("dual")) {
+    rec.push(
+      esProcedimiento
+        ? "Interacción dual potente (CYP3A4 + P-gp) → evitar ACOD. Si el fármaco no puede suspenderse, preferir AVK. En contexto de procedimiento, no reiniciar ACOD antes de 24–48 h aunque el procedimiento permita reinicio más precoz."
+        : "Interacción dual potente (CYP3A4 + P-gp) → evitar ACOD y preferir AVK mientras persista la interacción."
+    );
+  }
+
+  if (ints.includes("pgp")) {
+    rec.push(
+      esProcedimiento
+        ? "Inhibidor potente y selectivo de P-gp → posible aumento de exposición a ACOD. En contexto de procedimiento, extremar prudencia en el reinicio y vigilancia hemorrágica."
+        : "Inhibidor potente y selectivo de P-gp → posible aumento de exposición a ACOD; extremar vigilancia hemorrágica."
+    );
+  }
+
+  if (ints.includes("cyp")) {
+    rec.push(
+      esProcedimiento
+        ? "Inhibidor potente y selectivo de CYP3A4 → posible aumento de exposición (sobre todo apixabán/rivaroxabán). En contexto de procedimiento, extremar prudencia en el reinicio y vigilancia."
+        : "Inhibidor potente y selectivo de CYP3A4 → considerar preferir dabigatrán o edoxabán si es clínicamente apropiado y no hay contraindicaciones; si se mantiene apixabán/rivaroxabán, reforzar vigilancia."
+    );
+  }
+
+  if (ints.includes("otros")) {
+    rec.push(
+      "Fármacos con sinergia hemorrágica (AINEs, AAS, DAPT, corticoides sistémicos, ISRS/ISRN) → no modifican niveles, pero aumentan riesgo de sangrado. Recomendar gastroprotección y vigilancia."
+    );
+  }
+
+  return rec.join("\n\n");
+}
+
+
+
+function moduloACODtoACOD(datos){
+  if(datos.escenario !== "acod_acod") return "";
+
+  const a = datos.acActual;
+  const n = datos.acNuevo;
+
+  if(!a || !n) return "";
+  if(a === n)
+    return "No existe cambio real de fármaco (mismo ACOD).";
+
+  if(a === "dabigatran" || n === "dabigatran"){
+    return "Cambio que implica dabigatrán → considerar función renal. Reiniciar cuando toque la siguiente dosis; si ClCr < 50 mL/min, retrasar 12–24 h adicionales.";
+  }
+
+  return "Cambio ACOD → ACOD: iniciar el nuevo anticoagulante cuando corresponda la siguiente dosis del ACOD previo.";
+}
+
+function moduloACOD_AVK(datos){
+  const esc = datos.escenario;
+
+  if(esc === "acod_vka"){
+    return "ACOD → AVK:\n• Iniciar AVK en el momento de la siguiente dosis del ACOD.\n• Mantener ambos hasta INR terapéutico (2–3).\n• Suspender ACOD cuando INR ≥ 2 en 2 determinaciones.";
+  }
+
+  if(esc === "vka_acod"){
+    return "AVK → ACOD:\n• Iniciar ACOD cuando INR < 2 (apixabán, dabigatrán, edoxabán) o < 3 (rivaroxabán).";
+  }
+
+  return "";
+}
+
+/* ==========================================================
+   MÓDULO — ESCENARIO: INTERACCIÓN FARMACOLÓGICA
+========================================================== */
+
+function moduloInteraccionFarmacologica(datos){
+
+  if (datos.escenario !== "interaccion") 
+    return { texto: "", alertas: [] };
+
+  const ac    = datos.acActual || "";
+  const nuevo = datos.acNuevo || "";
+  const cambio = (ac && nuevo && ac !== nuevo);
+  const ints   = datos.interacciones || [];
+
+  const hayPK = ints.some(t => t === "dual" || t === "pgp" || t === "cyp");
+
+  const soloOtros = ints.length > 0 && !hayPK && ints.every(t => t === "otros");
+
+  let txt = "Manejo de interacción farmacológica relevante" +
+            (ac ? " (" + ac + ")" : "") + ":\n\n";
+
+  txt += "• Confirmar el fármaco responsable de la interacción (inhibidor, inductor o fármaco con sinergia hemorrágica).\n";
+
+  if (hayPK){
+    txt +=
+      "• Siempre que sea posible, retirar o sustituir el fármaco que interacciona.\n" +
+      "• Mientras persista una interacción farmacocinética relevante (inhibidor/inductor potente o moderado), evitar el uso de ACOD o valorar cambio a AVK/heparina en función del riesgo trombótico.\n\n";
+  } else if (soloOtros){
+    txt +=
+      "• Los fármacos del grupo \"Otros\" aumentan el riesgo hemorrágico pero no modifican los niveles del ACOD. No se recomienda suspender sistemáticamente el ACOD solo por este motivo; individualizar según riesgo trombótico y hemorrágico.\n" +
+      "• Optimizar el tratamiento concomitante (evitar AINEs si es posible, ajustar dosis de AAS/antiagregantes) y reforzar las medidas de gastroprotección y la vigilancia clínica.\n\n";
+  } else {
+    txt += "• En ausencia de una interacción bien caracterizada, individualizar la decisión según riesgo trombótico y hemorrágico.\n\n";
+  }
+
+  // Alertas para la caja final (solo PK; el grupo “Otros” ya queda cubierto por moduloInteracciones)
+  const alertas = [];
+
+if (ints.includes("dual")){
+  alertas.push("Interacción dual potente → evitar ACOD; preferir AVK mientras persista.");
+}
+
+if (ints.includes("pgp")){
+  alertas.push("Inhibidor potente y selectivo de P-gp → posible aumento de exposición; extremar vigilancia hemorrágica.");
+}
+
+if (ints.includes("cyp")){
+  alertas.push("Inhibidor potente y selectivo de CYP3A4 → considerar ACOD menos dependiente de CYP3A4 si es apropiado; reforzar vigilancia.");
+}
+
+  // Reinicio del ACOD
+  txt += "Reinicio del ACOD:\n";
+
+  if (ints.includes("dual")){
+  txt += "• Con interacción dual potente: evitar reinicio de ACOD; preferir AVK mientras persista.\n";
+} else if (ints.includes("pgp")){
+  txt += "• Con inhibidor potente y selectivo de P-gp: no modificar sistemáticamente el intervalo; prudencia y vigilancia (más efecto si coexiste deterioro renal).\n";
+} else if (ints.includes("cyp")){
+  txt += "• Con inhibidor potente y selectivo de CYP3A4: no modificar sistemáticamente el intervalo; prudencia si apixabán/rivaroxabán.\n";
+} else if (ints.includes("otros")){
+  txt += "• Con fármacos del grupo \"Otros\" no se modifica el intervalo estándar; reforzar gastroprotección/vigilancia.\n";
+} else {
+  txt += "• Sin interacción específica, aplicar intervalo estándar según procedimiento y función renal.\n";
+}
+
+
+  txt += "\n";
+
+  if (cambio){
+    txt +=
+      "Cambio de anticoagulante:\n" +
+      "• El cambio (" + ac + " → " + nuevo + ") debe realizarse una vez resuelta la interacción farmacológica y aplicados los intervalos de seguridad correspondientes.\n\n";
+  }
+
+  txt += "ℹ️ Nota: si existe discrepancia entre el intervalo recomendado por el procedimiento (punción lumbar, cirugía…) y el derivado de la interacción o de la función renal, debe aplicarse siempre el intervalo más prolongado.";
+
+  return { texto: txt, alertas };
+}
+
+
+function moduloPuncionLumbar(datos){
+  if (datos.escenario !== "puncion_lumbar") return "";
+
+  const f  = datos.acActual;
+  const cl = datos.clcr;
+
+  if (!f) return "Indique el anticoagulante actual para calcular la pausa adecuada.";
+
+  if (f === "avk"){
+    return `
+Punción lumbar (AVK):
+• Requiere INR < 1.5 antes de la PL.
+• Suspender el AVK 3–5 días antes (según TTR y dosis).
+• Evitar HBPM terapéutica previa a la punción.
+• Reiniciar AVK el mismo día tras la PL si fue limpia.
+`;
+  }
+
+  if (["apixaban","rivaroxaban","edoxaban"].includes(f)){
+    return `
+Punción lumbar (ACOD):
+• Suspender ${f} 24–48 h antes de la punción.
+• Usar 48 h si ≥2 factores: edad >80, bajo peso, anemia, o sangrado previo.
+• Reinicio: a las 6 h si punción limpia; 24 h si traumática o difícil.
+`;
+  }
+
+  if (f === "dabigatran"){
+    if (!cl) return "Para dabigatrán es imprescindible disponer de ClCr.";
+
+    if (cl >= 80){
+      return `
+Punción lumbar con dabigatrán:
+• Suspender 24 h antes.
+• Reiniciar a las 6 h si punción limpia; 24 h si traumática.
+`;
+    }
+
+    if (cl >= 50){
+      return `
+Punción lumbar con dabigatrán:
+• Suspender 48 h antes.
+• Reiniciar 6–24 h según hemostasia.
+`;
+    }
+
+    return `
+Punción lumbar con dabigatrán (ClCr < 50 mL/min):
+• Suspender 72 h antes.
+• Reiniciar entre 12–24 h según sangrado.
+⚠️ Riesgo elevado de acumulación.
+`;
+  }
+
+  return "";
+}
+
+
+function moduloPausaPerioperatoria(datos){
+  if(datos.escenario !== "procedimiento") return "";
+
+  const f  = datos.acActual;
+  const cl = datos.clcr;
+  if(!f) return "";
+
+  let pausa = "24–48 h";
+
+  if(f === "dabigatran"){
+    if(cl >= 80)      pausa = "24 h";
+    else if(cl >= 50) pausa = "48 h";
+    else              pausa = "72–96 h";
+  }
+
+  return "Pausa perioperatoria:\n• Suspender " + f + " " + pausa + " antes del procedimiento.\n• Reiniciar a las 24 h si hemostasia adecuada (48–72 h si alto riesgo hemorrágico).";
+}
+
+function moduloSangrado(datos){
+  if(datos.escenario !== "sangrado") return "";
+
+  return "Reinicio tras sangrado:\n• Leve → reinicio en 24–48 h.\n• Moderado → retrasar 48–72 h.\n• Grave/cirugía → reinicio individualizado, habitualmente 3–7 días.";
+}
+
+/* ==========================================================
+   MOTOR CLÍNICO INTEGRADO
+========================================================== */
+
+function motorSwitchingV2(datos){
+
+  // 🟡 Escenarios NO switching
+  if (datos.escenario === "puncion_lumbar") {
+    return renderFinal({
+      textoPrincipal: "Pausa para punción lumbar",
+      recomendacion: moduloPuncionLumbar(datos),
+      notas: []
+    });
+  }
+
+  if (datos.escenario === "procedimiento") {
+    return renderFinal({
+      textoPrincipal: "Pausa perioperatoria",
+      recomendacion: moduloPausaPerioperatoria(datos),
+      notas: []
+    });
+  }
+
+  if (datos.escenario === "sangrado") {
+    return renderFinal({
+      textoPrincipal: "Reinicio tras sangrado",
+      recomendacion: moduloSangrado(datos),
+      notas: []
+    });
+  }
+
+  if (datos.escenario === "interaccion") {
+    const r = moduloInteraccionFarmacologica(datos);
+    return renderFinal({
+      textoPrincipal: "Actitud ante interacción farmacológica",
+      recomendacion: r.texto || "Seleccione al menos una interacción.",
+      notas: []
+    });
+  }
+
+  // 🔵 Switching real
+  const base = construirSwitchingBase(datos);
+  if(base.bloqueado){
+    return renderFinal(base);
+  }
+
+  const bloqueo = evaluarBloqueosSwitching(datos);
+  if(bloqueo){
+    return renderFinal(bloqueo);
+  }
+
+  const ajustado = aplicarModificadoresSwitching(base, datos);
+  return renderFinal(ajustado);
+}
+
+
+function construirSwitchingBase(datos){
+  const esc = datos.escenario;
+  const a = datos.acActual;
+  const n = datos.acNuevo;
+
+  if(!esc) {
+    return { bloqueado:true, texto:"Seleccione un escenario clínico." };
+  }
+
+if(esc === "acod_acod"){
+  if(!a || !n){
+    return { bloqueado:true, texto:"Seleccione fármaco actual y nuevo fármaco." };
+  }
+  if(a === n){
+    return { bloqueado:true, texto:"No existe cambio real (mismo ACOD)." };
+  }
+  return {
+    tipo: "acod_acod",
+    textoPrincipal: `Cambiar ${nombreFarmaco(a)} → ${nombreFarmaco(n)}`,
+    recomendacion: "Iniciar el nuevo ACOD en el momento de la siguiente dosis del fármaco previo.",
+    horas: 0
+  };
+}
+
+
+if (esc === "vka_acod"){
+  if(!n){
+    return { bloqueado:true, texto:"Seleccione el ACOD de destino." };
+  }
+  let umbralINR = "<2";
+  if (n === "rivaroxaban") umbralINR = "<3";
+
+  return {
+    tipo: "vka_acod",
+    textoPrincipal: `Cambiar AVK → ${nombreFarmaco(n)}`,
+    recomendacion:
+      `Suspender AVK y controlar INR cada 24 horas. ` +
+      `Iniciar ${nombreFarmaco(n)} cuando el INR sea ${umbralINR}.`
+  };
+}
+
+
+
+if (esc === "acod_vka"){
+  if(!a){
+    return { bloqueado:true, texto:"Seleccione el ACOD actual." };
+  }
+  return {
+    tipo: "acod_vka",
+    textoPrincipal: `Cambiar ${nombreFarmaco(a)} → AVK`,
+    recomendacion:
+      "Iniciar AVK en la siguiente dosis del ACOD y mantener ambos hasta alcanzar INR terapéutico (2–3). " +
+      "Controlar INR cada 24–48 horas durante el solapamiento. " +
+      "Suspender el ACOD cuando INR ≥2 en dos determinaciones consecutivas."
+  };
+}
+
+
+
+  return {
+    bloqueado:true,
+    texto:"Escenario no compatible con switching."
+  };
+}
+
+function evaluarBloqueosSwitching(datos){
+  const cl = datos.clcr;
+  const ints = clasificarInteraccionesV2(datos.interacciones || []);
+
+  // 🔴 BLOQUEO RENAL ABSOLUTO
+if (cl !== null && cl < 15) {
+
+  // Si el paciente YA está en AVK
+if (datos.acActual === "avk") {
+    return {
+      bloqueado: true,
+      textoPrincipal: "Mantener antivitamina K",
+      recomendacion:
+        "Insuficiencia renal grave (ClCr <15 mL/min). Los ACOD están contraindicados. " +
+        "Mantener tratamiento con AVK y realizar control estrecho de INR."
+    };
+  }
+
+  // Si el paciente está en ACOD
+  return {
+    bloqueado: true,
+    textoPrincipal: "ACOD no recomendado",
+    recomendacion:
+  "Insuficiencia renal grave (ClCr <15 mL/min). Suspender ACOD e iniciar antivitamina K. " +
+  "Nota clínica: la necesidad de terapia puente hasta INR terapéutico depende del riesgo tromboembólico. " +
+  "En insuficiencia renal grave, si se precisa puente, suele preferirse heparina no fraccionada en entorno monitorizado; " +
+  "evitar HBPM terapéutica por riesgo de acumulación."
+
+  };
+}
+
+
+  // 🔴 BLOQUEO POR INTERACCIÓN DUAL
+  if (ints.dual){
+    return {
+      bloqueado: true,
+      textoPrincipal: "ACOD no indicado",
+      recomendacion:
+        "Presencia de inhibidor o inductor dual potente. Evitar ACOD y utilizar antivitamina K mientras persista la interacción."
+    };
+  }
+
+  // 🔴 Dabigatrán + ClCr <30
+  if (datos.acNuevo === "dabigatran" && cl < 30){
+    return {
+      bloqueado: true,
+      textoPrincipal: "Dabigatrán no indicado",
+      recomendacion:
+        "ClCr <30 mL/min. Suspender dabigatrán y utilizar alternativa (AVK o ACOD no dependiente de eliminación renal)."
+    };
+  }
+
+  return null;
+}
+
+function aplicarModificadoresSwitching(base, datos){
+  let horasExtra = 0;
+  const notas = [];
+
+  const cl = datos.clcr;
+  // 🔵 Modificadores renales SOLO si el inicio depende del intervalo
+if (
+  cl !== null && cl !== undefined && cl < 50 &&
+  !["acod_vka", "vka_acod"].includes(base.tipo)
+) {
+  notas.push(
+    "Se recomienda retrasar el inicio una dosis adicional respecto al intervalo estándar por función renal reducida."
+  );
+}
+
+
+
+  const ints = clasificarInteraccionesV2(datos.interacciones || []);
+
+  if(ints.pgp){
+    notas.push("Presencia de inhibidor selectivo de P-gp: extremar vigilancia hemorrágica.");
+  }
+
+  if(ints.cyp){
+    notas.push(
+      "Inhibidor potente de CYP3A4: considerar preferentemente dabigatrán o edoxabán si es clínicamente posible."
+    );
+  }
+
+  return {
+    ...base,
+    horas: (base.horas || 0) + horasExtra,
+    notas
+  };
+}
+
+function renderFinal(res){
+  if(res.bloqueado){
+    return `
+      <b>Recomendación final:</b><br>
+      <div style="margin-top:8px;"><b>${res.textoPrincipal || ""}</b></div>
+      <div style="margin-top:8px;">${res.recomendacion || res.texto}</div>
+    `;
+  }
+
+  return `
+  <b>Recomendación final:</b><br>
+  <div style="margin-top:8px;"><b>${res.textoPrincipal}</b></div>
+  <div style="margin-top:8px;">${res.recomendacion}</div>
+  ${
+    res.notas?.length
+      ? `<div style="margin-top:6px; color:#374151;">${res.notas.join(" ")}</div>`
+      : ""
+  }
+`;
+
+}
+
+/* ==========================================================
+   RECOGER DATOS DEL FORMULARIO
+========================================================== */
+
+function recogerDatos(){
+
+  const edad  = Number(document.getElementById("edad").value);
+  const peso  = Number(document.getElementById("peso").value);
+  const sexo  = document.getElementById("sexo").value;
+  const creat = Number(document.getElementById("creat").value);
+
+  const clcr = calcClCr(edad, peso, creat, sexo);
+
+  return {
+    edad,
+    peso,
+    sexo,
+    creatinina: creat,
+    clcr,
+    acActual: document.getElementById("ac_actual").value,
+    acNuevo:  document.getElementById("ac_nuevo").value,
+    escenario:    document.getElementById("escenario").value,
+    interacciones: obtenerInteracciones()
+  };
+}
+
+/* ==========================================================
+   ACTIVAR/DESACTIVAR CHIPS
+========================================================== */
+
+document.querySelectorAll(".switch-chip").forEach(chip => {
+  chip.addEventListener("click", () => {
+    chip.classList.toggle("active");
+  });
+});
+
+/* ==========================================================
+   CONTROL DE SELECTS SEGÚN ESCENARIO
+========================================================== */
+
+function actualizarSelectsPorEscenario() {
+  const esc = document.getElementById("escenario").value;
+  const selActual = document.getElementById("ac_actual");
+  const selNuevo  = document.getElementById("ac_nuevo");
+
+  const opcionesActual = selActual.querySelectorAll("option");
+  const opcionesNuevo  = selNuevo.querySelectorAll("option");
+
+  const esACOD = v => ["apixaban","rivaroxaban","dabigatran","edoxaban"].includes(v);
+  const esAVK  = v => v === "avk";
+
+  // Reset
+  opcionesActual.forEach(o => { o.hidden = false; o.disabled = false; });
+  opcionesNuevo.forEach(o  => { o.hidden = false; o.disabled = false; });
+
+  // Escenarios sin switching
+  if (
+    esc === "renal" ||
+    esc === "interaccion" ||
+    esc === "puncion_lumbar" ||
+    esc === "procedimiento" ||
+    esc === "sangrado"
+  ) {
+    selNuevo.value = "";
+    selNuevo.disabled = true;
+    selNuevo.classList.add("disabled-select");
+    return;
+  }
+
+  selNuevo.disabled = false;
+  selNuevo.classList.remove("disabled-select");
+
+  if (esc === "acod_acod") {
+    opcionesActual.forEach(o => { if (o.value && !esACOD(o.value)) o.hidden = true; });
+    opcionesNuevo.forEach(o  => { if (o.value && !esACOD(o.value)) o.hidden = true; });
+  }
+
+  if (esc === "acod_vka") {
+    opcionesActual.forEach(o => { if (o.value && !esACOD(o.value)) o.hidden = true; });
+    opcionesNuevo.forEach(o  => { if (o.value && !esAVK(o.value))  o.hidden = true; });
+  }
+
+  if (esc === "vka_acod") {
+    opcionesActual.forEach(o => { if (o.value && !esAVK(o.value))  o.hidden = true; });
+    opcionesNuevo.forEach(o  => { if (o.value && !esACOD(o.value)) o.hidden = true; });
+  }
+}
+
+document
+  .getElementById("escenario")
+  .addEventListener("change", actualizarSelectsPorEscenario);
+
+actualizarSelectsPorEscenario();
+
+/* ==========================================================
+   INFO-ICON → ABRIR MODAL DE INTERACCIONES
+========================================================== */
+
+document.querySelectorAll(".chip-info").forEach(icon => {
+  icon.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    const key  = icon.dataset.info;
+    const info = infoInteracciones[key];
+    if(!info) return;
+
+    document.getElementById("modal-titulo").innerText  = info.titulo;
+    document.getElementById("modal-contenido").innerHTML = info.html;
+
+    document.getElementById("modal").style.display = "flex";
+  });
+});
+
+document.getElementById("modal-cerrar").addEventListener("click", () => {
+  document.getElementById("modal").style.display = "none";
+});
+
+document.getElementById("modal").addEventListener("click", (e) => {
+  if(e.target === document.getElementById("modal")){
+    document.getElementById("modal").style.display = "none";
+  }
+});
+
+/* ==========================================================
+   AJUSTE RENAL v2 — MOTOR DE DOSIS FINAL (salida única)
+   - Escenario: "renal"
+   - Prioridad: bloqueantes (dual/inductor) → AVK y FIN
+   - Luego: dosis por ClCr + criterios fármaco-específicos
+   - Luego: ajustes por interacciones no bloqueantes (si aplica)
+========================================================== */
+
+/** Devuelve el fármaco a dosificar en escenario renal */
+function getFarmacoObjetivoRenal(datos){
+  // En "renal" normalmente interesa el fármaco que se pretende mantener/usar.
+  // Si el usuario ha puesto "Nuevo fármaco", lo priorizamos; si no, usamos el actual.
+  return datos.acNuevo || datos.acActual || "";
+}
+
+/** Clasifica interacciones presentes en categorías v2 (con tus chips actuales) */
+function clasificarInteraccionesV2(ints){
+  const set = new Set(ints || []);
+  return {
+    dual: set.has("dual"),
+    pgp: set.has("pgp"),
+    cyp: set.has("cyp"),
+    otros: set.has("otros")
+  };
+}
+
+
+/** Traducción corta de fármacos para texto final */
+function nombreFarmaco(ac){
+  const map = {
+    apixaban: "Apixabán",
+    rivaroxaban: "Rivaroxabán",
+    dabigatran: "Dabigatrán",
+    edoxaban: "Edoxabán",
+    avk: "Antivitamina K (AVK)"
+  };
+  return map[ac] || ac || "";
+}
+
+/** Dosis renal base por fármaco (FA no valvular) */
+function dosisRenalBaseFA({ ac, clcr, edad, peso, creatinina_mgdl, sexo }){
+  // Devuelve objeto: { ok, contraindicado, dosis, detalle }
+  if(!ac) return { ok:false, contraindicado:false, dosis:"", detalle:"Seleccione el anticoagulante a ajustar." };
+  if(!clcr && clcr !== 0) return { ok:false, contraindicado:false, dosis:"", detalle:"Para ajuste renal es imprescindible calcular ClCr (edad, peso, sexo y creatinina)." };
+
+  // Bloqueo renal absoluto para ACOD
+  if(clcr < 15){
+    return {
+      ok:true,
+      contraindicado:true,
+      dosis:"",
+      detalle:"ClCr < 15 mL/min: ACOD no recomendado."
+    };
+  }
+
+  // NOTA: aquí se implementan reglas habituales en Europa (SmPC/EMA) para FA NV.
+  // Revisa y ajusta si deseas alinearlo con tu política local exacta.
+
+  if(ac === "apixaban"){
+    // Regla clásica: 2 de 3 criterios (edad≥80, peso≤60, creat≥1.5) → 2.5 mg/12h
+    const c1 = (edad >= 80);
+    const c2 = (peso > 0 && peso <= 60);
+    const c3 = (creatinina_mgdl >= 1.5); // mg/dL
+    const n = [c1,c2,c3].filter(Boolean).length;
+
+    // Además, en deterioro renal severo (ClCr 15–29) suele preferirse 2.5 mg/12h
+    const severo = (clcr >= 15 && clcr <= 29);
+
+    if(severo || n >= 2){
+      return {
+        ok:true,
+        contraindicado:false,
+        dosis:"2,5 mg cada 12 h",
+        detalle: severo
+          ? "ClCr 15–29 mL/min: preferible dosis reducida."
+          : "Cumple ≥2 criterios (edad ≥80, peso ≤60, creatinina ≥1,5 mg/dL)."
+      };
+    }
+
+    return {
+      ok:true,
+      contraindicado:false,
+      dosis:"5 mg cada 12 h",
+      detalle:"Dosis estándar (no cumple criterios de reducción)."
+    };
+  }
+
+  if(ac === "rivaroxaban"){
+    // FA NV: 20 mg/24h si ClCr ≥50; 15 mg/24h si ClCr 15–49; evitar <15
+    if(clcr >= 50){
+      return { ok:true, contraindicado:false, dosis:"20 mg cada 24 h (con comida)", detalle:"ClCr ≥ 50 mL/min." };
+    }
+    // 15–49
+    return { ok:true, contraindicado:false, dosis:"15 mg cada 24 h (con comida)", detalle:"ClCr 15–49 mL/min: dosis reducida." };
+  }
+
+  if(ac === "edoxaban"){
+    // FA NV: 60 mg/24h; reducir a 30 mg/24h si ClCr 15–50 o peso≤60 o inhibidor P-gp relevante
+    // Aquí hacemos base por renal (15–50 → 30).
+    if(clcr >= 51){
+      return { ok:true, contraindicado:false, dosis:"60 mg cada 24 h", detalle:"ClCr > 50 mL/min (base renal)." };
+    }
+    // 15–50
+    return { ok:true, contraindicado:false, dosis:"30 mg cada 24 h", detalle:"ClCr 15–50 mL/min: dosis reducida." };
+  }
+
+  if(ac === "dabigatran"){
+    // En Europa: generalmente contraindicado si ClCr <30 (FA NV).
+    if(clcr < 30){
+      return {
+        ok:true,
+        contraindicado:true,
+        dosis:"",
+        detalle:"ClCr < 30 mL/min: dabigatrán no recomendado (riesgo de acumulación)."
+      };
+    }
+
+    // Dosis habitual: 150 mg/12h; 110 mg/12h si ≥80 años o mayor riesgo hemorrágico.
+    // Como este módulo es renal, aplicamos 110 mg/12h en ≥80 como regla práctica (puedes ajustar).
+    if(edad >= 80){
+      return { ok:true, contraindicado:false, dosis:"110 mg cada 12 h", detalle:"Edad ≥80 años: preferible dosis reducida." };
+    }
+
+    // 30–49: muchos protocolos prefieren 110 mg/12h si riesgo; aquí NO asumimos riesgo hemorrágico.
+    // Para no inventar, mantenemos 150 mg/12h y dejamos nota si 30–49 (zona “cautela”).
+    if(clcr < 50){
+      return { ok:true, contraindicado:false, dosis:"150 mg cada 12 h", detalle:"ClCr 30–49 mL/min: precaución; considerar 110 mg/12 h si alto riesgo hemorrágico." };
+    }
+
+    return { ok:true, contraindicado:false, dosis:"150 mg cada 12 h", detalle:"Dosis estándar." };
+  }
+
+  // Si el usuario selecciona AVK en renal, devolvemos plan simple
+  if(ac === "avk"){
+    return {
+      ok:true,
+      contraindicado:false,
+      dosis:"AVK (ajustar por INR, objetivo 2–3)",
+      detalle:"La función renal no limita el uso de AVK; ajustar por INR."
+    };
+  }
+
+  return { ok:false, contraindicado:false, dosis:"", detalle:"Fármaco no reconocido para ajuste." };
+}
+
+/** Ajustes por interacciones (v2 con chips actuales) — devuelven dosis final o bloqueo */
+function aplicarInteraccionesRenalV2({ ac, base, inter }){
+
+  // Si ya está contraindicado por función renal, no tocar
+  if (base.contraindicado) return base;
+
+  // 🔴 BLOQUEO ABSOLUTO: inhibidor o inductor dual
+  if (inter.dual){
+    return {
+      contraindicado: true,
+      dosis: "",
+      detalle: "Presencia de inhibidor o inductor dual potente (CYP3A4 + P-gp): ACOD no indicado."
+    };
+  }
+
+// 🟠 Inhibidor potente y selectivo de P-gp
+if (inter.pgp){
+
+  // Edoxabán: reducción obligada
+  if (ac === "edoxaban"){
+    return {
+      ...base,
+      dosis: "30 mg cada 24 h",
+      detalle:
+        (base.detalle ? base.detalle + " " : "") +
+        "Inhibidor potente y selectivo de P-gp concomitante: reducción obligada de edoxabán a 30 mg/24 h."
+    };
+  }
+
+  // Dabigatrán: evitar; preferir alternativa ACOD si es posible
+  if (ac === "dabigatran"){
+ return {
+  ok: true,
+  contraindicado: true,
+  alternativaACOD: true,   // 👈 CLAVE
+  dosis: "",
+  detalle:
+    "Inhibidor potente y selectivo de P-gp concomitante: dabigatrán no recomendado por riesgo de acumulación. " +
+    "Si no existe interacción dual ni otras contraindicaciones, puede considerarse el uso de apixabán o rivaroxabán " +
+    "(menos dependientes de P-gp) como alternativa; si no es posible, preferir AVK."
+  };
+}
+
+  // Apixabán / Rivaroxabán: no ajustar dosis automáticamente, pero añadir nota contextual
+  if (ac === "apixaban" || ac === "rivaroxaban"){
+    return {
+      ...base,
+      detalle:
+        (base.detalle ? base.detalle + " " : "") +
+        "Inhibidor potente y selectivo de P-gp concomitante: no se recomienda ajuste sistemático de dosis. " +
+        "Dabigatrán debe evitarse y edoxabán requiere reducción obligada; cuando sea clínicamente apropiado, " +
+        "apixabán o rivaroxabán pueden ser opciones preferentes en este contexto, si no existen contraindicaciones."
+    };
+  }
+
+  // Resto: añadir aviso general sin modificar dosis
+  return {
+    ...base,
+    detalle:
+      (base.detalle ? base.detalle + " " : "") +
+      "Inhibidor potente y selectivo de P-gp concomitante: posible aumento de exposición a ACOD; extremar vigilancia hemorrágica."
+  };
+}
+
+// 🟡 Inhibidor potente y selectivo de CYP3A4
+if (inter.cyp){
+  if (ac === "apixaban" || ac === "rivaroxaban"){
+    return {
+      ...base,
+      detalle:
+        (base.detalle ? base.detalle + " " : "") +
+        "Inhibidor potente y selectivo de CYP3A4 concomitante: aunque no se recomienda ajuste sistemático de dosis, " +
+        "puede producir un aumento moderado de la exposición al fármaco. " +
+        "En pacientes con riesgo hemorrágico elevado o necesidad de tratamiento concomitante prolongado, " +
+        "puede considerarse de forma individualizada el uso de un ACOD menos dependiente de CYP3A4, " +
+        "como dabigatrán o edoxabán, si no existen contraindicaciones."
+    };
+  }
+}
+
+  // ⚪ Otros
+  if (inter.otros){
+    return {
+      ...base,
+      detalle: (base.detalle || "") +
+        " Fármacos con sinergia hemorrágica: no modifican la dosis, pero aumentan el riesgo de sangrado."
+    };
+  }
+
+  return base;
+}
+
+/** Construye salida final limpia (una sola recomendación) */
+function motorRenalV2(datos){
+  const ac = getFarmacoObjetivoRenal(datos);
+  const f  = nombreFarmaco(ac);
+  const clcr = datos.clcr;
+
+  // 1️⃣ Clasificar interacciones
+  const clasif = clasificarInteraccionesV2(datos.interacciones || []);
+
+  // 2️⃣ Calcular dosis base por función renal
+  const base = dosisRenalBaseFA({
+    ac,
+    clcr,
+    edad: datos.edad || 0,
+    peso: datos.peso || 0,
+    creatinina_mgdl: datos.creatinina || 0,
+    sexo: datos.sexo || ""
+  });
+
+  if (!base.ok){
+    return {
+      html: `<b>Recomendación final:</b><br>${base.detalle || "No se pudo generar la recomendación."}`,
+      copyText: `Recomendación final: ${base.detalle || "No se pudo generar la recomendación."}`
+    };
+  }
+
+  // 3️⃣ Aplicar interacciones (bloqueo o ajuste)
+  const final = aplicarInteraccionesRenalV2({
+    ac,
+    base,
+    inter: clasif
+  });
+
+  // 4️⃣ Render único
+if(final.contraindicado){
+
+  const principal = final.alternativaACOD
+    ? "Anticoagulante actual no recomendado"
+    : "ACOD no recomendado → preferir AVK";
+
+  const nota = `${final.detalle}${(clcr || clcr === 0) ? ` (ClCr: ${clcr} mL/min).` : ""}`;
+
+  return {
+    html:
+      `<b>Recomendación final:</b><br>` +
+      `<div style="margin-top:8px; font-size:1.05em;"><b>${principal}</b></div>` +
+      `<div style="margin-top:8px; color:#374151; font-size:0.95em;">${nota}</div>`,
+    copyText:
+      `Recomendación final: ${principal}\n${nota}`
+  };
+}
+
+
+  const principal = `${f}: ${final.dosis}`;
+  const notas = [];
+  if (clcr || clcr === 0) notas.push(`ClCr (Cockcroft-Gault): ${clcr} mL/min.`);
+  if (final.detalle) notas.push(final.detalle);
+
+  return {
+    html:
+      `<b>Recomendación final:</b><br>` +
+      `<div style="margin-top:8px; font-size:1.05em;"><b>${principal}</b></div>` +
+      (notas.length
+        ? `<div style="margin-top:8px; color:#374151; font-size:0.95em;">${notas.join(" ")}</div>`
+        : ""),
+    copyText:
+      `Recomendación final: ${principal}\n` +
+      (notas.length ? notas.join(" ") : "")
+  };
+}
+
+
+/* ==========================================================
+   BOTÓN CALCULAR
+========================================================== */
+
+document.getElementById("btnCalcular").addEventListener("click", () => {
+  const datos = recogerDatos();
+
+  const res = document.getElementById("resultado");
+  const out = document.getElementById("resultado-texto");
+
+  // 🔷 v2 — Escenario RENAL: salida única y final
+  if(datos.escenario === "renal"){
+    const r = motorRenalV2(datos);
+    out.innerHTML = r.html;
+    out.dataset.copy = r.copyText || out.textContent;
+  } else {
+    // Resto: motor existente
+    const html = motorSwitchingV2(datos);
+  out.innerHTML = html;
+ out.dataset.copy = out.textContent;
+}
+
+  res.style.display = "block";
+  res.classList.add("fade-in-switch");
+});
+
+
+/* ==========================================================
+   BOTÓN BORRAR
+========================================================== */
+document.getElementById("btnBorrar").addEventListener("click", () => {
+
+  document.getElementById("formSwitching").reset?.();
+
+  document.querySelectorAll(".switch-chip.active")
+    .forEach(ch => ch.classList.remove("active"));
+
+  const res = document.getElementById("resultado");
+  res.style.display = "none";
+
+  document.getElementById("resultado-texto").innerText = "";
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+/* ==========================================================
+   BOTÓN COPIAR
+========================================================== */
+document.getElementById("btnCopiar").addEventListener("click", () => {
+  const cont = document.getElementById("resultado-texto");
+  const txt  = (cont.dataset.copy || cont.textContent || "").trim();
+
+  if (!txt) return;
+
+  navigator.clipboard.writeText(txt).then(() => {
+    const btn = document.getElementById("btnCopiar");
+    const oldText = btn.textContent;
+
+    btn.classList.add("copiado");
+    btn.textContent = "Copiado";
+
+    setTimeout(() => {
+      btn.classList.remove("copiado");
+      btn.textContent = oldText;
+    }, 1500);
+  });
+});
+
+
+/* ==========================================================
+   LISTAS PARA LOS MODALES DE INTERACCIONES
+========================================================== */
+
+const infoInteracciones = {
+
+  /* ======================================================
+     INHIBIDORES / INDUCTORES DUALES (CYP3A4 + P-gp)
+     (potentes o moderados)
+  ====================================================== */
+  dual: {
+    titulo: "Inhibidores o inductores duales",
+    html: `
+      <p>
+        Fármacos que <b>inhiben o inducen simultáneamente CYP3A4 y la glicoproteína P (P-gp)</b>,
+        produciendo alteraciones farmacocinéticas <b>clínicamente relevantes</b> de los ACOD.
+      </p>
+
+      <h4>🔴 Inhibidores duales</h4>
+      <ul>
+        <li>Ketoconazol</li>
+        <li>Itraconazol</li>
+        <li>Posaconazol</li>
+        <li>Voriconazol</li>
+        <li>Ritonavir</li>
+        <li>Cobicistat</li>
+        <li>Atazanavir</li>
+        <li>Darunavir</li>
+        <li>Nelfinavir</li>
+        <li>Saquinavir</li>
+        <li>Claritromicina</li>
+        <li>Eritromicina</li>
+      </ul>
+
+      <h4>🔵 Inductores duales</h4>
+      <ul>
+        <li>Rifampicina</li>
+        <li>Rifabutina</li>
+        <li>Carbamazepina</li>
+        <li>Fenitoína</li>
+        <li>Fenobarbital</li>
+        <li>Primidona</li>
+        <li>Hierba de San Juan</li>
+      </ul>
+<hr>
+      <p><b>🚫 ACOD no recomendado</b> mientras persista la interacción. </p><p>⭐ Preferir <b>antagonistas de la vitamina K (AVK)</b>.</p>
+      <p class="note">
+        ⚠️ El ajuste de dosis o del intervalo <b>no es suficiente</b>.
+      </p>
+    `
+  },
+
+  /* ======================================================
+     INHIBIDORES POTENTES Y SELECTIVOS DE P-gp
+  ====================================================== */
+  pgp: {
+    titulo: "Inhibidores potentes y selectivos de P-gp",
+    html: `
+      <p>
+        Fármacos que inhiben de forma <b>potente y clínicamente relevante</b> la glicoproteína P (P-gp),
+        <b>sin inhibición significativa de CYP3A4</b>.
+      </p>
+
+      <ul>
+        <li>Dronedarona</li>
+        <li>Quinidina</li>
+        <li>Ciclosporina</li></ul>
+<hr>
+
+      <p><b>🚫 Dabigatrán:</b> generalmente <b>no recomendado</b>.</p>
+        <p><b>⬇️ Edoxabán:</b> requiere <b>reducción a 30 mg/24 h</b>.</p>
+        <p><b>➡️ Apixabán / Rivaroxabán:</b> no suelen requerir ajuste.</p>
+      <p class="note">
+        ℹ️ El efecto puede ser mayor si coexiste deterioro renal.
+      </p>
+    `
+  },
+
+  /* ======================================================
+     INHIBIDORES POTENTES Y SELECTIVOS DE CYP3A4
+  ====================================================== */
+  cyp: {
+    titulo: "Inhibidores potentes y selectivos de CYP3A4",
+    html: `
+      <p>
+        Fármacos que inhiben de forma <b>potente</b> el metabolismo mediado por CYP3A4,
+        <b>sin inhibición relevante de P-gp</b>.
+      </p>
+
+      <ul>
+        <li>Fluconazol</li>
+        <li>Nefazodona</li>
+      </ul>
+<hr>
+
+      <p><b>🚨 Apixabán y rivaroxabán:</b> aumento significativo del riesgo hemorrágico.</p>
+        <p><b>🤏 Dabigatrán:</b> impacto mínimo.</p>
+        <p><b>🔄 Edoxabán:</b> efecto variable.</p>
+
+      <p class="note">
+        ℹ️ No suele contraindicar el ACOD por sí solo, pero puede justificar mayor vigilancia clínica.
+      </p>
+    `
+  },
+
+  /* ======================================================
+     OTROS – SINERGIA HEMORRÁGICA
+  ====================================================== */
+  otros: {
+    titulo: "Fármacos con sinergia hemorrágica (sin efecto farmacocinético)",
+    html: `
+      <p>
+        Fármacos que <b>no modifican las concentraciones plasmáticas</b> del ACOD,
+        pero aumentan el riesgo de sangrado por <b>sinergia farmacodinámica</b>.
+      </p>
+
+      <ul>
+        <li>Ácido acetilsalicílico</li>
+        <li>Doble antiagregación</li>
+        <li>Antiinflamatorios no esteroideos (AINEs)</li>
+        <li>Corticoides sistémicos</li>
+        <li>Inhibidores selectivos de la recaptación de serotonina (ISRS)</li>
+        <li>Inhibidores de la recaptación de serotonina y noradrenalina (ISRN)</li>
+      </ul>
+<hr>
+
+      <p><b>➡️ No modifican dosis ni intervalo</b> del ACOD. </p><p>🚨 Valoración individual del riesgo hemorrágico.</p>
+      <p class="note">
+        ℹ️ Gastroprotección y vigilancia clínica estrecha.
+      </p>
+    `
+  }
+
+};
+
+
+</script>
+
+
+
+<!-- TOAST -->
+<div id="toast" class="toast"></div>
+<footer> <img src="../img/uibanner.png" alt="Ictus GPS"></footer>
+</body>
+</html>

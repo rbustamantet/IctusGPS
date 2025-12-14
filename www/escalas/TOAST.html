@@ -171,7 +171,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:Verdana, Geneva,
 .panel{background:#fff;border:1px solid var(--borde);border-radius:16px;padding:16px;box-shadow:0 2px 10px rgba(15,23,42,.06);}
 
 label{font-weight:900;color:#0b1f44;margin-top:8px;display:block;}
-select{width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;font-size:14px;}
+select{width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;font-size:14px;margin-top:8px;}
 select:focus{outline:none;box-shadow:0 0 0 3px #dbeafe;}
 .note{color:#64748b;font-size:12px;margin-top:8px;}
 
@@ -297,7 +297,7 @@ footer img{max-width:320px;height:auto;opacity:.95}
         <p class="note">Seleccione las condiciones diagnósticas más
           probables según estudios clínicos e imagenológicos.</p>
         <div class="grid">
-          <div> <label for="lvo">1. Lesión Arterial Aterosclerótica
+          <div> <label for="lvo">⚪ Lesión Arterial Aterosclerótica
               (LAA)</label>
             <select id="lvo">
               <option value="" selected="selected">Selecciona…</option>
@@ -308,9 +308,8 @@ footer img{max-width:320px;height:auto;opacity:.95}
               <option value="definite">Estenosis ≥50%/placa compleja
                 relevante</option>
             </select>
-            <p class="note">Incluye carótida, M1, vertebral o basilar.</p>
           </div>
-          <div> <label for="cardiac">2. Fuente Cardioembólica</label>
+          <div> <label for="cardiac">🔴 Fuente Cardioembólica</label>
             <select id="cardiac">
               <option value="" selected="selected">Selecciona…</option>
               <option value="none">No identificada</option>
@@ -320,7 +319,7 @@ footer img{max-width:320px;height:auto;opacity:.95}
                 aneurisma septal, etc.)</option>
             </select>
           </div>
-          <div> <label for="lacunar">3. Hallazgos Lacunares</label>
+          <div> <label for="lacunar">⚫ Hallazgos Lacunares</label>
             <select id="lacunar">
               <option value="" selected="selected">Selecciona…</option>
               <option value="none">No</option>
@@ -328,7 +327,7 @@ footer img{max-width:320px;height:auto;opacity:.95}
                 cm, perforantes)</option>
             </select>
           </div>
-          <div> <label for="other">4. Otras Etiologías Definidas</label>
+          <div> <label for="other">🟣 Otras Etiologías Definidas</label>
             <select id="other">
               <option value="" selected="selected">Selecciona…</option>
               <option value="none">No</option>

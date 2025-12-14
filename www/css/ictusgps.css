@@ -1,0 +1,528 @@
+/* ==========================================================
+   VARIABLES BÁSICAS (Paleta institucional)
+========================================================== */
+:root{
+  --bg:#f8fafc; 
+  --ink:#0e1a33;
+  --azul:#0f3d83;
+  --border:#e5e9f2;
+  --muted:#64748b;
+  --azul-light:#e4edfa;
+  --azul-mid:#2563eb;
+  --azul-dark:#0d2d63;
+
+  --modal-bg:rgba(0,0,0,0.45);
+  --modal-card:#ffffff;
+}
+
+/* ==========================================================
+   TIPOGRAFÍA GLOBAL
+========================================================== */
+html, body{
+  font-family: Verdana, Geneva, sans-serif;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+/* ==========================================================
+   SAFE-TOP INSTITUCIONAL
+========================================================== */
+
+body{
+  margin:0;
+  padding-top:calc(env(safe-area-inset-top, 0px) + 52px);
+  background:var(--bg);
+  color:var(--ink);
+}
+
+.safe-top{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:calc(env(safe-area-inset-top) + 60px);
+  background:var(--azul);
+  z-index:1001;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding-top:env(safe-area-inset-top);
+}
+
+.safe-content{
+  width:100%;
+  max-width:1080px;
+  padding:6px 16px 8px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+}
+
+.safe-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.safe-mini{
+  width:44px;height:44px;
+  object-fit:contain;
+  padding:4px;
+}
+
+.safe-logo{
+  height:44px;
+  width:auto;
+}
+
+.safe-actions{
+  display:flex;
+  gap:10px;
+}
+
+.safe-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:40px;
+  height:40px;
+  background:rgba(255,255,255,0.15);
+  border:1px solid white;
+  border-radius:50%;
+  cursor:pointer;
+}
+
+.safe-btn:hover{
+  background:#01c5fe;
+}
+
+.safe-icon{
+  width:32px;
+  height:32px;
+}
+
+/* ==========================================================
+   CABECERA INSTITUCIONAL (azul con título)
+========================================================== */
+
+header{
+  position:sticky;
+  top:calc(env(safe-area-inset-top) + 52px);
+  z-index:1002;
+  background:var(--azul);
+  color:#fff;
+  height:52px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.title{
+  display:flex;
+  align-items:center;
+  font-size:1.3rem;
+  font-weight:700;
+  text-align:center;
+}
+
+.title img{
+  width:32px;
+  height:32px;
+  margin-right:8px;
+}
+
+/* ==========================================================
+   CONTENIDO Y BLOQUES
+========================================================== */
+
+.wrap{
+  max-width:1080px;
+  margin:0 auto;
+  padding:1rem;
+}
+
+.howto{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  box-shadow:0 2px 2px var(--muted);
+  padding:1rem;
+  margin:.6rem 0 1rem;
+  font-size:14px;
+}
+
+.panel{
+  background:#fff;
+  border-radius:16px;
+  padding:16px;
+  box-shadow:0 3px 14px rgba(16,71,119,.12);
+  border:1px solid var(--border);
+}
+
+.block{
+  background:linear-gradient(to bottom, #f2f7ff, #e9f1ff);
+  border-radius:14px;
+  border-left:4px solid var(--azul);
+  padding:16px;
+  margin:18px 0;
+  box-shadow:0 2px 8px rgba(15,61,131,0.08);
+}
+
+.block h3{
+  margin:0 0 10px;
+  font-size:1.05rem;
+  font-weight:800;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.icon-h3{
+  width:20px;
+  height:20px;
+  margin-right:6px;
+}
+
+/* ==========================================================
+   ELEMENTOS DE FORMULARIO (labels y selects)
+========================================================== */
+
+label{
+  font-size:0.95rem;
+}
+
+select{
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #d4e2ff;
+  background:#ffffff;
+  font-size:1rem;
+  width:100%;
+  box-shadow:0 2px 6px rgba(0,0,0,0.03);
+  margin-top:6px;
+}
+
+select:focus{
+  outline:none;
+  border:1px solid var(--azul);
+  box-shadow:0 0 0 1px rgba(15,61,131,0.2);
+}
+
+/* ==========================================================
+   RECUADRO DE RECOMENDACIÓN
+========================================================== */
+
+.reco-box{
+  background:#F7FFF7;
+  border-left:4px solid #16a34a;
+  border-radius:14px;
+  padding:16px;
+  margin:8px 0;
+  box-shadow:0 2px 8px rgba(15,61,131,0.08);
+}
+
+.note{
+  color:var(--muted);
+  font-size:.85rem;
+  margin-top:8px;
+}
+
+/* ==========================================================
+   MODAL GENERAL INSTITUCIONAL
+========================================================== */
+
+.modal-overlay{
+  display:none;
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:var(--modal-bg);
+  backdrop-filter:blur(2px);
+  z-index:2000;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+
+.modal{
+  position:relative;
+  background:var(--modal-card);
+  width:100%;
+  max-width:460px;
+  max-height:90vh;
+  overflow-y:auto;
+  border-radius:16px;
+  padding:18px 20px 20px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.25);
+  animation:fade .25s ease;
+  font-size:.8rem;
+}
+
+.modal h2{
+  margin:0 0 10px;
+  font-size:1rem;
+  color:var(--azul-dark);
+}
+
+.modal-close{
+  position:absolute;
+  top:2px;
+  right:1px;
+  font-size:1.2rem;
+  background:none;
+  border:none;
+  cursor:pointer;
+  color:#444;
+}
+
+/* ==========================================================
+   LISTAS EN COLUMNAS PARA MODALES DE INTERACCIONES
+========================================================== */
+
+.modal ul {
+  column-count: 2;
+  column-gap: 24px;
+  padding-left: 20px;
+}
+
+.modal ul li {
+  break-inside: avoid;
+  margin-bottom: 6px;
+}
+
+/* Para pantallas pequeñas → una sola columna */
+@media (max-width: 480px) {
+  .modal ul {
+    column-count: 1;
+  }
+}
+
+/* ==========================================================
+   MODALES DE INTERACCIONES — ESTILO INSTITUCIONAL MEJORADO
+========================================================== */
+
+/* --- Animación suave al abrir el modal --- */
+.modal {
+  animation: modalFadeUp 0.28s ease-out;
+}
+
+@keyframes modalFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Títulos dentro del modal --- */
+.modal h4 {
+  margin-top: 8px;
+  margin-bottom: 4px;
+  font-size: 1rem;
+  color: var(--azul-dark);
+}
+
+/* ==========================================================
+   LISTAS EN COLUMNAS (solamente UL largos)
+========================================================== */
+
+/* UL normal */
+.modal ul {
+  padding-left: 20px;
+  margin-top: 6px;
+  margin-bottom: 18px;
+  list-style: disc;
+  position: relative;
+}
+
+/* UL largos (≥7 elementos) → 2 columnas */
+.modal ul:has(li:nth-child(7)) {
+  column-count: 2;
+  column-gap: 32px;
+}
+
+/* Línea vertical independiente del comportamiento de columnas */
+.modal ul:has(li:nth-child(7))::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 1px);
+  width: 1px;
+  background: #d0d7e1; /* borde institucional suave */
+  pointer-events: none;
+}
+
+/* Evitar que los bullet se corten entre columnas */
+.modal ul li {
+  break-inside: avoid-column;
+  margin-bottom: 6px;
+}
+
+/* En móvil → 1 columna sin línea */
+@media (max-width: 480px) {
+  .modal ul {
+    column-count: 1 !important;
+  }
+  .modal ul::before {
+    display: none !important;
+  }
+}
+/* ==========================================================
+   TOAST NOTIFICACIONES
+========================================================== */
+
+.toast{
+  position:fixed;
+  top:calc(env(safe-area-inset-top, 0px) + 100px);
+  right:16px;
+  min-width:220px;
+  max-width:420px;
+  padding:12px 16px;
+  border-radius:12px;
+  color:#0f3d83;
+  font-size:0.95rem;
+  font-weight:600;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  opacity:0;
+  transform:translateX(40px);
+  pointer-events:none;
+  box-shadow:0 4px 16px rgba(0,0,0,0.16);
+  transition:opacity .3s ease, transform .35s ease;
+  z-index:2000;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(0);
+  pointer-events:auto;
+}
+
+.toast-icon{
+  font-size:1.25rem;
+}
+
+/* ==========================================================
+   DISCLAIMER ROJO GLOBAL
+========================================================== */
+
+.disclaimer-red{
+  background:#fff7f7;
+  border-left:4px solid #d9534f;
+  border-radius:12px;
+  margin:16px auto;
+  padding:1rem;
+  max-width:1080px;
+  box-shadow:0 1px 4px rgba(217,83,79,0.05);
+}
+
+.disclaimer-red p{
+  color:#7d1a1a;
+  font-size:0.9rem;
+}
+
+/* ==========================================================
+   FOOTER GLOBAL
+========================================================== */
+
+footer{
+  width:100%;
+  margin:2rem 0 0;
+  padding:1.5rem 0;
+  border-top:1px solid #e5e7eb;
+  background:#ffffff;
+  text-align:center;
+  box-shadow:0 -2px 6px rgba(0,0,0,0.04);
+}
+
+footer img{
+  max-width:320px;
+  height:auto;
+  opacity:.95;
+}
+
+/* ==========================================================
+   BOTONES COPIAR / BORRAR ESTÁNDAR
+========================================================== */
+
+.actions{
+  display:none;
+  gap:10px;
+  margin:0;
+}
+
+.boton-opcion{
+  flex:1 1 20%;
+  border:none;
+  border-radius:10px;
+  padding:12px;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.boton-clear{
+  background:#fff;
+  color:var(--azul);
+  border:1px solid var(--azul-mid);
+}
+
+.boton-clear:hover{
+  background:var(--azul);
+  color:#fff;
+}
+
+.boton-copy{
+  background:#fff;
+  color:var(--azul);
+  border:1px solid var(--azul-mid);
+}
+
+.boton-copy:hover{
+  background:var(--azul);
+  color:#fff;
+}
+
+.boton-copy.copiado{
+  background:var(--azul) !important;
+  color:#fff !important;
+  border-color:var(--azul) !important;
+}
+ .boton-full {
+  width: 100%;
+}
+
+/* ==========================================================
+   ANIMACIONES
+========================================================== */
+
+.fade-in{
+  animation:fadeIn .25s ease-out;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(4px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+@keyframes fade{
+  from{opacity:0; transform:translateY(-4px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+/* ==========================================================
+   MEDIA QUERIES
+========================================================== */
+
+@media(max-width:768px){
+  header{font-size:1.05rem;}
+  body{font-size:0.96rem;}
+}
