@@ -1,0 +1,2782 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192"
+      href="../iconos/ictusgps.png">
+    <link rel="apple-touch-icon" sizes="180x180"
+      href="../iconos/ictusgps.png">
+    <link rel="shortcut icon" href="../iconos/ictusgps.png">
+    <meta name="theme-color" content="#0f3d83">
+    <title>Fibrilación Auricular</title>
+    <style>
+
+/* =========================================================
+   VARIABLES GLOBALES
+========================================================= */
+:root{
+  --bg:#f8fafc; 
+  --ink:#0e1a33;
+
+  --azul:#0f3d83;
+  --azul-institucional:#0f3d83;
+
+  --accent-dark:#0f3d83;
+  --accent-light:#2563eb;
+
+  --border:#e5e9f2;
+  --muted:#64748b;
+
+  --ok:#166534;
+  --ok-bg:#e9fce7;
+  --ok-ring:#bbf7d0;
+
+  --mid:#92400e;
+  --mid-bg:#fff7ed;
+  --mid-ring:#fed7aa;
+
+  --bad:#991b1b;
+  --bad-bg:#fef2f2;
+  --bad-ring:#fecaca;
+
+  --gris:#6b7280;
+  --borde:#e5e7eb;
+  --error:#b91c1c;
+}
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  padding:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family: Verdana, Geneva, Tahoma, sans-serif
+}
+.wrap{
+  max-width:1100px;
+  margin:0 auto;
+  padding:.2rem;
+}
+/* =========================================================
+   SAFE-TOP (FIJO 60 px + notch)
+========================================================= */
+.safe-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(env(safe-area-inset-top) + 60px);
+  background: var(--azul-institucional);
+  z-index: 1001;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-content{
+  width:100%;
+  max-width:1080px;
+  padding: 6px 16px 8px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+}
+
+.safe-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.safe-mini{
+  width:44px;
+  height:44px;
+  object-fit:contain;
+  padding:4px;
+  box-shadow:0 0 4px rgba(0,0,0,0.1);
+}
+
+.safe-logo{
+  height:44px;
+  width:auto;
+}
+
+.safe-actions{
+  display:flex;
+  gap:10px;
+}
+
+.safe-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:40px;
+  height:40px;
+  background:rgba(255,255,255,0.15);
+  border:1px solid white;
+  border-radius:50%;
+  transition:background .25s, border-color .25s, transform .1s;
+}
+
+.safe-btn:hover{
+  background:#01c5fe;
+}
+
+.safe-btn:active{
+  transform:scale(0.95);
+}
+
+.safe-icon{
+  width:32px; 
+  height:32px;
+  object-fit:contain;
+}
+
+/* =========================================================
+   CABECERA STICKY
+========================================================= */
+header{
+  position:sticky;
+  top:calc(env(safe-area-inset-top) + 52px);
+  z-index:1002;
+  backdrop-filter:blur(6px);
+  background:var(--azul-institucional);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  box-shadow:0 2px 6px rgba(0,0,0,0.08);
+  color:#fff;
+}
+
+.bar{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  height:52px;
+  padding:0 16px;
+}
+
+.title{
+  display:flex;
+  align-items:center;
+  font-size:1.4rem;
+  font-weight:700;
+  color:#fff;
+}
+
+.title img{
+  width:32px;
+  height:32px;
+  margin-right:8px;
+}
+/* =========================================================
+   TIPOGRAFÍA Y TARJETAS
+========================================================= */
+html,body,.wrap,.card,label,input,select,button,table,p,h1,h2,h3,li{
+  font-family:Verdana,Geneva,sans-serif!important;
+}
+
+.howto{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  box-shadow:0 2px 2px var(--muted);
+  padding:1rem;
+  margin:.3rem 0 1rem;
+  font-size:14px;
+}
+.card{
+  background:#eff6ff;
+  border-radius:14px;
+  border-left:4px solid var(--azul-institucional);
+  box-shadow:0 3px 14px rgba(16,71,119,.12);
+  padding:16px;
+  margin:12px 0;
+}
+
+.card-result{
+  background:#fff;
+  border-left:4px solid #10b981;
+  border-radius:14px;
+  box-shadow:0 3px 14px rgba(16,71,119,.12);
+  padding:16px;
+  margin:12px 0;
+}
+
+.grid{display:grid; gap:12px;}
+.g-2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+.g-3{grid-template-columns:repeat(auto-fit,minmax(40%,1fr));}
+/* Grid específico para los datos del paciente */
+@media (min-width: 900px){
+  .patient-grid{
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+label{font-weight:600;font-size:.92rem;color:#0f3f66;display:block;margin-bottom:6px;}
+label.row{font-weight:400;}
+.row{display:flex;gap:8px;align-items:center;margin:4px 0;}
+
+input[type="number"],select{
+  width:100%;
+  box-sizing:border-box;
+  border:1px solid #cfe3f6;
+  background:#fff;
+  border-radius:10px;
+  padding:10px 12px;
+  font-size:1rem;
+}
+
+small.hint{color:#345;opacity:.8;}
+
+.btnbar{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:8px;
+  align-items:center;
+}
+
+button{
+  border:0;
+  border-radius:999px;
+  padding:10px 16px;
+  font-weight:700;
+  cursor:pointer;
+  line-height:1;
+  flex:0 0 auto;
+}
+
+.primary{background:#0f3d83;color:#fff;}
+.primary:hover {background:#fff;color:#0f3d83;border:2px solid #0f3d83;}
+
+.ghost{background:#fff;color:#0f3d83;border:2px solid #0f3d83;}
+.ghost:hover {background:#0f3d83;color:#fff;border:2px solid #0f3d83;}
+
+/* =========================================================
+   TABLAS / PILLS / RESULTADOS
+========================================================= */
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;font-size:.95rem;}
+th,td{padding:6px;border-bottom:1px solid #e8f2fb;text-align:left;vertical-align:top;}
+thead th{background:#eef6ff;color:#0b4576;font-size:.9rem;}
+tfoot td{background:#f3f9ff;}
+
+.muted{color:#567;}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-weight:700;font-size:.8rem;}
+.ok{background:#e8f5e9;color:#1b5e20;}
+.okr{background:#ffcccc;color:#660000;}
+.okb{background:#0f3d83;color:#ffffff;}
+.bad{background:#ffebee;color:#b71c1c;}
+.note{font-size:.86rem;color:#456;}
+.center{text-align:center;}
+.subtle{color:#345;opacity:.85;}
+.subtle2{background:#fff5f5;color:#660000;opacity:.85;}
+.sticky-result{position:relative}
+.result-anchor{scroll-margin-top:120px}
+
+.sep{height:1px;background:#e7f0fb;margin:14px 0;}
+
+.inlineSelect{display:flex;gap:8px;}
+.unit{width:44%;}
+.val{flex:1;}
+/* Mejores opciones */
+    #comparative tbody tr.best td{background:#e8f5e9}
+    #comparative tbody tr.best td:first-child{border-left:4px solid var(--ok);font-weight:700}
+    /* Adecuación clínica */
+    .tagPref{background:#e8f5e9;color:#1b5e20;border:1px solid #b7dfbf}
+    .tagAvoid{background:#ffebee;color:#b71c1c;border:1px solid #f3c5c8}
+    .tagNeutral{background:#eef6ff;color:#0b4576;border:1px solid #cfe3f6}
+    .rec-list li{margin:4px 0}
+    .list-min{padding-left:16px;margin:0}
+    .doseTag{background:#fff4ce;color:#7a4e00;border:1px solid #ffe08a;padding:2px 8px;border-radius:999px;font-weight:700;font-size:.8rem}
+    .noOac{color:#b71c1c;font-weight:800}
+
+/* Columnas visibles */
+#comparative tbody td._zebra{background:#eef6ff;}
+@media (max-width:640px){
+  .col-rra,.col-rrs{display:none;}
+}
+
+
+
+
+/* Toast */
+.toast{
+  position:fixed;
+  top: calc(env(safe-area-inset-top) + 104px);
+  left:50%;
+  transform:translateX(-50%) translateY(-10px);
+  width:calc(100% - 32px);
+  max-width:680px;
+  text-align:center;
+  background:#b71c1c;
+  border-radius:5px;
+  color:#fff;
+  padding:10px;
+  box-shadow:0 6px 24px rgba(0,0,0,.18);
+  opacity:0;
+  pointer-events:none;
+  z-index:1003;
+  transition:opacity .25s,transform .25s;
+  font-weight:600;
+}
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}.toast.warn{background:#f57c00;}
+.toast.info{background:#1976d2;}
+
+/* CABECERA DEL GLOSARIO */
+.glosario-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+  padding:4px 0;
+}
+
+.arrow{
+  font-size:1.1rem;
+  transition:transform 0.25s ease;
+  color:#0f3d83;
+}
+
+/* CONTENIDO COLAPSABLE */
+.glosario-content{
+  max-height:0;
+  font-size:0.65rem;
+  overflow:hidden;
+  transition:max-height 0.35s ease, padding 0.3s ease;
+  padding-top:0;
+}
+.glosario-content.open{
+  padding-top:10px;
+}
+
+.glosario-grid{
+  list-style:none;
+  margin:0;
+  padding-left:0;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:6px 20px;
+}
+
+.glosario-grid li{
+  padding:2px 0;
+}
+
+/* En pantallas grandes → 2 columnas */
+@media(min-width:700px){
+  .glosario-grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+
+    .back-btn{display:inline-block;margin:1.5rem auto 0;background:#0f3d83;color:#fff;text-decoration:none;font-weight:700;padding:.7rem 1.4rem;border-radius:10px;box-shadow:0 4px 10px rgba(15,61,131,.25);transition:background .2s,transform .1s,box-shadow .2s}
+    .back-btn:hover{background:#1c60c3;transform:translateY(-1px);box-shadow:0 6px 12px rgba(15,61,131,.35)}
+
+.explain-btn{
+  margin-left:2px;
+  font-size:16px;
+  padding:4px 8px;
+  border-radius:999px;
+  border:1px solid #c7d7f2;
+  background:#eef5ff;
+  color:#0f3d83;
+  cursor:pointer;
+}
+.explain-btn:hover{
+  background:#e0edff;
+}
+
+/* Disclaimer renal */
+.renal-disclaimer{
+  background:#f8fbff;
+  border:1px solid #e3eef9;
+  border-left:4px solid #1976d2;
+  border-radius:12px;
+  padding:10px 12px;
+  margin:10px 0 0 0;
+}
+.renal-disclaimer b{color:#0b4576;}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+/* Pie */
+footer{
+  width:100%;
+  margin:2rem 0 0;
+  padding:1.5rem 0;
+  border-top:1px solid #e5e7eb;
+  background:#ffffff;
+  text-align:center;
+  box-shadow:0 -2px 6px rgba(0,0,0,0.04);
+}
+footer img{max-width:320px;height:auto;opacity:.95}
+
+
+/* =========================================================
+   MEDIA QUERIES
+========================================================= */
+@media(max-width:768px){
+  header{font-size:1.05rem;}
+  main{padding:0.9rem 1rem;}
+  body{font-size:0.96rem;}
+}
+
+/* =========================================================
+   PADDING SUPERIOR DEL CONTENIDO
+========================================================= */
+
+/* Empuja el contenido real por debajo de la barra superior */
+body {
+  margin: 0;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 52px);
+  background-color: #fff;
+}
+
+.chip-info{
+  margin-left:6px;
+  cursor:pointer;
+  font-weight:700;
+  color:#0f3d83;
+}
+
+.modal-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.35);
+  z-index:3000;
+  align-items:center;
+  justify-content:center;
+   
+}
+
+.modal{
+  background:#fff;
+  max-width:520px;
+  width:90%;
+  border-radius:12px;
+  padding:16px 18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+
+.modal-close{
+  float:right;
+  border:none;
+  background:none;
+  font-size:1.1rem;
+  cursor:pointer;
+}
+
+.modal-box{
+  background:#fff;
+  width:90%;
+  max-width:520px;
+  max-height:90vh;
+  display:flex;
+  flex-direction:column;
+  border-radius:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+/* Cabecera fija */
+.modal-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 16px;
+  border-bottom:1px solid #e5e7eb;
+}
+
+.modal-header h3{
+  margin:0;
+  font-size:16px;
+  color:#0f3d83;
+}
+
+.modal-header button{
+  border:none;
+  background:none;
+  cursor:pointer;
+  font-size:18px;
+}
+
+/* Contenido SCROLLABLE */
+.modal-body{
+  padding:16px;
+  font-size:13px;
+  line-height:1.55;
+  color:#1e293b;
+  overflow-y:auto;
+  flex:1;               /* 🔑 CLAVE */
+}
+
+#modal-explain-content::-webkit-scrollbar {
+  width: 6px;
+}
+#modal-explain-content::-webkit-scrollbar-thumb {
+  background: #c7d2fe;
+  border-radius: 4px;
+}
+
+
+/* ==========================================================
+   MODALES DE INTERACCIONES — ESTILO INSTITUCIONAL MEJORADO
+========================================================== */
+
+/* --- Animación suave al abrir el modal --- */
+.modal {
+  animation: modalFadeUp 0.28s ease-out;
+}
+
+@keyframes modalFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Títulos dentro del modal --- */
+.modal h4 {
+  margin-top: 8px;
+  margin-bottom: 4px;
+  font-size: 1rem;
+  color: var(--azul-dark);
+}
+
+/* ==========================================================
+   LISTAS EN COLUMNAS (solamente UL largos)
+========================================================== */
+
+/* UL normal */
+.modal ul {
+  padding-left: 20px;
+  margin-top: 6px;
+  margin-bottom: 18px;
+  list-style: disc;
+  position: relative;
+}
+
+/* UL largos (≥7 elementos) → 2 columnas */
+.modal ul:has(li:nth-child(7)) {
+  column-count: 2;
+  column-gap: 32px;
+}
+
+/* Línea vertical independiente del comportamiento de columnas */
+.modal ul:has(li:nth-child(7))::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 1px);
+  width: 1px;
+  background: #d0d7e1; /* borde institucional suave */
+  pointer-events: none;
+}
+
+/* Evitar que los bullet se corten entre columnas */
+.modal ul li {
+  break-inside: avoid-column;
+  margin-bottom: 6px;
+}
+
+/* En móvil → 1 columna sin línea */
+@media (max-width: 480px) {
+  .modal ul {
+    column-count: 1 !important;
+  }
+  .modal ul::before {
+    display: none !important;
+  }
+}
+/* ===== AISLAMIENTO MODAL EXPLICACIÓN IA ===== */
+
+#modal-explain,
+#modal-explain * {
+  box-sizing: border-box;
+}
+
+#modal-explain {
+  overflow: hidden !important;
+}
+
+#modal-explain-content {
+  overflow-y: auto !important;
+  max-height: 300px !important;
+}
+/* ========= MODAL EXPLICACIÓN (ROBUSTO) ========= */
+
+#modal-explain.modal-overlay{
+  display:none;              /* se abre con clase .show */
+  align-items:center;
+  justify-content:center;
+  padding: calc(env(safe-area-inset-top,0px) + 12px) 12px
+           calc(env(safe-area-inset-bottom,0px) + 12px);
+  z-index:9999;
+}
+
+#modal-explain.show{
+  display:flex;
+}
+
+.modal-box--explain{
+  width:min(560px, 92vw);
+  max-height: calc(100vh - (env(safe-area-inset-top,0px) + env(safe-area-inset-bottom,0px) + 24px));
+  display:flex;
+  flex-direction:column;
+}
+
+/* CLAVE para que el scroll funcione en flex */
+#modal-explain-content.modal-body{
+  overflow:auto;
+  flex:1 1 auto;
+  min-height:0;              /* 🔑 imprescindible */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Si la IA devuelve encabezados tipo ###, al menos que se vean bien */
+#modal-explain-content h4{
+  margin:10px 0 6px;
+  color:#0f3d83;
+}
+#modal-explain-content p{
+  margin:0 0 10px;
+}
+#modal-explain-content ul{
+  margin:6px 0 10px 18px;
+}
+
+</style>
+  </head>
+  <body>
+    <!-- SAFE-TOP -->
+    <div class="safe-top">
+      <div class="safe-content">
+        <div class="safe-left"> <img src="../iconos/utilidadesico.png"
+            class="safe-mini" alt=""> <img src="../img/topbar.png"
+            class="safe-logo" alt="IctusGPS"> </div>
+        <div class="safe-actions"> <a href="javascript:history.back()"
+            class="safe-btn"> <img
+              src="../iconos/atrastransparente.png" class="safe-icon"> </a>
+          <a href="../index.html" class="safe-btn"> <img
+              src="../iconos/hometransparente.png" class="safe-icon"> </a>
+        </div>
+      </div>
+    </div>
+    <!-- CABECERA -->
+    <header>
+      <div class="bar">
+        <div class="title"> <img src="../iconos/anticoagulacion.png"
+            alt=""> Fibrilación auricular </div>
+      </div>
+    </header>
+    <div class="wrap">
+      <div class="howto">
+        <p class="note" align="justify"><b>Cómo usar:</b> introduce los
+          datos del paciente, marca los <b>factores de riesgo</b>, las
+          <b>condiciones clínicas especiales</b> y las <b>interacciones
+            farmacológicas</b> y pulsa <span class="pill okb">Calcular</span>.
+          Calcula <b>CHA<sub>2</sub>DS<sub>2</sub>-VASc</b>, <b>CHA<sub>2</sub>DS<sub>2</sub>-VA</b>,
+          <b>HAS-BLED</b>, <b>ClCr (Cockcroft–Gault)</b> y muestra
+          comparativa de eficacia/seguridad. Aplica reglas de <span
+            class="pill ok">preferencia</span>🆚<span class="pill okr">evitación</span>
+          por escenarios clínicos y sugiere posología resaltando la <span
+            class="doseTag">dosis reducida</span> cuando proceda. </p>
+      </div>
+      <!-- Datos del paciente -->
+      <div class="card">
+        <h2 style="margin:0 0 8px;">👤Datos del paciente</h2>
+        <div class="grid g-2 patient-grid">
+          <div> <label for="age">Edad (años)</label> <input id="age"
+              inputmode="numeric" max="110" min="18" placeholder="p.
+              ej., 74" type="number"> </div>
+          <div> <label for="sex">Sexo</label>
+            <select id="sex">
+              <option value="" selected="selected">Selecciona…</option>
+              <option value="M">Varón</option>
+              <option value="F">Mujer</option>
+            </select>
+          </div>
+          <div> <label for="weight">Peso</label>
+            <div class="inlineSelect"> <input class="val" id="weight"
+                max="400" min="10" placeholder="p. ej., 84.5" step="0.1"
+                type="number">
+              <select class="unit" id="weightUnit">
+                <option value="kg" selected="selected">kg</option>
+                <option value="lb">lb</option>
+              </select>
+            </div>
+          </div>
+          <div> <label for="scr">Creatinina sérica</label>
+            <div class="inlineSelect"> <input class="val" id="scr"
+                max="15" min="0.1" placeholder="p. ej., 1.1" step="0.01"
+                type="number">
+              <select class="unit" id="scrUnit">
+                <option value="mgdl" selected="selected">mg/dL</option>
+                <option value="umol">µmol/L</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="sep"></div>
+        <div class="grid g-2">
+          <div> <label>CHA<sub>2</sub>DS<sub>2</sub>-VA/CHA<sub>2</sub>DS<sub>2</sub>-VASc</label>
+            <label class="row" for="cSc"><input id="cSc" type="checkbox">
+              Sexo femenino</label> <label class="row" for="cAge65"><input
+                id="cAge65" type="checkbox"> Edad 65–74 años</label> <label
+              class="row" for="cAge75"><input id="cAge75"
+                type="checkbox"> Edad≥75 años (2 pt)</label> <label
+              class="row" for="cCongest"><input id="cCongest"
+                type="checkbox"> Insuficiencia cardiaca/disfunción VI</label>
+            <label class="row" for="cStroke"><input id="cStroke"
+                type="checkbox"> Ictus/AIT/TE previo (2 pt)</label> <label
+              class="row" for="cHTN"><input id="cHTN" type="checkbox">
+              Hipertensión</label> <label class="row" for="cDiab"><input
+                id="cDiab" type="checkbox"> Diabetes</label> <label
+              class="row" for="cVasc"><input id="cVasc" type="checkbox">
+              Vascular (IAM, placa Ao, EAP)</label> </div>
+          <div> <label>HAS-BLED</label> <label class="row" for="hHTN"><input
+                id="hHTN" type="checkbox"> HTA (TAS&gt;160 mmHg)</label>
+            <label class="row" for="hRenal"><input id="hRenal"
+                title="Autorrelleno si SCr ≥2.26 mg/dL (~200 µmol/L) o
+                ClCr &lt;30 ml/min" type="checkbox"> Disfunción renal
+              (incluye trasplante)</label> <label class="row"
+              for="hLiver"><input id="hLiver" type="checkbox">
+              Disfunción hepática</label> <label class="row"
+              for="hStroke"><input id="hStroke" type="checkbox"> Ictus
+              previo</label> <label class="row" for="hBleed"><input
+                id="hBleed" type="checkbox"> Sangrado mayor/diátesis</label>
+            <label class="row" for="hLabileINR"><input id="hLabileINR"
+                type="checkbox"> INR lábil (si en VKA)</label> <label
+              class="row" for="hElder"><input id="hElder"
+                title="Autorrelleno si edad &gt;65 años" type="checkbox">
+              Edad&gt;65 años</label> <label class="row" for="hDrugs"><input
+                id="hDrugs" type="checkbox"> Fármacos (antiagregantes,
+              AINEs...)</label> <label class="row" for="hAlcohol"><input
+                id="hAlcohol" type="checkbox"> Alcohol</label> </div>
+        </div>
+        <div class="sep"></div>
+        <h3 style="margin:0 0 6px;">Condiciones clínicas especiales</h3>
+        <div class="grid g-2">
+          <div> <label class="row"><input id="condICHrisk"
+                type="checkbox"> Alto riesgo/antecedente de hemorragia
+              intracraneal</label> <label class="row"><input
+                id="condICHprev" type="checkbox"> Angiopatía amiloide
+              cerebral probable</label> <label class="row"><input
+                id="condGIbleed" type="checkbox"> Antecedente de
+              hemorragia digestiva severa</label> <label class="row"><input
+                id="condOncoGI" type="checkbox"> Neoplasia GI/GU activa</label>
+            <label class="row"><input id="condCirrhosis" type="checkbox">
+              Hepatopatía avanzada (Child-Pugh B–C)</label> <label
+              class="row"><input id="condNoOACabs" type="checkbox">
+              Riesgo hemorrágico inaceptable/contraindicación a
+              ACO</label> <label class="row"><input id="condLAAprog"
+                type="checkbox"> Disponibilidad de cierre de
+              orejuela (o derivación posible)</label> </div>
+          <div> <label class="row"><input id="condValvular"
+                type="checkbox"> Prótesis valvular mecánica o estenosis mitral significativa</label> <label class="row"><input
+                id="condDysphagia" type="checkbox">
+              Disfagia/administración por SNG</label> <label
+              class="row"><input id="condObesity" title="Autorrelleno si
+                peso &gt;120 kg (o IMC &gt;40, si disponible)"
+                type="checkbox"> Obesidad mórbida (IMC&gt;40 o &gt;120
+              kg)</label> <label class="row"><input id="condPolypharm"
+                type="checkbox"> Polimedicación/intolerancia a
+              interacciones</label><label class="row"><input
+                id="condPoorINR" type="checkbox"> Dificultad para
+              monitorizar INR/visitas</label> <label class="row"><input
+                id="condQD" type="checkbox"> Preferencia por dosis única
+              diaria</label></div>
+        </div>
+        <div class="sep"></div>
+        <h3 style="margin:0 0 6px;">Interacciones farmacológicas</h3>
+        <div class="grid g-2">
+          <div>
+            <!-- INHIBIDOR P-gp --> <label class="row"><span class="chip-info" data-info="inhpgp">ℹ️</span> <input
+                id="condPgp" type="checkbox"> <span> Inhibidor potente
+                de P-gp  </span>
+            </label>
+            <!-- INDUCTOR P-gp  <label class="row"> <span class="chip-info" data-info="dual">ℹ️</span><input
+                id="condPgInd" type="checkbox"> <span> Inductor potente
+                de P-gp  </span> </label> -->
+            <!-- INHIBIDOR CYP3A4 --> <label class="row"><span class="chip-info" data-info="inhcyp">ℹ️</span> <input
+                id="condCYPinh" type="checkbox"> <span> Inhibidor
+                potente de CYP3A4  </span></label>
+            <!-- INDUCTOR CYP3A4 --> <label class="row"><span class="chip-info" data-info="dual">ℹ️</span> <input
+                id="condCYPind" type="checkbox"> <span> Inductor
+                potente dual de P-gp y CYP3A4  </span> </label>
+          </div>
+        </div>
+        <br>
+        <div class="button"> <button type="button" class="primary"
+            id="btnCalc">Calcular</button> <button type="button"
+            class="primary" id="btnReset">Borrar</button> <span
+            aria-live="polite" role="status" class="muted" id="calcMsg"></span>
+        </div>
+      </div>
+      <!-- Resultados -->
+      <div class="card-result sticky-result result-anchor"
+        id="resultCard">
+        <h2 style="margin:0 0 8px;">📊Resultados</h2>
+        <div class="grid g-3">
+          <div>
+            <div><b>CHA<sub>2</sub>DS<sub>2</sub>-VA</b>: <span
+                class="pill ok" id="scoreVA">–</span></div>
+            <div><b>HAS-BLED</b>: <span class="pill ok"
+                id="scoreHASBLED">–</span></div>
+            <div class="muted"><small>CHA<sub>2</sub>DS<sub>2</sub>-VASc:
+
+                <span id="scoreVASc">–</span></small></div>
+            <div><b>ClCr:</b> <span id="crcl">–</span> ml/min</div>
+            <small> </small>
+            <div class="muted"><small>(SCr: <span id="scrConv">–</span>
+                mg/dL)</small></div>
+          </div>
+          <div>
+            <div><b>RI: <span class="pill okr"><span id="annualStroke">–</span>%</span></b>
+              <span class="muted"><small>⚠️ Riesgo anual de ictus en
+                  pacientes no anticoagulados</small></span></div>
+            <div><b>RS: <span class="pill okr"><span id="annualBleed">–</span>%</span></b>
+              <span class="muted"><small>⚠️ Riesgo anual de sangrado
+                  mayor en pacientes con FA y VKA</small></span></div>
+          </div>
+        </div>
+        <div class="sep"></div>
+        <h3 style="margin:0 0 6px;">Comparativa de estrategias</h3>
+        <table id="comparative">
+          <thead> <tr>
+              <th>Estrategia</th>
+              <th class="right">RI</th>
+              <th class="right">RRR</th>
+              <th class="right col-rra">RRA</th>
+              <th class="right">NNT</th>
+              <th class="right">RS</th>
+              <th class="right col-rrs">RRS</th>
+              <th class="right">NNH</th>
+              <th class="right">Adecuación clínica</th>
+            </tr>
+          </thead> <tbody>
+          </tbody> <tfoot> <tr>
+              <td class="subtle" colspan="9"><b>RI</b>=riesgo anual de
+                ictus; <b>RRR</b>=reducción relativa de riesgo; <b>RRA</b>=reducción
+
+                absoluta de riesgo;<b>NNT</b>=nº necesario a tratar; <b>RS</b>=riesgo
+
+                anual de sangrado mayor; <b>RRS</b>=riesgo relativo de
+                sangrado vs VKA; <b>NNH</b>=nº necesario para dañar.</td>
+            </tr>
+            <tr>
+              <td class="subtle2" colspan="9"><b>Nota:</b> coeficientes
+                orientativos; adapta a tus fuentes.</td>
+            </tr>
+          </tfoot>
+        </table>
+        <div class="sep"></div>
+        <h3 style="margin:0 0 6px;">Recomendaciones individualizadas</h3>
+        <ul id="recList" class="rec-list list-min">
+        </ul>
+        <div class="sep"></div>
+        <div id="doseSection">
+          <h3 style="margin:0 0 6px;">Posología sugerida según datos
+            introducidos</h3>
+          <ul id="doseList" class="rec-list list-min">
+          </ul>
+        </div>
+        <div class="btnbar"> <button type="button" class="ghost"
+            id="btnPrint" disabled="disabled">Imprimir informe</button>
+          <button type="button" class="ghost" id="btnCopy"
+            disabled="disabled">Copiar informe</button> <button
+            type="button" class="ghost" id="btnResetResults">Borrar</button>
+        </div>
+      </div>
+      <app-disclaimer data-target="#resultCard" data-position="after"
+        data-when="visible" data-version="1.0" data-context="FA no
+        valvular — Anticoagulación"> </app-disclaimer>
+      <!-- Toast -->
+      <div id="toast" class="toast" role="alert" aria-live="assertive"></div>
+
+<script src="../js/utils.js"></script>
+<script src="../js/clinical-core.js"></script>
+<script src="../js/dosing.js"></script>
+<script src="../js/engine.js"></script>
+
+
+
+
+      <script>
+    /* ===== Utilidades ===== */
+    const scrollToResult=()=>{const el=document.getElementById('resultCard');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});};
+
+
+
+    /* ===== Autorrelleno ===== */
+    function autoCheckByInputs(){
+      const age=clamp(parseFloat(document.getElementById('age').value)||0,0,150);
+      const sex=document.getElementById('sex').value;
+      const weightRaw=parseFloat(document.getElementById('weight').value);
+      const weight=isFinite(weightRaw)?clamp(weightRaw,10,400):NaN;
+      const wUnit=document.getElementById('weightUnit').value;
+      const kg=isFinite(weight)?((wUnit==='lb')?(weight/2.20462):weight):NaN;
+      const scrRaw=parseFloat(document.getElementById('scr').value);
+      const scr=isFinite(scrRaw)?clamp(scrRaw,0.1,15):NaN;
+      const scrUnit=document.getElementById('scrUnit').value;
+
+      document.getElementById('cSc').checked=(sex==='F');
+      document.getElementById('cAge75').checked=(age>=75);
+      document.getElementById('cAge65').checked=(age>=65&&age<=74);
+      document.getElementById('hElder').checked=(age>65);
+      document.getElementById('condObesity').checked=(isFinite(kg)&&kg>120);
+
+      const {crcl,scr_mgdl}=calcCrCl(age,sex,kg,'kg',scr,scrUnit);
+      const renalByScr=(isFinite(scr_mgdl)&&scr_mgdl>=2.26);
+      const renalByClCr=(isFinite(crcl)&&crcl<30);
+      document.getElementById('hRenal').checked=(renalByScr||renalByClCr);
+    }
+
+    /* ===== Validación ===== */
+    function checkAndFixContradictions(controlId){
+      const age=clamp(parseFloat(document.getElementById('age').value)||0,0,150);
+      const sex=document.getElementById('sex').value;
+      const weightRaw=parseFloat(document.getElementById('weight').value);
+      const weight=isFinite(weightRaw)?clamp(weightRaw,10,400):NaN;
+      const wUnit=document.getElementById('weightUnit').value;
+      const kg=isFinite(weight)?((wUnit==='lb')?(weight/2.20462):weight):NaN;
+      const scrRaw=parseFloat(document.getElementById('scr').value);
+      const scr=isFinite(scrRaw)?clamp(scrRaw,0.1,15):NaN;
+      const scrUnit=document.getElementById('scrUnit').value;
+      const {crcl,scr_mgdl}=calcCrCl(age,sex,kg,'kg',scr,scrUnit);
+      const el=id=>document.getElementById(id);
+
+      if(controlId==='condObesity'&&el('condObesity').checked&&!(isFinite(kg)&&kg>120)){
+        showToast('Obesidad mórbida: criterio habitual IMC >= 40 o peso > 120 kg. Con el peso actual, mantén marcada la casilla solo si el IMC es >= 40.','warn');return true;}
+      if(controlId==='cAge65'&&el('cAge65').checked&&!(age>=65&&age<=74)){el('cAge65').checked=false;showToast('Marca Edad 65–74 solo si la edad está entre 65 y 74 años.');return false;}
+      if(controlId==='cAge75'&&el('cAge75').checked&&!(age>=75)){el('cAge75').checked=false;showToast('Marca Edad >= 75 solo si la edad introducida es >= 75 años.');return false;}
+      if(controlId==='hElder'&&el('hElder').checked&&!(age>65)){el('hElder').checked=false;showToast('HAS-BLED: Edad > 65 requiere edad introducida > 65 años.');return false;}
+      if(controlId==='cSc'&&el('cSc').checked&&sex!=='F'){el('cSc').checked=false;showToast('Sexo femenino solo procede si el sexo seleccionado es Mujer.');return false;}
+      if(controlId==='hRenal'&&el('hRenal').checked&&!((isFinite(scr_mgdl)&&scr_mgdl>=2.26)||(isFinite(crcl)&&crcl<30))){
+        showToast('Revise disfunción renal: con los datos introducidos no se cumple HAS-BLED (SCr >= 2.26 mg/dL o ClCr < 30). Si trasplante/diálisis, mantenga marcado.','warn');return true;}
+      return true;
+    }
+    ['condObesity','cAge65','cAge75','hElder','hRenal','cSc'].forEach(id=>document.getElementById(id).addEventListener('change',()=>checkAndFixContradictions(id)));
+
+   /* ===== Reglas clínicas (incluye riñón y bloque ≥80) ===== */
+function buildClinicalRules(context){
+  const {crcl, age, special, weightKg, hasbled} = context;
+
+  const prefer = {
+    "VKA":        new Set(),
+    "Apixabán":   new Set(),
+    "Dabigatrán": new Set(),
+    "Edoxabán":   new Set(),
+    "Rivaroxabán":new Set()
+  };
+
+  const avoid = {
+    "VKA":        new Set(),
+    "Apixabán":   new Set(),
+    "Dabigatrán": new Set(),
+    "Edoxabán":   new Set(),
+    "Rivaroxabán":new Set()
+  };
+
+  const notes = [];
+
+  // Disfagia / SNG
+  if (special.dysphagia){
+    avoid.Dabigatrán.add("Disfagia/SNG (no abrir cápsula)");
+    prefer.Apixabán.add("Compatible triturado/SNG");
+    prefer.Rivaroxabán.add("Compatible triturado/SNG (>=15 mg con comida)");
+    prefer.VKA.add("Se puede triturar/SNG");
+    notes.push("Disfagia/SNG: evitar dabigatrán; apixabán, rivaroxabán o VKA son opciones.");
+  }
+
+  // Función renal
+  if (isFinite(crcl)){
+    if (crcl < 15){
+      prefer.VKA.add("ERC terminal (<15 mL/min) o diálisis");
+      avoid.Dabigatrán.add("ERC terminal");
+      avoid.Rivaroxabán.add("ERC terminal");
+      avoid.Edoxabán.add("ERC terminal");
+      avoid.Apixabán.add("No recomendado por EMA en ERC terminal/diálisis");
+      notes.push("ClCr <15 mL/min o diálisis: preferir VKA; evitar ACOD.");
+    } else if (crcl >= 15 && crcl < 30){
+      prefer.Apixabán.add("ERC 15–29 (baja excreción renal)");
+      avoid.Dabigatrán.add("ERC 15–29 (contraindicado si <30)");
+      notes.push("ClCr 15–29 mL/min: preferir apixabán; evitar dabigatrán; ajustar rivaroxabán/edoxabán.");
+    } else if (crcl > 95){
+      avoid.Edoxabán.add("Menor eficacia si ClCr >95 mL/min (FDA, Savaysa)");
+      notes.push("ClCr >95 mL/min: evitar edoxabán por menor eficacia relativa (FA no valvular).");
+    }
+  }
+
+  // GI, ICH, valvular, etc. (igual que ya tenías)
+  if (special.giBleed){
+    prefer.Apixabán.add("Mejor perfil GI");
+    avoid.Rivaroxabán.add("Más sangrado GI");
+    avoid.Dabigatrán.add("Más sangrado GI (150 mg)");
+    avoid.Edoxabán.add("Más sangrado GI");
+    notes.push("Antecedente de HDA severa: preferir apixabán.");
+  }
+
+  if (special.ichRisk){
+    prefer.Apixabán.add("Menor HIC vs VKA");
+    prefer.Edoxabán.add("Menor HIC vs VKA");
+    avoid.VKA.add("Más HIC vs ACOD");
+    notes.push("Alto riesgo de HIC: priorizar ACOD (apixabán/edoxabán).");
+  }
+
+  if (special.valvular){
+    prefer.VKA.add("Prótesis mecánica/EM reumática (indicación absoluta)");
+    avoid.Apixabán.add("No indicado");
+    avoid.Dabigatrán.add("No indicado");
+    avoid.Edoxabán.add("No indicado");
+    avoid.Rivaroxabán.add("No indicado");
+    notes.push("Prótesis mecánica/EM reumática significativa: VKA obligatorio.");
+  }
+
+  if (special.polypharm){
+    prefer.Apixabán.add("Menos interacciones globales");
+    prefer.Edoxabán.add("Menos interacciones globales");
+    avoid.VKA.add("Múltiples interacciones");
+    notes.push("Polimedicación: preferir apixabán/edoxabán.");
+  }
+
+  if (special.cirrhosis){
+    prefer.VKA.add("Hepatopatía avanzada");
+    avoid.Apixabán.add("Evitar Child C");
+    avoid.Dabigatrán.add("Evitar Child C");
+    avoid.Edoxabán.add("Evitar Child C");
+    avoid.Rivaroxabán.add("Evitar Child C");
+    notes.push("Hepatopatía avanzada: preferir VKA; evitar ACOD en Child C.");
+  }
+
+  const over120 = isFinite(weightKg) && weightKg > 120;
+  if (special.obesity || over120){
+    prefer.VKA.add("Obesidad mórbida");
+    avoid.Dabigatrán.add("Evidencia limitada");
+    avoid.Edoxabán.add("Evidencia limitada");
+    notes.push("Obesidad mórbida: preferir VKA; si ACOD, mejor apixabán/rivaroxabán.");
+  }
+
+  if (special.oncoGI){
+    prefer.VKA.add("Alternativa en tumor GI/GU activo");
+    avoid.Rivaroxabán.add("Mayor riesgo GI");
+    avoid.Dabigatrán.add("Mayor riesgo GI");
+    avoid.Edoxabán.add("Mayor riesgo GI");
+    prefer.Apixabán.add("Perfil GI favorable");
+    notes.push("Neoplasia GI/GU activa: preferible apixabán o VKA.");
+  }
+
+  // 🔶 BLOQUE ≥80 años (propuesta intermedia)
+  if (age >= 80){
+    // Apixabán preferido siempre
+    prefer.Apixabán.add("Mejor balance beneficio/riesgo en ≥80 años");
+
+    // Dabigatrán solo se desaconseja si hay otro factor de riesgo
+    const dabHighRisk =
+      special.giBleed ||
+      special.oncoGI ||
+      (hasbled >= 3) ||
+      (isFinite(crcl) && crcl >= 30 && crcl < 50);
+
+    if (dabHighRisk){
+      avoid.Dabigatrán.add(
+        "Evitar dabigatrán en ≥80 años con HDA/neoplasia GI, HAS-BLED alto o ClCr 30–50 mL/min"
+      );
+    }
+
+    notes.push(
+      "En ≥80 años suele preferirse apixabán; dabigatrán solo si no hay HDA/neoplasia GI, HAS-BLED alto ni ClCr 30–50 mL/min."
+    );
+  }
+
+  if (special.poorINR){
+    avoid.VKA.add("Difícil monitorización INR");
+    prefer.Apixabán.add("Sin INR rutinario");
+    prefer.Rivaroxabán.add("Sin INR rutinario");
+    prefer.Edoxabán.add("Sin INR rutinario");
+    prefer.Dabigatrán.add("Sin INR rutinario");
+    notes.push("Si no se puede monitorizar INR: preferir ACOD.");
+  }
+
+  if (special.qd){
+    prefer.Rivaroxabán.add("Posología QD");
+    prefer.Edoxabán.add("Posología QD");
+    notes.push("Preferencia por dosis única diaria: rivaroxabán o edoxabán.");
+  }
+
+  // Inductor potente de P-gp
+  if (special.pgpInd){
+    prefer.VKA.add("Inductor potente de P-gp (evitar infraexposición de ACOD)");
+    avoid.Dabigatrán.add("Altamente dependiente de P-gp → riesgo de infraexposición marcada");
+    avoid.Edoxabán.add("Inductor potente de P-gp → menor exposición y posible pérdida de eficacia");
+    notes.push(
+      "Inductor potente de P-gp: evitar dabigatrán y, siempre que sea posible, edoxabán; preferir VKA u otra alternativa no dependiente de P-gp."
+    );
+  }
+
+  // Inhibidor potente de P-gp
+  if (special.pgp){
+    if (isFinite(crcl) && crcl < 50){
+      avoid.Dabigatrán.add("Inhibidor potente de P-gp con ClCr <50 mL/min: evitar dabigatrán");
+      notes.push("Inhibidor potente de P-gp con ClCr <50 mL/min: evitar dabigatrán.");
+    }
+    notes.push(
+      "Inhibidor potente de P-gp: preferir ACOD menos dependientes de P-gp, como apixabán o rivaroxabán, o VKA en pacientes de alto riesgo."
+    );
+  }
+
+  // Inhibidor CYP3A4
+  if (special.cypInhib){
+    avoid.Apixabán.add("Inhibidor potente de CYP3A4 (riesgo de sobreexposición)");
+    avoid.Rivaroxabán.add("Inhibidor potente de CYP3A4 (riesgo de sobreexposición)");
+    prefer.Edoxabán.add("Metabolismo CYP3A4 mínimo → opción más segura");
+    prefer.Dabigatrán.add("No depende de CYP3A4");
+    notes.push(
+      "Inhibidor potente de CYP3A4: evitar rivaroxabán y usar precaución con apixabán; edoxabán y dabigatrán no se ven afectados por esta vía."
+    );
+  }
+
+/*
+  // Inductor CYP3A4
+  if (special.cypInduc){
+    avoid.Apixabán.add("Inductor potente de CYP3A4 (riesgo de infraexposición)");
+    avoid.Rivaroxabán.add("Inductor potente de CYP3A4 (riesgo de infraexposición)");
+    prefer.Edoxabán.add("Menor metabolismo CYP3A4 → opción más segura");
+    prefer.Dabigatrán.add("No depende de CYP3A4");
+    notes.push(
+      "Inductor potente de CYP3A4: evitar rivaroxabán y apixabán; edoxabán y dabigatrán son alternativas razonables (valorar VKA)."
+    );
+  }
+*/
+
+// 🔥 INHIBIDOR DUAL POTENTE (P-gp + CYP3A4)
+if (special.pgp && special.cypInhib) {
+
+  // Preferir VKA
+  prefer.VKA.add("Inhibidor dual potente (P-gp + CYP3A4)");
+
+  // Evitar TODOS los ACOD
+  avoid.Apixabán.add("Evitar con inhibidor dual potente");
+  avoid.Rivaroxabán.add("Evitar con inhibidor dual potente");
+  avoid.Dabigatrán.add("Evitar con inhibidor dual potente");
+  avoid.Edoxabán.add("Evitar con inhibidor dual potente");
+
+  // Nota clínica
+  notes.push(
+    "Inhibidor dual potente (P-gp + CYP3A4): interacción muy intensa. Evitar TODOS los ACOD y usar VKA."
+  );
+}
+
+// 🔥 INDUCTOR DUAL POTENTE (P-gp + CYP3A4)
+if (special.cypInduc) {
+
+  // Preferir VKA
+  prefer.VKA.add("Inductor dual potente (P-gp + CYP3A4)");
+
+  // Evitar TODOS los ACOD
+  avoid.Apixabán.add("Evitar con inductor dual potente");
+  avoid.Rivaroxabán.add("Evitar con inductor dual potente");
+  avoid.Dabigatrán.add("Evitar con inductor dual potente");
+  avoid.Edoxabán.add("Evitar con inductor dual potente");
+
+  // Nota clínica
+  notes.push(
+    "Inductor dual potente (P-gp + CYP3A4): riesgo extremo de infraexposición. Evitar TODOS los ACOD y usar VKA."
+  );
+}
+
+
+  return {prefer, avoid, notes};
+}
+
+
+
+
+    /* ===== Zebra por columnas ===== */
+    function applyColumnStriping(){
+      const rows=document.querySelectorAll('#comparative tbody tr');
+      rows.forEach(row=>{
+        const tds=Array.from(row.querySelectorAll('td'));
+        tds.forEach(td=>td.classList.remove('_zebra'));
+        const visible=tds.filter(td=>getComputedStyle(td).display!=='none');
+        visible.forEach((td,idx)=>{if(((idx+1)%2)===0)td.classList.add('_zebra');});
+      });
+    }
+    let _zebraTimer=null;window.addEventListener('resize',()=>{clearTimeout(_zebraTimer);_zebraTimer=setTimeout(applyColumnStriping,80);});
+    function summarizeForStrategy(name,prefSet,avoidSet){
+      const prefs=Array.from(prefSet[name]||[]),avoids=Array.from(avoidSet[name]||[]);
+      if(avoids.length>0)return{label:'Evitar',cls:'tagAvoid',tooltip:avoids.join(' · ')};
+      if(prefs.length>0)return{label:'Preferible',cls:'tagPref',tooltip:prefs.join(' · ')};
+      return{label:'—',cls:'tagNeutral',tooltip:'Sin condicionantes específicos'};
+    }
+
+    /* ===== Estado para informe ===== */
+    let __lastReport=null;
+
+    /* ===== Compute principal ===== */
+    function compute(){
+      autoCheckByInputs();
+
+      const age=clamp(parseFloat(document.getElementById('age').value)||0,18,110);
+      const sex=document.getElementById('sex').value;
+
+      const weightRaw=parseFloat(document.getElementById('weight').value);
+      const weight=isFinite(weightRaw)?clamp(weightRaw,10,400):NaN;
+      const wUnit=document.getElementById('weightUnit').value;
+
+      const scrRaw=parseFloat(document.getElementById('scr').value);
+      const scr=isFinite(scrRaw)?clamp(scrRaw,0.1,15):NaN;
+      const scrUnit=document.getElementById('scrUnit').value;
+
+      const flags={cCongest:document.getElementById('cCongest')?.checked||false,cHTN:document.getElementById('cHTN')?.checked||false,cAge75:document.getElementById('cAge75')?.checked||false,cDiab:document.getElementById('cDiab')?.checked||false,cStroke:document.getElementById('cStroke')?.checked||false,cVasc:document.getElementById('cVasc')?.checked||false,cAge65:document.getElementById('cAge65')?.checked||false,cSc:document.getElementById('cSc')?.checked||false,hHTN:document.getElementById('hHTN')?.checked||false,hRenal:document.getElementById('hRenal')?.checked||false,hLiver:document.getElementById('hLiver')?.checked||false,hStroke:document.getElementById('hStroke')?.checked||false,hBleed:document.getElementById('hBleed')?.checked||false,hLabileINR:document.getElementById('hLabileINR')?.checked||false,hElder:document.getElementById('hElder')?.checked||false,hDrugs:document.getElementById('hDrugs')?.checked||false,hAlcohol:document.getElementById('hAlcohol')?.checked||false};
+
+      const special = {
+  dysphagia:   document.getElementById('condDysphagia')?.checked || false,
+  giBleed:     document.getElementById('condGIbleed')?.checked   || false,
+  ichRisk:     document.getElementById('condICHrisk')?.checked   || false,
+  ichPrev:     document.getElementById('condICHprev')?.checked   || false,
+  valvular:    document.getElementById('condValvular')?.checked  || false,
+  oncoGI:      document.getElementById('condOncoGI')?.checked    || false,
+  polypharm:   document.getElementById('condPolypharm')?.checked || false,
+  cirrhosis:   document.getElementById('condCirrhosis')?.checked || false,
+  obesity:     document.getElementById('condObesity')?.checked   || false,
+  poorINR:     document.getElementById('condPoorINR')?.checked   || false,
+  qd:          document.getElementById('condQD')?.checked        || false,
+  pgp:         document.getElementById('condPgp')?.checked       || false,
+  noOACabs:    document.getElementById('condNoOACabs')?.checked  || false,
+  laaProg: document.getElementById('condLAAprog')?.checked || false,
+  pgpInd: document.getElementById('condPgInd')?.checked || false,   // ⬅️ NUEVO
+
+  // 🧬 NUEVOS FLAGS PARA CYP3A4
+  cypInhib:    document.getElementById('condCYPinh')?.checked    || false,
+  cypInduc:    document.getElementById('condCYPind')?.checked    || false
+};
+
+
+const core = computeCore({ age, sex, flags, special, weight, wUnit, scr, scrUnit });
+
+const {
+  vasc,
+  hasbled,
+  strokeBase,
+  bleedBase,
+  crcl,
+  scr_mgdl,
+  weightKg,
+  noOAC,
+  noOAC_byLowRisk,
+  noOAC_byHighBleed,
+  prefer,
+  avoid,
+  notes
+} = core;
+
+console.log('CORE:', core);
+console.log(
+  'IDs:',
+  !!document.getElementById('scoreVA'),
+  !!document.getElementById('scoreVASc'),
+  !!document.getElementById('annualStroke'),
+  !!document.getElementById('scoreHASBLED'),
+  !!document.getElementById('annualBleed'),
+  !!document.getElementById('crcl'),
+  !!document.getElementById('scrConv')
+);
+
+
+
+      // Tabla comparativa
+      const TOL_REL=0.03,TOL_ABS=0.005;
+      function withinTolerance(score,best,tolRel=TOL_REL,tolAbs=TOL_ABS){if(!isFinite(score)||!isFinite(best))return false;const relOk=best>0?(best-score)<=best*tolRel:false;const absOk=Math.abs(best-score)<=tolAbs;return relOk||absOk;}
+      const tbody=document.querySelector('#comparative tbody');tbody.innerHTML='';
+      const rows=[];let bestScore=-Infinity;
+      STRATS.forEach(name=>{
+        const rrStroke=RR_Stroke[name], rrBleed_vsVKA=RR_Bleed_vs_VKA[name];
+        const riskStroke=strokeBase*rrStroke, rrr=(1-rrStroke)*100, arr=strokeBase-riskStroke;
+        const bleedPct=(name==='VKA')?bleedBase:(bleedBase*rrBleed_vsVKA);
+        const score=(arr>0&&bleedPct>0)?(arr/bleedPct):-Infinity;
+let adequacy;
+
+if (noOAC) {
+    if (name === "No ACO") {
+        // NO ACO es la estrategia recomendada → Preferible
+        adequacy = {
+            label: "Preferible",
+            cls: "tagPref",
+            tooltip: "Recomendado en este caso (bajo riesgo embólico o contraindicación absoluta)"
+        };
+    } else {
+        // Todas las opciones anticoagulantes → Evitar
+        adequacy = {
+            label: "Evitar",
+            cls: "tagAvoid",
+            tooltip: "Contraindicado o riesgo hemorrágico inaceptable"
+        };
+    }
+} else {
+    // Comportamiento habitual
+    adequacy = summarizeForStrategy(name, prefer, avoid);
+}
+        const tip=escAttr(decodeEntities(adequacy.tooltip||''));
+        const tr=document.createElement('tr');
+        tr.innerHTML=`<td><b>${name}</b></td>
+          <td class="right">${fmt(riskStroke,1)}</td>
+          <td class="right">${fmt(rrr,0)}</td>
+          <td class="right col-rra">${fmt(arr,1)}</td>
+          <td class="right">${isFinite(arr)&&arr>0?oneIn(arr):NDASH}</td>
+          <td class="right">${fmt(bleedPct,1)}</td>
+          <td class="right col-rrs">${fmt(rrBleed_vsVKA,2)}</td>
+          <td class="right">${isFinite(bleedPct)&&bleedPct>0?oneIn(bleedPct):NDASH}</td>
+          <td class="right"><span class="pill ${adequacy.cls}" title="${tip}">${adequacy.label}</span></td>`;
+        tbody.appendChild(tr); rows.push({tr,score}); if(score>bestScore)bestScore=score;
+      });
+      if (noOAC) {
+    // Fuerza No ACO como la fila "best"
+    rows.forEach(({tr}) => {
+        if (tr.querySelector("td b")?.textContent === "No ACO") {
+            tr.classList.add("best");
+        } else {
+            tr.classList.remove("best");
+        }
+    });
+} else {
+    rows.forEach(({tr, score}) => {
+        if (withinTolerance(score, bestScore)) tr.classList.add('best');
+    });
+}
+
+      applyColumnStriping();
+
+// =======================================================
+// RECOMENDACIONES INDIVIDUALIZADAS
+// =======================================================
+const recList = document.getElementById('recList');
+const doseSection = document.getElementById('doseSection');
+recList.innerHTML = '';
+let preferredGlobal = [], avoidedGlobal = [], dosesForReport = [];
+
+// -------------------------------------------
+// CASO 1: NO ACO por bajo riesgo embólico
+// -------------------------------------------
+if (noOAC_byLowRisk && !special.valvular) {
+    const li = document.createElement('li');
+    li.innerHTML =
+      '<span class="noOac">NO se recomienda anticoagulación oral por bajo riesgo embólico.</span>';
+    recList.appendChild(li);
+
+    doseSection.style.display = 'none';
+}
+
+// -------------------------------------------
+// CASO 2: NO ACO por riesgo hemorrágico inaceptable
+// -------------------------------------------
+else if (noOAC_byHighBleed && !special.valvular) {
+    const li = document.createElement('li');
+    li.innerHTML =
+      '<span class="noOac">NO se recomienda anticoagulación oral por riesgo hemorrágico inaceptable o contraindicación absoluta.</span>';
+    recList.appendChild(li);
+
+    // OFRECER CIERRE DE OREJUELA SI DISPONIBLE
+    if (special.laaProg === true) {
+        const li2 = document.createElement('li');
+        li2.innerHTML =
+          '<b>Considerar cierre percutáneo de orejuela</b> como estrategia alternativa de prevención cardioembólica.';
+        recList.appendChild(li2);
+    }
+
+    doseSection.style.display = 'none';
+}
+
+// -------------------------------------------
+// CASO 3: Anticoagulación indicada → lista completa con reglas
+// -------------------------------------------
+else {
+    // Añadir notas clínicas
+    notes.forEach(t => {
+        const li = document.createElement('li');
+        li.textContent = decodeEntities(t);
+        recList.appendChild(li);
+    });
+
+    // Preferidos y evitados
+    ["VKA","Apixabán","Dabigatrán","Edoxabán","Rivaroxabán"].forEach(n => {
+        if ((avoid[n] || new Set()).size > 0) avoidedGlobal.push(n);
+        else if ((prefer[n] || new Set()).size > 0) preferredGlobal.push(n);
+    });
+
+    if (preferredGlobal.length) {
+        const li = document.createElement('li');
+        li.innerHTML = "<b>Estrategias preferibles:</b> " + preferredGlobal.join(", ");
+        recList.appendChild(li);
+    }
+
+if (avoidedGlobal.length) {
+  const li = document.createElement('li');
+
+  const items = avoidedGlobal.map(drug =>
+    `${drug}
+     <button type="button"
+             class="explain-btn"
+             data-drug="${drug}">
+       🗣️
+     </button>`
+  ).join(", ");
+
+  li.innerHTML = "<b>Estrategias a evitar:</b> " + items;
+  recList.appendChild(li);
+}
+
+
+    // Mostrar posología
+    doseSection.style.display = '';
+    const doseList = document.getElementById('doseList');
+    doseList.innerHTML = '';
+    dosesForReport = doseSuggestions({age,crcl,hasbled,weightKg,scr_mgdl,special}, avoid);
+
+    if (dosesForReport.length === 0) {
+        const li = document.createElement('li');
+        li.innerHTML =
+          '<span class="muted">No se muestran posologías porque todas las opciones están marcadas como “Evitar”.</span>';
+        doseList.appendChild(li);
+    } else {
+        dosesForReport.forEach(d => {
+            const li = document.createElement('li');
+            const tag = d.highlight
+              ? `<span class="doseTag">Dosis reducida</span>`
+              : '';
+            li.innerHTML =
+              `<b>${d.name}:</b> ${d.dose} ${tag} <span class="muted">— ${d.why}</span>`;
+            doseList.appendChild(li);
+        });
+    }
+}
+
+
+__lastReport = buildLastReport({
+  age, sex, weight, wUnit, scr, scrUnit,
+  weightKg,
+  crcl, scr_mgdl,
+  vasc, hasbled,
+  strokeBase, bleedBase,
+  noOAC, noOAC_byLowRisk, noOAC_byHighBleed,
+  special,
+  preferredGlobal, avoidedGlobal,
+  notes,
+  dosesForReport
+});
+
+window.__lastReport = __lastReport;
+
+
+      document.getElementById('btnPrint').disabled=false;
+      document.getElementById('btnCopy').disabled=false;
+    }
+function buildClinicalPrompt({ drug, context }) {
+
+  const sexTxt = context.sex === 'F' ? 'Mujer' : 'Varón';
+
+  const condiciones = [];
+  if (context.special.giBleed) condiciones.push("Antecedente de hemorragia digestiva");
+  if (context.special.ichRisk) condiciones.push("Alto riesgo de hemorragia intracraneal");
+  if (context.special.valvular) condiciones.push("Cardiopatía valvular significativa");
+  if (context.special.obesity) condiciones.push("Obesidad mórbida");
+  if (context.hasbled >= 3) condiciones.push("HAS-BLED elevado");
+  if (context.age >= 80) condiciones.push("Edad ≥ 80 años");
+
+  const interacciones = [];
+  if (context.special.pgp) interacciones.push("Inhibidor potente de P-gp");
+  if (context.special.pgpInd) interacciones.push("Inductor potente de P-gp");
+  if (context.special.cypInhib) interacciones.push("Inhibidor potente de CYP3A4");
+  if (context.special.cypInduc) interacciones.push("Inductor potente de CYP3A4");
+
+  return `
+Eres un médico especialista en Neurología Vascular y Farmacología Clínica.
+
+Analiza el siguiente caso clínico y explica, en lenguaje médico claro y conciso,
+por qué un anticoagulante oral directo ha sido marcado como “a evitar”.
+
+No inventes datos que no estén presentes.
+
+CASO:
+- Edad: ${context.age} años
+- Sexo: ${sexTxt}
+- ClCr (Cockcroft-Gault): ${context.crcl ?? '—'} ml/min
+- Creatinina sérica: ${context.scr_mgdl ?? '—'} mg/dL
+- Peso: ${context.weightKg ?? '—'} kg
+- CHA₂DS₂-VASc: ${context.vasc}
+- HAS-BLED: ${context.hasbled}
+
+Condiciones clínicas relevantes:
+${condiciones.length ? condiciones.join(', ') : 'Ninguna destacable'}
+
+Interacciones farmacológicas presentes:
+${interacciones.length ? interacciones.join(', ') : 'Ninguna relevante'}
+
+Anticoagulante evaluado:
+- Fármaco: ${drug}
+- Clasificación: EVITAR
+
+Explica de forma estructurada:
+1) El mecanismo principal que justifica evitar este fármaco
+2) El riesgo clínico esperado si se utilizara
+3) Por qué otras alternativas pueden ser más seguras en este contexto
+`.trim();
+}
+
+
+function printReport(){
+
+  if(!__lastReport){
+    showToast('Primero calcule los resultados para generar el informe.','warn');
+    return;
+  }
+
+  const r = __lastReport;
+
+  const fmt = v => (v===null||v===undefined||!isFinite(v) ? "—" : v);
+  const sexTxt = r.inputs.sex === 'M' ? 'Varón' : (r.inputs.sex === 'F' ? 'Mujer' : '—');
+  const fecha = (new Date(r.ts)).toLocaleString('es-ES');
+
+  /* ===============================  
+      MOTIVO DE NO ANTICOAGULAR
+  =============================== */
+
+  let noAcoHTML = "";
+
+  if (r.noOAC) {
+
+    if (r.noOAC_byLowRisk) {
+      noAcoHTML += `
+      <p style="color:#b71c1c;font-weight:800">
+      NO SE RECOMIENDA TRATAMIENTO ANTICOAGULANTE</p>
+      <p>Motivo: <b>bajo riesgo embólico</b>.</p>`;
+    }
+
+    if (r.noOAC_byHighBleed) {
+      noAcoHTML += `
+      <p style="color:#b71c1c;font-weight:800">
+      NO SE RECOMIENDA TRATAMIENTO ANTICOAGULANTE</p>
+      <p>Motivo: <b>riesgo hemorrágico inaceptable / contraindicación absoluta</b>.</p>
+      <p><b>Considerar cierre percutáneo de orejuela</b>
+      como alternativa de prevención cardioembólica.</p>`;
+    }
+  }
+
+  /* ===============================  
+      POSOLOGÍA
+  =============================== */
+
+  let doseHTML = "";
+
+  if (!r.noOAC && r.doses && r.doses.length) {
+    doseHTML = "<h3>Posología sugerida</h3><ul>";
+    r.doses.forEach(d=>{
+      doseHTML += `<li><b>${d.name}:</b> ${d.dose}` +
+      (d.highlight ? 
+        ' <span style="background:#fff4ce;border:1px solid #ffe08a;border-radius:999px;padding:2px 8px;font-weight:700">Dosis reducida</span>' 
+        : '') +
+      ` — <span style="color:#666">${d.why}</span></li>`;
+    });
+    doseHTML += "</ul>";
+  }
+
+  /* ===============================  
+      RECOMENDACIONES
+  =============================== */
+
+  let recHTML = "";
+
+  if (r.noOAC) {
+    recHTML = noAcoHTML;
+  } else {
+
+    if (r.notes.length) {
+      recHTML += "<h3>Recomendaciones individualizadas</h3><ul>";
+      r.notes.forEach(n => { recHTML += `<li>${n}</li>`; });
+      recHTML += "</ul>";
+    }
+
+    if (r.preferredGlobal.length) {
+      recHTML += `<p><b>Estrategias preferibles:</b> ${r.preferredGlobal.join(', ')}</p>`;
+    }
+
+    if (r.avoidedGlobal.length) {
+      recHTML += `<p><b>Estrategias a evitar:</b> ${r.avoidedGlobal.join(', ')}</p>`;
+    }
+  }
+
+  /* ===============================  
+      CREAR HTML DEL INFORME
+  =============================== */
+
+  const html = `
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Informe — Selección de anticoagulante oral</title>
+<style>
+  body{font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;margin:24px;color:#111;}
+  h1{font-size:1.3rem;}
+  h2{font-size:1.1rem;margin-top:20px;}
+  h3{font-size:1rem;margin-top:12px;}
+  table{border-collapse:collapse;font-size:0.92rem;}
+  td{padding:4px 8px;}
+  .card{background:#f8fbff;border:1px solid #e3eef9;border-radius:10px;padding:14px;margin-top:16px;}
+  .chip{display:inline-block;background:#eef6ff;border:1px solid #cfe3f6;border-radius:12px;padding:2px 8px;font-weight:700;}
+</style>
+</head>
+<body>
+
+<h1>Informe — Selección de anticoagulante oral</h1>
+<div style="color:#666;margin-bottom:12px;">Generado: ${fecha}</div>
+
+<div class="card">
+  <h2>Datos y puntuaciones</h2>
+  <table>
+    <tr><td><b>Edad</b></td><td>${fmt(r.inputs.age)} años</td></tr>
+    <tr><td><b>Sexo</b></td><td>${sexTxt}</td></tr>
+    <tr><td><b>Peso</b></td><td>${fmt(r.inputs.weight)} ${r.inputs.weightUnit}</td></tr>
+    <tr><td><b>SCr</b></td><td>${fmt(r.inputs.scr)} ${r.inputs.scrUnit}</td></tr>
+    <tr><td><b>SCr (mg/dL)</b></td><td>${fmt(r.renal.scr_mgdl)}</td></tr>
+    <tr><td><b>ClCr</b></td><td>${fmt(r.renal.crcl)} ml/min</td></tr>
+    <tr><td><b>CHA₂DS₂-VA</b></td><td class="chip">${r.scores.va}</td></tr>
+    <tr><td><b>CHA₂DS₂-VASc</b></td><td class="chip">${r.scores.vasc}</td></tr>
+    <tr><td><b>HAS-BLED</b></td><td class="chip">${r.scores.hasbled}</td></tr>
+    <tr><td><b>Riesgo ictus sin tto</b></td><td>${r.risks.strokeBase} %/año</td></tr>
+    <tr><td><b>Riesgo sangrado base</b></td><td>${r.risks.bleedBase} %/año</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h2>Conclusión</h2>
+  ${recHTML}
+  ${doseHTML}
+  <p style="margin-top:20px;font-size:.85rem;color:#666;">
+    Documento generado automáticamente. Interpretar junto con el juicio clínico y las guías locales.
+  </p>
+</div>
+
+<script>
+window.addEventListener('load',()=>{setTimeout(()=>{window.print();},150);});
+<\/script>
+
+</body>
+</html>
+`;
+
+  const w = window.open('', '_blank');
+  if(!w){
+    showToast("El navegador bloqueó la impresión","warn");
+    return;
+  }
+
+  w.document.open();
+  w.document.write(html);
+  w.document.close();
+}
+
+
+
+ /* =========================================================
+   INFORME EN TEXTO (copiar)
+========================================================= */
+function copyReport(){
+  if(!__lastReport){
+    showToast('Primero calcule los resultados para generar el informe.','warn');
+    return;
+  }
+
+  const r = __lastReport;
+
+  const clean = s => String(s)
+    .replace(/•/g,'*')
+    .replace(/[—–]/g,'-')
+    .replace(/≥/g,'>=')
+    .replace(/≤/g,'<=');
+
+  const sexTxt = 
+    r.inputs.sex === 'M'
+      ? 'Varón'
+      : (r.inputs.sex === 'F' ? 'Mujer' : '-');
+
+  const fecha = new Date(r.ts).toLocaleString('es-ES');
+
+  const lines = [];
+  lines.push('INFORME — Selección de anticoagulante oral');
+  lines.push('Generado: ' + fecha);
+  lines.push('');
+
+  /* === DATOS === */
+  lines.push('DATOS Y PUNTUACIONES');
+  lines.push('* Edad: ' + (r.inputs.age ?? '-') + ' años');
+  lines.push('* Sexo: ' + sexTxt);
+  lines.push('* Peso: ' + (r.inputs.weight != null ? r.inputs.weight + ' ' + r.inputs.weightUnit : '-'));
+  lines.push('* SCr: ' + (r.inputs.scr != null ? r.inputs.scr + ' ' + r.inputs.scrUnit : '-') +
+             ' | ClCr: ' + (r.renal.crcl ?? '-') + ' ml/min');
+
+  lines.push('* CHA2DS2-VA: ' + r.scores.va +
+             ' | CHA2DS2-VASc: ' + r.scores.vasc +
+             ' | HAS-BLED: ' + r.scores.hasbled);
+
+  lines.push('* Riesgo ictus sin tto: ' + r.risks.strokeBase + '%/año' +
+             ' | Riesgo sangrado base: ' + r.risks.bleedBase + '%/año');
+
+  lines.push('');
+
+  /* === CONCLUSIÓN === */
+  lines.push('CONCLUSIÓN');
+
+  if(r.noOAC){
+    lines.push('NO SE RECOMIENDA TRATAMIENTO ANTICOAGULANTE');
+
+    if(!r.noOAC_byLowRisk && r.noOAC_byHighBleed && !r.special.valvular){
+      lines.push('Considerar cierre percutáneo de orejuela.');
+    }
+
+  } else {
+    if(r.notes.length){
+      lines.push('Recomendaciones individualizadas:');
+      r.notes.forEach(n => lines.push('* ' + clean(n)));
+    }
+
+    if(r.preferredGlobal.length){
+      lines.push('Estrategias preferibles: ' + r.preferredGlobal.join(', '));
+    }
+
+    if(r.avoidedGlobal.length){
+      lines.push('Estrategias a evitar: ' + r.avoidedGlobal.join(', '));
+    }
+
+    /* Posología */
+    if(r.doses && r.doses.length){
+      lines.push('');
+      lines.push('Posología sugerida:');
+      r.doses.forEach(d=>{
+        lines.push('* ' + d.name + ': ' + d.dose +
+                   (d.highlight ? ' [Dosis reducida]' : '') +
+                   ' — ' + clean(d.why));
+      });
+    }
+  }
+
+  const finalText = lines.join('\n');
+
+  /* === Copiar al portapapeles === */
+  navigator.clipboard.writeText(finalText).then(()=>{
+    const btn = document.getElementById('btnCopy');
+    const old = btn.textContent;
+    btn.textContent = 'Copiado';
+    setTimeout(()=>{ btn.textContent = old; }, 1600);
+  })
+  .catch(()=>{
+    /* Fallback clásico */
+    const ta = document.createElement('textarea');
+    ta.value = finalText;
+    ta.style.position = 'fixed';
+    ta.style.left = '-1000px';
+    document.body.appendChild(ta);
+    ta.select();
+    try{ document.execCommand('copy'); } finally { document.body.removeChild(ta); }
+
+    const btn = document.getElementById('btnCopy');
+    const old = btn.textContent;
+    btn.textContent = 'Copiado';
+    setTimeout(()=>{ btn.textContent = old; }, 1600);
+  });
+}
+
+
+    /* ===== Eventos ===== */
+    ['age','sex','weight','weightUnit','scr','scrUnit'].forEach(id=>{
+      const el=document.getElementById(id);
+      el.addEventListener('input',autoCheckByInputs);
+      el.addEventListener('change',autoCheckByInputs);
+    });
+
+    document.getElementById('btnCalc').addEventListener('click',e=>{
+      e.preventDefault(); compute(); document.getElementById('calcMsg'); scrollToResult();
+    });
+    document.getElementById('btnReset').addEventListener('click',e=>{
+      e.preventDefault();
+      ['age','sex','weight','weightUnit','scr','scrUnit'].forEach(id=>{const el=document.getElementById(id); if(el.tagName==='SELECT'){el.selectedIndex=0;} else el.value='';});
+      document.querySelectorAll('input[type="checkbox"]').forEach(cb=>cb.checked=false);
+      ['scoreVA','scoreVASc','annualStroke','scoreHASBLED','annualBleed','crcl','scrConv'].forEach(id=>{document.getElementById(id).textContent=NDASH;});
+      document.querySelector('#comparative tbody').innerHTML='';
+      document.getElementById('recList').innerHTML='';
+      document.getElementById('doseList').innerHTML='';
+      document.getElementById('doseSection').style.display='';
+      document.getElementById('calcMsg');
+      document.getElementById('btnPrint').disabled=true;
+      document.getElementById('btnCopy').disabled=true;
+      
+
+      __lastReport=null;
+      window.scrollTo({top:0,behavior:'smooth'}); applyColumnStriping();
+    });
+    document.getElementById('btnPrint').addEventListener('click', (e)=>{ e.preventDefault(); printReport(); });
+    document.getElementById('btnCopy').addEventListener('click', (e)=>{ e.preventDefault(); copyReport(); });
+    document.getElementById('btnResetResults').addEventListener('click', (e) => {
+  e.preventDefault();
+  document.getElementById('btnReset').click();
+});
+
+    window.addEventListener('DOMContentLoaded', autoCheckByInputs);
+
+/* ==========================================================
+   IA – Explicación clínica contextual
+========================================================== */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  function openExplainModal(text){
+    const modal = document.getElementById('modal-explain');
+    const content = document.getElementById('modal-explain-content');
+    if(!modal || !content) return;
+    content.textContent = text;
+    modal.style.display = 'flex';
+  }
+
+  function closeExplainModal(){
+    const modal = document.getElementById('modal-explain');
+    if(modal) modal.style.display = 'none';
+  }
+
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.explain-btn');
+    if (!btn) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    const drug = btn.dataset.drug || '';
+    const r = window.__lastReport;
+    if (!r) {
+      openExplainModal('No hay contexto clínico disponible. Pulse “Calcular” para generar resultados.');
+      return;
+    }
+
+    const text = explainAvoid(drug, {
+      hasbled: r.scores?.hasbled,
+      special: r.special || {}
+    });
+
+    openExplainModal(text);
+  });
+
+  const closeBtn = document.getElementById('modal-explain-close');
+  if (closeBtn) closeBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeExplainModal();
+  });
+
+  const modal = document.getElementById('modal-explain');
+  if (modal) modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeExplainModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeExplainModal();
+  });
+
+});
+
+
+    </script>
+<script>
+
+/* ==========================================================
+   LISTAS PARA LOS MODALES DE INTERACCIONES
+========================================================== */
+
+const infoInteracciones = {
+
+
+/* ==========================================================
+   Inhibidor potente de P-gp
+========================================================== */
+
+  inhpgp: {
+    titulo: "Inhibidores potentes de P-gp",
+    html: `
+      <p>
+        Fármacos que inhiben de forma <b>potente y clínicamente relevante</b> la glicoproteína P (P-gp).
+      </p>
+
+      <ul>
+        <li>🎯Dronedarona</li>
+        <li>🎯Quinidina</li>
+        <li>🎯Ciclosporina</li>
+        <li>☯️Ketoconazol</li>
+        <li>☯️Itraconazol</li>
+        <li>☯️Posaconazol</li>
+        <li>☯️Voriconazol</li>
+        <li>☯️Ritonavir</li>
+        <li>☯️Cobicistat</li>
+        <li>☯️Atazanavir</li>
+        <li>☯️Darunavir</li>
+        <li>☯️Nelfinavir</li>
+        <li>☯️Saquinavir</li>
+        <li>☯️Claritromicina</li>
+        <li>☯️Eritromicina</li>
+</ul>
+<hr>
+      <p>🎯Selectivo 🔹🔹🔹 ☯️Dual</p>
+    `
+  },
+
+  inhcyp: {
+    titulo: "Inhibidores potentes de CYP3A4",
+    html: `
+      <p>
+        Fármacos que inhiben de forma <b>potente</b> el metabolismo mediado por CYP3A4.
+      </p>
+
+      <ul>
+        <li>🎯Fluconazol</li>
+        <li>🎯Nefazodona</li>
+        <li>☯️Ketoconazol</li>
+        <li>☯️Itraconazol</li>
+        <li>☯️Posaconazol</li>
+        <li>☯️Voriconazol</li>
+        <li>☯️Ritonavir</li>
+        <li>☯️Cobicistat</li>
+        <li>☯️Atazanavir</li>
+        <li>☯️Darunavir</li>
+        <li>☯️Nelfinavir</li>
+        <li>☯️Saquinavir</li>
+        <li>☯️Claritromicina</li>
+        <li>☯️Eritromicina</li>
+</ul>
+<hr>
+      <p>🎯Selectivo 🔹🔹🔹 ☯️Dual</p>
+    `
+  },
+
+  dual: {
+    titulo: "Inductores duales",
+    html: `
+      <p>
+        Fármacos que <b>inducen simultáneamente CYP3A4 y la glicoproteína P (P-gp)</b>,
+        produciendo alteraciones farmacocinéticas <b>clínicamente relevantes</b> de los ACOD.
+      </p>
+      <h4>🔵 Inductores duales</h4>
+      <ul>
+        <li>☯️Rifampicina</li>
+        <li>☯️Rifabutina</li>
+        <li>☯️Carbamazepina</li>
+        <li>☯️Fenitoína</li>
+        <li>☯️Fenobarbital</li>
+        <li>☯️Primidona</li>
+        <li>☯️Hierba de San Juan</li>
+      </ul>
+<hr>
+      <p>☯️Dual</p>
+    `
+  },
+
+};  /* ✅ CIERRE REAL DEL OBJETO */
+
+/* ===== Lógica del modal (puede ir aquí o en otro script) ===== */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  // ===== Abrir (delegación) =====
+  document.addEventListener('click', function (e) {
+    const icon = e.target.closest('.chip-info');
+    if (!icon) return;
+
+    e.preventDefault();
+
+    const key = icon.dataset.info;
+    const data = infoInteracciones[key];
+    if (!data) return;
+
+    const t = document.getElementById('modal-info-title');
+    const c = document.getElementById('modal-info-content');
+    const m = document.getElementById('modal-info');
+    if (!t || !c || !m) return;
+
+    t.textContent = data.titulo;
+    c.innerHTML = data.html;
+    m.style.display = 'flex';
+  }, true); // captura OK
+
+  // ===== Cerrar (X) =====
+  const btnClose = document.getElementById('modal-info-close');
+  if (btnClose) {
+    btnClose.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const m = document.getElementById('modal-info');
+      if (m) m.style.display = 'none';
+    });
+  }
+
+  // ===== Cerrar (clic fuera del modal) =====
+  const overlay = document.getElementById('modal-info');
+  if (overlay) {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) overlay.style.display = 'none';
+    });
+  }
+
+  // (Opcional) Cerrar con ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const m = document.getElementById('modal-info');
+      if (m) m.style.display = 'none';
+    }
+  });
+
+});
+
+
+
+</script>
+
+
+
+      <!-- Referencias / Bibliografía -->
+      <div class="howto">
+<details style="margin-top:14px;">
+  <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">🧬 Interacciones farmacológicas</summary>
+
+  <div style="margin-top:14px; background:#ffffff; border:1px solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.05); overflow:hidden; font-size:13px; line-height:1.55; color:#1e293b;">
+
+    <!-- CABECERA -->
+    <div style="background:#0f3d83; color:#ffffff; padding:10px 14px; font-size:14px; font-weight:700; letter-spacing:0.3px;">
+      🔥 Inhibidores e inductores de P-gp y CYP3A4
+    </div>
+
+    <div style="padding:16px 18px;">
+      <p style="margin:0 0 12px 0;">
+        Los ACOD dependen en distinta medida de <b>P-gp</b> (transporte intestinal/renal) y <b>CYP3A4</b> (metabolismo hepático). 
+        Los fármacos que inhiben o inducen estas vías pueden producir <b>sobreexposición → hemorragia</b> o 
+        <b>infraexposición → fallo embólico</b>. 
+        Las combinaciones <b>mixtas</b> (P-gp + CYP3A4) son las más relevantes clínicamente.
+      </p><p style="font-size:12px; color:#334155;">
+  🏷️ El término <b>exposición</b> se refiere a la biodisponibilidad sistémica global 
+  (concentraciones plasmáticas y AUC).
+</p>
+
+      <!-- ========================= -->
+      <!-- INHIBIDORES DE P-gp -->
+      <!-- ========================= -->
+
+      <h4 style="margin:16px 0 6px 0;color:#0f3d83;">🟥 Inhibidores potentes de P-gp</h4>
+      <p style="margin:0 0 6px 0;">
+        Aumentan notablemente la absorción y exposición de ACOD sensibles a P-gp.  Muchos inhibidores potentes de P-gp son también inhibidores de CYP3A4, constituyendo interacciones <b>duales</b> de alto impacto clínico.
+</p>
+      <p style="font-size:12px;"><b>Ejemplos:</b> dronedarona, quinidina, verapamilo, ketoconazol, itraconazol, posaconazol, claritromicina, ciclosporina, ritonavir, cobicistat.</p>
+
+      <ul style="font-size:12px; padding-left:20px; line-height:1.45;">
+        <li><b>Dabigatrán</b> (muy dependiente de P-gp): evitar si <b>ClCr &lt;50</b>; considerar <b>110 mg/12 h</b> si ClCr ≥50.</li>
+        <li><b>Edoxabán</b>: si inhibidor de P-gp → <b>reducir a 30 mg/24 h</b>.</li>
+        <li><b>Apixabán</b>: ↑ exposición; precaución si ya cumple criterios de dosis reducida.</li>
+        <li><b>Rivaroxabán</b>: ↑ exposición; precaución, especialmente si hay otros factores de sangrado.</li>
+      </ul>
+
+      
+      <!-- ========================= -->
+      <!-- INHIBIDORES DE CYP3A4 -->
+      <!-- ========================= -->
+      <h4 style="margin:16px 0 6px 0;color:#0f3d83;">🟥 Inhibidores potentes de CYP3A4</h4>
+      <p style="margin:0 0 6px 0;"> En la práctica clínica, los inhibidores potentes de CYP3A4 suelen inhibir simultáneamente P-gp, generando <b>inhibición dual</b>.</p>
+      <p style="font-size:12px;"><b>Ejemplos:</b> ketoconazol, itraconazol, posaconazol, voriconazol, claritromicina, eritromicina, ritonavir, cobicistat, nefazodona.</p>
+
+      <ul style="font-size:12px; padding-left:20px; line-height:1.45;">
+        <li><b>Rivaroxabán</b>: depende bastante de CYP3A4 → <b>evitar</b>.</li>
+        <li><b>Apixabán</b>: ↑ exposición → evitar o extremar precaución.</li>
+        <li><b>Edoxabán</b>: metabolismo mínimo por CYP3A4 → <b>sin ajuste</b>.</li>
+        <li><b>Dabigatrán</b>: no depende de CYP450 → sin efecto relevante.</li>
+      </ul>
+
+      <h4 style="margin:16px 0 6px 0;color:#0f3d83;">🟪 Inductores potentes (P-gp + CYP3A4)</h4>
+
+<p style="margin:0 0 6px 0;">
+  En la práctica clínica, <b>todos los inductores potentes relevantes</b> 
+  inducen simultáneamente <b>P-gp</b> y <b>CYP3A4</b>.  
+  No existen inductores selectivos clínicamente útiles.
+</p>
+
+<p style="font-size:12px;">
+  <b>Ejemplos:</b> rifampicina, rifabutina, carbamazepina, fenitoína, 
+  fenobarbital, primidona, Hierba de San Juan.
+</p>
+
+<ul style="font-size:12px; padding-left:20px; line-height:1.45;">
+  <li><b>Dabigatrán</b>: ↓↓↓ exposición → <b>evitar siempre</b>.</li>
+  <li><b>Apixabán</b>: ↓↓↓ exposición → <b>evitar</b>.</li>
+  <li><b>Rivaroxabán</b>: ↓↓↓ exposición → <b>evitar</b>.</li>
+  <li><b>Edoxabán</b>: ↓↓↓ exposición → <b>evitar</b>.</li>
+</ul>
+
+<div style="color:#b91c1c; margin-top:6px;">
+  <b>🛑 Regla clínica: inductor potente = inductor dual</b> ➔ 
+  <b>todos los ACOD quedan contraindicados</b>.
+</div>
+
+    </div>
+  </div>
+<div style="margin-top:16px; padding:12px; background:#fff7f7; border:1px solid #f0b4b4; border-radius:8px;">
+  <div style="font-weight:700; color:#b91c1c; margin-bottom:6px;">
+    ⚠️ ¿Por qué los inhibidores duales potentes (P-gp + CYP3A4) obligan a evitar TODOS los ACOD?
+  </div>
+  <p style="margin:0; font-size:13px; line-height:1.45; color:#1e293b;">
+    Aunque <b>dabigatrán</b> y <b>edoxabán</b> dependen sobre todo de <b>P-gp</b> y apenas del metabolismo por CYP3A4, 
+    los fármacos que inhiben de forma potente <b>CYP3A4</b> (ketoconazol, itraconazol, posaconazol, voriconazol, 
+    claritromicina, cobicistat, ritonavir) son al mismo tiempo inhibidores potentes de P-gp.  
+    Esto produce una <b>inhibición dual</b> que:
+    <ul style="margin:6px 0 0 16px; padding:0; font-size:12px; line-height:1.45; color:#1e293b;">
+      <li>↑↑ Absorción intestinal (inhibición de P-gp intestinal)</li>
+      <li>↑↑ Exposición sistémica por ↓↓ aclaramiento renal (inhibición de P-gp renal)</li>
+      <li>↑↑ Acumulación impredecible incluso en ACOD con metabolismo mínimo por CYP3A4</li>
+    </ul>
+    El resultado son incrementos peligrosos de los niveles plasmáticos:  
+    <b>+140% en dabigatrán</b> con ketoconazol,  
+    <b>+87% en edoxabán</b> con inhibidores duales.  
+    Por ello, los <b>inhibidores duales potentes → contraindicación práctica de TODOS los ACOD</b>.  
+    La opción recomendada es <b>VKA </b>.
+  </p>
+</div>
+
+<div style="margin-top:16px; padding:12px; background:#f0f7ff; border:1px solid #b7d4f5; border-radius:8px;">
+  <div style="font-weight:700; color:#0f3d83; margin-bottom:6px;">
+    ⚠️ ¿Por qué los inductores duales potentes (P-gp + CYP3A4) también contraindican TODOS los ACOD?
+  </div>
+  <p style="margin:0; font-size:13px; line-height:1.45; color:#1e293b;">
+    Los inductores potentes clásicos (rifampicina, carbamazepina, fenitoína, fenobarbital, primidona, Hierba de San Juan) 
+    activan de forma simultánea <b>P-gp</b> y <b>CYP3A4</b>.  
+    Esto produce:
+    <ul style="margin:6px 0 0 16px; padding:0; font-size:12px; line-height:1.45; color:#1e293b;">
+      <li>↓↓↓ Absorción (inductor de P-gp → expulsión intestinal)</li>
+      <li>↓↓↓ Exposición sistémica (CYP3A4 acelera el metabolismo)</li>
+      <li>↓↓↓ Biodisponibilidad real → riesgo extremo de <b>fallo embólico</b></li>
+    </ul>
+    La magnitud del descenso de niveles plasmáticos puede ser devastadora:  
+    <b>−80% en rivaroxabán</b>, <b>−70% en apixabán</b>,  
+    <b>−60% en dabigatrán</b> y <b>−50% en edoxabán</b>.  
+    Por ello, los <b>inductores duales potentes → evitar TODOS los ACOD</b>.  
+    Alternativa recomendada: <b>VKA</b>.
+  </p>
+</div>
+
+<div style="margin-top:16px; padding:10px; background:#FFFFDB; border:1px solid #d1d5db; border-radius:8px; font-size:13px; color:black;">
+  <div style="font-weight:700; color:#764E12; margin-bottom:6px;">📌 Regla Clínica Final</div>
+  • <b>Inhibidor dual potente</b> (P-gp + CYP3A4) → <b>riesgo hemorrágico prohibitivo</b> → evitar ACOD → usar VKA.<br>
+  • <b>Inductor dual potente</b> (P-gp + CYP3A4) → <b>infraexposición severa</b> → evitar ACOD → usar VKA.<br>
+  • Si no estás seguro si un fármaco es dual → <b>trátalo como dual</b> hasta comprobar ficha técnica EMA/FDA.
+</div>
+
+</details>
+
+        <details style="margin-top:14px;">
+          <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">👥
+
+            Casos complejos reales</summary>
+          <div style=" margin-top:14px; background:#ffffff; border:1px
+            solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
+            rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
+            line-height:1.55; color:#1e293b; ">
+            <!-- Header -->
+            <div style=" background:#0f3d83; color:#ffffff; padding:10px
+              14px; font-size:14px; font-weight:700;
+              letter-spacing:0.3px; "> 🧑 Casos complejos reales: cómo
+              decidir rápido ante interacciones difíciles </div>
+            <div style="padding:16px 18px;">
+              <!-- CASO 1 -->
+              <h4 style="margin:8px 0 4px 0;color:#0f3d83;">🧪 Caso 1 —
+                Paciente con FA + tratamiento antifúngico azólico</h4>
+              <p style="margin:0 0 6px 0;"> Mujer de 78 años en apixabán
+                5 mg/12 h. Se inicia <b>posaconazol</b> por
+                aspergilosis. </p>
+              <ul
+                style="font-size:12px;padding-left:20px;line-height:1.45;">
+                <li><b>Tipo de interacción</b>: inhibidor potente <b>mixto</b>
+                  (P-gp + CYP3A4).</li>
+                <li><b>Efecto</b>: ↑↑ exposición de apixabán → alto
+                  riesgo hemorrágico.</li>
+                <li><b>Evitar</b>: apixabán y rivaroxabán.</li>
+                <li><b>Alternativa</b>: cambiar temporalmente a <b>VKA</b>.</li>
+              </ul>
+              <div
+                style="color:#b91c1c;font-size:12px;margin-bottom:12px;">
+                ⚠️ Regla clínica: si antifúngico azólico potente →
+                evitar ACOD → usar VKA. </div>
+              <!-- CASO 2 -->
+              <h4 style="margin:8px 0 4px 0;color:#0f3d83;">🧪 Caso 2 —
+                Rifampicina en paciente con dabigatrán</h4>
+              <p style="margin:0 0 6px 0;"> Varón 65 años en dabigatrán
+                150 mg/12 h por FA. Se inicia tratamiento
+                antituberculoso con <b>rifampicina</b>. </p>
+              <ul
+                style="font-size:12px;padding-left:20px;line-height:1.45;">
+                <li><b>Tipo de interacción</b>: inductor <b>mixto</b>
+                  (P-gp + CYP3A4).</li>
+                <li><b>Efecto</b>: ↓↓↓ exposición → pérdida casi
+                  completa de eficacia.</li>
+                <li><b>Evitar</b>: TODOS los ACOD.</li>
+                <li><b>Alternativa</b>: pasar a <b>acenocumarol/warfarina</b>.</li>
+              </ul>
+              <div
+                style="color:#b91c1c;font-size:12px;margin-bottom:12px;">
+                ⚠️ Rifampicina = contraindicación práctica de todos los
+                ACOD. </div>
+              <!-- CASO 3 -->
+              <h4 style="margin:8px 0 4px 0;color:#0f3d83;">🧪 Caso 3 —
+                Paciente en rivaroxabán + claritromicina</h4>
+              <p style="margin:0 0 6px 0;"> Hombre 72 años en
+                rivaroxabán 20 mg/d por FA. Se prescribe <b>claritromicina</b>
+                por neumonía. </p>
+              <ul
+                style="font-size:12px;padding-left:20px;line-height:1.45;">
+                <li><b>Tipo de interacción</b>: inhibidor <b>mixto</b>
+                  moderado (P-gp + CYP3A4).</li>
+                <li><b>Efecto</b>: ↑ exposición de rivaroxabán → riesgo
+                  hemorrágico aumentado.</li>
+                <li><b>Evitar</b>: rivaroxabán.</li>
+                <li><b>Alternativa temporal</b>: apixabán solo si bajo
+                  riesgo hemorrágico o cambiar a VKA.</li>
+              </ul>
+              <div
+                style="color:#b91c1c;font-size:12px;margin-bottom:12px;">
+                ⚠️ Claritromicina puede triplicar niveles de
+                rivaroxabán: revisión obligada. </div>
+              <!-- CASO 4 -->
+              <h4 style="margin:8px 0 4px 0;color:#0f3d83;">🧪 Caso 4 —
+                Amiodarona en paciente con función renal limitada</h4>
+              <p style="margin:0 0 6px 0;"> Mujer 84 años, ClCr 32
+                mL/min, inicia <b>amiodarona</b> estando en dabigatrán
+                150 mg/12 h. </p>
+              <ul
+                style="font-size:12px;padding-left:20px;line-height:1.45;">
+                <li><b>Tipo de interacción</b>: inhibidor de <b>P-gp</b>.</li>
+                <li><b>Efecto</b>: ↑ exposición de dabigatrán.</li>
+                <li><b>Ajuste</b>: dabigatrán → bajar a <b>110 mg/12 h</b>.</li>
+                <li><b>Alternativa</b>: considerar apixabán si riesgo
+                  hemorrágico significativo.</li>
+              </ul>
+              <div
+                style="color:#b91c1c;font-size:12px;margin-bottom:12px;">
+                ⚠️ Amiodarona + ClCr bajo = mayor riesgo de hemorragia
+                digestiva con dabigatrán. </div>
+              <!-- CASO 5 -->
+              <h4 style="margin:8px 0 4px 0;color:#0f3d83;">🧪 Caso 5 —
+                Anciano frágil con polimedicación y antifúngico tópico</h4>
+              <p style="margin:0 0 6px 0;"> Varón 89 años, apixabán 2,5
+                mg/12 h, riesgo hemorrágico elevado. Se prescribe <b>itraconazol
+
+                  tópico</b>. </p>
+              <ul
+                style="font-size:12px;padding-left:20px;line-height:1.45;">
+                <li><b>Tipo de interacción</b>: inhibidor fuerte mixto,
+                  pero <b>vía tópica</b>.</li>
+                <li><b>Efecto</b>: exposición sistémica mínima → <b>no
+                    interacción relevante</b>.</li>
+                <li><b>Recomendación</b>: continuar apixabán; vigilar.</li>
+              </ul>
+              <div
+                style="color:green;font-size:12px;margin-bottom:12px;">
+                💡 Recordatorio: los antifúngicos tópicos NO producen
+                interacción significativa. </div>
+              <!-- CASO 6 -->
+              <h4 style="margin:8px 0 4px 0;color:#0f3d83;">🧪 Caso 6 —
+                Fenitoína en paciente con apixabán</h4>
+              <p style="margin:0 0 6px 0;"> Mujer 70 años en apixabán
+                por FA. Estando de vacaciones en otro país le han
+                prescrito <b>fenitoína</b> por crisis convulsiva.
+              </p>
+              <ul
+                style="font-size:12px;padding-left:20px;line-height:1.45;">
+                <li><b>Tipo de interacción</b>: inductor <b>mixto</b>
+                  (P-gp + CYP3A4).</li>
+                <li><b>Efecto</b>: ↓ exposición de apixabán → riesgo de
+                  fallo embólico.</li>
+                <li><b>Recomendación</b>: cambiar fenitoína por otro
+                  antiepiléptico de mejor perfil.</li>
+              </ul>
+              <div
+                style="color:#b91c1c;font-size:12px;margin-bottom:12px;">
+                ⚠️ Fenitoína es una de las interacciones más peligrosas
+                con ACOD. </div>
+            </div>
+            <!-- padding --> </div>
+          <!-- panel --> </details>
+        <details style="margin-top:14px;">
+          <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">💦
+
+            Función renal</summary>
+          <div style=" margin-top:14px; background:#ffffff; border:1px
+            solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
+            rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
+            line-height:1.55; color:#1e293b; ">
+            <!-- Barra superior tipo guideline -->
+            <div style=" background:#0f3d83; color:#ffffff; padding:10px
+              14px; font-size:14px; font-weight:700;
+              letter-spacing:0.3px; "> 💊 Ajuste de ACOD por función
+              renal </div>
+            <!-- Contenido -->
+            <div style="padding:16px 18px;">
+              <ul style="font-size:12px; padding-left:20px;
+                line-height:1.45;">
+                <li><b>Apixabán</b>: 2,5 mg/12 h si <b>≥2</b> criterios
+                  (edad ≥80 a, peso ≤60 kg, SCr ≥1,5 mg/dL) <i>o</i> <b>ClCr
+
+                    15–29</b> mL/min. Evitar si <b>ClCr &lt;15</b> o
+                  diálisis (EMA).</li>
+                <li><b>Dabigatrán</b>: <b>110 mg/12 h</b> si <b>ClCr
+                    30–50</b> mL/min (o riesgo hemorrágico alto); <b>contraindicado
+
+                    &lt;30</b>.</li>
+                <li><b>Rivaroxabán</b>: <b>15 mg/24 h</b> si <b>ClCr
+                    15–49</b> mL/min; <b>contraindicado &lt;15</b>.</li>
+                <li><b>Edoxabán</b>: <b>30 mg/24 h</b> si <b>ClCr
+                    15–50</b> mL/min o ≤60 kg o inhibidor potente P-gp;
+                  <b>evitar &lt;15</b>. <span class="muted">Menor
+                    eficacia si <b>ClCr &gt;95</b> (etiqueta FDA).</span></li>
+              </ul>
+              <div><b>Seguimiento de función renal:</b> cada 6–12 meses
+                si ClCr &gt;60; cada 3–6 meses si 30–60; cada 1–3 meses
+                si &lt;30 o en ancianos/frágiles.</div>
+            </div>
+          </div>
+        </details>
+        <details style="margin-top:14px;">
+          <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📒
+
+            Glosario de acrónimos</summary>
+          <div style=" margin-top:14px; background:#ffffff; border:1px
+            solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
+            rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
+            line-height:1.55; color:#1e293b; ">
+            <!-- Barra superior tipo guideline -->
+            <div style=" background:#0f3d83; color:#ffffff; padding:10px
+              14px; font-size:14px; font-weight:700;
+              letter-spacing:0.3px; "> 🔤 Acrónimos utilizados </div>
+            <!-- Contenido -->
+            <div style="padding:16px 18px;">
+              <style>
+    /* 1 columna por defecto */
+    .glosario-columns {
+      column-count: 1;
+      column-gap: 32px;
+    }
+
+    /* En pantallas grandes → 2 columnas */
+    @media (min-width: 900px){
+      .glosario-columns {
+        column-count: 2;
+      }
+    }
+  </style>
+              <ul class="glosario-columns" style="font-size:12px;
+                padding-left:20px; line-height:1.45;">
+                <li><b>ACOD</b> (o <b>DOAC</b>): Anticoagulantes orales
+                  de acción directa.</li>
+                <li><b>AINEs</b>: Antiinflamatorios no esteroideos.</li>
+                <li><b>Ao</b>: Aorta.</li>
+                <li><b>AUC</b>: (área bajo la curva) cuantifica la exposición sistémica total a un fármaco a lo largo del tiempo.</li>
+                <li><b>CHA<sub>2</sub>DS<sub>2</sub>-VA</b>: Escala de
+                  riesgo embólico sin el punto por sexo femenino.</li>
+                <li><b>CHA<sub>2</sub>DS<sub>2</sub>-VASc</b>: Escala de
+                  riesgo embólico en fibrilación auricular.</li>
+                <li><b>ClCr</b>: Aclaramiento de creatinina
+                  (Cockcroft–Gault).</li>
+                <li><b>CYP3A4</b>: Citocromo P450 3A4, principal vía metabólica hepática de varios ACOD.</li>
+                <li><b>DOAC</b>: Direct Oral Anticoagulants.</li>
+                <li><b>EAP</b>: Enfermedad arterial periférica.</li>
+                <li><b>EM</b>: Estenosis mitral.</li>
+                <li><b>EMA</b>: Agencia Europea del Medicamento.</li>
+                <li><b>ERC</b>: Enfermedad renal crónica.</li>
+                <li><b>FDA</b>: Food and Drug Administration.</li>
+                <li><b>FA</b>: Fibrilación auricular.</li>
+                <li><b>GI</b>: Gastrointestinal.</li>
+                <li><b>GU</b>: Genitourinario.</li>
+                <li><b>HAS-BLED</b>: Escala de riesgo de sangrado mayor.</li>
+                <li><b>HDA</b>: Hemorragia digestiva alta.</li>
+                <li><b>HIC</b>: Hemorragia intracraneal.</li>
+                <li><b>HTA</b> / <b>HTN</b>: Hipertensión arterial.</li>
+                <li><b>IAM</b>: Infarto agudo de miocardio.</li>
+                <li><b>IMC</b>: Índice de masa corporal.</li>
+                <li><b>NNH</b>: Número necesario para dañar.</li>
+                <li><b>NNT</b>: Número necesario para tratar.</li>
+                <li><b>NOAC</b>: Non–vitamin K Oral Anticoagulants.</li>
+                <li><b>P-gp</b>: P-glicoproteína, transportador de eflujo intestinal/renal implicado en absorción y eliminación de ACOD.</li>
+                <li><b>RI</b>: Riesgo anual de ictus.</li>
+                <li><b>RRA</b>: Reducción absoluta del riesgo.</li>
+                <li><b>RRR</b>: Reducción relativa del riesgo.</li>
+                <li><b>RS</b>: Riesgo anual de sangrado mayor.</li>
+                <li><b>SCr</b>: Creatinina sérica.</li>
+                <li><b>SNG</b>: Sonda nasogástrica.</li>
+                <li><b>VKA</b>: Antagonistas de la vitamina K.</li>
+                <li><b>VI</b>: Ventrículo izquierdo.</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+        <details style="margin-top:14px;">
+  <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📘 Referencias bibliográficas</summary>
+
+  <div style="
+    margin-top:14px;
+    background:#ffffff;
+    border:1px solid #d0d7e1;
+    border-radius:10px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.05);
+    overflow:hidden;
+    font-size:13px;
+    line-height:1.55;
+    color:#1e293b;
+  ">
+
+    <!-- BARRA TÍTULO -->
+    <div style="
+      background:#0f3d83;
+      color:#ffffff;
+      padding:10px 14px;
+      font-size:14px;
+      font-weight:700;
+      letter-spacing:0.3px;
+    ">
+      📚 Referencias bibliográficas (formato Vancouver)
+    </div>
+
+    <!-- CONTENIDO -->
+    <div style="padding:16px 18px;">
+      <ol style="font-size:12px; padding-left:20px; line-height:1.45;">
+
+        <li>Friberg L, Rosenqvist M, Lip GYH. Evaluation of risk stratification schemes for ischaemic stroke and bleeding in 182,678 patients with atrial fibrillation. <i>Eur Heart J</i>. 2012;33(12):1500-10. <a href="https://doi.org/10.1093/eurheartj/ehr488" target="_blank">doi:10.1093/eurheartj/ehr488</a></li>
+
+        <li>Olesen JB, Lip GYH, Hansen ML, et al. Validation of risk stratification schemes for predicting stroke and thromboembolism in atrial fibrillation. <i>BMJ</i>. 2011;342:d124. <a href="https://www.bmj.com/content/342/bmj.d124" target="_blank">BMJ link</a></li>
+
+        <li>Pisters R, Lane DA, Nieuwlaat R, de Vos CB, Crijns HJGM, Lip GYH. A novel user-friendly score (HAS-BLED) to assess 1-year risk of major bleeding in atrial fibrillation. <i>Chest</i>. 2010;138(5):1093-100. <a href="https://doi.org/10.1378/chest.10-0134" target="_blank">doi:10.1378/chest.10-0134</a></li>
+
+        <li>Lip GYH, Frison L, Halperin JL, Lane DA. Comparative validation of the HAS-BLED score in anticoagulated patients with AF. <i>J Am Coll Cardiol</i>. 2011;57(2):173-80. <a href="https://doi.org/10.1016/j.jacc.2010.09.024" target="_blank">doi:10.1016/j.jacc.2010.09.024</a></li>
+
+        <li>Cockcroft DW, Gault MH. Prediction of creatinine clearance from serum creatinine. <i>Nephron</i>. 1976;16(1):31-41. <a href="https://pubmed.ncbi.nlm.nih.gov/1244564/" target="_blank">PMID:1244564</a></li>
+
+        <li>Granger CB, Alexander JH, McMurray JJV, et al. Apixaban versus warfarin in atrial fibrillation (ARISTOTLE). <i>N Engl J Med</i>. 2011;365:981-92. <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa1107039" target="_blank">NEJM</a></li>
+
+        <li>Connolly SJ, Ezekowitz MD, Yusuf S, et al. Dabigatrán versus warfarina en fibrilación auricular (RE-LY). <i>N Engl J Med</i>. 2009;361:1139-51. <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa0905561" target="_blank">NEJM</a></li>
+
+        <li>Patel MR, Mahaffey KW, Garg J, et al. Rivaroxabán versus warfarina en FA (ROCKET-AF). <i>N Engl J Med</i>. 2011;365:883-91. <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa1009638" target="_blank">NEJM</a></li>
+
+        <li>Giugliano RP, Ruff CT, Braunwald E, et al. Edoxabán versus warfarina en FA (ENGAGE AF–TIMI 48). <i>N Engl J Med</i>. 2013;369:2093-104. <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa1310907" target="_blank">NEJM</a></li>
+
+        <li>Hart RG, Pearce LA, Aguilar MI. Antithrombotic therapy to prevent stroke in atrial fibrillation: meta-analysis. <i>Ann Intern Med</i>. 2007;146:857-67. <a href="https://pubmed.ncbi.nlm.nih.gov/17577005/" target="_blank">PMID:17577005</a></li>
+
+        <li>Aguilar MI, Hart RG, Pearce LA. Antithrombotic therapy for AF. <i>Cochrane Database Syst Rev</i>. 2005;(4):CD001927. <a href="https://doi.org/10.1002/14651858.CD001927.pub2" target="_blank">doi:10.1002/14651858.CD001927.pub2</a></li>
+
+        <li>Van Gelder IC, et al. 2024 ESC Guidelines for the management of atrial fibrillation. <i>Eur Heart J</i>. 2024;45(36):3314–?. <a href="https://academic.oup.com/eurheartj/article/45/36/3314/7738779" target="_blank">OUP</a></li>
+
+        <li>Joglar JA, et al. 2023 ACC/AHA/ACCP/HRS Guideline for the diagnosis and management of atrial fibrillation. <i>Circulation</i>. 2023;148:eXXX-eXXX. <a href="https://doi.org/10.1161/CIR.0000000000001193" target="_blank">doi:10.1161/CIR.0000000000001193</a></li>
+
+        <li>Steffel J, Collins R, Antz M, et al. 2021 EHRA Practical Guide on NOACs. <i>Europace</i>. 2021;23(10):1612-76. <a href="https://doi.org/10.1093/europace/euab065" target="_blank">doi:10.1093/europace/euab065</a></li>
+
+        <li>EMA. SmPC: Apixaban (Eliquis). 2024. 
+          <a href="https://www.ema.europa.eu/en/documents/product-information/eliquis-epar-product-information_en.pdf" target="_blank">EMA</a>
+        </li>
+
+        <li>EMA. SmPC: Rivaroxaban (Xarelto). 2024.
+          <a href="https://www.ema.europa.eu/en/documents/product-information/xarelto-epar-product-information_en.pdf" target="_blank">EMA</a>
+        </li>
+
+        <li>EMA. SmPC: Edoxaban (Lixiana). 2024.
+          <a href="https://www.ema.europa.eu/en/documents/product-information/lixiana-epar-product-information_en.pdf" target="_blank">EMA</a>
+        </li>
+
+        <li>EMA. SmPC: Dabigatran (Pradaxa). 2024.
+          <a href="https://www.ema.europa.eu/en/documents/product-information/pradaxa-epar-product-information_en.pdf" target="_blank">EMA</a>
+        </li>
+
+        <li>FDA. Savaysa (edoxaban) boxed warning: reduced efficacy if CrCl >95 mL/min. 2015.
+          <a href="https://www.accessdata.fda.gov/drugsatfda_docs/label/2015/206316lbl.pdf" target="_blank">FDA</a>
+        </li>
+
+        <li>Radadiya D, et al. Major gastrointestinal bleeding risk with DOACs: network meta-analysis. <i>Eur J Gastroenterol Hepatol</i>. 2021;33:e50-8. <a href="https://doi.org/10.1097/MEG.0000000000002035" target="_blank">doi</a></li>
+
+        <li>Mamas MA, et al. Meta-analysis comparing apixaban vs rivaroxaban in AF. <i>Am J Cardiol</i>. 2022;170:33-43. <a href="https://www.ajconline.org/article/S0002-9149(21)01148-6/fulltext" target="_blank">Full text</a></li>
+
+        <li>Ruff CT, et al. Comparison of DOACs vs warfarin in AF: meta-analysis. <i>Lancet</i>. 2014;383:955-62. <a href="https://doi.org/10.1016/S0140-6736(13)62343-0" target="_blank">doi</a></li>
+
+        <li>Song Y, et al. Relative bioavailability of apixaban crushed/oral/NGT. <i>Clin Ther</i>. 2015;37:1703-12. <a href="https://doi.org/10.1016/j.clinthera.2015.05.497" target="_blank">doi</a></li>
+
+        <li>Duchin K, et al. Pharmacokinetics of crushed edoxaban via NGT or puree. <i>Clin Pharmacokinet</i>. 2018;57:221-8. <a href="https://pubmed.ncbi.nlm.nih.gov/28512699/" target="_blank">PMID</a></li>
+
+        <li>Byon W, et al. Apixaban pharmacokinetic/pharmacodynamic overview. <i>Clin Pharmacokinet</i>. 2019;58:1265-79.</li>
+
+        <li>Martin K, et al. Use of DOACs in obesity: ISTH SSC communication. <i>J Thromb Haemost</i>. 2021;19:1874-82.</li>
+
+      </ol>
+    </div>
+  </div>
+</details>
+
+      </div>
+    </div>
+    <!-- Componente universal de advertencia contextual -->
+    <script>
+    (()=>{
+      class AppDisclaimer extends HTMLElement{
+        static get observedAttributes(){ return ["data-version","data-context","data-target","data-position","data-when","data-require"]; }
+        constructor(){ super(); this._shadow=this.attachShadow({mode:"open"}); this._render(); }
+        connectedCallback(){ this._ensureMounted(); this._setupObservers(); }
+        attributeChangedCallback(){ this._render(); this._ensureMounted(); }
+        _render(){
+          this._shadow.innerHTML=`
+        <style>
+          :host{display:block}
+          .box{font-family: Verdana, Geneva, Tahoma, sans-serif;color: var(--ink,#0f172a);background:#fff5f5;border:1px solid #fbd5d5;border-left:4px solid var(--bad,#b71c1c);border-radius:12px;padding:12px 14px;margin:12px 0 0 0;line-height:1.45}
+          .box strong{ color: var(--bad,#b71c1c); }
+          .hidden{ display:none!important; }
+        </style>
+        <aside class="box hidden" role="note" aria-label="Advertencia de uso">
+          <strong>Advertencia.</strong> Esta herramienta es un <b>apoyo</b> a la decisión clínica;
+          no sustituye el juicio profesional, la valoración individual del paciente ni los
+          <b>protocolos/guías locales actualizados</b>. Verifique siempre indicaciones,
+          contraindicaciones, interacciones, posología y disponibilidad según su centro.
+          Ante discrepancias, <b>prevalecen los protocolos vigentes</b> y el criterio del equipo responsable.
+        </aside>`;
+        }
+        _getTarget(){
+          const explicit=this.getAttribute("data-target");
+          if(explicit){ try{const el=document.querySelector(explicit); if(el) return el;}catch(_){ }
+          }
+          const candidates=["#resultCard",".resultado","#resultado",".result","#result",".recomendacion",".recommendation",".output","#output",".rope-result",".calc-result",".box-result",".card-result"];
+          for(const sel of candidates){ const el=document.querySelector(sel); if(el) return el; }
+          return null;
+        }
+        _ensureMounted(){
+          const tgt=this._getTarget();
+          if(tgt){ this._mountTo(tgt); return; }
+          if(this._waitMO) return;
+          this._waitMO=new MutationObserver(()=>{ const t=this._getTarget(); if(t){ this._mountTo(t); this._waitMO.disconnect(); this._waitMO=null; }});
+          this._waitMO.observe(document.body,{childList:true,subtree:true});
+        }
+        _mountTo(tgt){
+          if(this._mountedTo===tgt) return; this._mountedTo=tgt;
+          const pos=(this.getAttribute("data-position")||"after").toLowerCase();
+          if(pos==="before"){ tgt.insertAdjacentElement("beforebegin",this); }
+          else if(pos==="inside-start"){ tgt.insertAdjacentElement("afterbegin",this); }
+          else if(pos==="inside-end"){ tgt.insertAdjacentElement("beforeend",this); }
+          else{ tgt.insertAdjacentElement("afterend",this); }
+        }
+        _setupObservers(){
+          const tgt=this._getTarget(); if(!tgt) return;
+          this._mo && this._mo.disconnect();
+          this._mo=new MutationObserver(()=>this._evaluateVisibility());
+          this._mo.observe(tgt,{attributes:true,attributeFilter:["class","style","aria-hidden"],subtree:false});
+          this._contentMO && this._contentMO.disconnect();
+          this._contentMO=new MutationObserver(()=>this._evaluateVisibility());
+          const recList=document.querySelector("#recList"); if(recList) this._contentMO.observe(recList,{childList:true,subtree:false});
+          const compBody=document.querySelector("#comparative tbody"); if(compBody) this._contentMO.observe(compBody,{childList:true,subtree:false});
+          this._io && this._io.disconnect();
+          this._io=new IntersectionObserver((entries)=>{const visible=entries.some(e=>e.isIntersecting);this._evaluateVisibility(visible);},{root:null,threshold:0.01});
+          this._io.observe(tgt);
+          this._tick && clearInterval(this._tick);
+          this._tick=setInterval(()=>this._evaluateVisibility(),500);
+          this._evaluateVisibility();
+        }
+        _hasComputedResult(){
+          if (typeof window!=="undefined" && window.__lastReport) return true;
+          const hasRec = !!document.querySelector("#recList li");
+          const hasRows = !!document.querySelector("#comparative tbody tr");
+          const btnP=document.getElementById('btnPrint'), btnC=document.getElementById('btnCopy');
+          const buttonsReady = !!(btnP && btnC && !btnP.disabled && !btnC.disabled);
+          return hasRec || hasRows || buttonsReady;
+        }
+        _evaluateVisibility(ioVisible){
+          const tgt=this._getTarget(); if(!tgt){ this._setVisible(false); return; }
+          const style=getComputedStyle(tgt);
+          const displayOk=style.display!=="none" && style.visibility!=="hidden" && style.opacity!=="0";
+          const classOk=!(tgt.classList && tgt.classList.contains("hidden"));
+          const showOk=(tgt.classList && (tgt.classList.contains("show")||tgt.classList.contains("active"))) || tgt.getAttribute("aria-hidden")==="false";
+          const when=(this.getAttribute("data-when")||"visible").toLowerCase();
+          const require=(this.getAttribute("data-require")||"report").toLowerCase();
+          const logicalVisible = (when==="always") ? true : (showOk || (displayOk && classOk));
+          let computedOk=true;
+          if(require==="report"){ computedOk = this._hasComputedResult(); }
+          else if(require==="rows"){ const rec = !!document.querySelector("#recList li"); const rows=!!document.querySelector("#comparative tbody tr"); computedOk = (rec||rows); }
+          const finalVisible = logicalVisible && computedOk && (ioVisible===undefined ? true : ioVisible);
+          this._setVisible(finalVisible);
+        }
+        _setVisible(flag){ const box=this._shadow.querySelector(".box"); if(box) box.classList.toggle("hidden",!flag); }
+      }
+      if(!customElements.get("app-disclaimer")){ customElements.define("app-disclaimer",AppDisclaimer); }
+    })();
+
+function buildClinicalPrompt(drug, r){
+
+  const sexTxt = r.inputs.sex === 'F' ? 'Mujer' : 'Varón';
+
+  const condiciones = [];
+  if (r.special?.giBleed) condiciones.push("Antecedente de hemorragia digestiva");
+  if (r.special?.ichRisk) condiciones.push("Alto riesgo de hemorragia intracraneal");
+  if (r.special?.valvular) condiciones.push("Cardiopatía valvular significativa");
+  if (r.special?.obesity) condiciones.push("Obesidad mórbida");
+  if (r.scores?.hasbled >= 3) condiciones.push("HAS-BLED elevado");
+  if (r.inputs?.age >= 80) condiciones.push("Edad ≥ 80 años");
+
+  const interacciones = [];
+  if (r.special?.pgp) interacciones.push("Inhibidor potente de P-gp");
+  if (r.special?.pgpInd) interacciones.push("Inductor potente de P-gp");
+  if (r.special?.cypInhib) interacciones.push("Inhibidor potente de CYP3A4");
+  if (r.special?.cypInduc) interacciones.push("Inductor potente de CYP3A4");
+
+  return `
+Eres un médico especialista en Neurología Vascular y Farmacología Clínica.
+
+Explica de forma clínica y razonada por qué el siguiente anticoagulante oral
+ha sido clasificado como “a evitar” en este paciente concreto.
+
+No inventes datos que no estén presentes.
+No afirmes contraindicaciones absolutas si no existen.
+Usa un lenguaje prudente y orientativo.
+
+DATOS DEL PACIENTE:
+- Edad: ${r.inputs.age}
+- Sexo: ${sexTxt}
+- Peso: ${r.inputs.weightKg ?? '—'} kg
+- Creatinina: ${r.renal.scr_mgdl ?? '—'} mg/dL
+- ClCr (Cockcroft-Gault): ${r.renal.crcl ?? '—'} ml/min
+- CHA₂DS₂-VASc: ${r.scores.vasc}
+- HAS-BLED: ${r.scores.hasbled}
+
+Condiciones clínicas relevantes:
+${condiciones.length ? condiciones.join(', ') : 'Ninguna destacable'}
+
+Interacciones farmacológicas presentes:
+${interacciones.length ? interacciones.join(', ') : 'Ninguna relevante'}
+
+Anticoagulante evaluado:
+- ${drug}
+
+Explica:
+1) El mecanismo principal que justifica evitar este fármaco  
+2) El riesgo clínico potencial si se utilizara  
+3) Por qué otras alternativas pueden ser más seguras en este contexto
+`.trim();
+}
+
+document.addEventListener('click', async e => {
+  const btn = e.target.closest('.explain-btn');
+  if (!btn) return;
+
+  e.preventDefault();
+  e.stopPropagation();
+
+  const drug = btn.dataset.drug;
+  if (!window.__lastReport) return;
+
+const prompt = buildClinicalPrompt(drug, window.__lastReport);
+
+// 🔧 MVP: mostrar el prompt (debug / validación)
+const modal = document.getElementById('modal-explain');
+const content = document.getElementById('modal-explain-content');
+
+content.innerHTML = '<p style="color:#666">Generando explicación clínica…</p>';
+modal.style.display = 'flex';
+
+try {
+  const aiText = await callAI(prompt);
+  content.innerHTML = aiText;
+
+  // ✅ clave: reinicia el scroll al principio
+  content.scrollTop = 0;
+
+  // ✅ (recomendado) asegura que se vea como flex
+  modal.style.display = 'flex';
+
+} catch (err) {
+  content.innerHTML =
+    '<p style="color:#b91c1c">No se pudo generar la explicación clínica.</p>';
+
+  // ✅ también aquí, por consistencia
+  content.scrollTop = 0;
+  modal.style.display = 'flex';
+}
+
+
+  document.getElementById('modal-explain-content').textContent = text;
+  document.getElementById('modal-explain').style.display = 'flex';
+});
+
+document.getElementById('modal-explain-close').onclick = () => {
+  document.getElementById('modal-explain').style.display = 'none';
+};
+document.getElementById('modal-explain').onclick = e => {
+  if (e.target.id === 'modal-explain') {
+    e.currentTarget.style.display = 'none';
+  }
+};
+
+async function callAI(prompt) {
+  const res = await fetch('http://localhost:3000/api/clinical-explain', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ prompt })
+  });
+
+  if (!res.ok) {
+    throw new Error('Error IA');
+  }
+
+  const data = await res.json();
+  return data.text;
+}
+
+
+    </script>
+
+    <script src="../js/index.js"></script>
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+  if (window.Capacitor && Capacitor.getPlatform() === "android") {
+    const btnPrint = document.getElementById("btnPrint");
+    if (btnPrint) btnPrint.style.display = "none";
+  }
+});
+</script>
+    <footer> <img src="../img/uibanner.png" alt="Ictus GPS"> </footer>
+<div class="modal-overlay" id="modal-info">
+  <div class="modal">
+    <button class="modal-close" id="modal-info-close">🔙</button>
+    <h3 id="modal-info-title"></h3>
+    <div id="modal-info-content"></div>
+  </div>
+
+
+
+</div>
+
+
+
+<div id="modal-explain" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="modal-box modal-box--explain" role="document">
+    <div class="modal-header">
+      <h3>Explicación clínica orientativa</h3>
+      <button id="modal-explain-close" type="button" aria-label="Cerrar">🔙</button>
+    </div>
+
+    <div id="modal-explain-content" class="modal-body">
+      <!-- aquí va el contenido -->
+    </div>
+  </div>
+</div>
+
+  </body>
+</html>
