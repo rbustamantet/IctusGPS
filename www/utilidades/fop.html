@@ -640,7 +640,7 @@ body {
       </div>
       <!-- BLOQUE ANATÓMICO -->
       <div class="block anat">
-        <h3>🫀 Características anatómicas (A)</h3>
+        <h3>💓 Características anatómicas (A)</h3>
         <div class="grid cols-2"> <label class="check"><input id="asa"
               type="checkbox"> Aneurisma o movilidad del tabique
             interauricular (ASA ≥10–15 mm o septo laxo)</label> <label
@@ -657,14 +657,23 @@ body {
       <div class="block clin">
         <h3>👩‍⚕️ Situaciones clínicas relevantes (C)</h3>
         <div class="grid cols-2"> <label class="check"><input
-              id="crypt60" type="checkbox"> Evento isquémico sin causa
+              id="crypt60" type="checkbox"> Sin causa
             alternativa identificada tras estudio completo</label> <label
             class="check"><input id="noAF" type="checkbox"> Sin FA
             documentada (incluida monitorización prolongada)</label> <label
             class="check"><input id="embolicMulti" type="checkbox">
             Patrón embólico multiterritorial o bilateral</label> <label
             class="check"><input id="recurOnAP" type="checkbox">
-            Recurrencia bajo antiagregante</label> <label class="check"><input
+            Recurrencia bajo antiagregante</label> <label class="check">
+  <input id="thrombNoACO" type="checkbox">
+  Estado de trombofilia sin indicación de anticoagulación crónica
+</label>
+<label class="check">
+  <input id="thrombWithACO" type="checkbox">
+  Estado de trombofilia con indicación de anticoagulación crónica
+</label>
+
+<label class="check"><input
               id="lowBleed" type="checkbox"> Riesgo hemorrágico bajo</label>
           <label class="check"><input id="contraClose" type="checkbox">
             <span style="color:#991b1b; font-weight:700;">Contraindicación
@@ -744,37 +753,80 @@ body {
           id="btnCopy" class="btn-action btn-copy">Copiar resumen</button>
       </div>
       <!-- BLOQUE INFORMATIVO (incluye PASCAL + explicación A/C) -->
-      <div class="block info">
-        <div class="note">
-          <details style="margin-top:8px;">
-            <summary
-              style="cursor:pointer;font-weight:700;color:#0f3d83;">📊
-              Clasificación PASCAL</summary>
-            <div class="note" style="margin-bottom:10px;"> La
-              clasificación PASCAL combina la puntuación RoPE y la
-              presencia de rasgos anatómicos de alto riesgo del FOP
-              (shunt grande y/o aneurisma del septo auricular) para
-              estimar la probabilidad de que el FOP sea causal. <br>
-              <br>
-              • RoPE ≥7 <b>y</b> shunt grande o ASA → <b>Probable</b>
-              (FOP probablemente causal; el cierre ofrece el mayor
-              beneficio absoluto).<br>
-              • RoPE ≥7 sin shunt grande/ASA, o RoPE &lt;7 con shunt
-              grande/ASA → <b>Posible</b> (relación causal posible;
-              valorar caso a caso).<br>
-              • RoPE &lt;7 <b>y</b> sin shunt grande/ASA → <b>Improbable</b>
-              (FOP probablemente incidental). </div>
-          </details>
-        </div>
-        <!-- Detalles explicativos originales -->
-        <div class="note">
-          <details style="margin-top:16px;">
-            <summary
-              style="cursor:pointer;font-weight:700;color:#0f3d83;"> 📋
-              Explicación de los factores anatómicos y clínicos </summary>
-            <div style="margin-bottom:10px;">
-              <ul style="color:#0f3d83;">
-                <li><b>Factores anatómicos de alto riesgo:</b>
+      <div class="howto">
+
+  <details style="margin-top:6px;">
+  <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">
+    📊 Clasificación PASCAL
+  </summary>
+
+  <div style="
+    margin-top:14px;
+    background:#ffffff;
+    border:1px solid #d0d7e1;
+    border-radius:10px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.05);
+    overflow:hidden;
+    font-size:13px;
+    line-height:1.55;
+    color:#1e293b;
+    padding:16px 18px;
+  ">
+      <p>
+    La <b>clasificación PASCAL</b> combina la puntuación <b>RoPE</b> con la
+    presencia de <b>rasgos anatómicos de alto riesgo del FOP</b>
+    (shunt grande derecha–izquierda y/o aneurisma del septo interauricular)
+    para estimar la probabilidad de que el FOP sea causal en un ictus
+    isquémico sin causa alternativa evidente.
+    <br><br>
+
+    • <b>PASCAL Probable</b>: RoPE ≥7 <b>y</b> shunt grande y/o ASA.  
+    El FOP es probablemente causal; el cierre percutáneo ofrece el mayor
+    beneficio absoluto.
+    <br><br>
+
+    • <b>PASCAL Posible</b>: RoPE ≥7 sin shunt grande/ASA, o RoPE &lt;7 con
+    shunt grande/ASA.  
+    La relación causal es posible; se recomienda valoración individualizada
+    e integración de otros factores clínicos.
+    <br><br>
+
+    • <b>PASCAL Improbable</b>: RoPE &lt;7 <b>y</b> ausencia de shunt grande o ASA.  
+    El FOP es probablemente incidental y el beneficio del cierre es limitado.
+ </p> </div>
+</details>
+
+
+
+          <details style="margin-top:6px;">
+  <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">
+    📋 Explicación de los factores anatómicos y clínicos
+  </summary>
+  <div style="
+    margin-top:14px;
+    background:#ffffff;
+    border:1px solid #d0d7e1;
+    border-radius:10px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.05);
+    overflow:hidden;
+    font-size:13px;
+    line-height:1.55;
+    color:#1e293b;
+  ">
+
+    <!-- Barra superior -->
+    <div style="
+      background:#0f3d83;
+      color:#ffffff;
+      padding:10px 14px;
+      font-size:14px;
+      font-weight:700;
+      letter-spacing:0.3px;
+    ">💓 Factores anatómicos de alto riesgo</div>
+
+    <!-- Contenido -->
+    <div style="padding:16px 18px;">
+
                   <ul style="padding-left:22px;">
                     <li><b>Aneurisma del septo interauricular (ASA):</b>
                       movilidad septal &gt;10–15 mm; favorece el paso de
@@ -793,10 +845,34 @@ body {
                     <li><b>Shunt pulmonar:</b> paso alternativo de
                       émbolos, relevante si coexistente con FOP.</li>
                   </ul>
-                </li>
-                <li><b>Situaciones clínicas relevantes:</b>
+    </div>
+  </div>
+<div style="
+    margin-top:14px;
+    background:#ffffff;
+    border:1px solid #d0d7e1;
+    border-radius:10px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.05);
+    overflow:hidden;
+    font-size:13px;
+    line-height:1.55;
+    color:#1e293b;
+  ">
+
+    <!-- Barra superior -->
+    <div style="
+      background:#0f3d83;
+      color:#ffffff;
+      padding:10px 14px;
+      font-size:14px;
+      font-weight:700;
+      letter-spacing:0.3px;
+    ">👩‍⚕️ Situaciones clínicas relevantes</div>
+
+    <!-- Contenido -->
+    <div style="padding:16px 18px;">
                   <ul style="padding-left:22px;">
-                    <li><b>Evento isquémico sin causa alternativa:</b>
+                    <li><b>Sin causa alternativa:</b>
                       ictus criptogénico tras estudio adecuado.</li>
                     <li><b>Sin fibrilación auricular documentada:</b>
                       incluida monitorización prolongada.</li>
@@ -812,12 +888,133 @@ body {
                   </ul>
                 </li>
               </ul>
-            </div>
-          </details>
-        </div>
-      </div>
-      <div class="howto">
-        <details style="margin-top:1px;">
+            </div> </div>
+</details>
+      <details style="margin-top:6px;">
+  <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">
+    🧬 Estados de trombofilia: alto y bajo riesgo y su valoración en el FOP
+  </summary>
+
+  <div style="
+    margin-top:14px;
+    background:#ffffff;
+    border:1px solid #d0d7e1;
+    border-radius:10px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.05);
+    overflow:hidden;
+    font-size:13px;
+    line-height:1.55;
+    color:#1e293b;
+  ">
+
+    <!-- Barra superior -->
+    <div style="
+      background:#0f3d83;
+      color:#ffffff;
+      padding:10px 14px;
+      font-size:14px;
+      font-weight:700;
+      letter-spacing:0.3px;
+    ">
+      🩺 Trombofilia y FOP: estratificación de riesgo y toma de decisiones
+    </div>
+
+    <!-- Contenido -->
+    <div style="padding:16px 18px;">
+
+      <p>
+        Los <b>estados de trombofilia</b>, hereditarios o adquiridos, se asocian a un
+        aumento del riesgo de trombosis, fundamentalmente venosa. En presencia de
+        un <b>foramen oval permeable (FOP)</b>, estas condiciones pueden aumentar la
+        plausibilidad biológica de <b>embolia paradójica</b>. Sin embargo, no todas
+        las trombofilias conllevan el mismo riesgo ni tienen las mismas
+        implicaciones terapéuticas.
+      </p>
+
+      <p>
+        Desde el punto de vista clínico, es útil diferenciar entre
+        <b>trombofilias de alto riesgo</b> y <b>trombofilias de bajo o moderado
+        riesgo</b>. Esta distinción condiciona la indicación de anticoagulación
+        crónica y, en consecuencia, el posible beneficio del cierre del FOP.
+      </p>
+
+      <p>
+        Ni la <b>escala RoPE</b> ni la <b>clasificación PASCAL</b> incorporan la
+        trombofilia como variable directa. Por ello, en esta herramienta se
+        considera una <b>situación clínica relevante (C)</b>, que <b>no modifica la
+        clasificación PASCAL</b>, pero sí matiza la interpretación clínica y la
+        recomendación final.
+      </p>
+
+      <hr style="border:none;border-top:1px solid #e5e7eb;margin:14px 0;">
+
+      <p><b>1. Trombofilias de bajo o moderado riesgo (sin indicación de ACO crónica)</b></p>
+      <p>
+        Incluyen alteraciones protrombóticas en las que, en ausencia de episodios
+        trombóticos mayores o recurrencia, <b>no existe indicación de
+        anticoagulación crónica</b>.
+      </p>
+      <ul style="padding-left:18px;">
+        <li>Factor V Leiden <b>heterocigoto</b>.</li>
+        <li>Mutación G20210A de la protrombina <b>heterocigota</b>.</li>
+        <li>Déficit leve de proteína C, proteína S o antitrombina, sin trombosis previa.</li>
+        <li>Elevación aislada de factor VIII o hiperhomocisteinemia leve.</li>
+        <li>Antecedente de trombosis venosa claramente <b>provocada</b> ya resuelta.</li>
+      </ul>
+      <p>
+        En estos casos:
+      </p>
+      <ul style="padding-left:18px;">
+        <li>Pueden <b>reforzar la plausibilidad</b> de embolia paradójica.</li>
+        <li>No constituyen una indicación aislada de cierre del FOP.</li>
+        <li>Pueden apoyar la <b>discusión en comité multidisciplinar</b>, sobre todo
+            si la clasificación PASCAL es Probable o Posible.</li>
+      </ul>
+
+      <hr style="border:none;border-top:1px solid #e5e7eb;margin:14px 0;">
+
+      <p><b>2. Trombofilias de alto riesgo (con indicación de anticoagulación crónica)</b></p>
+      <p>
+        Corresponden a situaciones con <b>alto riesgo trombótico</b>, en las que
+        existe una <b>indicación independiente de anticoagulación crónica</b>.
+      </p>
+      <ul style="padding-left:18px;">
+        <li><b>Síndrome antifosfolípido</b>, especialmente triple positivo.</li>
+        <li>Trombosis venosa profunda o tromboembolismo pulmonar <b>no provocados</b>
+            y/o recurrentes.</li>
+        <li>Combinación de varias trombofilias hereditarias.</li>
+        <li>Déficits graves de antitrombina, proteína C o proteína S.</li>
+      </ul>
+      <p>
+        En este contexto:
+      </p>
+      <ul style="padding-left:18px;">
+        <li>La anticoagulación reduce el riesgo embólico de base.</li>
+        <li>El <b>beneficio incremental del cierre del FOP es limitado</b>.</li>
+        <li>El cierre <b>no sustituye</b> la anticoagulación crónica.</li>
+        <li>
+          <b>No se trata de una contraindicación formal</b>, pero el cierre
+          percutáneo <b>no suele recomendarse en primera instancia</b> y debe
+          reservarse a situaciones muy seleccionadas (p. ej., recurrencia embólica
+          pese a ACO bien controlada), tras discusión en comité multidisciplinar.
+        </li>
+      </ul>
+
+      <hr style="border:none;border-top:1px solid #e5e7eb;margin:14px 0;">
+
+      <p>
+        En resumen, la trombofilia debe interpretarse como un <b>modulador clínico
+        del contexto</b>, no como un criterio automático de indicación o exclusión
+        del cierre del FOP. La decisión final debe integrar la clasificación
+        PASCAL, el perfil hemorrágico, las comorbilidades y las preferencias del
+        paciente.
+      </p>
+
+    </div>
+  </div>
+</details>
+
+        <details style="margin-top:6px;">
           <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📚
             Bibliografía</summary>
           <div style=" margin-top:14px; background:#ffffff; border:1px
@@ -929,7 +1126,7 @@ body {
     <!-- VENTANA EMERGENTE -->
     <div id="modalInfo" class="modal-info">
       <div class="modal-content"> <button class="modal-close"
-          id="closeModal">❌</button>
+          id="closeModal">🔙</button>
         <div id="modalText" class="modal-text"></div>
       </div>
     </div>
@@ -942,9 +1139,34 @@ const PROB={
 
 /* IDs de campos */
 const idsAnat=['asa','largeShunt','longTunnel','eustachian','pulmShunt'];
-const idsClin=['crypt60','noAF','embolicMulti','recurOnAP','lowBleed'];
+const idsClin = [
+  'crypt60',
+  'noAF',
+  'embolicMulti',
+  'recurOnAP',
+  'thrombNoACO',
+  'thrombWithACO',
+  'lowBleed'
+];
 
 const $=id=>document.getElementById(id);
+
+/* =========================================================
+   COHERENCIA TROMBOFILIAS (no ambas a la vez)
+========================================================= */
+
+['thrombNoACO','thrombWithACO'].forEach(id=>{
+  const el = $(id);
+  if(!el) return;
+
+  el.addEventListener('change', ()=>{
+    if($('thrombNoACO').checked && $('thrombWithACO').checked){
+      if(id === 'thrombNoACO') $('thrombWithACO').checked = false;
+      else $('thrombNoACO').checked = false;
+    }
+  });
+});
+
 
 /* Funciones auxiliares RoPE */
 const toneFor=s=>s>=7?'bad':(s>=4?'warn':'ok');
@@ -978,7 +1200,7 @@ function pascalClass(scoreRoPE){
     };
   }
 
-  if(scoreRoPE > 7 && !highRisk){
+  if(scoreRoPE >= 7 && !highRisk){
     return {
       label:'Posible',
       tone:'warn',
@@ -1004,37 +1226,64 @@ function pascalClass(scoreRoPE){
 }
 
 /* Decisión terapéutica basada en PASCAL + contraindicaciones */
-function decideReco(score,A,C,pascal,contra){
+function decideReco(score,A,C,pascal,contra,thrombNoACO,thrombWithACO){
   if(contra){
     return {
-      rec:'Evitar cierre percutáneo',
+      rec:'🚫 Contraindicado el cierre percutáneo',
       note:'Existe contraindicación o riesgo inaceptable para el procedimiento; optar por manejo médico individualizado.',
       tone:'bad'
     };
   }
 
+  if(thrombWithACO){
+  return {
+    rec:'💊 Manejo médico con anticoagulación crónica (cierre no recomendado de entrada)',
+    note:
+      'Existe una indicación independiente de anticoagulación crónica. ' +
+      'En este contexto, el beneficio incremental del cierre del FOP es limitado, ' +
+      'ya que la anticoagulación reduce el riesgo embólico de base y el cierre no sustituye la ACO.\n\n' +
+      'No se trata de una contraindicación formal, pero el cierre percutáneo no suele recomendarse ' +
+      'en primera instancia y debe reservarse a situaciones muy seleccionadas, tras discusión en ' +
+      'comité multidisciplinar (p. ej., recurrencia embólica pese a ACO bien controlada).',
+    tone:'bad'
+  };
+}
+
+
   if(pascal.label === 'Probable'){
-    return {
-      rec:'Cierre percutáneo recomendado',
-      note:'Clasificación PASCAL “Probable”: FOP probablemente causal; mayor beneficio absoluto del cierre frente al manejo médico.',
-      tone:'ok'
-    };
+  let note = 'Clasificación PASCAL “Probable”: FOP probablemente causal; mayor beneficio absoluto del cierre frente al manejo médico.';
+  if(thrombNoACO){
+    note += ' La coexistencia de trombofilia sin indicación de anticoagulación crónica refuerza la plausibilidad del mecanismo embólico paradójico.';
   }
+  return {
+    rec:'✅ Cierre percutáneo recomendado',
+    note,
+    tone:'ok'
+  };
+}
+
 
   if(pascal.label === 'Posible'){
-    return {
-      rec:'Valorar cierre en consenso multidisciplinar',
-      note:'Clasificación PASCAL “Posible”: la relación causal es posible; integrar edad, comorbilidad, preferencias del paciente y otros hallazgos (incluidos A y C).',
-      tone:'warn'
-    };
+  let note = 'Clasificación PASCAL “Posible”: la relación causal es posible; integrar edad, comorbilidad, preferencias del paciente y otros hallazgos.';
+  if(thrombNoACO){
+    note += ' La presencia de trombofilia sin indicación de ACO refuerza la plausibilidad del mecanismo embólico paradójico y apoya la discusión en comité multidisciplinar.';
   }
+  return {
+    rec:'🤝 Valorar cierre en consenso multidisciplinar',
+    note,
+    tone:'warn'
+  };
+}
+
 
   /* improbable */
   return {
-    rec:'Manejo médico (antiagregante o anticoagulación según perfil)',
-    note:'Clasificación PASCAL “Improbable”: el FOP es probablemente un hallazgo incidental; el beneficio del cierre es limitado.',
-    tone:'bad'
-  };
+  rec:'💊 Manejo médico (antiagregante o anticoagulación según perfil)',
+  note: thrombNoACO
+    ? 'Clasificación PASCAL “Improbable”: el FOP probablemente es incidental. La presencia de trombofilia puede requerir tratamiento médico específico al margen de la indicación de cierre del FOP.'
+    : 'Clasificación PASCAL “Improbable”: el FOP es probablemente un hallazgo incidental; el beneficio del cierre es limitado.',
+  tone:'bad'
+};
 }
 
 /* Resumen para copiar/pegar en la historia */
@@ -1049,10 +1298,13 @@ function mostrarResumen(s,prob,cat,A,C,pascal,decision,contra){
 
 const selClin=getClin().map(id=>({
     crypt60:'Evento isquémico sin causa alternativa identificada',
-    noAF:'Sin FA documentada',
-    embolicMulti:'Patrón embólico multiterritorial o bilateral',
-    recurOnAP:'Recurrencia bajo antiagregación',
-    lowBleed:'Riesgo hemorrágico bajo'
+           noAF:'Sin FA documentada',
+           embolicMulti:'Patrón embólico multiterritorial o bilateral',
+           recurOnAP:'Recurrencia bajo antiagregación',
+           lowBleed:'Riesgo hemorrágico bajo',
+           thrombNoACO:'Estado de trombofilia sin indicación de anticoagulación crónica',
+    thrombWithACO:'Estado de trombofilia con indicación de anticoagulación crónica'
+
 }[id]));
 
 
@@ -1062,6 +1314,16 @@ const selClin=getClin().map(id=>({
   t += `Rasgos anatómicos (A): ${A}${A ? ' – ' + selAnat.join(', ') : ''}.\n`;
   t += `Criterios clínicos (C): ${C}${C ? ' – ' + selClin.join(', ') : ''}.\n`;
   t += `Clasificación PASCAL: ${pascal.label}. ${pascal.note}\n`;
+  if($('thrombWithACO')?.checked){
+       t += ` \n⚠ Nota clínica relevante:\n`;
+       t += `Existe una indicación independiente de anticoagulación crónica. `;
+       t += `En este contexto, el beneficio incremental del cierre del FOP es limitado, `;
+       t += `ya que la anticoagulación reduce el riesgo embólico de base y el cierre no sustituye la ACO. `;
+       t += `No se trata de una contraindicación formal, pero el cierre percutáneo no suele recomendarse `;
+       t += `en primera instancia y debe reservarse a situaciones muy seleccionadas, `;
+       t += `tras discusión en comité multidisciplinar.\n`;
+}
+
 
   if(contra){
     t += `\nATENCIÓN: Se ha marcado “contraindicación para cierre”.\n`;
@@ -1096,9 +1358,11 @@ function calcular(){
   const A = getAnat().length;
   const C = getClin().length;
   const contra = $('contraClose').checked;
+  const thrombNoACO   = $('thrombNoACO').checked;
+  const thrombWithACO = $('thrombWithACO').checked;
 
   const pascal = pascalClass(s);
-  const decision = decideReco(s,A,C,pascal,contra);
+  const decision = decideReco(s,A,C,pascal,contra,thrombNoACO,thrombWithACO);
 
   /* RoPE */
   $('scoreVal').textContent = s;

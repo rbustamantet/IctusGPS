@@ -1589,63 +1589,6 @@ window.__lastReport = __lastReport;
       document.getElementById('btnPrint').disabled=false;
       document.getElementById('btnCopy').disabled=false;
     }
-function buildClinicalPrompt({ drug, context }) {
-
-  const sexTxt = context.sex === 'F' ? 'Mujer' : 'Varón';
-
-  const condiciones = [];
-  if (context.special.giBleed) condiciones.push("Antecedente de hemorragia digestiva");
-  if (context.special.ichRisk) condiciones.push("Alto riesgo de hemorragia intracraneal");
-  if (context.special.valvular) condiciones.push("Cardiopatía valvular significativa");
-  if (context.special.obesity) condiciones.push("Obesidad mórbida");
-  if (context.hasbled >= 3) condiciones.push("HAS-BLED elevado");
-  if (context.age >= 80) condiciones.push("Edad ≥ 80 años");
-
-  const interacciones = [];
-  if (context.special.pgp) interacciones.push("Inhibidor potente de P-gp");
-  if (context.special.pgpInd) interacciones.push("Inductor potente de P-gp");
-  if (context.special.cypInhib) interacciones.push("Inhibidor potente de CYP3A4");
-  if (context.special.cypInduc) interacciones.push("Inductor potente de CYP3A4");
-
-  return `
-Eres un médico especialista en Neurología Vascular y Farmacología Clínica.
-
-Explica por qué el siguiente anticoagulante oral ha sido clasificado como
-“A EVITAR” en este paciente concreto.
-
-⚠️ Instrucciones estrictas:
-- Respuesta breve y clínica
-- Máximo 5 líneas
-- Frases cortas
-- Sin introducciones generales
-- No repetir datos del caso
-- No inventar información
-- Lenguaje prudente y orientativo
-
-DATOS CLÍNICOS RELEVANTES:
-- Edad: ${r.inputs.age} años
-- Sexo: ${sexTxt}
-- ClCr: ${r.renal.crcl ?? '—'} ml/min
-- HAS-BLED: ${r.scores.hasbled}
-- CHA₂DS₂-VASc: ${r.scores.vasc}
-
-Condiciones relevantes:
-${condiciones.length ? condiciones.join(', ') : 'Ninguna destacable'}
-
-Interacciones presentes:
-${interacciones.length ? interacciones.join(', ') : 'Ninguna relevante'}
-
-Fármaco evaluado:
-- ${drug}
-
-Estructura obligatoria (en viñetas):
-• Motivo principal para evitarlo  
-• Riesgo clínico esperado  
-• Alternativa(s) más segura(s) en este contexto
-`.trim();
-
-}
-
 
 function printReport(){
 
@@ -2729,56 +2672,36 @@ document.addEventListener('DOMContentLoaded', () => {
       if(!customElements.get("app-disclaimer")){ customElements.define("app-disclaimer",AppDisclaimer); }
     })();
 
+
+
 function buildClinicalPrompt(drug, r){
 
-  const sexTxt = r.inputs.sex === 'F' ? 'Mujer' : 'Varón';
-
-  const condiciones = [];
-  if (r.special?.giBleed) condiciones.push("Antecedente de hemorragia digestiva");
-  if (r.special?.ichRisk) condiciones.push("Alto riesgo de hemorragia intracraneal");
-  if (r.special?.valvular) condiciones.push("Cardiopatía valvular significativa");
-  if (r.special?.obesity) condiciones.push("Obesidad mórbida");
-  if (r.scores?.hasbled >= 3) condiciones.push("HAS-BLED elevado");
-  if (r.inputs?.age >= 80) condiciones.push("Edad ≥ 80 años");
-
-  const interacciones = [];
-  if (r.special?.pgp) interacciones.push("Inhibidor potente de P-gp");
-  if (r.special?.pgpInd) interacciones.push("Inductor potente de P-gp");
-  if (r.special?.cypInhib) interacciones.push("Inhibidor potente de CYP3A4");
-  if (r.special?.cypInduc) interacciones.push("Inductor potente de CYP3A4");
+  const sexTxt = r.inputs?.sex === 'F' ? 'Mujer' : 'Varón';
 
   return `
 Eres un médico especialista en Neurología Vascular y Farmacología Clínica.
 
-Explica de forma clínica y razonada por qué el siguiente anticoagulante oral
-ha sido clasificado como “a evitar” en este paciente concreto.
+Analiza el caso y responde EXCLUSIVAMENTE en formato JSON válido.
+NO escribas texto fuera del JSON.
 
-No inventes datos que no estén presentes.
-No afirmes contraindicaciones absolutas si no existen.
-Usa un lenguaje prudente y orientativo.
+Estructura obligatoria:
+{
+  "motivo_principal": "",
+  "riesgo_clinico": "",
+}
 
-DATOS DEL PACIENTE:
-- Edad: ${r.inputs.age}
-- Sexo: ${sexTxt}
-- Peso: ${r.inputs.weightKg ?? '—'} kg
-- Creatinina: ${r.renal.scr_mgdl ?? '—'} mg/dL
-- ClCr (Cockcroft-Gault): ${r.renal.crcl ?? '—'} ml/min
-- CHA₂DS₂-VASc: ${r.scores.vasc}
-- HAS-BLED: ${r.scores.hasbled}
+Caso clínico completo (objeto JSON):
+${JSON.stringify(r, null, 2)}
 
-Condiciones clínicas relevantes:
-${condiciones.length ? condiciones.join(', ') : 'Ninguna destacable'}
+Fármaco evaluado: ${drug}
 
-Interacciones farmacológicas presentes:
-${interacciones.length ? interacciones.join(', ') : 'Ninguna relevante'}
+Instrucciones:
+- Basa la explicación únicamente en los datos proporcionados
+- Prioriza el motivo clínico dominante real
+- Si hay problemas de administración (disfagia, cápsulas no abribles, SNG), considéralo motivo principal
+- Respuestas breves y clínicas
+-Devuelve únicamente un objeto JSON plano, sin markdown, sin comillas triples y sin texto adicional.
 
-Anticoagulante evaluado:
-- ${drug}
-
-Explica:
-1) El mecanismo principal que justifica evitar este fármaco  
-2) El riesgo clínico potencial si se utilizara  
-3) Por qué otras alternativas pueden ser más seguras en este contexto
 `.trim();
 }
 
@@ -2803,22 +2726,30 @@ modal.style.display = 'flex';
 
 try {
   const aiText = await callAI(prompt);
-  content.innerHTML = aiText;
 
-  // ✅ clave: reinicia el scroll al principio
+  let data;
+  try {
+    data = JSON.parse(aiText);
+  } catch {
+    content.innerHTML =
+      '<p style="color:#b91c1c">La IA devolvió un formato no válido.</p>';
+    return;
+  }
+
+  content.innerHTML = `
+    <ul>
+      <li><b>Motivo principal:</b> ${data.motivo_principal}</li>
+      <li><b>Riesgo clínico:</b> ${data.riesgo_clinico}</li>
+    </ul>
+  `;
+
   content.scrollTop = 0;
-
-  // ✅ (recomendado) asegura que se vea como flex
-  modal.style.display = 'flex';
 
 } catch (err) {
   content.innerHTML =
     '<p style="color:#b91c1c">No se pudo generar la explicación clínica.</p>';
-
-  // ✅ también aquí, por consistencia
-  content.scrollTop = 0;
-  modal.style.display = 'flex';
 }
+
 
 
   document.getElementById('modal-explain-content').textContent = text;
