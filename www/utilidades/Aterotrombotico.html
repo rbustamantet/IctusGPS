@@ -882,11 +882,11 @@ const tratamientosEscenario = {
 =============================== */
 const notas = {
    nota0: `
-    <b>AIT de alto riesgo</b><br>
+    <b>AIT de alto riesgo.</b><hr>
     • Aunque ABCD² 4–5 es riesgo moderado en la escala original, a efectos terapéuticos se considera <b>ABCD² ≥ 4</b> como AIT de alto riesgo.
   `,
   nota1: `
-    <b>Estenosis carotídea sintomática de alto riesgo</b><br>
+    <b>Estenosis carotídea sintomática de alto riesgo.</b><hr>
     • Síntomas recientes (≤14 días)<br>
     • AITs o ictus recurrentes en el mismo territorio<br>
     • AITs fluctuantes o inestables<br>
@@ -896,7 +896,7 @@ const notas = {
     • Bajo riesgo quirúrgico y buena expectativa de vida
   `,
   nota2: `
-    <b>Estenosis carotídea asintomática de alto riesgo</b><br>
+    <b>Estenosis carotídea asintomática de alto riesgo.</b><hr>
     • Progresión del grado de estenosis<br>
     • Placa inestable (ulcerada, móvil, hemorrágica)<br>
     • Velocidades Doppler &gt;300 cm/s<br>
@@ -908,7 +908,7 @@ const notas = {
     • Baja adherencia al tratamiento médico
   `,
   nota3: `
-    <b>Seguimiento de estenosis intracraneales</b><br>
+    <b>Seguimiento de estenosis intracraneales.</b><hr>
     <u>Utilidad</u><br>
     • Detectar progresión de la estenosis<br>
     • Identificar infartos silentes nuevos<br>
@@ -920,7 +920,7 @@ const notas = {
     • Si hay progresión sin síntomas ni hallazgos funcionales → mantener tratamiento médico y seguimiento estrecho
   `,
   nota4: `
-    <b>Estenosis vertebral de alto riesgo</b><br>
+    <b>Estenosis vertebral de alto riesgo.</b><hr>
     • Síntomas vertebrobasilares recientes (≤14 días)<br>
     • AITs o ictus recurrentes en territorio posterior<br>
     • AITs inestables o fluctuantes<br>
@@ -931,7 +931,7 @@ const notas = {
     • Edad &lt;75 años, bajo riesgo de intervención y buena expectativa de vida
   `,
   nota5: `
-    <b>Indicación de intervención en disección arterial</b><br>
+    <b>Indicación de intervención en disección arterial.</b><hr>
     • Estenosis crítica con hipoperfusión cerebral sintomática<br>
     • Síntomas recurrentes pese a tratamiento médico adecuado<br>
     • Trombo intraluminal flotante o embolígeno persistente<br>
@@ -941,7 +941,7 @@ const notas = {
     • Post-stent: DAPT 1–3 meses, luego monoterapia antiagregante
   `,
   nota6: `
-    <b>Criterios de alarma en Carotid Web</b><br>
+    <b>Criterios de alarma en Carotid Web.</b><hr>
     • Episodios de ictus o AIT repetidos en el mismo territorio<br>
     • Web prominente o protruyente hacia el lumen en imagen<br>
     • Presencia de trombo asociado<br>
@@ -951,17 +951,19 @@ const notas = {
     🔶 La presencia de recurrencias, trombo asociado, estasis significativa o web prominente son criterios mayores para valorar intervención. La edad joven y la afectación bilateral actúan como factores de apoyo, pero no constituyen indicación aislada.
   `,
   nota7: `
-    <b>Asociación AVK + AAS en trombo mural aórtico</b><br>
+    <b>Asociación AVK + AAS en trombo mural aórtico.</b><hr>
     • Trombo sobre placa ulcerada, irregular, móvil o con hemorragia intraplaca<br>
     • Puede considerarse añadir AAS si alto riesgo embólico o coexistencia de enfermedad aterotrombótica<br>
     • Asociar de forma individualizada y limitada (1–3 meses) por aumento del riesgo hemorrágico
   `,
   nota8: `
-    <b>Prolongación de triple terapia hasta 14 días</b><br>
-    • Stent carotídeo largo o en bifurcación<br>
-    • Placa ulcerada, trombo mural o estenosis crítica residual<br>
-    • AITs o ictus múltiples previos en el mismo territorio<br>
-    • Paciente joven con bajo riesgo hemorrágico y anatomía compleja
+    <b>Acortamiento de triple terapia.</b> Considerar en pacientes con <b>alto riesgo hemorrágico.</b><hr>
+  	• Hemorragia intracraneal previa o ictus hemorrágico reciente<br>
+  	• Edad ≥ 80 años o fragilidad clínica marcada<br>
+  	• HAS-BLED ≥ 3<br>
+ 	• Insuficiencia renal grave (<30 ml/min) o bajo peso (<60 kg)<br>
+ 	• Anemia, plaquetopenia o sangrado digestivo reciente<br>
+  	• Interacciones farmacológicas relevantes con ACO o antiagregantes
   `
 };
 
@@ -972,7 +974,7 @@ const toolsContent = {
   carga: {
     title: "Dosis de carga de antiagregantes",
     html: `
-      <ul>
+      <hr><ul>
         <li><b>AAS:</b> dosis de carga 300 mg VO (o IV según contexto). Posteriormente, 75–100 mg/día. No mantener dosis altas más de 3–5 días salvo indicación específica.</li>
         <li><b>Clopidogrel:</b>
           <ul>
@@ -987,38 +989,43 @@ const toolsContent = {
     `
   },
   triple_stent: {
-    title: "Triple terapia en pacientes anticoagulados con stent carotídeo",
-    html: `
-      <ul>
-        <li><b>Contexto:</b> paciente con indicación de anticoagulación crónica (FA, tromboembolismo venoso, etc.) que recibe un stent carotídeo.</li>
-        <li><b>Días 1–7:</b> ACO (ACOD o AVK) + AAS + clopidogrel.</li>
-        <li><b>Días 8–30:</b> ACO + clopidogrel.</li>
-        <li><b>Tras 1 mes:</b> ACO en monoterapia en la mayoría de casos.</li>
-        <li>En situaciones de <b>muy alto riesgo trombótico</b> (stent largo, bifurcación, trombo residual, múltiples ictus previos) la triple terapia puede prolongarse hasta 14 días
-          <span class="info-icon" data-info="nota8">ℹ️</span>
-        </li>
-        <li>Utilizar IBP desde el inicio y priorizar ACOD frente a AVK cuando no haya contraindicaciones, por mejor perfil de seguridad.</li>
-      </ul>
-    `
-  },
-  triple_sin_stent: {
-    title: "Triple terapia en anticoagulados con indicación de DAPT (sin stent)",
-    html: `
-      <ul>
-        <li><b>Contexto:</b> paciente con ACO crónica que precisa DAPT corta por ictus menor/AIT de alto riesgo, estenosis intracraneal sintomática, estenosis crítica no intervenible, etc.</li>
-        <li><b>Días 1–7:</b> ACO + AAS + clopidogrel (triple terapia).</li>
-        <li><b>Días 8–30:</b> ACO + clopidogrel.</li>
-        <li><b>Días 31–90:</b> ACO en monoterapia o ACO + clopidogrel si el riesgo trombótico sigue siendo muy alto y el riesgo hemorrágico es aceptable.</li>
-        <li><b>Más allá de 90 días:</b> en general, ACO en monoterapia.</li>
-        <li>Suspender AAS tan pronto como sea posible, salvo indicación coronaria o vascular muy clara.</li>
-        <li>Asociar siempre IBP.</li>
-      </ul>
-    `
-  },
+  title: "Triple terapia en pacientes anticoagulados con stent carotídeo",
+  html: `
+    <hr><ul>
+      <li><b>Contexto:</b> paciente con indicación de anticoagulación crónica (FA, tromboembolismo venoso, prótesis valvular, etc.) que recibe un stent carotídeo.</li>
+      <li><b>Días 1–30 (esquema estándar):</b> ACO (ACOD o AVK) + AAS + clopidogrel.</li>
+      <li><b>Días 31–90:</b> ACO + clopidogrel.</li>
+      <li><b>Tras 3 meses:</b> ACO en monoterapia.</li>
+      <li>
+        En pacientes con <b>alto riesgo hemorrágico</b>, puede considerarse <b>acortar la duración de la triple terapia</b> (p. ej., 7–14 días) y pasar antes a ACO + clopidogrel
+        <span class="info-icon" data-info="nota8">ℹ️</span>
+      </li>
+      <li>Utilizar IBP desde el inicio y priorizar ACOD frente a AVK cuando no haya contraindicaciones, por mejor perfil de seguridad.</li>
+    </ul>
+  `
+}
+,
+triple_sin_stent: {
+  title: "Triple terapia en anticoagulados con indicación de DAPT (sin stent)",
+  html: `
+    <hr><ul>
+      <li><b>Contexto:</b> paciente con anticoagulación oral crónica que precisa DAPT corta por ictus menor/AIT de alto riesgo, estenosis intracraneal sintomática, estenosis crítica no intervenible, etc.</li>
+      <li><b>Días 1–30 (esquema estándar):</b> ACO + AAS + clopidogrel.</li>
+      <li><b>Días 31–90:</b> ACO + clopidogrel.</li>
+      <li><b>Tras 3 meses:</b> ACO en monoterapia.</li>
+      <li>
+        En pacientes con <b>alto riesgo hemorrágico</b>, puede considerarse <b>acortar la triple terapia a 7–14 días</b> y mantener ACO + clopidogrel hasta completar 1 mes
+        <span class="info-icon" data-info="nota8">ℹ️</span>
+      </li>
+      <li>Suspender AAS tan pronto como sea posible si no hay indicación vascular clara.</li>
+      <li>Asociar siempre IBP.</li>
+    </ul>
+  `
+},
   ibp: {
     title: "IBP y clopidogrel",
     html: `
-      <ul>
+      <hr><ul>
         <li><b>Indicaciones de IBP:</b> edad &gt; 65 años, antecedentes de úlcera o hemorragia digestiva, uso concomitante de AAS, ACO, AINEs o corticoides, y cualquier escenario de antiagregación/anticoagulación intensiva.</li>
         <li><b>Elección de IBP:</b> preferir pantoprazol, lansoprazol o rabeprazol por menor interacción con el metabolismo de clopidogrel (CYP2C19).</li>
         <li>Evitar omeprazol y esomeprazol salvo ausencia de alternativas o indicación muy precisa.</li>
