@@ -13,651 +13,182 @@
     <meta name="theme-color" content="#0f3d83">
     <title>Fibrilación Auricular</title>
     <style>
-
 /* =========================================================
-   VARIABLES GLOBALES
-========================================================= */
-:root{
-  --bg:#f8fafc; 
-  --ink:#0e1a33;
-
-  --azul:#0f3d83;
-  --azul-institucional:#0f3d83;
-
-  --accent-dark:#0f3d83;
-  --accent-light:#2563eb;
-
-  --border:#e5e9f2;
-  --muted:#64748b;
-
-  --ok:#166534;
-  --ok-bg:#e9fce7;
-  --ok-ring:#bbf7d0;
-
-  --mid:#92400e;
-  --mid-bg:#fff7ed;
-  --mid-ring:#fed7aa;
-
-  --bad:#991b1b;
-  --bad-bg:#fef2f2;
-  --bad-ring:#fecaca;
-
-  --gris:#6b7280;
-  --borde:#e5e7eb;
-  --error:#b91c1c;
-}
-*{box-sizing:border-box}
-html,body{
-  margin:0;
-  padding:0;
-  background:var(--bg);
-  color:var(--ink);
-  font-family: Verdana, Geneva, Tahoma, sans-serif
-}
-.wrap{
-  max-width:1100px;
-  margin:0 auto;
-  padding:.2rem;
-}
-/* =========================================================
-   SAFE-TOP (FIJO 60 px + notch)
-========================================================= */
-.safe-top {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: calc(env(safe-area-inset-top) + 60px);
-  background: var(--azul-institucional);
-  z-index: 1001;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: env(safe-area-inset-top);
-}
-
-.safe-content{
-  width:100%;
-  max-width:1080px;
-  padding: 6px 16px 8px;
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-}
-
-.safe-left{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.safe-mini{
-  width:44px;
-  height:44px;
-  object-fit:contain;
-  padding:4px;
-  box-shadow:0 0 4px rgba(0,0,0,0.1);
-}
-
-.safe-logo{
-  height:44px;
-  width:auto;
-}
-
-.safe-actions{
-  display:flex;
-  gap:10px;
-}
-
-.safe-btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width:40px;
-  height:40px;
-  background:rgba(255,255,255,0.15);
-  border:1px solid white;
-  border-radius:50%;
-  transition:background .25s, border-color .25s, transform .1s;
-}
-
-.safe-btn:hover{
-  background:#01c5fe;
-}
-
-.safe-btn:active{
-  transform:scale(0.95);
-}
-
-.safe-icon{
-  width:32px; 
-  height:32px;
-  object-fit:contain;
+   SISTEMA DE DISEÑO (CSS VARIABLES)
+   ========================================================= */
+:root {
+    /* Paleta Institucional */
+    --color-primary: #0f3d83;
+    --color-primary-light: #2563eb;
+    --color-accent: #01c5fe;
+    
+    /* Estados Semánticos */
+    --color-success: #166534;
+    --color-success-bg: #e8f5e9;
+    --color-danger: #b91c1c;
+    --color-danger-bg: #fef2f2;
+    --color-warning: #92400e;
+    --color-warning-bg: #fff7ed;
+    
+    /* Superficies y Bordes */
+    --color-bg: #f8fafc;
+    --color-surface: #ffffff;
+    --color-surface-alt: #eff6ff;
+    --color-border: #e2e8f0;
+    --color-text: #0e1a33;
+    --color-text-muted: #64748b;
+    
+    /* Elevación y Radio */
+    --radius-md: 12px;
+    --radius-lg: 14px;
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 12px rgba(16, 71, 119, 0.12);
 }
 
 /* =========================================================
-   CABECERA STICKY
-========================================================= */
-header{
-  position:sticky;
-  top:calc(env(safe-area-inset-top) + 52px);
-  z-index:1002;
-  backdrop-filter:blur(6px);
-  background:var(--azul-institucional);
-  border-bottom:1px solid rgba(255,255,255,.08);
-  box-shadow:0 2px 6px rgba(0,0,0,0.08);
-  color:#fff;
+   RESET & BASE (Rendimiento WebView)
+   ========================================================= */
+* { 
+    box-sizing: border-box; 
+    -webkit-tap-highlight-color: transparent; 
 }
 
-.bar{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:10px;
-  height:52px;
-  padding:0 16px;
-}
-
-.title{
-  display:flex;
-  align-items:center;
-  font-size:1.4rem;
-  font-weight:700;
-  color:#fff;
-}
-
-.title img{
-  width:32px;
-  height:32px;
-  margin-right:8px;
-}
-/* =========================================================
-   TIPOGRAFÍA Y TARJETAS
-========================================================= */
-html,body,.wrap,.card,label,input,select,button,table,p,h1,h2,h3,li{
-  font-family:Verdana,Geneva,sans-serif!important;
-}
-
-.howto{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:14px;
-  box-shadow:0 2px 2px var(--muted);
-  padding:1rem;
-  margin:.3rem 0 1rem;
-  font-size:14px;
-}
-.card{
-  background:#eff6ff;
-  border-radius:14px;
-  border-left:4px solid var(--azul-institucional);
-  box-shadow:0 3px 14px rgba(16,71,119,.12);
-  padding:16px;
-  margin:12px 0;
-}
-
-.card-result{
-  background:#fff;
-  border-left:4px solid #10b981;
-  border-radius:14px;
-  box-shadow:0 3px 14px rgba(16,71,119,.12);
-  padding:16px;
-  margin:12px 0;
-}
-
-.grid{display:grid; gap:12px;}
-.g-2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
-.g-3{grid-template-columns:repeat(auto-fit,minmax(40%,1fr));}
-/* Grid específico para los datos del paciente */
-@media (min-width: 900px){
-  .patient-grid{
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-
-label{font-weight:600;font-size:.92rem;color:#0f3f66;display:block;margin-bottom:6px;}
-label.row{font-weight:400;}
-.row{display:flex;gap:8px;align-items:center;margin:4px 0;}
-
-input[type="number"],select{
-  width:100%;
-  box-sizing:border-box;
-  border:1px solid #cfe3f6;
-  background:#fff;
-  border-radius:10px;
-  padding:10px 12px;
-  font-size:1rem;
-}
-
-small.hint{color:#345;opacity:.8;}
-
-.btnbar{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:8px;
-  align-items:center;
-}
-
-button{
-  border:0;
-  border-radius:999px;
-  padding:10px 16px;
-  font-weight:700;
-  cursor:pointer;
-  line-height:1;
-  flex:0 0 auto;
-}
-
-.primary{background:#0f3d83;color:#fff;}
-.primary:hover {background:#fff;color:#0f3d83;border:2px solid #0f3d83;}
-
-.ghost{background:#fff;color:#0f3d83;border:2px solid #0f3d83;}
-.ghost:hover {background:#0f3d83;color:#fff;border:2px solid #0f3d83;}
-
-/* =========================================================
-   TABLAS / PILLS / RESULTADOS
-========================================================= */
-table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;font-size:.95rem;}
-th,td{padding:6px;border-bottom:1px solid #e8f2fb;text-align:left;vertical-align:top;}
-thead th{background:#eef6ff;color:#0b4576;font-size:.9rem;}
-tfoot td{background:#f3f9ff;}
-
-.muted{color:#567;}
-.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-weight:700;font-size:.8rem;}
-.ok{background:#e8f5e9;color:#1b5e20;}
-.okr{background:#ffcccc;color:#660000;}
-.okb{background:#0f3d83;color:#ffffff;}
-.bad{background:#ffebee;color:#b71c1c;}
-.note{font-size:.86rem;color:#456;}
-.center{text-align:center;}
-.subtle{color:#345;opacity:.85;}
-.subtle2{background:#fff5f5;color:#660000;opacity:.85;}
-.sticky-result{position:relative}
-.result-anchor{scroll-margin-top:120px}
-
-.sep{height:1px;background:#e7f0fb;margin:14px 0;}
-
-.inlineSelect{display:flex;gap:8px;}
-.unit{width:44%;}
-.val{flex:1;}
-/* Mejores opciones */
-    #comparative tbody tr.best td{background:#e8f5e9}
-    #comparative tbody tr.best td:first-child{border-left:4px solid var(--ok);font-weight:700}
-    /* Adecuación clínica */
-    .tagPref{background:#e8f5e9;color:#1b5e20;border:1px solid #b7dfbf}
-    .tagAvoid{background:#ffebee;color:#b71c1c;border:1px solid #f3c5c8}
-    .tagNeutral{background:#eef6ff;color:#0b4576;border:1px solid #cfe3f6}
-    .rec-list li{margin:4px 0}
-    .list-min{padding-left:16px;margin:0}
-    .doseTag{background:#fff4ce;color:#7a4e00;border:1px solid #ffe08a;padding:2px 8px;border-radius:999px;font-weight:700;font-size:.8rem}
-    .noOac{color:#b71c1c;font-weight:800}
-
-/* Columnas visibles */
-#comparative tbody td._zebra{background:#eef6ff;}
-@media (max-width:640px){
-  .col-rra,.col-rrs{display:none;}
-}
-
-
-
-
-/* Toast */
-.toast{
-  position:fixed;
-  top: calc(env(safe-area-inset-top) + 104px);
-  left:50%;
-  transform:translateX(-50%) translateY(-10px);
-  width:calc(100% - 32px);
-  max-width:680px;
-  text-align:center;
-  background:#b71c1c;
-  border-radius:5px;
-  color:#fff;
-  padding:10px;
-  box-shadow:0 6px 24px rgba(0,0,0,.18);
-  opacity:0;
-  pointer-events:none;
-  z-index:1003;
-  transition:opacity .25s,transform .25s;
-  font-weight:600;
-}
-.toast.show{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
-}.toast.warn{background:#f57c00;}
-.toast.info{background:#1976d2;}
-
-/* CABECERA DEL GLOSARIO */
-.glosario-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  cursor:pointer;
-  padding:4px 0;
-}
-
-.arrow{
-  font-size:1.1rem;
-  transition:transform 0.25s ease;
-  color:#0f3d83;
-}
-
-/* CONTENIDO COLAPSABLE */
-.glosario-content{
-  max-height:0;
-  font-size:0.65rem;
-  overflow:hidden;
-  transition:max-height 0.35s ease, padding 0.3s ease;
-  padding-top:0;
-}
-.glosario-content.open{
-  padding-top:10px;
-}
-
-.glosario-grid{
-  list-style:none;
-  margin:0;
-  padding-left:0;
-  display:grid;
-  grid-template-columns:1fr;
-  gap:6px 20px;
-}
-
-.glosario-grid li{
-  padding:2px 0;
-}
-
-/* En pantallas grandes → 2 columnas */
-@media(min-width:700px){
-  .glosario-grid{
-    grid-template-columns:1fr 1fr;
-  }
-}
-
-
-    .back-btn{display:inline-block;margin:1.5rem auto 0;background:#0f3d83;color:#fff;text-decoration:none;font-weight:700;padding:.7rem 1.4rem;border-radius:10px;box-shadow:0 4px 10px rgba(15,61,131,.25);transition:background .2s,transform .1s,box-shadow .2s}
-    .back-btn:hover{background:#1c60c3;transform:translateY(-1px);box-shadow:0 6px 12px rgba(15,61,131,.35)}
-
-.explain-btn{
-  margin-left:2px;
-  font-size:16px;
-  padding:4px 8px;
-  border-radius:999px;
-  border:1px solid #c7d7f2;
-  background:#eef5ff;
-  color:#0f3d83;
-  cursor:pointer;
-}
-.explain-btn:hover{
-  background:#e0edff;
-}
-
-/* Disclaimer renal */
-.renal-disclaimer{
-  background:#f8fbff;
-  border:1px solid #e3eef9;
-  border-left:4px solid #1976d2;
-  border-radius:12px;
-  padding:10px 12px;
-  margin:10px 0 0 0;
-}
-.renal-disclaimer b{color:#0b4576;}
-
-/* =========================================================
-   FOOTER
-========================================================= */
-/* Pie */
-footer{
-  width:100%;
-  margin:2rem 0 0;
-  padding:1.5rem 0;
-  border-top:1px solid #e5e7eb;
-  background:#ffffff;
-  text-align:center;
-  box-shadow:0 -2px 6px rgba(0,0,0,0.04);
-}
-footer img{max-width:320px;height:auto;opacity:.95}
-
-
-/* =========================================================
-   MEDIA QUERIES
-========================================================= */
-@media(max-width:768px){
-  header{font-size:1.05rem;}
-  main{padding:0.9rem 1rem;}
-  body{font-size:0.96rem;}
-}
-
-/* =========================================================
-   PADDING SUPERIOR DEL CONTENIDO
-========================================================= */
-
-/* Empuja el contenido real por debajo de la barra superior */
 body {
-  margin: 0;
-  padding-top: calc(env(safe-area-inset-top, 0px) + 52px);
-  background-color: #fff;
+    margin: 0;
+    font-family: Verdana, Geneva, sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.5;
+    /* Ajuste para Notch y Header Fijo */
+    padding-top: calc(env(safe-area-inset-top) + 112px); 
 }
 
-.chip-info{
-  margin-left:6px;
-  cursor:pointer;
-  font-weight:700;
-  color:#0f3d83;
+/* =========================================================
+   LAYOUT (Contenedores)
+   ========================================================= */
+.app-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 12px;
 }
 
-.modal-overlay{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.35);
-  z-index:3000;
-  align-items:center;
-  justify-content:center;
-   
+.grid {
+    display: grid;
+    gap: 12px;
 }
 
-.modal{
-  background:#fff;
-  max-width:520px;
-  width:90%;
-  border-radius:12px;
-  padding:16px 18px;
-  box-shadow:0 20px 60px rgba(0,0,0,.25);
+.grid--2col { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+
+/* =========================================================
+   COMPONENTES (Cards, Botones, Tablas)
+   ========================================================= */
+
+/* Tarjeta Base */
+.card {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-sm);
 }
 
-.modal-close{
-  float:right;
-  border:none;
-  background:none;
-  font-size:1.1rem;
-  cursor:pointer;
+.card--accent {
+    background: var(--color-surface-alt);
+    border-left: 4px solid var(--color-primary);
+    box-shadow: var(--shadow-md);
 }
 
-.modal-box{
-  background:#fff;
-  width:90%;
-  max-width:520px;
-  max-height:90vh;
-  display:flex;
-  flex-direction:column;
-  border-radius:12px;
-  box-shadow:0 10px 30px rgba(0,0,0,.25);
+.card--result {
+    border-left: 4px solid #10b981;
 }
 
-/* Cabecera fija */
-.modal-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:14px 16px;
-  border-bottom:1px solid #e5e7eb;
+/* Formulario */
+.form-label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: #0f3f66;
+    margin-bottom: 6px;
 }
 
-.modal-header h3{
-  margin:0;
-  font-size:16px;
-  color:#0f3d83;
+.form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #cfe3f6;
+    border-radius: 10px;
+    font-size: 1rem;
+    background: var(--color-surface);
 }
 
-.modal-header button{
-  border:none;
-  background:none;
-  cursor:pointer;
-  font-size:18px;
+/* Botones */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    border-radius: 999px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.1s, opacity 0.2s;
 }
 
-/* Contenido SCROLLABLE */
-.modal-body{
-  padding:16px;
-  font-size:13px;
-  line-height:1.55;
-  color:#1e293b;
-  overflow-y:auto;
-  flex:1;               /* 🔑 CLAVE */
+.btn:active { transform: scale(0.96); }
+
+.btn--primary { background: var(--color-primary); color: white; }
+.btn--ghost { 
+    background: white; 
+    color: var(--color-primary); 
+    border: 2px solid var(--color-primary); 
 }
 
-#modal-explain-content::-webkit-scrollbar {
-  width: 6px;
-}
-#modal-explain-content::-webkit-scrollbar-thumb {
-  background: #c7d2fe;
-  border-radius: 4px;
-}
-
-
-/* ==========================================================
-   MODALES DE INTERACCIONES — ESTILO INSTITUCIONAL MEJORADO
-========================================================== */
-
-/* --- Animación suave al abrir el modal --- */
-.modal {
-  animation: modalFadeUp 0.28s ease-out;
+/* Tablas de Resultados */
+.table-res {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    margin-top: 10px;
 }
 
-@keyframes modalFadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.table-res th {
+    background: #f1f5f9;
+    padding: 10px;
+    text-align: left;
+    color: var(--color-primary);
 }
 
-/* --- Títulos dentro del modal --- */
-.modal h4 {
-  margin-top: 8px;
-  margin-bottom: 4px;
-  font-size: 1rem;
-  color: var(--azul-dark);
+.table-res td {
+    padding: 10px;
+    border-bottom: 1px solid var(--color-border);
 }
 
-/* ==========================================================
-   LISTAS EN COLUMNAS (solamente UL largos)
-========================================================== */
-
-/* UL normal */
-.modal ul {
-  padding-left: 20px;
-  margin-top: 6px;
-  margin-bottom: 18px;
-  list-style: disc;
-  position: relative;
+/* Fila de mejor opción (Best Fit) */
+.table-res tr.is-best {
+    background: var(--color-success-bg);
+    font-weight: 700;
 }
 
-/* UL largos (≥7 elementos) → 2 columnas */
-.modal ul:has(li:nth-child(7)) {
-  column-count: 2;
-  column-gap: 32px;
+/* =========================================================
+   UTILIDADES (Pills y Tags)
+   ========================================================= */
+.pill {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
 }
 
-/* Línea vertical independiente del comportamiento de columnas */
-.modal ul:has(li:nth-child(7))::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: calc(50% - 1px);
-  width: 1px;
-  background: #d0d7e1; /* borde institucional suave */
-  pointer-events: none;
-}
+.pill--success { background: var(--color-success-bg); color: var(--color-success); }
+.pill--danger { background: var(--color-danger-bg); color: var(--color-danger); }
+.pill--info { background: #eef6ff; color: var(--color-primary); }
 
-/* Evitar que los bullet se corten entre columnas */
-.modal ul li {
-  break-inside: avoid-column;
-  margin-bottom: 6px;
+.u-sep {
+    height: 1px;
+    background: var(--color-border);
+    margin: 16px 0;
 }
-
-/* En móvil → 1 columna sin línea */
-@media (max-width: 480px) {
-  .modal ul {
-    column-count: 1 !important;
-  }
-  .modal ul::before {
-    display: none !important;
-  }
-}
-/* ===== AISLAMIENTO MODAL EXPLICACIÓN IA ===== */
-
-#modal-explain,
-#modal-explain * {
-  box-sizing: border-box;
-}
-
-#modal-explain {
-  overflow: hidden !important;
-}
-
-#modal-explain-content {
-  overflow-y: auto !important;
-  max-height: 300px !important;
-}
-/* ========= MODAL EXPLICACIÓN (ROBUSTO) ========= */
-
-#modal-explain.modal-overlay{
-  display:none;              /* se abre con clase .show */
-  align-items:center;
-  justify-content:center;
-  padding: calc(env(safe-area-inset-top,0px) + 12px) 12px
-           calc(env(safe-area-inset-bottom,0px) + 12px);
-  z-index:9999;
-}
-
-#modal-explain.show{
-  display:flex;
-}
-
-.modal-box--explain{
-  width:min(560px, 92vw);
-  max-height: calc(100vh - (env(safe-area-inset-top,0px) + env(safe-area-inset-bottom,0px) + 24px));
-  display:flex;
-  flex-direction:column;
-}
-
-/* CLAVE para que el scroll funcione en flex */
-#modal-explain-content.modal-body{
-  overflow:auto;
-  flex:1 1 auto;
-  min-height:0;              /* 🔑 imprescindible */
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Si la IA devuelve encabezados tipo ###, al menos que se vean bien */
-#modal-explain-content h4{
-  margin:10px 0 6px;
-  color:#0f3d83;
-}
-#modal-explain-content p{
-  margin:0 0 10px;
-}
-#modal-explain-content ul{
-  margin:6px 0 10px 18px;
-}
-
 </style>
   </head>
   <body>
@@ -805,15 +336,14 @@ body {
         <div class="grid g-2">
           <div>
             <!-- INHIBIDOR P-gp --> <label class="row"><span class="chip-info" data-info="inhpgp">ℹ️</span> <input
-                id="condPgp" type="checkbox"> <span> Inhibidor potente
-                de P-gp  </span>
+                id="condPgp" type="checkbox"> <span> Inhibidor dual de P-gp y CYP3A4</span>
             </label>
             <!-- INDUCTOR P-gp  <label class="row"> <span class="chip-info" data-info="dual">ℹ️</span><input
                 id="condPgInd" type="checkbox"> <span> Inductor potente
                 de P-gp  </span> </label> -->
             <!-- INHIBIDOR CYP3A4 --> <label class="row"><span class="chip-info" data-info="inhcyp">ℹ️</span> <input
                 id="condCYPinh" type="checkbox"> <span> Inhibidor
-                potente de CYP3A4  </span></label>
+                selectivo de CYP3A4  </span></label>
             <!-- INDUCTOR CYP3A4 --> <label class="row"><span class="chip-info" data-info="dual">ℹ️</span> <input
                 id="condCYPind" type="checkbox"> <span> Inductor
                 potente dual de P-gp y CYP3A4  </span> </label>
@@ -906,20 +436,38 @@ body {
         valvular — Anticoagulación"> </app-disclaimer>
       <!-- Toast -->
       <div id="toast" class="toast" role="alert" aria-live="assertive"></div>
-
-<script src="../js/utils.js"></script>
-<script src="../js/clinical-core.js"></script>
-<script src="../js/dosing.js"></script>
-<script src="../js/engine.js"></script>
-
-
-
-
       <script>
     /* ===== Utilidades ===== */
+    const NDASH='—';
+    const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
+    const fmt=(x,d=1)=>isFinite(x)?(+x).toFixed(d):NDASH;
+    const oneIn=pct=>{const p=parseFloat(pct);if(!isFinite(p)||p<=0)return NDASH;return Math.round(100/p);};
     const scrollToResult=()=>{const el=document.getElementById('resultCard');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});};
+    let _toastTimer=null;
+    function decodeEntities(str){const ta=document.createElement('textarea');ta.innerHTML=String(str);return ta.value;}
+    function escAttr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+    function showToast(msg,type='error'){const t=document.getElementById('toast');t.textContent=decodeEntities(msg);t.classList.remove('warn','info');if(type==='warn')t.classList.add('warn');if(type==='info')t.classList.add('info');t.classList.add('show');clearTimeout(_toastTimer);_toastTimer=setTimeout(()=>t.classList.remove('show'),3500);}
 
+    /* ===== Parámetros ===== */
+    let strokeRisksByVasc={0:0.2,1:0.6,2:2.2,3:3.2,4:4.8,5:7.2,6:9.7,7:11.2,8:10.8,9:12.2};
+    let bleedRiskByHASBLED={0:1.1,1:1.9,2:3.4,3:5.8,4:8.9,5:12.5,6:15.0};
+    let RR_Stroke={"No ACO":1.00,"VKA":0.36,"Apixabán":0.36*0.79,"Dabigatrán":0.36*0.66,"Edoxabán":0.36*0.87,"Rivaroxabán":0.36*0.79};
+    let RR_Bleed_vs_VKA={"No ACO":0.30,"VKA":1.00,"Apixabán":0.69,"Dabigatrán":0.93,"Edoxabán":0.80,"Rivaroxabán":1.04};
+    const STRATS=["No ACO","VKA","Apixabán","Dabigatrán","Edoxabán","Rivaroxabán"];
 
+    /* ===== Cálculos base ===== */
+    function calcVasc(age,female,flags){let s=0;if(flags.cCongest)s+=1;if(flags.cHTN)s+=1;if(age>=75||flags.cAge75)s+=2;if(flags.cDiab)s+=1;if(flags.cStroke)s+=2;if(flags.cVasc)s+=1;if((age>=65&&age<=74)||flags.cAge65)s+=1;const classicVASc=s+(female?1:0);return{va:s,vasc:classicVASc};}
+    function calcHASBLED(flags,age){let s=0;if(flags.hHTN)s+=1;if(flags.hRenal)s+=1;if(flags.hLiver)s+=1;if(flags.hStroke)s+=1;if(flags.hBleed)s+=1;if(flags.hLabileINR)s+=1;if(age>65||flags.hElder)s+=1;if(flags.hDrugs)s+=1;if(flags.hAlcohol)s+=1;return s;}
+    function getStrokeRiskPct(vasc){const k=Math.max(0,Math.min(9,vasc|0));return strokeRisksByVasc[k]??0;}
+    function getBleedRiskPct(hasbled){const k=Math.max(0,Math.min(6,hasbled|0));return bleedRiskByHASBLED[k]??bleedRiskByHASBLED[6];}
+    function calcCrCl(age,sex,weightVal,wUnit,scrVal,scrUnit){
+      if(!isFinite(age)||!sex||!isFinite(weightVal)||!isFinite(scrVal))return{crcl:NaN,scr_mgdl:NaN};
+      const wtKg=(wUnit==='lb')?(weightVal/2.20462):weightVal;
+      const scrMg=(scrUnit==='umol')?(scrVal/88.4):scrVal;
+      const base=(140-age)*wtKg/(72*scrMg);
+      const factor=(sex==='F')?0.85:1.0;
+      return{crcl:base*factor,scr_mgdl:scrMg};
+    }
 
     /* ===== Autorrelleno ===== */
     function autoCheckByInputs(){
@@ -972,238 +520,194 @@ body {
     ['condObesity','cAge65','cAge75','hElder','hRenal','cSc'].forEach(id=>document.getElementById(id).addEventListener('change',()=>checkAndFixContradictions(id)));
 
    /* ===== Reglas clínicas (incluye riñón y bloque ≥80) ===== */
-function buildClinicalRules(context){
-  const {crcl, age, special, weightKg, hasbled} = context;
+function buildClinicalRules(context) {
+    const { crcl, age, special, weightKg, hasbled } = context;
 
-  const prefer = {
-    "VKA":        new Set(),
-    "Apixabán":   new Set(),
-    "Dabigatrán": new Set(),
-    "Edoxabán":   new Set(),
-    "Rivaroxabán":new Set()
-  };
+    const drugs = ["VKA", "Apixabán", "Dabigatrán", "Edoxabán", "Rivaroxabán"];
+    const acods = ["Apixabán", "Dabigatrán", "Edoxabán", "Rivaroxabán"];
+    
+    const prefer = Object.fromEntries(drugs.map(d => [d, new Set()]));
+    const avoid = Object.fromEntries(drugs.map(d => [d, new Set()]));
+    const notes = [];
 
-  const avoid = {
-    "VKA":        new Set(),
-    "Apixabán":   new Set(),
-    "Dabigatrán": new Set(),
-    "Edoxabán":   new Set(),
-    "Rivaroxabán":new Set()
-  };
+    // --- HELPER PARA MANTENER LA COHERENCIA ---
+    // Registra una preferencia/evitación y su nota asociada de forma atómica
+    const rule = {
+        prefer: (drug, reason, note) => {
+            if (drugs.includes(drug)) prefer[drug].add(reason);
+            if (note && !notes.includes(note)) notes.push(note);
+        },
+        avoid: (drug, reason, note) => {
+            if (drugs.includes(drug)) avoid[drug].add(reason);
+            if (note && !notes.includes(note)) notes.push(note);
+        },
+        avoidAllAcods: (reason, note) => {
+            acods.forEach(d => avoid[d].add(reason));
+            if (note) notes.push(note);
+        }
+    };
 
-  const notes = [];
-
-  // Disfagia / SNG
-  if (special.dysphagia){
-    avoid.Dabigatrán.add("Disfagia/SNG (no abrir cápsula)");
-    prefer.Apixabán.add("Compatible triturado/SNG");
-    prefer.Rivaroxabán.add("Compatible triturado/SNG (>=15 mg con comida)");
-    prefer.VKA.add("Se puede triturar/SNG");
-    notes.push("Disfagia/SNG: evitar dabigatrán; apixabán, rivaroxabán o VKA son opciones.");
-  }
-
-  // Función renal
-  if (isFinite(crcl)){
-    if (crcl < 15){
-      prefer.VKA.add("ERC terminal (<15 mL/min) o diálisis");
-      avoid.Dabigatrán.add("ERC terminal");
-      avoid.Rivaroxabán.add("ERC terminal");
-      avoid.Edoxabán.add("ERC terminal");
-      avoid.Apixabán.add("No recomendado por EMA en ERC terminal/diálisis");
-      notes.push("ClCr <15 mL/min o diálisis: preferir VKA; evitar ACOD.");
-    } else if (crcl >= 15 && crcl < 30){
-      prefer.Apixabán.add("ERC 15–29 (baja excreción renal)");
-      avoid.Dabigatrán.add("ERC 15–29 (contraindicado si <30)");
-      notes.push("ClCr 15–29 mL/min: preferir apixabán; evitar dabigatrán; ajustar rivaroxabán/edoxabán.");
-    } else if (crcl > 95){
-      avoid.Edoxabán.add("Menor eficacia si ClCr >95 mL/min (FDA, Savaysa)");
-      notes.push("ClCr >95 mL/min: evitar edoxabán por menor eficacia relativa (FA no valvular).");
-    }
-  }
-
-  // GI, ICH, valvular, etc. (igual que ya tenías)
-  if (special.giBleed){
-    prefer.Apixabán.add("Mejor perfil GI");
-    avoid.Rivaroxabán.add("Más sangrado GI");
-    avoid.Dabigatrán.add("Más sangrado GI (150 mg)");
-    avoid.Edoxabán.add("Más sangrado GI");
-    notes.push("Antecedente de HDA severa: preferir apixabán.");
-  }
-
-  if (special.ichRisk){
-    prefer.Apixabán.add("Menor HIC vs VKA");
-    prefer.Edoxabán.add("Menor HIC vs VKA");
-    avoid.VKA.add("Más HIC vs ACOD");
-    notes.push("Alto riesgo de HIC: priorizar ACOD (apixabán/edoxabán).");
-  }
-
-  if (special.valvular){
-    prefer.VKA.add("Prótesis mecánica/EM reumática (indicación absoluta)");
-    avoid.Apixabán.add("No indicado");
-    avoid.Dabigatrán.add("No indicado");
-    avoid.Edoxabán.add("No indicado");
-    avoid.Rivaroxabán.add("No indicado");
-    notes.push("Prótesis mecánica/EM reumática significativa: VKA obligatorio.");
-  }
-
-  if (special.polypharm){
-    prefer.Apixabán.add("Menos interacciones globales");
-    prefer.Edoxabán.add("Menos interacciones globales");
-    avoid.VKA.add("Múltiples interacciones");
-    notes.push("Polimedicación: preferir apixabán/edoxabán.");
-  }
-
-  if (special.cirrhosis){
-    prefer.VKA.add("Hepatopatía avanzada");
-    avoid.Apixabán.add("Evitar Child C");
-    avoid.Dabigatrán.add("Evitar Child C");
-    avoid.Edoxabán.add("Evitar Child C");
-    avoid.Rivaroxabán.add("Evitar Child C");
-    notes.push("Hepatopatía avanzada: preferir VKA; evitar ACOD en Child C.");
-  }
-
-  const over120 = isFinite(weightKg) && weightKg > 120;
-  if (special.obesity || over120){
-    prefer.VKA.add("Obesidad mórbida");
-    avoid.Dabigatrán.add("Evidencia limitada");
-    avoid.Edoxabán.add("Evidencia limitada");
-    notes.push("Obesidad mórbida: preferir VKA; si ACOD, mejor apixabán/rivaroxabán.");
-  }
-
-  if (special.oncoGI){
-    prefer.VKA.add("Alternativa en tumor GI/GU activo");
-    avoid.Rivaroxabán.add("Mayor riesgo GI");
-    avoid.Dabigatrán.add("Mayor riesgo GI");
-    avoid.Edoxabán.add("Mayor riesgo GI");
-    prefer.Apixabán.add("Perfil GI favorable");
-    notes.push("Neoplasia GI/GU activa: preferible apixabán o VKA.");
-  }
-
-  // 🔶 BLOQUE ≥80 años (propuesta intermedia)
-  if (age >= 80){
-    // Apixabán preferido siempre
-    prefer.Apixabán.add("Mejor balance beneficio/riesgo en ≥80 años");
-
-    // Dabigatrán solo se desaconseja si hay otro factor de riesgo
-    const dabHighRisk =
-      special.giBleed ||
-      special.oncoGI ||
-      (hasbled >= 3) ||
-      (isFinite(crcl) && crcl >= 30 && crcl < 50);
-
-    if (dabHighRisk){
-      avoid.Dabigatrán.add(
-        "Evitar dabigatrán en ≥80 años con HDA/neoplasia GI, HAS-BLED alto o ClCr 30–50 mL/min"
-      );
+    // --- 1. ADMINISTRACIÓN Y DIGESTIÓN ---
+    if (special.dysphagia) {
+        rule.avoid("Dabigatrán", "Disfagia/SNG (no abrir cápsula)");
+        rule.prefer("Apixabán", "Compatible triturado/SNG");
+        rule.prefer("Rivaroxabán", "Compatible triturado/SNG (>=15 mg con comida)");
+        rule.prefer("VKA", "Se puede triturar/SNG");
+        notes.push("Disfagia/SNG: evitar dabigatrán; apixabán, rivaroxabán o VKA son opciones.");
     }
 
-    notes.push(
-      "En ≥80 años suele preferirse apixabán; dabigatrán solo si no hay HDA/neoplasia GI, HAS-BLED alto ni ClCr 30–50 mL/min."
-    );
-  }
-
-  if (special.poorINR){
-    avoid.VKA.add("Difícil monitorización INR");
-    prefer.Apixabán.add("Sin INR rutinario");
-    prefer.Rivaroxabán.add("Sin INR rutinario");
-    prefer.Edoxabán.add("Sin INR rutinario");
-    prefer.Dabigatrán.add("Sin INR rutinario");
-    notes.push("Si no se puede monitorizar INR: preferir ACOD.");
-  }
-
-  if (special.qd){
-    prefer.Rivaroxabán.add("Posología QD");
-    prefer.Edoxabán.add("Posología QD");
-    notes.push("Preferencia por dosis única diaria: rivaroxabán o edoxabán.");
-  }
-
-  // Inductor potente de P-gp
-  if (special.pgpInd){
-    prefer.VKA.add("Inductor potente de P-gp (evitar infraexposición de ACOD)");
-    avoid.Dabigatrán.add("Altamente dependiente de P-gp → riesgo de infraexposición marcada");
-    avoid.Edoxabán.add("Inductor potente de P-gp → menor exposición y posible pérdida de eficacia");
-    notes.push(
-      "Inductor potente de P-gp: evitar dabigatrán y, siempre que sea posible, edoxabán; preferir VKA u otra alternativa no dependiente de P-gp."
-    );
-  }
-
-  // Inhibidor potente de P-gp
-  if (special.pgp){
-    if (isFinite(crcl) && crcl < 50){
-      avoid.Dabigatrán.add("Inhibidor potente de P-gp con ClCr <50 mL/min: evitar dabigatrán");
-      notes.push("Inhibidor potente de P-gp con ClCr <50 mL/min: evitar dabigatrán.");
+    // --- 2. FUNCIÓN RENAL ---
+    if (Number.isFinite(crcl)) {
+        if (crcl < 15) {
+            rule.prefer("VKA", "ERC terminal (<15 mL/min) o diálisis", "ClCr <15 mL/min o diálisis: preferir VKA; evitar ACOD.");
+            rule.avoid("Dabigatrán", "ERC terminal");
+            rule.avoid("Rivaroxabán", "ERC terminal");
+            rule.avoid("Edoxabán", "ERC terminal");
+            rule.avoid("Apixabán", "No recomendado por EMA en ERC terminal/diálisis");
+        } 
+        else if (crcl < 30) {
+            rule.prefer("Apixabán", "ERC 15–29 (baja excreción renal)", "ClCr 15–29 mL/min: preferir apixabán; evitar dabigatrán; ajustar rivaroxabán/edoxabán.");
+            rule.avoid("Dabigatrán", "ERC 15–29 (contraindicado si <30)");
+        } 
+        else if (crcl > 95) {
+            rule.avoid("Edoxabán", "Menor eficacia si ClCr >95 mL/min (FDA, Savaysa)", "ClCr >95 mL/min: evitar edoxabán por menor eficacia relativa (FA no valvular).");
+        }
     }
-    notes.push(
-      "Inhibidor potente de P-gp: preferir ACOD menos dependientes de P-gp, como apixabán o rivaroxabán, o VKA en pacientes de alto riesgo."
-    );
-  }
 
-  // Inhibidor CYP3A4
-  if (special.cypInhib){
-    avoid.Apixabán.add("Inhibidor potente de CYP3A4 (riesgo de sobreexposición)");
-    avoid.Rivaroxabán.add("Inhibidor potente de CYP3A4 (riesgo de sobreexposición)");
-    prefer.Edoxabán.add("Metabolismo CYP3A4 mínimo → opción más segura");
-    prefer.Dabigatrán.add("No depende de CYP3A4");
-    notes.push(
-      "Inhibidor potente de CYP3A4: evitar rivaroxabán y usar precaución con apixabán; edoxabán y dabigatrán no se ven afectados por esta vía."
-    );
-  }
+    // --- 3. RIESGO HEMORRÁGICO (GI e ICH) ---
+    if (special.giBleed) {
+        rule.prefer("Apixabán", "Mejor perfil GI", "Antecedente de HDA severa: preferir apixabán.");
+        rule.avoid("Rivaroxabán", "Más sangrado GI");
+        rule.avoid("Dabigatrán", "Más sangrado GI (150 mg)");
+        rule.avoid("Edoxabán", "Más sangrado GI");
+    }
 
-/*
-  // Inductor CYP3A4
-  if (special.cypInduc){
-    avoid.Apixabán.add("Inductor potente de CYP3A4 (riesgo de infraexposición)");
-    avoid.Rivaroxabán.add("Inductor potente de CYP3A4 (riesgo de infraexposición)");
-    prefer.Edoxabán.add("Menor metabolismo CYP3A4 → opción más segura");
-    prefer.Dabigatrán.add("No depende de CYP3A4");
-    notes.push(
-      "Inductor potente de CYP3A4: evitar rivaroxabán y apixabán; edoxabán y dabigatrán son alternativas razonables (valorar VKA)."
-    );
-  }
-*/
+    if (special.ichRisk) {
+        rule.prefer("Apixabán", "Menor HIC vs VKA", "Alto riesgo de HIC: priorizar ACOD (apixabán/edoxabán).");
+        rule.prefer("Edoxabán", "Menor HIC vs VKA");
+        rule.avoid("VKA", "Más HIC vs ACOD");
+    }
 
-// 🔥 INHIBIDOR DUAL POTENTE (P-gp + CYP3A4)
-if (special.pgp && special.cypInhib) {
+    // --- 4. PERFIL DEL PACIENTE (Edad, Peso, Hígado) ---
+    if (special.valvular) {
+        rule.prefer("VKA", "Prótesis mecánica/EM reumática (indicación absoluta)", "Prótesis mecánica/EM reumática significativa: VKA obligatorio.");
+        acods.forEach(d => rule.avoid(d, "No indicado"));
+    }
 
-  // Preferir VKA
-  prefer.VKA.add("Inhibidor dual potente (P-gp + CYP3A4)");
+    if (special.cirrhosis) {
+        rule.prefer("VKA", "Hepatopatía avanzada", "Hepatopatía avanzada: preferir VKA; evitar ACOD en Child C.");
+        acods.forEach(d => rule.avoid(d, "Evitar Child C"));
+    }
 
-  // Evitar TODOS los ACOD
-  avoid.Apixabán.add("Evitar con inhibidor dual potente");
-  avoid.Rivaroxabán.add("Evitar con inhibidor dual potente");
-  avoid.Dabigatrán.add("Evitar con inhibidor dual potente");
-  avoid.Edoxabán.add("Evitar con inhibidor dual potente");
+    if (special.obesity || (Number.isFinite(weightKg) && weightKg > 120)) {
+        rule.prefer("VKA", "Obesidad mórbida", "Obesidad mórbida: preferir VKA; si ACOD, mejor apixabán/rivaroxabán.");
+        rule.avoid("Dabigatrán", "Evidencia limitada");
+        rule.avoid("Edoxabán", "Evidencia limitada");
+    }
 
-  // Nota clínica
-  notes.push(
-    "Inhibidor dual potente (P-gp + CYP3A4): interacción muy intensa. Evitar TODOS los ACOD y usar VKA."
-  );
-}
+    if (age >= 80) {
+        rule.prefer("Apixabán", "Mejor balance beneficio/riesgo en ≥80 años");
+        const dabHighRisk = special.giBleed || special.oncoGI || (hasbled >= 3) || (crcl >= 30 && crcl < 50);
+        if (dabHighRisk) rule.avoid("Dabigatrán", "Evitar dabigatrán en ≥80 años con HDA/neoplasia GI, HAS-BLED alto o ClCr 30–50 mL/min");
+        notes.push("En ≥80 años suele preferirse apixabán; dabigatrán solo si no hay HDA/neoplasia GI, HAS-BLED alto ni ClCr 30–50 mL/min.");
+    }
 
-// 🔥 INDUCTOR DUAL POTENTE (P-gp + CYP3A4)
-if (special.cypInduc) {
+    // --- 5. INTERACCIONES FARMACOLÓGICAS ---
+    if (special.pgpInd) {
+        rule.prefer("VKA", "Inductor potente de P-gp (evitar infraexposición de ACOD)", "Inductor potente de P-gp: evitar dabigatrán y edoxabán; preferir VKA.");
+        rule.avoid("Dabigatrán", "Altamente dependiente de P-gp");
+        rule.avoid("Edoxabán", "Posible pérdida de eficacia");
+    }
 
-  // Preferir VKA
-  prefer.VKA.add("Inductor dual potente (P-gp + CYP3A4)");
+    if (special.cypInhib) {
+        rule.avoid("Apixabán", "Inhibidor potente de CYP3A4");
+        rule.avoid("Rivaroxabán", "Inhibidor potente de CYP3A4");
+        rule.prefer("Edoxabán", "Metabolismo CYP3A4 mínimo", "Inhibidor potente de CYP3A4: evitar rivaroxabán; edoxabán/dabigatrán son más seguros.");
+        rule.prefer("Dabigatrán", "No depende de CYP3A4");
+    }
 
-  // Evitar TODOS los ACOD
-  avoid.Apixabán.add("Evitar con inductor dual potente");
-  avoid.Rivaroxabán.add("Evitar con inductor dual potente");
-  avoid.Dabigatrán.add("Evitar con inductor dual potente");
-  avoid.Edoxabán.add("Evitar con inductor dual potente");
+    // 🔥 BLOQUEOS DUALES (P-gp + CYP3A4)
+    if (special.pgp && special.cypInhib) {
+        rule.prefer("VKA", "Inhibidor dual potente (P-gp + CYP3A4)");
+        rule.avoidAllAcods("Evitar con inhibidor dual potente", "Inhibidor dual potente (P-gp + CYP3A4): interacción muy intensa. Evitar TODOS los ACOD y usar VKA.");
+    }
 
-  // Nota clínica
-  notes.push(
-    "Inductor dual potente (P-gp + CYP3A4): riesgo extremo de infraexposición. Evitar TODOS los ACOD y usar VKA."
-  );
-}
+    if (special.cypInduc) {
+        rule.prefer("VKA", "Inductor dual potente (P-gp + CYP3A4)");
+        rule.avoidAllAcods("Evitar con inductor dual potente", "Inductor dual potente (P-gp + CYP3A4): riesgo extremo de infraexposición. Evitar TODOS los ACOD y usar VKA.");
+    }
 
+    // --- 6. PREFERENCIAS LOGÍSTICAS ---
+    if (special.poorINR) {
+        rule.avoid("VKA", "Difícil monitorización INR", "Si no se puede monitorizar INR: preferir ACOD.");
+        acods.forEach(d => rule.prefer(d, "Sin INR rutinario"));
+    }
 
-  return {prefer, avoid, notes};
+    if (special.qd) {
+        rule.prefer("Rivaroxabán", "Posología QD", "Preferencia por dosis única diaria: rivaroxabán o edoxabán.");
+        rule.prefer("Edoxabán", "Posología QD");
+    }
+
+    return { prefer, avoid, notes };
 }
 
 
 
+    /* ===== Posología (actualizada) ===== */
+    function doseSuggestions(ctx,avoid){
+      const {age,crcl,hasbled,weightKg,scr_mgdl,special}=ctx;
+      const out=[]; const isAvoided=name=> (avoid?.[name]&&avoid[name].size>0);
+
+      // Apixabán
+      if(!isAvoided("Apixabán")){
+        const apxCrit=((age>=80)?1:0)+((isFinite(weightKg)&&weightKg<=60)?1:0)+((isFinite(scr_mgdl)&&scr_mgdl>=1.5)?1:0);
+        const apxReduce=(apxCrit>=2)||(isFinite(crcl)&&crcl>=15&&crcl<30);
+        out.push({name:"Apixabán",dose:apxReduce?"2.5 mg cada 12 h":"5 mg cada 12 h",highlight:apxReduce,why:apxReduce?">=2 criterios (edad >=80, peso <=60 kg, SCr >=1.5 mg/dL) o ClCr 15–29 ml/min":"Criterios de reducción no presentes"});
+      }
+
+      // Rivaroxabán
+      if(!isAvoided("Rivaroxabán")){
+        const rivaReduce=(isFinite(crcl)&&crcl>=15&&crcl<50);
+        out.push({name:"Rivaroxabán",dose:rivaReduce?"15 mg cada 24 h":"20 mg cada 24 h",highlight:rivaReduce,why:rivaReduce?"ClCr 15–49 ml/min":"ClCr >=50 ml/min"});
+      }
+
+      // Edoxabán
+      if(!isAvoided("Edoxabán")){
+        const edoReduce=((isFinite(crcl)&&crcl>=15&&crcl<=50)||(isFinite(weightKg)&&weightKg<=60)||special.pgp===true);
+        out.push({name:"Edoxabán",dose:edoReduce?"30 mg cada 24 h":"60 mg cada 24 h",highlight:edoReduce,why:edoReduce?"ClCr 15–50 ml/min o peso <=60 kg o inhibidor potente P-gp":"Sin criterios de reducción"});
+      }
+
+      // Dabigatrán
+if (!isAvoided("Dabigatrán")) {
+  // Evitar si ClCr <30 siempre, o si hay inhibidor potente de P-gp con ClCr <50
+  const dabAvoid =
+    (isFinite(crcl) && crcl < 30) ||
+    (special.pgp === true && isFinite(crcl) && crcl < 50);
+
+  if (!dabAvoid) {
+    const dabReduce =
+      (isFinite(crcl) && crcl >= 30 && crcl <= 50) ||
+      (age >= 80) ||
+      (age >= 75 && age < 80 && hasbled >= 3) ||
+      (special.pgp === true && (!isFinite(crcl) || crcl >= 50));
+
+    out.push({
+      name: "Dabigatrán",
+      dose: dabReduce ? "110 mg cada 12 h" : "150 mg cada 12 h",
+      highlight: dabReduce,
+      why: dabReduce
+        ? "ClCr 30–50 mL/min, edad ≥80 (o 75–80 con HAS-BLED alto) o inhibidor potente de P-gp con ClCr ≥50 mL/min"
+        : "Sin criterios de reducción ni interacción relevante por P-gp"
+    });
+  }
+}
+
+
+      // VKA
+      if(!isAvoided("VKA")){out.push({name:"VKA",dose:"Ajuste a INR entre 2 y 3",highlight:false,why:"Dosis individualizada según INR"});}
+
+      return out;
+    }
 
     /* ===== Zebra por columnas ===== */
     function applyColumnStriping(){
@@ -1266,36 +770,64 @@ if (special.cypInduc) {
 };
 
 
-const core = computeCore({ age, sex, flags, special, weight, wUnit, scr, scrUnit });
 
-const {
-  vasc,
-  hasbled,
-  strokeBase,
-  bleedBase,
-  crcl,
-  scr_mgdl,
-  weightKg,
-  noOAC,
-  noOAC_byLowRisk,
-  noOAC_byHighBleed,
-  prefer,
-  avoid,
-  notes
-} = core;
+      const female=(sex==='F');
+      const vasc=calcVasc(age||0,female,flags);
+      const hasbled=calcHASBLED(flags,age||0);
 
-console.log('CORE:', core);
-console.log(
-  'IDs:',
-  !!document.getElementById('scoreVA'),
-  !!document.getElementById('scoreVASc'),
-  !!document.getElementById('annualStroke'),
-  !!document.getElementById('scoreHASBLED'),
-  !!document.getElementById('annualBleed'),
-  !!document.getElementById('crcl'),
-  !!document.getElementById('scrConv')
-);
+      const strokeBase=getStrokeRiskPct(vasc.vasc);
+      const bleedBase=getBleedRiskPct(hasbled);
 
+      const {crcl,scr_mgdl}=calcCrCl(age,sex,isFinite(weight)?weight:NaN,wUnit,scr,scrUnit);
+      const weightKg=isFinite(weight)?((wUnit==='lb')?(weight/2.20462):weight):NaN;
+
+      // Cabecera
+      document.getElementById('scoreVA').textContent=vasc.va;
+      document.getElementById('scoreVASc').textContent=vasc.vasc;
+      document.getElementById('annualStroke').textContent=fmt(strokeBase,1);
+      document.getElementById('scoreHASBLED').textContent=hasbled;
+      document.getElementById('annualBleed').textContent=fmt(bleedBase,1);
+      document.getElementById('crcl').textContent=isFinite(crcl)?fmt(crcl,0):NDASH;
+      document.getElementById('scrConv').textContent=isFinite(scr_mgdl)?fmt(scr_mgdl,2):NDASH;
+
+// ================================================
+// NUEVAS REGLAS DE NO ANTICOAGULAR
+// ================================================
+
+// 1) No anticoagular por BAJO RIESGO EMBÓLICO
+const noOAC_byLowRisk =
+  (!female && vasc.vasc === 0) ||
+  (female && vasc.va === 0 && vasc.vasc === 1);
+
+// 2) No anticoagular por RIESGO HEMORRÁGICO INACEPTABLE
+//    (definido por el clínico o por ICH previa)
+const noOAC_byHighBleed =
+  special.noOACabs === true ||     // marcado por clínico
+  special.ichPrev === true;        // HIC previa NO traumática
+
+// 3) Escenario intermedio: se puede CONSIDERAR anticoagulación
+//    Varón con CHA2DS2-VASc = 1
+//    Mujer con CHA2DS2-VASc = 2
+const considerOAC_byBorderline =
+  (!female && vasc.vasc === 1) ||
+  (female && vasc.vasc === 2);
+
+// 4) Regla final de NO ACO (prohibido en valvular)
+const noOAC = (noOAC_byLowRisk || noOAC_byHighBleed) && !special.valvular;
+
+
+
+      // Reglas clínicas
+const {prefer,avoid,notes}=buildClinicalRules({crcl,age,special,weightKg,hasbled});
+
+     // Añadir nota específica si está en la “zona gris” de CHA2DS2-VASc
+if (considerOAC_byBorderline && !noOAC && !special.valvular) {
+  notes.push(
+    "🟠⚠️ CHA₂DS₂-VASc en zona intermedia (1 en varón, 2 en mujer): " +
+    "se puede considerar anticoagulación oral tras valorar riesgo hemorrágico, " +
+    "comorbilidad y preferencias del paciente; no es obligatoria según las guías ⚖️🟠"
+  );
+}
 
 
       // Tabla comparativa
@@ -1423,22 +955,11 @@ else {
         recList.appendChild(li);
     }
 
-if (avoidedGlobal.length) {
-  const li = document.createElement('li');
-
-  const items = avoidedGlobal.map(drug =>
-    `${drug}
-     <button type="button"
-             class="explain-btn"
-             data-drug="${drug}">
-       🗣️
-     </button>`
-  ).join(", ");
-
-  li.innerHTML = "<b>Estrategias a evitar:</b> " + items;
-  recList.appendChild(li);
-}
-
+    if (avoidedGlobal.length) {
+        const li = document.createElement('li');
+        li.innerHTML = "<b>Estrategias a evitar:</b> " + avoidedGlobal.join(", ");
+        recList.appendChild(li);
+    }
 
     // Mostrar posología
     doseSection.style.display = '';
@@ -1465,77 +986,25 @@ if (avoidedGlobal.length) {
 }
 
 
-__lastReport = buildLastReport({
-  age, sex, weight, wUnit, scr, scrUnit,
-  weightKg,
-  crcl, scr_mgdl,
-  vasc, hasbled,
-  strokeBase, bleedBase,
-  noOAC, noOAC_byLowRisk, noOAC_byHighBleed,
-  special,
-  preferredGlobal, avoidedGlobal,
-  notes,
-  dosesForReport
-});
+      // Guardar estado
+      __lastReport={
+        ts:new Date().toISOString(),
+        inputs:{age,sex,weight:isFinite(weight)?weight:null,weightUnit:wUnit,scr:isFinite(scr)?scr:null,scrUnit,weightKg:isFinite(weightKg)?weightKg:null},
+        renal:{crcl:isFinite(crcl)?+crcl.toFixed(0):null,scr_mgdl:isFinite(scr_mgdl)?+scr_mgdl.toFixed(2):null},
+        scores:{va:vasc.va,vasc:vasc.vasc,hasbled},
+        risks:{strokeBase:+strokeBase,bleedBase:+bleedBase},
+          noOAC,
+                    noOAC_byLowRisk,     // ← AÑADIR
+                    noOAC_byHighBleed,   // ← AÑADIR
+                   special,
+        preferredGlobal, avoidedGlobal,
+        notes:[...notes],
+        doses:dosesForReport
 
-window.__lastReport = __lastReport;
-
-
+      };
       document.getElementById('btnPrint').disabled=false;
       document.getElementById('btnCopy').disabled=false;
     }
-function buildClinicalPrompt({ drug, context }) {
-
-  const sexTxt = context.sex === 'F' ? 'Mujer' : 'Varón';
-
-  const condiciones = [];
-  if (context.special.giBleed) condiciones.push("Antecedente de hemorragia digestiva");
-  if (context.special.ichRisk) condiciones.push("Alto riesgo de hemorragia intracraneal");
-  if (context.special.valvular) condiciones.push("Cardiopatía valvular significativa");
-  if (context.special.obesity) condiciones.push("Obesidad mórbida");
-  if (context.hasbled >= 3) condiciones.push("HAS-BLED elevado");
-  if (context.age >= 80) condiciones.push("Edad ≥ 80 años");
-
-  const interacciones = [];
-  if (context.special.pgp) interacciones.push("Inhibidor potente de P-gp");
-  if (context.special.pgpInd) interacciones.push("Inductor potente de P-gp");
-  if (context.special.cypInhib) interacciones.push("Inhibidor potente de CYP3A4");
-  if (context.special.cypInduc) interacciones.push("Inductor potente de CYP3A4");
-
-  return `
-Eres un médico especialista en Neurología Vascular y Farmacología Clínica.
-
-Analiza el siguiente caso clínico y explica, en lenguaje médico claro y conciso,
-por qué un anticoagulante oral directo ha sido marcado como “a evitar”.
-
-No inventes datos que no estén presentes.
-
-CASO:
-- Edad: ${context.age} años
-- Sexo: ${sexTxt}
-- ClCr (Cockcroft-Gault): ${context.crcl ?? '—'} ml/min
-- Creatinina sérica: ${context.scr_mgdl ?? '—'} mg/dL
-- Peso: ${context.weightKg ?? '—'} kg
-- CHA₂DS₂-VASc: ${context.vasc}
-- HAS-BLED: ${context.hasbled}
-
-Condiciones clínicas relevantes:
-${condiciones.length ? condiciones.join(', ') : 'Ninguna destacable'}
-
-Interacciones farmacológicas presentes:
-${interacciones.length ? interacciones.join(', ') : 'Ninguna relevante'}
-
-Anticoagulante evaluado:
-- Fármaco: ${drug}
-- Clasificación: EVITAR
-
-Explica de forma estructurada:
-1) El mecanismo principal que justifica evitar este fármaco
-2) El riesgo clínico esperado si se utilizara
-3) Por qué otras alternativas pueden ser más seguras en este contexto
-`.trim();
-}
-
 
 function printReport(){
 
@@ -1836,64 +1305,6 @@ function copyReport(){
 
     window.addEventListener('DOMContentLoaded', autoCheckByInputs);
 
-/* ==========================================================
-   IA – Explicación clínica contextual
-========================================================== */
-
-document.addEventListener('DOMContentLoaded', () => {
-
-  function openExplainModal(text){
-    const modal = document.getElementById('modal-explain');
-    const content = document.getElementById('modal-explain-content');
-    if(!modal || !content) return;
-    content.textContent = text;
-    modal.style.display = 'flex';
-  }
-
-  function closeExplainModal(){
-    const modal = document.getElementById('modal-explain');
-    if(modal) modal.style.display = 'none';
-  }
-
-  document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.explain-btn');
-    if (!btn) return;
-
-    e.preventDefault();
-    e.stopPropagation();
-
-    const drug = btn.dataset.drug || '';
-    const r = window.__lastReport;
-    if (!r) {
-      openExplainModal('No hay contexto clínico disponible. Pulse “Calcular” para generar resultados.');
-      return;
-    }
-
-    const text = explainAvoid(drug, {
-      hasbled: r.scores?.hasbled,
-      special: r.special || {}
-    });
-
-    openExplainModal(text);
-  });
-
-  const closeBtn = document.getElementById('modal-explain-close');
-  if (closeBtn) closeBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    closeExplainModal();
-  });
-
-  const modal = document.getElementById('modal-explain');
-  if (modal) modal.addEventListener('click', (e) => {
-    if (e.target === modal) closeExplainModal();
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeExplainModal();
-  });
-
-});
-
 
     </script>
 <script>
@@ -1910,59 +1321,47 @@ const infoInteracciones = {
 ========================================================== */
 
   inhpgp: {
-    titulo: "Inhibidores potentes de P-gp",
+    titulo: "Inhibidores duales de P-gp y CYP3A4",
     html: `
       <p>
-        Fármacos que inhiben de forma <b>potente y clínicamente relevante</b> la glicoproteína P (P-gp).
+        Fármacos que inhiben de forma dual y <b>clínicamente relevante</b> la glicoproteína P (P-gp) y el metabolismo mediado por CYP3A4.
       </p>
 
       <ul>
-        <li>🎯Dronedarona</li>
-        <li>🎯Quinidina</li>
-        <li>🎯Ciclosporina</li>
-        <li>☯️Ketoconazol</li>
-        <li>☯️Itraconazol</li>
-        <li>☯️Posaconazol</li>
-        <li>☯️Voriconazol</li>
-        <li>☯️Ritonavir</li>
-        <li>☯️Cobicistat</li>
-        <li>☯️Atazanavir</li>
-        <li>☯️Darunavir</li>
-        <li>☯️Nelfinavir</li>
-        <li>☯️Saquinavir</li>
-        <li>☯️Claritromicina</li>
-        <li>☯️Eritromicina</li>
+  <li>☯️Dronedarona</li>
+  <li>☯️Quinidina</li>
+  <li>☯️Ciclosporina</li>
+  <li>☯️Verapamilo</li>
+  <li>☯️Diltiazem</li>
+  <li>☯️Amiodarona</li>
+  <li>☯️Tacrolimus</li>
+  <li>☯️Ketoconazol</li>
+  <li>☯️Itraconazol</li>
+  <li>☯️Posaconazol</li>
+  <li>☯️Voriconazol</li>
+  <li>☯️Ritonavir</li>
+  <li>☯️Cobicistat</li>
+  <li>☯️Atazanavir</li>
+  <li>☯️Darunavir</li>
+  <li>☯️Nelfinavir</li>
+  <li>☯️Saquinavir</li>
+  <li>☯️Claritromicina</li>
+  <li>☯️Eritromicina</li>
 </ul>
-<hr>
-      <p>🎯Selectivo 🔹🔹🔹 ☯️Dual</p>
     `
   },
 
   inhcyp: {
-    titulo: "Inhibidores potentes de CYP3A4",
+    titulo: "Inhibidores selectivos de CYP3A4",
     html: `
       <p>
-        Fármacos que inhiben de forma <b>potente</b> el metabolismo mediado por CYP3A4.
+        Fármacos que inhiben de forma <b>potente y selectiva</b> el metabolismo mediado por CYP3A4.
       </p>
 
       <ul>
         <li>🎯Fluconazol</li>
         <li>🎯Nefazodona</li>
-        <li>☯️Ketoconazol</li>
-        <li>☯️Itraconazol</li>
-        <li>☯️Posaconazol</li>
-        <li>☯️Voriconazol</li>
-        <li>☯️Ritonavir</li>
-        <li>☯️Cobicistat</li>
-        <li>☯️Atazanavir</li>
-        <li>☯️Darunavir</li>
-        <li>☯️Nelfinavir</li>
-        <li>☯️Saquinavir</li>
-        <li>☯️Claritromicina</li>
-        <li>☯️Eritromicina</li>
-</ul>
-<hr>
-      <p>🎯Selectivo 🔹🔹🔹 ☯️Dual</p>
+        </ul>
     `
   },
 
@@ -1973,7 +1372,6 @@ const infoInteracciones = {
         Fármacos que <b>inducen simultáneamente CYP3A4 y la glicoproteína P (P-gp)</b>,
         produciendo alteraciones farmacocinéticas <b>clínicamente relevantes</b> de los ACOD.
       </p>
-      <h4>🔵 Inductores duales</h4>
       <ul>
         <li>☯️Rifampicina</li>
         <li>☯️Rifabutina</li>
@@ -1983,8 +1381,6 @@ const infoInteracciones = {
         <li>☯️Primidona</li>
         <li>☯️Hierba de San Juan</li>
       </ul>
-<hr>
-      <p>☯️Dual</p>
     `
   },
 
@@ -2618,130 +2014,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if(!customElements.get("app-disclaimer")){ customElements.define("app-disclaimer",AppDisclaimer); }
     })();
-
-function buildClinicalPrompt(drug, r){
-
-  const sexTxt = r.inputs.sex === 'F' ? 'Mujer' : 'Varón';
-
-  const condiciones = [];
-  if (r.special?.giBleed) condiciones.push("Antecedente de hemorragia digestiva");
-  if (r.special?.ichRisk) condiciones.push("Alto riesgo de hemorragia intracraneal");
-  if (r.special?.valvular) condiciones.push("Cardiopatía valvular significativa");
-  if (r.special?.obesity) condiciones.push("Obesidad mórbida");
-  if (r.scores?.hasbled >= 3) condiciones.push("HAS-BLED elevado");
-  if (r.inputs?.age >= 80) condiciones.push("Edad ≥ 80 años");
-
-  const interacciones = [];
-  if (r.special?.pgp) interacciones.push("Inhibidor potente de P-gp");
-  if (r.special?.pgpInd) interacciones.push("Inductor potente de P-gp");
-  if (r.special?.cypInhib) interacciones.push("Inhibidor potente de CYP3A4");
-  if (r.special?.cypInduc) interacciones.push("Inductor potente de CYP3A4");
-
-  return `
-Eres un médico especialista en Neurología Vascular y Farmacología Clínica.
-
-Explica de forma clínica y razonada por qué el siguiente anticoagulante oral
-ha sido clasificado como “a evitar” en este paciente concreto.
-
-No inventes datos que no estén presentes.
-No afirmes contraindicaciones absolutas si no existen.
-Usa un lenguaje prudente y orientativo.
-
-DATOS DEL PACIENTE:
-- Edad: ${r.inputs.age}
-- Sexo: ${sexTxt}
-- Peso: ${r.inputs.weightKg ?? '—'} kg
-- Creatinina: ${r.renal.scr_mgdl ?? '—'} mg/dL
-- ClCr (Cockcroft-Gault): ${r.renal.crcl ?? '—'} ml/min
-- CHA₂DS₂-VASc: ${r.scores.vasc}
-- HAS-BLED: ${r.scores.hasbled}
-
-Condiciones clínicas relevantes:
-${condiciones.length ? condiciones.join(', ') : 'Ninguna destacable'}
-
-Interacciones farmacológicas presentes:
-${interacciones.length ? interacciones.join(', ') : 'Ninguna relevante'}
-
-Anticoagulante evaluado:
-- ${drug}
-
-Explica:
-1) El mecanismo principal que justifica evitar este fármaco  
-2) El riesgo clínico potencial si se utilizara  
-3) Por qué otras alternativas pueden ser más seguras en este contexto
-`.trim();
-}
-
-document.addEventListener('click', async e => {
-  const btn = e.target.closest('.explain-btn');
-  if (!btn) return;
-
-  e.preventDefault();
-  e.stopPropagation();
-
-  const drug = btn.dataset.drug;
-  if (!window.__lastReport) return;
-
-const prompt = buildClinicalPrompt(drug, window.__lastReport);
-
-// 🔧 MVP: mostrar el prompt (debug / validación)
-const modal = document.getElementById('modal-explain');
-const content = document.getElementById('modal-explain-content');
-
-content.innerHTML = '<p style="color:#666">Generando explicación clínica…</p>';
-modal.style.display = 'flex';
-
-try {
-  const aiText = await callAI(prompt);
-  content.innerHTML = aiText;
-
-  // ✅ clave: reinicia el scroll al principio
-  content.scrollTop = 0;
-
-  // ✅ (recomendado) asegura que se vea como flex
-  modal.style.display = 'flex';
-
-} catch (err) {
-  content.innerHTML =
-    '<p style="color:#b91c1c">No se pudo generar la explicación clínica.</p>';
-
-  // ✅ también aquí, por consistencia
-  content.scrollTop = 0;
-  modal.style.display = 'flex';
-}
-
-
-  document.getElementById('modal-explain-content').textContent = text;
-  document.getElementById('modal-explain').style.display = 'flex';
-});
-
-document.getElementById('modal-explain-close').onclick = () => {
-  document.getElementById('modal-explain').style.display = 'none';
-};
-document.getElementById('modal-explain').onclick = e => {
-  if (e.target.id === 'modal-explain') {
-    e.currentTarget.style.display = 'none';
-  }
-};
-
-async function callAI(prompt) {
-  const res = await fetch('http://localhost:3000/api/clinical-explain', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ prompt })
-  });
-
-  if (!res.ok) {
-    throw new Error('Error IA');
-  }
-
-  const data = await res.json();
-  return data.text;
-}
-
-
     </script>
-
     <script src="../js/index.js"></script>
     <script>
 document.addEventListener("DOMContentLoaded", () => {
@@ -2758,24 +2031,9 @@ document.addEventListener("DOMContentLoaded", () => {
     <h3 id="modal-info-title"></h3>
     <div id="modal-info-content"></div>
   </div>
-
-
-
+</div>
 </div>
 
-
-
-<div id="modal-explain" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
-  <div class="modal-box modal-box--explain" role="document">
-    <div class="modal-header">
-      <h3>Explicación clínica orientativa</h3>
-      <button id="modal-explain-close" type="button" aria-label="Cerrar">🔙</button>
-    </div>
-
-    <div id="modal-explain-content" class="modal-body">
-      <!-- aquí va el contenido -->
-    </div>
-  </div>
 </div>
 
   </body>

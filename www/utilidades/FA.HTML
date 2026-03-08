@@ -376,22 +376,31 @@ tfoot td{background:#f3f9ff;}
 }
 
 
+.biblio-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+  padding:4px 0;
+}
+
+.biblio-content {
+  max-height: 0;
+  overflow-y: hidden;
+  margin-top: 10px;
+  padding: 0px;
+  font-size:0.65rem;
+  transition:max-height 0.35s ease, padding 0.3s ease;
+}
+
+.biblio-content.open{
+  padding-top:10px;
+}
+
+
+
     .back-btn{display:inline-block;margin:1.5rem auto 0;background:#0f3d83;color:#fff;text-decoration:none;font-weight:700;padding:.7rem 1.4rem;border-radius:10px;box-shadow:0 4px 10px rgba(15,61,131,.25);transition:background .2s,transform .1s,box-shadow .2s}
     .back-btn:hover{background:#1c60c3;transform:translateY(-1px);box-shadow:0 6px 12px rgba(15,61,131,.35)}
-
-.explain-btn{
-  margin-left:2px;
-  font-size:16px;
-  padding:4px 8px;
-  border-radius:999px;
-  border:1px solid #c7d7f2;
-  background:#eef5ff;
-  color:#0f3d83;
-  cursor:pointer;
-}
-.explain-btn:hover{
-  background:#e0edff;
-}
 
 /* Disclaimer renal */
 .renal-disclaimer{
@@ -455,7 +464,6 @@ body {
   z-index:3000;
   align-items:center;
   justify-content:center;
-   
 }
 
 .modal{
@@ -474,59 +482,6 @@ body {
   font-size:1.1rem;
   cursor:pointer;
 }
-
-.modal-box{
-  background:#fff;
-  width:90%;
-  max-width:520px;
-  max-height:90vh;
-  display:flex;
-  flex-direction:column;
-  border-radius:12px;
-  box-shadow:0 10px 30px rgba(0,0,0,.25);
-}
-
-/* Cabecera fija */
-.modal-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:14px 16px;
-  border-bottom:1px solid #e5e7eb;
-}
-
-.modal-header h3{
-  margin:0;
-  font-size:16px;
-  color:#0f3d83;
-}
-
-.modal-header button{
-  border:none;
-  background:none;
-  cursor:pointer;
-  font-size:18px;
-}
-
-/* Contenido SCROLLABLE */
-.modal-body{
-  padding:16px;
-  font-size:13px;
-  line-height:1.55;
-  color:#1e293b;
-  overflow-y:auto;
-  flex:1;               /* 🔑 CLAVE */
-}
-
-#modal-explain-content::-webkit-scrollbar {
-  width: 6px;
-}
-#modal-explain-content::-webkit-scrollbar-thumb {
-  background: #c7d2fe;
-  border-radius: 4px;
-}
-
-
 /* ==========================================================
    MODALES DE INTERACCIONES — ESTILO INSTITUCIONAL MEJORADO
 ========================================================== */
@@ -600,62 +555,6 @@ body {
   .modal ul::before {
     display: none !important;
   }
-}
-/* ===== AISLAMIENTO MODAL EXPLICACIÓN IA ===== */
-
-#modal-explain,
-#modal-explain * {
-  box-sizing: border-box;
-}
-
-#modal-explain {
-  overflow: hidden !important;
-}
-
-#modal-explain-content {
-  overflow-y: auto !important;
-  max-height: 300px !important;
-}
-/* ========= MODAL EXPLICACIÓN (ROBUSTO) ========= */
-
-#modal-explain.modal-overlay{
-  display:none;              /* se abre con clase .show */
-  align-items:center;
-  justify-content:center;
-  padding: calc(env(safe-area-inset-top,0px) + 12px) 12px
-           calc(env(safe-area-inset-bottom,0px) + 12px);
-  z-index:9999;
-}
-
-#modal-explain.show{
-  display:flex;
-}
-
-.modal-box--explain{
-  width:min(560px, 92vw);
-  max-height: calc(100vh - (env(safe-area-inset-top,0px) + env(safe-area-inset-bottom,0px) + 24px));
-  display:flex;
-  flex-direction:column;
-}
-
-/* CLAVE para que el scroll funcione en flex */
-#modal-explain-content.modal-body{
-  overflow:auto;
-  flex:1 1 auto;
-  min-height:0;              /* 🔑 imprescindible */
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Si la IA devuelve encabezados tipo ###, al menos que se vean bien */
-#modal-explain-content h4{
-  margin:10px 0 6px;
-  color:#0f3d83;
-}
-#modal-explain-content p{
-  margin:0 0 10px;
-}
-#modal-explain-content ul{
-  margin:6px 0 10px 18px;
 }
 
 </style>
@@ -805,15 +704,14 @@ body {
         <div class="grid g-2">
           <div>
             <!-- INHIBIDOR P-gp --> <label class="row"><span class="chip-info" data-info="inhpgp">ℹ️</span> <input
-                id="condPgp" type="checkbox"> <span> Inhibidor potente
-                de P-gp  </span>
+                id="condPgp" type="checkbox"> <span> Inhibidor dual de P-gp y CYP3A4</span>
             </label>
             <!-- INDUCTOR P-gp  <label class="row"> <span class="chip-info" data-info="dual">ℹ️</span><input
                 id="condPgInd" type="checkbox"> <span> Inductor potente
                 de P-gp  </span> </label> -->
             <!-- INHIBIDOR CYP3A4 --> <label class="row"><span class="chip-info" data-info="inhcyp">ℹ️</span> <input
                 id="condCYPinh" type="checkbox"> <span> Inhibidor
-                potente de CYP3A4  </span></label>
+                selectivo de CYP3A4  </span></label>
             <!-- INDUCTOR CYP3A4 --> <label class="row"><span class="chip-info" data-info="dual">ℹ️</span> <input
                 id="condCYPind" type="checkbox"> <span> Inductor
                 potente dual de P-gp y CYP3A4  </span> </label>
@@ -990,234 +888,135 @@ body {
     ['condObesity','cAge65','cAge75','hElder','hRenal','cSc'].forEach(id=>document.getElementById(id).addEventListener('change',()=>checkAndFixContradictions(id)));
 
    /* ===== Reglas clínicas (incluye riñón y bloque ≥80) ===== */
-function buildClinicalRules(context){
-  const {crcl, age, special, weightKg, hasbled} = context;
+function buildClinicalRules(context) {
+    const { crcl, age, special, weightKg, hasbled } = context;
 
-  const prefer = {
-    "VKA":        new Set(),
-    "Apixabán":   new Set(),
-    "Dabigatrán": new Set(),
-    "Edoxabán":   new Set(),
-    "Rivaroxabán":new Set()
-  };
+    const drugs = ["VKA", "Apixabán", "Dabigatrán", "Edoxabán", "Rivaroxabán"];
+    const acods = ["Apixabán", "Dabigatrán", "Edoxabán", "Rivaroxabán"];
+    
+    const prefer = Object.fromEntries(drugs.map(d => [d, new Set()]));
+    const avoid = Object.fromEntries(drugs.map(d => [d, new Set()]));
+    const notes = [];
 
-  const avoid = {
-    "VKA":        new Set(),
-    "Apixabán":   new Set(),
-    "Dabigatrán": new Set(),
-    "Edoxabán":   new Set(),
-    "Rivaroxabán":new Set()
-  };
+    // --- HELPER PARA MANTENER LA COHERENCIA ---
+    // Registra una preferencia/evitación y su nota asociada de forma atómica
+    const rule = {
+        prefer: (drug, reason, note) => {
+            if (drugs.includes(drug)) prefer[drug].add(reason);
+            if (note && !notes.includes(note)) notes.push(note);
+        },
+        avoid: (drug, reason, note) => {
+            if (drugs.includes(drug)) avoid[drug].add(reason);
+            if (note && !notes.includes(note)) notes.push(note);
+        },
+        avoidAllAcods: (reason, note) => {
+            acods.forEach(d => avoid[d].add(reason));
+            if (note) notes.push(note);
+        }
+    };
 
-  const notes = [];
-
-  // Disfagia / SNG
-  if (special.dysphagia){
-    avoid.Dabigatrán.add("Disfagia/SNG (no abrir cápsula)");
-    prefer.Apixabán.add("Compatible triturado/SNG");
-    prefer.Rivaroxabán.add("Compatible triturado/SNG (>=15 mg con comida)");
-    prefer.VKA.add("Se puede triturar/SNG");
-    notes.push("Disfagia/SNG: evitar dabigatrán; apixabán, rivaroxabán o VKA son opciones.");
-  }
-
-  // Función renal
-  if (isFinite(crcl)){
-    if (crcl < 15){
-      prefer.VKA.add("ERC terminal (<15 mL/min) o diálisis");
-      avoid.Dabigatrán.add("ERC terminal");
-      avoid.Rivaroxabán.add("ERC terminal");
-      avoid.Edoxabán.add("ERC terminal");
-      avoid.Apixabán.add("No recomendado por EMA en ERC terminal/diálisis");
-      notes.push("ClCr <15 mL/min o diálisis: preferir VKA; evitar ACOD.");
-    } else if (crcl >= 15 && crcl < 30){
-      prefer.Apixabán.add("ERC 15–29 (baja excreción renal)");
-      avoid.Dabigatrán.add("ERC 15–29 (contraindicado si <30)");
-      notes.push("ClCr 15–29 mL/min: preferir apixabán; evitar dabigatrán; ajustar rivaroxabán/edoxabán.");
-    } else if (crcl > 95){
-      avoid.Edoxabán.add("Menor eficacia si ClCr >95 mL/min (FDA, Savaysa)");
-      notes.push("ClCr >95 mL/min: evitar edoxabán por menor eficacia relativa (FA no valvular).");
-    }
-  }
-
-  // GI, ICH, valvular, etc. (igual que ya tenías)
-  if (special.giBleed){
-    prefer.Apixabán.add("Mejor perfil GI");
-    avoid.Rivaroxabán.add("Más sangrado GI");
-    avoid.Dabigatrán.add("Más sangrado GI (150 mg)");
-    avoid.Edoxabán.add("Más sangrado GI");
-    notes.push("Antecedente de HDA severa: preferir apixabán.");
-  }
-
-  if (special.ichRisk){
-    prefer.Apixabán.add("Menor HIC vs VKA");
-    prefer.Edoxabán.add("Menor HIC vs VKA");
-    avoid.VKA.add("Más HIC vs ACOD");
-    notes.push("Alto riesgo de HIC: priorizar ACOD (apixabán/edoxabán).");
-  }
-
-  if (special.valvular){
-    prefer.VKA.add("Prótesis mecánica/EM reumática (indicación absoluta)");
-    avoid.Apixabán.add("No indicado");
-    avoid.Dabigatrán.add("No indicado");
-    avoid.Edoxabán.add("No indicado");
-    avoid.Rivaroxabán.add("No indicado");
-    notes.push("Prótesis mecánica/EM reumática significativa: VKA obligatorio.");
-  }
-
-  if (special.polypharm){
-    prefer.Apixabán.add("Menos interacciones globales");
-    prefer.Edoxabán.add("Menos interacciones globales");
-    avoid.VKA.add("Múltiples interacciones");
-    notes.push("Polimedicación: preferir apixabán/edoxabán.");
-  }
-
-  if (special.cirrhosis){
-    prefer.VKA.add("Hepatopatía avanzada");
-    avoid.Apixabán.add("Evitar Child C");
-    avoid.Dabigatrán.add("Evitar Child C");
-    avoid.Edoxabán.add("Evitar Child C");
-    avoid.Rivaroxabán.add("Evitar Child C");
-    notes.push("Hepatopatía avanzada: preferir VKA; evitar ACOD en Child C.");
-  }
-
-  const over120 = isFinite(weightKg) && weightKg > 120;
-  if (special.obesity || over120){
-    prefer.VKA.add("Obesidad mórbida");
-    avoid.Dabigatrán.add("Evidencia limitada");
-    avoid.Edoxabán.add("Evidencia limitada");
-    notes.push("Obesidad mórbida: preferir VKA; si ACOD, mejor apixabán/rivaroxabán.");
-  }
-
-  if (special.oncoGI){
-    prefer.VKA.add("Alternativa en tumor GI/GU activo");
-    avoid.Rivaroxabán.add("Mayor riesgo GI");
-    avoid.Dabigatrán.add("Mayor riesgo GI");
-    avoid.Edoxabán.add("Mayor riesgo GI");
-    prefer.Apixabán.add("Perfil GI favorable");
-    notes.push("Neoplasia GI/GU activa: preferible apixabán o VKA.");
-  }
-
-  // 🔶 BLOQUE ≥80 años (propuesta intermedia)
-  if (age >= 80){
-    // Apixabán preferido siempre
-    prefer.Apixabán.add("Mejor balance beneficio/riesgo en ≥80 años");
-
-    // Dabigatrán solo se desaconseja si hay otro factor de riesgo
-    const dabHighRisk =
-      special.giBleed ||
-      special.oncoGI ||
-      (hasbled >= 3) ||
-      (isFinite(crcl) && crcl >= 30 && crcl < 50);
-
-    if (dabHighRisk){
-      avoid.Dabigatrán.add(
-        "Evitar dabigatrán en ≥80 años con HDA/neoplasia GI, HAS-BLED alto o ClCr 30–50 mL/min"
-      );
+    // --- 1. ADMINISTRACIÓN Y DIGESTIÓN ---
+    if (special.dysphagia) {
+        rule.avoid("Dabigatrán", "Disfagia/SNG (no abrir cápsula)");
+        rule.prefer("Apixabán", "Compatible triturado/SNG");
+        rule.prefer("Rivaroxabán", "Compatible triturado/SNG (>=15 mg con comida)");
+        rule.prefer("VKA", "Se puede triturar/SNG");
+        notes.push("Disfagia/SNG: evitar dabigatrán; apixabán, rivaroxabán o VKA son opciones.");
     }
 
-    notes.push(
-      "En ≥80 años suele preferirse apixabán; dabigatrán solo si no hay HDA/neoplasia GI, HAS-BLED alto ni ClCr 30–50 mL/min."
-    );
-  }
-
-  if (special.poorINR){
-    avoid.VKA.add("Difícil monitorización INR");
-    prefer.Apixabán.add("Sin INR rutinario");
-    prefer.Rivaroxabán.add("Sin INR rutinario");
-    prefer.Edoxabán.add("Sin INR rutinario");
-    prefer.Dabigatrán.add("Sin INR rutinario");
-    notes.push("Si no se puede monitorizar INR: preferir ACOD.");
-  }
-
-  if (special.qd){
-    prefer.Rivaroxabán.add("Posología QD");
-    prefer.Edoxabán.add("Posología QD");
-    notes.push("Preferencia por dosis única diaria: rivaroxabán o edoxabán.");
-  }
-
-  // Inductor potente de P-gp
-  if (special.pgpInd){
-    prefer.VKA.add("Inductor potente de P-gp (evitar infraexposición de ACOD)");
-    avoid.Dabigatrán.add("Altamente dependiente de P-gp → riesgo de infraexposición marcada");
-    avoid.Edoxabán.add("Inductor potente de P-gp → menor exposición y posible pérdida de eficacia");
-    notes.push(
-      "Inductor potente de P-gp: evitar dabigatrán y, siempre que sea posible, edoxabán; preferir VKA u otra alternativa no dependiente de P-gp."
-    );
-  }
-
-  // Inhibidor potente de P-gp
-  if (special.pgp){
-    if (isFinite(crcl) && crcl < 50){
-      avoid.Dabigatrán.add("Inhibidor potente de P-gp con ClCr <50 mL/min: evitar dabigatrán");
-      notes.push("Inhibidor potente de P-gp con ClCr <50 mL/min: evitar dabigatrán.");
+    // --- 2. FUNCIÓN RENAL ---
+    if (Number.isFinite(crcl)) {
+        if (crcl < 15) {
+            rule.prefer("VKA", "ERC terminal (<15 mL/min) o diálisis", "ClCr <15 mL/min o diálisis: preferir VKA; evitar ACOD.");
+            rule.avoid("Dabigatrán", "ERC terminal");
+            rule.avoid("Rivaroxabán", "ERC terminal");
+            rule.avoid("Edoxabán", "ERC terminal");
+            rule.avoid("Apixabán", "No recomendado por EMA en ERC terminal/diálisis");
+        } 
+        else if (crcl < 30) {
+            rule.prefer("Apixabán", "ERC 15–29 (baja excreción renal)", "ClCr 15–29 mL/min: preferir apixabán; evitar dabigatrán; ajustar rivaroxabán/edoxabán.");
+            rule.avoid("Dabigatrán", "ERC 15–29 (contraindicado si <30)");
+        } 
+        else if (crcl > 95) {
+            rule.avoid("Edoxabán", "Menor eficacia si ClCr >95 mL/min (FDA, Savaysa)", "ClCr >95 mL/min: evitar edoxabán por menor eficacia relativa (FA no valvular).");
+        }
     }
-    notes.push(
-      "Inhibidor potente de P-gp: preferir ACOD menos dependientes de P-gp, como apixabán o rivaroxabán, o VKA en pacientes de alto riesgo."
-    );
-  }
 
-  // Inhibidor CYP3A4
-  if (special.cypInhib){
-    avoid.Apixabán.add("Inhibidor potente de CYP3A4 (riesgo de sobreexposición)");
-    avoid.Rivaroxabán.add("Inhibidor potente de CYP3A4 (riesgo de sobreexposición)");
-    prefer.Edoxabán.add("Metabolismo CYP3A4 mínimo → opción más segura");
-    prefer.Dabigatrán.add("No depende de CYP3A4");
-    notes.push(
-      "Inhibidor potente de CYP3A4: evitar rivaroxabán y usar precaución con apixabán; edoxabán y dabigatrán no se ven afectados por esta vía."
-    );
-  }
+    // --- 3. RIESGO HEMORRÁGICO (GI e ICH) ---
+    if (special.giBleed) {
+        rule.prefer("Apixabán", "Mejor perfil GI", "Antecedente de HDA severa: preferir apixabán.");
+        rule.avoid("Rivaroxabán", "Más sangrado GI");
+        rule.avoid("Dabigatrán", "Más sangrado GI (150 mg)");
+        rule.avoid("Edoxabán", "Más sangrado GI");
+    }
 
-/*
-  // Inductor CYP3A4
-  if (special.cypInduc){
-    avoid.Apixabán.add("Inductor potente de CYP3A4 (riesgo de infraexposición)");
-    avoid.Rivaroxabán.add("Inductor potente de CYP3A4 (riesgo de infraexposición)");
-    prefer.Edoxabán.add("Menor metabolismo CYP3A4 → opción más segura");
-    prefer.Dabigatrán.add("No depende de CYP3A4");
-    notes.push(
-      "Inductor potente de CYP3A4: evitar rivaroxabán y apixabán; edoxabán y dabigatrán son alternativas razonables (valorar VKA)."
-    );
-  }
-*/
+    if (special.ichRisk) {
+        rule.prefer("Apixabán", "Menor HIC vs VKA", "Alto riesgo de HIC: priorizar ACOD (apixabán/edoxabán).");
+        rule.prefer("Edoxabán", "Menor HIC vs VKA");
+        rule.avoid("VKA", "Más HIC vs ACOD");
+    }
 
-// 🔥 INHIBIDOR DUAL POTENTE (P-gp + CYP3A4)
-if (special.pgp && special.cypInhib) {
+    // --- 4. PERFIL DEL PACIENTE (Edad, Peso, Hígado) ---
+    if (special.valvular) {
+        rule.prefer("VKA", "Prótesis mecánica/EM reumática (indicación absoluta)", "Prótesis mecánica/EM reumática significativa: VKA obligatorio.");
+        acods.forEach(d => rule.avoid(d, "No indicado"));
+    }
 
-  // Preferir VKA
-  prefer.VKA.add("Inhibidor dual potente (P-gp + CYP3A4)");
+    if (special.cirrhosis) {
+        rule.prefer("VKA", "Hepatopatía avanzada", "Hepatopatía avanzada: preferir VKA; evitar ACOD en Child C.");
+        acods.forEach(d => rule.avoid(d, "Evitar Child C"));
+    }
 
-  // Evitar TODOS los ACOD
-  avoid.Apixabán.add("Evitar con inhibidor dual potente");
-  avoid.Rivaroxabán.add("Evitar con inhibidor dual potente");
-  avoid.Dabigatrán.add("Evitar con inhibidor dual potente");
-  avoid.Edoxabán.add("Evitar con inhibidor dual potente");
+    if (special.obesity || (Number.isFinite(weightKg) && weightKg > 120)) {
+        rule.prefer("VKA", "Obesidad mórbida", "Obesidad mórbida: preferir VKA; si ACOD, mejor apixabán/rivaroxabán.");
+        rule.avoid("Dabigatrán", "Evidencia limitada");
+        rule.avoid("Edoxabán", "Evidencia limitada");
+    }
 
-  // Nota clínica
-  notes.push(
-    "Inhibidor dual potente (P-gp + CYP3A4): interacción muy intensa. Evitar TODOS los ACOD y usar VKA."
-  );
-}
+    if (age >= 80) {
+        rule.prefer("Apixabán", "Mejor balance beneficio/riesgo en ≥80 años");
+        const dabHighRisk = special.giBleed || special.oncoGI || (hasbled >= 3) || (crcl >= 30 && crcl < 50);
+        if (dabHighRisk) rule.avoid("Dabigatrán", "Evitar dabigatrán en ≥80 años con HDA/neoplasia GI, HAS-BLED alto o ClCr 30–50 mL/min");
+        notes.push("En ≥80 años suele preferirse apixabán; dabigatrán solo si no hay HDA/neoplasia GI, HAS-BLED alto ni ClCr 30–50 mL/min.");
+    }
 
-// 🔥 INDUCTOR DUAL POTENTE (P-gp + CYP3A4)
-if (special.cypInduc) {
+    // --- 5. INTERACCIONES FARMACOLÓGICAS ---
+    if (special.pgpInd) {
+        rule.prefer("VKA", "Inductor potente de P-gp (evitar infraexposición de ACOD)", "Inductor potente de P-gp: evitar dabigatrán y edoxabán; preferir VKA.");
+        rule.avoid("Dabigatrán", "Altamente dependiente de P-gp");
+        rule.avoid("Edoxabán", "Posible pérdida de eficacia");
+    }
 
-  // Preferir VKA
-  prefer.VKA.add("Inductor dual potente (P-gp + CYP3A4)");
+    if (special.cypInhib) {
+        rule.avoid("Apixabán", "Inhibidor potente de CYP3A4");
+        rule.avoid("Rivaroxabán", "Inhibidor potente de CYP3A4");
+        rule.prefer("Edoxabán", "Metabolismo CYP3A4 mínimo", "Inhibidor potente de CYP3A4: evitar rivaroxabán; edoxabán/dabigatrán son más seguros.");
+        rule.prefer("Dabigatrán", "No depende de CYP3A4");
+    }
 
-  // Evitar TODOS los ACOD
-  avoid.Apixabán.add("Evitar con inductor dual potente");
-  avoid.Rivaroxabán.add("Evitar con inductor dual potente");
-  avoid.Dabigatrán.add("Evitar con inductor dual potente");
-  avoid.Edoxabán.add("Evitar con inductor dual potente");
+    // 🔥 BLOQUEOS DUALES (P-gp + CYP3A4)
+    if (special.pgp && special.cypInhib) {
+        rule.prefer("VKA", "Inhibidor dual potente (P-gp + CYP3A4)");
+        rule.avoidAllAcods("Evitar con inhibidor dual potente", "Inhibidor dual potente (P-gp + CYP3A4): interacción muy intensa. Evitar TODOS los ACOD y usar VKA.");
+    }
 
-  // Nota clínica
-  notes.push(
-    "Inductor dual potente (P-gp + CYP3A4): riesgo extremo de infraexposición. Evitar TODOS los ACOD y usar VKA."
-  );
-}
+    if (special.cypInduc) {
+        rule.prefer("VKA", "Inductor dual potente (P-gp + CYP3A4)");
+        rule.avoidAllAcods("Evitar con inductor dual potente", "Inductor dual potente (P-gp + CYP3A4): riesgo extremo de infraexposición. Evitar TODOS los ACOD y usar VKA.");
+    }
 
+    // --- 6. PREFERENCIAS LOGÍSTICAS ---
+    if (special.poorINR) {
+        rule.avoid("VKA", "Difícil monitorización INR", "Si no se puede monitorizar INR: preferir ACOD.");
+        acods.forEach(d => rule.prefer(d, "Sin INR rutinario"));
+    }
 
-  return {prefer, avoid, notes};
+    if (special.qd) {
+        rule.prefer("Rivaroxabán", "Posología QD", "Preferencia por dosis única diaria: rivaroxabán o edoxabán.");
+        rule.prefer("Edoxabán", "Posología QD");
+    }
+
+    return { prefer, avoid, notes };
 }
 
 
@@ -1524,22 +1323,11 @@ else {
         recList.appendChild(li);
     }
 
-if (avoidedGlobal.length) {
-  const li = document.createElement('li');
-
-  const items = avoidedGlobal.map(drug =>
-    `${drug}
-     <button type="button"
-             class="explain-btn"
-             data-drug="${drug}">
-       🗣️
-     </button>`
-  ).join(", ");
-
-  li.innerHTML = "<b>Estrategias a evitar:</b> " + items;
-  recList.appendChild(li);
-}
-
+    if (avoidedGlobal.length) {
+        const li = document.createElement('li');
+        li.innerHTML = "<b>Estrategias a evitar:</b> " + avoidedGlobal.join(", ");
+        recList.appendChild(li);
+    }
 
     // Mostrar posología
     doseSection.style.display = '';
@@ -1582,10 +1370,6 @@ if (avoidedGlobal.length) {
         doses:dosesForReport
 
       };
-
-window.__lastReport = __lastReport;
-
-
       document.getElementById('btnPrint').disabled=false;
       document.getElementById('btnCopy').disabled=false;
     }
@@ -1889,64 +1673,6 @@ function copyReport(){
 
     window.addEventListener('DOMContentLoaded', autoCheckByInputs);
 
-/* ==========================================================
-   IA – Explicación clínica contextual
-========================================================== */
-
-document.addEventListener('DOMContentLoaded', () => {
-
-  function openExplainModal(text){
-    const modal = document.getElementById('modal-explain');
-    const content = document.getElementById('modal-explain-content');
-    if(!modal || !content) return;
-    content.textContent = text;
-    modal.style.display = 'flex';
-  }
-
-  function closeExplainModal(){
-    const modal = document.getElementById('modal-explain');
-    if(modal) modal.style.display = 'none';
-  }
-
-  document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.explain-btn');
-    if (!btn) return;
-
-    e.preventDefault();
-    e.stopPropagation();
-
-    const drug = btn.dataset.drug || '';
-    const r = window.__lastReport;
-    if (!r) {
-      openExplainModal('No hay contexto clínico disponible. Pulse “Calcular” para generar resultados.');
-      return;
-    }
-
-    const text = explainAvoid(drug, {
-      hasbled: r.scores?.hasbled,
-      special: r.special || {}
-    });
-
-    openExplainModal(text);
-  });
-
-  const closeBtn = document.getElementById('modal-explain-close');
-  if (closeBtn) closeBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    closeExplainModal();
-  });
-
-  const modal = document.getElementById('modal-explain');
-  if (modal) modal.addEventListener('click', (e) => {
-    if (e.target === modal) closeExplainModal();
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeExplainModal();
-  });
-
-});
-
 
     </script>
 <script>
@@ -1963,59 +1689,47 @@ const infoInteracciones = {
 ========================================================== */
 
   inhpgp: {
-    titulo: "Inhibidores potentes de P-gp",
+    titulo: "Inhibidores duales de P-gp y CYP3A4",
     html: `
       <p>
-        Fármacos que inhiben de forma <b>potente y clínicamente relevante</b> la glicoproteína P (P-gp).
+        Fármacos que inhiben de forma dual y <b>clínicamente relevante</b> la glicoproteína P (P-gp) y el metabolismo mediado por CYP3A4.
       </p>
 
       <ul>
-        <li>🎯Dronedarona</li>
-        <li>🎯Quinidina</li>
-        <li>🎯Ciclosporina</li>
-        <li>☯️Ketoconazol</li>
-        <li>☯️Itraconazol</li>
-        <li>☯️Posaconazol</li>
-        <li>☯️Voriconazol</li>
-        <li>☯️Ritonavir</li>
-        <li>☯️Cobicistat</li>
-        <li>☯️Atazanavir</li>
-        <li>☯️Darunavir</li>
-        <li>☯️Nelfinavir</li>
-        <li>☯️Saquinavir</li>
-        <li>☯️Claritromicina</li>
-        <li>☯️Eritromicina</li>
+  <li>☯️Dronedarona</li>
+  <li>☯️Quinidina</li>
+  <li>☯️Ciclosporina</li>
+  <li>☯️Verapamilo</li>
+  <li>☯️Diltiazem</li>
+  <li>☯️Amiodarona</li>
+  <li>☯️Tacrolimus</li>
+  <li>☯️Ketoconazol</li>
+  <li>☯️Itraconazol</li>
+  <li>☯️Posaconazol</li>
+  <li>☯️Voriconazol</li>
+  <li>☯️Ritonavir</li>
+  <li>☯️Cobicistat</li>
+  <li>☯️Atazanavir</li>
+  <li>☯️Darunavir</li>
+  <li>☯️Nelfinavir</li>
+  <li>☯️Saquinavir</li>
+  <li>☯️Claritromicina</li>
+  <li>☯️Eritromicina</li>
 </ul>
-<hr>
-      <p>🎯Selectivo 🔹🔹🔹 ☯️Dual</p>
     `
   },
 
   inhcyp: {
-    titulo: "Inhibidores potentes de CYP3A4",
+    titulo: "Inhibidores selectivos de CYP3A4",
     html: `
       <p>
-        Fármacos que inhiben de forma <b>potente</b> el metabolismo mediado por CYP3A4.
+        Fármacos que inhiben de forma <b>potente y selectiva</b> el metabolismo mediado por CYP3A4.
       </p>
 
       <ul>
         <li>🎯Fluconazol</li>
         <li>🎯Nefazodona</li>
-        <li>☯️Ketoconazol</li>
-        <li>☯️Itraconazol</li>
-        <li>☯️Posaconazol</li>
-        <li>☯️Voriconazol</li>
-        <li>☯️Ritonavir</li>
-        <li>☯️Cobicistat</li>
-        <li>☯️Atazanavir</li>
-        <li>☯️Darunavir</li>
-        <li>☯️Nelfinavir</li>
-        <li>☯️Saquinavir</li>
-        <li>☯️Claritromicina</li>
-        <li>☯️Eritromicina</li>
-</ul>
-<hr>
-      <p>🎯Selectivo 🔹🔹🔹 ☯️Dual</p>
+        </ul>
     `
   },
 
@@ -2026,7 +1740,6 @@ const infoInteracciones = {
         Fármacos que <b>inducen simultáneamente CYP3A4 y la glicoproteína P (P-gp)</b>,
         produciendo alteraciones farmacocinéticas <b>clínicamente relevantes</b> de los ACOD.
       </p>
-      <h4>🔵 Inductores duales</h4>
       <ul>
         <li>☯️Rifampicina</li>
         <li>☯️Rifabutina</li>
@@ -2036,8 +1749,6 @@ const infoInteracciones = {
         <li>☯️Primidona</li>
         <li>☯️Hierba de San Juan</li>
       </ul>
-<hr>
-      <p>☯️Dual</p>
     `
   },
 
@@ -2671,118 +2382,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if(!customElements.get("app-disclaimer")){ customElements.define("app-disclaimer",AppDisclaimer); }
     })();
-
-
-
-function buildClinicalPrompt(drug, r){
-
-  const sexTxt = r.inputs?.sex === 'F' ? 'Mujer' : 'Varón';
-
-  return `
-Eres un médico especialista en Neurología Vascular y Farmacología Clínica.
-
-Analiza el caso y responde EXCLUSIVAMENTE en formato JSON válido.
-NO escribas texto fuera del JSON.
-
-Estructura obligatoria:
-{
-  "motivo_principal": "",
-  "riesgo_clinico": "",
-}
-
-Caso clínico completo (objeto JSON):
-${JSON.stringify(r, null, 2)}
-
-Fármaco evaluado: ${drug}
-
-Instrucciones:
-- Basa la explicación únicamente en los datos proporcionados
-- Prioriza el motivo clínico dominante real
-- Si hay problemas de administración (disfagia, cápsulas no abribles, SNG), considéralo motivo principal
-- Respuestas breves y clínicas
--Devuelve únicamente un objeto JSON plano, sin markdown, sin comillas triples y sin texto adicional.
-
-`.trim();
-}
-
-document.addEventListener('click', async e => {
-  const btn = e.target.closest('.explain-btn');
-  if (!btn) return;
-
-  e.preventDefault();
-  e.stopPropagation();
-
-  const drug = btn.dataset.drug;
-  if (!window.__lastReport) return;
-
-const prompt = buildClinicalPrompt(drug, window.__lastReport);
-
-// 🔧 MVP: mostrar el prompt (debug / validación)
-const modal = document.getElementById('modal-explain');
-const content = document.getElementById('modal-explain-content');
-
-content.innerHTML = '<p style="color:#666">Generando explicación clínica…</p>';
-modal.style.display = 'flex';
-
-try {
-  const aiText = await callAI(prompt);
-
-  let data;
-  try {
-    data = JSON.parse(aiText);
-  } catch {
-    content.innerHTML =
-      '<p style="color:#b91c1c">La IA devolvió un formato no válido.</p>';
-    return;
-  }
-
-  content.innerHTML = `
-    <ul>
-      <li><b>Motivo principal:</b> ${data.motivo_principal}</li>
-      <li><b>Riesgo clínico:</b> ${data.riesgo_clinico}</li>
-    </ul>
-  `;
-
-  content.scrollTop = 0;
-
-} catch (err) {
-  content.innerHTML =
-    '<p style="color:#b91c1c">No se pudo generar la explicación clínica.</p>';
-}
-
-
-
-  document.getElementById('modal-explain-content').textContent = text;
-  document.getElementById('modal-explain').style.display = 'flex';
-});
-
-document.getElementById('modal-explain-close').onclick = () => {
-  document.getElementById('modal-explain').style.display = 'none';
-};
-document.getElementById('modal-explain').onclick = e => {
-  if (e.target.id === 'modal-explain') {
-    e.currentTarget.style.display = 'none';
-  }
-};
-
-async function callAI(prompt) {
-  const res = await fetch('http://localhost:3000/api/clinical-explain', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ prompt })
-  });
-
-  if (!res.ok) {
-    throw new Error('Error IA');
-  }
-
-  const data = await res.json();
-  return data.text;
-}
-
-
     </script>
-
     <script src="../js/index.js"></script>
     <script>
 document.addEventListener("DOMContentLoaded", () => {
@@ -2799,24 +2399,9 @@ document.addEventListener("DOMContentLoaded", () => {
     <h3 id="modal-info-title"></h3>
     <div id="modal-info-content"></div>
   </div>
-
-
-
+</div>
 </div>
 
-
-
-<div id="modal-explain" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
-  <div class="modal-box modal-box--explain" role="document">
-    <div class="modal-header">
-      <h3>Explicación clínica orientativa</h3>
-      <button id="modal-explain-close" type="button" aria-label="Cerrar">🔙</button>
-    </div>
-
-    <div id="modal-explain-content" class="modal-body">
-      <!-- aquí va el contenido -->
-    </div>
-  </div>
 </div>
 
   </body>

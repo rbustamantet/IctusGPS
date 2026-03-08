@@ -218,6 +218,27 @@ html,body,.wrap,.card,label,input,select,button,table,p,h1,h2,h3,li{
 label{font-weight:600;font-size:.92rem;color:#0f3f66;display:block;margin-bottom:6px;}
 label.row{font-weight:400;}
 .row{display:flex;gap:8px;align-items:center;margin:4px 0;}
+.rowConsider td{
+  background:#fff4e5 !important;
+}
+
+.rowConsider td:first-child{
+  border-left:4px solid #f59e0b;
+}
+
+.clinicalBanner{
+  background:#fff4e5;
+  border-left:5px solid #f59e0b;
+  padding:10px 12px;
+  border-radius:12px;
+  margin:6px 0 10px 0;
+  font-weight:600;
+  color:#7c3a00;
+}
+
+.clinicalBanner .icon{
+  margin-right:6px;
+}
 
 input[type="number"],select{
   width:100%;
@@ -269,6 +290,7 @@ tfoot td{background:#f3f9ff;}
 .okr{background:#ffcccc;color:#660000;}
 .okb{background:#0f3d83;color:#ffffff;}
 .bad{background:#ffebee;color:#b71c1c;}
+.rec{background:#e8f5e9;color:#1b5e20;font-weight:400;font-size:1rem;}
 .note{font-size:.86rem;color:#456;}
 .center{text-align:center;}
 .subtle{color:#345;opacity:.85;}
@@ -276,7 +298,15 @@ tfoot td{background:#f3f9ff;}
 .sticky-result{position:relative}
 .result-anchor{scroll-margin-top:120px}
 
-.sep{height:1px;background:#e7f0fb;margin:14px 0;}
+.clinicalRecommendation{
+  background:#f4fbf6;
+  border-left:5px solid #2e7d32;
+  border-radius:5px;
+  padding:12px 14px;
+  box-shadow:0 1px 3px rgba(0,0,0,0.06);
+}
+
+.sep{height:0.25px;background:#64748b;margin:14px 0;}
 
 .inlineSelect{display:flex;gap:8px;}
 .unit{width:44%;}
@@ -287,6 +317,11 @@ tfoot td{background:#f3f9ff;}
     /* Adecuación clínica */
     .tagPref{background:#e8f5e9;color:#1b5e20;border:1px solid #b7dfbf}
     .tagAvoid{background:#ffebee;color:#b71c1c;border:1px solid #f3c5c8}
+.tagConsider{
+  background:#fff4e5;
+  color:#b45309;
+  border:1px solid #f59e0b;
+}
     .tagNeutral{background:#eef6ff;color:#0b4576;border:1px solid #cfe3f6}
     .rec-list li{margin:4px 0}
     .list-min{padding-left:16px;margin:0}
@@ -510,6 +545,39 @@ body {
   color: var(--azul-dark);
 }
 
+.hint{
+  font-size:12px;
+  color:#6b7280;
+  margin:2px 0 6px 26px;
+}
+.chips{
+  margin:2px 0 6px 26px;
+}
+
+.chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+  margin:2px 0 8px 22px;
+}
+
+.chip{
+  display:inline-flex;
+  align-items:center;
+
+  font-size:11px;
+  line-height:1;
+
+  padding:3px 7px;
+
+  border-radius:999px;
+
+background:#0f3d83;
+color:white;
+
+  white-space:nowrap;
+}
+
 /* ==========================================================
    LISTAS EN COLUMNAS (solamente UL largos)
 ========================================================== */
@@ -595,12 +663,13 @@ body {
             class="doseTag">dosis reducida</span> cuando proceda. </p>
       </div>
       <!-- Datos del paciente -->
-      <div class="card">
+      <form autocomplete="off">
+                     <div class="card">
         <h2 style="margin:0 0 8px;">👤Datos del paciente</h2>
         <div class="grid g-2 patient-grid">
           <div> <label for="age">Edad (años)</label> <input id="age"
               inputmode="numeric" max="110" min="18" placeholder="p.
-              ej., 74" type="number"> </div>
+              ej., 74" type="number" ></div>
           <div> <label for="sex">Sexo</label>
             <select id="sex">
               <option value="" selected="selected">Selecciona…</option>
@@ -610,7 +679,7 @@ body {
           </div>
           <div> <label for="weight">Peso</label>
             <div class="inlineSelect"> <input class="val" id="weight"
-                max="400" min="10" placeholder="p. ej., 84.5" step="0.1"
+                max="400" min="10" placeholder="p. ej., 84.5" step="1"
                 type="number">
               <select class="unit" id="weightUnit">
                 <option value="kg" selected="selected">kg</option>
@@ -620,7 +689,7 @@ body {
           </div>
           <div> <label for="scr">Creatinina sérica</label>
             <div class="inlineSelect"> <input class="val" id="scr"
-                max="15" min="0.1" placeholder="p. ej., 1.1" step="0.01"
+                max="15" min="0.1" placeholder="p. ej., 1.1" step="0.1"
                 type="number">
               <select class="unit" id="scrUnit">
                 <option value="mgdl" selected="selected">mg/dL</option>
@@ -628,7 +697,7 @@ body {
               </select>
             </div>
           </div>
-        </div>
+        </div></form>
         <div class="sep"></div>
         <div class="grid g-2">
           <div> <label>CHA<sub>2</sub>DS<sub>2</sub>-VA/CHA<sub>2</sub>DS<sub>2</sub>-VASc</label>
@@ -700,25 +769,104 @@ body {
               diaria</label></div>
         </div>
         <div class="sep"></div>
-        <h3 style="margin:0 0 6px;">Interacciones farmacológicas</h3>
-        <div class="grid g-2">
-          <div>
-            <!-- INHIBIDOR P-gp --> <label class="row"><span class="chip-info" data-info="inhpgp">ℹ️</span> <input
-                id="condPgp" type="checkbox"> <span> Inhibidor potente
-                de P-gp  </span>
-            </label>
-            <!-- INDUCTOR P-gp  <label class="row"> <span class="chip-info" data-info="dual">ℹ️</span><input
-                id="condPgInd" type="checkbox"> <span> Inductor potente
-                de P-gp  </span> </label> -->
-            <!-- INHIBIDOR CYP3A4 --> <label class="row"><span class="chip-info" data-info="inhcyp">ℹ️</span> <input
-                id="condCYPinh" type="checkbox"> <span> Inhibidor
-                potente de CYP3A4  </span></label>
-            <!-- INDUCTOR CYP3A4 --> <label class="row"><span class="chip-info" data-info="dual">ℹ️</span> <input
-                id="condCYPind" type="checkbox"> <span> Inductor
-                potente dual de P-gp y CYP3A4  </span> </label>
-          </div>
-        </div>
-        <br>
+<h3 style="margin:0 0 6px;">Interacciones farmacológicas</h3>
+
+<div class="grid g-2">
+
+  <div>
+
+    <label class="row">
+      <input type="checkbox" class="drug-int" value="amiodarona">
+      Amiodarona
+    </label>
+
+    <label class="row">
+      <input type="checkbox" class="drug-int" value="verapamilo">
+      Verapamilo
+    </label>
+
+    <label class="row">
+      <input type="checkbox" class="drug-int" value="diltiazem">
+      Diltiazem
+    </label>
+
+    <label class="row">
+      <input type="checkbox" class="drug-int" value="dronedarona">
+      Dronedarona
+    </label>
+
+    <label class="row">
+      <input type="checkbox" class="drug-int" value="quinidina">
+      Quinidina
+    </label>
+
+    <label class="row">
+      <input type="checkbox" class="drug-int" value="claritromicina">
+      Claritromicina
+    </label>
+
+    <label class="row">
+      <input type="checkbox" class="drug-int" value="eritromicina">
+      Eritromicina
+    </label>
+
+    <label class="row">
+  <input type="checkbox" class="drug-int" value="azoles">
+  Azoles sistémicos potentes
+</label>
+<div class="chips">
+  <span class="chip">ketoconazol</span>
+  <span class="chip">itraconazol</span>
+  <span class="chip">posaconazol</span>
+  <span class="chip">voriconazol</span>
+</div>
+</div>
+
+  <div>
+
+   <label class="row">
+  <input type="checkbox" class="drug-int" value="ritonavir">
+  Ritonavir/Cobicistat
+</label>
+<label class="row">
+      <input type="checkbox" class="drug-int" value="ciclosporina">
+      Ciclosporina
+    </label>
+
+    <label class="row">
+      <input type="checkbox" class="drug-int" value="tacrolimus">
+      Tacrolimus
+    </label>
+
+    <label class="row">
+      <input type="checkbox" class="drug-int" value="rifampicina">
+      Rifampicina
+    </label>
+
+    <label class="row">
+      <input type="checkbox" class="drug-int" value="carbamazepina">
+      Carbamazepina
+    </label>
+
+    <label class="row">
+      <input type="checkbox" class="drug-int" value="fenitoina">
+      Fenitoína
+    </label>
+
+    <label class="row">
+      <input type="checkbox" class="drug-int" value="fenobarbital">
+      Fenobarbital/primidona
+    </label>
+
+    <label class="row">
+      <input type="checkbox" class="drug-int" value="hypericum">
+      Hierba de San Juan
+    </label>
+
+  </div>
+
+</div>          <div class="sep"></div>
+      
         <div class="button"> <button type="button" class="primary"
             id="btnCalc">Calcular</button> <button type="button"
             class="primary" id="btnReset">Borrar</button> <span
@@ -784,14 +932,17 @@ body {
         </table>
         <div class="sep"></div>
         <h3 style="margin:0 0 6px;">Recomendaciones individualizadas</h3>
+<div id="clinicalBannerZone"></div>
         <ul id="recList" class="rec-list list-min">
         </ul>
+<div id="clinicalExplanation" class="clinicalRecommendation"></div>
         <div class="sep"></div>
         <div id="doseSection">
           <h3 style="margin:0 0 6px;">Posología sugerida según datos
             introducidos</h3>
           <ul id="doseList" class="rec-list list-min">
-          </ul>
+          </ul>        <div class="sep"></div>
+
         </div>
         <div class="btnbar"> <button type="button" class="ghost"
             id="btnPrint" disabled="disabled">Imprimir informe</button>
@@ -816,6 +967,129 @@ body {
     function decodeEntities(str){const ta=document.createElement('textarea');ta.innerHTML=String(str);return ta.value;}
     function escAttr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
     function showToast(msg,type='error'){const t=document.getElementById('toast');t.textContent=decodeEntities(msg);t.classList.remove('warn','info');if(type==='warn')t.classList.add('warn');if(type==='info')t.classList.add('info');t.classList.add('show');clearTimeout(_toastTimer);_toastTimer=setTimeout(()=>t.classList.remove('show'),3500);}
+
+function getSelectedInteractions(){
+  return Array.from(document.querySelectorAll('.drug-int:checked'))
+    .map(el => el.value);
+}
+
+const drugInteractions = {
+
+amiodarona:{
+  apixaban:"precaucion",
+  dabigatran:"precaucion",
+  edoxaban:"sin_ajuste",
+  rivaroxaban:"precaucion"
+},
+
+verapamilo:{
+  apixaban:"precaucion",
+  dabigatran:"reducir",
+  edoxaban:"sin_ajuste",
+  rivaroxaban:"precaucion"
+},
+
+diltiazem:{
+  apixaban:"precaucion",
+  dabigatran:"precaucion",
+  edoxaban:"sin_ajuste",
+  rivaroxaban:"precaucion"
+},
+
+dronedarona:{
+  apixaban:"precaucion",
+  dabigatran:"evitar",
+  edoxaban:"reducir",
+  rivaroxaban:"evitar"
+},
+
+quinidina:{
+  apixaban:"precaucion",
+  dabigatran:"precaucion",
+  edoxaban:"sin_ajuste",
+  rivaroxaban:"precaucion"
+},
+
+claritromicina:{
+  apixaban:"precaucion",
+  dabigatran:"precaucion",
+  edoxaban:"precaucion",
+  rivaroxaban:"precaucion"
+},
+
+eritromicina:{
+  apixaban:"precaucion",
+  dabigatran:"precaucion",
+  edoxaban:"reducir",
+  rivaroxaban:"precaucion"
+},
+
+azoles:{
+  apixaban:"evitar",
+  dabigatran:"evitar",
+  edoxaban:"reducir",
+  rivaroxaban:"evitar"
+},
+
+ritonavir:{
+  apixaban:"evitar",
+  dabigatran:"evitar",
+  edoxaban:"evitar",
+  rivaroxaban:"evitar"
+},
+
+ciclosporina:{
+  apixaban:"precaucion",
+  dabigatran:"evitar",
+  edoxaban:"reducir",
+  rivaroxaban:"precaucion"
+},
+
+tacrolimus:{
+  apixaban:"precaucion",
+  dabigatran:"precaucion",
+  edoxaban:"precaucion",
+  rivaroxaban:"precaucion"
+},
+
+rifampicina:{
+  apixaban:"evitar",
+  dabigatran:"evitar",
+  edoxaban:"evitar",
+  rivaroxaban:"evitar"
+},
+
+carbamazepina:{
+  apixaban:"evitar",
+  dabigatran:"evitar",
+  edoxaban:"evitar",
+  rivaroxaban:"evitar"
+},
+
+fenitoina:{
+  apixaban:"evitar",
+  dabigatran:"evitar",
+  edoxaban:"evitar",
+  rivaroxaban:"evitar"
+},
+
+fenobarbital:{
+  apixaban:"evitar",
+  dabigatran:"evitar",
+  edoxaban:"evitar",
+  rivaroxaban:"evitar"
+},
+
+hypericum:{
+  apixaban:"evitar",
+  dabigatran:"evitar",
+  edoxaban:"evitar",
+  rivaroxaban:"evitar"
+}
+
+};
+
+
 
     /* ===== Parámetros ===== */
     let strokeRisksByVasc={0:0.2,1:0.6,2:2.2,3:3.2,4:4.8,5:7.2,6:9.7,7:11.2,8:10.8,9:12.2};
@@ -889,9 +1163,214 @@ body {
     ['condObesity','cAge65','cAge75','hElder','hRenal','cSc'].forEach(id=>document.getElementById(id).addEventListener('change',()=>checkAndFixContradictions(id)));
 
    /* ===== Reglas clínicas (incluye riñón y bloque ≥80) ===== */
-function buildClinicalRules(context){
-  const {crcl, age, special, weightKg, hasbled} = context;
+const DRUG_INTERACTIONS = {
 
+  amiodarona: {
+      vkaAffectsINR: true,
+     vkaNote: "⚠️ Amiodarona inhibe el metabolismo de los antagonistas de vitamina K (CYP2C9) → puede aumentar el INR y el riesgo hemorrágico. Si se utiliza VKA (warfarina o acenocumarol), se recomienda monitorización estrecha del INR y posible reducción de dosis.",
+
+    notes: [
+      "Amiodarona: inhibidor moderado de P-gp → puede aumentar la exposición de dabigatrán y edoxabán; generalmente no requiere ajuste de dosis, pero conviene vigilar riesgo hemorrágico."
+    ]
+  },
+
+  verapamilo: {
+    prefer: { "Apixabán": "Menor interacción con verapamilo" },
+
+    edoxabanReduce: true,
+
+    notes: [
+      "Verapamilo: inhibidor de P-gp → aumenta la exposición de dabigatrán y edoxabán. Con dabigatrán se recomienda precaución y considerar dosis reducida según contexto clínico; edoxabán requiere reducción de dosis."
+    ]
+  },
+
+  diltiazem: {
+    notes: [
+      "Diltiazem: inhibidor moderado de CYP3A4 y P-gp → puede aumentar moderadamente la exposición de apixabán y rivaroxabán; generalmente no requiere ajuste de dosis pero conviene vigilar riesgo hemorrágico."
+    ]
+  },
+
+  dronedarona: {
+    avoid: { "Dabigatrán": "Contraindicado con dronedarona" },
+
+    edoxabanReduce: true,
+
+    notes: [
+      "Dronedarona: inhibidor potente de P-gp → aumenta significativamente la exposición de dabigatrán y edoxabán; dabigatrán contraindicado, edoxabán requiere reducción de dosis."
+    ]
+  },
+
+  quinidina: {
+    avoid: { "Dabigatrán": "Quinidina aumenta exposición de dabigatrán" },
+
+    edoxabanReduce: true,
+
+    notes: [
+      "Quinidina: inhibidor potente de P-gp → aumenta significativamente la exposición de dabigatrán y edoxabán; dabigatrán debe evitarse y edoxabán requiere reducción de dosis."
+    ]
+  },
+
+  claritromicina: {
+      vkaAffectsINR: true,
+     vkaNote: "⚠️ Claritromicina puede aumentar el INR al inhibir el metabolismo hepático de los antagonistas de vitamina K → incremento del riesgo hemorrágico. Si se utiliza VKA (warfarina o acenocumarol), se recomienda monitorización estrecha del INR.",
+
+    notes: [
+      "Claritromicina: inhibidor potente de CYP3A4 y P-gp → puede aumentar significativamente la exposición de apixabán y rivaroxabán; usar con precaución y vigilar riesgo hemorrágico."
+    ]
+  },
+
+  eritromicina: {
+      vkaAffectsINR: true,
+     vkaNote: "⚠️ Eritromicina puede aumentar el INR al interferir con el metabolismo hepático de los antagonistas de vitamina K. Si se utiliza VKA, se recomienda monitorización estrecha del INR por posible riesgo hemorrágico.",
+
+    notes: [
+      "Eritromicina: inhibidor moderado de CYP3A4 y P-gp → posible aumento de exposición de ACOD; considerar vigilancia clínica."
+    ]
+  },
+
+  azoles: {
+    prefer: { "VKA": "Azoles sistémicos potentes" },
+
+    avoid: {
+      "Apixabán": "Azoles sistémicos aumentan la exposición → evitar combinación",
+      "Rivaroxabán": "Azoles sistémicos aumentan la exposición → evitar combinación",
+      "Dabigatrán": "Azoles sistémicos aumentan la exposición → evitar combinación"
+    },
+
+    edoxabanReduce: true,
+    vkaAffectsINR: true,
+    vkaNote: "⚠️ Azoles sistémicos (ketoconazol, itraconazol, voriconazol, posaconazol) inhiben el metabolismo hepático de los antagonistas de vitamina K → aumento significativo del INR y del riesgo hemorrágico. Si se utiliza VKA (warfarina o acenocumarol), se requiere monitorización muy estrecha del INR y posible reducción de dosis.",
+
+    notes: [
+      "Azoles sistémicos (ketoconazol, itraconazol, posaconazol, voriconazol): inhibidores potentes de CYP3A4 y P-gp → aumentan la exposición de todos los ACOD; apixabán, rivaroxabán y dabigatrán deben evitarse, edoxabán requiere reducción de dosis."
+    ]
+  },
+
+  ritonavir: {
+    prefer: { "VKA": "Inhibidor dual potente CYP3A4/P-gp" },
+
+    avoid: {
+      "Apixabán": "Evitar con ritonavir/cobicistat",
+      "Rivaroxabán": "Evitar con ritonavir/cobicistat",
+      "Dabigatrán": "Evitar con ritonavir/cobicistat",
+      "Edoxabán": "Evitar con ritonavir/cobicistat"
+    },
+     vkaAffectsINR: true,
+    vkaNote: "⚠️ Ritonavir/cobicistat pueden alterar el metabolismo de los antagonistas de vitamina K y producir cambios impredecibles del INR. Si se utiliza VKA (warfarina o acenocumarol), se recomienda monitorización estrecha y frecuente del INR.",
+
+    notes: [
+      "Ritonavir/cobicistat: inhibidores duales potentes de CYP3A4 y P-gp → aumento marcado de exposición de ACOD; evitar combinación."
+    ]
+  },
+
+  ciclosporina: {
+    avoid: { "Dabigatrán": "Ciclosporina aumenta significativamente la exposición de dabigatrán" },
+
+    notes: [
+      "Ciclosporina: inhibidor potente de P-gp → aumenta significativamente la exposición de dabigatrán."
+    ]
+  },
+
+  tacrolimus: {
+    notes: [
+      "Tacrolimus: posible inhibidor moderado de P-gp → potencial aumento de exposición de algunos ACOD; evidencia clínica limitada."
+    ]
+  },
+
+  rifampicina: {
+    prefer: { "VKA": "Inductor potente CYP3A4/P-gp" },
+
+    avoid: {
+      "Apixabán": "Rifampicina reduce exposición",
+      "Rivaroxabán": "Rifampicina reduce exposición",
+      "Dabigatrán": "Rifampicina reduce exposición",
+      "Edoxabán": "Rifampicina reduce exposición"
+    },
+         vkaAffectsINR: true,
+    vkaNote: "⚠️ Rifampicina induce el metabolismo de los antagonistas de vitamina K (CYP2C9) → disminuye el INR y aumenta el riesgo trombótico. Si se utiliza VKA (warfarina o acenocumarol), se requiere monitorización muy estrecha del INR y ajuste de dosis.",
+
+    notes: [
+      "Rifampicina: potente inductor de CYP3A4 y P-gp → reduce significativamente la exposición de los ACOD; evitar combinación."
+    ]
+  },
+
+  carbamazepina: {
+    prefer: { "VKA": "Inductor potente CYP3A4/P-gp" },
+
+    avoid: {
+      "Apixabán": "Carbamazepina reduce exposición",
+      "Rivaroxabán": "Carbamazepina reduce exposición",
+      "Dabigatrán": "Carbamazepina reduce exposición",
+      "Edoxabán": "Carbamazepina reduce exposición"
+    },
+
+      vkaAffectsINR: true,
+     vkaNote: "⚠️ Carbamazepina induce el metabolismo de los antagonistas de vitamina K → puede disminuir el INR y aumentar el riesgo trombótico. Si se utiliza VKA (warfarina o acenocumarol), se recomienda monitorización estrecha del INR y ajuste de dosis.",
+
+    notes: [
+      "Carbamazepina: potente inductor de CYP3A4 y P-gp → reduce significativamente la exposición de los ACOD; evitar combinación."
+    ]
+  },
+
+  fenitoina: {
+    prefer: { "VKA": "Inductor potente CYP3A4/P-gp" },
+
+    avoid: {
+      "Apixabán": "Fenitoína reduce exposición",
+      "Rivaroxabán": "Fenitoína reduce exposición",
+      "Dabigatrán": "Fenitoína reduce exposición",
+      "Edoxabán": "Fenitoína reduce exposición"
+    },
+
+      vkaAffectsINR: true,
+     vkaNote: "⚠️ Fenitoína induce el metabolismo de los antagonistas de vitamina K → puede disminuir el INR y aumentar el riesgo trombótico. Si se utiliza VKA (warfarina o acenocumarol), se recomienda monitorización estrecha del INR y ajuste de dosis.",
+
+    notes: [
+      "Fenitoína: potente inductor de CYP3A4 y P-gp → reduce significativamente la exposición de los ACOD; evitar combinación."
+    ]
+  },
+
+  fenobarbital: {
+    prefer: { "VKA": "Inductor potente CYP3A4/P-gp" },
+
+    avoid: {
+      "Apixabán": "Fenobarbital reduce exposición",
+      "Rivaroxabán": "Fenobarbital reduce exposición",
+      "Dabigatrán": "Fenobarbital reduce exposición",
+      "Edoxabán": "Fenobarbital reduce exposición"
+    },
+
+      vkaAffectsINR: true,
+     vkaNote: "⚠️ Fenobarbital (y primidona) inducen el metabolismo de los antagonistas de vitamina K → pueden disminuir el INR y aumentar el riesgo trombótico. Si se utiliza VKA (warfarina o acenocumarol), se recomienda monitorización estrecha del INR y ajuste de dosis.",
+
+    notes: [
+      "Fenobarbital / primidona: potentes inductores de CYP3A4 y P-gp → reduce significativamente la exposición de los ACOD; evitar combinación."
+    ]
+  },
+
+  hypericum: {
+    prefer: { "VKA": "Inductor potente CYP3A4/P-gp" },
+
+    avoid: {
+      "Apixabán": "Hypericum reduce exposición",
+      "Rivaroxabán": "Hypericum reduce exposición",
+      "Dabigatrán": "Hypericum reduce exposición",
+      "Edoxabán": "Hypericum reduce exposición"
+    },
+
+      vkaAffectsINR: true,
+     vkaNote: "⚠️ Hypericum (hierba de San Juan) induce enzimas hepáticas → puede disminuir el INR y reducir el efecto anticoagulante de los antagonistas de vitamina K. Si se utiliza VKA (warfarina o acenocumarol), se recomienda monitorización estrecha del INR.",
+
+    notes: [
+      "Hierba de San Juan (Hypericum): potente inductor de CYP3A4 y P-gp → reduce significativamente la exposición de los ACOD; evitar combinación."
+    ]
+  }
+
+};
+
+function buildClinicalRules(context){
+  const {crcl, age, special, weightKg, hasbled, interactions=[]} = context;
+  special.edoxabanReduce = false;
   const prefer = {
     "VKA":        new Set(),
     "Apixabán":   new Set(),
@@ -899,6 +1378,8 @@ function buildClinicalRules(context){
     "Edoxabán":   new Set(),
     "Rivaroxabán":new Set()
   };
+
+
 
   const avoid = {
     "VKA":        new Set(),
@@ -1034,92 +1515,87 @@ function buildClinicalRules(context){
     notes.push("Preferencia por dosis única diaria: rivaroxabán o edoxabán.");
   }
 
-  // Inductor potente de P-gp
-  if (special.pgpInd){
-    prefer.VKA.add("Inductor potente de P-gp (evitar infraexposición de ACOD)");
-    avoid.Dabigatrán.add("Altamente dependiente de P-gp → riesgo de infraexposición marcada");
-    avoid.Edoxabán.add("Inductor potente de P-gp → menor exposición y posible pérdida de eficacia");
-    notes.push(
-      "Inductor potente de P-gp: evitar dabigatrán y, siempre que sea posible, edoxabán; preferir VKA u otra alternativa no dependiente de P-gp."
-    );
+/* ===== INTERACCIONES FARMACOLÓGICAS ===== */
+
+interactions.forEach(drug => {
+
+  const rule = DRUG_INTERACTIONS[drug];
+  if (!rule) return; // interacción no definida en tabla
+
+  if (rule.avoid) {
+    Object.entries(rule.avoid).forEach(([drugName, reason]) => {
+      avoid[drugName].add(reason);
+    });
   }
 
-  // Inhibidor potente de P-gp
-  if (special.pgp){
-    if (isFinite(crcl) && crcl < 50){
-      avoid.Dabigatrán.add("Inhibidor potente de P-gp con ClCr <50 mL/min: evitar dabigatrán");
-      notes.push("Inhibidor potente de P-gp con ClCr <50 mL/min: evitar dabigatrán.");
-    }
-    notes.push(
-      "Inhibidor potente de P-gp: preferir ACOD menos dependientes de P-gp, como apixabán o rivaroxabán, o VKA en pacientes de alto riesgo."
-    );
+  if (rule.prefer) {
+    Object.entries(rule.prefer).forEach(([drugName, reason]) => {
+      prefer[drugName].add(reason);
+    });
   }
 
-  // Inhibidor CYP3A4
-  if (special.cypInhib){
-    avoid.Apixabán.add("Inhibidor potente de CYP3A4 (riesgo de sobreexposición)");
-    avoid.Rivaroxabán.add("Inhibidor potente de CYP3A4 (riesgo de sobreexposición)");
-    prefer.Edoxabán.add("Metabolismo CYP3A4 mínimo → opción más segura");
-    prefer.Dabigatrán.add("No depende de CYP3A4");
-    notes.push(
-      "Inhibidor potente de CYP3A4: evitar rivaroxabán y usar precaución con apixabán; edoxabán y dabigatrán no se ven afectados por esta vía."
-    );
+  if (rule.edoxabanReduce) {
+    special.edoxabanReduce = true;
   }
 
-/*
-  // Inductor CYP3A4
-  if (special.cypInduc){
-    avoid.Apixabán.add("Inductor potente de CYP3A4 (riesgo de infraexposición)");
-    avoid.Rivaroxabán.add("Inductor potente de CYP3A4 (riesgo de infraexposición)");
-    prefer.Edoxabán.add("Menor metabolismo CYP3A4 → opción más segura");
-    prefer.Dabigatrán.add("No depende de CYP3A4");
-    notes.push(
-      "Inductor potente de CYP3A4: evitar rivaroxabán y apixabán; edoxabán y dabigatrán son alternativas razonables (valorar VKA)."
-    );
+  if (rule.notes) {
+    rule.notes.forEach(n => notes.push(n));
   }
-*/
 
-// 🔥 INHIBIDOR DUAL POTENTE (P-gp + CYP3A4)
-if (special.pgp && special.cypInhib) {
+});
 
-  // Preferir VKA
-  prefer.VKA.add("Inhibidor dual potente (P-gp + CYP3A4)");
+/* ===== DETECCIÓN DE MÚLTIPLES INHIBIDORES P-gp ===== */
 
-  // Evitar TODOS los ACOD
-  avoid.Apixabán.add("Evitar con inhibidor dual potente");
-  avoid.Rivaroxabán.add("Evitar con inhibidor dual potente");
-  avoid.Dabigatrán.add("Evitar con inhibidor dual potente");
-  avoid.Edoxabán.add("Evitar con inhibidor dual potente");
+const pgpInhibitors = interactions.filter(d =>
+  DRUG_INTERACTIONS[d]?.edoxabanReduce
+);
 
-  // Nota clínica
-  notes.push(
-    "Inhibidor dual potente (P-gp + CYP3A4): interacción muy intensa. Evitar TODOS los ACOD y usar VKA."
-  );
+if (pgpInhibitors.length >= 2) {
+  notes.push("Múltiples inhibidores P-gp: posible aumento acumulativo de exposición a ACOD.");
 }
-
-// 🔥 INDUCTOR DUAL POTENTE (P-gp + CYP3A4)
-if (special.cypInduc) {
-
-  // Preferir VKA
-  prefer.VKA.add("Inductor dual potente (P-gp + CYP3A4)");
-
-  // Evitar TODOS los ACOD
-  avoid.Apixabán.add("Evitar con inductor dual potente");
-  avoid.Rivaroxabán.add("Evitar con inductor dual potente");
-  avoid.Dabigatrán.add("Evitar con inductor dual potente");
-  avoid.Edoxabán.add("Evitar con inductor dual potente");
-
-  // Nota clínica
-  notes.push(
-    "Inductor dual potente (P-gp + CYP3A4): riesgo extremo de infraexposición. Evitar TODOS los ACOD y usar VKA."
-  );
-}
-
 
   return {prefer, avoid, notes};
 }
 
+function buildClinicalScores(prefer, avoid){
+  const drugs = ["VKA","Apixabán","Dabigatrán","Edoxabán","Rivaroxabán"];
+  const scores = {};
 
+  drugs.forEach(drug => {
+    const prefCount = prefer[drug] ? prefer[drug].size : 0;
+    const avoidCount = avoid[drug] ? avoid[drug].size : 0;
+
+    // Regla simple:
+    // cada preferencia suma +2
+    // cada evitación resta -4
+    scores[drug] = (prefCount * 2) - (avoidCount * 4);
+  });
+
+  return scores;
+}
+
+function explainBestStrategy(bestName, prefer, avoid, noOAC){
+
+  if (noOAC){
+    return "Riesgo hemorrágico inaceptable o contraindicación absoluta para anticoagulación";
+  }
+
+  const reasons = [];
+
+  if (prefer[bestName]) {
+    prefer[bestName].forEach(r => reasons.push(r));
+  }
+
+  if (avoid[bestName]) {
+    avoid[bestName].forEach(r => reasons.push("Evita problemas: " + r));
+  }
+
+  if (reasons.length === 0){
+    return "Balance beneficio/riesgo global favorable según datos introducidos.";
+  }
+
+  return reasons.slice(0,3).join("; ");
+}
 
     /* ===== Posología (actualizada) ===== */
     function doseSuggestions(ctx,avoid){
@@ -1141,31 +1617,39 @@ if (special.cypInduc) {
 
       // Edoxabán
       if(!isAvoided("Edoxabán")){
-        const edoReduce=((isFinite(crcl)&&crcl>=15&&crcl<=50)||(isFinite(weightKg)&&weightKg<=60)||special.pgp===true);
-        out.push({name:"Edoxabán",dose:edoReduce?"30 mg cada 24 h":"60 mg cada 24 h",highlight:edoReduce,why:edoReduce?"ClCr 15–50 ml/min o peso <=60 kg o inhibidor potente P-gp":"Sin criterios de reducción"});
+        const edoReduce=(
+  (isFinite(crcl)&&crcl>=15&&crcl<=50) ||
+  (isFinite(weightKg)&&weightKg<=60) ||
+  special.edoxabanReduce === true
+);
+        out.push({name:"Edoxabán",dose:edoReduce?"30 mg cada 24 h":"60 mg cada 24 h",highlight:edoReduce,why:edoReduce
+  ? (
+      special.edoxabanReduce
+      ? "Reducción por interacción farmacológica (inhibidor potente de P-gp)"
+      : "ClCr 15–50 mL/min o peso ≤60 kg"
+    )
+  : "Sin criterios de reducción"});
       }
 
       // Dabigatrán
 if (!isAvoided("Dabigatrán")) {
-  // Evitar si ClCr <30 siempre, o si hay inhibidor potente de P-gp con ClCr <50
+  // Evitar si ClCr <30 siempre
   const dabAvoid =
-    (isFinite(crcl) && crcl < 30) ||
-    (special.pgp === true && isFinite(crcl) && crcl < 50);
+    (isFinite(crcl) && crcl < 30);
 
   if (!dabAvoid) {
     const dabReduce =
       (isFinite(crcl) && crcl >= 30 && crcl <= 50) ||
       (age >= 80) ||
-      (age >= 75 && age < 80 && hasbled >= 3) ||
-      (special.pgp === true && (!isFinite(crcl) || crcl >= 50));
+      (age >= 75 && age < 80 && hasbled >= 3);
 
     out.push({
       name: "Dabigatrán",
       dose: dabReduce ? "110 mg cada 12 h" : "150 mg cada 12 h",
       highlight: dabReduce,
       why: dabReduce
-        ? "ClCr 30–50 mL/min, edad ≥80 (o 75–80 con HAS-BLED alto) o inhibidor potente de P-gp con ClCr ≥50 mL/min"
-        : "Sin criterios de reducción ni interacción relevante por P-gp"
+        ? "ClCr 30–50 mL/min, edad ≥80 años o edad 75–80 con HAS-BLED alto"
+        : "Sin criterios de reducción"
     });
   }
 }
@@ -1227,14 +1711,8 @@ if (!isAvoided("Dabigatrán")) {
   obesity:     document.getElementById('condObesity')?.checked   || false,
   poorINR:     document.getElementById('condPoorINR')?.checked   || false,
   qd:          document.getElementById('condQD')?.checked        || false,
-  pgp:         document.getElementById('condPgp')?.checked       || false,
   noOACabs:    document.getElementById('condNoOACabs')?.checked  || false,
-  laaProg: document.getElementById('condLAAprog')?.checked || false,
-  pgpInd: document.getElementById('condPgInd')?.checked || false,   // ⬅️ NUEVO
-
-  // 🧬 NUEVOS FLAGS PARA CYP3A4
-  cypInhib:    document.getElementById('condCYPinh')?.checked    || false,
-  cypInduc:    document.getElementById('condCYPind')?.checked    || false
+  laaProg: document.getElementById('condLAAprog')?.checked || false
 };
 
 
@@ -1248,6 +1726,24 @@ if (!isAvoided("Dabigatrán")) {
 
       const {crcl,scr_mgdl}=calcCrCl(age,sex,isFinite(weight)?weight:NaN,wUnit,scr,scrUnit);
       const weightKg=isFinite(weight)?((wUnit==='lb')?(weight/2.20462):weight):NaN;
+
+function getSelectedInteractions(){
+  const list = [];
+  document.querySelectorAll(".drug-int:checked").forEach(el=>{
+    list.push(el.value);
+  });
+  return list;
+}
+const interactions = getSelectedInteractions();
+
+let vkaInteractionPresent = false;
+
+interactions.forEach(drug => {
+  const rule = DRUG_INTERACTIONS[drug];
+  if (rule?.vkaAffectsINR) {
+    vkaInteractionPresent = true;
+  }
+});
 
       // Cabecera
       document.getElementById('scoreVA').textContent=vasc.va;
@@ -1285,18 +1781,15 @@ const noOAC = (noOAC_byLowRisk || noOAC_byHighBleed) && !special.valvular;
 
 
 
+// Interacciones farmacológicas seleccionadas
+
+
       // Reglas clínicas
-const {prefer,avoid,notes}=buildClinicalRules({crcl,age,special,weightKg,hasbled});
+const {prefer,avoid,notes}=buildClinicalRules({crcl,age,special,weightKg,hasbled,interactions});
+const clinicalScores = buildClinicalScores(prefer, avoid);
 
-     // Añadir nota específica si está en la “zona gris” de CHA2DS2-VASc
-if (considerOAC_byBorderline && !noOAC && !special.valvular) {
-  notes.push(
-    "🟠⚠️ CHA₂DS₂-VASc en zona intermedia (1 en varón, 2 en mujer): " +
-    "se puede considerar anticoagulación oral tras valorar riesgo hemorrágico, " +
-    "comorbilidad y preferencias del paciente; no es obligatoria según las guías ⚖️🟠"
-  );
-}
 
+     
 
       // Tabla comparativa
       const TOL_REL=0.03,TOL_ABS=0.005;
@@ -1307,7 +1800,31 @@ if (considerOAC_byBorderline && !noOAC && !special.valvular) {
         const rrStroke=RR_Stroke[name], rrBleed_vsVKA=RR_Bleed_vs_VKA[name];
         const riskStroke=strokeBase*rrStroke, rrr=(1-rrStroke)*100, arr=strokeBase-riskStroke;
         const bleedPct=(name==='VKA')?bleedBase:(bleedBase*rrBleed_vsVKA);
-        const score=(arr>0&&bleedPct>0)?(arr/bleedPct):-Infinity;
+
+        const baseScore = (arr>0&&bleedPct>0)?(arr/bleedPct):-Infinity;
+        const clinicalScore = clinicalScores[name] ?? 0;
+        const score = isFinite(baseScore) ? (baseScore + clinicalScore*0.25) : -Infinity;
+     let adjustedScore = score;
+
+     if (name === "VKA" && vkaInteractionPresent) {
+             adjustedScore -= 0.5;
+              }
+
+// Prioridad clínica sobre el score matemático
+const hasAvoid  = avoid?.[name] && avoid[name].size > 0;
+const hasPrefer = prefer?.[name] && prefer[name].size > 0;
+
+let priority = 0;
+
+if (hasAvoid) {
+  priority = -2;
+}
+else if (hasPrefer) {
+  priority = 2;
+}
+
+const finalScore = adjustedScore + priority * 1000;
+
 let adequacy;
 
 if (noOAC) {
@@ -1327,11 +1844,36 @@ if (noOAC) {
         };
     }
 } else {
-    // Comportamiento habitual
-    adequacy = summarizeForStrategy(name, prefer, avoid);
-}
-        const tip=escAttr(decodeEntities(adequacy.tooltip||''));
+
+    if (considerOAC_byBorderline && name === "No ACO") {
+
+        adequacy = {
+            label: "Considerar",
+            cls: "tagConsider",
+            tooltip: "La anticoagulación es opcional según CHA₂DS₂-VASc; decisión individualizada"
+        };
+
+    } else {
+
+        adequacy = summarizeForStrategy(name, prefer, avoid);
+
+        if (considerOAC_byBorderline && !noOAC && !special.valvular && adequacy.label === "Preferible") {
+
+            adequacy = {
+                label: "Aceptable",
+                cls: "tagConsider",
+                tooltip: "Puede utilizarse si se decide anticoagular"
+            };
+
+        }
+
+    }
+
+}       const tip=escAttr(decodeEntities(adequacy.tooltip||''));
         const tr=document.createElement('tr');
+        if (considerOAC_byBorderline && name === "No ACO") {
+  tr.classList.add("rowConsider");
+}
         tr.innerHTML=`<td><b>${name}</b></td>
           <td class="right">${fmt(riskStroke,1)}</td>
           <td class="right">${fmt(rrr,0)}</td>
@@ -1341,8 +1883,31 @@ if (noOAC) {
           <td class="right col-rrs">${fmt(rrBleed_vsVKA,2)}</td>
           <td class="right">${isFinite(bleedPct)&&bleedPct>0?oneIn(bleedPct):NDASH}</td>
           <td class="right"><span class="pill ${adequacy.cls}" title="${tip}">${adequacy.label}</span></td>`;
-        tbody.appendChild(tr); rows.push({tr,score}); if(score>bestScore)bestScore=score;
+        tbody.appendChild(tr); rows.push({tr,score:finalScore,name}); if(score>bestScore)bestScore=score;
       });
+rows.sort((a,b)=>b.score-a.score);
+if (noOAC){
+  rows.sort((a,b)=>{
+    if (a.name === "No ACO") return -1;
+    if (b.name === "No ACO") return 1;
+    return 0;
+  });
+}
+rows.forEach((row,i)=>{
+  row.tr.dataset.rank = i+1;
+});
+
+let bestName;
+
+if (noOAC) {
+  bestName = "No ACO";
+} else {
+  bestName = rows[0].name;
+}
+const explanation = explainBestStrategy(bestName, prefer, avoid,noOAC);
+
+
+rows.forEach(r => tbody.appendChild(r.tr));
       if (noOAC) {
     // Fuerza No ACO como la fila "best"
     rows.forEach(({tr}) => {
@@ -1363,10 +1928,37 @@ if (noOAC) {
 // =======================================================
 // RECOMENDACIONES INDIVIDUALIZADAS
 // =======================================================
+const bannerBox = document.getElementById("clinicalBannerZone");
+bannerBox.innerHTML = "";
+if (considerOAC_byBorderline && !noOAC && !special.valvular) {
+
+  bannerBox.innerHTML = `
+    <div class="clinicalBanner">
+      <span class="icon">🟠⚖️</span>
+      CHA₂DS₂-VASc en zona intermedia (1 en varón, 2 en mujer):
+      la anticoagulación oral puede considerarse tras valorar riesgo hemorrágico,
+      comorbilidad y preferencias del paciente; no es obligatoria según las guías.
+    </div>
+  `;
+}
 const recList = document.getElementById('recList');
 const doseSection = document.getElementById('doseSection');
 recList.innerHTML = '';
 let preferredGlobal = [], avoidedGlobal = [], dosesForReport = [];
+
+// ---------------------------------------------------
+// RECOGER NOTAS DE INTERACCIÓN CON VKA
+// ---------------------------------------------------
+const vkaNotes = [];
+
+interactions.forEach(drug => {
+  const rule = DRUG_INTERACTIONS[drug];
+  if (rule && rule.vkaNote) {
+    vkaNotes.push(rule.vkaNote);
+  }
+});
+
+const uniqueVkaNotes = [...new Set(vkaNotes)];
 
 // -------------------------------------------
 // CASO 1: NO ACO por bajo riesgo embólico
@@ -1404,7 +1996,14 @@ else if (noOAC_byHighBleed && !special.valvular) {
 // CASO 3: Anticoagulación indicada → lista completa con reglas
 // -------------------------------------------
 else {
-    // Añadir notas clínicas
+    // Añadir notas de interacción con VKA
+uniqueVkaNotes.forEach(n => notes.push(n));
+// Añadir notas clínicas
+    notes.sort((a,b)=>{
+  if (a.includes("zona intermedia")) return -1;
+  if (b.includes("zona intermedia")) return 1;
+  return 0;
+});
     notes.forEach(t => {
         const li = document.createElement('li');
         li.textContent = decodeEntities(t);
@@ -1441,18 +2040,74 @@ else {
           '<span class="muted">No se muestran posologías porque todas las opciones están marcadas como “Evitar”.</span>';
         doseList.appendChild(li);
     } else {
+
+// Ordenar por preferencia clínica
+dosesForReport.sort((a,b)=>{
+
+  if (typeof bestName !== "undefined") {
+    if (a.name === bestName) return -1;
+    if (b.name === bestName) return 1;
+  }
+
+  if (preferredGlobal.includes(a.name) && !preferredGlobal.includes(b.name)) return -1;
+  if (!preferredGlobal.includes(a.name) && preferredGlobal.includes(b.name)) return 1;
+
+  if (a.name === "VKA" && b.name !== "VKA") return 1;
+  if (b.name === "VKA" && a.name !== "VKA") return -1;
+
+  return 0;
+});
+
         dosesForReport.forEach(d => {
-            const li = document.createElement('li');
-            const tag = d.highlight
-              ? `<span class="doseTag">Dosis reducida</span>`
-              : '';
-            li.innerHTML =
-              `<b>${d.name}:</b> ${d.dose} ${tag} <span class="muted">— ${d.why}</span>`;
-            doseList.appendChild(li);
-        });
+    const li = document.createElement('li');
+
+    const tag = d.highlight
+      ? `<span class="doseTag">Dosis reducida</span>`
+      : '';
+
+    const star = (typeof bestName !== "undefined" && d.name === bestName) ? "⭐ " : "";
+
+    li.innerHTML =
+      `<b>${star}${d.name}:</b> ${d.dose} ${tag} <span class="muted">— ${d.why}</span>`;
+
+    doseList.appendChild(li);
+});
     }
 }
+const expBox = document.getElementById("clinicalExplanation");
 
+let bestLabel = "Estrategia más favorable";
+let bestIcon = "⭐";
+
+let summary = "";
+
+if (!noOAC){
+  summary = "Paciente con fibrilación auricular con indicación de anticoagulación.";
+}
+
+if (considerOAC_byBorderline){
+  summary = "Paciente con fibrilación auricular con riesgo embólico intermedio; la anticoagulación puede considerarse según contexto clínico.";
+}
+
+if (preferredGlobal.length && !avoidedGlobal.includes(bestName)){
+  summary += " Sin contraindicaciones mayores para ACOD.";
+}
+
+summary += " La estrategia con mejor perfil eficacia/seguridad sería " + bestName + ".";
+
+if (considerOAC_byBorderline && !noOAC && !special.valvular){
+  bestLabel = "Si se decide anticoagular, la estrategia con mejor perfil sería";
+  bestIcon = "⚖️";
+}
+
+if(expBox){
+  expBox.innerHTML =
+    "<div style='margin-bottom:8px;font-size:13px;color:#334155'>" +
+    "📌 " + summary +
+    "</div>" +
+    "<b>" + bestIcon + " </b>" + bestLabel + ": <b>" + bestName + "</b>. " +
+    "<br><b>🧾 </b>" + explanation + ".";
+}      
 
       // Guardar estado
       __lastReport={
@@ -1461,6 +2116,7 @@ else {
         renal:{crcl:isFinite(crcl)?+crcl.toFixed(0):null,scr_mgdl:isFinite(scr_mgdl)?+scr_mgdl.toFixed(2):null},
         scores:{va:vasc.va,vasc:vasc.vasc,hasbled},
         risks:{strokeBase:+strokeBase,bleedBase:+bleedBase},
+                     clinicalScores,
           noOAC,
                     noOAC_byLowRisk,     // ← AÑADIR
                     noOAC_byHighBleed,   // ← AÑADIR
@@ -1521,7 +2177,7 @@ function printReport(){
   if (!r.noOAC && r.doses && r.doses.length) {
     doseHTML = "<h3>Posología sugerida</h3><ul>";
     r.doses.forEach(d=>{
-      doseHTML += `<li><b>${d.name}:</b> ${d.dose}` +
+      doseHTML += `<li><b>${star}${d.name}:</b> ${d.dose}` +
       (d.highlight ? 
         ' <span style="background:#fff4ce;border:1px solid #ffe08a;border-radius:999px;padding:2px 8px;font-weight:700">Dosis reducida</span>' 
         : '') +
@@ -1789,59 +2445,47 @@ const infoInteracciones = {
 ========================================================== */
 
   inhpgp: {
-    titulo: "Inhibidores potentes de P-gp",
+    titulo: "Inhibidores duales de P-gp y CYP3A4",
     html: `
       <p>
-        Fármacos que inhiben de forma <b>potente y clínicamente relevante</b> la glicoproteína P (P-gp).
+        Fármacos que inhiben de forma dual y <b>clínicamente relevante</b> la glicoproteína P (P-gp) y el metabolismo mediado por CYP3A4.
       </p>
 
       <ul>
-        <li>🎯Dronedarona</li>
-        <li>🎯Quinidina</li>
-        <li>🎯Ciclosporina</li>
-        <li>☯️Ketoconazol</li>
-        <li>☯️Itraconazol</li>
-        <li>☯️Posaconazol</li>
-        <li>☯️Voriconazol</li>
-        <li>☯️Ritonavir</li>
-        <li>☯️Cobicistat</li>
-        <li>☯️Atazanavir</li>
-        <li>☯️Darunavir</li>
-        <li>☯️Nelfinavir</li>
-        <li>☯️Saquinavir</li>
-        <li>☯️Claritromicina</li>
-        <li>☯️Eritromicina</li>
+  <li>☯️Dronedarona</li>
+  <li>☯️Quinidina</li>
+  <li>☯️Ciclosporina</li>
+  <li>☯️Verapamilo</li>
+  <li>☯️Diltiazem</li>
+  <li>☯️Amiodarona</li>
+  <li>☯️Tacrolimus</li>
+  <li>☯️Ketoconazol</li>
+  <li>☯️Itraconazol</li>
+  <li>☯️Posaconazol</li>
+  <li>☯️Voriconazol</li>
+  <li>☯️Ritonavir</li>
+  <li>☯️Cobicistat</li>
+  <li>☯️Atazanavir</li>
+  <li>☯️Darunavir</li>
+  <li>☯️Nelfinavir</li>
+  <li>☯️Saquinavir</li>
+  <li>☯️Claritromicina</li>
+  <li>☯️Eritromicina</li>
 </ul>
-<hr>
-      <p>🎯Selectivo 🔹🔹🔹 ☯️Dual</p>
     `
   },
 
   inhcyp: {
-    titulo: "Inhibidores potentes de CYP3A4",
+    titulo: "Inhibidores selectivos de CYP3A4",
     html: `
       <p>
-        Fármacos que inhiben de forma <b>potente</b> el metabolismo mediado por CYP3A4.
+        Fármacos que inhiben de forma <b>potente y selectiva</b> el metabolismo mediado por CYP3A4.
       </p>
 
       <ul>
         <li>🎯Fluconazol</li>
         <li>🎯Nefazodona</li>
-        <li>☯️Ketoconazol</li>
-        <li>☯️Itraconazol</li>
-        <li>☯️Posaconazol</li>
-        <li>☯️Voriconazol</li>
-        <li>☯️Ritonavir</li>
-        <li>☯️Cobicistat</li>
-        <li>☯️Atazanavir</li>
-        <li>☯️Darunavir</li>
-        <li>☯️Nelfinavir</li>
-        <li>☯️Saquinavir</li>
-        <li>☯️Claritromicina</li>
-        <li>☯️Eritromicina</li>
-</ul>
-<hr>
-      <p>🎯Selectivo 🔹🔹🔹 ☯️Dual</p>
+        </ul>
     `
   },
 
@@ -1852,7 +2496,6 @@ const infoInteracciones = {
         Fármacos que <b>inducen simultáneamente CYP3A4 y la glicoproteína P (P-gp)</b>,
         produciendo alteraciones farmacocinéticas <b>clínicamente relevantes</b> de los ACOD.
       </p>
-      <h4>🔵 Inductores duales</h4>
       <ul>
         <li>☯️Rifampicina</li>
         <li>☯️Rifabutina</li>
@@ -1862,8 +2505,6 @@ const infoInteracciones = {
         <li>☯️Primidona</li>
         <li>☯️Hierba de San Juan</li>
       </ul>
-<hr>
-      <p>☯️Dual</p>
     `
   },
 
@@ -1938,263 +2579,307 @@ document.addEventListener('DOMContentLoaded', () => {
 
     <!-- CABECERA -->
     <div style="background:#0f3d83; color:#ffffff; padding:10px 14px; font-size:14px; font-weight:700; letter-spacing:0.3px;">
-      🔥 Inhibidores e inductores de P-gp y CYP3A4
+      🔬 Interacciones farmacológicas relevantes
     </div>
 
     <div style="padding:16px 18px;">
+
       <p style="margin:0 0 12px 0;">
-        Los ACOD dependen en distinta medida de <b>P-gp</b> (transporte intestinal/renal) y <b>CYP3A4</b> (metabolismo hepático). 
-        Los fármacos que inhiben o inducen estas vías pueden producir <b>sobreexposición → hemorragia</b> o 
-        <b>infraexposición → fallo embólico</b>. 
-        Las combinaciones <b>mixtas</b> (P-gp + CYP3A4) son las más relevantes clínicamente.
-      </p><p style="font-size:12px; color:#334155;">
-  🏷️ El término <b>exposición</b> se refiere a la biodisponibilidad sistémica global 
-  (concentraciones plasmáticas y AUC).
-</p>
+        Los anticoagulantes orales directos (<b>ACOD</b>) dependen en distinta medida de
+        <b>P-gp</b> (transporte intestinal y renal) y <b>CYP3A4</b> (metabolismo hepático).
+        Los fármacos que inhiben o inducen estas vías pueden modificar la
+        <b>exposición sistémica</b> al anticoagulante:
+      </p>
+
+      <ul style="font-size:12px; padding-left:20px; line-height:1.45;">
+        <li><b>Sobreexposición</b> → aumento del riesgo hemorrágico</li>
+        <li><b>Infraexposición</b> → pérdida de eficacia anticoagulante y riesgo embólico</li>
+      </ul>
+
+      <p style="font-size:12px; color:#334155;">
+        🏷️ <b>Exposición</b> se refiere a la biodisponibilidad sistémica total del fármaco
+        (concentraciones plasmáticas y AUC).
+      </p>
+
 
       <!-- ========================= -->
-      <!-- INHIBIDORES DE P-gp -->
+      <!-- INHIBIDORES -->
       <!-- ========================= -->
 
-      <h4 style="margin:16px 0 6px 0;color:#0f3d83;">🟥 Inhibidores potentes de P-gp</h4>
+      <h4 style="margin:16px 0 6px 0;color:#0f3d83;">🟥 Inhibidores potentes (P-gp ± CYP3A4)</h4>
+
       <p style="margin:0 0 6px 0;">
-        Aumentan notablemente la absorción y exposición de ACOD sensibles a P-gp.  Muchos inhibidores potentes de P-gp son también inhibidores de CYP3A4, constituyendo interacciones <b>duales</b> de alto impacto clínico.
-</p>
-      <p style="font-size:12px;"><b>Ejemplos:</b> dronedarona, quinidina, verapamilo, ketoconazol, itraconazol, posaconazol, claritromicina, ciclosporina, ritonavir, cobicistat.</p>
+        Los inhibidores de <b>P-gp</b> aumentan la absorción intestinal y reducen el
+        aclaramiento renal de algunos ACOD. Cuando además inhiben <b>CYP3A4</b>,
+        el incremento de exposición puede ser clínicamente importante.
+      </p>
+
+      <p style="font-size:12px;">
+        <b>Ejemplos:</b> dronedarona, quinidina, verapamilo, ketoconazol,
+        itraconazol, posaconazol, voriconazol, claritromicina,
+        ciclosporina, ritonavir, cobicistat.
+      </p>
 
       <ul style="font-size:12px; padding-left:20px; line-height:1.45;">
-        <li><b>Dabigatrán</b> (muy dependiente de P-gp): evitar si <b>ClCr &lt;50</b>; considerar <b>110 mg/12 h</b> si ClCr ≥50.</li>
-        <li><b>Edoxabán</b>: si inhibidor de P-gp → <b>reducir a 30 mg/24 h</b>.</li>
-        <li><b>Apixabán</b>: ↑ exposición; precaución si ya cumple criterios de dosis reducida.</li>
-        <li><b>Rivaroxabán</b>: ↑ exposición; precaución, especialmente si hay otros factores de sangrado.</li>
+        <li><b>Dabigatrán</b>: muy dependiente de P-gp → algunas combinaciones deben evitarse.</li>
+        <li><b>Edoxabán</b>: requiere <b>reducción de dosis a 30 mg</b> con inhibidores potentes de P-gp.</li>
+        <li><b>Apixabán / Rivaroxabán</b>: pueden aumentar su exposición → usar con precaución o evitar si el inhibidor es potente.</li>
       </ul>
 
-      
-      <!-- ========================= -->
-      <!-- INHIBIDORES DE CYP3A4 -->
-      <!-- ========================= -->
-      <h4 style="margin:16px 0 6px 0;color:#0f3d83;">🟥 Inhibidores potentes de CYP3A4</h4>
-      <p style="margin:0 0 6px 0;"> En la práctica clínica, los inhibidores potentes de CYP3A4 suelen inhibir simultáneamente P-gp, generando <b>inhibición dual</b>.</p>
-      <p style="font-size:12px;"><b>Ejemplos:</b> ketoconazol, itraconazol, posaconazol, voriconazol, claritromicina, eritromicina, ritonavir, cobicistat, nefazodona.</p>
 
-      <ul style="font-size:12px; padding-left:20px; line-height:1.45;">
-        <li><b>Rivaroxabán</b>: depende bastante de CYP3A4 → <b>evitar</b>.</li>
-        <li><b>Apixabán</b>: ↑ exposición → evitar o extremar precaución.</li>
-        <li><b>Edoxabán</b>: metabolismo mínimo por CYP3A4 → <b>sin ajuste</b>.</li>
-        <li><b>Dabigatrán</b>: no depende de CYP450 → sin efecto relevante.</li>
-      </ul>
+      <!-- ========================= -->
+      <!-- INDUCTORES -->
+      <!-- ========================= -->
 
       <h4 style="margin:16px 0 6px 0;color:#0f3d83;">🟪 Inductores potentes (P-gp + CYP3A4)</h4>
 
-<p style="margin:0 0 6px 0;">
-  En la práctica clínica, <b>todos los inductores potentes relevantes</b> 
-  inducen simultáneamente <b>P-gp</b> y <b>CYP3A4</b>.  
-  No existen inductores selectivos clínicamente útiles.
-</p>
+      <p style="margin:0 0 6px 0;">
+        Los inductores enzimáticos aumentan la actividad de <b>P-gp</b> y
+        <b>CYP3A4</b>, reduciendo de forma marcada las concentraciones
+        plasmáticas de los ACOD.
+      </p>
 
-<p style="font-size:12px;">
-  <b>Ejemplos:</b> rifampicina, rifabutina, carbamazepina, fenitoína, 
-  fenobarbital, primidona, Hierba de San Juan.
-</p>
+      <p style="font-size:12px;">
+        <b>Ejemplos:</b> rifampicina, carbamazepina, fenitoína,
+        fenobarbital, primidona, Hierba de San Juan.
+      </p>
 
-<ul style="font-size:12px; padding-left:20px; line-height:1.45;">
-  <li><b>Dabigatrán</b>: ↓↓↓ exposición → <b>evitar siempre</b>.</li>
-  <li><b>Apixabán</b>: ↓↓↓ exposición → <b>evitar</b>.</li>
-  <li><b>Rivaroxabán</b>: ↓↓↓ exposición → <b>evitar</b>.</li>
-  <li><b>Edoxabán</b>: ↓↓↓ exposición → <b>evitar</b>.</li>
-</ul>
+      <ul style="font-size:12px; padding-left:20px; line-height:1.45;">
+        <li><b>Dabigatrán</b>: ↓↓↓ exposición → evitar combinación.</li>
+        <li><b>Apixabán</b>: ↓↓↓ exposición → evitar combinación.</li>
+        <li><b>Rivaroxabán</b>: ↓↓↓ exposición → evitar combinación.</li>
+        <li><b>Edoxabán</b>: ↓↓↓ exposición → evitar combinación.</li>
+      </ul>
 
-<div style="color:#b91c1c; margin-top:6px;">
-  <b>🛑 Regla clínica: inductor potente = inductor dual</b> ➔ 
-  <b>todos los ACOD quedan contraindicados</b>.
-</div>
+      <div style="color:#b91c1c; margin-top:6px;">
+        <b>Regla clínica:</b> si existe un <b>inductor potente</b>, los
+        <b>ACOD deben evitarse</b> por riesgo de infraanticoagulación.
+      </div>
 
     </div>
   </div>
-<div style="margin-top:16px; padding:12px; background:#fff7f7; border:1px solid #f0b4b4; border-radius:8px;">
-  <div style="font-weight:700; color:#b91c1c; margin-bottom:6px;">
-    ⚠️ ¿Por qué los inhibidores duales potentes (P-gp + CYP3A4) obligan a evitar TODOS los ACOD?
-  </div>
-  <p style="margin:0; font-size:13px; line-height:1.45; color:#1e293b;">
-    Aunque <b>dabigatrán</b> y <b>edoxabán</b> dependen sobre todo de <b>P-gp</b> y apenas del metabolismo por CYP3A4, 
-    los fármacos que inhiben de forma potente <b>CYP3A4</b> (ketoconazol, itraconazol, posaconazol, voriconazol, 
-    claritromicina, cobicistat, ritonavir) son al mismo tiempo inhibidores potentes de P-gp.  
-    Esto produce una <b>inhibición dual</b> que:
-    <ul style="margin:6px 0 0 16px; padding:0; font-size:12px; line-height:1.45; color:#1e293b;">
-      <li>↑↑ Absorción intestinal (inhibición de P-gp intestinal)</li>
-      <li>↑↑ Exposición sistémica por ↓↓ aclaramiento renal (inhibición de P-gp renal)</li>
-      <li>↑↑ Acumulación impredecible incluso en ACOD con metabolismo mínimo por CYP3A4</li>
-    </ul>
-    El resultado son incrementos peligrosos de los niveles plasmáticos:  
-    <b>+140% en dabigatrán</b> con ketoconazol,  
-    <b>+87% en edoxabán</b> con inhibidores duales.  
-    Por ello, los <b>inhibidores duales potentes → contraindicación práctica de TODOS los ACOD</b>.  
-    La opción recomendada es <b>VKA </b>.
-  </p>
-</div>
+
+
+<!-- ========================= -->
+<!-- VKA -->
+<!-- ========================= -->
 
 <div style="margin-top:16px; padding:12px; background:#f0f7ff; border:1px solid #b7d4f5; border-radius:8px;">
   <div style="font-weight:700; color:#0f3d83; margin-bottom:6px;">
-    ⚠️ ¿Por qué los inductores duales potentes (P-gp + CYP3A4) también contraindican TODOS los ACOD?
+    ⚖️ ¿Qué ocurre con los antagonistas de vitamina K?
   </div>
+
   <p style="margin:0; font-size:13px; line-height:1.45; color:#1e293b;">
-    Los inductores potentes clásicos (rifampicina, carbamazepina, fenitoína, fenobarbital, primidona, Hierba de San Juan) 
-    activan de forma simultánea <b>P-gp</b> y <b>CYP3A4</b>.  
-    Esto produce:
-    <ul style="margin:6px 0 0 16px; padding:0; font-size:12px; line-height:1.45; color:#1e293b;">
-      <li>↓↓↓ Absorción (inductor de P-gp → expulsión intestinal)</li>
-      <li>↓↓↓ Exposición sistémica (CYP3A4 acelera el metabolismo)</li>
-      <li>↓↓↓ Biodisponibilidad real → riesgo extremo de <b>fallo embólico</b></li>
-    </ul>
-    La magnitud del descenso de niveles plasmáticos puede ser devastadora:  
-    <b>−80% en rivaroxabán</b>, <b>−70% en apixabán</b>,  
-    <b>−60% en dabigatrán</b> y <b>−50% en edoxabán</b>.  
-    Por ello, los <b>inductores duales potentes → evitar TODOS los ACOD</b>.  
-    Alternativa recomendada: <b>VKA</b>.
+    Los antagonistas de vitamina K (<b>warfarina</b> y <b>acenocumarol</b>)
+    también presentan múltiples interacciones farmacológicas,
+    principalmente a través del metabolismo hepático (<b>CYP2C9</b>).
+  </p>
+
+  <ul style="margin:8px 0 0 16px; padding:0; font-size:12px; line-height:1.45; color:#1e293b;">
+    <li><b>Inhibidores metabólicos</b> (ej. amiodarona, azoles, macrólidos) → ↑ INR → mayor riesgo hemorrágico.</li>
+    <li><b>Inductores enzimáticos</b> (rifampicina, antiepilépticos) → ↓ INR → riesgo trombótico.</li>
+  </ul>
+
+  <p style="margin-top:8px; font-size:13px;">
+    A diferencia de los ACOD, estas interacciones pueden manejarse porque
+    el efecto anticoagulante se controla mediante <b>monitorización del INR</b>.
+  </p>
+
+  <p style="font-size:13px;">
+    Por este motivo, cuando existen interacciones metabólicas relevantes
+    con ACOD, la alternativa habitual es utilizar <b>VKA con control
+    estrecho del INR</b>.
   </p>
 </div>
 
+
 <div style="margin-top:16px; padding:10px; background:#FFFFDB; border:1px solid #d1d5db; border-radius:8px; font-size:13px; color:black;">
-  <div style="font-weight:700; color:#764E12; margin-bottom:6px;">📌 Regla Clínica Final</div>
-  • <b>Inhibidor dual potente</b> (P-gp + CYP3A4) → <b>riesgo hemorrágico prohibitivo</b> → evitar ACOD → usar VKA.<br>
-  • <b>Inductor dual potente</b> (P-gp + CYP3A4) → <b>infraexposición severa</b> → evitar ACOD → usar VKA.<br>
-  • Si no estás seguro si un fármaco es dual → <b>trátalo como dual</b> hasta comprobar ficha técnica EMA/FDA.
+  <div style="font-weight:700; color:#764E12; margin-bottom:6px;">📌 Regla clínica del algoritmo</div>
+  • <b>Inductor potente</b> → evitar todos los ACOD.<br>
+  • <b>Inhibidor potente</b> → evitar algunos ACOD o ajustar dosis según el fármaco.<br>
+  • <b>VKA</b> puede utilizarse cuando existen interacciones relevantes,
+  pero requiere <b>monitorización estrecha del INR</b>.
 </div>
 
 </details>
-
         <details style="margin-top:14px;">
-          <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">👥
+<summary style="cursor:pointer;font-weight:700;color:#0f3d83;">👥 Casos complejos reales</summary>
 
-            Casos complejos reales</summary>
-          <div style=" margin-top:14px; background:#ffffff; border:1px
-            solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
-            rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
-            line-height:1.55; color:#1e293b; ">
-            <!-- Header -->
-            <div style=" background:#0f3d83; color:#ffffff; padding:10px
-              14px; font-size:14px; font-weight:700;
-              letter-spacing:0.3px; "> 🧑 Casos complejos reales: cómo
-              decidir rápido ante interacciones difíciles </div>
-            <div style="padding:16px 18px;">
-              <!-- CASO 1 -->
-              <h4 style="margin:8px 0 4px 0;color:#0f3d83;">🧪 Caso 1 —
-                Paciente con FA + tratamiento antifúngico azólico</h4>
-              <p style="margin:0 0 6px 0;"> Mujer de 78 años en apixabán
-                5 mg/12 h. Se inicia <b>posaconazol</b> por
-                aspergilosis. </p>
-              <ul
-                style="font-size:12px;padding-left:20px;line-height:1.45;">
-                <li><b>Tipo de interacción</b>: inhibidor potente <b>mixto</b>
-                  (P-gp + CYP3A4).</li>
-                <li><b>Efecto</b>: ↑↑ exposición de apixabán → alto
-                  riesgo hemorrágico.</li>
-                <li><b>Evitar</b>: apixabán y rivaroxabán.</li>
-                <li><b>Alternativa</b>: cambiar temporalmente a <b>VKA</b>.</li>
-              </ul>
-              <div
-                style="color:#b91c1c;font-size:12px;margin-bottom:12px;">
-                ⚠️ Regla clínica: si antifúngico azólico potente →
-                evitar ACOD → usar VKA. </div>
-              <!-- CASO 2 -->
-              <h4 style="margin:8px 0 4px 0;color:#0f3d83;">🧪 Caso 2 —
-                Rifampicina en paciente con dabigatrán</h4>
-              <p style="margin:0 0 6px 0;"> Varón 65 años en dabigatrán
-                150 mg/12 h por FA. Se inicia tratamiento
-                antituberculoso con <b>rifampicina</b>. </p>
-              <ul
-                style="font-size:12px;padding-left:20px;line-height:1.45;">
-                <li><b>Tipo de interacción</b>: inductor <b>mixto</b>
-                  (P-gp + CYP3A4).</li>
-                <li><b>Efecto</b>: ↓↓↓ exposición → pérdida casi
-                  completa de eficacia.</li>
-                <li><b>Evitar</b>: TODOS los ACOD.</li>
-                <li><b>Alternativa</b>: pasar a <b>acenocumarol/warfarina</b>.</li>
-              </ul>
-              <div
-                style="color:#b91c1c;font-size:12px;margin-bottom:12px;">
-                ⚠️ Rifampicina = contraindicación práctica de todos los
-                ACOD. </div>
-              <!-- CASO 3 -->
-              <h4 style="margin:8px 0 4px 0;color:#0f3d83;">🧪 Caso 3 —
-                Paciente en rivaroxabán + claritromicina</h4>
-              <p style="margin:0 0 6px 0;"> Hombre 72 años en
-                rivaroxabán 20 mg/d por FA. Se prescribe <b>claritromicina</b>
-                por neumonía. </p>
-              <ul
-                style="font-size:12px;padding-left:20px;line-height:1.45;">
-                <li><b>Tipo de interacción</b>: inhibidor <b>mixto</b>
-                  moderado (P-gp + CYP3A4).</li>
-                <li><b>Efecto</b>: ↑ exposición de rivaroxabán → riesgo
-                  hemorrágico aumentado.</li>
-                <li><b>Evitar</b>: rivaroxabán.</li>
-                <li><b>Alternativa temporal</b>: apixabán solo si bajo
-                  riesgo hemorrágico o cambiar a VKA.</li>
-              </ul>
-              <div
-                style="color:#b91c1c;font-size:12px;margin-bottom:12px;">
-                ⚠️ Claritromicina puede triplicar niveles de
-                rivaroxabán: revisión obligada. </div>
-              <!-- CASO 4 -->
-              <h4 style="margin:8px 0 4px 0;color:#0f3d83;">🧪 Caso 4 —
-                Amiodarona en paciente con función renal limitada</h4>
-              <p style="margin:0 0 6px 0;"> Mujer 84 años, ClCr 32
-                mL/min, inicia <b>amiodarona</b> estando en dabigatrán
-                150 mg/12 h. </p>
-              <ul
-                style="font-size:12px;padding-left:20px;line-height:1.45;">
-                <li><b>Tipo de interacción</b>: inhibidor de <b>P-gp</b>.</li>
-                <li><b>Efecto</b>: ↑ exposición de dabigatrán.</li>
-                <li><b>Ajuste</b>: dabigatrán → bajar a <b>110 mg/12 h</b>.</li>
-                <li><b>Alternativa</b>: considerar apixabán si riesgo
-                  hemorrágico significativo.</li>
-              </ul>
-              <div
-                style="color:#b91c1c;font-size:12px;margin-bottom:12px;">
-                ⚠️ Amiodarona + ClCr bajo = mayor riesgo de hemorragia
-                digestiva con dabigatrán. </div>
-              <!-- CASO 5 -->
-              <h4 style="margin:8px 0 4px 0;color:#0f3d83;">🧪 Caso 5 —
-                Anciano frágil con polimedicación y antifúngico tópico</h4>
-              <p style="margin:0 0 6px 0;"> Varón 89 años, apixabán 2,5
-                mg/12 h, riesgo hemorrágico elevado. Se prescribe <b>itraconazol
+<div style="margin-top:14px;background:#ffffff;border:1px solid #d0d7e1;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,0.05);overflow:hidden;font-size:13px;line-height:1.55;color:#1e293b;">
 
-                  tópico</b>. </p>
-              <ul
-                style="font-size:12px;padding-left:20px;line-height:1.45;">
-                <li><b>Tipo de interacción</b>: inhibidor fuerte mixto,
-                  pero <b>vía tópica</b>.</li>
-                <li><b>Efecto</b>: exposición sistémica mínima → <b>no
-                    interacción relevante</b>.</li>
-                <li><b>Recomendación</b>: continuar apixabán; vigilar.</li>
-              </ul>
-              <div
-                style="color:green;font-size:12px;margin-bottom:12px;">
-                💡 Recordatorio: los antifúngicos tópicos NO producen
-                interacción significativa. </div>
-              <!-- CASO 6 -->
-              <h4 style="margin:8px 0 4px 0;color:#0f3d83;">🧪 Caso 6 —
-                Fenitoína en paciente con apixabán</h4>
-              <p style="margin:0 0 6px 0;"> Mujer 70 años en apixabán
-                por FA. Estando de vacaciones en otro país le han
-                prescrito <b>fenitoína</b> por crisis convulsiva.
-              </p>
-              <ul
-                style="font-size:12px;padding-left:20px;line-height:1.45;">
-                <li><b>Tipo de interacción</b>: inductor <b>mixto</b>
-                  (P-gp + CYP3A4).</li>
-                <li><b>Efecto</b>: ↓ exposición de apixabán → riesgo de
-                  fallo embólico.</li>
-                <li><b>Recomendación</b>: cambiar fenitoína por otro
-                  antiepiléptico de mejor perfil.</li>
-              </ul>
-              <div
-                style="color:#b91c1c;font-size:12px;margin-bottom:12px;">
-                ⚠️ Fenitoína es una de las interacciones más peligrosas
-                con ACOD. </div>
-            </div>
-            <!-- padding --> </div>
-          <!-- panel --> </details>
+<div style="background:#0f3d83;color:#ffffff;padding:10px 14px;font-size:14px;font-weight:700;letter-spacing:0.3px;">
+🧑 Casos complejos reales: cómo decidir rápido ante interacciones difíciles
+</div>
+
+<div style="padding:16px 18px;">
+
+<p style="margin:0 0 12px 0;">
+Los siguientes ejemplos ilustran situaciones frecuentes en práctica clínica y reflejan el comportamiento del algoritmo de la herramienta:
+</p>
+
+<ul style="font-size:12px;padding-left:20px;line-height:1.45;margin-bottom:16px;">
+<li><b>Inductores potentes</b> → evitar todos los ACOD.</li>
+<li><b>Inhibidores potentes</b> → evitar algunos ACOD o ajustar dosis según el fármaco.</li>
+<li>Cuando existen interacciones metabólicas relevantes, una alternativa habitual es <b>VKA con monitorización estrecha del INR</b>.</li>
+</ul>
+
+<!-- CASO 1 -->
+
+<h4 style="margin:8px 0 4px 0;color:#0f3d83;">🧪 Caso 1 — FA + tratamiento antifúngico azólico</h4>
+
+<p style="margin:0 0 6px 0;">
+Mujer de 78 años en apixabán 5 mg/12 h. Se inicia <b>posaconazol</b> por aspergilosis.
+</p>
+
+<ul style="font-size:12px;padding-left:20px;line-height:1.45;">
+<li><b>Tipo de interacción</b>: inhibidor potente dual (P-gp + CYP3A4).</li>
+<li><b>Efecto</b>: ↑↑ exposición de ACOD → alto riesgo hemorrágico.</li>
+<li><b>Evitar</b>: apixabán, rivaroxabán y dabigatrán.</li>
+<li><b>Edoxabán</b>: reducir dosis a 30 mg/24 h.</li>
+<li><b>Alternativa</b>: cambiar temporalmente a <b>VKA</b>.</li>
+</ul>
+
+<div style="color:#b91c1c;font-size:12px;margin-bottom:12px;">
+⚠️ Regla clínica: antifúngico azólico sistémico potente → evitar ACOD → considerar VKA.
+</div>
+
+<!-- CASO 2 -->
+
+<h4 style="margin:8px 0 4px 0;color:#0f3d83;">🧪 Caso 2 — Rifampicina en paciente con dabigatrán</h4>
+
+<p style="margin:0 0 6px 0;">
+Varón de 65 años en dabigatrán 150 mg/12 h por FA. Se inicia tratamiento antituberculoso con <b>rifampicina</b>.
+</p>
+
+<ul style="font-size:12px;padding-left:20px;line-height:1.45;">
+<li><b>Tipo de interacción</b>: inductor potente dual (P-gp + CYP3A4).</li>
+<li><b>Efecto</b>: ↓↓↓ exposición de ACOD → pérdida de eficacia anticoagulante.</li>
+<li><b>Evitar</b>: todos los ACOD.</li>
+<li><b>Alternativa</b>: anticoagulación con <b>acenocumarol o warfarina</b> con control de INR.</li>
+</ul>
+
+<div style="color:#b91c1c;font-size:12px;margin-bottom:12px;">
+⚠️ Rifampicina = contraindicación práctica de todos los ACOD.
+</div>
+
+<!-- CASO 3 -->
+
+<h4 style="margin:8px 0 4px 0;color:#0f3d83;">🧪 Caso 3 — Rivaroxabán + claritromicina</h4>
+
+<p style="margin:0 0 6px 0;">
+Hombre de 72 años en rivaroxabán 20 mg/d por FA. Se prescribe <b>claritromicina</b> por neumonía.
+</p>
+
+<ul style="font-size:12px;padding-left:20px;line-height:1.45;">
+<li><b>Tipo de interacción</b>: inhibidor potente (CYP3A4 + P-gp).</li>
+<li><b>Efecto</b>: ↑ exposición de rivaroxabán y apixabán → mayor riesgo hemorrágico.</li>
+<li><b>Conducta</b>: valorar alternativa temporal o monitorizar estrechamente.</li>
+<li><b>Alternativa</b>: considerar VKA si el antibiótico debe mantenerse varios días.</li>
+</ul>
+
+<div style="color:#b91c1c;font-size:12px;margin-bottom:12px;">
+⚠️ Claritromicina puede aumentar significativamente los niveles de algunos ACOD.
+</div>
+
+<!-- CASO 4 -->
+
+<h4 style="margin:8px 0 4px 0;color:#0f3d83;">🧪 Caso 4 — Amiodarona + función renal limitada</h4>
+
+<p style="margin:0 0 6px 0;">
+Mujer de 84 años, ClCr 32 mL/min, inicia <b>amiodarona</b> estando en dabigatrán 150 mg/12 h.
+</p>
+
+<ul style="font-size:12px;padding-left:20px;line-height:1.45;">
+<li><b>Tipo de interacción</b>: inhibidor de P-gp.</li>
+<li><b>Efecto</b>: ↑ exposición de dabigatrán.</li>
+<li><b>Conducta</b>: vigilar riesgo hemorrágico y considerar reducción de dosis según edad y función renal.</li>
+<li><b>Alternativa</b>: valorar apixabán si el riesgo hemorrágico es elevado.</li>
+</ul>
+
+<div style="color:#b91c1c;font-size:12px;margin-bottom:12px;">
+⚠️ Amiodarona + insuficiencia renal aumenta la exposición a dabigatrán.
+</div>
+
+<!-- CASO 5 -->
+
+<h4 style="margin:8px 0 4px 0;color:#0f3d83;">🧪 Caso 5 — Antifúngico tópico</h4>
+
+<p style="margin:0 0 6px 0;">
+Varón de 89 años en apixabán 2,5 mg/12 h. Se prescribe <b>itraconazol tópico</b>.
+</p>
+
+<ul style="font-size:12px;padding-left:20px;line-height:1.45;">
+<li><b>Tipo de interacción</b>: antifúngico azólico por vía tópica.</li>
+<li><b>Efecto</b>: absorción sistémica mínima.</li>
+<li><b>Recomendación</b>: continuar ACOD sin cambios.</li>
+</ul>
+
+<div style="color:green;font-size:12px;margin-bottom:12px;">
+💡 Los antifúngicos tópicos no producen interacciones clínicamente relevantes.
+</div>
+
+<!-- CASO 6 -->
+
+<h4 style="margin:8px 0 4px 0;color:#0f3d83;">🧪 Caso 6 — Fenitoína en paciente con apixabán</h4>
+
+<p style="margin:0 0 6px 0;">
+Mujer de 70 años en apixabán por FA. Se prescribe <b>fenitoína</b> por crisis epiléptica.
+</p>
+
+<ul style="font-size:12px;padding-left:20px;line-height:1.45;">
+<li><b>Tipo de interacción</b>: inductor potente (P-gp + CYP3A4).</li>
+<li><b>Efecto</b>: ↓↓↓ exposición de ACOD → riesgo de fallo embólico.</li>
+<li><b>Conducta</b>: evitar ACOD.</li>
+<li><b>Opciones</b>: cambiar a antiepiléptico no inductor o anticoagular con <b>VKA</b> con control de INR.</li>
+</ul>
+
+<div style="color:#b91c1c;font-size:12px;margin-bottom:12px;">
+⚠️ Fenitoína es una de las interacciones más peligrosas con ACOD.
+</div>
+<!-- CASO 7 -->
+
+<h4 style="margin:8px 0 4px 0;color:#0f3d83;">🧪 Caso 7 — Verapamilo en paciente con edoxabán</h4>
+
+<p style="margin:0 0 6px 0;">
+Varón de 76 años con FA en tratamiento con <b>edoxabán 60 mg/24 h</b>. 
+Se inicia <b>verapamilo</b> por control de frecuencia ventricular.
+</p>
+
+<ul style="font-size:12px;padding-left:20px;line-height:1.45;">
+<li><b>Tipo de interacción</b>: inhibidor de <b>P-gp</b>.</li>
+<li><b>Efecto</b>: ↑ exposición de edoxabán.</li>
+<li><b>Ajuste recomendado</b>: reducir dosis a <b>30 mg/24 h</b>.</li>
+<li><b>Otros ACOD</b>: efecto generalmente moderado; vigilar riesgo hemorrágico.</li>
+</ul>
+
+<div style="color:#b91c1c;font-size:12px;margin-bottom:12px;">
+⚠️ Con inhibidores de P-gp como verapamilo, edoxabán requiere reducción sistemática de dosis.
+</div>
+
+
+
+<!-- CASO 8 -->
+
+<h4 style="margin:8px 0 4px 0;color:#0f3d83;">🧪 Caso 8 — Polimedicación con múltiples inhibidores de P-gp</h4>
+
+<p style="margin:0 0 6px 0;">
+Mujer de 83 años con FA en tratamiento con <b>dabigatrán</b>. 
+Tratamiento concomitante con <b>amiodarona</b> y <b>verapamilo</b>.
+</p>
+
+<ul style="font-size:12px;padding-left:20px;line-height:1.45;">
+<li><b>Tipo de interacción</b>: combinación de varios <b>inhibidores de P-gp</b>.</li>
+<li><b>Efecto</b>: aumento acumulativo de la exposición a dabigatrán.</li>
+<li><b>Riesgo</b>: incremento significativo del riesgo hemorrágico, especialmente en pacientes ancianos o con función renal reducida.</li>
+<li><b>Conducta</b>: considerar reducción de dosis o cambio a otro ACOD con menor dependencia de P-gp.</li>
+</ul>
+
+<div style="color:#b91c1c;font-size:12px;margin-bottom:12px;">
+⚠️ La combinación de múltiples inhibidores de P-gp puede aumentar de forma impredecible la exposición a algunos ACOD.
+</div>
+</div>
+</div>
+</details>
         <details style="margin-top:14px;">
           <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">💦
 
