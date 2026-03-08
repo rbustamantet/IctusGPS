@@ -2110,22 +2110,23 @@ if(expBox){
 }      
 
       // Guardar estado
-      __lastReport={
-        ts:new Date().toISOString(),
-        inputs:{age,sex,weight:isFinite(weight)?weight:null,weightUnit:wUnit,scr:isFinite(scr)?scr:null,scrUnit,weightKg:isFinite(weightKg)?weightKg:null},
-        renal:{crcl:isFinite(crcl)?+crcl.toFixed(0):null,scr_mgdl:isFinite(scr_mgdl)?+scr_mgdl.toFixed(2):null},
-        scores:{va:vasc.va,vasc:vasc.vasc,hasbled},
-        risks:{strokeBase:+strokeBase,bleedBase:+bleedBase},
-                     clinicalScores,
-          noOAC,
-                    noOAC_byLowRisk,     // ← AÑADIR
-                    noOAC_byHighBleed,   // ← AÑADIR
-                   special,
-        preferredGlobal, avoidedGlobal,
-        notes:[...notes],
-        doses:dosesForReport
-
-      };
+__lastReport={
+  ts:new Date().toISOString(),
+  inputs:{age,sex,weight:isFinite(weight)?weight:null,weightUnit:wUnit,scr:isFinite(scr)?scr:null,scrUnit,weightKg:isFinite(weightKg)?weightKg:null},
+  renal:{crcl:isFinite(crcl)?+crcl.toFixed(0):null,scr_mgdl:isFinite(scr_mgdl)?+scr_mgdl.toFixed(2):null},
+  scores:{va:vasc.va,vasc:vasc.vasc,hasbled},
+  risks:{strokeBase:+strokeBase,bleedBase:+bleedBase},
+  clinicalScores,
+  noOAC,
+  noOAC_byLowRisk,
+  noOAC_byHighBleed,
+  special,
+  bestName,
+  preferredGlobal,
+  avoidedGlobal,
+  notes:[...notes],
+  doses:dosesForReport
+};
       document.getElementById('btnPrint').disabled=false;
       document.getElementById('btnCopy').disabled=false;
     }
@@ -2138,6 +2139,7 @@ function printReport(){
   }
 
   const r = __lastReport;
+  const bestName = r.bestName || "";
 
   const fmt = v => (v===null||v===undefined||!isFinite(v) ? "—" : v);
   const sexTxt = r.inputs.sex === 'M' ? 'Varón' : (r.inputs.sex === 'F' ? 'Mujer' : '—');
@@ -2175,16 +2177,17 @@ function printReport(){
   let doseHTML = "";
 
   if (!r.noOAC && r.doses && r.doses.length) {
-    doseHTML = "<h3>Posología sugerida</h3><ul>";
-    r.doses.forEach(d=>{
-      doseHTML += `<li><b>${star}${d.name}:</b> ${d.dose}` +
-      (d.highlight ? 
-        ' <span style="background:#fff4ce;border:1px solid #ffe08a;border-radius:999px;padding:2px 8px;font-weight:700">Dosis reducida</span>' 
-        : '') +
-      ` — <span style="color:#666">${d.why}</span></li>`;
-    });
-    doseHTML += "</ul>";
-  }
+  doseHTML = "<h3>Posología sugerida</h3><ul>";
+  r.doses.forEach(d=>{
+    const star = d.name === bestName ? "⭐ " : "";
+    doseHTML += `<li><b>${star}${d.name}:</b> ${d.dose}` +
+    (d.highlight ? 
+      ' <span style="background:#fff4ce;border:1px solid #ffe08a;border-radius:999px;padding:2px 8px;font-weight:700">Dosis reducida</span>' 
+      : '') +
+    ` — <span style="color:#666">${d.why}</span></li>`;
+  });
+  doseHTML += "</ul>";
+}
 
   /* ===============================  
       RECOMENDACIONES
@@ -2294,6 +2297,7 @@ function copyReport(){
   }
 
   const r = __lastReport;
+  const bestName = r.bestName || "";
 
   const clean = s => String(s)
     .replace(/•/g,'*')
@@ -2353,15 +2357,21 @@ function copyReport(){
     if(r.avoidedGlobal.length){
       lines.push('Estrategias a evitar: ' + r.avoidedGlobal.join(', '));
     }
+lines.push('');
+lines.push('Resumen clínico:');
+lines.push('Estrategia con mejor perfil: ' + bestName + '.');
+
 
     /* Posología */
     if(r.doses && r.doses.length){
       lines.push('');
       lines.push('Posología sugerida:');
       r.doses.forEach(d=>{
-        lines.push('* ' + d.name + ': ' + d.dose +
-                   (d.highlight ? ' [Dosis reducida]' : '') +
-                   ' — ' + clean(d.why));
+        const star = d.name === bestName ? "⭐ " : "";
+
+lines.push('* ' + star + d.name + ': ' + d.dose +
+           (d.highlight ? ' [Dosis reducida]' : '') +
+           ' — ' + clean(d.why));
       });
     }
   }
