@@ -328,13 +328,48 @@ tfoot td{background:#f3f9ff;}
     .doseTag{background:#fff4ce;color:#7a4e00;border:1px solid #ffe08a;padding:2px 8px;border-radius:999px;font-weight:700;font-size:.8rem}
     .noOac{color:#b71c1c;font-weight:800}
 
-/* Columnas visibles */
-#comparative tbody td._zebra{background:#eef6ff;}
-@media (max-width:640px){
-  .col-rra,.col-rrs{display:none;}
+/* ==========================================
+   TABLA COMPARATIVA – VERSIÓN MÓVIL
+   ========================================== */
+
+@media (max-width: 720px){
+
+  #comparative th:nth-child(2),
+  #comparative td:nth-child(2),
+  #comparative th:nth-child(3),
+  #comparative td:nth-child(3),
+  #comparative th:nth-child(5),
+  #comparative td:nth-child(5),
+  #comparative th:nth-child(6),
+  #comparative td:nth-child(6),
+  #comparative th:nth-child(7),
+  #comparative td:nth-child(7),
+  #comparative th:nth-child(8),
+  #comparative td:nth-child(8){
+    display:none;
+  }
+
 }
 
-
+/* ==========================================
+   COLUMNA ICTUS EQUIVALENTES – DESTACADA
+   ========================================== */
+#comparative td{
+  font-variant-numeric: tabular-nums;
+}
+#comparative th:nth-child(9),
+#comparative td:nth-child(9){
+  font-weight:700;
+  color:#0f3d83;
+  font-size:1.05em;
+}
+#comparative th:nth-child(9),
+#comparative td:nth-child(9){
+  min-width:70px;
+}
+#comparative tr[data-strategy="noaco"]{
+  border-top:2px solid #e6edf3;
+}
 
 
 /* Toast */
@@ -909,23 +944,24 @@ color:white;
               <th class="right">RRR</th>
               <th class="right col-rra">RRA</th>
               <th class="right">NNT</th>
-              <th class="right">RS</th>
-              <th class="right col-rrs">RRS</th>
-              <th class="right">NNH</th>
-              <th class="right">Adecuación clínica</th>
+                                     <th class="right">RS</th>
+                                     <th class="right col-rrs">RRS</th>
+                                     <th class="right">NNH</th>
+                                     <th class="right">IE</th>
+                                     <th class="right">Adecuación clínica</th>
             </tr>
           </thead> <tbody>
           </tbody> <tfoot> <tr>
-              <td class="subtle" colspan="9"><b>RI</b>=riesgo anual de
+              <td class="subtle" colspan="10"><b>RI</b>=riesgo anual de
                 ictus; <b>RRR</b>=reducción relativa de riesgo; <b>RRA</b>=reducción
 
                 absoluta de riesgo;<b>NNT</b>=nº necesario a tratar; <b>RS</b>=riesgo
 
                 anual de sangrado mayor; <b>RRS</b>=riesgo relativo de
-                sangrado vs VKA; <b>NNH</b>=nº necesario para dañar.</td>
+                sangrado vs VKA; <b>NNH</b>=nº necesario para dañar; <b>IE</b>=ictus equivalentes evitados.</td>
             </tr>
             <tr>
-              <td class="subtle2" colspan="9"><b>Nota:</b> coeficientes
+              <td class="subtle2" colspan="10"><b>Nota:</b> coeficientes
                 orientativos; adapta a tus fuentes.</td>
             </tr>
           </tfoot>
@@ -1587,7 +1623,7 @@ function explainBestStrategy(bestName, prefer, avoid, noOAC){
   }
 
   if (avoid[bestName]) {
-    avoid[bestName].forEach(r => reasons.push("Evita problemas: " + r));
+    avoid[bestName].forEach(r => reasons.push(r));
   }
 
   if (reasons.length === 0){
@@ -1795,15 +1831,23 @@ const clinicalScores = buildClinicalScores(prefer, avoid);
       const TOL_REL=0.03,TOL_ABS=0.005;
       function withinTolerance(score,best,tolRel=TOL_REL,tolAbs=TOL_ABS){if(!isFinite(score)||!isFinite(best))return false;const relOk=best>0?(best-score)<=best*tolRel:false;const absOk=Math.abs(best-score)<=tolAbs;return relOk||absOk;}
       const tbody=document.querySelector('#comparative tbody');tbody.innerHTML='';
-      const rows=[];let bestScore=-Infinity;
-      STRATS.forEach(name=>{
-        const rrStroke=RR_Stroke[name], rrBleed_vsVKA=RR_Bleed_vs_VKA[name];
-        const riskStroke=strokeBase*rrStroke, rrr=(1-rrStroke)*100, arr=strokeBase-riskStroke;
-        const bleedPct=(name==='VKA')?bleedBase:(bleedBase*rrBleed_vsVKA);
+const rows=[];let bestScore=-Infinity;
 
-        const baseScore = (arr>0&&bleedPct>0)?(arr/bleedPct):-Infinity;
-        const clinicalScore = clinicalScores[name] ?? 0;
-        const score = isFinite(baseScore) ? (baseScore + clinicalScore*0.25) : -Infinity;
+const IE_BLEED_WEIGHT = 0.4;
+const noACOBleedPct = bleedBase * RR_Bleed_vs_VKA["No ACO"];
+
+STRATS.forEach(name=>{
+        const rrStroke=RR_Stroke[name], rrBleed_vsVKA=RR_Bleed_vs_VKA[name];
+const riskStroke=strokeBase*rrStroke, rrr=(1-rrStroke)*100, arr=strokeBase-riskStroke;
+const bleedPct=(name==='VKA')?bleedBase:(bleedBase*rrBleed_vsVKA);
+
+const strokeBenefit = Math.max(0, strokeBase - riskStroke);
+const bleedHarm = Math.max(0, bleedPct - noACOBleedPct);
+const strokeEquivalent = +(strokeBenefit - (bleedHarm * IE_BLEED_WEIGHT)).toFixed(2);
+
+const baseScore = (arr>0&&bleedPct>0)?(arr/bleedPct):-Infinity;
+const clinicalScore = clinicalScores[name] ?? 0;
+const score = isFinite(baseScore) ? (baseScore + clinicalScore*0.25) : -Infinity;
      let adjustedScore = score;
 
      if (name === "VKA" && vkaInteractionPresent) {
@@ -1826,6 +1870,28 @@ else if (hasPrefer) {
 const finalScore = adjustedScore + priority * 1000;
 
 let adequacy;
+
+// ================================================
+// ESCENARIO VALVULAR: anticoagulación obligatoria con VKA
+// ================================================
+if (special.valvular) {
+
+  if (name === "VKA") {
+    adequacy = {
+      label: "Obligatorio",
+      cls: "tagPref",
+      tooltip: "Anticoagulación obligatoria con antagonista de la vitamina K en prótesis valvular mecánica o fibrilación auricular asociada a estenosis mitral moderada-severa"
+    };
+  } else {
+    adequacy = {
+      label: "Evitar",
+      cls: "tagAvoid",
+      tooltip: "Los anticoagulantes directos no están indicados en prótesis valvular mecánica ni en fibrilación auricular asociada a estenosis mitral moderada-severa"
+    };
+  }
+
+}
+else
 
 if (noOAC) {
     if (name === "No ACO") {
@@ -1871,30 +1937,76 @@ if (noOAC) {
 
 }       const tip=escAttr(decodeEntities(adequacy.tooltip||''));
         const tr=document.createElement('tr');
+
+              if (name === "No ACO") {
+                                     tr.dataset.strategy = "noaco";
+                                    }
         if (considerOAC_byBorderline && name === "No ACO") {
   tr.classList.add("rowConsider");
 }
-        tr.innerHTML=`<td><b>${name}</b></td>
-          <td class="right">${fmt(riskStroke,1)}</td>
-          <td class="right">${fmt(rrr,0)}</td>
-          <td class="right col-rra">${fmt(arr,1)}</td>
-          <td class="right">${isFinite(arr)&&arr>0?oneIn(arr):NDASH}</td>
-          <td class="right">${fmt(bleedPct,1)}</td>
-          <td class="right col-rrs">${fmt(rrBleed_vsVKA,2)}</td>
-          <td class="right">${isFinite(bleedPct)&&bleedPct>0?oneIn(bleedPct):NDASH}</td>
-          <td class="right"><span class="pill ${adequacy.cls}" title="${tip}">${adequacy.label}</span></td>`;
-        tbody.appendChild(tr); rows.push({tr,score:finalScore,name}); if(score>bestScore)bestScore=score;
+        const val = fmt(Math.abs(strokeEquivalent),1);
+const sign = strokeEquivalent > 0 ? "+" : (strokeEquivalent < 0 ? "−" : "±");
+const ieTxt = sign + val;
+
+tr.innerHTML=`<td><b>${name}</b></td>
+  <td class="right">${fmt(riskStroke,1)}</td>
+  <td class="right">${fmt(rrr,0)}</td>
+  <td class="right col-rra">${fmt(arr,1)}</td>
+  <td class="right">${isFinite(arr)&&arr>0?oneIn(arr):NDASH}</td>
+  <td class="right">${fmt(bleedPct,1)}</td>
+  <td class="right col-rrs">${fmt(rrBleed_vsVKA,2)}</td>
+  <td class="right">${isFinite(bleedPct)&&bleedPct>0?oneIn(bleedPct):NDASH}</td>
+  <td class="right"><b>${ieTxt}</b></td>
+  <td class="right"><span class="pill ${adequacy.cls}" title="${tip}">${adequacy.label}</span></td>`;
+        tbody.appendChild(tr);
+rows.push({
+  tr,
+  score:finalScore,
+  name,
+  strokeEquivalent,
+  adequacyLabel: adequacy.label
+});
+if(finalScore>bestScore)bestScore=finalScore;
       });
-rows.sort((a,b)=>b.score-a.score);
-if (noOAC){
-  rows.sort((a,b)=>{
-    if (a.name === "No ACO") return -1;
-    if (b.name === "No ACO") return 1;
-    return 0;
-  });
+function rowOrderPriority(r){
+
+  // PRIORIDAD MÁXIMA: tratamiento obligatorio
+  if (r.adequacyLabel === "Obligatorio") return 100;
+
+  // Escenario de no anticoagular
+  if (noOAC && r.name === "No ACO") return 50;
+
+  // Opciones utilizables
+  if (r.adequacyLabel === "Preferible" || r.adequacyLabel === "Aceptable") return 30;
+
+  if (r.adequacyLabel === "—") return 20;
+
+  // No anticoagular cuando no es la estrategia principal
+  if (r.name === "No ACO") return 15;
+
+  // Estrategias a evitar
+  return 10;
 }
-rows.forEach((row,i)=>{
-  row.tr.dataset.rank = i+1;
+
+rows.sort((a,b)=>{
+
+  // Si NO es escenario de no anticoagular,
+  // "No ACO" debe ir siempre al final
+  if (!noOAC) {
+    if (a.name === "No ACO") return 1;
+    if (b.name === "No ACO") return -1;
+  }
+
+  const pa = rowOrderPriority(a);
+  const pb = rowOrderPriority(b);
+
+  if (pb !== pa) return pb - pa;
+
+  if (b.strokeEquivalent !== a.strokeEquivalent) {
+    return b.strokeEquivalent - a.strokeEquivalent;
+  }
+
+  return b.score - a.score;
 });
 
 let bestName;
@@ -1902,26 +2014,36 @@ let bestName;
 if (noOAC) {
   bestName = "No ACO";
 } else {
-  bestName = rows[0].name;
+  const usableACO = rows.filter(r => r.name !== "No ACO" && r.adequacyLabel !== "Evitar");
+  if (usableACO.length === 0) {
+    bestName = "No ACO";
+  } else {
+    bestName = usableACO[0].name;
+  }
 }
-const explanation = explainBestStrategy(bestName, prefer, avoid,noOAC);
+
+const allACOAvoided =
+  !noOAC &&
+  rows.filter(r => r.name !== "No ACO").every(r => r.adequacyLabel === "Evitar");
+
+let explanation;
+
+if (allACOAvoided){
+  explanation = "No existe una estrategia anticoagulante farmacológica adecuada en este contexto clínico";
+} else {
+  explanation = explainBestStrategy(bestName, prefer, avoid,noOAC);
+}
 
 
 rows.forEach(r => tbody.appendChild(r.tr));
-      if (noOAC) {
-    // Fuerza No ACO como la fila "best"
-    rows.forEach(({tr}) => {
-        if (tr.querySelector("td b")?.textContent === "No ACO") {
-            tr.classList.add("best");
-        } else {
-            tr.classList.remove("best");
-        }
-    });
-} else {
-    rows.forEach(({tr, score}) => {
-        if (withinTolerance(score, bestScore)) tr.classList.add('best');
-    });
-}
+
+rows.forEach(({tr,name}) => {
+  if (name === bestName) {
+    tr.classList.add("best");
+  } else {
+    tr.classList.remove("best");
+  }
+});
 
       applyColumnStriping();
 
@@ -2010,17 +2132,41 @@ uniqueVkaNotes.forEach(n => notes.push(n));
         recList.appendChild(li);
     });
 
+
+
     // Preferidos y evitados
+
+// Escenario valvular: VKA obligatorio
+if (special.valvular) {
+  preferredGlobal = ["VKA"];
+  avoidedGlobal = ["Apixabán","Dabigatrán","Edoxabán","Rivaroxabán"];
+}
+else {
+
     ["VKA","Apixabán","Dabigatrán","Edoxabán","Rivaroxabán"].forEach(n => {
         if ((avoid[n] || new Set()).size > 0) avoidedGlobal.push(n);
         else if ((prefer[n] || new Set()).size > 0) preferredGlobal.push(n);
     });
 
-    if (preferredGlobal.length) {
-        const li = document.createElement('li');
-        li.innerHTML = "<b>Estrategias preferibles:</b> " + preferredGlobal.join(", ");
-        recList.appendChild(li);
-    }
+}
+
+
+    if (special.valvular) {
+
+    const li = document.createElement('li');
+    li.innerHTML =
+      "<b>Estrategia obligatoria:</b> VKA (antagonista de la vitamina K).";
+    recList.appendChild(li);
+
+}
+else if (preferredGlobal.length) {
+
+    const li = document.createElement('li');
+    li.innerHTML =
+      "<b>Estrategias preferibles:</b> " + preferredGlobal.join(", ");
+    recList.appendChild(li);
+
+}
 
     if (avoidedGlobal.length) {
         const li = document.createElement('li');
@@ -2078,26 +2224,140 @@ const expBox = document.getElementById("clinicalExplanation");
 
 let bestLabel = "Estrategia más favorable";
 let bestIcon = "⭐";
+if (special.valvular){
+  bestLabel = "Estrategia obligatoria";
+  bestIcon = "⚠️";
+}
+
+/* =========================================================
+   ESTADO CLÍNICO ESTRUCTURADO
+========================================================= */
+
+const doacList = ["Apixabán","Dabigatrán","Edoxabán","Rivaroxabán"];
+
+const doacContraindicated =
+  doacList.every(d => avoidedGlobal.includes(d));
+
+/* Flags de causa */
+const doacContraindicated_hepatic =
+  special.hepatic === true;
+
+const doacContraindicated_interaction =
+  clinicalScores?.strongInteraction === true ||
+  clinicalScores?.enzymeInducer === true;
+
+const clinicalState = {
+
+  anticoagulationIndicated: !noOAC,
+
+  lowStrokeRisk: noOAC_byLowRisk,
+
+  highBleedRisk: noOAC_byHighBleed,
+
+  doacContraindicated: doacContraindicated,
+
+  doacContraindicated_hepatic,
+
+  doacContraindicated_interaction,
+
+  bestStrategy: bestName
+
+};
+
+/* =========================================================
+   RESUMEN CLÍNICO AUTOMÁTICO
+========================================================= */
+let scenario = "";
+
+if (special.valvular){
+  scenario = "valvular";
+}
+else if (noOAC_byLowRisk){
+  scenario = "lowRisk";
+}
+else if (noOAC_byHighBleed){
+  scenario = "highBleed";
+}
+else if (considerOAC_byBorderline){
+  scenario = "borderline";
+}
+else{
+  scenario = "clearOAC";
+}
+
 
 let summary = "";
 
-if (!noOAC){
-  summary = "Paciente con fibrilación auricular con indicación de anticoagulación.";
+if (scenario === "lowRisk"){
+
+  summary =
+  "Paciente con fibrilación auricular y riesgo embólico bajo; no se recomienda anticoagulación.";
+
 }
 
-if (considerOAC_byBorderline){
-  summary = "Paciente con fibrilación auricular con riesgo embólico intermedio; la anticoagulación puede considerarse según contexto clínico.";
+else if (scenario === "highBleed"){
+
+  summary =
+  "Paciente con fibrilación auricular con riesgo hemorrágico inaceptable o contraindicación absoluta para anticoagulación.";
+
 }
 
-if (preferredGlobal.length && !avoidedGlobal.includes(bestName)){
-  summary += " Sin contraindicaciones mayores para ACOD.";
+else if (scenario === "borderline"){
+
+  summary =
+  "Paciente con fibrilación auricular con riesgo embólico intermedio; la anticoagulación puede considerarse según contexto clínico.";
+
 }
 
-summary += " La estrategia con mejor perfil eficacia/seguridad sería " + bestName + ".";
+else if (scenario === "valvular"){
+
+  summary =
+  "En presencia de prótesis valvular mecánica o fibrilación auricular asociada a estenosis mitral moderada-severa, la anticoagulación con antagonista de la vitamina K es obligatoria.";
+
+  if (noOAC_byHighBleed){
+    summary +=
+    " Aunque exista una contraindicación o riesgo hemorrágico elevado, el alto riesgo tromboembólico asociado a la patología valvular obliga a mantener anticoagulación.";
+  }
+
+  summary +=
+  " Los anticoagulantes orales directos no están indicados en este contexto clínico.";
+
+}
+
+else if (scenario === "clearOAC"){
+
+  summary =
+  "Paciente con fibrilación auricular con indicación clara de anticoagulación.";
+
+  if (doacContraindicated){
+    summary +=
+    " Los anticoagulantes orales directos no son apropiados en este contexto clínico.";
+  }
+  else{
+    summary +=
+    " Los anticoagulantes orales directos son, en conjunto, apropiados en este contexto clínico.";
+  }
+
+}
+// === FRASE FINAL DE ESTRATEGIA ===
+
+
+if (special.valvular && noOAC_byHighBleed){
+
+  summary +=
+  " En casos de estenosis mitral moderada-severa con riesgo hemorrágico elevado puede valorarse, a medio plazo, una estrategia estructural como el cierre de orejuela o la cirugía valvular con implantación de prótesis biológica, lo que podría modificar el escenario antitrombótico. (Ver explicación ampliada en los textos informativos de la herramienta).";
+
+}
+
+/* === AJUSTE DE ETIQUETA EN ZONA GRIS === */
 
 if (considerOAC_byBorderline && !noOAC && !special.valvular){
-  bestLabel = "Si se decide anticoagular, la estrategia con mejor perfil sería";
+
+  bestLabel =
+  "Si se decide anticoagular, la estrategia con mejor perfil sería";
+
   bestIcon = "⚖️";
+
 }
 
 if(expBox){
@@ -2119,9 +2379,11 @@ __lastReport={
   clinicalScores,
   noOAC,
   noOAC_byLowRisk,
+  considerOAC_byBorderline,
   noOAC_byHighBleed,
   special,
   bestName,
+  clinicalState,
   preferredGlobal,
   avoidedGlobal,
   notes:[...notes],
@@ -2143,7 +2405,167 @@ function printReport(){
 
   const fmt = v => (v===null||v===undefined||!isFinite(v) ? "—" : v);
   const sexTxt = r.inputs.sex === 'M' ? 'Varón' : (r.inputs.sex === 'F' ? 'Mujer' : '—');
-  const fecha = (new Date(r.ts)).toLocaleString('es-ES');
+  const fecha = (new Date(r.ts)).toLocaleDateString('es-ES',{
+  day:'2-digit',
+  month:'2-digit',
+  year:'numeric'
+});
+
+/* ===============================  
+    RESUMEN CLÍNICO
+=============================== */
+
+let scenario = "";
+
+if (r.special?.valvular){
+  scenario = "valvular";
+}
+else if (r.noOAC_byLowRisk){
+  scenario = "lowRisk";
+}
+else if (r.noOAC_byHighBleed){
+  scenario = "highBleed";
+}
+else if (r.considerOAC_byBorderline){
+  scenario = "borderline";
+}
+else{
+  scenario = "clearOAC";
+}
+
+let summaryHTML = "";
+
+if (scenario === "lowRisk"){
+
+  summaryHTML =
+  "Paciente con fibrilación auricular y riesgo embólico bajo; no se recomienda anticoagulación.";
+
+}
+
+else if (scenario === "highBleed"){
+
+  summaryHTML =
+  "Paciente con fibrilación auricular con riesgo hemorrágico inaceptable o contraindicación absoluta para anticoagulación.";
+
+}
+
+else if (scenario === "borderline"){
+
+  summaryHTML =
+  "Paciente con fibrilación auricular con riesgo embólico intermedio; la anticoagulación puede considerarse según contexto clínico.";
+
+}
+
+else if (scenario === "valvular"){
+
+  summaryHTML =
+  "En presencia de prótesis valvular mecánica o fibrilación auricular asociada a estenosis mitral moderada-severa, la anticoagulación con antagonista de la vitamina K es obligatoria.";
+
+  if (r.noOAC_byHighBleed){
+    summaryHTML +=
+    " Aunque exista una contraindicación o riesgo hemorrágico elevado, el alto riesgo tromboembólico asociado a la patología valvular obliga a mantener anticoagulación.";
+  }
+
+  summaryHTML +=
+  " Los anticoagulantes orales directos no están indicados en este contexto clínico.";
+
+}
+
+else if (scenario === "clearOAC"){
+
+  summaryHTML =
+  "Paciente con fibrilación auricular con indicación clara de anticoagulación.";
+
+  const doacContra =
+    r.avoidedGlobal.includes("Apixabán") &&
+    r.avoidedGlobal.includes("Dabigatrán") &&
+    r.avoidedGlobal.includes("Edoxabán") &&
+    r.avoidedGlobal.includes("Rivaroxabán");
+
+  if (doacContra){
+    summaryHTML +=
+    " Los anticoagulantes orales directos no son apropiados en este contexto clínico.";
+  }
+  else{
+    summaryHTML +=
+    " Los anticoagulantes orales directos son, en conjunto, apropiados en este contexto clínico.";
+  }
+
+  summaryHTML +=
+  " La estrategia con mejor perfil eficacia/seguridad es " + bestName + ".";
+
+}
+
+/* frase estructural adicional */
+
+if (scenario === "valvular" && r.noOAC_byHighBleed){
+
+  summaryHTML +=
+  " En casos de estenosis mitral moderada-severa con riesgo hemorrágico elevado puede valorarse, a medio plazo, una estrategia estructural como el cierre de orejuela izquierda o la cirugía valvular con implantación de prótesis biológica (ver explicación ampliada en la herramienta).";
+
+}
+
+/* ===============================  
+    INTERPRETACIÓN CLÍNICA AUTOMÁTICA
+=============================== */
+
+let headlineHTML = "";
+
+if (r.special?.valvular){
+
+  headlineHTML = `
+    <div class="headlineBox headlineMandatory">
+      <div class="headlineTitle">Interpretación clínica automática</div>
+      <div class="headlineMain">Anticoagulación obligatoria con antagonista de la vitamina K</div>
+      <div class="headlineSub">Motivo: prótesis valvular mecánica o fibrilación auricular asociada a estenosis mitral moderada-severa.</div>
+    </div>
+  `;
+
+}
+else if (r.noOAC_byLowRisk){
+
+  headlineHTML = `
+    <div class="headlineBox headlineNoOAC">
+      <div class="headlineTitle">Interpretación clínica automática</div>
+      <div class="headlineMain">Anticoagulación no recomendada</div>
+      <div class="headlineSub">Motivo: bajo riesgo embólico.</div>
+    </div>
+  `;
+
+}
+else if (r.noOAC_byHighBleed){
+
+  headlineHTML = `
+    <div class="headlineBox headlineNoOAC">
+      <div class="headlineTitle">Interpretación clínica automática</div>
+      <div class="headlineMain">Anticoagulación no recomendada</div>
+      <div class="headlineSub">Motivo: riesgo hemorrágico inaceptable o contraindicación absoluta.</div>
+    </div>
+  `;
+
+}
+else if (r.considerOAC_byBorderline){
+
+  headlineHTML = `
+    <div class="headlineBox headlineBorderline">
+      <div class="headlineTitle">Interpretación clínica automática</div>
+      <div class="headlineMain">Anticoagulación a considerar</div>
+      <div class="headlineSub">Riesgo embólico intermedio; decisión individualizada según contexto clínico.</div>
+    </div>
+  `;
+
+}
+else{
+
+  headlineHTML = `
+    <div class="headlineBox headlinePreferred">
+      <div class="headlineTitle">Interpretación clínica automática</div>
+      <div class="headlineMain">Anticoagulación indicada</div>
+      <div class="headlineSub">Estrategia con mejor perfil: <b>${bestName}</b>.</div>
+    </div>
+  `;
+
+}
 
   /* ===============================  
       MOTIVO DE NO ANTICOAGULAR
@@ -2225,51 +2647,387 @@ function printReport(){
 <meta charset="utf-8">
 <title>Informe — Selección de anticoagulante oral</title>
 <style>
-  body{font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;margin:24px;color:#111;}
-  h1{font-size:1.3rem;}
-  h2{font-size:1.1rem;margin-top:20px;}
-  h3{font-size:1rem;margin-top:12px;}
-  table{border-collapse:collapse;font-size:0.92rem;}
-  td{padding:4px 8px;}
-  .card{background:#f8fbff;border:1px solid #e3eef9;border-radius:10px;padding:14px;margin-top:16px;}
-  .chip{display:inline-block;background:#eef6ff;border:1px solid #cfe3f6;border-radius:12px;padding:2px 8px;font-weight:700;}
+
+body{
+  font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;
+  margin:0;
+  padding:0;
+  color:#111;
+  max-width:780px;
+}
+
+
+h1{font-size:1.25rem;margin:0 0 8px 0;}
+h2{
+  font-size:1.05rem;
+  margin:8px 0 4px 0;
+}
+
+h3{
+  font-size:0.92rem;
+  margin:6px 0 2px 0;
+}
+
+.safe-top{
+  background:#0f3d83;
+  padding:8px 0;
+  margin-bottom:18px;
+}
+
+.safe-content{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 16px;
+  gap:16px;
+}
+
+.safe-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.safe-mini{
+  height:36px;
+}
+
+.safe-logo{
+  height:36px;
+}
+
+.safe-title{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:white;
+  font-weight:700;
+  font-size:0.9rem;
+  letter-spacing:0.02em;
+  gap:12px;
+}
+
+.safe-title::before,
+.safe-title::after{
+  content:"";
+  flex:1;
+  height:1px;
+  background:rgba(255,255,255,0.55);
+}
+
+.safe-date{
+  font-size:0.9rem;
+  color:white;
+  text-align:right;
+}
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  border-bottom:2px solid #0f3d83;
+  padding-bottom:8px;
+  margin-bottom:16px;
+}
+
+.appname{
+  font-size:1.25rem;
+  font-weight:700;
+  color:#0f3d83;
+}
+
+.apptag{
+  font-size:0.8rem;
+  color:#666;
+}
+
+.header-right{
+  text-align:right;
+  font-size:0.9rem;
+}
+
+.date{
+  color:#666;
+  font-size:0.8rem;
+}
+
+
+.signature{
+  margin-top:28px;
+  padding-top:12px;
+  border-top:1px solid #ddd;
+  font-size:0.8rem;
+  color:#666;
+}
+
+table{
+  border-collapse:collapse;
+  font-size:0.92rem;
+}
+
+td{
+  padding:3px 6px;
+}
+
+
+ul{
+  margin:4px 0;
+  padding-left:16px;
+}
+
+li{
+  margin:2px 0;
+  line-height:1.25;
+}
+
+.dataTable{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.dataTable td{
+  width:33%;
+  padding:3px 6px;
+  vertical-align:top;
+}
+
+.dataTable td{
+  padding-right:18px;
+}
+
+/* etiquetas (Edad, Sexo, etc) */
+
+.rowLabel td{
+  font-size:0.80rem;
+  color:#5b6b7f;
+  font-weight:600;
+  border-bottom:1px solid #e2e8f0;
+  padding-top:5px;
+}
+
+/* valores */
+
+.rowValue td{
+  font-size:0.90rem;
+  padding-bottom:5px;
+}
+
+/* centrar las escalas */
+
+.rowValue .chip{
+  display:inline-block;
+  text-align:center;
+}
+
+.rowValue td{
+  line-height:1.15;
+}
+
+.card{
+  background:#f8fbff;
+  border:1px solid #e3eef9;
+  border-radius:10px;
+  padding:10px 12px;
+  margin-top:1px;
+}
+
+.conclusion{
+  background:#f4f8ff;
+  border-left:5px solid #0f3d83;
+  padding-top:8px;
+  margin-top:0;
+     margin-bottom:6px;
+}
+
+.conclusion p{
+  font-size:0.96rem;
+  line-height:1.45;
+}
+
+.headlineBox{
+  margin:14px 0 14px 0;
+  padding:12px 14px;
+  border-radius:10px;
+  border:1px solid #dbe7f3;
+  background:#f8fbff;
+}
+
+.headlineTitle{
+  font-size:0.78rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:0.03em;
+  color:#5b6b7f;
+  margin-bottom:4px;
+}
+
+.headlineMain{
+  font-size:1.05rem;
+  font-weight:800;
+  color:#0f3d83;
+  margin-bottom:4px;
+}
+
+.headlineSub{
+  font-size:0.9rem;
+  color:#334155;
+  line-height:1.35;
+}
+
+.headlineMandatory{
+  background:#eef4ff;
+  border-left:5px solid #0f3d83;
+}
+
+.headlinePreferred{
+  background:#f3fbf6;
+  border-left:5px solid #2e7d32;
+}
+
+.headlineBorderline{
+  background:#fff8ec;
+  border-left:5px solid #d97706;
+}
+
+.headlineNoOAC{
+  background:#fff5f5;
+  border-left:5px solid #b71c1c;
+}
+
+.chip{
+  display:inline-block;
+  background:#eef6ff;
+  border:1px solid #cfe3f6;
+  border-radius:12px;
+  padding:2px 8px;
+  font-weight:700;
+}
+
+footer{
+  width:100%;
+  margin:0.2rem 0 0;
+  padding:0.2rem 0;
+  border-top:1px solid #e5e7eb;
+  background:white;
+  text-align:center;
+}
+footer img{max-width:250px;height:auto}
+@page{
+  size:A4;
+  margin:14mm;
+}
+
+
 </style>
 </head>
 <body>
+<div id="printRoot">
+<div class="safe-top">
+<div class="safe-content">
+  <div class="safe-left">
+    <img src="../iconos/utilidadesico.png" class="safe-mini">
+    <img src="../img/topbar.png" class="safe-logo">
+  </div>
 
-<h1>Informe — Selección de anticoagulante oral</h1>
-<div style="color:#666;margin-bottom:12px;">Generado: ${fecha}</div>
+  <div class="safe-title">
+    Selección de tratamiento <br>anticoagulante oral
+  </div>
 
-<div class="card">
-  <h2>Datos y puntuaciones</h2>
-  <table>
-    <tr><td><b>Edad</b></td><td>${fmt(r.inputs.age)} años</td></tr>
-    <tr><td><b>Sexo</b></td><td>${sexTxt}</td></tr>
-    <tr><td><b>Peso</b></td><td>${fmt(r.inputs.weight)} ${r.inputs.weightUnit}</td></tr>
-    <tr><td><b>SCr</b></td><td>${fmt(r.inputs.scr)} ${r.inputs.scrUnit}</td></tr>
-    <tr><td><b>SCr (mg/dL)</b></td><td>${fmt(r.renal.scr_mgdl)}</td></tr>
-    <tr><td><b>ClCr</b></td><td>${fmt(r.renal.crcl)} ml/min</td></tr>
-    <tr><td><b>CHA₂DS₂-VA</b></td><td class="chip">${r.scores.va}</td></tr>
-    <tr><td><b>CHA₂DS₂-VASc</b></td><td class="chip">${r.scores.vasc}</td></tr>
-    <tr><td><b>HAS-BLED</b></td><td class="chip">${r.scores.hasbled}</td></tr>
-    <tr><td><b>Riesgo ictus sin tto</b></td><td>${r.risks.strokeBase} %/año</td></tr>
-    <tr><td><b>Riesgo sangrado base</b></td><td>${r.risks.bleedBase} %/año</td></tr>
-  </table>
+  <div class="safe-date">
+    ${fecha}
+  </div>
+</div>
 </div>
 
+
+
 <div class="card">
-  <h2>Conclusión</h2>
+<h2>Datos y puntuaciones</h2>
+
+<div class="gridData">
+
+<table class="dataTable">
+
+<tr class="rowLabel">
+<td>Edad</td>
+<td>Sexo</td>
+<td>Peso</td>
+</tr>
+<tr class="rowValue">
+<td>${fmt(r.inputs.age)} años</td>
+<td>${sexTxt}</td>
+<td>${fmt(r.inputs.weight)} ${r.inputs.weightUnit}</td>
+</tr>
+
+<tr class="rowLabel">
+<td>Creatinina sérica</td>
+<td>Aclaramiento de creatinina</td>
+<td></td>
+</tr>
+<tr class="rowValue">
+<td>${fmt(r.inputs.scr)} ${r.inputs.scrUnit}</td>
+<td>${fmt(r.renal.crcl)} ml/min</td>
+<td></td>
+</tr>
+
+<tr class="rowLabel">
+<td>CHA₂DS₂-VA</td>
+<td>CHA₂DS₂-VASc</td>
+<td>HAS-BLED</td>
+</tr>
+<tr class="rowValue">
+<td><span class="chip">${r.scores.va}</span></td>
+<td><span class="chip">${r.scores.vasc}</span></td>
+<td><span class="chip">${r.scores.hasbled}</span></td>
+</tr>
+
+<tr class="rowLabel">
+<td>Riesgo ictus sin tratamiento</td>
+<td>Riesgo sangrado base</td>
+<td></td>
+</tr>
+<tr class="rowValue">
+<td>${r.risks.strokeBase} %/año</td>
+<td>${r.risks.bleedBase} %/año</td>
+<td></td>
+</tr>
+
+</table>
+</div></div>
+${headlineHTML}
+<div class="card conclusion">  
+<h2>Conclusión</h2>
+
+  
+
+  <p style="margin-bottom:10px">
+  ${summaryHTML}
+  </p>
+
   ${recHTML}
   ${doseHTML}
-  <p style="margin-top:20px;font-size:.85rem;color:#666;">
+  
+<p style="margin-top:20px;font-size:.85rem;color:#666;">
     Documento generado automáticamente. Interpretar junto con el juicio clínico y las guías locales.
   </p>
 </div>
-
+<footer> <img src="../img/uibanner.png" alt="Ictus GPS"> </footer>
+</div>
 <script>
-window.addEventListener('load',()=>{setTimeout(()=>{window.print();},150);});
-<\/script>
 
+
+window.addEventListener('load',()=>{
+
+
+  setTimeout(()=>{
+    window.print();
+  },200);
+
+});
+
+<\/script>
 </body>
 </html>
 `;
@@ -2291,6 +3049,7 @@ window.addEventListener('load',()=>{setTimeout(()=>{window.print();},150);});
    INFORME EN TEXTO (copiar)
 ========================================================= */
 function copyReport(){
+
   if(!__lastReport){
     showToast('Primero calcule los resultados para generar el informe.','warn');
     return;
@@ -2299,109 +3058,240 @@ function copyReport(){
   const r = __lastReport;
   const bestName = r.bestName || "";
 
-  const clean = s => String(s)
-    .replace(/•/g,'*')
-    .replace(/[—–]/g,'-')
-    .replace(/≥/g,'>=')
-    .replace(/≤/g,'<=');
+const clean = s => String(s)
+  .replace(/•/g,'*')
+  .replace(/[—–]/g,'-')
+  .replace(/≥/g,'>=')
+  .replace(/≤/g,'<=')
+  .replace(/→/g,'->')
+  .replace(/₂/g,'2')
+  .replace(/⭐/g,'')
+  .replace(/\s+/g,' ')
+  .trim();
 
-  const sexTxt = 
+  const sexTxt =
     r.inputs.sex === 'M'
       ? 'Varón'
       : (r.inputs.sex === 'F' ? 'Mujer' : '-');
 
   const fecha = new Date(r.ts).toLocaleString('es-ES');
 
-  const lines = [];
-  lines.push('INFORME — Selección de anticoagulante oral');
-  lines.push('Generado: ' + fecha);
-  lines.push('');
+  const fmt = v => (v===null||v===undefined||!isFinite(v) ? "-" : v);
 
-  /* === DATOS === */
-  lines.push('DATOS Y PUNTUACIONES');
-  lines.push('* Edad: ' + (r.inputs.age ?? '-') + ' años');
-  lines.push('* Sexo: ' + sexTxt);
-  lines.push('* Peso: ' + (r.inputs.weight != null ? r.inputs.weight + ' ' + r.inputs.weightUnit : '-'));
-  lines.push('* SCr: ' + (r.inputs.scr != null ? r.inputs.scr + ' ' + r.inputs.scrUnit : '-') +
-             ' | ClCr: ' + (r.renal.crcl ?? '-') + ' ml/min');
+  /* ===============================
+     ESCENARIO CLINICO
+  =============================== */
 
-  lines.push('* CHA2DS2-VA: ' + r.scores.va +
-             ' | CHA2DS2-VASc: ' + r.scores.vasc +
-             ' | HAS-BLED: ' + r.scores.hasbled);
+  let scenario = "";
 
-  lines.push('* Riesgo ictus sin tto: ' + r.risks.strokeBase + '%/año' +
-             ' | Riesgo sangrado base: ' + r.risks.bleedBase + '%/año');
+  if (r.special?.valvular){
+    scenario = "valvular";
+  }
+  else if (r.noOAC_byLowRisk){
+    scenario = "lowRisk";
+  }
+  else if (r.noOAC_byHighBleed){
+    scenario = "highBleed";
+  }
+  else if (r.considerOAC_byBorderline){
+    scenario = "borderline";
+  }
+  else{
+    scenario = "clearOAC";
+  }
 
-  lines.push('');
+  /* ===============================
+     RESUMEN CLINICO
+  =============================== */
 
-  /* === CONCLUSIÓN === */
-  lines.push('CONCLUSIÓN');
+  let summary = "";
 
-  if(r.noOAC){
-    lines.push('NO SE RECOMIENDA TRATAMIENTO ANTICOAGULANTE');
+  if (scenario === "lowRisk"){
 
-    if(!r.noOAC_byLowRisk && r.noOAC_byHighBleed && !r.special.valvular){
-      lines.push('Considerar cierre percutáneo de orejuela.');
+    summary =
+    "Paciente con fibrilación auricular y riesgo embólico bajo; no se recomienda anticoagulación.";
+
+  }
+
+  else if (scenario === "highBleed"){
+
+    summary =
+    "Paciente con fibrilación auricular con riesgo hemorrágico inaceptable o contraindicación absoluta para anticoagulación.";
+
+  }
+
+  else if (scenario === "borderline"){
+
+    summary =
+    "Paciente con fibrilación auricular con riesgo embólico intermedio; la anticoagulación puede considerarse según contexto clínico.";
+
+  }
+
+  else if (scenario === "valvular"){
+
+    summary =
+    "En presencia de prótesis valvular mecánica o fibrilación auricular asociada a estenosis mitral moderada-severa, la anticoagulación con antagonista de la vitamina K es obligatoria.";
+
+    if (r.noOAC_byHighBleed){
+      summary +=
+      " Aunque exista una contraindicación o riesgo hemorrágico elevado, el alto riesgo tromboembólico asociado a la patología valvular obliga a mantener anticoagulación.";
     }
 
-  } else {
+    summary +=
+    " Los anticoagulantes orales directos no están indicados en este contexto clínico.";
+
+  }
+
+  else if (scenario === "clearOAC"){
+
+    summary =
+    "Paciente con fibrilación auricular con indicación clara de anticoagulación.";
+
+    const doacContra =
+      r.avoidedGlobal.includes("Apixaban") &&
+      r.avoidedGlobal.includes("Dabigatran") &&
+      r.avoidedGlobal.includes("Edoxaban") &&
+      r.avoidedGlobal.includes("Rivaroxaban");
+
+    if (doacContra){
+      summary +=
+      " Los anticoagulantes orales directos no son apropiados en este contexto clínico.";
+    }
+    else{
+      summary +=
+      " Los anticoagulantes orales directos son apropiados en este contexto clínico.";
+    }
+
+    summary +=
+    " La estrategia con mejor perfil eficacia/seguridad es " + bestName + ".";
+  }
+
+  if (scenario === "valvular" && r.noOAC_byHighBleed){
+
+    summary +=
+    " En casos de estenosis mitral moderada-severa con riesgo hemorrágico elevado puede valorarse, a medio plazo, una estrategia estructural como el cierre de orejuela o la cirugía valvular con implantación de prótesis biológica.";
+  }
+
+  /* ===============================
+     CONSTRUIR TEXTO
+  =============================== */
+
+  const lines = [];
+
+  lines.push("INFORME - Selección de tratamiento anticoagulante oral");
+  lines.push("Generado: " + fecha);
+  lines.push("");
+
+  lines.push("DATOS Y ESCALAS");
+
+  lines.push("* Edad: " + fmt(r.inputs.age) + " años");
+  lines.push("* Sexo: " + sexTxt);
+  lines.push("* Peso: " + (r.inputs.weight != null ? r.inputs.weight + " " + r.inputs.weightUnit : "-"));
+
+  lines.push("* Creatinina sérica: " +
+    (r.inputs.scr != null ? r.inputs.scr + " " + r.inputs.scrUnit : "-") +
+    " | Aclaramiento de creatinina: " + fmt(r.renal.crcl) + " ml/min");
+
+  lines.push("* CHA2DS2-VA: " + r.scores.va +
+             " | CHA2DS2-VASc: " + r.scores.vasc +
+             " | HAS-BLED: " + r.scores.hasbled);
+
+  lines.push("* Riesgo de ictus sin tratamiento: " +
+             r.risks.strokeBase + "%/año" +
+             " | Riesgo de sangrado base: " +
+             r.risks.bleedBase + "%/año");
+
+  lines.push("");
+
+  lines.push("INTERPRETACIÓN CLÍNICA");
+  lines.push(clean(summary));
+
+  lines.push("");
+
+  if(r.noOAC){
+
+    lines.push("NO SE RECOMIENDA TRATAMIENTO ANTICOAGULANTE");
+
+    if(r.noOAC_byHighBleed && !r.special?.valvular){
+      lines.push("Considerar cierre percutáneo de orejuela.");
+    }
+
+  }
+  else{
+
     if(r.notes.length){
-      lines.push('Recomendaciones individualizadas:');
-      r.notes.forEach(n => lines.push('* ' + clean(n)));
+      lines.push("");
+      lines.push("Recomendaciones individualizadas:");
+      r.notes.forEach(n => lines.push("* " + clean(n)));
     }
 
     if(r.preferredGlobal.length){
-      lines.push('Estrategias preferibles: ' + r.preferredGlobal.join(', '));
+      lines.push("");
+      lines.push("Estrategias preferibles: " + r.preferredGlobal.join(", "));
     }
 
     if(r.avoidedGlobal.length){
-      lines.push('Estrategias a evitar: ' + r.avoidedGlobal.join(', '));
+      lines.push("");
+      lines.push("Estrategias a evitar: " + r.avoidedGlobal.join(", "));
     }
-lines.push('');
-lines.push('Resumen clínico:');
-lines.push('Estrategia con mejor perfil: ' + bestName + '.');
 
-
-    /* Posología */
     if(r.doses && r.doses.length){
-      lines.push('');
-      lines.push('Posología sugerida:');
-      r.doses.forEach(d=>{
-        const star = d.name === bestName ? "⭐ " : "";
 
-lines.push('* ' + star + d.name + ': ' + d.dose +
-           (d.highlight ? ' [Dosis reducida]' : '') +
-           ' — ' + clean(d.why));
+      lines.push("");
+      lines.push("Posología sugerida:");
+
+      r.doses.forEach(d=>{
+
+        const star = d.name === bestName ? "* " : "";
+
+        lines.push(star + d.name + ": " +
+          clean(d.dose) +
+          (d.highlight ? " [Dosis reducida]" : "") +
+          " - " + clean(d.why));
       });
+
     }
+
   }
 
-  const finalText = lines.join('\n');
+  lines.push("");
+  lines.push("Documento generado automáticamente. Interpretar junto con el juicio clínico y las guías vigentes.");
 
-  /* === Copiar al portapapeles === */
+  const finalText = lines.join("\n");
+
+  /* ===============================
+     COPIAR AL PORTAPAPELES
+  =============================== */
+
   navigator.clipboard.writeText(finalText).then(()=>{
+
     const btn = document.getElementById('btnCopy');
     const old = btn.textContent;
     btn.textContent = 'Copiado';
+
     setTimeout(()=>{ btn.textContent = old; }, 1600);
-  })
-  .catch(()=>{
-    /* Fallback clásico */
+
+  }).catch(()=>{
+
     const ta = document.createElement('textarea');
     ta.value = finalText;
     ta.style.position = 'fixed';
     ta.style.left = '-1000px';
     document.body.appendChild(ta);
     ta.select();
-    try{ document.execCommand('copy'); } finally { document.body.removeChild(ta); }
+
+    try{ document.execCommand('copy'); }
+    finally{ document.body.removeChild(ta); }
 
     const btn = document.getElementById('btnCopy');
     const old = btn.textContent;
     btn.textContent = 'Copiado';
-    setTimeout(()=>{ btn.textContent = old; }, 1600);
-  });
-}
 
+    setTimeout(()=>{ btn.textContent = old; }, 1600);
+
+  });
+
+}
 
     /* ===== Eventos ===== */
     ['age','sex','weight','weightUnit','scr','scrUnit'].forEach(id=>{
@@ -2583,13 +3473,159 @@ document.addEventListener('DOMContentLoaded', () => {
       <!-- Referencias / Bibliografía -->
       <div class="howto">
 <details style="margin-top:14px;">
+  <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">🩸 Hemorragia digestiva severa y lesiones de alto riesgo hemorrágico</summary>
+
+  <!-- ========================= -->
+  <!-- TARJETA 1 -->
+  <!-- ========================= -->
+
+  <div style="margin-top:14px; background:#ffffff; border:1px solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.05); overflow:hidden; font-size:13px; line-height:1.55; color:#1e293b;">
+
+    <div style="background:#0f3d83; color:#ffffff; padding:10px 14px; font-size:14px; font-weight:700; letter-spacing:0.3px;">
+      ⏱️ Hemorragia digestiva severa reciente
+    </div>
+
+    <div style="padding:16px 18px;">
+
+      <p style="margin:0 0 10px 0;">
+        Un episodio reciente de <b>hemorragia digestiva mayor</b> puede
+        constituir una <b>contraindicación temporal</b> para iniciar o
+        mantener tratamiento anticoagulante. Durante la fase inicial
+        tras el sangrado suele priorizarse el control del evento
+        hemorrágico y la estabilización clínica.
+      </p>
+
+      <p style="font-size:12px;">
+        Sin embargo, en muchos casos esta contraindicación es
+        <b>transitoria</b>. Una vez tratada la causa del sangrado
+        (por ejemplo úlcera péptica, lesión vascular o lesión
+        endoscópicamente tratada), la anticoagulación puede
+        reconsiderarse.
+      </p>
+
+      <p style="font-size:12px;">
+        Diversos estudios han demostrado que en pacientes con
+        fibrilación auricular, <b>no reiniciar la anticoagulación
+        tras una hemorragia digestiva se asocia a mayor mortalidad
+        y mayor riesgo de ictus</b> que reintroducirla una vez
+        superada la fase más crítica.
+      </p>
+
+      <p style="font-size:12px;">
+        Por este motivo, en pacientes con alto riesgo tromboembólico
+        suele considerarse la <b>reintroducción relativamente precoz
+        de la anticoagulación</b>, tras una valoración individualizada
+        del riesgo de resangrado.
+      </p>
+
+    </div>
+  </div>
+
+
+  <!-- ========================= -->
+  <!-- TARJETA 2 -->
+  <!-- ========================= -->
+
+  <div style="margin-top:14px; background:#ffffff; border:1px solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.05); overflow:hidden; font-size:13px; line-height:1.55; color:#1e293b;">
+
+    <div style="background:#0f3d83; color:#ffffff; padding:10px 14px; font-size:14px; font-weight:700; letter-spacing:0.3px;">
+      ⚠️ Lesiones digestivas con alto riesgo de resangrado
+    </div>
+
+    <div style="padding:16px 18px;">
+
+      <p style="margin:0 0 10px 0;">
+        Algunas condiciones digestivas pueden comportar un
+        <b>riesgo persistente de sangrado</b>, lo que puede
+        convertir la anticoagulación en una estrategia
+        potencialmente peligrosa.
+      </p>
+
+      <p style="font-size:12px;">
+        Entre las situaciones que pueden justificar evitar o
+        reconsiderar la anticoagulación se incluyen:
+      </p>
+
+      <ul style="font-size:12px; padding-left:20px; line-height:1.45;">
+        <li><b>Neoplasia digestiva activa con sangrado</b></li>
+        <li><b>Angiodisplasias múltiples con sangrado recurrente</b></li>
+        <li><b>Lesiones vasculares no tratables</b></li>
+        <li><b>Diátesis hemorrágicas graves</b></li>
+      </ul>
+
+      <p style="font-size:12px;">
+        En estos contextos la contraindicación para anticoagulación
+        puede ser <b>persistente o definitiva</b>, y en algunos casos
+        puede ser razonable valorar <b>estrategias alternativas de
+        prevención cardioembólica</b> como el cierre percutáneo de la
+        orejuela izquierda.
+      </p>
+
+    </div>
+  </div>
+
+
+  <!-- ========================= -->
+  <!-- TARJETA 3 -->
+  <!-- ========================= -->
+
+  <div style="margin-top:14px; background:#ffffff; border:1px solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.05); overflow:hidden; font-size:13px; line-height:1.55; color:#1e293b;">
+
+    <div style="background:#0f3d83; color:#ffffff; padding:10px 14px; font-size:14px; font-weight:700; letter-spacing:0.3px;">
+      💊 Consideraciones sobre los distintos anticoagulantes
+    </div>
+
+    <div style="padding:16px 18px;">
+
+      <p style="margin:0 0 10px 0;">
+        El riesgo de hemorragia digestiva no es idéntico entre
+        los distintos anticoagulantes orales.
+      </p>
+
+      <ul style="font-size:12px; padding-left:20px; line-height:1.45;">
+        <li><b>Apixabán</b> ha mostrado en varios estudios un
+        perfil de seguridad gastrointestinal más favorable
+        que otros anticoagulantes orales directos.</li>
+        <li><b>Dabigatrán</b> y <b>rivaroxabán</b> pueden
+        asociarse a mayor incidencia de hemorragia digestiva
+        en algunos contextos clínicos.</li>
+        <li><b>Antagonistas de la vitamina K</b> presentan
+        riesgo hemorrágico variable y requieren monitorización
+        mediante INR.</li>
+      </ul>
+
+      <p style="font-size:12px;">
+        Cuando existe antecedente de hemorragia digestiva,
+        puede ser razonable considerar fármacos con
+        <b>mejor perfil gastrointestinal</b> o utilizar
+        estrategias de protección digestiva cuando estén
+        indicadas.
+      </p>
+
+    </div>
+  </div>
+
+
+  <div style="margin-top:16px; padding:10px; background:#FFFFDB; border:1px solid #d1d5db; border-radius:8px; font-size:13px; color:black;">
+    <div style="font-weight:700; color:#764E12; margin-bottom:6px;">📌 Idea clave</div>
+    La hemorragia digestiva reciente suele representar una
+    <b>contraindicación temporal</b> para anticoagulación, que
+    debe reevaluarse una vez tratada la causa del sangrado.
+    En cambio, las lesiones digestivas con alto riesgo de
+    resangrado o las diátesis hemorrágicas graves pueden
+    constituir una <b>contraindicación persistente</b> para
+    el tratamiento anticoagulante.
+  </div>
+
+</details>
+<details style="margin-top:14px;">
   <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">🧬 Interacciones farmacológicas</summary>
 
   <div style="margin-top:14px; background:#ffffff; border:1px solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.05); overflow:hidden; font-size:13px; line-height:1.55; color:#1e293b;">
 
     <!-- CABECERA -->
     <div style="background:#0f3d83; color:#ffffff; padding:10px 14px; font-size:14px; font-weight:700; letter-spacing:0.3px;">
-      🔬 Interacciones farmacológicas relevantes
+      ⚔️ Interacciones con los ACOD
     </div>
 
     <div style="padding:16px 18px;">
@@ -2674,18 +3710,22 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-- VKA -->
 <!-- ========================= -->
 
-<div style="margin-top:16px; padding:12px; background:#f0f7ff; border:1px solid #b7d4f5; border-radius:8px;">
-  <div style="font-weight:700; color:#0f3d83; margin-bottom:6px;">
-    ⚖️ ¿Qué ocurre con los antagonistas de vitamina K?
+<div style="margin-top:14px; background:#ffffff; border:1px solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.05); overflow:hidden; font-size:13px; line-height:1.55; color:#1e293b;">
+
+    <!-- CABECERA -->
+    <div style="background:#0f3d83; color:#ffffff; padding:10px 14px; font-size:14px; font-weight:700; letter-spacing:0.3px;">
+    ⚖️ Interacciones con los antagonistas de vitamina K
   </div>
 
-  <p style="margin:0; font-size:13px; line-height:1.45; color:#1e293b;">
+    <div style="padding:16px 18px;">
+
+      <p style="margin:0 0 12px 0;">
     Los antagonistas de vitamina K (<b>warfarina</b> y <b>acenocumarol</b>)
     también presentan múltiples interacciones farmacológicas,
     principalmente a través del metabolismo hepático (<b>CYP2C9</b>).
   </p>
 
-  <ul style="margin:8px 0 0 16px; padding:0; font-size:12px; line-height:1.45; color:#1e293b;">
+  <ul style="margin:8px 0 0 16px; padding:0; font-size:14px; line-height:1.45; color:#1e293b;">
     <li><b>Inhibidores metabólicos</b> (ej. amiodarona, azoles, macrólidos) → ↑ INR → mayor riesgo hemorrágico.</li>
     <li><b>Inductores enzimáticos</b> (rifampicina, antiepilépticos) → ↓ INR → riesgo trombótico.</li>
   </ul>
@@ -2700,6 +3740,7 @@ document.addEventListener('DOMContentLoaded', () => {
     con ACOD, la alternativa habitual es utilizar <b>VKA con control
     estrecho del INR</b>.
   </p>
+</div>
 </div>
 
 
@@ -2718,7 +3759,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <div style="margin-top:14px;background:#ffffff;border:1px solid #d0d7e1;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,0.05);overflow:hidden;font-size:13px;line-height:1.55;color:#1e293b;">
 
 <div style="background:#0f3d83;color:#ffffff;padding:10px 14px;font-size:14px;font-weight:700;letter-spacing:0.3px;">
-🧑 Casos complejos reales: cómo decidir rápido ante interacciones difíciles
+🧩 Cómo decidir rápido ante interacciones difíciles
 </div>
 
 <div style="padding:16px 18px;">
@@ -2929,6 +3970,273 @@ Tratamiento concomitante con <b>amiodarona</b> y <b>verapamilo</b>.
             </div>
           </div>
         </details>
+<details style="margin-top:14px;">
+  <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">🥇 Elección de la mejor estrategia terapéutica</summary>
+
+  <div style="margin-top:14px; background:#ffffff; border:1px solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.05); overflow:hidden; font-size:13px; line-height:1.55; color:#1e293b;">
+
+    <!-- CABECERA -->
+    <div style="background:#0f3d83; color:#ffffff; padding:10px 14px; font-size:14px; font-weight:700; letter-spacing:0.3px;">
+      📈 Ictus equivalentes evitados (IE)
+    </div>
+
+    <div style="padding:16px 18px;">
+
+      <p style="margin:0 0 12px 0;">
+        La columna <b>IE</b> representa los <b>ictus equivalentes evitados por año</b>
+        con cada estrategia terapéutica en el perfil clínico concreto del paciente.
+        Este valor integra simultáneamente el <b>beneficio antitrombótico</b> y el
+        <b>riesgo hemorrágico</b>, permitiendo estimar el <b>beneficio clínico neto</b>
+        del tratamiento.
+      </p>
+
+      <p style="font-size:12px;">
+        En otras palabras, el algoritmo calcula cuántos ictus se previenen con el
+        tratamiento y descuenta el impacto clínico de las hemorragias mayores,
+        transformándolas en su <b>equivalente en riesgo de ictus</b>.
+      </p>
+
+      <ul style="font-size:12px; padding-left:20px; line-height:1.45;">
+        <li><b>IE positivo</b> → beneficio neto del tratamiento.</li>
+        <li><b>IE cercano a 0</b> → beneficio clínico marginal.</li>
+        <li><b>IE negativo</b> → el riesgo hemorrágico puede superar el beneficio preventivo.</li>
+      </ul>
+
+
+      <!-- ========================= -->
+      <!-- ORDEN DE LA TABLA -->
+      <!-- ========================= -->
+
+      <h4 style="margin:16px 0 6px 0;color:#0f3d83;">📑 Cómo se ordenan los tratamientos</h4>
+
+      <p style="margin:0 0 8px 0;">
+        La tabla <b>no se ordena únicamente por el valor de IE</b>. Antes de comparar
+        el beneficio clínico neto, el algoritmo valora la <b>adecuación clínica</b>
+        de cada fármaco para el paciente concreto.
+      </p>
+
+      <p style="font-size:12px;">
+        Esto significa que los tratamientos que deben <b>evitarse</b> por
+        <b>contraindicación</b>, <b>interacción farmacológica relevante</b>,
+        <b>situación clínica desfavorable</b> o cualquier otra razón de
+        <b>inadecuación</b>, no tienen prioridad aunque su IE teórico pudiera ser alto.
+      </p>
+
+      <p style="font-size:12px;">
+        Por tanto, el proceso sigue esta lógica:
+      </p>
+
+      <ul style="font-size:12px; padding-left:20px; line-height:1.45;">
+        <li>primero se valora si cada opción es <b>adecuada, usable con precaución o a evitar</b>,</li>
+        <li>después, <b>dentro de las opciones clínicamente aceptables</b>, se ordenan
+        de <b>mayor a menor IE</b>.</li>
+      </ul>
+
+      <p style="font-size:12px;">
+        De esta forma, el tratamiento situado en la primera posición no es el de
+        mayor IE “en abstracto”, sino el que combina <b>mejor adecuación clínica</b>
+        con el <b>mayor beneficio clínico neto entre las opciones realmente utilizables</b>.
+      </p>
+
+
+      <!-- ========================= -->
+      <!-- NNT vs BENEFICIO NETO -->
+      <!-- ========================= -->
+
+      <h4 style="margin:16px 0 6px 0;color:#0f3d83;">⚖️ IE frente a NNT y NNH</h4>
+
+      <p style="margin:0 0 8px 0;">
+        Tradicionalmente la eficacia terapéutica se describe mediante el
+        <b>NNT</b> (número necesario a tratar) y el <b>NNH</b>
+        (número necesario para producir daño). Sin embargo, estos indicadores
+        presentan una limitación importante: <b>analizan beneficio y riesgo
+        por separado</b>.
+      </p>
+
+      <p style="font-size:12px;">
+        En la práctica clínica, la decisión terapéutica depende del
+        <b>balance entre ambos</b>. La métrica de <b>ictus equivalentes evitados</b>
+        integra simultáneamente:
+      </p>
+
+      <ul style="font-size:12px; padding-left:20px; line-height:1.45;">
+        <li>la <b>reducción del riesgo de ictus</b> atribuible al tratamiento,</li>
+        <li>el <b>incremento del riesgo hemorrágico</b>,</li>
+        <li>y el <b>peso clínico relativo</b> de cada evento.</li>
+      </ul>
+
+      <p style="font-size:12px;">
+        Por este motivo, los <b>IE permiten comparar estrategias terapéuticas
+        de forma más realista</b>, ya que reflejan el <b>beneficio clínico neto
+        esperado en el paciente concreto</b> y ayudan a priorizar entre las
+        <b>opciones clínicamente válidas</b>.
+      </p>
+
+    </div>
+  </div>
+
+  <div style="margin-top:16px; padding:10px; background:#FFFFDB; border:1px solid #d1d5db; border-radius:8px; font-size:13px; color:black;">
+    <div style="font-weight:700; color:#764E12; margin-bottom:6px;">📌 Interpretación práctica</div>
+    • Un valor alto de <b>IE</b> indica mayor beneficio clínico neto esperado.<br>
+    • Pero la <b>prioridad final</b> depende primero de la <b>adecuación clínica</b> del tratamiento.<br>
+    • La tabla ordena por <b>IE</b> solo entre las opciones que son <b>realmente utilizables</b> en ese paciente.
+  </div>
+
+</details>
+<details style="margin-top:14px;">
+  <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">⚠️ Anticoagulación obligatoria pese a contraindicación</summary>
+
+
+  <!-- ========================= -->
+  <!-- TARJETA 1 -->
+  <!-- ========================= -->
+
+  <div style="margin-top:14px; background:#ffffff; border:1px solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.05); overflow:hidden; font-size:13px; line-height:1.55; color:#1e293b;">
+
+    <div style="background:#0f3d83; color:#ffffff; padding:10px 14px; font-size:14px; font-weight:700; letter-spacing:0.3px;">
+      ⚖️ Situaciones con indicación obligatoria de anticoagulación
+    </div>
+
+    <div style="padding:16px 18px;">
+
+      <p style="margin:0 0 10px 0;">
+        En algunos pacientes el algoritmo puede identificar una
+        <b>contraindicación clínica relevante para la anticoagulación</b>
+        (por ejemplo, riesgo hemorrágico extremo o hemorragia reciente).
+        Sin embargo, existen situaciones en las que el
+        <b>riesgo tromboembólico es tan elevado</b> que la anticoagulación
+        sigue siendo <b>imprescindible</b>.
+      </p>
+
+      <p style="font-size:12px;">
+        Las dos circunstancias clínicas más importantes son:
+      </p>
+
+      <ul style="font-size:12px; padding-left:20px; line-height:1.45;">
+        <li><b>Prótesis valvulares mecánicas</b></li>
+        <li><b>Fibrilación auricular asociada a estenosis mitral moderada o severa</b></li>
+      </ul>
+
+      <p style="font-size:12px;">
+        En ambos casos el tratamiento anticoagulante estándar es un
+        <b>antagonista de la vitamina K (VKA)</b>, ya que los
+        anticoagulantes orales directos no están indicados en estas
+        situaciones.
+      </p>
+
+    </div>
+  </div>
+
+
+  <!-- ========================= -->
+  <!-- TARJETA 2 -->
+  <!-- ========================= -->
+
+  <div style="margin-top:14px; background:#ffffff; border:1px solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.05); overflow:hidden; font-size:13px; line-height:1.55; color:#1e293b;">
+
+    <div style="background:#0f3d83; color:#ffffff; padding:10px 14px; font-size:14px; font-weight:700; letter-spacing:0.3px;">
+      ⏸️ Suspensión temporal en situaciones hemorrágicas
+    </div>
+
+    <div style="padding:16px 18px;">
+
+      <p style="margin:0 0 8px 0;">
+        En determinadas circunstancias, como una
+        <b>hemorragia intracraneal reciente</b> u otro evento hemorrágico
+        grave, puede ser necesario suspender la anticoagulación de forma
+        <b>temporal</b>, incluso en pacientes con prótesis valvulares
+        mecánicas o con fibrilación auricular valvular.
+      </p>
+
+      <p style="font-size:12px;">
+        Durante este periodo se prioriza el control del evento
+        hemorrágico. No obstante, debido al alto riesgo tromboembólico,
+        la anticoagulación debe <b>reiniciarse tan pronto como la
+        situación clínica lo permita</b>.
+      </p>
+
+      <p style="font-size:12px;">
+        El momento óptimo de reinicio depende del tipo de hemorragia,
+        del riesgo trombótico individual y de la evolución clínica,
+        por lo que suele requerir <b>valoración multidisciplinar</b>.
+      </p>
+
+    </div>
+  </div>
+
+
+  <!-- ========================= -->
+  <!-- TARJETA 3 -->
+  <!-- ========================= -->
+
+  <div style="margin-top:14px; background:#ffffff; border:1px solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.05); overflow:hidden; font-size:13px; line-height:1.55; color:#1e293b;">
+
+    <div style="background:#0f3d83; color:#ffffff; padding:10px 14px; font-size:14px; font-weight:700; letter-spacing:0.3px;">
+      🔧 Opciones estructurales en fibrilación auricular con estenosis mitral
+    </div>
+
+    <div style="padding:16px 18px;">
+
+      <p style="margin:0 0 8px 0;">
+        En pacientes con <b>fibrilación auricular asociada a estenosis
+        mitral moderada o severa</b>, la anticoagulación con
+        <b>VKA</b> constituye el tratamiento estándar para prevenir
+        eventos tromboembólicos.
+      </p>
+
+      <p style="font-size:12px;">
+        Sin embargo, cuando existe una <b>contraindicación clínica
+        relevante para la anticoagulación crónica</b>, puede ser
+        razonable valorar estrategias estructurales que permitan
+        reducir el riesgo embólico y, potencialmente, evitar la
+        anticoagulación a largo plazo.
+      </p>
+
+      <p style="font-size:12px;">
+        Entre las opciones que pueden considerarse en determinados
+        pacientes se incluyen:
+      </p>
+
+      <ul style="font-size:12px; padding-left:20px; line-height:1.45;">
+        <li><b>Cierre percutáneo de la orejuela</b>, procedimiento menos invasivo que puede valorarse cuando la anticoagulación está contraindicada.</li>
+        <li><b>Cirugía valvular mitral</b> con sustitución por una <b>prótesis biológica</b>, en pacientes seleccionados en los que esté indicada una intervención valvular.</li>
+      </ul>
+
+      <p style="font-size:12px;">
+        El cierre de la orejuela puede resultar una opción atractiva
+        por ser un procedimiento <b>menos invasivo</b> que la cirugía
+        valvular. No obstante, la evidencia disponible es
+        <b>más limitada en presencia de enfermedad valvular mitral
+        significativa</b> que en la fibrilación auricular no valvular.
+      </p>
+
+      <p style="font-size:12px;">
+        Por este motivo, la indicación debe evaluarse de forma
+        <b>individualizada</b> por equipos multidisciplinares,
+        considerando el riesgo trombótico, el riesgo hemorrágico
+        y las características anatómicas del paciente.
+      </p>
+
+    </div>
+  </div>
+
+
+  <!-- ========================= -->
+  <!-- IDEA CLAVE -->
+  <!-- ========================= -->
+
+  <div style="margin-top:16px; padding:10px; background:#FFFFDB; border:1px solid #d1d5db; border-radius:8px; font-size:13px; color:black;">
+    <div style="font-weight:700; color:#764E12; margin-bottom:6px;">📌 Idea clave</div>
+    En presencia de <b>prótesis valvular mecánica</b> o
+    <b>fibrilación auricular con estenosis mitral moderada-severa</b>,
+    la anticoagulación con <b>VKA</b> suele ser imprescindible.
+    Si existe contraindicación hemorrágica relevante, pueden
+    considerarse <b>estrategias estructurales</b> en pacientes
+    seleccionados, especialmente en el contexto de enfermedad
+    valvular mitral.
+  </div>
+
+</details>
         <details style="margin-top:14px;">
           <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📒
 
@@ -2985,7 +4293,7 @@ Tratamiento concomitante con <b>amiodarona</b> y <b>verapamilo</b>.
                 <li><b>HIC</b>: Hemorragia intracraneal.</li>
                 <li><b>HTA</b> / <b>HTN</b>: Hipertensión arterial.</li>
                 <li><b>IAM</b>: Infarto agudo de miocardio.</li>
-                <li><b>IMC</b>: Índice de masa corporal.</li>
+                <li><b>IE</b>: Ictus equivalentes evitados.</li>
                 <li><b>NNH</b>: Número necesario para dañar.</li>
                 <li><b>NNT</b>: Número necesario para tratar.</li>
                 <li><b>NOAC</b>: Non–vitamin K Oral Anticoagulants.</li>
@@ -3200,6 +4508,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnPrint = document.getElementById("btnPrint");
     if (btnPrint) btnPrint.style.display = "none";
   }
+});
+
+history.scrollRestoration = "manual";
+
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    window.scrollTo(0,0);
+  }, 0);
 });
 </script>
     <footer> <img src="../img/uibanner.png" alt="Ictus GPS"> </footer>
