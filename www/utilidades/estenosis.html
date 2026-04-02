@@ -249,6 +249,61 @@ select{
   gap:10px;
 }
 
+.details-block{
+  margin-top:6px;
+}
+
+.details-summary{
+  cursor:pointer;
+  font-weight:700;
+  color:#0f3d83;
+}
+
+.details-card{
+  margin-top:14px;
+  background:#ffffff;
+  border:1px solid #d0d7e1;
+  border-radius:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
+  overflow:hidden;
+  font-size:13px;
+  line-height:1.55;
+  color:#1e293b;
+}
+
+.details-card-header{
+  background:#0f3d83;
+  color:#ffffff;
+  padding:10px 14px;
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:0.3px;
+}
+
+.details-card-body{
+  padding:16px 18px;
+}
+
+.details-divider{
+  border:none;
+  border-top:1px solid #e5e7eb;
+  margin:14px 0;
+}
+
+.details-list-compact{
+  padding-left:20px;
+  font-size:10px;
+  line-height:1.45;
+}
+
+.details-list-compact.glossary-list{
+  margin:8px;
+}
+
+.details-list-compact.biblio-list{
+  margin:1px;
+}
+
 @media(min-width:860px){
   .grid.cols-2{grid-template-columns:1fr 1fr;}
 }
@@ -718,18 +773,11 @@ footer img{max-width:320px;height:auto;opacity:.95}
       </div>
       <div class="howto">
         <!-- DETALLES -->
-        <details style="margin-top:6px;">
-          <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📋
+        <details class="details-block">
+  <summary class="details-summary">📋
             Explicación de ítems</summary>
-          <div style=" margin-top:14px; background:#ffffff; border:1px
-            solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
-            rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
-            line-height:1.55; color:#1e293b;
-            ">
-            <!-- Barra superior tipo guideline -->
-            <div style=" background:#0f3d83; color:#ffffff; padding:10px
-              14px; font-size:14px; font-weight:700;
-              letter-spacing:0.3px; "> 📘 Resumen de criterios (AHA/ASA
+          <div class="details-card">
+    <div class="details-card-header"> 📘 Resumen de criterios (AHA/ASA
               · ESO) </div>
             <!-- Contenido -->
             <div style="padding:16px 18px;">
@@ -793,21 +841,14 @@ footer img{max-width:320px;height:auto;opacity:.95}
             </div>
           </div>
         </details>
-        <details style="margin-top:16px;">
-          <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📒
+        <details class="details-block">
+  <summary class="details-summary">📒
             Glosario de acrónimos</summary>
-          <div style=" margin-top:14px; background:#ffffff; border:1px
-            solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
-            rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
-            line-height:1.55; color:#1e293b;
-            ">
-            <!-- Barra superior tipo guideline -->
-            <div style=" background:#0f3d83; color:#ffffff; padding:10px
-              14px; font-size:14px; font-weight:700;
-              letter-spacing:0.3px; "> 🔤 Acrónimos utilizados </div>
+          <div class="details-card">
+    <div class="details-card-header"> 🔤 Acrónimos utilizados </div>
             <!-- Contenido -->
             <div style="padding:16px 18px;">
-              <ul style="margin:0; padding-left:18px;">
+              <ul class="glosario-grid details-list-compact glossary-list">
                 <li><b>AAS</b>: ácido acetilsalicílico</li>
                 <li><b>AIT</b>: ataque isquémico transitorio</li>
                 <li><b>AS</b>: antiagregación simple</li>
@@ -826,22 +867,14 @@ footer img{max-width:320px;height:auto;opacity:.95}
             </div>
           </div>
         </details>
-        <details style="margin-top:16px;">
-          <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📚
+        <details class="details-block">
+  <summary class="details-summary">📚
             Bibliografía</summary>
-          <div style=" margin-top:14px; background:#ffffff; border:1px
-            solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
-            rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
-            line-height:1.55; color:#1e293b;
-            ">
-            <!-- Barra superior tipo guideline -->
-            <div style=" background:#0f3d83; color:#ffffff; padding:10px
-              14px; font-size:14px; font-weight:700;
-              letter-spacing:0.3px; "> 📘 Referencias bibliográficas </div>
+          <div class="details-card">
+    <div class="details-card-header"> 📘 Referencias bibliográficas </div>
             <!-- Contenido -->
             <div style="padding:16px 18px;">
-              <ol style="font-size:12px; padding-left:20px;
-                line-height:1.45;">
+              <ol class="details-list-compact biblio-list">
                 <!-- Guías clínicas -->
                 <li>Kleindorfer DO, et al. 2021 AHA/ASA Guideline for
                   the Prevention of Stroke in Patients With Stroke and

@@ -300,6 +300,61 @@ button{
 .ghost{background:#fff;color:#0f3d83;border:2px solid #0f3d83;}
 .ghost:hover {background:#0f3d83;color:#fff;border:2px solid #0f3d83;}
 
+.details-block{
+  margin-top:6px;
+}
+
+.details-summary{
+  cursor:pointer;
+  font-weight:700;
+  color:#0f3d83;
+}
+
+.details-card{
+  margin-top:14px;
+  background:#ffffff;
+  border:1px solid #d0d7e1;
+  border-radius:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
+  overflow:hidden;
+  font-size:13px;
+  line-height:1.55;
+  color:#1e293b;
+}
+
+.details-card-header{
+  background:#0f3d83;
+  color:#ffffff;
+  padding:10px 14px;
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:0.3px;
+}
+
+.details-card-body{
+  padding:16px 18px;
+}
+
+.details-divider{
+  border:none;
+  border-top:1px solid #e5e7eb;
+  margin:14px 0;
+}
+
+.details-list-compact{
+  padding-left:20px;
+  font-size:10px;
+  line-height:1.45;
+}
+
+.details-list-compact.glossary-list{
+  margin:8px;
+}
+
+.details-list-compact.biblio-list{
+  margin:1px;
+}
+
 /* =========================================================
    TABLAS / PILLS / RESULTADOS
 ========================================================= */
@@ -3516,16 +3571,15 @@ document.addEventListener('DOMContentLoaded', autoCheckByInputs);
 
       <!-- Referencias / Bibliografía -->
       <div class="howto">
-<details style="margin-top:14px;">
-  <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">🩸 Hemorragia digestiva severa y lesiones de alto riesgo hemorrágico</summary>
+<details class="details-block">
+  <summary class="details-summary">🩸 Hemorragia digestiva severa y lesiones de alto riesgo hemorrágico</summary>
 
   <!-- ========================= -->
   <!-- TARJETA 1 -->
   <!-- ========================= -->
 
-  <div style="margin-top:14px; background:#ffffff; border:1px solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.05); overflow:hidden; font-size:13px; line-height:1.55; color:#1e293b;">
-
-    <div style="background:#0f3d83; color:#ffffff; padding:10px 14px; font-size:14px; font-weight:700; letter-spacing:0.3px;">
+    <div class="details-card">
+    <div class="details-card-header">
       ⏱️ Hemorragia digestiva severa reciente
     </div>
 
@@ -3662,13 +3716,11 @@ document.addEventListener('DOMContentLoaded', autoCheckByInputs);
   </div>
 
 </details>
-<details style="margin-top:14px;">
-  <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">🧬 Interacciones farmacológicas</summary>
+<details class="details-block">
+  <summary class="details-summary">🧬 Interacciones farmacológicas</summary>
 
-  <div style="margin-top:14px; background:#ffffff; border:1px solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.05); overflow:hidden; font-size:13px; line-height:1.55; color:#1e293b;">
-
-    <!-- CABECERA -->
-    <div style="background:#0f3d83; color:#ffffff; padding:10px 14px; font-size:14px; font-weight:700; letter-spacing:0.3px;">
+    <div class="details-card">
+    <div class="details-card-header">
       ⚔️ Interacciones con los ACOD
     </div>
 
@@ -3797,12 +3849,11 @@ document.addEventListener('DOMContentLoaded', autoCheckByInputs);
 </div>
 
 </details>
-        <details style="margin-top:14px;">
-<summary style="cursor:pointer;font-weight:700;color:#0f3d83;">👥 Casos complejos reales</summary>
+        <details class="details-block">
+  <summary class="details-summary">👥 Casos complejos reales</summary>
 
-<div style="margin-top:14px;background:#ffffff;border:1px solid #d0d7e1;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,0.05);overflow:hidden;font-size:13px;line-height:1.55;color:#1e293b;">
-
-<div style="background:#0f3d83;color:#ffffff;padding:10px 14px;font-size:14px;font-weight:700;letter-spacing:0.3px;">
+  <div class="details-card">
+    <div class="details-card-header">
 🧩 Cómo decidir rápido ante interacciones difíciles
 </div>
 
@@ -3975,18 +4026,12 @@ Tratamiento concomitante con <b>amiodarona</b> y <b>verapamilo</b>.
 </div>
 </div>
 </details>
-        <details style="margin-top:14px;">
-          <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">💦
+        <details class="details-block">
+  <summary class="details-summary">💦
 
             Función renal</summary>
-          <div style=" margin-top:14px; background:#ffffff; border:1px
-            solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
-            rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
-            line-height:1.55; color:#1e293b; ">
-            <!-- Barra superior tipo guideline -->
-            <div style=" background:#0f3d83; color:#ffffff; padding:10px
-              14px; font-size:14px; font-weight:700;
-              letter-spacing:0.3px; "> 💊 Ajuste de ACOD por función
+            <div class="details-card">
+    <div class="details-card-header"> 💊 Ajuste de ACOD por función
               renal </div>
             <!-- Contenido -->
             <div style="padding:16px 18px;">
@@ -4014,13 +4059,11 @@ Tratamiento concomitante con <b>amiodarona</b> y <b>verapamilo</b>.
             </div>
           </div>
         </details>
-<details style="margin-top:14px;">
-  <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">🥇 Elección de la mejor estrategia terapéutica</summary>
+<details class="details-block">
+  <summary class="details-summary">🥇 Elección de la mejor estrategia terapéutica</summary>
 
-  <div style="margin-top:14px; background:#ffffff; border:1px solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.05); overflow:hidden; font-size:13px; line-height:1.55; color:#1e293b;">
-
-    <!-- CABECERA -->
-    <div style="background:#0f3d83; color:#ffffff; padding:10px 14px; font-size:14px; font-weight:700; letter-spacing:0.3px;">
+    <div class="details-card">
+    <div class="details-card-header">
       📈 Ictus equivalentes evitados (IE)
     </div>
 
@@ -4127,17 +4170,16 @@ Tratamiento concomitante con <b>amiodarona</b> y <b>verapamilo</b>.
   </div>
 
 </details>
-<details style="margin-top:14px;">
-  <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">⚠️ Anticoagulación obligatoria pese a contraindicación</summary>
+<details class="details-block">
+  <summary class="details-summary">⚠️ Anticoagulación obligatoria pese a contraindicación</summary>
 
 
   <!-- ========================= -->
   <!-- TARJETA 1 -->
   <!-- ========================= -->
 
-  <div style="margin-top:14px; background:#ffffff; border:1px solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.05); overflow:hidden; font-size:13px; line-height:1.55; color:#1e293b;">
-
-    <div style="background:#0f3d83; color:#ffffff; padding:10px 14px; font-size:14px; font-weight:700; letter-spacing:0.3px;">
+    <div class="details-card">
+    <div class="details-card-header">
       ⚖️ Situaciones con indicación obligatoria de anticoagulación
     </div>
 
@@ -4281,18 +4323,12 @@ Tratamiento concomitante con <b>amiodarona</b> y <b>verapamilo</b>.
   </div>
 
 </details>
-        <details style="margin-top:14px;">
-          <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📒
+        <details class="details-block">
+  <summary class="details-summary">📒
 
             Glosario de acrónimos</summary>
-          <div style=" margin-top:14px; background:#ffffff; border:1px
-            solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
-            rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
-            line-height:1.55; color:#1e293b; ">
-            <!-- Barra superior tipo guideline -->
-            <div style=" background:#0f3d83; color:#ffffff; padding:10px
-              14px; font-size:14px; font-weight:700;
-              letter-spacing:0.3px; "> 🔤 Acrónimos utilizados </div>
+            <div class="details-card">
+    <div class="details-card-header"> 🔤 Acrónimos utilizados </div>
             <!-- Contenido -->
             <div style="padding:16px 18px;">
               <style>
@@ -4309,8 +4345,8 @@ Tratamiento concomitante con <b>amiodarona</b> y <b>verapamilo</b>.
       }
     }
   </style>
-              <ul class="glosario-columns" style="font-size:12px;
-                padding-left:20px; line-height:1.45;">
+              <ul class="glosario-grid details-list-compact glossary-list">
+
                 <li><b>ACOD</b> (o <b>DOAC</b>): Anticoagulantes orales
                   de acción directa.</li>
                 <li><b>AINEs</b>: Antiinflamatorios no esteroideos.</li>
@@ -4354,37 +4390,17 @@ Tratamiento concomitante con <b>amiodarona</b> y <b>verapamilo</b>.
             </div>
           </div>
         </details>
-        <details style="margin-top:14px;">
-  <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📘 Referencias bibliográficas</summary>
+        <details class="details-block">
+  <summary class="details-summary">📘 Bibliografía</summary>
 
-  <div style="
-    margin-top:14px;
-    background:#ffffff;
-    border:1px solid #d0d7e1;
-    border-radius:10px;
-    box-shadow:0 2px 6px rgba(0,0,0,0.05);
-    overflow:hidden;
-    font-size:13px;
-    line-height:1.55;
-    color:#1e293b;
-  ">
-
-    <!-- BARRA TÍTULO -->
-    <div style="
-      background:#0f3d83;
-      color:#ffffff;
-      padding:10px 14px;
-      font-size:14px;
-      font-weight:700;
-      letter-spacing:0.3px;
-    ">
-      📚 Referencias bibliográficas (formato Vancouver)
+    <div class="details-card">
+    <div class="details-card-header">
+      📚 Referencias bibliográficas
     </div>
 
     <!-- CONTENIDO -->
     <div style="padding:16px 18px;">
-      <ol style="font-size:12px; padding-left:20px; line-height:1.45;">
-
+<ol class="details-list-compact biblio-list">
         <li>Friberg L, Rosenqvist M, Lip GYH. Evaluation of risk stratification schemes for ischaemic stroke and bleeding in 182,678 patients with atrial fibrillation. <i>Eur Heart J</i>. 2012;33(12):1500-10. <a href="https://doi.org/10.1093/eurheartj/ehr488" target="_blank">doi:10.1093/eurheartj/ehr488</a></li>
 
         <li>Olesen JB, Lip GYH, Hansen ML, et al. Validation of risk stratification schemes for predicting stroke and thromboembolism in atrial fibrillation. <i>BMJ</i>. 2011;342:d124. <a href="https://www.bmj.com/content/342/bmj.d124" target="_blank">BMJ link</a></li>

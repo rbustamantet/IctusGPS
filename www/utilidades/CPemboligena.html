@@ -121,6 +121,60 @@ header{
   box-shadow:0 2px 8px rgba(15,61,131,0.08);
 }
 
+.details-block{
+  margin-top:6px;
+}
+
+.details-summary{
+  cursor:pointer;
+  font-weight:700;
+  color:#0f3d83;
+}
+
+.details-card{
+  margin-top:14px;
+  background:#ffffff;
+  border:1px solid #d0d7e1;
+  border-radius:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
+  overflow:hidden;
+  font-size:13px;
+  line-height:1.55;
+  color:#1e293b;
+}
+
+.details-card-header{
+  background:#0f3d83;
+  color:#ffffff;
+  padding:10px 14px;
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:0.3px;
+}
+
+.details-card-body{
+  padding:16px 18px;
+}
+
+.details-divider{
+  border:none;
+  border-top:1px solid #e5e7eb;
+  margin:14px 0;
+}
+
+.details-list-compact{
+  padding-left:20px;
+  font-size:10px;
+  line-height:1.45;
+}
+
+.details-list-compact.glossary-list{
+  margin:8px;
+}
+
+.details-list-compact.biblio-list{
+  margin:1px;
+}
 
 /* Botones copiar / borrar */
 .actions{
@@ -434,21 +488,15 @@ body{
         </p>
       </section>
       <div class="howto">
-        <details style="margin-top:1px;">
-          <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📚
+        <details class="details-block">
+  <summary class="details-summary">📚
             Bibliografía</summary>
-          <div style=" margin-top:14px; background:#ffffff; border:1px
-            solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
-            rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
-            line-height:1.55; color:#1e293b; ">
+          <div class="details-card">
             <!-- Barra superior tipo guideline -->
-            <div style=" background:#0f3d83; color:#ffffff; padding:10px
-              14px; font-size:14px; font-weight:700;
-              letter-spacing:0.3px; "> 📘 Referencias bibliográficas </div>
+            <div class="details-card-header"> 📘 Referencias bibliográficas </div>
             <!-- Contenido -->
-            <div style="padding:16px 18px;">
-              <ol style="margin:8px; padding-left:20px; font-size:10px;
-                line-height:1.45;">
+            <div class="details-card-body">
+      <ol class="details-list-compact biblio-list">
                 <!-- GENERAL DE CARDIOEMBOLISMO -->
                 <li>Arboix A, Alió J. Cardioembolic stroke: clinical
                   features, cardiac disorders and prognosis. <i>Cerebrovasc

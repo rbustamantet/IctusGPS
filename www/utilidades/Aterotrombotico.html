@@ -2,7 +2,6 @@
 <html lang="es">
   <head>
 
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1,
       viewport-fit=cover">
@@ -115,13 +114,8 @@ header{
   margin:.6rem 0 1rem;
   font-size:14px;
 }
-.panel{
-  background:#fff;
-  border-radius:16px;
-  padding:16px;
-  box-shadow:0 3px 14px rgba(16,71,119,.12);
-  border:1px solid var(--border);
-}
+
+
 
 .block{
   background:linear-gradient(to bottom, #f2f7ff, #e9f1ff);
@@ -140,11 +134,7 @@ header{
   align-items:center;
   gap:6px;
 }
-.icon-h3{
-  width:20px;
-  height:20px;
-  margin-right:6px;
-}
+
 
 /* SELECT ESCENARIO */
 label { font-size:0.95rem; }
@@ -162,6 +152,10 @@ select:focus{
   outline:none;
   border:1px solid #0f3d83;
   box-shadow:0 0 0 1px rgba(15,61,131,0.2);
+}
+
+.text-justify{
+  text-align: justify;
 }
 
 /* RECOMENDACIÓN */
@@ -183,31 +177,59 @@ select:focus{
   margin-top:8px;
 }
 
-/* CABECERA DEL GLOSARIO */
-.glosario-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  cursor:pointer;
-  padding:4px 0;
+.details-block{
+  margin-top:6px;
 }
 
-.arrow{
-  font-size:1.1rem;
-  transition:transform 0.25s ease;
+.details-summary{
+  cursor:pointer;
+  font-weight:700;
   color:#0f3d83;
 }
 
-/* CONTENIDO COLAPSABLE */
-.glosario-content{
-  max-height:0;
-  font-size:0.65rem;
+.details-card{
+  margin-top:14px;
+  background:#ffffff;
+  border:1px solid #d0d7e1;
+  border-radius:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
   overflow:hidden;
-  transition:max-height 0.35s ease, padding 0.3s ease;
-  padding-top:0;
+  font-size:13px;
+  line-height:1.55;
+  color:#1e293b;
 }
-.glosario-content.open{
-  padding-top:10px;
+
+.details-card-header{
+  background:#0f3d83;
+  color:#ffffff;
+  padding:10px 14px;
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:0.3px;
+}
+
+.details-card-body{
+  padding:16px 18px;
+}
+
+.details-divider{
+  border:none;
+  border-top:1px solid #e5e7eb;
+  margin:14px 0;
+}
+
+.details-list-compact{
+  padding-left:20px;
+  font-size:10px;
+  line-height:1.45;
+}
+
+.details-list-compact.glossary-list{
+  margin:8px;
+}
+
+.details-list-compact.biblio-list{
+  margin:1px;
 }
 
 .glosario-grid{
@@ -228,26 +250,6 @@ select:focus{
   .glosario-grid{
     grid-template-columns:1fr 1fr;
   }
-}
-
-
-.biblio-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  cursor:pointer;
-  padding:4px 0;
-}
-
-.biblio-content{
-  max-height:0;
-  font-size:0.65rem;
-  overflow:hidden;
-  transition:max-height 0.35s ease, padding 0.3s ease;
-  padding-top:0;
-}
-.biblio-content.open{
-  padding-top:10px;
 }
 
 
@@ -405,11 +407,7 @@ footer img{max-width:320px;height:auto;opacity:.95}
   body{font-size:0.96rem;}
 }
 
-/* Empuja el contenido real por debajo de la barra superior (refuerzo) */
-body{
-  padding-top:calc(env(safe-area-inset-top, 0px) + 52px);
-  background-color:#f8fafc;
-}
+
 
 /* Animaciones */
 .fade-in{
@@ -427,14 +425,11 @@ body{
 
 /* Botones copiar / borrar */
 .actions{
-  margin-left:auto;
-}
-
-.actions{
   display:none;
   gap:10px;
-  margin:0px;
+  margin:0;
 }
+
 .boton-opcion{
   flex:1 1 20%;
   border:none;
@@ -516,7 +511,7 @@ body{
           alt="Icono">Ictus aterotrombótico </div>
     </header>
     <main class="wrap">
-      <div class="howto" align="justify">El <b>ictus aterotrombótico</b>
+      <div class="howto text-justify">El <b>ictus aterotrombótico</b>
         incluye tanto la <b>enfermedad aterosclerótica</b> de grandes
         vasos como los infartos relacionados con <b>placa inestable</b>,
         <b>hipoperfusión</b> o <b>embolia arterio-arterial</b>. La
@@ -527,8 +522,8 @@ body{
       <!-- TARJETA 1: SELECCIÓN DE ESCENARIO -->
       <div class="block" id="escenario-section">
         <h3>🩺 Tipo de ictus / escenario clínico</h3>
-        <label><b>Seleccione el escenario principal:</b></label>
-        <select id="escenario" onchange="mostrarTratamientoEscenario()">
+        <label for="escenario"><b>Seleccione el escenario principal:</b></label>
+        <select id="escenario">
           <option value="" disabled="disabled" selected="selected">Seleccione
             un escenario…</option>
           <option value="ictus_menor">Ictus minor / AIT de alto riesgo</option>
@@ -561,10 +556,9 @@ body{
       </div>
       <div class="actions">
         <button class="boton-opcion boton-clear"
-          onclick="borrarResumen()" title="Borrar contenido">Borrar</button>
-        <button class="boton-opcion boton-copy"
-          onclick="copiarResumen()" title="Copiar resumen">Copiar
-          recomendación</button> </div>
+  title="Borrar contenido">Borrar</button>
+<button class="boton-opcion boton-copy"
+  title="Copiar resumen">Copiar recomendación</button> </div>
       <!-- TARJETA 3: HERRAMIENTAS TRANSVERSALES -->
       <div class="block" id="herramientas-block">
         <h3>📚 Consideraciones adicionales</h3>
@@ -584,7 +578,7 @@ body{
       </div>
       <!-- DISCLAIMER -->
       <section class="disclaimer-red">
-        <p align="justify"> <b>📛Advertencia.</b> Esta herramienta
+        <p class="text-justify"> <b>📛Advertencia.</b> Esta herramienta
           tiene carácter orientativo y no sustituye el juicio clínico
           del profesional ni los protocolos locales. Las recomendaciones
           deben integrarse con la situación individual del paciente, las
@@ -592,38 +586,20 @@ body{
         </p>
       </section>
       <div class="howto">
-<details style="margin-top:6px;">
-  <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">
+<details class="details-block">
+  <summary class="details-summary">
     💊 Triple terapia en pacientes anticoagulados
   </summary>
 
-  <div style="
-    margin-top:14px;
-    background:#ffffff;
-    border:1px solid #d0d7e1;
-    border-radius:10px;
-    box-shadow:0 2px 6px rgba(0,0,0,0.05);
-    overflow:hidden;
-    font-size:13px;
-    line-height:1.55;
-    color:#1e293b;
-  ">
+<div class="details-card">
 
     <!-- Barra superior -->
-    <div style="
-      background:#0f3d83;
-      color:#ffffff;
-      padding:10px 14px;
-      font-size:14px;
-      font-weight:700;
-      letter-spacing:0.3px;
-    ">
+    <div class="details-card-header">
       ⚖️ Equilibrio entre riesgo trombótico y hemorrágico
     </div>
 
     <!-- Contenido -->
-    <div style="padding:16px 18px;">
-
+<div class="details-card-body">
       <p>
         El uso de <b>triple terapia antitrombótica</b> (anticoagulación oral +
         aspirina + clopidogrel) en pacientes con indicación de anticoagulación
@@ -641,7 +617,7 @@ body{
         intervencionista</b> y en el consenso reflejado en guías clínicas recientes.
       </p>
 
-      <hr style="border:none;border-top:1px solid #e5e7eb;margin:14px 0;">
+      <hr class="details-divider">
 
       <p><b>Evidencia que sustenta la estrategia de triple terapia limitada</b></p>
 
@@ -675,7 +651,7 @@ body{
         la duración de la triple terapia.
       </p>
 
-      <hr style="border:none;border-top:1px solid #e5e7eb;margin:14px 0;">
+      <hr class="details-divider">
 
       <p><b>Aplicación práctica en patología cerebrovascular</b></p>
 
@@ -710,7 +686,7 @@ body{
         exposición innecesaria a triple terapia en pacientes vulnerables.
       </p>
 
-      <hr style="border:none;border-top:1px solid #e5e7eb;margin:14px 0;">
+      <hr class="details-divider">
 
       <p>
         En resumen, la duración de la triple terapia debe entenderse como una
@@ -723,23 +699,16 @@ body{
   </div>
 </details>
 
-        <details style="margin-top:6px;">
-          <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📒
+        <details class="details-block">
+  <summary class="details-summary">📒
             Glosario de acrónimos</summary>
-          <div style=" margin-top:14px; background:#ffffff; border:1px
-            solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
-            rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
-            line-height:1.55; color:#1e293b;
-            ">
+          <div class="details-card">
             <!-- Barra superior tipo guideline -->
-            <div style=" background:#0f3d83; color:#ffffff; padding:10px
-              14px; font-size:14px; font-weight:700;
-              letter-spacing:0.3px; "> 🔤 Acrónimos utilizados </div>
+            <div class="details-card-header"> 🔤 Acrónimos utilizados </div>
             <!-- Contenido -->
-            <div style="padding:16px 18px;">
-              <ol style="margin:8px; padding-left:20px; font-size:10px;
-                line-height:1.45;">
-                <ul class="glosario-grid">
+              <div class="details-card-body">
+              <ul class="glosario-grid details-list-compact glossary-list">
+                
                   <li><b>AAS:</b> Ácido acetilsalicílico</li>
                   <li><b>ACO:</b> Anticoagulación oral</li>
                   <li><b>ACOD:</b> Anticoagulante oral de acción directa</li>
@@ -762,26 +731,18 @@ body{
                     Scale</li>
                   <li><b>RM:</b> Resonancia magnética</li>
                   <li><b>TC:</b> Tomografía computarizada</li>
-                </ul>
-              </ol>
+              </ul>
             </div>
           </div>
         </details>
-        <details style="margin-top:6px;">
-          <summary style="cursor:pointer;font-weight:700;color:#0f3d83;">📚
+        <details class="details-block">
+  <summary class="details-summary">📚
             Bibliografía</summary>
-          <div style=" margin-top:14px; background:#ffffff; border:1px
-            solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
-            rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
-            line-height:1.55; color:#1e293b;
-            ">
+          <div class="details-card">
             <!-- Barra superior tipo guideline -->
-            <div style=" background:#0f3d83; color:#ffffff; padding:10px
-              14px; font-size:14px; font-weight:700;
-              letter-spacing:0.3px; "> 📘 Referencias bibliográficas </div>
+            <div class="details-card-header"> 📘 Referencias bibliográficas </div>
             <!-- Contenido -->
-            <div style="padding:16px 18px;">
-              <ol style="margin:1px; padding-left:20px; font-size:10px; line-height:1.45;">
+<div class="details-card-body">              <ol class="details-list-compact biblio-list">
 
   <!-- Guías clínicas -->
   <li>Kleindorfer DO, et al. 2021 AHA/ASA Guideline for the Prevention of Stroke in Patients With Stroke and TIA. <i>Stroke</i>. 2021;52:e364–e467.</li>
@@ -1127,17 +1088,7 @@ triple_sin_stent: {
       </ul>
     `
   },
-  rgi: {
-    title: "Riesgo gastrointestinal",
-    html: `
-      <ul>
-        <li> IBP indicado en: ≥65 años, antecedente de úlcera/hemorragia digestiva, ERC/hepatopatía, anemia o fragilidad, H. pylori no tratado, y uso concomitante de AAS, ACO, AINEs o corticoides.</li>
-        <li><b>Obligatorio</b> IBP si el paciente recibe <b>DAPT</b> o <b>ACO + clopidogrel</b> (terapia antitrombótica intensiva).</li>
-        <li>En clopidogrel en monoterapia con riesgo GI bajo → <b>no es necesario IBP ni anti-H2</b>.</li>
-        <li><b>Los anti-H2 (p. ej., famotidina) no sustituyen la gastroprotección de un IBP y no deben usarse como alternativa cuando el riesgo gastrointestinal es alto.</b></li>
-      </ul>
-    `
-  },
+
 };
 
 /* ============================
@@ -1175,6 +1126,18 @@ function mostrarTratamientoEscenario(){
    MODAL HERRAMIENTAS + NOTAS
 =============================== */
 document.addEventListener('DOMContentLoaded', () => {
+  const escenarioSelect = document.getElementById('escenario');
+  escenarioSelect.addEventListener('change', mostrarTratamientoEscenario);
+
+  const clearBtn = document.querySelector('.boton-clear');
+  const copyBtn = document.querySelector('.boton-copy');
+
+  clearBtn.addEventListener('click', borrarResumen);
+  copyBtn.addEventListener('click', copiarResumen);
+
+  // Sincroniza la interfaz con el valor actual del selector
+  mostrarTratamientoEscenario();
+
   const chips = document.querySelectorAll('.tool-chip');
   const modalOverlay = document.getElementById('tool-modal');
   const modalTitle = document.getElementById('tool-modal-title');
@@ -1191,19 +1154,29 @@ document.addEventListener('DOMContentLoaded', () => {
       modalTitle.textContent = tool.title;
       modalContent.innerHTML = tool.html;
       modalOverlay.style.display = 'flex';
+document.body.style.overflow = 'hidden';
     });
   });
 
   // Cierre modal
   modalClose.addEventListener('click', () => {
     modalOverlay.style.display = 'none';
+document.body.style.overflow = '';
   });
 
   modalOverlay.addEventListener('click', (e) => {
     if(e.target === modalOverlay){
       modalOverlay.style.display = 'none';
+document.body.style.overflow = '';
     }
   });
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && modalOverlay.style.display === 'flex') {
+    modalOverlay.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+});
 
   // Delegación para iconos de nota (funciona también en contenido dinámico)
   document.addEventListener('click', (e) => {
@@ -1217,6 +1190,7 @@ document.addEventListener('DOMContentLoaded', () => {
     modalTitle.textContent = "Nota clínica";
     modalContent.innerHTML = nota;
     modalOverlay.style.display = 'flex';
+document.body.style.overflow = 'hidden';
   });
 });
 
@@ -1236,13 +1210,21 @@ function showToast(message, type = "info") {
 
   // Colores institucionales
   const colors = {
-    info: "#fff",
-    ok: "#166534",
-    warn: "#b45309",
-    error: "#b91c1c"
-  };
+  info: "#ffffff",
+  ok: "#166534",
+  warn: "#b45309",
+  error: "#b91c1c"
+};
 
-  toast.style.background = colors[type] || colors.info;
+const textColors = {
+  info: "#0f3d83",
+  ok: "#ffffff",
+  warn: "#ffffff",
+  error: "#ffffff"
+};
+
+toast.style.background = colors[type] || colors.info;
+toast.style.color = textColors[type] || textColors.info;
 
   toast.innerHTML = `
     <span class="toast-icon">${icons[type] || icons.info}</span>
@@ -1266,7 +1248,12 @@ function showToast(message, type = "info") {
 =============================== */
 function copiarResumen(){
   const cont = document.getElementById('escenario-texto');
-  const baseText = cont.innerText.trim();
+
+// Clonar el contenido para limpiar iconos de interfaz antes de copiar
+const clone = cont.cloneNode(true);
+clone.querySelectorAll('.info-icon').forEach(el => el.remove());
+
+const baseText = clone.innerText.trim();
   
   // Si no hay contenido real que copiar, no hace nada
   if(!baseText || baseText.includes("Seleccione un escenario clínico")){
@@ -1296,32 +1283,39 @@ function copiarResumen(){
   }
 
   navigator.clipboard.writeText(finalText)
-    .then(() => {
-      const btn = document.querySelector(".boton-copy");
-      
-      btn.classList.add("copiado");
-      const oldText = btn.textContent;
-      btn.textContent = "Copiado";
+  .then(() => {
+    const btn = document.querySelector(".boton-copy");
 
-      setTimeout(() => {
-        btn.classList.remove("copiado");
-        btn.textContent = oldText;
-      }, 1500);
-    })
-    .catch(() => {});
+    btn.classList.add("copiado");
+    const oldText = btn.textContent;
+    btn.textContent = "Copiado";
+
+    setTimeout(() => {
+      btn.classList.remove("copiado");
+      btn.textContent = oldText;
+    }, 1500);
+  })
+  .catch(() => {
+    showToast("No se pudo copiar la recomendación.", "warn");
+  });
 }
 
 function borrarResumen(){
-  document.getElementById('escenario').selectedIndex = 0;
+  document.getElementById('escenario').value = "";
   document.getElementById('escenario-texto').innerHTML =
     "Seleccione un escenario clínico para mostrar la recomendación orientativa de tratamiento antitrombótico.";
 
   const res = document.getElementById('escenario-resultado');
   res.classList.remove('fade-in');
 
+  const copyBtn = document.querySelector('.boton-copy');
+  copyBtn.classList.remove('copiado');
+  copyBtn.textContent = "Copiar recomendación";
+
   // Oculta los botones también al borrar
   document.querySelector('.actions').style.display = "none";
-// 🔵 Scroll al inicio suavemente
+
+  // 🔵 Scroll al inicio suavemente
   window.scrollTo({
     top: 0,
     behavior: "smooth"
