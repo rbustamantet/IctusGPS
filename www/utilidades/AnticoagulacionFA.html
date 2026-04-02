@@ -240,6 +240,25 @@ label.row{font-weight:400;}
   margin-right:6px;
 }
 
+.chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+  margin:2px 0 8px 22px;
+}
+
+.chip{
+  display:inline-flex;
+  align-items:center;
+  font-size:11px;
+  line-height:1;
+  padding:3px 7px;
+  border-radius:999px;
+  background:#0f3d83;
+  color:#fff;
+  white-space:nowrap;
+}
+
 input[type="number"],select{
   width:100%;
   box-sizing:border-box;
@@ -252,7 +271,8 @@ input[type="number"],select{
 
 small.hint{color:#345;opacity:.8;}
 
-.btnbar{
+.btnbar,
+.button{
   display:flex;
   gap:10px;
   flex-wrap:wrap;
@@ -268,6 +288,10 @@ button{
   cursor:pointer;
   line-height:1;
   flex:0 0 auto;
+}
+
+.right{
+  text-align:right;
 }
 
 .primary{background:#0f3d83;color:#fff;}
@@ -483,6 +507,92 @@ tfoot td{background:#f3f9ff;}
 }
 .renal-disclaimer b{color:#0b4576;}
 
+.feedback-launch{
+  margin-top:12px;
+  background:#fffdf5;
+  border:1px solid #f3e8b3;
+  border-left:4px solid #d4a514;
+  border-radius:12px;
+  padding:12px 14px;
+}
+
+.feedback-launch p{
+  margin:0 0 10px 0;
+  color:#5b4a00;
+  line-height:1.4;
+}
+
+.feedback-form-wrap{
+  display:none;
+  margin-top:12px;
+  background:#ffffff;
+  border:1px solid #d9e4f2;
+  border-radius:14px;
+  box-shadow:0 3px 14px rgba(16,71,119,.08);
+  padding:14px;
+}
+
+.feedback-form-wrap.show{
+  display:block;
+}
+
+.feedback-form-grid{
+  display:grid;
+  gap:12px;
+}
+
+.feedback-form-wrap textarea,
+.feedback-form-wrap input[type="email"],
+.feedback-form-wrap select{
+  width:100%;
+  box-sizing:border-box;
+  border:1px solid #cfe3f6;
+  background:#fff;
+  border-radius:10px;
+  padding:10px 12px;
+  font-size:1rem;
+  font-family:Verdana,Geneva,sans-serif;
+}
+
+.feedback-form-wrap textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+.feedback-help{
+  font-size:.84rem;
+  color:#567;
+  margin-top:4px;
+}
+
+.feedback-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:12px;
+  align-items:center;
+}
+
+.feedback-note{
+  font-size:.84rem;
+  color:#6b7280;
+  margin-top:10px;
+}
+
+.feedback-preview{
+  margin-top:12px;
+  padding:10px 12px;
+  background:#f8fbff;
+  border:1px solid #d9e4f2;
+  border-radius:10px;
+  color:#345;
+  display:none;
+}
+
+.feedback-preview.show{
+  display:block;
+}
+
 /* =========================================================
    FOOTER
 ========================================================= */
@@ -519,146 +629,6 @@ body {
   background-color: #fff;
 }
 
-.chip-info{
-  margin-left:6px;
-  cursor:pointer;
-  font-weight:700;
-  color:#0f3d83;
-}
-
-.modal-overlay{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.35);
-  z-index:3000;
-  align-items:center;
-  justify-content:center;
-}
-
-.modal{
-  background:#fff;
-  max-width:520px;
-  width:90%;
-  border-radius:12px;
-  padding:16px 18px;
-  box-shadow:0 20px 60px rgba(0,0,0,.25);
-}
-
-.modal-close{
-  float:right;
-  border:none;
-  background:none;
-  font-size:1.1rem;
-  cursor:pointer;
-}
-/* ==========================================================
-   MODALES DE INTERACCIONES — ESTILO INSTITUCIONAL MEJORADO
-========================================================== */
-
-/* --- Animación suave al abrir el modal --- */
-.modal {
-  animation: modalFadeUp 0.28s ease-out;
-}
-
-@keyframes modalFadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* --- Títulos dentro del modal --- */
-.modal h4 {
-  margin-top: 8px;
-  margin-bottom: 4px;
-  font-size: 1rem;
-  color: var(--azul-dark);
-}
-
-.hint{
-  font-size:12px;
-  color:#6b7280;
-  margin:2px 0 6px 26px;
-}
-.chips{
-  margin:2px 0 6px 26px;
-}
-
-.chips{
-  display:flex;
-  flex-wrap:wrap;
-  gap:4px;
-  margin:2px 0 8px 22px;
-}
-
-.chip{
-  display:inline-flex;
-  align-items:center;
-
-  font-size:11px;
-  line-height:1;
-
-  padding:3px 7px;
-
-  border-radius:999px;
-
-background:#0f3d83;
-color:white;
-
-  white-space:nowrap;
-}
-
-/* ==========================================================
-   LISTAS EN COLUMNAS (solamente UL largos)
-========================================================== */
-
-/* UL normal */
-.modal ul {
-  padding-left: 20px;
-  margin-top: 6px;
-  margin-bottom: 18px;
-  list-style: disc;
-  position: relative;
-}
-
-/* UL largos (≥7 elementos) → 2 columnas */
-.modal ul:has(li:nth-child(7)) {
-  column-count: 2;
-  column-gap: 32px;
-}
-
-/* Línea vertical independiente del comportamiento de columnas */
-.modal ul:has(li:nth-child(7))::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: calc(50% - 1px);
-  width: 1px;
-  background: #d0d7e1; /* borde institucional suave */
-  pointer-events: none;
-}
-
-/* Evitar que los bullet se corten entre columnas */
-.modal ul li {
-  break-inside: avoid-column;
-  margin-bottom: 6px;
-}
-
-/* En móvil → 1 columna sin línea */
-@media (max-width: 480px) {
-  .modal ul {
-    column-count: 1 !important;
-  }
-  .modal ul::before {
-    display: none !important;
-  }
-}
 
 </style>
   </head>
@@ -732,7 +702,7 @@ color:white;
               </select>
             </div>
           </div>
-        </div></form>
+        </div>
         <div class="sep"></div>
         <div class="grid g-2">
           <div> <label>CHA<sub>2</sub>DS<sub>2</sub>-VA/CHA<sub>2</sub>DS<sub>2</sub>-VASc</label>
@@ -908,6 +878,7 @@ color:white;
             aria-live="polite" role="status" class="muted" id="calcMsg"></span>
         </div>
       </div>
+      </form>
       <!-- Resultados -->
       <div class="card-result sticky-result result-anchor"
         id="resultCard">
@@ -988,11 +959,65 @@ color:white;
         </div>
       </div>
       <app-disclaimer data-target="#resultCard" data-position="after"
-        data-when="visible" data-version="1.0" data-context="FA no
-        valvular — Anticoagulación"> </app-disclaimer>
-      <!-- Toast -->
-      <div id="toast" class="toast" role="alert" aria-live="assertive"></div>
+  data-when="visible" data-version="1.0" data-context="FA no
+  valvular — Anticoagulación"> </app-disclaimer>
+
+<div class="feedback-launch" id="feedbackLaunchBox">
+  <p><b>¿Considera que la recomendación no se ajusta a la práctica clínica?</b><br>
+  Por favor, comuníquelo para revisar y mejorar la herramienta. No empleará más de 1 minuto.</p>
+  <button type="button" class="ghost" id="btnOpenFeedback" disabled="disabled">Comunicar resultado no adecuado</button>
+</div>
+
+<div class="feedback-form-wrap" id="feedbackFormWrap">
+  <h3 style="margin:0 0 10px;">Comunicar resultado no adecuado</h3>
+
+  <div class="feedback-form-grid">
+    <div>
+      <label for="feedbackEmail">Correo electrónico</label>
+      <input type="email" id="feedbackEmail" placeholder="tu_correo@dominio.com">
+      <div class="feedback-help">Se utilizará solo para poder responderte o pedir aclaraciones.</div>
+    </div>
+
+    <div>
+      <label for="feedbackReason">Motivo principal</label>
+      <select id="feedbackReason">
+        <option value="">Selecciona…</option>
+        <option value="estrategia">La estrategia elegida no parece adecuada</option>
+        <option value="ranking">El orden de las opciones no parece correcto</option>
+        <option value="posologia">La posología sugerida no parece adecuada</option>
+        <option value="interacciones">El manejo de interacciones no parece correcto</option>
+        <option value="hemorragia">La valoración del riesgo hemorrágico no parece correcta</option>
+        <option value="otro">Otro motivo</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="feedbackMessage">Explique por qué considera que la respuesta no es adecuada</label>
+      <textarea id="feedbackMessage" placeholder="Describe el problema clínico o lógico que has detectado. Evita incluir datos identificativos del paciente."></textarea>
+      <div class="feedback-help">No introduzca nombre, NHC ni otros datos identificativos del paciente.</div>
+    </div>
+
+    <label class="row" for="feedbackConsent">
+      <input id="feedbackConsent" type="checkbox">
+      Confirmo que el comentario no incluye datos identificativos innecesarios
+    </label>
+  </div>
+
+  <div class="feedback-actions">
+    <button type="button" class="primary" id="btnPrepareFeedback">Previsualizar mensaje</button>
+  <button type="button" class="primary" id="btnSendFeedback">Abrir correo</button>
+  <button type="button" class="ghost" id="btnCloseFeedback">Cerrar</button>
+  </div>
+
+  <div class="feedback-preview" id="feedbackPreview"></div>
+  <div class="feedback-note"><b>Muchas gracias por ayudarnos a mejorar la herramienta.</b></div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="toast" role="alert" aria-live="assertive"></div>
+
       <script>
+
     /* ===== Utilidades ===== */
     const NDASH='—';
     const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
@@ -1000,131 +1025,260 @@ color:white;
     const oneIn=pct=>{const p=parseFloat(pct);if(!isFinite(p)||p<=0)return NDASH;return Math.round(100/p);};
     const scrollToResult=()=>{const el=document.getElementById('resultCard');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});};
     let _toastTimer=null;
+
+const FEEDBACK_EMAIL = 'administrador@ictusgps.com';
+
     function decodeEntities(str){const ta=document.createElement('textarea');ta.innerHTML=String(str);return ta.value;}
     function escAttr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
     function showToast(msg,type='error'){const t=document.getElementById('toast');t.textContent=decodeEntities(msg);t.classList.remove('warn','info');if(type==='warn')t.classList.add('warn');if(type==='info')t.classList.add('info');t.classList.add('show');clearTimeout(_toastTimer);_toastTimer=setTimeout(()=>t.classList.remove('show'),3500);}
+
+    function openFeedbackForm(){
+  const wrap = document.getElementById('feedbackFormWrap');
+  if (!wrap) return;
+  wrap.classList.add('show');
+  wrap.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function closeFeedbackForm(){
+  const wrap = document.getElementById('feedbackFormWrap');
+  const preview = document.getElementById('feedbackPreview');
+  if (wrap) wrap.classList.remove('show');
+  if (preview){
+    preview.classList.remove('show');
+    preview.innerHTML = '';
+  }
+}
+
+function validateFeedbackForm(){
+  const email = document.getElementById('feedbackEmail')?.value.trim() || '';
+  const reason = document.getElementById('feedbackReason')?.value || '';
+  const message = document.getElementById('feedbackMessage')?.value.trim() || '';
+  const consent = document.getElementById('feedbackConsent')?.checked || false;
+
+  if (!__lastReport){
+    showToast('Primero calcule un resultado antes de comunicar una incidencia.','warn');
+    return false;
+  }
+  if (!email){
+    showToast('Introduce un correo electrónico de contacto.','warn');
+    return false;
+  }
+  if (!reason){
+    showToast('Selecciona el motivo principal.','warn');
+    return false;
+  }
+  if (!message){
+    showToast('Explica brevemente por qué consideras inadecuado el resultado.','warn');
+    return false;
+  }
+  if (!consent){
+    showToast('Debes confirmar que no incluyes datos identificativos innecesarios.','warn');
+    return false;
+  }
+  return true;
+}
+
+function buildFeedbackPayload(){
+  return {
+    createdAt: new Date().toISOString(),
+    page: 'AnticoagulacionFA',
+    userEmail: document.getElementById('feedbackEmail')?.value.trim() || '',
+    reason: document.getElementById('feedbackReason')?.value || '',
+    message: document.getElementById('feedbackMessage')?.value.trim() || '',
+    report: __lastReport || null
+  };
+}
+
+function buildFeedbackReportText(){
+  if (!__lastReport) return '';
+
+  const r = __lastReport;
+
+  const clean = s => String(s ?? '')
+    .replace(/•/g,'*')
+    .replace(/[—–]/g,'-')
+    .replace(/≥/g,'>=')
+    .replace(/≤/g,'<=')
+    .replace(/→/g,'->')
+    .replace(/₂/g,'2')
+    .replace(/⭐/g,'')
+    .replace(/\s+/g,' ')
+    .trim();
+
+  const sexTxt =
+    r.inputs.sex === 'M' ? 'Varón' :
+    r.inputs.sex === 'F' ? 'Mujer' : '-';
+
+  const fmtVal = v =>
+    (v === null || v === undefined || !isFinite(v)) ? '-' : v;
+
+  const reasonMap = {
+    estrategia: 'La estrategia elegida no parece adecuada',
+    ranking: 'El orden de las opciones no parece correcto',
+    posologia: 'La posología sugerida no parece adecuada',
+    interacciones: 'El manejo de interacciones no parece correcto',
+    hemorragia: 'La valoración del riesgo hemorrágico no parece correcta',
+    otro: 'Otro motivo'
+  };
+
+  const email = document.getElementById('feedbackEmail')?.value.trim() || '';
+  const reasonKey = document.getElementById('feedbackReason')?.value || '';
+  const reasonTxt = reasonMap[reasonKey] || reasonKey || '-';
+  const message = document.getElementById('feedbackMessage')?.value.trim() || '';
+  const fecha = new Date().toLocaleString('es-ES');
+
+  const lines = [];
+
+  lines.push('FEEDBACK SOBRE RESULTADO DE ANTICOAGULACION EN FA');
+  lines.push('Fecha: ' + fecha);
+  lines.push('Correo del usuario: ' + email);
+  lines.push('Motivo principal: ' + reasonTxt);
+  lines.push('');
+
+  lines.push('COMENTARIO DEL USUARIO');
+  lines.push(clean(message));
+  lines.push('');
+
+  lines.push('DATOS DEL CASO CALCULADO');
+  lines.push('* Edad: ' + fmtVal(r.inputs.age) + ' años');
+  lines.push('* Sexo: ' + sexTxt);
+  lines.push('* Peso: ' + (r.inputs.weight != null ? (r.inputs.weight + ' ' + r.inputs.weightUnit) : '-'));
+  lines.push('* Creatinina serica: ' +
+    (r.inputs.scr != null ? (r.inputs.scr + ' ' + r.inputs.scrUnit) : '-') +
+    ' | SCr (mg/dL): ' + fmtVal(r.renal.scr_mgdl) +
+    ' | ClCr: ' + fmtVal(r.renal.crcl) + ' ml/min'
+  );
+  lines.push('* CHA2DS2-VA: ' + r.scores.va +
+             ' | CHA2DS2-VASc: ' + r.scores.vasc +
+             ' | HAS-BLED: ' + r.scores.hasbled);
+  lines.push('* Riesgo de ictus sin tratamiento: ' + r.risks.strokeBase + '%/año' +
+             ' | Riesgo de sangrado base: ' + r.risks.bleedBase + '%/año');
+  lines.push('');
+
+  lines.push('RESULTADO DEL ALGORITMO');
+  lines.push('* Estrategia principal sugerida: ' + (r.bestName || '-'));
+  lines.push('* No anticoagular: ' + (r.noOAC ? 'Si' : 'No'));
+  lines.push('* Bajo riesgo embolico: ' + (r.noOAC_byLowRisk ? 'Si' : 'No'));
+  lines.push('* Riesgo hemorragico inaceptable: ' + (r.noOAC_byHighBleed ? 'Si' : 'No'));
+  lines.push('* Zona intermedia: ' + (r.considerOAC_byBorderline ? 'Si' : 'No'));
+  lines.push('');
+
+  if (r.preferredGlobal?.length){
+    lines.push('Estrategias preferibles: ' + r.preferredGlobal.join(', '));
+  }
+
+  if (r.avoidedGlobal?.length){
+    lines.push('Estrategias a evitar: ' + r.avoidedGlobal.join(', '));
+  }
+
+  if (r.notes?.length){
+    lines.push('');
+    lines.push('NOTAS Y RECOMENDACIONES');
+    r.notes.forEach(n => lines.push('* ' + clean(n)));
+  }
+
+  if (r.doses?.length){
+    lines.push('');
+    lines.push('POSOLOGIAS SUGERIDAS');
+    r.doses.forEach(d => {
+      const star = d.name === r.bestName ? '* ' : '- ';
+      lines.push(
+        star + d.name + ': ' +
+        clean(d.dose) +
+        (d.highlight ? ' [Dosis reducida]' : '') +
+        ' - ' + clean(d.why)
+      );
+    });
+  }
+
+  lines.push('');
+  lines.push('Fin del feedback.');
+
+  return lines.join('\n');
+}
+
+function previewFeedbackPayload(){
+  if (!validateFeedbackForm()) return;
+
+  const payload = buildFeedbackPayload();
+  const preview = document.getElementById('feedbackPreview');
+  if (!preview) return;
+
+  const reportText = buildFeedbackReportText();
+
+  preview.innerHTML =
+    '<b>Vista previa del mensaje.</b><br>' +
+    'Correo: ' + escAttr(payload.userEmail) + '<br>' +
+    'Motivo: ' + escAttr(payload.reason) + '<br>' +
+    'Comentario registrado.<br>' +
+    'Resultado clínico asociado: ' +
+    (payload.report?.bestName ? '<b>' + escAttr(payload.report.bestName) + '</b>' : NDASH) +
+    '<br><br>' +
+    '<b>Vista previa del contenido a enviar:</b>' +
+    '<pre style="margin-top:8px; max-height:260px; overflow:auto; background:#f8fbff; border:1px solid #d9e4f2; border-radius:10px; padding:10px; white-space:pre-wrap;">' +
+    escAttr(reportText) +
+    '</pre>';
+
+  preview.classList.add('show');
+  showToast('Vista previa del mensaje generada.','info');
+}
+
+function openFeedbackEmail(){
+  if (!validateFeedbackForm()) return;
+
+  const reasonMap = {
+    estrategia: 'Estrategia no adecuada',
+    ranking: 'Orden de opciones no correcto',
+    posologia: 'Posología no adecuada',
+    interacciones: 'Interacciones no correctas',
+    hemorragia: 'Valoración hemorrágica no correcta',
+    otro: 'Otro motivo'
+  };
+
+  const reasonKey = document.getElementById('feedbackReason')?.value || '';
+  const reasonTxt = reasonMap[reasonKey] || 'Feedback clínico';
+
+  const subject = '[Ictus GPS - FA] ' + reasonTxt;
+  const body = buildFeedbackReportText();
+
+  const mailtoUrl =
+    'mailto:' + encodeURIComponent(FEEDBACK_EMAIL) +
+    '?subject=' + encodeURIComponent(subject) +
+    '&body=' + encodeURIComponent(body);
+
+  window.location.href = mailtoUrl;
+}
+
 
 function getSelectedInteractions(){
   return Array.from(document.querySelectorAll('.drug-int:checked'))
     .map(el => el.value);
 }
 
-const drugInteractions = {
+function validateRequiredInputs(){
+  const ageRaw = parseFloat(document.getElementById('age').value);
+  const sex = document.getElementById('sex').value;
+  const weightRaw = parseFloat(document.getElementById('weight').value);
+  const scrRaw = parseFloat(document.getElementById('scr').value);
+  const msg = document.getElementById('calcMsg');
 
-amiodarona:{
-  apixaban:"precaucion",
-  dabigatran:"precaucion",
-  edoxaban:"sin_ajuste",
-  rivaroxaban:"precaucion"
-},
+  const missing = [];
 
-verapamilo:{
-  apixaban:"precaucion",
-  dabigatran:"reducir",
-  edoxaban:"sin_ajuste",
-  rivaroxaban:"precaucion"
-},
+  if (!isFinite(ageRaw)) missing.push('edad');
+  if (!sex) missing.push('sexo');
+  if (!isFinite(weightRaw)) missing.push('peso');
+  if (!isFinite(scrRaw)) missing.push('creatinina');
 
-diltiazem:{
-  apixaban:"precaucion",
-  dabigatran:"precaucion",
-  edoxaban:"sin_ajuste",
-  rivaroxaban:"precaucion"
-},
+  if (missing.length){
+    const text = 'Faltan datos obligatorios: ' + missing.join(', ') + '.';
+    if (msg) msg.textContent = text;
+    showToast(text, 'warn');
+    return false;
+  }
 
-dronedarona:{
-  apixaban:"precaucion",
-  dabigatran:"evitar",
-  edoxaban:"reducir",
-  rivaroxaban:"evitar"
-},
-
-quinidina:{
-  apixaban:"precaucion",
-  dabigatran:"precaucion",
-  edoxaban:"sin_ajuste",
-  rivaroxaban:"precaucion"
-},
-
-claritromicina:{
-  apixaban:"precaucion",
-  dabigatran:"precaucion",
-  edoxaban:"precaucion",
-  rivaroxaban:"precaucion"
-},
-
-eritromicina:{
-  apixaban:"precaucion",
-  dabigatran:"precaucion",
-  edoxaban:"reducir",
-  rivaroxaban:"precaucion"
-},
-
-azoles:{
-  apixaban:"evitar",
-  dabigatran:"evitar",
-  edoxaban:"reducir",
-  rivaroxaban:"evitar"
-},
-
-ritonavir:{
-  apixaban:"evitar",
-  dabigatran:"evitar",
-  edoxaban:"evitar",
-  rivaroxaban:"evitar"
-},
-
-ciclosporina:{
-  apixaban:"precaucion",
-  dabigatran:"evitar",
-  edoxaban:"reducir",
-  rivaroxaban:"precaucion"
-},
-
-tacrolimus:{
-  apixaban:"precaucion",
-  dabigatran:"precaucion",
-  edoxaban:"precaucion",
-  rivaroxaban:"precaucion"
-},
-
-rifampicina:{
-  apixaban:"evitar",
-  dabigatran:"evitar",
-  edoxaban:"evitar",
-  rivaroxaban:"evitar"
-},
-
-carbamazepina:{
-  apixaban:"evitar",
-  dabigatran:"evitar",
-  edoxaban:"evitar",
-  rivaroxaban:"evitar"
-},
-
-fenitoina:{
-  apixaban:"evitar",
-  dabigatran:"evitar",
-  edoxaban:"evitar",
-  rivaroxaban:"evitar"
-},
-
-fenobarbital:{
-  apixaban:"evitar",
-  dabigatran:"evitar",
-  edoxaban:"evitar",
-  rivaroxaban:"evitar"
-},
-
-hypericum:{
-  apixaban:"evitar",
-  dabigatran:"evitar",
-  edoxaban:"evitar",
-  rivaroxaban:"evitar"
+  if (msg) msg.textContent = '';
+  return true;
 }
-
-};
-
 
 
     /* ===== Parámetros ===== */
@@ -1408,24 +1562,30 @@ function buildClinicalRules(context){
   const {crcl, age, special, weightKg, hasbled, interactions=[]} = context;
   special.edoxabanReduce = false;
   const prefer = {
-    "VKA":        new Set(),
-    "Apixabán":   new Set(),
-    "Dabigatrán": new Set(),
-    "Edoxabán":   new Set(),
-    "Rivaroxabán":new Set()
-  };
+  "VKA":        new Set(),
+  "Apixabán":   new Set(),
+  "Dabigatrán": new Set(),
+  "Edoxabán":   new Set(),
+  "Rivaroxabán":new Set()
+};
 
+const avoid = {
+  "VKA":        new Set(),
+  "Apixabán":   new Set(),
+  "Dabigatrán": new Set(),
+  "Edoxabán":   new Set(),
+  "Rivaroxabán":new Set()
+};
 
+const penalty = {
+  "VKA": 0,
+  "Apixabán": 0,
+  "Dabigatrán": 0,
+  "Edoxabán": 0,
+  "Rivaroxabán": 0
+};
 
-  const avoid = {
-    "VKA":        new Set(),
-    "Apixabán":   new Set(),
-    "Dabigatrán": new Set(),
-    "Edoxabán":   new Set(),
-    "Rivaroxabán":new Set()
-  };
-
-  const notes = [];
+const notes = [];
 
   // Disfagia / SNG
   if (special.dysphagia){
@@ -1481,11 +1641,11 @@ function buildClinicalRules(context){
   }
 
   if (special.polypharm){
-    prefer.Apixabán.add("Menos interacciones globales");
-    prefer.Edoxabán.add("Menos interacciones globales");
-    avoid.VKA.add("Múltiples interacciones");
-    notes.push("Polimedicación: preferir apixabán/edoxabán.");
-  }
+  prefer.Apixabán.add("Menos interacciones globales");
+  prefer.Edoxabán.add("Menos interacciones globales");
+  penalty.VKA += 1;
+  notes.push("Polimedicación: preferir apixabán/edoxabán; VKA sigue siendo posible, pero penalizado por mayor carga de interacciones.");
+}
 
   if (special.cirrhosis){
     prefer.VKA.add("Hepatopatía avanzada");
@@ -1537,13 +1697,13 @@ function buildClinicalRules(context){
   }
 
   if (special.poorINR){
-    avoid.VKA.add("Difícil monitorización INR");
-    prefer.Apixabán.add("Sin INR rutinario");
-    prefer.Rivaroxabán.add("Sin INR rutinario");
-    prefer.Edoxabán.add("Sin INR rutinario");
-    prefer.Dabigatrán.add("Sin INR rutinario");
-    notes.push("Si no se puede monitorizar INR: preferir ACOD.");
-  }
+  penalty.VKA += 1;
+  prefer.Apixabán.add("Sin INR rutinario");
+  prefer.Rivaroxabán.add("Sin INR rutinario");
+  prefer.Edoxabán.add("Sin INR rutinario");
+  prefer.Dabigatrán.add("Sin INR rutinario");
+  notes.push("Si no se puede monitorizar INR: preferir ACOD; VKA sigue siendo utilizable si no hay mejor alternativa, pero penalizado en la elegibilidad.");
+}
 
   if (special.qd){
     prefer.Rivaroxabán.add("Posología QD");
@@ -1590,7 +1750,7 @@ if (pgpInhibitors.length >= 2) {
   notes.push("Múltiples inhibidores P-gp: posible aumento acumulativo de exposición a ACOD.");
 }
 
-  return {prefer, avoid, notes};
+  return {prefer, avoid, notes, penalty};
 }
 
 function buildClinicalScores(prefer, avoid){
@@ -1763,13 +1923,6 @@ if (!isAvoided("Dabigatrán")) {
       const {crcl,scr_mgdl}=calcCrCl(age,sex,isFinite(weight)?weight:NaN,wUnit,scr,scrUnit);
       const weightKg=isFinite(weight)?((wUnit==='lb')?(weight/2.20462):weight):NaN;
 
-function getSelectedInteractions(){
-  const list = [];
-  document.querySelectorAll(".drug-int:checked").forEach(el=>{
-    list.push(el.value);
-  });
-  return list;
-}
 const interactions = getSelectedInteractions();
 
 let vkaInteractionPresent = false;
@@ -1821,7 +1974,7 @@ const noOAC = (noOAC_byLowRisk || noOAC_byHighBleed) && !special.valvular;
 
 
       // Reglas clínicas
-const {prefer,avoid,notes}=buildClinicalRules({crcl,age,special,weightKg,hasbled,interactions});
+const {prefer,avoid,notes,penalty}=buildClinicalRules({crcl,age,special,weightKg,hasbled,interactions});
 const clinicalScores = buildClinicalScores(prefer, avoid);
 
 
@@ -1848,11 +2001,13 @@ const strokeEquivalent = +(strokeBenefit - (bleedHarm * IE_BLEED_WEIGHT)).toFixe
 const baseScore = (arr>0&&bleedPct>0)?(arr/bleedPct):-Infinity;
 const clinicalScore = clinicalScores[name] ?? 0;
 const score = isFinite(baseScore) ? (baseScore + clinicalScore*0.25) : -Infinity;
-     let adjustedScore = score;
 
-     if (name === "VKA" && vkaInteractionPresent) {
-             adjustedScore -= 0.5;
-              }
+const rankingPenalty = (penalty?.[name] || 0) * 0.75;
+let adjustedScore = score - rankingPenalty;
+
+if (name === "VKA" && vkaInteractionPresent) {
+  adjustedScore -= 0.5;
+}
 
 // Prioridad clínica sobre el score matemático
 const hasAvoid  = avoid?.[name] && avoid[name].size > 0;
@@ -1923,15 +2078,21 @@ if (noOAC) {
 
         adequacy = summarizeForStrategy(name, prefer, avoid);
 
-        if (considerOAC_byBorderline && !noOAC && !special.valvular && adequacy.label === "Preferible") {
+if (name === "VKA" && (penalty?.[name] || 0) > 0 && adequacy.label === "—") {
+  adequacy = {
+    label: "Aceptable",
+    cls: "tagConsider",
+    tooltip: "Utilizable, pero penalizado por dificultad de monitorización del INR o mayor carga de interacciones."
+  };
+}
 
-            adequacy = {
-                label: "Aceptable",
-                cls: "tagConsider",
-                tooltip: "Puede utilizarse si se decide anticoagular"
-            };
-
-        }
+if (considerOAC_byBorderline && !noOAC && !special.valvular && adequacy.label === "Preferible") {
+  adequacy = {
+    label: "Aceptable",
+    cls: "tagConsider",
+    tooltip: "Puede utilizarse si se decide anticoagular"
+  };
+}
 
     }
 
@@ -2238,30 +2399,21 @@ const doacList = ["Apixabán","Dabigatrán","Edoxabán","Rivaroxabán"];
 const doacContraindicated =
   doacList.every(d => avoidedGlobal.includes(d));
 
-/* Flags de causa */
+/* Flags de causa basados en variables reales */
 const doacContraindicated_hepatic =
-  special.hepatic === true;
+  special.cirrhosis === true;
 
 const doacContraindicated_interaction =
-  clinicalScores?.strongInteraction === true ||
-  clinicalScores?.enzymeInducer === true;
+  interactions.length > 0 && doacContraindicated;
 
 const clinicalState = {
-
   anticoagulationIndicated: !noOAC,
-
   lowStrokeRisk: noOAC_byLowRisk,
-
   highBleedRisk: noOAC_byHighBleed,
-
-  doacContraindicated: doacContraindicated,
-
+  doacContraindicated,
   doacContraindicated_hepatic,
-
   doacContraindicated_interaction,
-
   bestStrategy: bestName
-
 };
 
 /* =========================================================
@@ -2390,7 +2542,8 @@ __lastReport={
   doses:dosesForReport
 };
       document.getElementById('btnPrint').disabled=false;
-      document.getElementById('btnCopy').disabled=false;
+document.getElementById('btnCopy').disabled=false;
+document.getElementById('btnOpenFeedback').disabled=false;
     }
 
 function printReport(){
@@ -3147,11 +3300,11 @@ const clean = s => String(s)
     summary =
     "Paciente con fibrilación auricular con indicación clara de anticoagulación.";
 
-    const doacContra =
-      r.avoidedGlobal.includes("Apixaban") &&
-      r.avoidedGlobal.includes("Dabigatran") &&
-      r.avoidedGlobal.includes("Edoxaban") &&
-      r.avoidedGlobal.includes("Rivaroxaban");
+        const doacContra =
+      r.avoidedGlobal.includes("Apixabán") &&
+      r.avoidedGlobal.includes("Dabigatrán") &&
+      r.avoidedGlobal.includes("Edoxabán") &&
+      r.avoidedGlobal.includes("Rivaroxabán");
 
     if (doacContra){
       summary +=
@@ -3301,8 +3454,12 @@ const clean = s => String(s)
     });
 
     document.getElementById('btnCalc').addEventListener('click',e=>{
-      e.preventDefault(); compute(); document.getElementById('calcMsg'); scrollToResult();
-    });
+  e.preventDefault();
+  if (!validateRequiredInputs()) return;
+  compute();
+  scrollToResult();
+});
+
     document.getElementById('btnReset').addEventListener('click',e=>{
       e.preventDefault();
       ['age','sex','weight','weightUnit','scr','scrUnit'].forEach(id=>{const el=document.getElementById(id); if(el.tagName==='SELECT'){el.selectedIndex=0;} else el.value='';});
@@ -3311,11 +3468,14 @@ const clean = s => String(s)
       document.querySelector('#comparative tbody').innerHTML='';
       document.getElementById('recList').innerHTML='';
       document.getElementById('doseList').innerHTML='';
+      document.getElementById('clinicalBannerZone').innerHTML='';
+      document.getElementById('clinicalExplanation').innerHTML='';
       document.getElementById('doseSection').style.display='';
-      document.getElementById('calcMsg');
+      document.getElementById('calcMsg').textContent='';
       document.getElementById('btnPrint').disabled=true;
-      document.getElementById('btnCopy').disabled=true;
-      
+document.getElementById('btnCopy').disabled=true;
+document.getElementById('btnOpenFeedback').disabled=true;
+closeFeedbackForm();      
 
       __lastReport=null;
       window.scrollTo({top:0,behavior:'smooth'}); applyColumnStriping();
@@ -3327,146 +3487,30 @@ const clean = s => String(s)
   document.getElementById('btnReset').click();
 });
 
-    window.addEventListener('DOMContentLoaded', autoCheckByInputs);
+    document.getElementById('btnOpenFeedback').addEventListener('click', (e)=>{
+  e.preventDefault();
+  openFeedbackForm();
+});
+
+document.getElementById('btnCloseFeedback').addEventListener('click', (e)=>{
+  e.preventDefault();
+  closeFeedbackForm();
+});
+
+document.getElementById('btnPrepareFeedback').addEventListener('click', (e)=>{
+  e.preventDefault();
+  previewFeedbackPayload();
+});
+
+document.getElementById('btnSendFeedback').addEventListener('click', (e)=>{
+  e.preventDefault();
+  openFeedbackEmail();
+});
+
+document.addEventListener('DOMContentLoaded', autoCheckByInputs);
 
 
     </script>
-<script>
-
-/* ==========================================================
-   LISTAS PARA LOS MODALES DE INTERACCIONES
-========================================================== */
-
-const infoInteracciones = {
-
-
-/* ==========================================================
-   Inhibidor potente de P-gp
-========================================================== */
-
-  inhpgp: {
-    titulo: "Inhibidores duales de P-gp y CYP3A4",
-    html: `
-      <p>
-        Fármacos que inhiben de forma dual y <b>clínicamente relevante</b> la glicoproteína P (P-gp) y el metabolismo mediado por CYP3A4.
-      </p>
-
-      <ul>
-  <li>☯️Dronedarona</li>
-  <li>☯️Quinidina</li>
-  <li>☯️Ciclosporina</li>
-  <li>☯️Verapamilo</li>
-  <li>☯️Diltiazem</li>
-  <li>☯️Amiodarona</li>
-  <li>☯️Tacrolimus</li>
-  <li>☯️Ketoconazol</li>
-  <li>☯️Itraconazol</li>
-  <li>☯️Posaconazol</li>
-  <li>☯️Voriconazol</li>
-  <li>☯️Ritonavir</li>
-  <li>☯️Cobicistat</li>
-  <li>☯️Atazanavir</li>
-  <li>☯️Darunavir</li>
-  <li>☯️Nelfinavir</li>
-  <li>☯️Saquinavir</li>
-  <li>☯️Claritromicina</li>
-  <li>☯️Eritromicina</li>
-</ul>
-    `
-  },
-
-  inhcyp: {
-    titulo: "Inhibidores selectivos de CYP3A4",
-    html: `
-      <p>
-        Fármacos que inhiben de forma <b>potente y selectiva</b> el metabolismo mediado por CYP3A4.
-      </p>
-
-      <ul>
-        <li>🎯Fluconazol</li>
-        <li>🎯Nefazodona</li>
-        </ul>
-    `
-  },
-
-  dual: {
-    titulo: "Inductores duales",
-    html: `
-      <p>
-        Fármacos que <b>inducen simultáneamente CYP3A4 y la glicoproteína P (P-gp)</b>,
-        produciendo alteraciones farmacocinéticas <b>clínicamente relevantes</b> de los ACOD.
-      </p>
-      <ul>
-        <li>☯️Rifampicina</li>
-        <li>☯️Rifabutina</li>
-        <li>☯️Carbamazepina</li>
-        <li>☯️Fenitoína</li>
-        <li>☯️Fenobarbital</li>
-        <li>☯️Primidona</li>
-        <li>☯️Hierba de San Juan</li>
-      </ul>
-    `
-  },
-
-};  /* ✅ CIERRE REAL DEL OBJETO */
-
-/* ===== Lógica del modal (puede ir aquí o en otro script) ===== */
-
-document.addEventListener('DOMContentLoaded', () => {
-
-  // ===== Abrir (delegación) =====
-  document.addEventListener('click', function (e) {
-    const icon = e.target.closest('.chip-info');
-    if (!icon) return;
-
-    e.preventDefault();
-
-    const key = icon.dataset.info;
-    const data = infoInteracciones[key];
-    if (!data) return;
-
-    const t = document.getElementById('modal-info-title');
-    const c = document.getElementById('modal-info-content');
-    const m = document.getElementById('modal-info');
-    if (!t || !c || !m) return;
-
-    t.textContent = data.titulo;
-    c.innerHTML = data.html;
-    m.style.display = 'flex';
-  }, true); // captura OK
-
-  // ===== Cerrar (X) =====
-  const btnClose = document.getElementById('modal-info-close');
-  if (btnClose) {
-    btnClose.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const m = document.getElementById('modal-info');
-      if (m) m.style.display = 'none';
-    });
-  }
-
-  // ===== Cerrar (clic fuera del modal) =====
-  const overlay = document.getElementById('modal-info');
-  if (overlay) {
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) overlay.style.display = 'none';
-    });
-  }
-
-  // (Opcional) Cerrar con ESC
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      const m = document.getElementById('modal-info');
-      if (m) m.style.display = 'none';
-    }
-  });
-
-});
-
-
-
-</script>
 
 
 
@@ -4519,13 +4563,7 @@ window.addEventListener("load", () => {
 });
 </script>
     <footer> <img src="../img/uibanner.png" alt="Ictus GPS"> </footer>
-<div class="modal-overlay" id="modal-info">
-  <div class="modal">
-    <button class="modal-close" id="modal-info-close">🔙</button>
-    <h3 id="modal-info-title"></h3>
-    <div id="modal-info-content"></div>
-  </div>
-</div>
+
 </div>
 
 </div>
