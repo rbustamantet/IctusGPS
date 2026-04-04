@@ -1477,6 +1477,18 @@ function mostrarTratamientoEscenario(){
 document.addEventListener('DOMContentLoaded', () => {
   renderDetallesEscenarios();
 
+document.querySelectorAll('.details-block').forEach((detail) => {
+  detail.addEventListener('toggle', function () {
+    if (this.open) {
+      document.querySelectorAll('.details-block').forEach((other) => {
+        if (other !== this) {
+          other.open = false;
+        }
+      });
+    }
+  });
+});
+
   const escenarioSelect = document.getElementById('escenario');
   escenarioSelect.addEventListener('change', mostrarTratamientoEscenario);
 
@@ -1649,6 +1661,9 @@ function borrarResumen(){
     behavior: 'smooth'
   });
 }
+
+
+
 </script>
     <div id="toast" class="toast"></div>
   </body>
