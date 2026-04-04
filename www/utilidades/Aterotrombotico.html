@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1,
-      viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Ictus aterotrombótico</title>
     <meta name="theme-color" content="#0f3d83">
-    <link rel="icon" type="image/png" sizes="192x192"
-      href="../iconos/ictusgps.png">
-    <link rel="apple-touch-icon" sizes="180x180"
-      href="../iconos/ictusgps.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../iconos/ictusgps.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../iconos/ictusgps.png">
     <style>
 /* VARIABLES BÁSICAS */
 :root{
@@ -115,8 +111,6 @@ header{
   font-size:14px;
 }
 
-
-
 .block{
   background:linear-gradient(to bottom, #f2f7ff, #e9f1ff);
   border-radius:14px;
@@ -134,7 +128,6 @@ header{
   align-items:center;
   gap:6px;
 }
-
 
 /* SELECT ESCENARIO */
 label { font-size:0.95rem; }
@@ -251,7 +244,6 @@ select:focus{
     grid-template-columns:1fr 1fr;
   }
 }
-
 
 /* HERRAMIENTAS TRANSVERSALES */
 .tools-wrap{
@@ -407,8 +399,6 @@ footer img{max-width:320px;height:auto;opacity:.95}
   body{font-size:0.96rem;}
 }
 
-
-
 /* Animaciones */
 .fade-in{
   animation: fadeIn 0.25s ease-out;
@@ -471,13 +461,13 @@ footer img{max-width:320px;height:auto;opacity:.95}
 @media (max-width: 600px) {
   .tools-wrap {
     flex-direction: column;
-    align-items: stretch; /* que ocupen el ancho completo */
+    align-items: stretch;
     gap: 12px;
   }
 
   .tool-chip {
     width: 100%;
-    justify-content: center; /* centra icono + texto */
+    justify-content: center;
     font-size: 1rem;
     padding: 12px;
   }
@@ -487,455 +477,826 @@ footer img{max-width:320px;height:auto;opacity:.95}
     margin-right: 6px;
   }
 }
-
 </style>
   </head>
   <body>
-    <!-- SAFE TOP -->
     <div class="safe-top">
       <div class="safe-content">
-        <div class="safe-left"> <img src="../iconos/utilidadesico.png"
-            class="safe-mini" alt="Utilidades"> <img
-            src="../img/topbar.png" class="safe-logo" alt="IctusGPS"> </div>
-        <div class="safe-actions"> <a href="javascript:history.back()"
-            class="safe-btn" title="Volver atrás"> <img
-              src="../iconos/atrastransparente.png" class="safe-icon"
-              alt="Atrás"> </a> <a href="../index.html"
-            class="safe-btn" title="Inicio"> <img
-              src="../iconos/hometransparente.png" class="safe-icon"
-              alt="Inicio"> </a> </div>
+        <div class="safe-left">
+          <img src="../iconos/utilidadesico.png" class="safe-mini" alt="Utilidades">
+          <img src="../img/topbar.png" class="safe-logo" alt="IctusGPS">
+        </div>
+        <div class="safe-actions">
+          <a href="javascript:history.back()" class="safe-btn" title="Volver atrás">
+            <img src="../iconos/atrastransparente.png" class="safe-icon" alt="Atrás">
+          </a>
+          <a href="../index.html" class="safe-btn" title="Inicio">
+            <img src="../iconos/hometransparente.png" class="safe-icon" alt="Inicio">
+          </a>
+        </div>
       </div>
     </div>
+
     <header>
-      <div class="title"> <img src="../iconos/aterotromboticoico.png"
-          alt="Icono">Ictus aterotrombótico </div>
+      <div class="title"><img src="../iconos/aterotromboticoico.png" alt="Icono">Ictus aterotrombótico</div>
     </header>
+
     <main class="wrap">
-      <div class="howto text-justify">El <b>ictus aterotrombótico</b>
-        incluye tanto la <b>enfermedad aterosclerótica</b> de grandes
-        vasos como los infartos relacionados con <b>placa inestable</b>,
-        <b>hipoperfusión</b> o <b>embolia arterio-arterial</b>. La
-        herramienta integra además escenarios arteriales especiales (<b>disección,
-          carotid web, trombo mural</b>) y ofrece una orientación rápida
-        del <b>tratamiento antitrombótico</b> en cada situación
-        clínica.</div>
-      <!-- TARJETA 1: SELECCIÓN DE ESCENARIO -->
+      <div class="howto text-justify">El <b>ictus aterotrombótico</b> incluye tanto la <b>enfermedad aterosclerótica</b> de grandes vasos como los infartos relacionados con <b>placa inestable</b>, <b>hipoperfusión</b> o <b>embolia arterio-arterial</b>. La herramienta integra además escenarios arteriales especiales (<b>disección, carotid web, trombo mural</b>) y ofrece una orientación rápida del <b>tratamiento antitrombótico</b> en cada situación clínica.</div>
+
       <div class="block" id="escenario-section">
         <h3>🩺 Tipo de ictus / escenario clínico</h3>
         <label for="escenario"><b>Seleccione el escenario principal:</b></label>
         <select id="escenario">
-          <option value="" disabled="disabled" selected="selected">Seleccione
-            un escenario…</option>
+          <option value="" disabled="disabled" selected="selected">Seleccione un escenario…</option>
           <option value="ictus_menor">Ictus minor / AIT de alto riesgo</option>
           <option value="carotida">Estenosis carotídea extracraneal</option>
-          <option value="intracraneal">Estenosis intracraneal
-            aterosclerótica</option>
+          <option value="intracraneal">Estenosis intracraneal aterosclerótica</option>
           <option value="vertebral">Estenosis vertebrales</option>
-          <option value="atero_sin_estenosis">Ictus aterotrombótico sin
-            estenosis significativa</option>
+          <option value="atero_sin_estenosis">Ictus aterotrombótico sin estenosis significativa</option>
           <option value="lacunar">Ictus lacunar</option>
-          <option value="diseccion">Disección arterial (carótida /
-            vertebral)</option>
+          <option value="diseccion">Disección arterial (carótida / vertebral)</option>
           <option value="carotid_web">Carotid Web</option>
           <option value="trombo_aortico">Trombo mural aórtico</option>
-          <option value="estenosis_sin_intervencion">Estenosis crítica
-            sin opción de intervención</option>
+          <option value="estenosis_sin_intervencion">Estenosis crítica sin opción de intervención</option>
         </select>
-        <p class="note"> Los escenarios se refieren al mecanismo
-          aterotrombótico u otras fuentes de embolia arteria-arteria. </p>
+        <p class="note">Los escenarios se refieren al mecanismo aterotrombótico u otras fuentes de embolia arteria-arteria.</p>
       </div>
-      <!-- TARJETA 2: RECOMENDACIÓN PRINCIPAL -->
+
       <div class="block" id="escenario-resultado">
-        <div style="display:flex; justify-content:space-between;
-          align-items:center;">
-          <h3 style="margin:0;">✅ Recomendación</h3>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <h3 style="margin:0;">✅ Recomendación esquemática</h3>
         </div>
-        <p id="escenario-texto"> Seleccione un escenario clínico para
-          mostrar la recomendación orientativa de tratamiento
-          antitrombótico. </p>
+        <div id="escenario-texto">Seleccione un escenario clínico para mostrar la síntesis orientativa de tratamiento antitrombótico.</div>
       </div>
+
       <div class="actions">
-        <button class="boton-opcion boton-clear"
-  title="Borrar contenido">Borrar</button>
-<button class="boton-opcion boton-copy"
-  title="Copiar resumen">Copiar recomendación</button> </div>
-      <!-- TARJETA 3: HERRAMIENTAS TRANSVERSALES -->
+        <button class="boton-opcion boton-clear" title="Borrar contenido">Borrar</button>
+        <button class="boton-opcion boton-copy" title="Copiar resumen">Copiar recomendación</button>
+      </div>
+
       <div class="block" id="herramientas-block">
         <h3>📚 Consideraciones adicionales</h3>
-        <p class="note"> Elementos aplicables a varios escenarios: dosis
-          de carga, duración de la triple terapia, manejo en
-          anticoagulados y gastroprotección. </p>
-        <div class="tools-wrap"> <button class="tool-chip"
-            data-tool="carga"> <span class="emoji">⚡</span> Dosis de
-            carga de antiagregantes </button> <button
-            class="tool-chip" data-tool="triple_stent"> <img
-              src="../iconos/3st.svg" alt="3"> Triple terapia post-stent
-          </button> <button class="tool-chip"
-            data-tool="triple_sin_stent"> <img src="../iconos/3.svg"
-              alt="3"> Triple terapia sin stent </button> <button
-            class="tool-chip" data-tool="ibp"> <span class="emoji">💊</span>
-            IBP y clopidogrel </button> </div>
+        <p class="note">Los botones muestran una síntesis muy breve. El desarrollo completo de cada consideración se detalla más abajo.</p>
+        <div class="tools-wrap">
+          <button class="tool-chip" data-tool="carga"><span class="emoji">⚡</span> Dosis de carga de antiagregantes</button>
+          <button class="tool-chip" data-tool="triple_stent"><img src="../iconos/3st.svg" alt="3"> Triple terapia post-stent</button>
+          <button class="tool-chip" data-tool="triple_sin_stent"><img src="../iconos/3.svg" alt="3"> Triple terapia sin stent</button>
+          <button class="tool-chip" data-tool="ibp"><span class="emoji">💊</span> IBP y clopidogrel</button>
+        </div>
       </div>
-      <!-- DISCLAIMER -->
+
       <section class="disclaimer-red">
-        <p class="text-justify"> <b>📛Advertencia.</b> Esta herramienta
-          tiene carácter orientativo y no sustituye el juicio clínico
-          del profesional ni los protocolos locales. Las recomendaciones
-          deben integrarse con la situación individual del paciente, las
-          guías vigentes y la discusión multidisciplinar cuando proceda.
-        </p>
+        <p class="text-justify"><b>📛Advertencia.</b> Esta herramienta tiene carácter orientativo y no sustituye el juicio clínico del profesional ni los protocolos locales. Las recomendaciones deben integrarse con la situación individual del paciente, las guías vigentes y la discusión multidisciplinar cuando proceda.</p>
       </section>
+
       <div class="howto">
-<details class="details-block">
-  <summary class="details-summary">
-    💊 Triple terapia en pacientes anticoagulados
-  </summary>
+        <h3 style="margin-top:0; color:#0f3d83;">📘 Desarrollo completo de las recomendaciones</h3>
+        <div id="detalles-escenarios" style="padding-left:20px;"></div>
+      </div>
 
+      <div class="howto">
+        <details class="details-block">
+          <summary class="details-summary">⚡ Dosis de carga de antiagregantes</summary>
+          <div class="details-card">
+            <div class="details-card-header">Inicio rápido del efecto antiagregante</div>
+            <div class="details-card-body">
+              <p>El tratamiento antiagregante en el ictus agudo requiere dosis de carga para lograr un efecto terapéutico temprano, ya que el riesgo de recurrencia es máximo en los primeros días. Iniciar solo con dosis de mantenimiento en pacientes naïve retrasa la protección clínica.</p>
+
+              <hr class="details-divider">
+
+              <ul style="padding-left:18px;">
+                <li><b>AAS:</b> 300 mg VO o IV según el contexto, seguido de 75–100 mg/día. No mantener dosis altas más de 3–5 días salvo indicación específica.</li>
+                <li><b>Clopidogrel:</b> 300 mg como pauta estándar; 600 mg si se busca un efecto inhibitorio más rápido y el riesgo hemorrágico lo permite. Mantenimiento posterior: 75 mg/día.</li>
+                <li><b>Ticagrelor:</b> dosis de carga de 180 mg, seguida de 90 mg cada 12 horas.</li>
+              </ul>
+
+              <p>La elección entre 300 y 600 mg de clopidogrel debe individualizarse según la urgencia clínica, la ventana temporal y el perfil hemorrágico del paciente.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="details-block">
+          <summary class="details-summary">🧩 Antiagregación en pacientes anticoagulados</summary>
 <div class="details-card">
+            <div class="details-card-header">⚖️ Equilibrio entre riesgo trombótico y hemorrágico</div>
+            <div class="details-card-body">
+              <p>El uso de <b>triple terapia antitrombótica</b> (anticoagulación oral + aspirina + clopidogrel) en pacientes con indicación de anticoagulación crónica que requieren un periodo transitorio de doble antiagregación (con o sin stent carotídeo) plantea un delicado equilibrio entre <b>prevención de eventos trombóticos</b> y <b>riesgo hemorrágico</b>.</p>
 
-    <!-- Barra superior -->
+              <p>En el ámbito del ictus, <b>no existen ensayos clínicos aleatorizados específicos</b> que definan la duración óptima de la triple terapia en pacientes anticoagulados, ni tras stent carotídeo ni en situaciones sin implante de stent. Por este motivo, las recomendaciones actuales se basan en la <b>extrapolación de evidencia sólida procedente de cardiología intervencionista</b> y en el consenso reflejado en guías clínicas recientes.</p>
+
+              <hr class="details-divider">
+
+              <p><b>Evidencia que sustenta la estrategia de triple terapia limitada</b></p>
+
+              <p>Ensayos realizados en pacientes con <b>fibrilación auricular sometidos a intervencionismo coronario</b> han demostrado de forma consistente que la prolongación de la triple terapia se asocia a un aumento significativo del sangrado, sin un beneficio claro en términos de eventos isquémicos:</p>
+
+              <ul style="padding-left:18px;">
+                <li><b>WOEST</b> demostró que la combinación de anticoagulación oral + clopidogrel reduce de forma significativa el sangrado frente a la triple terapia prolongada, sin aumento de eventos trombóticos.</li>
+                <li><b>PIONEER AF‑PCI</b> mostró la seguridad de retirar precozmente la aspirina y mantener anticoagulación + inhibidor P2Y12.</li>
+                <li><b>AUGUSTUS</b> confirmó que la aspirina es el principal determinante del sangrado y que las estrategias con triple terapia corta son más seguras.</li>
+              </ul>
+
+              <p>Aunque estos estudios se realizaron en contexto coronario, sus resultados han sido incorporados de forma transversal en las guías de práctica clínica para pacientes anticoagulados, y constituyen la base para limitar la duración de la triple terapia.</p>
+
+              <hr class="details-divider">
+
+              <p><b>Aplicación práctica en patología cerebrovascular</b></p>
+
+              <p>Las guías <b>ESVS 2023</b>, <b>ESC 2020</b> y <b>AHA/ASA</b> reconocen la necesidad de combinar anticoagulación y antiagregación en determinados escenarios vasculares, pero advierten de forma explícita que la <b>triple terapia prolongada debe evitarse</b> por el incremento del riesgo hemorrágico.</p>
+
+              <p>En esta herramienta se adopta, por tanto, un enfoque <b>conservador y defendible</b>:</p>
+
+              <ul style="padding-left:18px;">
+                <li><b>Esquema estándar:</b> triple terapia durante <b>30 días</b>, seguida de anticoagulación + clopidogrel hasta completar 3 meses.</li>
+                <li><b>Modulación por riesgo hemorrágico:</b> en pacientes con alto riesgo de sangrado, se recomienda <b>acortar la triple terapia a 7–14 días</b> y transicionar precozmente a doble terapia.</li>
+              </ul>
+
+              <p>Este enfoque permite maximizar la protección frente a eventos trombóticos en la fase inicial de mayor riesgo, minimizando al mismo tiempo la exposición innecesaria a triple terapia en pacientes vulnerables.</p>
+
+              <hr class="details-divider">
+
+              <p>En resumen, la duración de la triple terapia debe entenderse como una <b>decisión dinámica</b>, basada en la evidencia disponible, el perfil hemorrágico individual y el contexto vascular concreto, más que como un esquema rígido aplicable a todos los pacientes.</p>
+            </div></DIV>
+
+          <div class="details-card">
+            <div class="details-card-header">🟢 Anticoagulación y antiagregación tras implante de stent</div>
+            <div class="details-card-body">
+              <p>La combinación de anticoagulación oral con doble antiagregación aumenta de forma importante el riesgo de sangrado. Aun así, en pacientes con indicación crónica de anticoagulación que reciben un stent carotídeo o coronario reciente, puede ser necesario un periodo corto de tratamiento combinado.</p>
+
+              <hr class="details-divider">
+
+              <ul style="padding-left:18px;">
+                <li><b>Días 1–30:</b> ACO + AAS + clopidogrel.</li>
+                <li><b>Si alto riesgo hemorrágico:</b> acortar la triple terapia a 7–14 días y retirar antes el AAS.</li>
+                <li><b>Meses 1–3:</b> ACO + clopidogrel.</li>
+                <li><b>Después:</b> ACO en monoterapia si no persiste otra indicación vascular.</li>
+              </ul>
+
+              <p>Siempre que sea posible, debe priorizarse un ACOD frente a un AVK y asociar IBP durante toda la fase de combinación antitrombótica.</p>
+            </div>
+          </div>
+<div class="details-card">
+            <div class="details-card-header">🚫 Paciente anticoagulado con ictus menor o AIT sin implante de stent</div>
+            <div class="details-card-body">
+              <p>En pacientes con fibrilación auricular u otra indicación de anticoagulación oral que presentan un ictus isquémico o AIT y no han recibido un stent, la adición rutinaria de antiagregantes a la anticoagulación oral no está recomendada.</p>
+
+              <hr class="details-divider">
+
+              <ul style="padding-left:18px;">
+                <li><b>No</b> añadir de forma rutinaria AAS ni DAPT al anticoagulante.</li>
+                <li><b>Manejo habitual:</b> mantener ACO en monoterapia.</li>
+                <li><b>Si el evento ocurre pese a ACO:</b> revisar adherencia, dosis, función renal, interacciones y tipo de anticoagulante.</li>
+              </ul>
+
+              <p>La combinación “ACO + DAPT” en este escenario aumenta el riesgo hemorrágico sin beneficio demostrado en la prevención de nuevos ictus, salvo que exista una indicación vascular independiente muy bien definida.</p>
+            </div>
+          </div>
+
+        </details>
+
+        
+        <details class="details-block">
+  <summary class="details-summary">💊 IBP y clopidogrel</summary>
+
+  <div class="details-card">
     <div class="details-card-header">
-      ⚖️ Equilibrio entre riesgo trombótico y hemorrágico
+      Gastroprotección e interacción metabólica
     </div>
 
-    <!-- Contenido -->
-<div class="details-card-body">
+    <div class="details-card-body">
       <p>
-        El uso de <b>triple terapia antitrombótica</b> (anticoagulación oral +
-        aspirina + clopidogrel) en pacientes con indicación de anticoagulación
-        crónica que requieren un periodo transitorio de doble antiagregación
-        (con o sin stent carotídeo) plantea un delicado equilibrio entre
-        <b>prevención de eventos trombóticos</b> y <b>riesgo hemorrágico</b>.
+        El uso de <b>inhibidores de la bomba de protones (IBP)</b> debe considerarse de forma activa en pacientes tratados con antiagregantes o combinaciones antitrombóticas que presenten <b>alto riesgo digestivo</b>.
       </p>
 
       <p>
-        En el ámbito del ictus, <b>no existen ensayos clínicos aleatorizados
-        específicos</b> que definan la duración óptima de la triple terapia en
-        pacientes anticoagulados, ni tras stent carotídeo ni en situaciones sin
-        implante de stent. Por este motivo, las recomendaciones actuales se basan
-        en la <b>extrapolación de evidencia sólida procedente de cardiología
-        intervencionista</b> y en el consenso reflejado en guías clínicas recientes.
+        En la práctica, este grupo incluye sobre todo a pacientes con <b>antecedentes de úlcera gastroduodenal</b>, <b>hemorragia digestiva alta</b> o <b>perforación</b>, <b>edad avanzada</b> —especialmente <b>&gt;75 años</b>, aunque muchos protocolos amplían la precaución ya desde <b>&gt;65 años</b>—, <b>infección por Helicobacter pylori</b>, o uso concomitante de fármacos que aumentan el riesgo hemorrágico digestivo, como <b>AAS</b>, <b>doble antiagregación</b>, <b>anticoagulantes</b>, <b>AINE</b> o <b>corticoides</b>.
+      </p>
+
+      <p>
+        La elección del IBP es importante porque <b>clopidogrel es un profármaco</b> y necesita activarse en el hígado, sobre todo mediante la vía enzimática <b>CYP2C19</b>. <b>Omeprazol</b> y <b>esomeprazol</b> inhiben esta enzima con mayor intensidad y pueden reducir la formación del metabolito activo de clopidogrel, disminuyendo así su efecto antiagregante.
+      </p>
+
+      <p>
+        Por este motivo, cuando un paciente tratado con clopidogrel necesita gastroprotección, deben preferirse <b>pantoprazol</b>, <b>rabeprazol</b> y, en menor medida, <b>lansoprazol</b>, ya que presentan mucha menos interferencia sobre CYP2C19. Entre ellos, <b>pantoprazol</b> suele considerarse la opción de referencia por su perfil de interacción más favorable.
       </p>
 
       <hr class="details-divider">
 
-      <p><b>Evidencia que sustenta la estrategia de triple terapia limitada</b></p>
-
-      <p>
-        Ensayos realizados en pacientes con <b>fibrilación auricular sometidos a
-        intervencionismo coronario</b> han demostrado de forma consistente que la
-        prolongación de la triple terapia se asocia a un aumento significativo del
-        sangrado, sin un beneficio claro en términos de eventos isquémicos:
-      </p>
+      <p><b>Pacientes que deben considerarse de alto riesgo digestivo</b></p>
 
       <ul style="padding-left:18px;">
-        <li>
-          <b>WOEST</b> demostró que la combinación de anticoagulación oral +
-          clopidogrel reduce de forma significativa el sangrado frente a la triple
-          terapia prolongada, sin aumento de eventos trombóticos.
-        </li>
-        <li>
-          <b>PIONEER AF‑PCI</b> mostró la seguridad de retirar precozmente la aspirina
-          y mantener anticoagulación + inhibidor P2Y12.
-        </li>
-        <li>
-          <b>AUGUSTUS</b> confirmó que la aspirina es el principal determinante del
-          sangrado y que las estrategias con triple terapia corta son más seguras.
-        </li>
+        <li>Antecedentes de <b>úlcera gastroduodenal</b>, <b>hemorragia digestiva alta</b> o <b>perforación</b>.</li>
+        <li><b>Edad avanzada</b>, especialmente &gt;75 años, o &gt;65 años si coexisten otros factores de riesgo.</li>
+        <li><b>Infección por Helicobacter pylori</b>.</li>
+        <li>Uso concomitante de <b>AAS</b>, <b>DAPT</b>, <b>anticoagulantes</b>, <b>AINE</b> o <b>corticoides</b>.</li>
+        <li>Combinación de varios factores de riesgo digestivo o necesidad de tratamiento antitrombótico intensivo.</li>
       </ul>
 
+      <hr class="details-divider">
+
+      <p><b>Por qué no son preferibles los anti-H2</b></p>
+
       <p>
-        Aunque estos estudios se realizaron en contexto coronario, sus resultados
-        han sido incorporados de forma transversal en las guías de práctica
-        clínica para pacientes anticoagulados, y constituyen la base para limitar
-        la duración de la triple terapia.
+        Los <b>anti-H2</b>, como <b>famotidina</b>, no presentan el mismo problema de interacción metabólica relevante con clopidogrel que omeprazol o esomeprazol, pero <b>no son la opción preferente en pacientes con alto riesgo digestivo</b>.
+      </p>
+
+      <p>
+        La razón no es una mala interacción con clopidogrel, sino que los <b>IBP ofrecen una protección superior frente al sangrado digestivo alto</b>. Por ello, si el paciente tolera un IBP, la estrategia preferente es usar <b>un IBP con baja interacción metabólica</b> y no sustituirlo de entrada por famotidina u otro anti-H2.
       </p>
 
       <hr class="details-divider">
 
-      <p><b>Aplicación práctica en patología cerebrovascular</b></p>
-
-      <p>
-        Las guías <b>ESVS 2023</b>, <b>ESC 2020</b> y <b>AHA/ASA</b> reconocen la
-        necesidad de combinar anticoagulación y antiagregación en determinados
-        escenarios vasculares, pero advierten de forma explícita que la
-        <b>triple terapia prolongada debe evitarse</b> por el incremento del riesgo
-        hemorrágico.
-      </p>
-
-      <p>
-        En esta herramienta se adopta, por tanto, un enfoque <b>conservador y
-        defendible</b>:
-      </p>
+      <p><b>Aplicación práctica</b></p>
 
       <ul style="padding-left:18px;">
-        <li>
-          <b>Esquema estándar:</b> triple terapia durante <b>30 días</b>, seguida de
-          anticoagulación + clopidogrel hasta completar 3 meses.
-        </li>
-        <li>
-          <b>Modulación por riesgo hemorrágico:</b> en pacientes con alto riesgo de
-          sangrado, se recomienda <b>acortar la triple terapia a 7–14 días</b> y
-          transicionar precozmente a doble terapia.
-        </li>
+        <li>Si un paciente tratado con <b>clopidogrel</b> necesita gastroprotección, deben preferirse <b>pantoprazol</b>, <b>rabeprazol</b> o <b>lansoprazol</b>.</li>
+        <li>Deben evitarse <b>omeprazol</b> y <b>esomeprazol</b> siempre que sea posible.</li>
+        <li>En pacientes con <b>alto riesgo digestivo</b>, el IBP debe iniciarse desde el comienzo del tratamiento antitrombótico y mantenerse mientras dure la fase de mayor riesgo hemorrágico digestivo.</li>
       </ul>
-
-      <p>
-        Este enfoque permite maximizar la protección frente a eventos trombóticos
-        en la fase inicial de mayor riesgo, minimizando al mismo tiempo la
-        exposición innecesaria a triple terapia en pacientes vulnerables.
-      </p>
-
-      <hr class="details-divider">
-
-      <p>
-        En resumen, la duración de la triple terapia debe entenderse como una
-        <b>decisión dinámica</b>, basada en la evidencia disponible, el perfil
-        hemorrágico individual y el contexto vascular concreto, más que como un
-        esquema rígido aplicable a todos los pacientes.
-      </p>
-
     </div>
   </div>
 </details>
+        </details>
 
         <details class="details-block">
-  <summary class="details-summary">📒
-            Glosario de acrónimos</summary>
+          <summary class="details-summary">📒 Glosario de acrónimos</summary>
           <div class="details-card">
-            <!-- Barra superior tipo guideline -->
-            <div class="details-card-header"> 🔤 Acrónimos utilizados </div>
-            <!-- Contenido -->
-              <div class="details-card-body">
+            <div class="details-card-header">🔤 Acrónimos utilizados</div>
+            <div class="details-card-body">
               <ul class="glosario-grid details-list-compact glossary-list">
-                
-                  <li><b>AAS:</b> Ácido acetilsalicílico</li>
-                  <li><b>ACO:</b> Anticoagulación oral</li>
-                  <li><b>ACOD:</b> Anticoagulante oral de acción directa</li>
-                  <li><b>AIT:</b> Ataque isquémico transitorio</li>
-                  <li><b>AVK:</b> Antagonistas de la vitamina K</li>
-                  <li><b>CAS:</b> Stent carotídeo (carotid artery
-                    stenting)</li>
-                  <li><b>CEA:</b> Endarterectomía carotídea (carotid
-                    endarterectomy)</li>
-                  <li><b>DAPT:</b> Doble antiagregación plaquetaria
-                    (dual antiplatelet therapy)</li>
-                  <li><b>DM:</b> Diabetes mellitus</li>
-                  <li><b>DTC:</b> Doppler transcraneal</li>
-                  <li><b>FA:</b> Fibrilación auricular</li>
-                  <li><b>FRV:</b> Factores de riesgo vascular</li>
-                  <li><b>IBP:</b> Inhibidor de la bomba de protones</li>
-                  <li><b>INR:</b> Cociente internacional normalizado</li>
-                  <li><b>LDL:</b> Lipoproteínas de baja densidad</li>
-                  <li><b>NIHSS:</b> National Institutes of Health Stroke
-                    Scale</li>
-                  <li><b>RM:</b> Resonancia magnética</li>
-                  <li><b>TC:</b> Tomografía computarizada</li>
+                <li><b>AAS:</b> Ácido acetilsalicílico</li>
+                <li><b>ACO:</b> Anticoagulación oral</li>
+                <li><b>ACOD:</b> Anticoagulante oral de acción directa</li>
+                <li><b>AIT:</b> Ataque isquémico transitorio</li>
+                <li><b>AVK:</b> Antagonistas de la vitamina K</li>
+                <li><b>CAS:</b> Stent carotídeo (carotid artery stenting)</li>
+                <li><b>CEA:</b> Endarterectomía carotídea (carotid endarterectomy)</li>
+                <li><b>DAPT:</b> Doble antiagregación plaquetaria (dual antiplatelet therapy)</li>
+                <li><b>DM:</b> Diabetes mellitus</li>
+                <li><b>DTC:</b> Doppler transcraneal</li>
+                <li><b>FA:</b> Fibrilación auricular</li>
+                <li><b>FRV:</b> Factores de riesgo vascular</li>
+                <li><b>IBP:</b> Inhibidor de la bomba de protones</li>
+                <li><b>INR:</b> Cociente internacional normalizado</li>
+                <li><b>LDL:</b> Lipoproteínas de baja densidad</li>
+                <li><b>NIHSS:</b> National Institutes of Health Stroke Scale</li>
+                <li><b>RM:</b> Resonancia magnética</li>
+                <li><b>TC:</b> Tomografía computarizada</li>
               </ul>
             </div>
           </div>
         </details>
+
         <details class="details-block">
-  <summary class="details-summary">📚
-            Bibliografía</summary>
+          <summary class="details-summary">📚 Bibliografía</summary>
           <div class="details-card">
-            <!-- Barra superior tipo guideline -->
-            <div class="details-card-header"> 📘 Referencias bibliográficas </div>
-            <!-- Contenido -->
-<div class="details-card-body">              <ol class="details-list-compact biblio-list">
-
-  <!-- Guías clínicas -->
-  <li>Kleindorfer DO, et al. 2021 AHA/ASA Guideline for the Prevention of Stroke in Patients With Stroke and TIA. <i>Stroke</i>. 2021;52:e364–e467.</li>
-  <li>Powers WJ, et al. 2019 AHA/ASA Guideline for Early Management of Acute Ischemic Stroke. <i>Stroke</i>. 2019;50:e344–e418.</li>
-  <li>Hindricks G, et al. 2020 ESC Guidelines for the Diagnosis and Management of Atrial Fibrillation. <i>Eur Heart J</i>. 2020;41:373–498.</li>
-  <li>Naylor AR, et al. 2023 ESVS Guidelines on Antithrombotic Therapy for Vascular Disease. <i>Eur J Vasc Endovasc Surg</i>. 2023.</li>
-  <li>Aboyans V, et al. 2017 ESC Guidelines on the Diagnosis and Treatment of Peripheral Arterial Diseases. <i>Eur Heart J</i>. 2017.</li>
-  <li>European Stroke Organisation (ESO). Guidelines on Extracranial Carotid and Vertebral Artery Disease. <i>Eur Stroke J</i>. 2021;6(4):XLVII–LXXXVIII.</li>
-
-  <!-- Ictus menor / AIT de alto riesgo -->
-  <li>Wang Y, et al. Clopidogrel with aspirin in acute minor stroke or TIA. <i>NEJM</i>. 2013;369:11–19. (CHANCE)</li>
-  <li>Johnston SC, et al. Clopidogrel and aspirin in acute ischemic stroke and high-risk TIA. <i>NEJM</i>. 2018;379:215–225. (POINT)</li>
-  <li>Johnston SC, et al. Ticagrelor and aspirin or aspirin alone in acute ischemic stroke or TIA. <i>NEJM</i>. 2020;383:207–217. (THALES)</li>
-
-  <!-- Estenosis carotídea / revascularización -->
-  <li>NASCET Investigators. Benefit of carotid endarterectomy in patients with symptomatic moderate or severe stenosis. <i>NEJM</i>. 1991;325:445–453.</li>
-  <li>ECST Investigators. Randomised trial of endarterectomy for symptomatic carotid stenosis. <i>Lancet</i>. 1991;337:1235–1243.</li>
-  <li>Bonati LH, et al. Long-term outcomes after stenting vs endarterectomy: meta-analysis. <i>Lancet Neurol</i>. 2015;14:755–765.</li>
-  <li>Howard G, et al. CREST-2 Investigators. Carotid Revascularization and Intensive Medical Management for Asymptomatic Carotid Stenosis. <i>NEJM</i>. 2025.</li>
-
-  <!-- Estenosis intracraneal -->
-  <li>Chimowitz MI, et al. Stenting versus aggressive medical therapy for intracranial stenosis. <i>NEJM</i>. 2011;365:993–1003. (SAMMPRIS)</li>
-  <li>Derdeyn CP, et al. Aggressive medical therapy for intracranial atherosclerosis. <i>Stroke</i>. 2014;45:2933–2939.</li>
-
-  <!-- Estenosis vertebrales -->
-  <li>Compter A, et al. Stenting versus medical therapy for vertebral artery stenosis. <i>Lancet Neurol</i>. 2015;14:606–614. (VIST)</li>
-  <li>Wityk RJ, et al. Noninvasive assessment of vertebral artery dissection. <i>Neurology</i>. 1998;50:1694–1698.</li>
-
-  <!-- Disección arterial / Carotid web -->
-  <li>Markus HS, et al. Antiplatelet vs anticoagulation for cervical artery dissection. <i>Lancet Neurol</i>. 2015;14:361–367. (CADISS)</li>
-  <li>Goyal M, et al. Carotid web and ischemic stroke. <i>Stroke</i>. 2019;50:1264–1271.</li>
-  <li>Sajedi PI, et al. Carotid bulb webs: radiologic appearance. <i>AJNR</i>. 2017;38:1399–1404.</li>
-
-  <!-- Trombo mural aórtico / Placa vulnerable -->
-  <li>Spence JD. Aortic arch atheroma and stroke risk. <i>Curr Opin Neurol</i>. 2020;33:4–10.</li>
-  <li>Ferrero E, et al. Aortic mural thrombus: natural history and treatment. <i>J Vasc Surg</i>. 2020;72:1089–1097.</li>
-  <li>Saba L, et al. Imaging biomarkers of carotid plaque vulnerability. <i>Radiology</i>. 2018;286:614–629.</li>
-  <li>Underhill HR, et al. MRI-detected intraplaque hemorrhage and cerebrovascular events. <i>Radiology</i>. 2021;301:612–621.</li>
-
-  <!-- Antitrombóticos en pacientes anticoagulados -->
-  <li>Lopes RD, et al. Antithrombotic therapy after PCI in atrial fibrillation. <i>NEJM</i>. 2019;380:1509–1524. (AUGUSTUS)</li>
-  <li>Dewilde WJ, et al. Use of clopidogrel with or without aspirin in AF patients. <i>Lancet</i>. 2013;381:1107–1115. (WOEST)</li>
-  <li>Gibson CM, et al. Apixaban vs warfarin in PCI patients. <i>NEJM</i>. 2016;375:2423–2434. (PIONEER AF-PCI)</li>
-
-  <!-- Riesgo hemorrágico -->
-  <li>Lip GYH, et al. Refining risk stratification to predict bleeding in anticoagulated patients: the HAS-BLED score. <i>J Thromb Haemost</i>. 2011;9:39–44.</li>
-  <li>Diener HC, et al. Intracerebral hemorrhage in anticoagulated patients: risk factors and prevention. <i>Stroke</i>. Revisión.</li>
-
-  <!-- Farmacología: IBP, clopidogrel, CYP2C19 -->
-  <li>Mega JL, et al. CYP2C19 genotype and response to clopidogrel. <i>NEJM</i>. 2009;360:354–362.</li>
-  <li>COGENT Investigators. Clopidogrel with or without omeprazole. <i>NEJM</i>. 2010;363:1909–1917.</li>
-  <li>EMA. Safety communication: clopidogrel–omeprazole interaction. 2010.</li>
-
-  <!-- Factores de riesgo / recurrencia -->
-  <li>Amarenco P, et al. One-year risk of stroke after TIA or minor stroke. <i>NEJM</i>. 2016;374:1533–1542.</li>
-  <li>Antithrombotic Trialists' Collaboration. Meta-analysis of antiplatelet therapy. <i>BMJ</i>. 2002;324:71–86.</li>
-
-</ol>
-
+            <div class="details-card-header">📘 Referencias bibliográficas</div>
+            <div class="details-card-body">
+              <ol class="details-list-compact biblio-list">
+                <li>Kleindorfer DO, et al. 2021 AHA/ASA Guideline for the Prevention of Stroke in Patients With Stroke and TIA. <i>Stroke</i>. 2021;52:e364–e467.</li>
+                <li>Powers WJ, et al. 2019 AHA/ASA Guideline for Early Management of Acute Ischemic Stroke. <i>Stroke</i>. 2019;50:e344–e418.</li>
+                <li>Hindricks G, et al. 2020 ESC Guidelines for the Diagnosis and Management of Atrial Fibrillation. <i>Eur Heart J</i>. 2020;41:373–498.</li>
+                <li>Naylor AR, et al. 2023 ESVS Guidelines on Antithrombotic Therapy for Vascular Disease. <i>Eur J Vasc Endovasc Surg</i>. 2023.</li>
+                <li>Aboyans V, et al. 2017 ESC Guidelines on the Diagnosis and Treatment of Peripheral Arterial Diseases. <i>Eur Heart J</i>. 2017.</li>
+                <li>European Stroke Organisation (ESO). Guidelines on Extracranial Carotid and Vertebral Artery Disease. <i>Eur Stroke J</i>. 2021;6(4):XLVII–LXXXVIII.</li>
+                <li>Wang Y, et al. Clopidogrel with aspirin in acute minor stroke or TIA. <i>NEJM</i>. 2013;369:11–19. (CHANCE)</li>
+                <li>Johnston SC, et al. Clopidogrel and aspirin in acute ischemic stroke and high-risk TIA. <i>NEJM</i>. 2018;379:215–225. (POINT)</li>
+                <li>Johnston SC, et al. Ticagrelor and aspirin or aspirin alone in acute ischemic stroke or TIA. <i>NEJM</i>. 2020;383:207–217. (THALES)</li>
+                <li>NASCET Investigators. Benefit of carotid endarterectomy in patients with symptomatic moderate or severe stenosis. <i>NEJM</i>. 1991;325:445–453.</li>
+                <li>ECST Investigators. Randomised trial of endarterectomy for symptomatic carotid stenosis. <i>Lancet</i>. 1991;337:1235–1243.</li>
+                <li>Bonati LH, et al. Long-term outcomes after stenting vs endarterectomy: meta-analysis. <i>Lancet Neurol</i>. 2015;14:755–765.</li>
+                <li>Howard G, et al. CREST-2 Investigators. Carotid Revascularization and Intensive Medical Management for Asymptomatic Carotid Stenosis. <i>NEJM</i>. 2025.</li>
+                <li>Chimowitz MI, et al. Stenting versus aggressive medical therapy for intracranial stenosis. <i>NEJM</i>. 2011;365:993–1003. (SAMMPRIS)</li>
+                <li>Derdeyn CP, et al. Aggressive medical therapy for intracranial atherosclerosis. <i>Stroke</i>. 2014;45:2933–2939.</li>
+                <li>Compter A, et al. Stenting versus medical therapy for vertebral artery stenosis. <i>Lancet Neurol</i>. 2015;14:606–614. (VIST)</li>
+                <li>Wityk RJ, et al. Noninvasive assessment of vertebral artery dissection. <i>Neurology</i>. 1998;50:1694–1698.</li>
+                <li>Markus HS, et al. Antiplatelet vs anticoagulation for cervical artery dissection. <i>Lancet Neurol</i>. 2015;14:361–367. (CADISS)</li>
+                <li>Goyal M, et al. Carotid web and ischemic stroke. <i>Stroke</i>. 2019;50:1264–1271.</li>
+                <li>Sajedi PI, et al. Carotid bulb webs: radiologic appearance. <i>AJNR</i>. 2017;38:1399–1404.</li>
+                <li>Spence JD. Aortic arch atheroma and stroke risk. <i>Curr Opin Neurol</i>. 2020;33:4–10.</li>
+                <li>Ferrero E, et al. Aortic mural thrombus: natural history and treatment. <i>J Vasc Surg</i>. 2020;72:1089–1097.</li>
+                <li>Saba L, et al. Imaging biomarkers of carotid plaque vulnerability. <i>Radiology</i>. 2018;286:614–629.</li>
+                <li>Underhill HR, et al. MRI-detected intraplaque hemorrhage and cerebrovascular events. <i>Radiology</i>. 2021;301:612–621.</li>
+                <li>Lopes RD, et al. Antithrombotic therapy after PCI in atrial fibrillation. <i>NEJM</i>. 2019;380:1509–1524. (AUGUSTUS)</li>
+                <li>Dewilde WJ, et al. Use of clopidogrel with or without aspirin in AF patients. <i>Lancet</i>. 2013;381:1107–1115. (WOEST)</li>
+                <li>Gibson CM, et al. Apixaban vs warfarin in PCI patients. <i>NEJM</i>. 2016;375:2423–2434. (PIONEER AF-PCI)</li>
+                <li>Lip GYH, et al. Refining risk stratification to predict bleeding in anticoagulated patients: the HAS-BLED score. <i>J Thromb Haemost</i>. 2011;9:39–44.</li>
+                <li>Diener HC, et al. Intracerebral hemorrhage in anticoagulated patients: risk factors and prevention. <i>Stroke</i>. Revisión.</li>
+                <li>Mega JL, et al. CYP2C19 genotype and response to clopidogrel. <i>NEJM</i>. 2009;360:354–362.</li>
+                <li>COGENT Investigators. Clopidogrel with or without omeprazole. <i>NEJM</i>. 2010;363:1909–1917.</li>
+                <li>EMA. Safety communication: clopidogrel–omeprazole interaction. 2010.</li>
+                <li>Amarenco P, et al. One-year risk of stroke after TIA or minor stroke. <i>NEJM</i>. 2016;374:1533–1542.</li>
+                <li>Antithrombotic Trialists' Collaboration. Meta-analysis of antiplatelet therapy. <i>BMJ</i>. 2002;324:71–86.</li>
+              </ol>
             </div>
           </div>
         </details>
       </div>
     </main>
-    <!-- MODAL HERRAMIENTAS / NOTAS -->
+
     <div class="modal-overlay" id="tool-modal">
-      <div class="modal"> <button class="modal-close"
-          id="tool-modal-close">🔙</button>
+      <div class="modal">
+        <button class="modal-close" id="tool-modal-close">🔙</button>
         <h2 id="tool-modal-title">Herramienta</h2>
         <div id="tool-modal-content"></div>
       </div>
     </div>
-    <footer> <img src="../img/uibanner.png" alt="Ictus GPS">
-    </footer>
+
+    <footer><img src="../img/uibanner.png" alt="Ictus GPS"></footer>
+
     <script>
-/* ============================
-   MAPA DE ESCENARIOS → TEXTO
-=============================== */
 const tratamientosEscenario = {
   ictus_menor: `
-    <b>Ictus minor / AIT de alto riesgo</b><br>
+    <b>Ictus minor / AIT de alto riesgo</b>
     <ul>
-      <li>Ictus isquémico con NIHSS ≤ 3 y déficit no discapacitante, o AIT con ABCD² ≥ 4<span class="info-icon" data-info="nota0">ℹ️</span>, en ausencia de indicación de fibrinólisis o trombectomía, o tras su realización cuando el paciente queda sin déficit clínicamente discapacitante.</li>
-      <li><b>Tratamiento:</b> DAPT (AAS + clopidogrel) durante 21–30 días, seguida de monoterapia antiagregante.</li>
-      <li>Alternativa: ticagrelor + AAS en pacientes en los que clopidogrel no es adecuado (p. ej. fallo previo o polimorfismos).</li>
-      <li>Evitar prolongar la DAPT más allá de 90 días salvo indicación vascular adicional.</li>
-      <li><b>Importante:</b> esta estrategia (DAPT corta) debe revisarse cuando se disponga del diagnóstico etiológico definitivo. Si la RM o el estudio posterior demuestra un mecanismo distinto (p. ej., ictus lacunar, cardioembólico, disección u otra causa específica), el tratamiento debe ajustarse al subtipo de ictus correspondiente.</li>
-
+      <li><b>Indicación principal:</b> AAS + clopidogrel con dosis de carga en ictus menor no cardioembólico (NIHSS ≤3) o AIT de alto riesgo (ABCD2 ≥4).</li>
+      <li><b>Ventana habitual:</b> iniciar en 12–24 horas y mantener <b>21 días</b>.</li>
+      <li><b>Ampliación:</b> puede considerarse hasta 24–72 horas en ictus leve no incapacitante (NIHSS ≤5) o si existe sospecha aterosclerótica / estenosis sintomática relevante.</li>
+      <li><b>Después:</b> monoterapia antiagregante. No prolongar la doble antiagregación más allá de 90 días de forma rutinaria.</li>
+      <li><b>Alternativa:</b> ticagrelor + AAS 30 días; opción preferente si resistencia a clopidogrel (CYP2C19).</li>
+      <li><b>Tras IVT:</b> antiagregantes después de 24 horas y tras neuroimagen; inicio precoz solo en situaciones excepcionales.</li>
     </ul>
   `,
+
   carotida: `
     <b>Estenosis carotídea extracraneal</b>
     <ul>
-      <li><b>Sintomática moderada (50–69 %):</b> monoterapia (AAS o clopidogrel). Valorar intervención (endarterectomía o stent) en pacientes de alto riesgo de recurrencia
-        <span class="info-icon" data-info="nota1">ℹ️</span>
-      </li>
-      <li><b>Sintomática crítica (≥70 %):</b> priorizar CAS/CEA en ≤ 14 días si no hay contraindicaciones. DAPT peri-procedimiento (AAS + clopidogrel) y, tras stent, DAPT 1–3 meses.</li>
-      <li><b>Si la estenosis crítica no es intervenible de inmediato:</b> DAPT 21–30 días y luego monoterapia.</li>
-      <li><b>Asintomática (≥70 %):</b> tratamiento médico intensivo como primera opción (riesgo anual bajo). CEA sin beneficio claro; CAS en centros muy expertos y siempre asociado a tratamiento médico intensivo <span class="info-icon" data-info="nota2">ℹ️</span>
-</li>
+      <li><b>Sintomática 70–99%:</b> CEA precoz, idealmente dentro de 14 días, si riesgo perioperatorio del centro &lt;6%.</li>
+      <li><b>Sintomática 50–69%:</b> valorar CEA individualmente. <b>&lt;50%:</b> no revascularización.</li>
+      <li><b>CAS:</b> alternativa razonable, sobre todo en &lt;70 años o alto riesgo quirúrgico; DAPT preprocedimiento y al menos 1 mes.</li>
+      <li><b>Si no se revasculariza</b> tras AIT/ictus menor carotídeo reciente: AAS + clopidogrel 21 días y luego monoterapia.</li>
+      <li><b>Asintomática 60–99%:</b> tratamiento médico intensivo; CEA o stent solo en pacientes muy seleccionados con riesgo perioperatorio ≤3%.</li>
     </ul>
   `,
+
   intracraneal: `
     <b>Estenosis intracraneal aterosclerótica</b>
     <ul>
-      <li><b>Sintomática ≥70 %:</b> DAPT durante 90 días, luego monoterapia. Control intensivo de factores de riesgo (HTA, LDL, DM, tabaco).</li>
-      <li>Evitar angioplastia/stent como primera opción; considerar en centros expertos solo si hay recurrencias isquémicas pese a tratamiento médico óptimo.</li>
-      <li><b>Asintomática:</b> monoterapia antiagregante y seguimiento imagenológico periódico (RM/angio-TC o similar) para vigilar progresión y aparición de lesiones silentes
-        <span class="info-icon" data-info="nota3">ℹ️</span>
-      </li>
+      <li><b>Sintomática 70–99%:</b> DAPT con AAS + clopidogrel <b>90 días</b>, después monoterapia.</li>
+      <li><b>No anticoagulación</b> como estrategia de la ICAD salvo otra indicación independiente.</li>
+      <li><b>Control intensivo</b> de factores de riesgo con objetivo de LDL &lt;55 mg/dL.</li>
+      <li><b>Stent/angioplastia:</b> no de primera línea; solo rescate en recurrencias pese a tratamiento máximo y en centros con experiencia.</li>
+      <li><b>Asintomática:</b> prevención vascular intensiva; antiagregación y seguimiento individualizados.</li>
     </ul>
   `,
+
   vertebral: `
     <b>Estenosis vertebrales</b>
     <ul>
-      <li><b>Extracraneal 50–69 % sintomática:</b> monoterapia antiagregante (AAS o clopidogrel).</li>
-      <li><b>Extracraneal ≥70 % sintomática:</b> monoterapia; valorar intervención en pacientes de alto riesgo de recurrencia.
-        En ausencia de intervención inmediata, DAPT 21–30 días puede considerarse
-        <span class="info-icon" data-info="nota4">ℹ️</span>
-      </li>
-      <li><b>Post-stent vertebral extracraneal:</b> DAPT 1–3 meses, luego monoterapia.</li>
-      <li><b>Intracraneal ≥70 % sintomática:</b> DAPT 90 días, luego monoterapia. Intervención sólo si fracaso del tratamiento médico.</li>
-      <li><b>Asintomática:</b> monoterapia; valorar intervención sólo en contextos muy seleccionados de alto riesgo
-        <span class="info-icon" data-info="nota4">ℹ️</span>
-      </li>
+      <li><b>Primera línea:</b> tratamiento médico intensivo con antiagregación, estatinas y control estricto de factores de riesgo.</li>
+      <li><b>No stenting rutinario</b> en AIT/ictus vertebrobasilar con estenosis 50–99%.</li>
+      <li><b>Intracraneal:</b> el stenting no se recomienda.</li>
+      <li><b>Extracraneal:</b> el stent solo puede considerarse si hay recurrencias vertebrobasilares pese a tratamiento óptimo.</li>
+      <li><b>Tras stent extracraneal:</b> doble antiagregación al menos 1 mes y después monoterapia.</li>
+      <li><b>Asintomática:</b> no revascularización rutinaria.</li>
     </ul>
   `,
+
   atero_sin_estenosis: `
     <b>Ictus aterotrombótico sin estenosis significativa</b>
     <ul>
-      <li>Placa carotídea/aórtica no crítica sin estenosis relevante (&lt;50 %) pero con características de vulnerabilidad.</li>
-      <li><b>Tratamiento:</b> monoterapia antiagregante (AAS o clopidogrel).</li>
-      <li>No se recomienda DAPT crónica; reservar DAPT corta si se asimila a un ictus menor/AIT de alto riesgo.</li>
-      <li>Fundamental el control intensivo de factores de riesgo vascular (hipolipemiantes de alta intensidad, control de TA, abandono de tabaco…).</li>
+      <li><b>Tratamiento base:</b> monoterapia antiagregante.</li>
+      <li><b>Prevención vascular:</b> tratamiento hipolipemiante intensivo con LDL &lt;70 mg/dL y control estricto del resto de factores de riesgo.</li>
+      <li><b>Mayor intensidad lipídica:</b> considerar si hay ateroma del arco aórtico o riesgo vascular muy alto.</li>
+      <li><b>No</b> doble antiagregación crónica ni anticoagulación sin otra indicación.</li>
+      <li><b>Si recurrencias:</b> ampliar estudio neurovascular y valorar discusión multidisciplinar.</li>
     </ul>
   `,
+
   lacunar: `
-    <b>Ictus lacunar (pequeño vaso)</b>
+    <b>Ictus lacunar</b>
     <ul>
-      <li>Ictus de pequeño vaso (lacunar) típicamente asociado a lipohialinosis/arteriolosclerosis en pacientes hipertensos/diabéticos.</li>
-      <li><b>Tratamiento:</b> monoterapia antiagregante.</li>
-      <li>No está indicada la DAPT prolongada en ictus lacunares aislados, aumenta el riesgo hemorrágico sin beneficio demostrado.</li>
-      <li>Prioritario: control estricto de la presión arterial, de la glucemia y cese de hábitos tóxicos.</li>
+      <li><b>Confirmado el mecanismo:</b> monoterapia antiagregante a largo plazo.</li>
+      <li><b>Excepción aguda:</b> si inicialmente cumple criterios de ictus menor o AIT de alto riesgo, doble antiagregación 21 días y luego monoterapia.</li>
+      <li><b>No</b> doble antiagregación prolongada.</li>
+      <li><b>Control asociado:</b> PA &lt;130/80 mmHg para la mayoría, además de control de diabetes y lípidos.</li>
     </ul>
   `,
+
   diseccion: `
-    <b>Disección arterial (carótida o vertebral)</b>
+    <b>Disección arterial cervical</b>
     <ul>
-      <li><b>Sintomática:</b> puede emplearse anticoagulación (ACOD/AVK) o monoterapia antiagregante; no existe superioridad clara de una estrategia sobre otra. Duración habitual 3–6 meses, con reevaluación por imagen.</li>
-      <li><b>Asintomática y estable:</b> AAS suele ser suficiente.</li>
-      <li>Si se implanta un stent por disección complicada (estenosis crítica, trombo flotante, hipoperfusión): DAPT 1–3 meses tras el stent. Ver criterios de indicación
-        <span class="info-icon" data-info="nota5">ℹ️</span>
-      </li>
+      <li><b>Tratamiento antitrombótico:</b> individualizar y mantener 3–6 meses.</li>
+      <li><b>Opciones válidas:</b> anticoagulación o antiagregación según perfil isquémico y hemorrágico.</li>
+      <li><b>Casos leves seleccionados:</b> puede contemplarse doble antiagregación corta con dosis de carga y luego monoterapia.</li>
+      <li><b>Stent:</b> solo si compromiso hemodinámico grave o recurrencia isquémica pese a tratamiento óptimo.</li>
+      <li><b>Seguimiento crónico:</b> no tratar de rutina estenosis residuales o aneurismas disecantes asintomáticos.</li>
     </ul>
   `,
+
   carotid_web: `
-    <b>Carotid Web</b>
+    <b>Banda carotídea (Carotid Web)</b>
     <ul>
-      <li>Lesión no aterosclerótica en bulbo carotídeo-ACI, asociada a ictus isquémico por embolia arterio-arterial.</li>
-      <li><b>Tratamiento médico:</b> monoterapia antiagregante.</li>
-      <li>En pacientes con <b>ictus/AIT recurrentes, web prominente o trombosis adyacente</b>, valorar tratamiento intervencionista (stent o endarterectomía) en centros expertos
-        <span class="info-icon" data-info="nota6">ℹ️</span>
-      </li>
-      <li>No se recomienda anticoagulación crónica salvo coexistencia de otra fuente embólica (p. ej. FA).</li>
+      <li><b>Primera línea:</b> tratamiento médico con terapia antiplaquetaria.</li>
+      <li><b>Revascularización:</b> considerar si hay recurrencias isquémicas pese a antiagregación óptima.</li>
+      <li><b>Vigilancia:</b> seguimiento neurológico estrecho ante el riesgo de fracaso terapéutico.</li>
+      <li><b>Si recurrencia o progresión:</b> plantear tempranamente endarterectomía o stent en centros con experiencia.</li>
+      <li><b>Evidencia emergente:</b> los datos observacionales sugieren una recurrencia relevante con manejo médico exclusivo.</li>
     </ul>
   `,
+
   trombo_aortico: `
-    <b>Trombo mural aórtico (sobre todo aorta ascendente/arco)</b>
+    <b>Trombo mural aórtico</b>
     <ul>
-      <li><b>Tratamiento de primera línea:</b> anticoagulación oral, habitualmente con AVK, manteniendo INR en rango terapéutico (2–3).</li>
-      <li>Si el trombo se asienta sobre una placa aterosclerótica compleja (ulcerada, irregular, móvil, con hemorragia intraplaca), puede considerarse añadir AAS a corto plazo, valorando cuidadosamente el riesgo hemorrágico
-        <span class="info-icon" data-info="nota7">ℹ️</span>
-      </li>
-      <li>Alternativa si contraindicación de anticoagulación: DAPT, asumiendo menor evidencia.</li>
-      <li>Si el trombo persiste pese a tratamiento óptimo o hay recurrencias embólicas, valorar opciones quirúrgicas o endovasculares (stent, exclusión).</li>
+      <li><b>Diferenciar</b> ateroma complejo del arco aórtico de trombo mural/intraluminal verdadero.</li>
+      <li><b>Ateroma complejo:</b> monoterapia antiagregante + estatinas intensivas con LDL &lt;55 mg/dL.</li>
+      <li><b>Trombo verdadero y móvil:</b> manejo individualizado según morfología, localización, recurrencia y riesgo hemorrágico.</li>
+      <li><b>Opciones</b> a valorar caso a caso: anticoagulación terapéutica o exclusión endovascular/quirúrgica.</li>
     </ul>
   `,
+
   estenosis_sin_intervencion: `
     <b>Estenosis crítica sin opción de intervención</b>
     <ul>
-      <li>Estenosis carotídea o vertebral crítica en la que no es posible la revascularización (riesgo prohibitivo, anatomía desfavorable, rechazo del paciente, etc.).</li>
-      <li><b>Tratamiento:</b> DAPT durante 21–30 días tras el evento isquémico, seguida de monoterapia antiagregante.</li>
-      <li>La DAPT corta es especialmente útil si el ictus/AIT es reciente (≤14 días).</li>
-      <li>Posteriormente, continuar con monoterapia y control máximo de factores de riesgo.</li>
+      <li><b>Carotídea sintomática no revascularizable:</b> doble antiagregación con AAS + clopidogrel durante 21 días.</li>
+      <li><b>Después:</b> monoterapia antiagregante obligatoria.</li>
+      <li><b>Además:</b> prevención vascular intensiva y control estricto del resto de factores de riesgo.</li>
+      <li><b>Aplicación principal:</b> patología carotídea extracraneal sintomática.</li>
     </ul>
   `
 };
 
-/* ============================
-   NOTAS CLÍNICAS (PDF)
-=============================== */
+const capitulosCompletos = [
+  {
+    title: 'Ictus minor / AIT de alto riesgo',
+    html: `
+      <p>
+        En pacientes con <b>ictus isquémico menor no cardioembólico</b> o con <b>AIT de alto riesgo</b>, el riesgo de recurrencia es máximo en los primeros días. Por este motivo, la estrategia de prevención secundaria debe iniciarse de forma precoz y con un efecto antiagregante suficientemente rápido.
+      </p>
+
+      <p>
+        La recomendación de referencia es la <b>doble antiagregación con AAS + clopidogrel</b>, incluyendo <b>dosis de carga inicial de clopidogrel</b>, en pacientes con <b>NIHSS ≤3</b> o <b>ABCD2 ≥4</b>. Debe iniciarse lo antes posible, idealmente en las primeras <b>12–24 horas</b>, y mantenerse durante <b>21 días</b>.
+      </p>
+
+      <hr class="details-divider">
+
+      <p><b>Situaciones en las que puede ampliarse esta estrategia</b></p>
+
+      <ul style="padding-left:18px;">
+        <li>Pacientes seleccionados con <b>ictus leve no incapacitante (NIHSS ≤5)</b>.</li>
+        <li>Pacientes evaluados entre <b>24 y 72 horas</b> del inicio si persiste un perfil clínico compatible con alto riesgo precoz.</li>
+        <li>Casos con <b>sospecha de mecanismo aterosclerótico</b> o <b>estenosis sintomática relevante</b>, en los que la prevención de recurrencia precoz adquiere especial importancia.</li>
+      </ul>
+
+      <p>
+        Tras completar la fase inicial de <b>21 días</b>, se recomienda continuar con <b>monoterapia antiagregante</b>. La prolongación de la doble antiagregación más allá de <b>90 días</b> no debe hacerse de forma rutinaria, dado el aumento del riesgo hemorrágico sin beneficio adicional claro en la mayoría de pacientes.
+      </p>
+
+      <hr class="details-divider">
+
+      <p><b>Alternativas y situaciones especiales</b></p>
+
+      <p>
+        La combinación de <b>ticagrelor + AAS</b> puede considerarse durante <b>30 días</b> en pacientes con <b>NIHSS ≤5</b>, <b>AIT de muy alto riesgo (ABCD2 ≥6)</b> o <b>estenosis sintomática relevante</b>. Asimismo, en pacientes con <b>resistencia documentada al clopidogrel</b> por <b>alelo de pérdida de función CYP2C19</b>, ticagrelor constituye una alternativa razonable.
+      </p>
+
+      <p>
+        Tras <b>trombólisis intravenosa</b>, como norma general los antiagregantes deben iniciarse <b>después de 24 horas</b> y siempre tras neuroimagen de control. Solo en situaciones muy seleccionadas puede contemplarse un inicio más precoz, si el beneficio esperado supera claramente el riesgo hemorrágico.
+      </p>
+    `
+  },
+  {
+    title: 'Estenosis carotídea extracraneal sintomática',
+    html: `
+      <p>
+        La <b>estenosis carotídea extracraneal sintomática</b> es una de las causas arteriales con mayor riesgo de recurrencia precoz tras un AIT o un ictus no discapacitante. En este contexto, el tratamiento antitrombótico debe integrarse con una decisión rápida sobre si el paciente es candidato a <b>revascularización</b>.
+      </p>
+
+      <p>
+        En pacientes con <b>estenosis 70–99%</b>, se recomienda <b>endarterectomía carotídea (CEA)</b>, siempre que el riesgo perioperatorio del centro sea <b>&lt;6%</b>. La intervención debe realizarse de forma temprana, idealmente dentro de los <b>14 días</b> del evento isquémico, porque el beneficio es mayor cuanto antes se trata al paciente.
+      </p>
+
+      <p>
+        En pacientes con <b>estenosis 50–69%</b>, la CEA puede seguir siendo beneficiosa, pero la decisión debe individualizarse según edad, comorbilidad, características de la placa, gravedad del evento y riesgo quirúrgico. En <b>estenosis &lt;50%</b>, no se recomienda revascularización.
+      </p>
+
+      <hr class="details-divider">
+
+      <p><b>Papel del stent carotídeo</b></p>
+
+      <p>
+        El <b>stent carotídeo (CAS)</b> puede considerarse como alternativa razonable a la CEA, especialmente en pacientes <b>menores de 70 años</b> o con <b>alto riesgo quirúrgico anatómico o médico</b>. Cuando se utiliza CAS, se recomienda <b>doble antiagregación con AAS + clopidogrel</b> antes del procedimiento y durante al menos <b>1 mes</b> después, seguida de <b>monoterapia</b>.
+      </p>
+
+      <p>
+        Si finalmente no se realiza revascularización en un paciente con <b>AIT</b> o <b>ictus menor carotídeo reciente</b>, se recomienda <b>AAS + clopidogrel durante 21 días</b> y después <b>monoterapia antiagregante</b>, junto con tratamiento intensivo del resto de factores de riesgo vascular.
+      </p>
+    `
+  },
+  {
+    title: 'Estenosis carotídea extracraneal asintomática',
+    html: `
+     <p>
+        La <b>estenosis carotídea extracraneal asintomática</b> se refiere a la presencia de una lesión carotídea significativa sin AIT ni ictus ipsilateral reciente. En este escenario, el riesgo vascular existe, pero la indicación de revascularización debe ser mucho más selectiva que en la enfermedad sintomática.
+      </p>
+
+      <hr class="details-divider">
+
+      <p><b>Tratamiento recomendado</b></p>
+      <p>
+        La base del tratamiento sigue siendo el <b>tratamiento médico intensivo</b>. Esto incluye antiagregación, estatinas de alta intensidad, control estricto de la presión arterial, diabetes, tabaquismo y del resto de factores de riesgo vascular.
+      </p>
+
+      <p>
+        La <b>revascularización no debe plantearse de forma rutinaria</b>. La <b>endarterectomía carotídea (CEA)</b> puede considerarse en pacientes <b>muy seleccionados</b> con <b>estenosis 60–99%</b>, especialmente si presentan <b>rasgos clínicos o de imagen asociados a mayor riesgo de ictus</b> pese a tratamiento médico óptimo, una <b>esperanza de vida &gt;5 años</b> y una tasa de <b>ictus/muerte perioperatoria del centro ≤3%</b>.
+      </p>
+
+      <hr class="details-divider">
+
+      <p><b>Matices o excepciones</b></p>
+      <p>
+        La <b>angioplastia con stent carotídeo (CAS)</b> puede considerarse como alternativa a la CEA en pacientes seleccionados, sobre todo si existe <b>alto riesgo para cirugía abierta</b>, tras valoración multidisciplinar y siempre que el riesgo perioperatorio previsto sea bajo.
+      </p>
+
+      <p>
+        Tras los resultados de <b>CREST-2</b>, esta decisión debe interpretarse con mayor prudencia y dentro del contexto de una <b>terapia médica intensiva contemporánea</b>. En ese ensayo, el brazo de <b>CAS + tratamiento médico intensivo</b> redujo el objetivo primario a 4 años frente a tratamiento médico solo (<b>2,8% vs 6,0%</b>), mientras que el brazo de <b>CEA + tratamiento médico intensivo</b> no mostró una diferencia estadísticamente significativa frente a tratamiento médico solo (<b>3,7% vs 5,3%</b>).
+      </p>
+
+      <p>
+        En la práctica, esto significa que <b>CAS ya no debe considerarse solo una opción para pacientes inoperables</b>, pero tampoco que deba priorizarse automáticamente sobre la CEA en todos los casos. La elección entre ambas técnicas debe individualizarse según la <b>morfología de la placa</b>, la <b>anatomía vascular</b>, la <b>expectativa de vida</b>, la <b>calidad del tratamiento médico ya instaurado</b>, la <b>experiencia del centro</b> y las <b>preferencias del paciente</b>.
+      </p>
+
+      <p>
+        En resumen, la clave en la estenosis carotídea asintomática no es solo el grado de estenosis, sino una <b>valoración global del riesgo embólico y del beneficio real de revascularizar</b> en la era del tratamiento médico intensivo moderno.
+      </p>
+    `
+  },
+  {
+    title: 'Estenosis intracraneal aterosclerótica sintomática (ICAD)',
+    html: `
+      <p>
+        La <b>estenosis intracraneal aterosclerótica sintomática</b> es una situación de alto riesgo de recurrencia, especialmente en las lesiones <b>graves (70–99%)</b>. En estos pacientes, el tratamiento inicial debe ser intensivo y centrado en la prevención precoz de nuevos eventos isquémicos.
+      </p>
+
+      <p>
+        La estrategia antitrombótica recomendada es <b>doble antiagregación con AAS + clopidogrel durante 90 días</b>, seguida posteriormente de <b>monoterapia antiagregante</b>.
+      </p>
+
+      <p>
+        No se recomienda <b>anticoagulación oral</b> como tratamiento específico de la ICAD en lugar de aspirina, salvo que exista una <b>indicación independiente</b>, como por ejemplo fibrilación auricular.
+      </p>
+
+      <hr class="details-divider">
+
+      <p><b>Control del riesgo vascular</b></p>
+
+      <p>
+        El tratamiento antitrombótico debe acompañarse siempre de un <b>control intensivo de factores de riesgo vascular</b>, con especial atención al manejo lipídico. En esta propuesta se fija como objetivo un <b>LDL &lt;55 mg/dL</b>, además de un control estricto de la presión arterial, diabetes, tabaquismo y adherencia terapéutica.
+      </p>
+
+      <p>
+        El <b>stenting intracraneal</b> no se recomienda como tratamiento de primera línea frente al mejor tratamiento médico. La angioplastia o el stent solo deben considerarse como <b>estrategia de rescate</b> en pacientes cuidadosamente seleccionados con <b>recurrencias clínicas isquémicas</b> pese a tratamiento máximo y en <b>centros con experiencia</b>.
+      </p>
+    `
+  },
+  {
+    title: 'Estenosis intracraneal aterosclerótica asintomática',
+    html: `
+      <p>
+        En la <b>estenosis intracraneal aterosclerótica asintomática</b>, el objetivo principal no es una intervención específica sobre la lesión, sino una <b>prevención vascular intensiva</b> que reduzca el riesgo de progresión y de eventos futuros.
+      </p>
+
+      <p>
+        El uso de antiagregación en estos pacientes debe <b>individualizarse</b>, equilibrando el posible beneficio vascular con el <b>riesgo hemorrágico</b> y el perfil global del paciente. No existe una pauta estándar obligatoria de <b>doble antiagregación</b>, ni una indicación rutinaria de <b>intervención endovascular</b>.
+      </p>
+
+      <p>
+        El seguimiento clínico e imagenológico debe guiarse por la <b>carga aterosclerótica</b>, la evolución del paciente y la aparición de nuevos hallazgos, como progresión de la estenosis o lesiones silentes en controles sucesivos.
+      </p>
+    `
+  },
+  {
+    title: 'Estenosis vertebrales',
+    html: `
+      <p>
+        En la <b>estenosis vertebral</b>, el enfoque inicial debe ser conservador. La primera línea de tratamiento es el <b>tratamiento médico intensivo</b>, con antiagregación, estatinas y control estricto de los factores de riesgo vascular.
+      </p>
+
+      <p>
+        No se recomienda el <b>stenting rutinario</b> en pacientes con <b>AIT o ictus vertebrobasilar</b> y estenosis vertebral del <b>50–99%</b>. Este mensaje es especialmente importante en la <b>estenosis vertebral intracraneal</b>, donde el perfil perioperatorio es peor y no se ha demostrado un beneficio claro frente al mejor tratamiento médico.
+      </p>
+
+      <hr class="details-divider">
+
+      <p><b>Cuándo puede valorarse revascularización</b></p>
+
+      <p>
+        La revascularización mediante <b>stent</b> solo puede contemplarse de forma individualizada en pacientes con <b>síntomas vertebrobasilares recurrentes</b> pese a tratamiento médico óptimo, y preferentemente cuando la lesión es <b>extracraneal</b>.
+      </p>
+
+      <p>
+        Si se implanta un <b>stent vertebral extracraneal</b>, se recomienda <b>doble antiagregación durante al menos 1 mes</b>, seguida de <b>monoterapia</b>. En la estenosis vertebral <b>asintomática</b>, no se recomienda revascularización rutinaria.
+      </p>
+    `
+  },
+  {
+    title: 'Ictus aterotrombótico sin estenosis significativa',
+    html: `
+      <p>
+        Este escenario incluye pacientes en los que el mecanismo probable del ictus se relaciona con <b>placa carotídea no estenosante</b> o con <b>ateroma del arco aórtico</b>, sin que exista una estenosis crítica que justifique una estrategia de revascularización convencional.
+      </p>
+
+      <p>
+        La recomendación principal es la <b>monoterapia antiagregante</b> para la prevención de recurrencias, junto con un tratamiento intensivo del riesgo vascular.
+      </p>
+
+      <p>
+        Se exige además <b>tratamiento hipolipemiante intensivo</b>, con el objetivo de reducir el colesterol <b>LDL a &lt;70 mg/dL</b>, asociado al control estricto de presión arterial, tabaquismo, diabetes y resto de factores de riesgo. En pacientes con <b>ateroma del arco aórtico</b> o con <b>riesgo vascular muy alto</b>, puede plantearse una intensificación adicional del objetivo lipídico.
+      </p>
+
+      <hr class="details-divider">
+
+      <p><b>Qué no debe hacerse de rutina</b></p>
+
+      <ul style="padding-left:18px;">
+        <li>No se recomienda <b>doble antiagregación crónica</b>.</li>
+        <li>No se recomienda <b>anticoagulación rutinaria</b> si no existe otra indicación independiente.</li>
+      </ul>
+
+      <p>
+        En pacientes con <b>síntomas recurrentes</b> y lesión carotídea ipsilateral no estenosante, puede ser necesario ampliar el estudio neurovascular y discutir el caso de forma multidisciplinar.
+      </p>
+    `
+  },
+  {
+    title: 'Ictus lacunar',
+    html: `
+      <p>
+        Una vez confirmado el mecanismo <b>lacunar</b>, la estrategia de prevención secundaria a largo plazo debe simplificarse. En este contexto, se recomienda <b>monoterapia antiagregante</b> como tratamiento estándar.
+      </p>
+
+      <p>
+        La <b>doble antiagregación prolongada</b> no se recomienda en el ictus lacunar, porque no ha demostrado un beneficio clínico suficiente y sí se asocia a un aumento del riesgo hemorrágico.
+      </p>
+
+      <hr class="details-divider">
+
+      <p><b>Excepción en la fase aguda</b></p>
+
+      <p>
+        Si el episodio se presenta inicialmente como un <b>ictus menor</b> o un <b>AIT de alto riesgo</b>, puede iniciarse una pauta de <b>doble antiagregación a corto plazo</b> durante los primeros <b>21 días</b>, pasando posteriormente a <b>monoterapia</b>.
+      </p>
+
+      <p>
+        El manejo debe acompañarse de un control intensivo de la <b>presión arterial</b>, con un objetivo de <b>PA &lt;130/80 mmHg</b> para la mayoría de pacientes, además de control de diabetes y tratamiento hipolipemiante según el perfil vascular global.
+      </p>
+    `
+  },
+  {
+    title: 'Disección arterial cervical (carótida o vertebral)',
+    html: `
+      <p>
+        En la <b>disección arterial cervical sintomática</b>, el tratamiento antitrombótico debe <b>individualizarse</b> y mantenerse durante al menos <b>3 a 6 meses</b>. La elección entre antiagregación y anticoagulación depende del perfil isquémico y hemorrágico del paciente, así como de las características de la disección.
+      </p>
+
+      <p>
+        La evidencia disponible apoya que tanto la <b>anticoagulación</b> como la <b>antiagregación</b> son opciones válidas en la fase aguda para prevenir el ictus, por lo que el clínico puede prescribir cualquiera de las dos en función del contexto clínico.
+      </p>
+
+      <hr class="details-divider">
+
+      <p><b>Situaciones particulares</b></p>
+
+      <ul style="padding-left:18px;">
+        <li>En algunos pacientes con <b>ictus menor</b> o <b>AIT</b>, puede contemplarse una <b>doble antiagregación corta con dosis de carga</b>, seguida de monoterapia, si se considera segura.</li>
+        <li>El <b>stent</b> debe reservarse estrictamente para casos con <b>compromiso hemodinámico grave</b> o <b>recurrencia isquémica clínica</b> pese a tratamiento médico óptimo.</li>
+      </ul>
+
+      <p>
+        En el seguimiento crónico, no se recomienda el tratamiento endovascular o quirúrgico de forma rutinaria para <b>estenosis residuales</b> o <b>aneurismas disecantes asintomáticos</b> fuera de la fase aguda, ya que su historia natural suele ser benigna y rara vez se complica.
+      </p>
+    `
+  },
+  {
+    title: 'Banda carotídea (Carotid Web)',
+    html: `
+      <p>
+        La <b>banda carotídea</b> es una alteración de la pared carotídea que puede actuar como sustrato para embolia arterio-arterial. Cuando se identifica como causa probable de un <b>ictus</b> o <b>AIT ipsilateral</b>, y se han excluido otras causas embólicas, se recomienda inicialmente <b>tratamiento médico con terapia antiplaquetaria</b>.
+      </p>
+
+      <p>
+        La revascularización mediante <b>endarterectomía carotídea</b> o <b>stent carotídeo</b> puede considerarse en centros con experiencia para pacientes <b>refractarios al tratamiento médico</b>, especialmente si presentan <b>recurrencias isquémicas</b> a pesar de una antiagregación óptima.
+      </p>
+
+      <hr class="details-divider">
+
+      <p><b>Aviso clínico y vigilancia</b></p>
+
+      <p>
+        Los datos observacionales más recientes sugieren que la historia natural de la banda carotídea bajo tratamiento médico exclusivo puede asociarse a una <b>tasa relevante de recurrencia isquémica</b>. Aunque esta información no forma parte todavía de las recomendaciones formales de las guías, sí obliga a extremar la vigilancia clínica.
+      </p>
+
+      <p>
+        Estos pacientes requieren un <b>seguimiento neurológico estrecho</b>. Ante cualquier sospecha de recurrencia o progresión clínica, debe plantearse de forma temprana la <b>revascularización</b>, ya que tanto la endarterectomía como el stent pueden reducir claramente el riesgo en escenarios de fracaso terapéutico.
+      </p>
+    `
+  },
+  {
+    title: 'Trombo mural aórtico y Trombo intraluminal',
+    html: `
+      <p>
+        En este escenario es fundamental diferenciar entre un <b>ateroma complejo del arco aórtico</b> y un <b>trombo mural o intraluminal verdadero</b>, ya que el significado clínico y la estrategia terapéutica no son equivalentes.
+      </p>
+
+      <p>
+        Si el hallazgo corresponde a <b>ateromatosis compleja del arco aórtico</b>, se recomienda <b>monoterapia antiagregante</b> y <b>tratamiento intensivo con estatinas</b>, con el objetivo de alcanzar un <b>LDL &lt;55 mg/dL</b>.
+      </p>
+
+      <hr class="details-divider">
+
+      <p><b>Trombo verdadero y móvil</b></p>
+
+      <p>
+        Cuando se identifica un <b>trombo mural o intraluminal verdadero</b>, especialmente si es <b>móvil</b>, la seguridad y eficacia de la anticoagulación a corto plazo no están bien establecidas y el manejo debe ser necesariamente <b>individualizado</b>.
+      </p>
+
+      <p>
+        La decisión de iniciar <b>anticoagulación terapéutica</b> o de plantear una <b>exclusión endovascular o quirúrgica</b> debe tomarse en función de la <b>morfología del trombo</b>, su <b>localización</b>, la <b>recurrencia clínica</b> y el <b>riesgo hemorrágico</b>, idealmente tras discusión multidisciplinar.
+      </p>
+    `
+  },
+  {
+    title: 'Estenosis crítica sin opción de intervención',
+    html: `
+      <p>
+        En pacientes con <b>estenosis carotídea sintomática reciente</b> en los que no es posible realizar una revascularización, la estrategia debe centrarse en reducir el riesgo de recurrencia precoz con un tratamiento antitrombótico intensivo durante un periodo corto.
+      </p>
+
+      <p>
+        En este contexto se recomienda <b>doble antiagregación con AAS + clopidogrel durante 21 días</b>, seguida posteriormente de <b>monoterapia antiagregante</b> de forma obligatoria.
+      </p>
+
+      <p>
+        Esta recomendación debe aplicarse sobre todo a la <b>patología carotídea extracraneal sintomática</b>. Además del tratamiento antitrombótico, es imprescindible mantener una <b>prevención vascular intensiva</b>, con control estricto de lípidos, presión arterial, diabetes, tabaquismo y adherencia al tratamiento.
+      </p>
+    `
+  },
+  {
+    title: 'Regla de cierre aplicable a todos los escenarios',
+    html: `
+      <p>
+        El tratamiento antitrombótico inicial en el ictus debe entenderse como una estrategia <b>provisional y dinámica</b>. Por ello, siempre debe <b>revisarse y ajustarse</b> cuando se confirme la etiología definitiva del evento cerebrovascular.
+      </p>
+
+      <p>
+        Esto es especialmente importante en pacientes con indicación de <b>anticoagulación oral</b>, como los que presentan <b>fibrilación auricular</b>. En estos casos, la adición rutinaria de terapia antiplaquetaria a la anticoagulación está <b>contraindicada</b> por ser potencialmente dañina, ya que aumenta de forma importante el riesgo de hemorragia mayor sin aportar un beneficio claro en prevención secundaria del ictus.
+      </p>
+
+      <p>
+        La combinación de <b>anticoagulantes y antiagregantes</b> debe reservarse exclusivamente para situaciones concretas con una <b>indicación cardíaca o vascular insoslayable</b>, como un síndrome coronario agudo o un stent intravascular reciente.
+      </p>
+    `
+  }
+];
+
+
+const toolsContent = {
+  carga: {
+    title: 'DOSIS DE CARGA DE ANTIAGREGANTES',
+    html: `
+      <ul>
+        <li><b>AAS:</b> 300 mg de carga; luego 75–100 mg/día.</li>
+        <li><b>Clopidogrel:</b> 300 mg estándar; 600 mg si se busca efecto más rápido.</li>
+        <li><b>Ticagrelor:</b> 180 mg de carga; luego 90 mg/12 h.</li>
+      </ul>
+    `
+  },
+  ibp: {
+    title: 'PROTECCIÓN GÁSTRICA: IBP Y CLOPIDOGREL',
+    html: `
+      <ul>
+        <li><b>Indicar IBP</b> si hay riesgo digestivo, DAPT o ACO + antiagregante.</li>
+        <li><b>Preferir:</b> pantoprazol, lansoprazol o rabeprazol.</li>
+        <li><b>Evitar si es posible:</b> omeprazol y esomeprazol.</li>
+      </ul>
+    `
+  },
+  triple_stent: {
+    title: 'PACIENTES ANTICOAGULADOS (ACO): TERAPIA COMBINADA',
+    html: `
+      <ul>
+        <li><b>Días 1–30:</b> ACO + AAS + clopidogrel.</li>
+        <li><b>Si alto riesgo hemorrágico:</b> acortar a 7–14 días.</li>
+        <li><b>Meses 1–3:</b> ACO + clopidogrel.</li>
+        <li><b>Después:</b> ACO en monoterapia + IBP mientras dure la combinación.</li>
+      </ul>
+    `
+  },
+  triple_sin_stent: {
+    title: 'PACIENTES ANTICOAGULADOS (ACO): TERAPIA COMBINADA',
+    html: `
+      <ul>
+        <li><b>Sin stent:</b> no añadir AAS ni DAPT de rutina al ACO.</li>
+        <li><b>Manejo habitual:</b> ACO en monoterapia.</li>
+        <li><b>Si el evento ocurre pese a ACO:</b> revisar adherencia, dosis e interacciones.</li>
+      </ul>
+    `
+  }
+};
+
 const notas = {
-   nota0: `
+  nota0: `
     <b>AIT de alto riesgo.</b><hr>
     • Aunque ABCD² 4–5 es riesgo moderado en la escala original, a efectos terapéuticos se considera <b>ABCD² ≥ 4</b> como AIT de alto riesgo.
   `,
@@ -1012,120 +1373,54 @@ const notas = {
   `,
   nota8: `
     <b>Acortamiento de triple terapia.</b> Considerar en pacientes con <b>alto riesgo hemorrágico.</b><hr>
-  	• Hemorragia intracraneal previa o ictus hemorrágico reciente<br>
-  	• Edad ≥ 80 años o fragilidad clínica marcada<br>
-  	• HAS-BLED ≥ 3<br>
- 	• Insuficiencia renal grave (<30 ml/min) o bajo peso (<60 kg)<br>
- 	• Anemia, plaquetopenia o sangrado digestivo reciente<br>
-  	• Interacciones farmacológicas relevantes con ACO o antiagregantes
+    • Hemorragia intracraneal previa o ictus hemorrágico reciente<br>
+    • Edad ≥ 80 años o fragilidad clínica marcada<br>
+    • HAS-BLED ≥ 3<br>
+    • Insuficiencia renal grave (&lt;30 ml/min) o bajo peso (&lt;60 kg)<br>
+    • Anemia, plaquetopenia o sangrado digestivo reciente<br>
+    • Interacciones farmacológicas relevantes con ACO o antiagregantes
   `
 };
 
-/* ============================
-   MAPA DE HERRAMIENTAS → TEXTO
-=============================== */
-const toolsContent = {
-  carga: {
-    title: "Dosis de carga de antiagregantes",
-    html: `
-      <hr><ul>
-        <li><b>AAS:</b> dosis de carga 300 mg VO (o IV según contexto). Posteriormente, 75–100 mg/día. No mantener dosis altas más de 3–5 días salvo indicación específica.</li>
-        <li><b>Clopidogrel:</b>
-          <ul>
-            <li>300 mg de carga si el inicio del ictus/AIT es &lt; 12 h.</li>
-            <li>600 mg de carga si el inicio es ≥ 12 h y se busca efecto rápido.</li>
-            <li>Mantenimiento: 75 mg/día.</li>
-          </ul>
-        </li>
-        <li><b>Ticagrelor:</b> dosis de carga 180 mg, seguida de 90 mg/12 h.</li>
-        <li>Evitar usar solo dosis de mantenimiento sin carga en pacientes naïve, ya que retrasa el efecto antiagregante.</li>
-      </ul>
-    `
-  },
-  triple_stent: {
-  title: "Triple terapia en pacientes anticoagulados con stent carotídeo",
-  html: `
-    <hr><ul>
-      <li><b>Contexto:</b> paciente con indicación de anticoagulación crónica (FA, tromboembolismo venoso, prótesis valvular, etc.) que recibe un stent carotídeo.</li>
-      <li><b>Días 1–30 (esquema estándar):</b> ACO (ACOD o AVK) + AAS + clopidogrel.</li>
-      <li><b>Días 31–90:</b> ACO + clopidogrel.</li>
-      <li><b>Tras 3 meses:</b> ACO en monoterapia.</li>
-      <li>
-        En pacientes con <b>alto riesgo hemorrágico</b>, puede considerarse <b>acortar la duración de la triple terapia</b> (p. ej., 7–14 días) y pasar antes a ACO + clopidogrel
-        <span class="info-icon" data-info="nota8">ℹ️</span>
-      </li>
-      <li>Utilizar IBP desde el inicio y priorizar ACOD frente a AVK cuando no haya contraindicaciones, por mejor perfil de seguridad.</li>
-    </ul>
-  `
+function renderDetallesEscenarios(){
+  const cont = document.getElementById('detalles-escenarios');
+  if(!cont) return;
+
+  cont.innerHTML = capitulosCompletos.map(cap => `
+    <details class="details-block">
+      <summary class="details-summary">📑 ${cap.title}</summary>
+      <div class="details-card">
+        <div class="details-card-header">${cap.title}</div>
+        <div class="details-card-body">${cap.html}</div>
+      </div>
+    </details>
+  `).join('');
 }
-,
-triple_sin_stent: {
-  title: "Triple terapia en anticoagulados con indicación de DAPT (sin stent)",
-  html: `
-    <hr><ul>
-      <li><b>Contexto:</b> paciente con anticoagulación oral crónica que precisa DAPT corta por ictus menor/AIT de alto riesgo, estenosis intracraneal sintomática, estenosis crítica no intervenible, etc.</li>
-      <li><b>Días 1–30 (esquema estándar):</b> ACO + AAS + clopidogrel.</li>
-      <li><b>Días 31–90:</b> ACO + clopidogrel.</li>
-      <li><b>Tras 3 meses:</b> ACO en monoterapia.</li>
-      <li>
-        En pacientes con <b>alto riesgo hemorrágico</b>, puede considerarse <b>acortar la triple terapia a 7–14 días</b> y mantener ACO + clopidogrel hasta completar 1 mes
-        <span class="info-icon" data-info="nota8">ℹ️</span>
-      </li>
-      <li>Suspender AAS tan pronto como sea posible si no hay indicación vascular clara.</li>
-      <li>Asociar siempre IBP.</li>
-    </ul>
-  `
-},
-  ibp: {
-    title: "IBP y clopidogrel",
-    html: `
-      <hr><ul>
-        <li><b>Indicaciones de IBP:</b> edad &gt; 65 años, antecedentes de úlcera o hemorragia digestiva, uso concomitante de AAS, ACO, AINEs o corticoides, y cualquier escenario de antiagregación/anticoagulación intensiva.</li>
-        <li><b>Elección de IBP:</b> preferir pantoprazol, lansoprazol o rabeprazol por menor interacción con el metabolismo de clopidogrel (CYP2C19).</li>
-        <li>Evitar omeprazol y esomeprazol salvo ausencia de alternativas o indicación muy precisa.</li>
-        <li>En pacientes con DAPT o ACO + clopidogrel, iniciar IBP desde el primer día y mantener mientras dure la combinación de alto riesgo gastrointestinal.</li>
-        <li><b>Los anti-H2 (p. ej., famotidina) no sustituyen la gastroprotección de un IBP y no deben usarse como alternativa cuando el riesgo gastrointestinal es alto.</b></li>
-      </ul>
-    `
-  },
 
-};
-
-/* ============================
-   MOSTRAR TRATAMIENTO ESCENARIO
-=============================== */
 function mostrarTratamientoEscenario(){
   const select = document.getElementById('escenario');
   const val = select.value;
   const res = document.getElementById('escenario-resultado');
   const texto = document.getElementById('escenario-texto');
   const actions = document.querySelector('.actions');
-  
 
   if(!val || !tratamientosEscenario[val]){
     res.classList.remove('fade-in');
-    texto.innerHTML = "Seleccione un escenario clínico para mostrar la recomendación orientativa de tratamiento antitrombótico.";
-    
-    // Oculta botones cuando no hay recomendación
-    actions.style.display = "none";
+    texto.innerHTML = 'Seleccione un escenario clínico para mostrar la síntesis orientativa de tratamiento antitrombótico.';
+    actions.style.display = 'none';
     return;
   }
 
   res.classList.remove('fade-in');
   void res.offsetWidth;
   res.classList.add('fade-in');
-
   texto.innerHTML = tratamientosEscenario[val];
-
-  // Muestra botones cuando hay recomendación
-  actions.style.display = "flex";
+  actions.style.display = 'flex';
 }
 
-
-/* ============================
-   MODAL HERRAMIENTAS + NOTAS
-=============================== */
 document.addEventListener('DOMContentLoaded', () => {
+  renderDetallesEscenarios();
+
   const escenarioSelect = document.getElementById('escenario');
   escenarioSelect.addEventListener('change', mostrarTratamientoEscenario);
 
@@ -1135,7 +1430,6 @@ document.addEventListener('DOMContentLoaded', () => {
   clearBtn.addEventListener('click', borrarResumen);
   copyBtn.addEventListener('click', copiarResumen);
 
-  // Sincroniza la interfaz con el valor actual del selector
   mostrarTratamientoEscenario();
 
   const chips = document.querySelectorAll('.tool-chip');
@@ -1144,7 +1438,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalContent = document.getElementById('tool-modal-content');
   const modalClose = document.getElementById('tool-modal-close');
 
-  // Apertura modal para herramientas
   chips.forEach(chip => {
     chip.addEventListener('click', () => {
       const key = chip.dataset.tool;
@@ -1154,31 +1447,29 @@ document.addEventListener('DOMContentLoaded', () => {
       modalTitle.textContent = tool.title;
       modalContent.innerHTML = tool.html;
       modalOverlay.style.display = 'flex';
-document.body.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
     });
   });
 
-  // Cierre modal
   modalClose.addEventListener('click', () => {
     modalOverlay.style.display = 'none';
-document.body.style.overflow = '';
+    document.body.style.overflow = '';
   });
 
   modalOverlay.addEventListener('click', (e) => {
     if(e.target === modalOverlay){
       modalOverlay.style.display = 'none';
-document.body.style.overflow = '';
+      document.body.style.overflow = '';
     }
   });
 
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && modalOverlay.style.display === 'flex') {
-    modalOverlay.style.display = 'none';
-    document.body.style.overflow = '';
-  }
-});
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modalOverlay.style.display === 'flex') {
+      modalOverlay.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  });
 
-  // Delegación para iconos de nota (funciona también en contenido dinámico)
   document.addEventListener('click', (e) => {
     const icon = e.target.closest('.info-icon');
     if(!icon) return;
@@ -1187,76 +1478,61 @@ document.addEventListener('keydown', (e) => {
     const nota = notas[key];
     if(!nota) return;
 
-    modalTitle.textContent = "Nota clínica";
+    modalTitle.textContent = 'Nota clínica';
     modalContent.innerHTML = nota;
     modalOverlay.style.display = 'flex';
-document.body.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
   });
 });
 
-/* ============================
-   TOAST GLOBAL INSTITUCIONAL
-=============================== */
-function showToast(message, type = "info") {
-  const toast = document.getElementById("toast");
+function showToast(message, type = 'info') {
+  const toast = document.getElementById('toast');
 
-  // Iconos según tipo
   const icons = {
-    info: "ℹ️",
-    ok: "✅",
-    warn: "⚠️",
-    error: "❌"
+    info: 'ℹ️',
+    ok: '✅',
+    warn: '⚠️',
+    error: '❌'
   };
 
-  // Colores institucionales
   const colors = {
-  info: "#ffffff",
-  ok: "#166534",
-  warn: "#b45309",
-  error: "#b91c1c"
-};
+    info: '#ffffff',
+    ok: '#166534',
+    warn: '#b45309',
+    error: '#b91c1c'
+  };
 
-const textColors = {
-  info: "#0f3d83",
-  ok: "#ffffff",
-  warn: "#ffffff",
-  error: "#ffffff"
-};
+  const textColors = {
+    info: '#0f3d83',
+    ok: '#ffffff',
+    warn: '#ffffff',
+    error: '#ffffff'
+  };
 
-toast.style.background = colors[type] || colors.info;
-toast.style.color = textColors[type] || textColors.info;
+  toast.style.background = colors[type] || colors.info;
+  toast.style.color = textColors[type] || textColors.info;
 
   toast.innerHTML = `
     <span class="toast-icon">${icons[type] || icons.info}</span>
     <span>${message}</span>
   `;
 
-  // Mostrar
-  toast.classList.add("show");
+  toast.classList.add('show');
 
-  // Ocultar a los 3 segundos
   clearTimeout(toast.hideTimer);
   toast.hideTimer = setTimeout(() => {
-    toast.classList.remove("show");
+    toast.classList.remove('show');
   }, 3000);
 }
 
-
-
-/* ============================
-   COPIAR y BORRAR RESUMEN
-=============================== */
 function copiarResumen(){
   const cont = document.getElementById('escenario-texto');
+  const clone = cont.cloneNode(true);
+  clone.querySelectorAll('.info-icon').forEach(el => el.remove());
 
-// Clonar el contenido para limpiar iconos de interfaz antes de copiar
-const clone = cont.cloneNode(true);
-clone.querySelectorAll('.info-icon').forEach(el => el.remove());
+  const baseText = clone.innerText.trim();
 
-const baseText = clone.innerText.trim();
-  
-  // Si no hay contenido real que copiar, no hace nada
-  if(!baseText || baseText.includes("Seleccione un escenario clínico")){
+  if(!baseText || baseText.includes('Seleccione un escenario clínico')){
     return;
   }
 
@@ -1273,56 +1549,50 @@ const baseText = clone.innerText.trim();
   let finalText = baseText;
 
   if(notasIncluidas.length > 0){
-    finalText += "\n\nNotas clínicas:\n";
+    finalText += '\n\nNotas clínicas:\n';
     notasIncluidas.forEach(key => {
       const div = document.createElement('div');
       div.innerHTML = notas[key];
       const notaPlano = div.innerText.trim();
-      finalText += "\n• " + notaPlano.replace(/\n/g, "\n  ");
+      finalText += '\n• ' + notaPlano.replace(/\n/g, '\n  ');
     });
   }
 
   navigator.clipboard.writeText(finalText)
-  .then(() => {
-    const btn = document.querySelector(".boton-copy");
+    .then(() => {
+      const btn = document.querySelector('.boton-copy');
+      btn.classList.add('copiado');
+      const oldText = btn.textContent;
+      btn.textContent = 'Copiado';
 
-    btn.classList.add("copiado");
-    const oldText = btn.textContent;
-    btn.textContent = "Copiado";
-
-    setTimeout(() => {
-      btn.classList.remove("copiado");
-      btn.textContent = oldText;
-    }, 1500);
-  })
-  .catch(() => {
-    showToast("No se pudo copiar la recomendación.", "warn");
-  });
+      setTimeout(() => {
+        btn.classList.remove('copiado');
+        btn.textContent = oldText;
+      }, 1500);
+    })
+    .catch(() => {
+      showToast('No se pudo copiar la recomendación.', 'warn');
+    });
 }
 
 function borrarResumen(){
-  document.getElementById('escenario').value = "";
-  document.getElementById('escenario-texto').innerHTML =
-    "Seleccione un escenario clínico para mostrar la recomendación orientativa de tratamiento antitrombótico.";
+  document.getElementById('escenario').value = '';
+  document.getElementById('escenario-texto').innerHTML = 'Seleccione un escenario clínico para mostrar la síntesis orientativa de tratamiento antitrombótico.';
 
   const res = document.getElementById('escenario-resultado');
   res.classList.remove('fade-in');
 
   const copyBtn = document.querySelector('.boton-copy');
   copyBtn.classList.remove('copiado');
-  copyBtn.textContent = "Copiar recomendación";
+  copyBtn.textContent = 'Copiar recomendación';
 
-  // Oculta los botones también al borrar
-  document.querySelector('.actions').style.display = "none";
+  document.querySelector('.actions').style.display = 'none';
 
-  // 🔵 Scroll al inicio suavemente
   window.scrollTo({
     top: 0,
-    behavior: "smooth"
+    behavior: 'smooth'
   });
 }
-
-
 </script>
     <div id="toast" class="toast"></div>
   </body>
