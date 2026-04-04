@@ -477,6 +477,11 @@ footer img{max-width:320px;height:auto;opacity:.95}
     margin-right: 6px;
   }
 }
+
+#desarrollo-recomendaciones{
+  scroll-margin-top: 140px;
+}
+
 </style>
   </head>
   <body>
@@ -502,7 +507,7 @@ footer img{max-width:320px;height:auto;opacity:.95}
     </header>
 
     <main class="wrap">
-      <div class="howto text-justify">El <b>ictus aterotrombótico</b> incluye tanto la <b>enfermedad aterosclerótica</b> de grandes vasos como los infartos relacionados con <b>placa inestable</b>, <b>hipoperfusión</b> o <b>embolia arterio-arterial</b>. La herramienta integra además escenarios arteriales especiales (<b>disección, carotid web, trombo mural</b>) y ofrece una orientación rápida del <b>tratamiento antitrombótico</b> en cada situación clínica.</div>
+      <div class="howto text-justify">El <b>ictus aterotrombótico</b> incluye tanto la <b>enfermedad aterosclerótica</b> de grandes vasos como los infartos relacionados con <b>placa inestable</b>, <b>hipoperfusión</b> o <b>embolia arterio-arterial</b>. La herramienta integra además escenarios arteriales especiales (<b>disección, banda carotídea, trombo mural</b>) y ofrece una orientación rápida del <b>tratamiento antitrombótico</b> en cada situación clínica.</div>
 
       <div class="block" id="escenario-section">
         <h3>🩺 Tipo de ictus / escenario clínico</h3>
@@ -516,7 +521,7 @@ footer img{max-width:320px;height:auto;opacity:.95}
           <option value="atero_sin_estenosis">Ictus aterotrombótico sin estenosis significativa</option>
           <option value="lacunar">Ictus lacunar</option>
           <option value="diseccion">Disección arterial (carótida / vertebral)</option>
-          <option value="carotid_web">Carotid Web</option>
+          <option value="carotid_web">Banda carotídea (carotid web)</option>
           <option value="trombo_aortico">Trombo mural aórtico</option>
           <option value="estenosis_sin_intervencion">Estenosis crítica sin opción de intervención</option>
         </select>
@@ -550,9 +555,9 @@ footer img{max-width:320px;height:auto;opacity:.95}
         <p class="text-justify"><b>📛Advertencia.</b> Esta herramienta tiene carácter orientativo y no sustituye el juicio clínico del profesional ni los protocolos locales. Las recomendaciones deben integrarse con la situación individual del paciente, las guías vigentes y la discusión multidisciplinar cuando proceda.</p>
       </section>
 
-      <div class="howto">
-        <h3 style="margin-top:0; color:#0f3d83;">📘 Desarrollo completo de las recomendaciones</h3>
-        <div id="detalles-escenarios" style="padding-left:20px;"></div>
+      <div class="howto" id="desarrollo-recomendaciones">
+  <h3 style="margin-top:0; color:#0f3d83;">📘 Desarrollo ampliado de las recomendaciones</h3>
+        <div id="detalles-escenarios" style="padding-left:2px;"></div>
       </div>
 
       <div class="howto">
@@ -844,7 +849,7 @@ const tratamientosEscenario = {
       <li><b>Ampliación:</b> puede considerarse hasta 24–72 horas en ictus leve no incapacitante (NIHSS ≤5) o si existe sospecha aterosclerótica / estenosis sintomática relevante.</li>
       <li><b>Después:</b> monoterapia antiagregante. No prolongar la doble antiagregación más allá de 90 días de forma rutinaria.</li>
       <li><b>Alternativa:</b> ticagrelor + AAS 30 días; opción preferente si resistencia a clopidogrel (CYP2C19).</li>
-      <li><b>Tras IVT:</b> antiagregantes después de 24 horas y tras neuroimagen; inicio precoz solo en situaciones excepcionales.</li>
+      <li><b>Tras reperfusión:</b> antiagregantes después de 24 horas y tras neuroimagen; inicio precoz solo en situaciones excepcionales.</li>
     </ul>
   `,
 
@@ -855,7 +860,7 @@ const tratamientosEscenario = {
       <li><b>Sintomática 50–69%:</b> valorar CEA individualmente. <b>&lt;50%:</b> no revascularización.</li>
       <li><b>CAS:</b> alternativa razonable, sobre todo en &lt;70 años o alto riesgo quirúrgico; DAPT preprocedimiento y al menos 1 mes.</li>
       <li><b>Si no se revasculariza</b> tras AIT/ictus menor carotídeo reciente: AAS + clopidogrel 21 días y luego monoterapia.</li>
-      <li><b>Asintomática 60–99%:</b> tratamiento médico intensivo; CEA o stent solo en pacientes muy seleccionados con riesgo perioperatorio ≤3%.</li>
+      <li><b>Asintomática 60–99%:</b> tratamiento médico intensivo; CEA o stent solo en pacientes seleccionados con riesgo perioperatorio ≤3%.</li>
     </ul>
   `,
 
@@ -981,7 +986,7 @@ const capitulosCompletos = [
       </p>
 
       <p>
-        Tras <b>trombólisis intravenosa</b>, como norma general los antiagregantes deben iniciarse <b>después de 24 horas</b> y siempre tras neuroimagen de control. Solo en situaciones muy seleccionadas puede contemplarse un inicio más precoz, si el beneficio esperado supera claramente el riesgo hemorrágico.
+        Tras <b>trombólisis intravenosa o trombectomía mecánica</b>, como norma general los antiagregantes deben iniciarse <b>después de 24 horas</b> y siempre tras neuroimagen de control. Solo en situaciones muy seleccionadas puede contemplarse un inicio más precoz, si el beneficio esperado supera claramente el riesgo hemorrágico.
       </p>
     `
   },
@@ -1052,10 +1057,10 @@ const capitulosCompletos = [
     `
   },
   {
-    title: 'Estenosis intracraneal aterosclerótica sintomática (ICAD)',
+    title: 'Estenosis intracraneal aterosclerótica sintomática',
     html: `
       <p>
-        La <b>estenosis intracraneal aterosclerótica sintomática</b> es una situación de alto riesgo de recurrencia, especialmente en las lesiones <b>graves (70–99%)</b>. En estos pacientes, el tratamiento inicial debe ser intensivo y centrado en la prevención precoz de nuevos eventos isquémicos.
+        La <b>estenosis intracraneal aterosclerótica sintomática (ICAD)</b> es una situación de alto riesgo de recurrencia, especialmente en las lesiones <b>graves (70–99%)</b>. En estos pacientes, el tratamiento inicial debe ser intensivo y centrado en la prevención precoz de nuevos eventos isquémicos.
       </p>
 
       <p>
@@ -1083,16 +1088,39 @@ const capitulosCompletos = [
     title: 'Estenosis intracraneal aterosclerótica asintomática',
     html: `
       <p>
-        En la <b>estenosis intracraneal aterosclerótica asintomática</b>, el objetivo principal no es una intervención específica sobre la lesión, sino una <b>prevención vascular intensiva</b> que reduzca el riesgo de progresión y de eventos futuros.
-      </p>
+  En la <b>estenosis intracraneal aterosclerótica asintomática</b>, el objetivo principal no es una intervención específica sobre la lesión, sino una <b>prevención vascular intensiva</b>, ya que este hallazgo actúa sobre todo como un <b>marcador de aterosclerosis sistémica</b> y de carga vascular global.
+</p>
 
-      <p>
-        El uso de antiagregación en estos pacientes debe <b>individualizarse</b>, equilibrando el posible beneficio vascular con el <b>riesgo hemorrágico</b> y el perfil global del paciente. No existe una pauta estándar obligatoria de <b>doble antiagregación</b>, ni una indicación rutinaria de <b>intervención endovascular</b>.
-      </p>
+<p>
+  El uso de <b>antiagregación</b> debe <b>individualizarse</b>, equilibrando el posible beneficio vascular con el <b>riesgo hemorrágico</b> y el perfil clínico del paciente. En cambio, <b>no existe una pauta estándar obligatoria de doble antiagregación (DAPT)</b>, porque la evidencia que respalda AAS + clopidogrel procede de pacientes con <b>ICAD sintomática</b>, no de lesiones intracraneales incidentales o asintomáticas.
+</p>
 
-      <p>
-        El seguimiento clínico e imagenológico debe guiarse por la <b>carga aterosclerótica</b>, la evolución del paciente y la aparición de nuevos hallazgos, como progresión de la estenosis o lesiones silentes en controles sucesivos.
-      </p>
+<hr class="details-divider">
+
+<p><b>Por qué no se indica DAPT de rutina</b></p>
+
+<ul style="padding-left:18px;">
+  <li>La <b>DAPT de 90 días</b> se ha validado en <b>estenosis intracraneal sintomática</b>, no asintomática.</li>
+  <li>La estenosis intracraneal asintomática tiene un <b>riesgo ipsilateral menor</b> que la enfermedad sintomática.</li>
+  <li>No se ha demostrado que intensificar el tratamiento con DAPT mejore los resultados frente a un buen control del riesgo vascular.</li>
+  <li>El uso innecesario de DAPT puede aumentar el <b>riesgo de sangrado</b> sin un beneficio preventivo claramente demostrado.</li>
+</ul>
+
+<hr class="details-divider">
+
+<p><b>Aplicación práctica</b></p>
+
+<p>
+  La base del manejo debe ser el <b>tratamiento médico intensivo de los factores de riesgo</b>: control estricto de la presión arterial, tratamiento hipolipemiante potente, control de diabetes, abandono del tabaquismo y optimización global del riesgo vascular.
+</p>
+
+<p>
+  La <b>intervención endovascular</b> tampoco tiene una indicación rutinaria en este escenario y el <b>seguimiento clínico e imagenológico</b> debe guiarse por la carga aterosclerótica, la evolución clínica y la aparición de nuevos hallazgos.
+</p>
+
+<p>
+  En resumen, en la estenosis intracraneal asintomática la lógica terapéutica no es “más antiagregación”, sino <b>mejor prevención vascular global</b>.
+</p>
     `
   },
   {
@@ -1131,8 +1159,8 @@ const capitulosCompletos = [
       </p>
 
       <p>
-        Se exige además <b>tratamiento hipolipemiante intensivo</b>, con el objetivo de reducir el colesterol <b>LDL a &lt;70 mg/dL</b>, asociado al control estricto de presión arterial, tabaquismo, diabetes y resto de factores de riesgo. En pacientes con <b>ateroma del arco aórtico</b> o con <b>riesgo vascular muy alto</b>, puede plantearse una intensificación adicional del objetivo lipídico.
-      </p>
+  Se exige además tratamiento hipolipemiante intensivo, con un objetivo preferente de colesterol <b>LDL &lt;55 mg/dL</b> en pacientes con perfil aterotrombótico de muy alto riesgo <i>(no obstante, LDL &lt;70 mg/dL sigue siendo el umbral con beneficio específicamente demostrado en ensayos de ictus)</i>. Debe asociarse al control estricto de presión arterial, tabaquismo, diabetes y resto de factores de riesgo vascular.
+</p>
 
       <hr class="details-divider">
 
@@ -1296,13 +1324,13 @@ const toolsContent = {
     html: `
       <ul>
         <li><b>Indicar IBP</b> si hay riesgo digestivo, DAPT o ACO + antiagregante.</li>
-        <li><b>Preferir:</b> pantoprazol, lansoprazol o rabeprazol.</li>
-        <li><b>Evitar si es posible:</b> omeprazol y esomeprazol.</li>
+        <li><b>Preferir:</b> pantoprazol, rabeprazol o lansoprazol.</li>
+        <li><b>Evitar:</b> omeprazol y esomeprazol.</li>
       </ul>
     `
   },
   triple_stent: {
-    title: 'PACIENTES ANTICOAGULADOS (ACO): TERAPIA COMBINADA',
+    title: 'ACO Y ANTIAGREGANTES TRAS STENT',
     html: `
       <ul>
         <li><b>Días 1–30:</b> ACO + AAS + clopidogrel.</li>
@@ -1313,7 +1341,7 @@ const toolsContent = {
     `
   },
   triple_sin_stent: {
-    title: 'PACIENTES ANTICOAGULADOS (ACO): TERAPIA COMBINADA',
+    title: 'ACO Y ANTIAGREGANTES SIN STENT',
     html: `
       <ul>
         <li><b>Sin stent:</b> no añadir AAS ni DAPT de rutina al ACO.</li>
@@ -1443,8 +1471,7 @@ function mostrarTratamientoEscenario(){
   res.classList.remove('fade-in');
   void res.offsetWidth;
   res.classList.add('fade-in');
-  texto.innerHTML = tratamientosEscenario[val];
-  actions.style.display = 'flex';
+  texto.innerHTML = tratamientosEscenario[val] + '<p class="note"><b>Resultado operativo.</b> <a href="#desarrollo-recomendaciones">Ver desarrollo ampliado de esta recomendación.</a></p>';  actions.style.display = 'flex';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
