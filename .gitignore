@@ -95,6 +95,7 @@ _backup_temp/
 *.pdf
 !www/protocolos/
 !www/protocolos/*.pdf
+!www/informacion/docs/*.pdf
 *.pptx
 *.docx
 
