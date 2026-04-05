@@ -2,6 +2,7 @@
 <html lang="es">
   <head>
 
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Otras cardiopatías embolígenas</title>
@@ -102,7 +103,6 @@ header{
   padding:1rem;
   margin:.3rem 0 1rem;
   font-size:14px;
-  text-align:justify;
 }
 
 .block{
@@ -306,18 +306,21 @@ label.row:hover{
 
 /* DISCLAIMER FINAL */
 .disclaimer-red{
-  background:#fff7f7;
+  background:#fef2f2;
   border:1px solid #fecaca;
-  border-left:4px solid #d9534f;
   border-radius:12px;
   margin:8px auto;
   padding:1rem;
   max-width:1080px;
+  box-shadow:0 2px 8px rgba(185,28,28,0.05);
+}
+.disclaimer-red{
+  background:#fff7f7;
+  border-left:4px solid #d9534f;
   box-shadow:0 1px 4px rgba(217,83,79,0.05);
 }
 .disclaimer-red p{
   color:#7d1a1a;
-  text-align:justify;
 }
 
 
@@ -343,7 +346,10 @@ footer img{max-width:320px;height:auto;opacity:.95}
 }
 
 /* Empuja el contenido real por debajo de la barra superior */
-
+body{
+  padding-top:calc(env(safe-area-inset-top, 0px) + 52px);
+  background-color:#f8fafc;
+}
 
 /* Animación para actualización suave */
 .fade-in{
@@ -383,7 +389,7 @@ footer img{max-width:320px;height:auto;opacity:.95}
         Otras cardiopatías embolígenas </div>
     </header>
     <main class="wrap">
-      <div class="howto">Las <b>cardiopatías
+      <div class="howto" align="justify">Las <b>cardiopatías
           embolígenas</b> cuya etiología <b>primaria</b> es distinta de
         la fibrilación auricular o del foramen oval permeable presentan
         mecanismos <b>propios</b> de generación de embolias, aunque
@@ -427,7 +433,7 @@ footer img{max-width:320px;height:auto;opacity:.95}
           recomendación</button> </div>
       <!-- DISCLAIMER -->
       <section class="disclaimer-red">
-        <p> <b>📛Advertencia.</b> Esta herramienta
+        <p align="justify"> <b>📛Advertencia.</b> Esta herramienta
           tiene carácter orientativo y no sustituye el juicio clínico
           del profesional ni los protocolos locales. Las recomendaciones
           deben integrarse con la situación individual del paciente, las
@@ -670,13 +676,13 @@ function mostrarFactoresPatologia() {
 
 function actualizarPatologia() {
   aplicarAutoChecks();
-  mostrarRecomendacionPatologia();
+  mostrarRecomendacionPatologia(true);
 }
 
 /* ============================
    RECOMENDACIÓN PRINCIPAL
 =============================== */
-function mostrarRecomendacionPatologia() {
+function mostrarRecomendacionPatologia(preliminar = false) {
   const patologia = document.getElementById("patologia").value;
   const checks = document.querySelectorAll("#patologia-factores input[type='checkbox']:checked");
   const riesgos = Array.from(checks).map(el => el.value);
@@ -684,7 +690,8 @@ function mostrarRecomendacionPatologia() {
   const actions = document.querySelector('.actions');
 
   let texto = "", recomendacion = "", fuerza = "INSUFICIENTE";
-
+  let score = 0;
+  const isFemale = riesgos.includes('Sexo Femenino (1 pto)');
   const hasIctus = riesgos.includes('Ictus isquémico agudo');
 
   if (patologia) {
@@ -693,6 +700,10 @@ function mostrarRecomendacionPatologia() {
     actions.style.display = "none";
   }
 
+  riesgos.forEach(r => {
+    if (r.includes('2 ptos')) score += 2;
+    else if (r.includes('1 pto')) score += 1;
+  });
 
   switch(patologia) {
     case "hipertrofica":
@@ -712,6 +723,7 @@ function mostrarRecomendacionPatologia() {
     case "iam":
       texto = "<b>📌 Infarto agudo de miocardio</b> – Mayor riesgo embólico si trombo cavitario o ictus isquémico agudo.";
       const tieneTromboCavitario = riesgos.includes("Trombo cavitario");
+      const feBajaIAM = riesgos.includes("FE < 40%");
 
       if (hasIctus) {
         recomendacion =
@@ -724,7 +736,7 @@ function mostrarRecomendacionPatologia() {
         fuerza = "ANTICOAGULACION_TRANSITORIA";
       } else {
         recomendacion =
-            "En ausencia de ictus isquémico agudo o trombo cavitario, no se recomienda anticoagulación sistemática solo por el IAM, aunque existan datos de mayor riesgo como IAM anterior extenso o FE < 40%.";
+          "En ausencia de ictus isquémico agudo, ictus periinfarto o trombo cavitario, no se recomienda anticoagulación sistemática solo por el IAM.";
         fuerza = "NO_ANTICOAGULAR";
       }
       break;
@@ -798,7 +810,7 @@ function mostrarRecomendacionPatologia() {
         recomendacion = "Anticoagulación (ACOD o AVK) indefinida independientemente del CHA₂DS₂-VASc, por alto riesgo tromboembólico intrínseco.";
         fuerza = "ACODS_PREFERIDOS";
       } else {
-        recomendacion = "Sin FA, sin trombos y sin ictus, no se indica anticoagulación sistemática, incluso en contexto de amiloidosis confirmada, aunque debe mantenerse alta sospecha y seguimiento estrecho.";
+        recomendacion = "Sin FA, sin trombos y sin ictus, no se indica anticoagulación sistemática, aunque debe mantenerse alta sospecha y seguimiento estrecho.";
         fuerza = "NO_ANTICOAGULAR";
       }
       break;
@@ -871,55 +883,34 @@ function mostrarRecomendacionPatologia() {
      2) FA + ICTUS TUMORAL → NO sumar 2 puntos al CHA2DS2-VASc
      ============================================================ */
   if (tieneFAMixoma && ictusMixoma) {
-  if (retrasoQx) {
     recomendacion =
       "Fibrilación auricular concomitante con ictus tumoral (por mixoma): el ictus NO debe contabilizarse como evento previo en el CHA₂DS₂-VASc. " +
-      "Si la resección quirúrgica debe retrasarse, puede valorarse anticoagulación puente hasta la intervención. " +
-      "Tras la resección, la necesidad de anticoagulación crónica dependerá del CHA₂DS₂-VASc real del paciente, sin sumar el ictus tumoral.";
-  } else {
-    recomendacion =
-      "Fibrilación auricular concomitante con ictus tumoral (por mixoma): el ictus NO debe contabilizarse como evento previo en el CHA₂DS₂-VASc. " +
-      "Anticoagulación solo si el CHA₂DS₂-VASc lo indica por los demás factores del paciente.";
+      "Anticoagulación solo si el CHA₂DS₂-VASc lo indica por los demás factores del paciente. ";
+    fuerza = "AC_SEGUN_CHA2DS2VASc";
+    break;
   }
-  fuerza = "";
-  break;
-}
 
-/* ============================================================
-   3) FA SIN ICTUS TUMORAL NI TROMBO → CHA2DS2-VASc REAL
-   ============================================================ */
-if (tieneFAMixoma) {
-  if (retrasoQx) {
-    recomendacion =
-      "Fibrilación auricular concomitante: si la resección quirúrgica debe retrasarse, puede valorarse anticoagulación puente hasta la intervención. " +
-      "Tras la resección, la necesidad de anticoagulación crónica dependerá del CHA₂DS₂-VASc real del paciente.";
-  } else {
+  /* ============================================================
+     3) FA SIN ICTUS TUMORAL NI TROMBO → CHA2DS2-VASc REAL
+     ============================================================ */
+  if (tieneFAMixoma) {
     recomendacion =
       "Fibrilación auricular concomitante: anticoagulación según CHA₂DS₂-VASc, sin considerar el ictus tumoral como evento previo. " +
       "El mixoma no altera la indicación de anticoagulación en FA.";
+    fuerza = "AC_SEGUN_CHA2DS2VASc";
+    break;
   }
-  fuerza = "";
-  break;
-}
 
   /* ============================================================
      4) ICTUS TUMORAL SIN FA NI TROMBO → NO anticoagulación
      ============================================================ */
   if (ictusMixoma) {
-  if (retrasoQx) {
-    recomendacion =
-      "Ictus isquémico en el contexto de mixoma auricular sin trombo ni FA: la embolia es de origen tumoral y la anticoagulación no previene recurrencias de forma demostrada. " +
-      "Si la resección quirúrgica debe retrasarse, puede valorarse individualmente anticoagulación puente, aunque su eficacia para prevenir embolias de origen tumoral es incierta. " +
-      "La resección quirúrgica urgente sigue siendo el tratamiento definitivo.";
-    fuerza = "CONSIDERAR_ACOD";
-  } else {
     recomendacion =
       "Ictus isquémico en el contexto de mixoma auricular sin trombo ni FA: la embolia es de origen tumoral y la anticoagulación no previene recurrencias. " +
       "La resección quirúrgica urgente es el tratamiento definitivo.";
     fuerza = "NO_ANTICOAGULAR";
+    break;
   }
-  break;
-}
 
   /* ============================================================
      5) RETRASO QUIRÚRGICO → AC opcional (beneficio incierto)
@@ -955,11 +946,11 @@ if (tieneFAMixoma) {
   const isBioMitral   = riesgos.includes("Prótesis Biológica Mitral/Tricúspide");
   const isBioAortica  = riesgos.includes("Prótesis Biológica Aórtica (TAVI/Quirúrgica)");
 
-if (hasFAv && (hasIctus || hasTEPrevio) && !isMecánica && !isEM_MS) {
+if (hasFAv && (hasIctus || hasTEPrevio)) {
     recomendacion =
       "Fibrilación auricular con ictus isquémico agudo o evento cardioembólico previo: se recomienda anticoagulación indefinida. " +
       "La indicación no depende del CHA₂DS₂-VASc, porque el riesgo embólico ya está demostrado.";
-    fuerza = "ACODS_PREFERIDOS";
+    fuerza = "ACODS_PREFERIDOS"; // o AVK si está en contexto valvular/EM-MS
     break;
 }
   /* =========================================================
@@ -1182,49 +1173,42 @@ if (hasFAv && (hasIctus || hasTEPrevio) && !isMecánica && !isEM_MS) {
 
   // 1) ESTENOSIS MITRAL MODERADA-SEVERA
   if (estenosisMitral) {
-  if (tieneTrombo) {
-    recomendacion =
-      "Estenosis mitral moderada-severa con trombo auricular: se recomienda anticoagulación indefinida con AVK (ACOD contraindicados). Además, debe realizarse control por imagen hasta la resolución del trombo.";
-    fuerza = "VKA_OBLIGATORIO";
-  } else if (tieneFA || ictusPrevioLA || ictusAgudoLA) {
-    recomendacion =
-      "Estenosis mitral moderada-severa con FA o evento embólico (ictus isquémico agudo o evento cardioembólico previo): " +
-      "se recomienda anticoagulación indefinida con AVK (ACOD contraindicados).";
-    fuerza = "VKA_OBLIGATORIO";
-  } else {
-    recomendacion =
-      "Estenosis mitral moderada-severa en ritmo sinusal, sin trombo ni eventos embólicos previos: " +
-      "no se recomienda anticoagulación sistemática. Suele bastar antiagregación y vigilancia clínica, " +
-      "de acuerdo con las guías de valvulopatía mitral.";
-    fuerza = "ANTIAGREGACION_PREFERIDA";
+    if (tieneFA || tieneTrombo || ictusPrevioLA || ictusAgudoLA) {
+      // EM-MS + FA y/o trombo y/o ictus → AVK indefinido
+      recomendacion =
+        "Estenosis mitral moderada-severa con FA, trombo auricular o evento embólico previo: " +
+        "se recomienda anticoagulación indefinida con AVK (ACOD contraindicados). " +
+        "Si existe trombo, mantener AVK y realizar control por imagen hasta su resolución.";
+      fuerza = "VKA_OBLIGATORIO";
+    } else {
+      // EM-MS en ritmo sinusal, sin trombo ni eventos previos
+      recomendacion =
+        "Estenosis mitral moderada-severa en ritmo sinusal, sin trombo ni eventos embólicos previos: " +
+        "no se recomienda anticoagulación sistemática. Suele bastar antiagregación y vigilancia clínica, " +
+        "de acuerdo con las guías de valvulopatía mitral.";
+      fuerza = "ANTIAGREGACION_PREFERIDA";
+    }
+    break;
   }
-  break;
-}
 
-if (tieneFA && (hasIctus || ictusPrevioLA) && !tieneTrombo) {
+if (tieneFA && (hasIctus || ictusPrevioLA)) {
     recomendacion =
       "Fibrilación auricular con ictus isquémico agudo o evento cardioembólico previo: se recomienda anticoagulación indefinida. " +
       "La indicación no depende del CHA₂DS₂-VASc, porque el riesgo embólico ya está demostrado.";
-    fuerza = "ACODS_PREFERIDOS";
+    fuerza = "ACODS_PREFERIDOS"; // o AVK si está en contexto valvular/EM-MS
     break;
 }
 
   // 2) TROMBO EN AURÍCULA / OREJUELA (sin EM-MS)
   if (tieneTrombo && tieneFA) {
-  if (hasIctus || ictusPrevioLA) {
-    recomendacion =
-      "Trombo en aurícula izquierda/orejuela en paciente con FA y evento embólico (ictus isquémico agudo o evento cardioembólico previo): " +
-      "anticoagulación con AVK o ACOD al menos 3–6 meses, con control por imagen hasta la completa resolución del trombo. " +
-      "Tras la resolución, mantener anticoagulación indefinida, sin depender del CHA₂DS₂-VASc, porque el riesgo embólico ya está demostrado.";
-  } else {
+    // Trombo + FA
     recomendacion =
       "Trombo en aurícula izquierda/orejuela en paciente con FA: anticoagulación con AVK o ACOD al menos 3–6 meses, " +
       "con control por imagen hasta la completa resolución del trombo. Tras la resolución, mantener anticoagulación indefinida " +
       "por la FA, según CHA₂DS₂-VASc y riesgo hemorrágico.";
-  }
-  fuerza = "ACODS_PREFERIDOS";
-  break;
-} else if (tieneTrombo) {
+    fuerza = "ACODS_PREFERIDOS";
+    break;
+  } else if (tieneTrombo) {
     // Trombo sin FA ni EM-MS
     recomendacion =
       "Trombo en aurícula izquierda/orejuela sin estenosis mitral moderada-severa ni FA: " +
@@ -1243,27 +1227,35 @@ if (tieneFA && (hasIctus || ictusPrevioLA) && !tieneTrombo) {
     break;
   }
 
+  // 4) AURÍCULA MUY DILATADA + FEVI BAJA, CON ICTUS AGUDO
+  if (dilatacionSevera && feviBaja && ictusAgudoLA) {
+    recomendacion =
+      "Ictus isquémico agudo en el contexto de aurícula muy dilatada y FEVI < 35%, sin FA ni trombo visibles: " +
+      "puede considerarse anticoagulación (ACOD o AVK) por alto riesgo embólico, especialmente si se sospecha FA subclínica. " +
+      "Decisión individualizada según riesgo hemorrágico y posibilidad de monitorización prolongada.";
+    fuerza = "CONSIDERAR_ACOD";
+    break;
+  }
 
+  // 5) AURÍCULA MUY DILATADA + FEVI BAJA, SIN ICTUS
+  if (dilatacionSevera && feviBaja && !ictusAgudoLA) {
+    recomendacion =
+      "Aurícula muy dilatada con FEVI < 35% sin ictus ni trombo: la anticoagulación no es sistemática, " +
+      "pero puede considerarse en presencia de otros factores de riesgo y sospecha de FA subclínica. " +
+      "Es razonable monitorización prolongada para detectar FA oculta.";
+    fuerza = "CONSIDERAR_ACOD";
+    break;
+  }
 
-// 5) AURÍCULA MUY DILATADA + FEVI BAJA, CON ICTUS AGUDO
-if (dilatacionSevera && feviBaja && ictusAgudoLA) {
-  recomendacion =
-    "Ictus isquémico agudo en el contexto de aurícula muy dilatada y FEVI < 35%, sin FA ni trombo visibles: " +
-    "puede considerarse anticoagulación (ACOD o AVK) por alto riesgo embólico, especialmente si se sospecha FA subclínica. " +
-    "Decisión individualizada según riesgo hemorrágico y posibilidad de monitorización prolongada.";
-  fuerza = "CONSIDERAR_ACOD";
-  break;
-}
-
-// 6) AURÍCULA MUY DILATADA + FEVI BAJA, SIN ICTUS
-if (dilatacionSevera && feviBaja && !ictusAgudoLA) {
-  recomendacion =
-    "Aurícula muy dilatada con FEVI < 35% sin ictus ni trombo: la anticoagulación no es sistemática, " +
-    "pero puede considerarse en presencia de otros factores de riesgo y sospecha de FA subclínica. " +
-    "Es razonable monitorización prolongada para detectar FA oculta.";
-  fuerza = "CONSIDERAR_ACOD";
-  break;
-}
+  // 6) ICTUS CARDIOEMBÓLICO PREVIO ATRIBUIDO A LA AURÍCULA (situación actual estable)
+  if (ictusPrevioLA) {
+    recomendacion =
+      "Ictus cardioembólico previo atribuido a la aurícula izquierda, pero actualmente sin FA, trombo ni estenosis mitral moderada-severa: " +
+      "no se indica automáticamente anticoagulación indefinida. Es necesario reevaluar la etiología, optimizar la búsqueda de FA oculta " +
+      "y decidir individualmente según nuevos hallazgos.";
+    fuerza = "NO_ANTICOAGULAR";
+    break;
+  }
 
   // 7) ICTUS AGUDO SIN HALLAZGOS ESTRUCTURALES RELEVANTES
   if (ictusAgudoLA) {
@@ -1275,21 +1267,10 @@ if (dilatacionSevera && feviBaja && !ictusAgudoLA) {
     break;
   }
 
-// 4) ICTUS CARDIOEMBÓLICO PREVIO ATRIBUIDO A LA AURÍCULA (situación actual estable)
-if (ictusPrevioLA && !ictusAgudoLA && !(dilatacionSevera && feviBaja)) {
-  recomendacion =
-    "Ictus cardioembólico previo atribuido a la aurícula izquierda, pero actualmente sin FA, trombo ni estenosis mitral moderada-severa: " +
-    "no se indica automáticamente anticoagulación indefinida. Es necesario reevaluar la etiología, optimizar la búsqueda de FA oculta " +
-    "y decidir individualmente según nuevos hallazgos.";
-  fuerza = "NO_ANTICOAGULAR";
-  break;
-}
-
   // 8) SITUACIÓN BASAL SIN MARCADORES DE ALTO RIESGO
   recomendacion =
-  "Sin trombo, sin FA y sin valvulopatía mitral significativa, no se recomienda anticoagulación sistemática " +
-  "por la aurícula izquierda/orejuela. La dilatación auricular severa o una FEVI < 35% aisladas no justifican por sí solas anticoagulación, " +
-  "aunque pueden motivar seguimiento estrecho y búsqueda de FA oculta. Mantener control clínico y ecocardiográfico según la cardiopatía de base.";
+    "Sin trombo, sin FA y sin valvulopatía mitral significativa, no se recomienda anticoagulación sistemática " +
+    "por la aurícula izquierda/orejuela. Mantener control clínico y ecocardiográfico según la cardiopatía de base.";
   fuerza = "NO_ANTICOAGULAR";
   break;
 
@@ -1343,12 +1324,6 @@ function borrarFormulario() {
     "<h3>✅ Recomendación</h3><p>Seleccione un escenario clínico para mostrar la recomendación orientativa de tratamiento.</p>";
 
   document.querySelector('.actions').style.display = "none";
-const copyBtn = document.querySelector(".boton-copy");
-if (copyBtn) {
-  clearTimeout(copyBtn.copyTimer);
-  copyBtn.classList.remove("copiado");
-  copyBtn.textContent = "Copiar recomendación";
-}
 
   // 🔵 Scroll al inicio suavemente
   window.scrollTo({
@@ -1366,24 +1341,24 @@ function copiarResumen() {
   }
 
   // Copiar al portapapeles
-navigator.clipboard.writeText(texto)
-  .then(() => {
-    const btn = document.querySelector(".boton-copy");
-    if (!btn) return;
+  navigator.clipboard.writeText(texto)
+    .then(() => {
+      const btn = document.querySelector(".boton-copy");
+      
+      // Guardar texto original del botón
+      const oldText = btn.textContent;
 
-    const oldText = btn.textContent;
+      // Cambiar apariencia temporal
+      btn.classList.add("copiado");
+      btn.textContent = "Copiado";
 
-    btn.classList.add("copiado");
-    btn.textContent = "Copiado";
-
-    btn.copyTimer = setTimeout(() => {
-  btn.classList.remove("copiado");
-  btn.textContent = oldText;
-}, 1500);
-  })
-  .catch(() => {
-    showToast("No se pudo copiar la recomendación.", "error");
-  });
+      // Volver al estado inicial tras 1,5 s
+      setTimeout(() => {
+        btn.classList.remove("copiado");
+        btn.textContent = oldText;
+      }, 1500);
+    })
+    .catch(() => {});
 }
 
 
@@ -1402,21 +1377,13 @@ function showToast(message, type = "info") {
   };
 
   const colors = {
-  info: "#fff",
-  ok: "#166534",
-  warn: "#b45309",
-  error: "#b91c1c"
-};
+    info: "#fff",
+    ok: "#166534",
+    warn: "#b45309",
+    error: "#b91c1c"
+  };
 
-const textColors = {
-  info: "#0f3d83",
-  ok: "#ffffff",
-  warn: "#ffffff",
-  error: "#ffffff"
-};
-
-toast.style.background = colors[type] || colors.info;
-toast.style.color = textColors[type] || textColors.info;
+  toast.style.background = colors[type] || colors.info;
 
   toast.innerHTML = `
     <span class="toast-icon">${icons[type] || icons.info}</span>
