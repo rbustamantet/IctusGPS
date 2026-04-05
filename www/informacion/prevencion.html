@@ -469,6 +469,41 @@ body {
 </footer>
 
 <script>
+document.addEventListener('DOMContentLoaded', ()=>{
+    
+    const isCapacitor = window.Capacitor && window.Capacitor.isNativePlatform();
+    const actionButtons = document.querySelector('.action-buttons');
+
+    if (isCapacitor && actionButtons) {
+        // Si estamos en la aplicación Android/iOS, ocultamos el contenedor de botones.
+        actionButtons.style.display = 'none';
+    } else {
+        // --- Lógica del botón de Volver (PC y Web) ---
+        const backBtn=document.querySelector('.safe-btn[title="Volver atrás"]');
+        if(backBtn){
+            backBtn.addEventListener('click',e=>{
+                e.preventDefault();
+                if(window.history.length>1) history.back();
+                else window.location.href='../index.html';
+            });
+        }
+
+        // --- Lógica de Imprimir (PC) ---
+        const printButton = document.getElementById('printButton');
+        if (printButton) {
+            printButton.addEventListener('click', (e) => {
+                e.preventDefault(); 
+                window.print();
+            });
+        }
+        // Nota: El botón PDF es un enlace HTML simple y funciona por defecto en PC.
+    }
+    
+    // --- Solución para el fallo de impresión en PC (Comportamiento de navegación) ---
+    // Aunque el script esté limpio, si el botón Imprimir aún falla en PC,
+    // es un problema de que la función window.print() se ejecuta antes que e.preventDefault().
+    // La solución para PC está en el HTML: ya tiene el botón PDF como enlace.
+});
 </script>
 </body>
 </html>
