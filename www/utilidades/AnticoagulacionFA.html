@@ -302,6 +302,7 @@ button{
 
 .details-block{
   margin-top:6px;
+  scroll-margin-top:140px;
 }
 
 .details-summary{
@@ -4568,6 +4569,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnPrint = document.getElementById("btnPrint");
     if (btnPrint) btnPrint.style.display = "none";
   }
+
+  document.querySelectorAll('.details-block').forEach((detail) => {
+    detail.addEventListener('toggle', function () {
+      if (this.open) {
+        document.querySelectorAll('.details-block').forEach((other) => {
+          if (other !== this) {
+            other.open = false;
+          }
+        });
+
+        requestAnimationFrame(() => {
+          this.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        });
+      }
+    });
+  });
 });
 
 history.scrollRestoration = "manual";
