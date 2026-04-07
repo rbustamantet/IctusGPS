@@ -1694,16 +1694,13 @@ function renderGroupedScenario(mainId, mainTitle, sections){
   return `
     <details class="details-block" id="${mainId}">
       <summary class="details-summary">📑 ${mainTitle}</summary>
-      <div class="details-card">
-        <div class="details-card-header">${mainTitle}</div>
-        <div class="details-card-body">
-          ${sections.map(section => `
-            <div class="nested-detail-card">
-              <div class="nested-detail-header">${section.title}</div>
-              <div class="nested-detail-body">${section.html}</div>
-            </div>
-          `).join('')}
-        </div>
+      <div style="margin-top:14px;">
+        ${sections.map(section => `
+          <div class="nested-detail-card">
+            <div class="nested-detail-header">${section.title}</div>
+            <div class="nested-detail-body">${section.html}</div>
+          </div>
+        `).join('')}
       </div>
     </details>
   `;
@@ -1848,6 +1845,13 @@ document.querySelectorAll('.details-block').forEach((detail) => {
         if (other !== this) {
           other.open = false;
         }
+      });
+
+      requestAnimationFrame(() => {
+        this.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
       });
     }
   });

@@ -2065,16 +2065,23 @@ document.addEventListener('DOMContentLoaded', () => {
   renderDetallesEscenarios();
 
   document.querySelectorAll('.details-block').forEach((detail) => {
-    detail.addEventListener('toggle', function () {
-      if (this.open) {
-        document.querySelectorAll('.details-block').forEach((other) => {
-          if (other !== this) {
-            other.open = false;
-          }
+  detail.addEventListener('toggle', function () {
+    if (this.open) {
+      document.querySelectorAll('.details-block').forEach((other) => {
+        if (other !== this) {
+          other.open = false;
+        }
+      });
+
+      requestAnimationFrame(() => {
+        this.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
         });
-      }
-    });
+      });
+    }
   });
+});
 
 
 
