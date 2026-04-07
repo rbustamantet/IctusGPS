@@ -457,6 +457,131 @@ footer img{max-width:320px;height:auto;opacity:.95}
   border-color: #0f3d83 !important;
 }
 
+.feedback-launch{
+  margin-top:14px;
+  background:#fffdf5;
+  border:1px solid #f3e8b3;
+  border-left:4px solid #d4a514;
+  border-radius:12px;
+  padding:14px 16px;
+}
+
+.feedback-launch p{
+  margin:0 0 12px 0;
+  color:#5b4a00;
+  line-height:1.4;
+}
+
+.feedback-form-wrap{
+  display:none;
+  margin-top:12px;
+  background:#ffffff;
+  border:1px solid #d9e4f2;
+  border-radius:14px;
+  box-shadow:0 3px 14px rgba(16,71,119,0.08);
+  padding:14px;
+}
+
+.feedback-form-wrap.show{
+  display:block;
+}
+
+.feedback-form-grid{
+  display:grid;
+  gap:12px;
+}
+
+.feedback-form-wrap textarea,
+.feedback-form-wrap input[type="email"],
+.feedback-form-wrap select{
+  width:100%;
+  box-sizing:border-box;
+  border:1px solid #cfe3f6;
+  background:#fff;
+  border-radius:10px;
+  padding:10px 12px;
+  font-size:1rem;
+  font-family:Verdana, Geneva, sans-serif;
+}
+
+.feedback-form-wrap textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+.feedback-help{
+  font-size:.84rem;
+  color:#567;
+  margin-top:4px;
+}
+
+.feedback-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:12px;
+  align-items:center;
+}
+
+.feedback-note{
+  font-size:.84rem;
+  color:#6b7280;
+  margin-top:10px;
+}
+
+.feedback-preview{
+  margin-top:12px;
+  padding:10px 12px;
+  background:#f8fbff;
+  border:1px solid #d9e4f2;
+  border-radius:10px;
+  color:#345;
+  display:none;
+}
+
+.feedback-preview.show{
+  display:block;
+}
+
+.feedback-btn{
+  border:0;
+  border-radius:999px;
+  padding:10px 16px;
+  font-weight:700;
+  cursor:pointer;
+  line-height:1;
+  flex:0 0 auto;
+}
+
+.feedback-btn-primary{
+  background:#0f3d83;
+  color:#fff;
+}
+
+.feedback-btn-primary:hover{
+  background:#fff;
+  color:#0f3d83;
+  border:2px solid #0f3d83;
+}
+
+.feedback-btn-ghost{
+  background:#fff;
+  color:#0f3d83;
+  border:2px solid #0f3d83;
+}
+
+.feedback-btn-ghost:hover:not(:disabled){
+  background:#0f3d83;
+  color:#fff;
+}
+
+.feedback-btn:disabled,
+.feedback-btn-ghost:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+
+
 /* BOTONES EN BLOQUE PARA MÓVILES */
 @media (max-width: 600px) {
   .tools-wrap {
@@ -478,8 +603,35 @@ footer img{max-width:320px;height:auto;opacity:.95}
   }
 }
 
-#desarrollo-recomendaciones{
+#desarrollo-recomendaciones,
+.details-block{
   scroll-margin-top: 140px;
+}
+
+.nested-detail-card{
+  margin-top:12px;
+  background:#ffffff;
+  border:1px solid #d0d7e1;
+  border-radius:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
+  overflow:hidden;
+}
+
+.nested-detail-card:first-child{
+  margin-top:0;
+}
+
+.nested-detail-header{
+  background:#0f3d83;
+  color:#ffffff;
+  padding:10px 14px;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:0.2px;
+}
+
+.nested-detail-body{
+  padding:16px 18px;
 }
 
 </style>
@@ -536,11 +688,61 @@ footer img{max-width:320px;height:auto;opacity:.95}
       </div>
 
       <div class="actions">
-        <button class="boton-opcion boton-clear" title="Borrar contenido">Borrar</button>
-        <button class="boton-opcion boton-copy" title="Copiar resumen">Copiar recomendación</button>
-      </div>
+  <button class="boton-opcion boton-clear" title="Borrar contenido">Borrar</button>
+  <button class="boton-opcion boton-copy" title="Copiar resumen">Copiar recomendación</button>
+</div>
 
-      <div class="block" id="herramientas-block">
+<div class="feedback-launch" id="feedbackLaunchBox">
+  <p><b>¿Considera que la recomendación no se ajusta a la práctica clínica?</b><br>
+  Por favor, comuníquelo para revisar y mejorar la herramienta. No empleará más de 1 minuto.</p>
+  <button type="button" class="feedback-btn feedback-btn-ghost" id="btnOpenFeedback" disabled="disabled">Comunicar resultado no adecuado</button>
+</div>
+
+<div class="feedback-form-wrap" id="feedbackFormWrap">
+  <h3 style="margin:0 0 10px;">Comunicar resultado no adecuado</h3>
+
+  <div class="feedback-form-grid">
+    <div>
+      <label for="feedbackEmail">Correo electrónico</label>
+      <input type="email" id="feedbackEmail" placeholder="tu_correo@dominio.com">
+      <div class="feedback-help">Se utilizará solo para poder responderte o pedir aclaraciones.</div>
+    </div>
+
+    <div>
+      <label for="feedbackReason">Motivo principal</label>
+      <select id="feedbackReason">
+        <option value="">Selecciona…</option>
+        <option value="estrategia">La estrategia elegida no parece adecuada</option>
+        <option value="duracion">La duración del tratamiento no parece adecuada</option>
+        <option value="intervencion">La relación con revascularización / stent no parece correcta</option>
+        <option value="coherencia">La recomendación no parece coherente con el escenario</option>
+        <option value="otro">Otro motivo</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="feedbackMessage">Explique por qué considera que la respuesta no es adecuada</label>
+      <textarea id="feedbackMessage" placeholder="Describe el problema clínico o lógico que has detectado. Evita incluir datos identificativos del paciente."></textarea>
+      <div class="feedback-help">No introduzca nombre, NHC ni otros datos identificativos del paciente.</div>
+    </div>
+
+    <label class="row" for="feedbackConsent">
+      <input id="feedbackConsent" type="checkbox">
+      Confirmo que el comentario no incluye datos identificativos innecesarios
+    </label>
+  </div>
+
+  <div class="feedback-actions">
+    <button type="button" class="feedback-btn feedback-btn-primary" id="btnPrepareFeedback">Previsualizar mensaje</button>
+    <button type="button" class="feedback-btn feedback-btn-primary" id="btnSendFeedback">Abrir correo</button>
+    <button type="button" class="feedback-btn feedback-btn-ghost" id="btnCloseFeedback">Cerrar</button>
+  </div>
+
+  <div class="feedback-preview" id="feedbackPreview"></div>
+  <div class="feedback-note"><b>Muchas gracias por ayudarnos a mejorar la herramienta.</b></div>
+</div>
+
+<div class="block" id="herramientas-block">
         <h3>📚 Consideraciones adicionales</h3>
         <p class="note">Los botones muestran una síntesis muy breve. El desarrollo completo de cada consideración se detalla más abajo.</p>
         <div class="tools-wrap">
@@ -840,6 +1042,14 @@ footer img{max-width:320px;height:auto;opacity:.95}
     <footer><img src="../img/uibanner.png" alt="Ictus GPS"></footer>
 
     <script>
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+
+window.addEventListener('load', () => {
+  window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+});
+
 const tratamientosEscenario = {
   ictus_menor: `
     <b>Ictus minor / AIT de alto riesgo</b>
@@ -1439,19 +1649,136 @@ const notas = {
   `
 };
 
+const detalleIdPorEscenario = {
+  ictus_menor: 'detalle-ictus-menor',
+  carotida: 'detalle-carotida',
+  intracraneal: 'detalle-intracraneal',
+  vertebral: 'detalle-vertebral',
+  atero_sin_estenosis: 'detalle-atero-sin-estenosis',
+  lacunar: 'detalle-lacunar',
+  diseccion: 'detalle-diseccion',
+  carotid_web: 'detalle-carotid-web',
+  trombo_aortico: 'detalle-trombo-aortico',
+  estenosis_sin_intervencion: 'detalle-estenosis-sin-intervencion'
+};
+
+const detalleIdPorTitulo = {
+  'Ictus minor / AIT de alto riesgo': 'detalle-ictus-menor',
+  'Estenosis vertebrales': 'detalle-vertebral',
+  'Ictus aterotrombótico sin estenosis significativa': 'detalle-atero-sin-estenosis',
+  'Ictus lacunar': 'detalle-lacunar',
+  'Disección arterial cervical': 'detalle-diseccion',
+  'Banda carotídea (Carotid Web)': 'detalle-carotid-web',
+  'Trombo mural aórtico y Trombo intraluminal': 'detalle-trombo-aortico',
+  'Estenosis crítica sin opción de intervención': 'detalle-estenosis-sin-intervencion',
+  'Regla de cierre aplicable a todos los escenarios': 'detalle-regla-cierre'
+};
+
+function irADetalleEscenario(escenario){
+  const id = detalleIdPorEscenario[escenario];
+  const target = document.getElementById(id);
+  if (!target) return;
+
+  document.querySelectorAll('#detalles-escenarios .details-block').forEach(other => {
+    if (other !== target) other.open = false;
+  });
+
+  target.open = true;
+  target.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start'
+  });
+}
+
+function renderGroupedScenario(mainId, mainTitle, sections){
+  return `
+    <details class="details-block" id="${mainId}">
+      <summary class="details-summary">📑 ${mainTitle}</summary>
+      <div class="details-card">
+        <div class="details-card-header">${mainTitle}</div>
+        <div class="details-card-body">
+          ${sections.map(section => `
+            <div class="nested-detail-card">
+              <div class="nested-detail-header">${section.title}</div>
+              <div class="nested-detail-body">${section.html}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </details>
+  `;
+}
+
 function renderDetallesEscenarios(){
   const cont = document.getElementById('detalles-escenarios');
   if(!cont) return;
 
-  cont.innerHTML = capitulosCompletos.map(cap => `
-    <details class="details-block">
-      <summary class="details-summary">📑 ${cap.title}</summary>
-      <div class="details-card">
-        <div class="details-card-header">${cap.title}</div>
-        <div class="details-card-body">${cap.html}</div>
-      </div>
-    </details>
-  `).join('');
+  const capitulosByTitle = new Map(capitulosCompletos.map(cap => [cap.title, cap]));
+
+  const titulosAgrupados = new Set([
+    'Estenosis carotídea extracraneal sintomática',
+    'Estenosis carotídea extracraneal asintomática',
+    'Estenosis intracraneal aterosclerótica sintomática',
+    'Estenosis intracraneal aterosclerótica asintomática'
+  ]);
+
+  const html = [];
+
+  capitulosCompletos.forEach(cap => {
+    if (cap.title === 'Estenosis carotídea extracraneal sintomática') {
+      html.push(
+        renderGroupedScenario(
+          'detalle-carotida',
+          'Estenosis carotídea extracraneal',
+          [
+            {
+              title: 'Estenosis carotídea extracraneal sintomática',
+              html: capitulosByTitle.get('Estenosis carotídea extracraneal sintomática')?.html || ''
+            },
+            {
+              title: 'Estenosis carotídea extracraneal asintomática',
+              html: capitulosByTitle.get('Estenosis carotídea extracraneal asintomática')?.html || ''
+            }
+          ]
+        )
+      );
+      return;
+    }
+
+    if (cap.title === 'Estenosis intracraneal aterosclerótica sintomática') {
+      html.push(
+        renderGroupedScenario(
+          'detalle-intracraneal',
+          'Estenosis intracraneal aterosclerótica',
+          [
+            {
+              title: 'Estenosis intracraneal aterosclerótica sintomática',
+              html: capitulosByTitle.get('Estenosis intracraneal aterosclerótica sintomática')?.html || ''
+            },
+            {
+              title: 'Estenosis intracraneal aterosclerótica asintomática',
+              html: capitulosByTitle.get('Estenosis intracraneal aterosclerótica asintomática')?.html || ''
+            }
+          ]
+        )
+      );
+      return;
+    }
+
+    if (titulosAgrupados.has(cap.title)) return;
+
+    html.push(`
+      <details class="details-block" id="${detalleIdPorTitulo[cap.title] || ''}">
+        <summary class="details-summary">📑 ${cap.title}</summary>
+        <div class="details-card">
+          <div class="details-card-header">${cap.title}</div>
+          <div class="details-card-body">${cap.html}</div>
+        </div>
+      </details>
+    `);
+  });
+
+  cont.innerHTML = html.join('');
 }
 
 function mostrarTratamientoEscenario(){
@@ -1461,17 +1788,54 @@ function mostrarTratamientoEscenario(){
   const texto = document.getElementById('escenario-texto');
   const actions = document.querySelector('.actions');
 
-  if(!val || !tratamientosEscenario[val]){
-    res.classList.remove('fade-in');
-    texto.innerHTML = 'Seleccione un escenario clínico para mostrar la síntesis orientativa de tratamiento antitrombótico.';
-    actions.style.display = 'none';
-    return;
-  }
-
+ if(!val || !tratamientosEscenario[val]){
   res.classList.remove('fade-in');
-  void res.offsetWidth;
-  res.classList.add('fade-in');
-  texto.innerHTML = tratamientosEscenario[val] + '<p class="note"><b>Resultado operativo.</b> <a href="#desarrollo-recomendaciones">Ver desarrollo ampliado de esta recomendación.</a></p>';  actions.style.display = 'flex';
+  texto.innerHTML = 'Seleccione un escenario clínico para mostrar la síntesis orientativa de tratamiento antitrombótico.';
+  actions.style.display = 'none';
+  resetFeedbackState(true);
+  return;
+}
+
+res.classList.remove('fade-in');
+void res.offsetWidth;
+res.classList.add('fade-in');
+
+const detalleHref = detalleIdPorEscenario[val]
+  ? `#${detalleIdPorEscenario[val]}`
+  : '#desarrollo-recomendaciones';
+
+const detalleOnClick = detalleIdPorEscenario[val]
+  ? `onclick="event.preventDefault(); irADetalleEscenario('${val}');"`
+  : '';
+
+texto.innerHTML = tratamientosEscenario[val] + `<p class="note"><b>Resultado operativo.</b> <a href="${detalleHref}" ${detalleOnClick}>Ver desarrollo ampliado de esta recomendación.</a></p>`;
+actions.style.display = 'flex';
+
+const escenarioLabel =
+  document.querySelector('#escenario option:checked')?.textContent.trim() || val;
+
+__lastFeedbackReport = {
+  createdAt: new Date().toISOString(),
+  page: 'Aterotrombotico',
+  escenarioKey: val,
+  escenarioLabel,
+  resultadoVisible: texto.innerText.trim()
+};
+
+const btnOpenFeedback = document.getElementById('btnOpenFeedback');
+if (btnOpenFeedback) btnOpenFeedback.disabled = false;
+
+const feedbackFormWrap = document.getElementById('feedbackFormWrap');
+const feedbackPreview = document.getElementById('feedbackPreview');
+
+if (
+  feedbackFormWrap &&
+  feedbackFormWrap.classList.contains('show') &&
+  feedbackPreview &&
+  feedbackPreview.classList.contains('show')
+) {
+  renderFeedbackPreview();
+}
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -1497,6 +1861,39 @@ document.querySelectorAll('.details-block').forEach((detail) => {
 
   clearBtn.addEventListener('click', borrarResumen);
   copyBtn.addEventListener('click', copiarResumen);
+
+const btnOpenFeedback = document.getElementById('btnOpenFeedback');
+const btnCloseFeedback = document.getElementById('btnCloseFeedback');
+const btnPrepareFeedback = document.getElementById('btnPrepareFeedback');
+const btnSendFeedback = document.getElementById('btnSendFeedback');
+
+if (btnOpenFeedback) {
+  btnOpenFeedback.addEventListener('click', (e) => {
+    e.preventDefault();
+    openFeedbackForm();
+  });
+}
+
+if (btnCloseFeedback) {
+  btnCloseFeedback.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeFeedbackForm();
+  });
+}
+
+if (btnPrepareFeedback) {
+  btnPrepareFeedback.addEventListener('click', (e) => {
+    e.preventDefault();
+    previewFeedbackPayload();
+  });
+}
+
+if (btnSendFeedback) {
+  btnSendFeedback.addEventListener('click', (e) => {
+    e.preventDefault();
+    openFeedbackEmail();
+  });
+}
 
   mostrarTratamientoEscenario();
 
@@ -1551,6 +1948,7 @@ document.querySelectorAll('.details-block').forEach((detail) => {
     modalOverlay.style.display = 'flex';
     document.body.style.overflow = 'hidden';
   });
+resetFeedbackState();
 });
 
 function showToast(message, type = 'info') {
@@ -1643,6 +2041,204 @@ function copiarResumen(){
     });
 }
 
+const FEEDBACK_EMAIL = 'administrador@ictusgps.com';
+let __lastFeedbackReport = null;
+
+function escAttr(s){
+  return String(s)
+    .replace(/&/g,'&amp;')
+    .replace(/"/g,'&quot;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;');
+}
+
+function clearFeedbackFormFields(){
+  const reason = document.getElementById('feedbackReason');
+  const message = document.getElementById('feedbackMessage');
+  const consent = document.getElementById('feedbackConsent');
+  const preview = document.getElementById('feedbackPreview');
+
+  if (reason) reason.value = '';
+  if (message) message.value = '';
+  if (consent) consent.checked = false;
+  if (preview){
+    preview.classList.remove('show');
+    preview.innerHTML = '';
+  }
+}
+
+function resetFeedbackState(clearFields = false){
+  __lastFeedbackReport = null;
+
+  const btn = document.getElementById('btnOpenFeedback');
+  const wrap = document.getElementById('feedbackFormWrap');
+  const preview = document.getElementById('feedbackPreview');
+
+  if (btn) btn.disabled = true;
+  if (wrap) wrap.classList.remove('show');
+  if (preview){
+    preview.classList.remove('show');
+    preview.innerHTML = '';
+  }
+
+  if (clearFields) clearFeedbackFormFields();
+}
+
+function openFeedbackForm(){
+  const wrap = document.getElementById('feedbackFormWrap');
+  if (!wrap) return;
+  wrap.classList.add('show');
+  wrap.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function closeFeedbackForm(){
+  const wrap = document.getElementById('feedbackFormWrap');
+  const preview = document.getElementById('feedbackPreview');
+
+  if (wrap) wrap.classList.remove('show');
+  if (preview){
+    preview.classList.remove('show');
+    preview.innerHTML = '';
+  }
+}
+
+function validateFeedbackForm(){
+  const email = document.getElementById('feedbackEmail')?.value.trim() || '';
+  const reason = document.getElementById('feedbackReason')?.value || '';
+  const message = document.getElementById('feedbackMessage')?.value.trim() || '';
+  const consent = document.getElementById('feedbackConsent')?.checked || false;
+
+  if (!__lastFeedbackReport){
+    showToast('Primero seleccione un escenario antes de comunicar una incidencia.', 'warn');
+    return false;
+  }
+  if (!email){
+    showToast('Introduce un correo electrónico de contacto.', 'warn');
+    return false;
+  }
+  if (!reason){
+    showToast('Selecciona el motivo principal.', 'warn');
+    return false;
+  }
+  if (!message){
+    showToast('Explica brevemente por qué consideras inadecuado el resultado.', 'warn');
+    return false;
+  }
+  if (!consent){
+    showToast('Debes confirmar que no incluyes datos identificativos innecesarios.', 'warn');
+    return false;
+  }
+
+  return true;
+}
+
+function buildFeedbackReportText(){
+  if (!__lastFeedbackReport) return '';
+
+  const r = __lastFeedbackReport;
+
+  const clean = s => String(s ?? '')
+    .replace(/•/g,'*')
+    .replace(/[—–]/g,'-')
+    .replace(/≥/g,'>=')
+    .replace(/≤/g,'<=')
+    .replace(/→/g,'->')
+    .replace(/₂/g,'2')
+    .replace(/\s+/g,' ')
+    .trim();
+
+  const reasonMap = {
+    estrategia: 'La estrategia elegida no parece adecuada',
+    duracion: 'La duración del tratamiento no parece adecuada',
+    intervencion: 'La relación con revascularización / stent no parece correcta',
+    coherencia: 'La recomendación no parece coherente con el escenario',
+    otro: 'Otro motivo'
+  };
+
+  const email = document.getElementById('feedbackEmail')?.value.trim() || '';
+  const reasonKey = document.getElementById('feedbackReason')?.value || '';
+  const reasonTxt = reasonMap[reasonKey] || reasonKey || '-';
+  const message = document.getElementById('feedbackMessage')?.value.trim() || '';
+  const fecha = new Date().toLocaleString('es-ES');
+
+  const lines = [];
+
+  lines.push('FEEDBACK SOBRE RESULTADO DE ICTUS ATEROTROMBOTICO');
+  lines.push('Fecha: ' + fecha);
+  lines.push('Correo del usuario: ' + email);
+  lines.push('Motivo principal: ' + reasonTxt);
+  lines.push('');
+
+  lines.push('COMENTARIO DEL USUARIO');
+  lines.push(clean(message));
+  lines.push('');
+
+  lines.push('ESCENARIO CALCULADO');
+  lines.push('* Escenario: ' + (r.escenarioLabel || '-'));
+  lines.push('* Clave técnica: ' + (r.escenarioKey || '-'));
+  lines.push('');
+
+  lines.push('RECOMENDACION MOSTRADA');
+  lines.push(clean(r.resultadoVisible || '-'));
+  lines.push('');
+
+  lines.push('Fin del feedback.');
+
+  return lines.join('\n');
+}
+
+function renderFeedbackPreview(){
+  const preview = document.getElementById('feedbackPreview');
+  if (!preview || !__lastFeedbackReport) return;
+
+  const email = document.getElementById('feedbackEmail')?.value.trim() || '';
+  const reason = document.getElementById('feedbackReason')?.value || '';
+  const reportText = buildFeedbackReportText();
+
+  preview.innerHTML =
+    '<b>Vista previa del mensaje.</b><br>' +
+    'Correo: ' + escAttr(email || '—') + '<br>' +
+    'Motivo: ' + escAttr(reason || '—') + '<br>' +
+    'Escenario asociado: <b>' + escAttr(__lastFeedbackReport?.escenarioLabel || '—') + '</b><br><br>' +
+    '<b>Vista previa del contenido a enviar:</b>' +
+    '<pre style="margin-top:8px; max-height:260px; overflow:auto; background:#f8fbff; border:1px solid #d9e4f2; border-radius:10px; padding:10px; white-space:pre-wrap;">' +
+    escAttr(reportText) +
+    '</pre>';
+
+  preview.classList.add('show');
+}
+
+function previewFeedbackPayload(){
+  if (!validateFeedbackForm()) return;
+  renderFeedbackPreview();
+  showToast('Vista previa del mensaje generada.', 'info');
+}
+
+function openFeedbackEmail(){
+  if (!validateFeedbackForm()) return;
+
+  const reasonMap = {
+    estrategia: 'Estrategia no adecuada',
+    duracion: 'Duración no adecuada',
+    intervencion: 'Revascularización / stent no correcto',
+    coherencia: 'Recomendación no coherente',
+    otro: 'Otro motivo'
+  };
+
+  const reasonKey = document.getElementById('feedbackReason')?.value || '';
+  const reasonTxt = reasonMap[reasonKey] || 'Feedback clínico';
+
+  const subject = '[Ictus GPS - Aterotrombótico] ' + reasonTxt;
+  const body = buildFeedbackReportText();
+
+  const mailtoUrl =
+    'mailto:' + encodeURIComponent(FEEDBACK_EMAIL) +
+    '?subject=' + encodeURIComponent(subject) +
+    '&body=' + encodeURIComponent(body);
+
+  window.location.href = mailtoUrl;
+}
+
 function borrarResumen(){
   document.getElementById('escenario').value = '';
   document.getElementById('escenario-texto').innerHTML = 'Seleccione un escenario clínico para mostrar la síntesis orientativa de tratamiento antitrombótico.';
@@ -1655,11 +2251,12 @@ function borrarResumen(){
   copyBtn.textContent = 'Copiar recomendación';
 
   document.querySelector('.actions').style.display = 'none';
+resetFeedbackState(true);
 
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  });
+window.scrollTo({
+  top: 0,
+  behavior: 'smooth'
+});
 }
 
 
