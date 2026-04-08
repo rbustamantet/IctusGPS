@@ -12,6 +12,21 @@
       href="../iconos/ictusgps.png">
     <meta name="theme-color" content="#0f3d83">
     <style>
+  body::after{
+  content:"";
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:96px;
+  pointer-events:none;
+  z-index:999;
+  background:linear-gradient(to top,
+    rgba(0,0,0,0.28),
+    rgba(0,0,0,0.14),
+    rgba(0,0,0,0));
+}
+
 :root{
   /* Paleta básica */
   --bg:#f8fafc;

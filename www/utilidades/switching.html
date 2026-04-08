@@ -12,6 +12,21 @@
 <title>Sección en construcción · Ictus GPS</title>
 <meta name="color-scheme" content="light">
 <style>
+  body::after{
+  content:"";
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:96px;
+  pointer-events:none;
+  z-index:999;
+  background:linear-gradient(to top,
+    rgba(0,0,0,0.28),
+    rgba(0,0,0,0.14),
+    rgba(0,0,0,0));
+}
+
   :root{
     --ink:#0f172a;
     --muted:#475569;
