@@ -202,7 +202,20 @@ img{max-width:100%;border-radius:8px;margin:1rem auto;display:block;}
   color:#fff;
   transform:translateY(-1px);
 }
-
+body::after{
+  content:"";
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:26px;
+  pointer-events:none;
+  z-index:999;
+  background:linear-gradient(to top,
+    rgba(255,255,255,0.92),
+    rgba(255,255,255,0.68),
+    rgba(255,255,255,0));
+}
 /* =========================================================
    PIE
 ========================================================= */
