@@ -20,10 +20,12 @@ public class MainActivity extends BridgeActivity {
         Window window = getWindow();
         WindowCompat.setDecorFitsSystemWindows(window, true);
 
+
         // Asegura colores coherentes en las barras
         window.setStatusBarColor(0xFF0F3D83); // azul institucional
         window.setNavigationBarColor(0xFF0F3D83);
 
+        
         // Habilitar zoom táctil en el WebView
         if (this.bridge != null && this.bridge.getWebView() != null) {
             this.bridge.getWebView().getSettings().setBuiltInZoomControls(true);
