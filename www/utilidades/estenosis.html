@@ -237,6 +237,14 @@ header{
 
 .block:hover{box-shadow:0 2px 6px rgba(0,0,0,.08);}
 
+.block.anat .item-condicion{
+  margin:8px;
+}
+
+.block.anat .grid{
+  gap:0;
+}
+
 .note{
   color:#64748b;
   font-size:12px;
@@ -613,22 +621,22 @@ footer img{max-width:320px;height:auto;opacity:.95}
         características de la placa, anatomía y grado de estenosis
         (NASCET) para orientar la indicación de <b>antiagregación</b>,
         <b>DAPT</b>, <b>endarterectomía (CEA)</b> o <b>stent carotídeo
-          (CAS)</b>. En <b>estenosis asintomática ≥70%</b>, prioriza <b>CAS</b>
-        frente a CEA cuando la anatomía y el riesgo lo permitan, de
-        acuerdo con la evidencia reciente (CREST-2, NEJM 2025). No
+          (CAS)</b>. En <b>estenosis asintomática ≥70%</b>, la revascularización debe
+valorarse frente a <b>tratamiento médico intensivo solo</b>. Si se
+plantea intervención, <b>CAS + tratamiento médico intensivo</b>
+debe reservarse a pacientes muy seleccionados y a centros con
+experiencia, de acuerdo con la evidencia reciente (CREST-2, NEJM
+2025). No
         cálculo automático: usa <span class="strategy-tag tag-med">Calcular</span>
       </div>
       <!-- BLOQUE CLÍNICO -->
       <div class="block rope">
         <h3>🩺 Situación clínica</h3>
         <div class="grid cols-2">
-          <div> <label><b>Clínica neurológica</b></label> <label
-              class="check"><input name="clin" id="sxReciente"
-                type="radio"> Ictus/AIT ≤14 días</label> <label
-              class="check"><input name="clin" id="sxAntiguo"
-                type="radio"> Ictus/AIT &gt;14 días</label> <label
-              class="check"><input name="clin" id="asint" type="radio">
-              Asintomática</label> </div>
+          <div> <label><b>Clínica neurológica</b></label> <label class="check"><input name="clin" id="sx"
+    type="radio"> Sintomática</label>
+<label class="check"><input name="clin" id="asint" type="radio">
+  Asintomática</label> </div>
           <div> <label><b>Condiciones generales</b></label>
             <div class="item-condicion"> <input id="contraInterv"
                 type="checkbox"> <span class="info-icon" tabindex="0">ℹ️</span>
@@ -645,74 +653,93 @@ footer img{max-width:320px;height:auto;opacity:.95}
                 sus comorbilidades. En estos casos el beneficio de una
                 revascularización carotídea es muy discutible. </div>
             </div>
-            <div class="item-condicion"> <input id="riesgoCEAbajo"
-                type="checkbox"> <span class="info-icon" tabindex="0">ℹ️</span>
-              <span class="texto-cond">Riesgo perioperatorio CEA bajo</span>
-              <div class="tooltiptext"> Probabilidad estimada de
-                complicaciones neurológicas o muerte dentro de los
-                límites aceptables para considerar endarterectomía
-                carotídea (≤6% sintomáticos, ≤3% asintomáticos). </div>
-            </div>
+            <div class="item-condicion"> <input id="riesgoCEAalto"
+    type="checkbox"> <span class="info-icon" tabindex="0">ℹ️</span>
+  <span class="texto-cond">Riesgo perioperatorio CEA alto</span>
+  <div class="tooltiptext"> Riesgo estimado de complicaciones neurológicas o muerte por encima de los límites aceptables para considerar endarterectomía carotídea (habitualmente >6% en sintomáticos o >3% en asintomáticos). Si está presente, desaconseja CEA. </div>
+</div>
           </div>
         </div>
       </div>
       <!-- BLOQUE PLACA / ANATOMÍA -->
       <div class="block anat">
-        <h3>🌀 Características de la placa y anatomía</h3>
-        <div class="grid cols-2">
-          <!-- Placa compleja / alto riesgo embólico -->
-          <div class="item-condicion"> <input id="placaCompleja"
-              type="checkbox"> <span class="info-icon" tabindex="0">ℹ️</span>
-            <span class="texto-cond">Placa de alto riesgo</span>
-            <div class="tooltiptext"> Placa con características de
-              inestabilidad: ulcerada o irregular, hipodensa,
-              heterogénea, con hemorragia intraplaca y/o trombo
-              adherido. Asociada a mayor riesgo de embolia cerebral. </div>
-          </div>
-          <!-- Cuello hostil / alto riesgo quirúrgico (CEA) -->
-          <div class="item-condicion"> <input id="cuelloHostil"
-              type="checkbox"> <span class="info-icon" tabindex="0">ℹ️</span>
-            <span class="texto-cond">Cuello hostil</span>
-            <div class="tooltiptext"> Condiciones que aumentan
-              claramente el riesgo de endarterectomía: radioterapia
-              cervical previa, reestenosis tras CEA, estenosis cervical
-              muy alta, cirugía cervical previa compleja, oclusión
-              contralateral con mala circulación colateral, estenosis
-              intrastent, etc. </div>
-          </div>
-          <!-- Dificultad para tratamiento endovascular (CAS) -->
-          <div class="item-condicion"> <input id="endoDificil"
-              type="checkbox"> <span class="info-icon" tabindex="0">ℹ️</span>
-            <span class="texto-cond">Acceso endovascular complejo</span>
-            <div class="tooltiptext"> Dificultad significativa para el
-              abordaje endovascular: tortuosidad o calcificación severa
-              en el segmento carotídeo, arco aórtico tipo III o muy
-              elongado o calcificado, troncos supraaórticos hostiles,
-              etc. </div>
-          </div>
-          <!-- Lesión distal no tratable -->
-          <div class="item-condicion"> <input id="distalPresente"
-              type="checkbox"> <span class="info-icon" tabindex="0">ℹ️</span>
-            <span class="texto-cond">Estenosis distal ipsilateral no
-              tratable</span>
-            <div class="tooltiptext"> Lesión intracraneal crítica distal
-              a la carótida, sin opción razonable de tratamiento
-              endovascular. Suele limitar o anular el beneficio de
-              revascularizar la carótida. </div>
-          </div>
-          <!-- Lesión distal tratable (tándem tratable) -->
-          <div class="item-condicion"> <input id="distalTratable"
-              type="checkbox"> <span class="info-icon" tabindex="0">ℹ️</span>
-            <span class="texto-cond">Estenosis distal ipsilateral
-              tratable</span>
-            <div class="tooltiptext"> Lesión intracraneal o distal
-              asociada, susceptible de tratamiento endovascular en el
-              mismo acto que la revascularización cervical (lesión en
-              tándem tratable). En estos casos suele preferirse una
-              estrategia endovascular (CAS + tratamiento distal). </div>
-          </div>
-        </div>
+  <h3>🌀 Características de la placa y anatomía</h3>
+
+  <div class="grid cols-2">
+    <div class="item-condicion">
+      <input id="placaCompleja" type="checkbox">
+      <span class="info-icon" tabindex="0">ℹ️</span>
+      <span class="texto-cond">Placa de alto riesgo</span>
+      <div class="tooltiptext">
+        Placa con características de inestabilidad: ulcerada o irregular, hipodensa,
+        heterogénea, con hemorragia intraplaca y/o trombo adherido. Asociada a mayor
+        riesgo de embolia cerebral.
       </div>
+    </div>
+     </div>
+
+
+  <div class="grid cols-2">
+    <div class="item-condicion">
+      <input id="cuelloHostil" type="checkbox">
+      <span class="info-icon" tabindex="0">ℹ️</span>
+      <span class="texto-cond">Cuello hostil</span>
+      <div class="tooltiptext">
+        Condiciones que aumentan claramente el riesgo de endarterectomía: radioterapia
+        cervical previa, reestenosis tras CEA, estenosis cervical muy alta, cirugía
+        cervical previa compleja, oclusión contralateral con mala circulación colateral,
+        estenosis intrastent, etc.
+      </div>
+    </div>
+
+    <div class="item-condicion">
+      <input id="endoDificil" type="checkbox">
+      <span class="info-icon" tabindex="0">ℹ️</span>
+      <span class="texto-cond">Acceso endovascular complejo</span>
+      <div class="tooltiptext">
+        Dificultad significativa para el abordaje endovascular: tortuosidad o calcificación
+        severa en el segmento carotídeo, arco aórtico tipo III o muy elongado o calcificado,
+        troncos supraaórticos hostiles, etc.
+      </div>
+    </div>
+  </div>
+
+
+  <div class="grid cols-2">
+  <div class="item-condicion">
+    <input id="distalNinguna" name="distalTipo" type="radio" checked>
+    <span class="info-icon" tabindex="0">ℹ️</span>
+    <span class="texto-cond">Sin lesión distal</span>
+    <div class="tooltiptext">
+      No hay lesión distal intracraneal o en tándem que condicione la estrategia de revascularización carotídea.
+    </div>
+  </div>
+</div>
+
+<div class="grid cols-2">
+  <div class="item-condicion">
+    <input id="distalTratable" name="distalTipo" type="radio">
+    <span class="info-icon" tabindex="0">ℹ️</span>
+    <span class="texto-cond">Estenosis distal ipsilateral tratable</span>
+    <div class="tooltiptext">
+      Lesión intracraneal o distal asociada, susceptible de tratamiento endovascular en el
+      mismo acto que la revascularización cervical (lesión en tándem tratable). En estos
+      casos suele preferirse una estrategia endovascular (CAS + tratamiento distal).
+    </div>
+  </div>
+  <div class="item-condicion">
+    <input id="distalPresente" name="distalTipo" type="radio">
+    <span class="info-icon" tabindex="0">ℹ️</span>
+    <span class="texto-cond">Estenosis distal ipsilateral no tratable</span>
+    <div class="tooltiptext">
+      Lesión intracraneal crítica distal a la carótida, sin opción razonable de tratamiento
+      endovascular. Suele limitar o anular el beneficio de revascularizar la carótida.
+    </div>
+  </div>
+
+  
+</div>
+</div>
       <!-- BLOQUE GRADO -->
       <div class="block clin">
         <h3>📈 Grado de estenosis (NASCET)</h3>
@@ -801,13 +828,8 @@ footer img{max-width:320px;height:auto;opacity:.95}
                 <div style="font-weight:700; color:#0f3d83;
                   margin-bottom:4px;"> 🩺 Clínica </div>
                 <ul style="margin:0; padding-left:18px;">
-                  <li><b>Ictus/AIT ≤14 días:</b> máxima prioridad de
-                    intervención.</li>
-                  <li><b>Ictus/AIT &gt;14 días:</b> beneficio reducido;
-                    individualizar según riesgo y comorbilidad.</li>
-                  <li><b>Asintomática:</b> considerar revascularización
-                    solo en estenosis ≥70% con expectativa de vida
-                    suficiente y riesgo perioperatorio bajo.</li>
+                  <li><b>Sintomática:</b> valorar revascularización según grado de estenosis, anatomía, riesgo perioperatorio y contexto clínico.</li>
+                  <li><b>Asintomática:</b> la decisión debe plantearse frente a tratamiento médico intensivo. Si se considera revascularización en estenosis ≥70%, debe reservarse a pacientes muy seleccionados, con expectativa de vida suficiente y en centros con experiencia.</li>
                 </ul>
               </div>
               <!-- Placa / Anatomía -->
@@ -846,11 +868,13 @@ footer img{max-width:320px;height:auto;opacity:.95}
                     en sintomáticos (individualizar).</li>
                   <li><b>70–99% sintomáticos:</b> beneficio claro de
                     revascularización si riesgo ≤6%.</li>
-                  <li><b>70–99% asintomáticos:</b> considerar
-                    revascularización; <b>CAS preferible</b> frente a
-                    CEA según CREST-2. CEA solo cuando CAS esté
-                    desaconsejado por la anatomía y el riesgo quirúrgico
-                    sea muy bajo (≤3%).</li>
+                  <li><b>70–99% asintomáticos:</b> la decisión debe
+  plantearse frente a tratamiento médico intensivo solo.
+  Si se considera revascularización, <b>CAS + tratamiento
+  médico intensivo</b> debe reservarse a pacientes muy
+  seleccionados y a centros con experiencia. CEA solo
+  tendría cabida en escenarios anatómicos muy concretos
+  y con riesgo quirúrgico muy bajo (≤3%).</li>
                 </ul>
               </div>
             </div>
@@ -990,9 +1014,8 @@ const $ = id => document.getElementById(id);
    Lectura de inputs básicos
 ========================== */
 function getClinica(){
-  if ($('sxReciente').checked) return 'Sintomática ≤14d';
-  if ($('sxAntiguo').checked)  return 'Sintomática >14d';
-  if ($('asint').checked)      return 'Asintomática';
+  if ($('sx').checked)     return 'Sintomática';
+  if ($('asint').checked)  return 'Asintomática';
   return '';
 }
 
@@ -1063,17 +1086,16 @@ function calcular(){
   }
 
   // Clasificación clínica
-  const esSintoRec   = (clin === 'Sintomática ≤14d');
-  const esSintoAnt   = (clin === 'Sintomática >14d');
-  const esSintom     = esSintoRec || esSintoAnt;
-  const esAsinto     = (clin === 'Asintomática');
+  const esSintom = (clin === 'Sintomática');
+const esAsinto = (clin === 'Asintomática');
 
   const gradoAlto    = (grado === '70–99%');
   const gradoMod     = (grado === '50–69%');
 
   // Condiciones generales
   const contraInterv = bool('contraInterv');
-  const vidaMenor5   = bool('vidaMenor5');      // expectativa de vida ≤5 años
+const vidaMenor5   = bool('vidaMenor5');      // expectativa de vida ≤5 años
+const riesgoCEAalto = bool('riesgoCEAalto');  // penaliza o excluye CEA
 
   // Placa / anatomía
   const placaCompleja   = bool('placaCompleja');
@@ -1087,12 +1109,14 @@ function calcular(){
 
   // Variables de salida
   let rec   = '-';
-  let note  = '-';
-  let contra = '-';
-  let pref   = '-';
-  let post   = '-';
-  let tone   = 'warn';
-  let tagDAPT = false;
+let note  = '-';
+let contra = '-';
+let pref   = '-';
+let post   = '-';
+let tone   = 'warn';
+let tagDAPT = false;
+let motivoContraCEA = '';
+let notaCREST2 = '';
 
   /* ==========================
      1) EXCLUSIONES GLOBALES
@@ -1200,44 +1224,76 @@ if (tandemTratable){
 
       // 2.1.c Anatomía muy desfavorable para CAS pero cuello no hostil → CEA preferible
       else if (endoDificil && !cuelloHostil){
-        rec    = 'CEA preferible';
-        note   = 'Estenosis 70–99% sintomática con anatomía muy desfavorable para CAS (tortuosidad, calcificación severa, arco hostil).';
-        contra = 'CAS';
-        pref   = 'CEA en centros con riesgo perioperatorio ≤6%.';
-        post   = 'Tras CEA: AAS indefinido';
-        tone   = 'ok';
-      }
+  if (riesgoCEAalto){
+    rec    = 'Tratamiento médico intensivo o CAS muy selectivo (MDT)';
+    note   = 'Estenosis 70–99% sintomática con anatomía desfavorable para CAS y riesgo perioperatorio alto para CEA: ambas estrategias de revascularización quedan penalizadas. Valorar caso a caso en MDT.';
+    contra = 'CEA';
+    pref   = 'MDT en centro con experiencia; CAS solo si el riesgo global se considera aceptable.';
+    post   = 'AS o clopidogrel indefinido + estatina alta y control intensivo; si se realiza CAS, DAPT 1–3 meses → monoterapia.';
+    tone   = 'warn';
+  } else {
+    rec    = 'CEA preferible';
+    note   = 'Estenosis 70–99% sintomática con anatomía muy desfavorable para CAS (tortuosidad, calcificación severa, arco hostil).';
+    contra = 'CAS';
+    pref   = 'CEA en centros con riesgo perioperatorio ≤6%.';
+    post   = 'Tras CEA: AAS indefinido';
+    tone   = 'ok';
+  }
+}
 
       // 2.1.d Anatomía razonable para ambas técnicas
       else {
-        rec    = 'CEA o CAS (ambas posibles)';
-        note   = 'Estenosis 70–99% sintomática: claro beneficio de revascularización si riesgo perioperatorio ≤6%.';
-        contra = 'Ninguna';
-        pref   = 'CEA como opción estándar; CAS si cuello hostil, acceso arterial más favorable o mayor experiencia endovascular.';
-        post   = 'CEA → AAS indefinido · CAS → DAPT 1–3 meses → monoterapia';
-        tone   = 'ok';
-      }
+  if (riesgoCEAalto){
+    rec    = 'CAS preferible';
+    note   = 'Estenosis 70–99% sintomática con riesgo perioperatorio alto para CEA: se desaconseja la cirugía y se favorece CAS si la anatomía lo permite.';
+    contra = 'CEA';
+    pref   = 'CAS en centros con baja tasa de complicaciones.';
+    post   = 'Tras CAS: DAPT 1–3 meses → monoterapia';
+    tone   = 'ok';
+  } else {
+    rec    = 'CEA o CAS (ambas posibles)';
+    note   = 'Estenosis 70–99% sintomática: claro beneficio de revascularización si riesgo perioperatorio ≤6%.';
+    contra = 'Ninguna';
+    pref   = 'CEA como opción estándar; CAS si cuello hostil, acceso arterial más favorable o mayor experiencia endovascular.';
+    post   = 'CEA → AAS indefinido · CAS → DAPT 1–3 meses → monoterapia';
+    tone   = 'ok';
+  }
+}
     }
 
     // 2.2 Estenosis 50–69% sintomática
     else if (gradoMod){
-      if (placaCompleja){
-        rec    = 'DAPT temporal (21–30 días) → monoterapia';
-        note   = 'Estenosis 50–69% sintomática con placa compleja: alto riesgo embólico, pero beneficio de revascularización limitado; individualizar en MDT.';
-        contra = 'CEA y CAS (salvo casos muy seleccionados).';
-        pref   = 'Revascularización solo si alto riesgo de recurrencia (MDT).';
-        post   = 'Tras DAPT: AAS o clopidogrel indefinido + estatina alta.';
-        tagDAPT = true;
-        tone   = 'warn';
-      } else {
-        rec    = 'Manejo médico optimizado';
-        note   = 'Estenosis 50–69% sintomática sin placa compleja: beneficio de revascularización modesto; priorizar tratamiento médico intensivo.';
-        contra = 'CEA y CAS (salvo casos seleccionados).';
-        pref   = 'MDT si se plantea revascularización.';
-        post   = 'AS (AAS o clopidogrel) indefinida + estatina alta.';
-        tone   = 'bad';
-      }
-    }
+  let contraMod = 'CEA y CAS (salvo casos muy seleccionados).';
+
+  const ceaContra = riesgoCEAalto || cuelloHostil;
+  const casContra = endoDificil;
+  const ambasContra = ceaContra && casContra;
+
+  if (ambasContra){
+    contraMod = 'CEA y CAS';
+  } else if (ceaContra){
+    contraMod = 'CEA';
+  } else if (casContra){
+    contraMod = 'CAS';
+  }
+
+  if (placaCompleja){
+    rec    = 'DAPT temporal (21–30 días) → monoterapia';
+    note   = 'Estenosis 50–69% sintomática con placa compleja: alto riesgo embólico, pero beneficio de revascularización limitado; individualizar en MDT.';
+    contra = contraMod;
+    pref   = ambasContra ? '—' : 'Revascularización solo si alto riesgo de recurrencia (MDT).';
+    post   = 'Tras DAPT: AAS o clopidogrel indefinido + estatina alta.';
+    tagDAPT = true;
+    tone   = 'warn';
+  } else {
+    rec    = 'Manejo médico optimizado';
+    note   = 'Estenosis 50–69% sintomática sin placa compleja: beneficio de revascularización modesto; priorizar tratamiento médico intensivo.';
+    contra = contraMod;
+    pref   = ambasContra ? '—' : 'MDT si se plantea revascularización.';
+    post   = 'AS (AAS o clopidogrel) indefinida + estatina alta.';
+    tone   = 'bad';
+  }
+}
 
     // 2.3 Estenosis <50% sintomática
     else {
@@ -1267,23 +1323,39 @@ if (tandemTratable){
 
     // 3.2 Estenosis 50–69% asintomática
     else if (gradoMod){
-      if (placaCompleja){
-        rec    = 'DAPT temporal (21–30 días) → monoterapia';
-        note   = 'Estenosis 50–69% asintomática con placa compleja: alto riesgo embólico, pero no se recomienda revascularización rutinaria.';
-        contra = 'CEA y CAS (salvo situaciones muy seleccionadas).';
-        pref   = 'MDT solo en casos excepcionales.';
-        post   = 'DAPT 21–30 días → monoterapia indefinida + estatina alta.';
-        tagDAPT = true;
-        tone   = 'warn';
-      } else {
-        rec    = 'Tratamiento médico óptimo';
-        note   = 'Estenosis 50–69% asintomática sin placa compleja: beneficio incierto de revascularización.';
-        contra = 'CEA y CAS';
-        pref   = '—';
-        post   = 'AS o clopidogrel indefinido + estatina alta.';
-        tone   = 'bad';
-      }
-    }
+  let contraMod = placaCompleja
+    ? 'CEA y CAS (salvo situaciones muy seleccionadas).'
+    : 'CEA y CAS';
+
+  const ceaContra = riesgoCEAalto || cuelloHostil;
+  const casContra = endoDificil;
+  const ambasContra = ceaContra && casContra;
+
+  if (ambasContra){
+    contraMod = 'CEA y CAS';
+  } else if (ceaContra){
+    contraMod = 'CEA';
+  } else if (casContra){
+    contraMod = 'CAS';
+  }
+
+  if (placaCompleja){
+    rec    = 'DAPT temporal (21–30 días) → monoterapia';
+    note   = 'Estenosis 50–69% asintomática con placa compleja: alto riesgo embólico, pero no se recomienda revascularización rutinaria.';
+    contra = contraMod;
+    pref   = ambasContra ? '—' : 'MDT solo en casos excepcionales.';
+    post   = 'DAPT 21–30 días → monoterapia indefinida + estatina alta.';
+    tagDAPT = true;
+    tone   = 'warn';
+  } else {
+    rec    = 'Tratamiento médico óptimo';
+    note   = 'Estenosis 50–69% asintomática sin placa compleja: beneficio incierto de revascularización.';
+    contra = contraMod;
+    pref   = '—';
+    post   = 'AS o clopidogrel indefinido + estatina alta.';
+    tone   = 'bad';
+  }
+}
 
     // 3.3 Estenosis 70–99% asintomática
     else if (gradoAlto){
@@ -1315,8 +1387,8 @@ if (tandemTratable){
 
   // 3.3.a.3 Tándem tratable con anatomía razonable para CAS
   else {
-    rec    = 'CAS preferible (lesión en tándem tratable)';
-    note   = 'Estenosis 70–99% asintomática con lesión distal tratable y anatomía favorable para CAS: si se decide revascularizar, la opción preferente es un abordaje endovascular combinado. CEA no corrige la lesión distal. Los datos de CREST-2 apoyan CAS frente a tratamiento médico intensivo en centros con baja tasa de complicaciones.';
+    rec    = 'Valorar CAS + tratamiento médico intensivo en pacientes muy seleccionados';
+    note   = 'En estenosis 70–99% asintomática, la decisión debe plantearse frente a tratamiento médico intensivo solo.  Si se considera revascularización, CAS junto a tratamiento médico intensivo debe reservarse a pacientes muy seleccionados y a centros con experiencia y baja tasa de complicaciones. Además, con lesión distal tratable y anatomía favorable para CAS: si se decide revascularizar, la opción preferente es un abordaje endovascular combinado. CEA no corrige la lesión distal. Los datos de CREST-2 apoyan CAS frente a tratamiento médico intensivo en centros con baja tasa de complicaciones.';
     contra = 'CEA';
     pref   = 'CAS en centros con experiencia en tratamientos de tándem y baja morbimortalidad periprocedimiento.';
     post   = 'Tras CAS: DAPT 1–3 meses → monoterapia indefinida.';
@@ -1327,18 +1399,27 @@ if (tandemTratable){
 
       // 3.3.b Anatomía muy desfavorable para CAS pero cuello no hostil
       else if (endoDificil && !cuelloHostil){
-        rec    = 'CEA preferible en pacientes muy seleccionados';
-        note   = 'Estenosis 70–99% asintomática con anatomía muy desfavorable para CAS. CREST-2 no mostró beneficio claro de CEA frente a tratamiento médico intensivo, por lo que debe reservarse a pacientes muy seleccionados, con baja morbimortalidad quirúrgica y larga expectativa de vida.';
-        contra = 'CAS';
-        pref   = 'CEA sólo en centros con riesgo perioperatorio ≤3%.';
-        post   = 'Tras CEA: AAS indefinido + tratamiento médico intensivo.';
-        tone   = 'ok';
-      }
+  if (riesgoCEAalto){
+    rec    = 'Tratamiento médico intensivo';
+    note   = 'Estenosis 70–99% asintomática con anatomía desfavorable para CAS y riesgo perioperatorio alto para CEA: no hay una opción de revascularización técnicamente razonable de entrada.';
+    contra = 'CEA';
+    pref   = 'MDT solo en casos excepcionales.';
+    post   = 'AS o clopidogrel indefinido + estatina alta y control intensivo.';
+    tone   = 'bad';
+  } else {
+    rec    = 'CEA preferible en pacientes muy seleccionados';
+    note   = 'Estenosis 70–99% asintomática con anatomía muy desfavorable para CAS. CREST-2 no mostró beneficio claro de CEA frente a tratamiento médico intensivo, por lo que debe reservarse a pacientes muy seleccionados, con baja morbimortalidad quirúrgica y larga expectativa de vida.';
+    contra = 'CAS';
+    pref   = 'CEA sólo en centros con riesgo perioperatorio ≤3%.';
+    post   = 'Tras CEA: AAS indefinido + tratamiento médico intensivo.';
+    tone   = 'ok';
+  }
+}
 
       // 3.3.c Cuello hostil / alto riesgo quirúrgico: CAS preferente
       else if (cuelloHostil && !endoDificil){
-        rec    = 'CAS preferible';
-        note   = 'Estenosis 70–99% asintomática con cuello hostil: se favorece CAS. En CREST-2, CAS redujo el riesgo de ictus frente al tratamiento médico intensivo.';
+        rec    = 'Valorar CAS + tratamiento médico intensivo en pacientes muy seleccionados';
+        note   = 'En estenosis 70–99% asintomática, la decisión debe plantearse frente a tratamiento médico intensivo solo.  Si se considera revascularización, CAS junto a tratamiento médico intensivo debe reservarse a pacientes muy seleccionados y a centros con experiencia y baja tasa de complicaciones. Además, con cuello hostil: se favorece CAS. En CREST-2, CAS junto a tratamiento médico intensivo redujo el riesgo de ictus frente al tratamiento médico intensivo solo.';
         contra = 'CEA';
         pref   = 'CAS en centros con baja tasa de complicaciones periprocedimiento.';
         post   = 'Tras CAS: DAPT 1–3 meses → monoterapia indefinida.';
@@ -1347,13 +1428,22 @@ if (tandemTratable){
 
       // 3.3.d Anatomía favorable para ambas técnicas
       else if (!cuelloHostil && !endoDificil){
-        rec    = 'CAS preferible; CEA como alternativa';
-        note   = 'Estenosis 70–99% asintomática con anatomía favorable: los datos de CREST-2 apoyan CAS frente a tratamiento médico intensivo, mientras que CEA no ha demostrado un beneficio significativo adicional.';
-        contra = 'Ninguna';
-        pref   = 'CAS como opción preferente; CEA solo si no se dispone de CAS o se prefiere cirugía en pacientes seleccionados.';
-        post   = 'Tras CAS: DAPT 1–3 meses → monoterapia indefinida.';
-        tone   = 'ok';
-      }
+  if (riesgoCEAalto){
+    rec    = 'Valorar CAS + tratamiento médico intensivo en pacientes muy seleccionados';
+    note   = 'Estenosis 70–99% asintomática con anatomía favorable pero riesgo perioperatorio alto para CEA: se desaconseja la cirugía y, si se decide revascularizar, se favorece CAS. En estenosis 70–99% asintomática, la decisión debe plantearse frente a tratamiento médico intensivo solo. Si se considera revascularización, CAS junto a tratamiento médico intensivo debe reservarse a pacientes muy seleccionados y a centros con experiencia y baja tasa de complicaciones. En CREST-2, CAS junto a tratamiento médico intensivo redujo el riesgo de ictus frente al tratamiento médico intensivo solo.';
+    contra = 'CEA';
+    pref   = 'CAS como opción preferente en centros con baja tasa de complicaciones.';
+    post   = 'Tras CAS: DAPT 1–3 meses → monoterapia indefinida.';
+    tone   = 'ok';
+  } else {
+    rec    = 'Valorar CAS + tratamiento médico intensivo en pacientes muy seleccionados';
+    note   = 'En estenosis 70–99% asintomática, la decisión debe plantearse frente a tratamiento médico intensivo solo. Si se considera revascularización, CAS junto a tratamiento médico intensivo debe reservarse a pacientes muy seleccionados y a centros con experiencia y baja tasa de complicaciones. Los datos de CREST-2 apoyan CAS junto a tratamiento médico intensivo frente a tratamiento médico intensivo solo, mientras que CEA no ha demostrado un beneficio significativo adicional.';
+    contra = 'Ninguna';
+    pref   = 'CAS como opción preferente; CEA solo si no se dispone de CAS o se prefiere cirugía en pacientes seleccionados.';
+    post   = 'Tras CAS: DAPT 1–3 meses → monoterapia indefinida.';
+    tone   = 'ok';
+  }
+}
 
       // 3.3.e Caso residual (ya muy infrecuente)
       else {
@@ -1369,6 +1459,39 @@ if (tandemTratable){
     // 3.4 Redundancia: estenosis asintomática con “Oclusión total” ya tratada arriba
   }
 
+  // Motivo prioritario de contraindicación de CEA
+  if (riesgoCEAalto && contra.includes('CEA')){
+    motivoContraCEA = 'CEA contraindicada por riesgo perioperatorio elevado del centro';
+    if (cuelloHostil){
+      motivoContraCEA += '; además existe cuello hostil';
+    }
+  } else if (cuelloHostil && contra.includes('CEA')){
+    motivoContraCEA = 'CEA desaconsejada/contraindicada por cuello hostil';
+  }
+
+  // Mensaje CREST-2 para asintomáticas 70–99% con estrategia intervencionista basada en CAS
+  const requiereMensajeCREST2 =
+  esAsinto &&
+  gradoAlto &&
+  (
+    rec.includes('CAS') ||
+    pref.includes('CAS') ||
+    post.includes('Tras CAS')
+  );
+
+  if (requiereMensajeCREST2){
+    notaCREST2 = 'En CREST-2, CAS junto a tratamiento médico intensivo obtuvo mejores resultados que tratamiento médico intensivo solo en estenosis carotídea asintomática seleccionada.';
+  }
+
+  // Si CEA está contraindicada por riesgo perioperatorio alto, hacerlo explícito y prioritario en la nota
+if (motivoContraCEA && !note.includes(motivoContraCEA)){
+  note = motivoContraCEA + '. ' + note;
+}
+
+  // Añadir referencia CREST-2 a la nota cuando corresponda y no esté ya escrita
+  if (notaCREST2 && !note.includes('CREST-2')){
+    note += ' ' + notaCREST2;
+  }
   /* ==========================
      4) Pintar resultados
   =========================== */
@@ -1389,18 +1512,27 @@ if (tandemTratable){
   $('contraVal').textContent = contra;
 
   $('prefVal').textContent =
-    (rec.includes('CEA o CAS') ||
-     rec.includes('Valorar') ||
-     rec.includes('CAS preferible; CEA como alternativa'))
-      ? (pref || 'Según morbimortalidad y experiencia local')
-      : (pref || '—');
+  (pref && pref !== '—' && pref !== '-')
+    ? pref
+    : '—';
 
   const toneClass = (tone === 'ok') ? 'ok' : (tone === 'warn') ? 'warn' : 'bad';
-  ['recBox','contraBox','prefBox'].forEach(id => {
-    const el = $(id);
-    el.classList.remove('ok','warn','bad');
-    el.classList.add(toneClass);
-  });
+
+// Recomendación
+$('recBox').classList.remove('ok','warn','bad');
+$('recBox').classList.add(toneClass);
+
+// Contraindicada: rojo siempre que haya algo contraindicado distinto de "Ninguna" o "—"
+$('contraBox').classList.remove('ok','warn','bad');
+if (contra && contra !== 'Ninguna' && contra !== '—' && contra !== '-'){
+  $('contraBox').classList.add('bad');
+} else {
+  $('contraBox').classList.add('ok');
+}
+
+// Preferencia local mantiene el tono global
+$('prefBox').classList.remove('ok','warn','bad');
+$('prefBox').classList.add(toneClass);
 
   // Etiqueta DAPT temporal
   let tag = $('tagDAPT');
@@ -1433,11 +1565,15 @@ if (tandemTratable){
   resumen += `Tratamiento recomendado: ${rec}\n`;
   resumen += `Nota: ${note}\n`;
   resumen += `Técnica contraindicada: ${contra}\n`;
-  if (rec.includes('CEA o CAS') ||
-      rec.includes('Valorar') ||
-      rec.includes('CAS preferible; CEA como alternativa')){
-    resumen += `Preferencia local: ${$('prefVal').textContent}\n`;
-  }
+if (motivoContraCEA){
+  resumen += `Motivo de contraindicación de CEA: ${motivoContraCEA}\n`;
+}
+if (notaCREST2){
+  resumen += `Nota CREST-2: ${notaCREST2}\n`;
+}
+  if ($('prefVal').textContent !== '—'){
+  resumen += `Preferencia local: ${$('prefVal').textContent}\n`;
+}
   resumen += `Tratamiento asociado y postprocedimiento: ${post}\n`;
   resumen += `\nAviso: herramienta orientativa; ajustar siempre a protocolos locales, discusión multidisciplinar (MDT) y resultados actualizados del ensayo CREST-2.`;
 
@@ -1457,15 +1593,18 @@ window.scrollTo({
 ========================== */
 function borrar(){
   // Radios principales
-  ['sxReciente','sxAntiguo','asint',
-   'glt50','g50a69','g70a99','gOclusion']
+  ['sx','asint',
+ 'glt50','g50a69','g70a99','gOclusion']
     .forEach(id => { const el = $(id); if (el) el.checked = false; });
 
   // Checkboxes
-  ['contraInterv','vidaMenor5','riesgoCEAbajo',
-   'placaCompleja','cuelloHostil','endoDificil',
-   'distalPresente','distalTratable']
-    .forEach(id => { const el = $(id); if (el) el.checked = false; });
+  ['contraInterv','vidaMenor5','riesgoCEAalto',
+ 'placaCompleja','cuelloHostil','endoDificil',
+ 'distalPresente','distalTratable','distalNinguna']
+  .forEach(id => { const el = $(id); if (el) el.checked = false; });
+
+const distalNinguna = $('distalNinguna');
+if (distalNinguna) distalNinguna.checked = true;
 
   $('resultCard').style.display = 'none';
   const tag = $('tagDAPT');
@@ -1495,17 +1634,6 @@ function copiar(){
   });
 }
 
-$('distalPresente').addEventListener('change', () => {
-  if ($('distalPresente').checked){
-    $('distalTratable').checked = false;
-  }
-});
-
-$('distalTratable').addEventListener('change', () => {
-  if ($('distalTratable').checked){
-    $('distalPresente').checked = false;
-  }
-});
 
 
 /* ==========================
