@@ -822,12 +822,13 @@ body {
                 id="condGIbleed" type="checkbox"> Antecedente de
               hemorragia digestiva severa</label> <label class="row"><input
                 id="condOncoGI" type="checkbox"> Neoplasia GI/GU activa</label>
-            <label class="row"><input id="condChildB" type="checkbox">
-  Hepatopatía Child-Pugh B</label><label class="row"><input id="condChildC" type="checkbox">
-  Hepatopatía Child-Pugh C</label> <label
+            <label class="row"><input id="condCirrhosis" type="checkbox">
+              Hepatopatía avanzada (Child-Pugh B–C)</label> <label
               class="row"><input id="condNoOACabs" type="checkbox">
               Riesgo hemorrágico inaceptable/contraindicación a
-              ACO</label>  </div>
+              ACO</label> <label class="row"><input id="condLAAprog"
+                type="checkbox"> Disponibilidad de cierre de
+              orejuela (o derivación posible)</label> </div>
           <div> <label class="row"><input id="condValvular"
                 type="checkbox"> Prótesis valvular mecánica o estenosis mitral significativa</label> <label class="row"><input
                 id="condDysphagia" type="checkbox">
@@ -841,9 +842,7 @@ body {
                 id="condPoorINR" type="checkbox"> Dificultad para
               monitorizar INR/visitas</label> <label class="row"><input
                 id="condQD" type="checkbox"> Preferencia por dosis única
-              diaria</label><label class="row"><input id="condLAAprog"
-                type="checkbox"> Disponibilidad de cierre de
-              orejuela (o derivación posible)</label></div>
+              diaria</label></div>
         </div>
         <div class="sep"></div>
 <h3 style="margin:0 0 6px;">Interacciones farmacológicas</h3>
@@ -1423,16 +1422,6 @@ function validateRequiredInputs(){
       return true;
     }
     ['condObesity','cAge65','cAge75','hElder','hRenal','cSc'].forEach(id=>document.getElementById(id).addEventListener('change',()=>checkAndFixContradictions(id)));
-['condChildB','condChildC'].forEach(id=>{
-  document.getElementById(id)?.addEventListener('change', ()=>{
-    const childB = document.getElementById('condChildB');
-    const childC = document.getElementById('condChildC');
-    if (!childB || !childC) return;
-
-    if (id === 'condChildB' && childB.checked) childC.checked = false;
-    if (id === 'condChildC' && childC.checked) childB.checked = false;
-  });
-});
 
    /* ===== Reglas clínicas (incluye riñón y bloque ≥80) ===== */
 const DRUG_INTERACTIONS = {
@@ -1729,28 +1718,14 @@ const notes = [];
   notes.push("Polimedicación: preferir apixabán/edoxabán; VKA sigue siendo posible, pero penalizado por mayor carga de interacciones.");
 }
 
-  if (special.childB){
-  avoid.Rivaroxabán.add("Child-Pugh B: contraindicado");
-  avoid.Dabigatrán.add("Child-Pugh B: evitar");
-
-  penalty.Apixabán   = (penalty.Apixabán   || 0) + 1;
-  penalty.Edoxabán   = (penalty.Edoxabán   || 0) + 1;
-  penalty.VKA        = (penalty.VKA        || 0) + 1;
-
-  notes.push("Child-Pugh B: evitar rivaroxabán y dabigatrán. Apixabán, edoxabán y VKA solo con precaución.");
-}
-
-if (special.childC){
-  special.noStandardOAC = true;
-
-  avoid.VKA.add("Child-Pugh C: fuera de escenario estándar");
-  avoid.Apixabán.add("Child-Pugh C: no recomendado");
-  avoid.Dabigatrán.add("Child-Pugh C: no recomendado");
-  avoid.Edoxabán.add("Child-Pugh C: no recomendado");
-  avoid.Rivaroxabán.add("Child-Pugh C: contraindicado");
-
-  notes.push("Child-Pugh C: no recomendar anticoagulantes orales estándar; escenario de alto riesgo y valoración individualizada.");
-}
+  if (special.cirrhosis){
+    prefer.VKA.add("Hepatopatía avanzada");
+    avoid.Apixabán.add("Evitar Child C");
+    avoid.Dabigatrán.add("Evitar Child C");
+    avoid.Edoxabán.add("Evitar Child C");
+    avoid.Rivaroxabán.add("Evitar Child C");
+    notes.push("Hepatopatía avanzada: preferir VKA; evitar ACOD en Child C.");
+  }
 
   const over120 = isFinite(weightKg) && weightKg > 120;
   if (special.obesity || over120){
@@ -1999,9 +1974,7 @@ if (!isAvoided("Dabigatrán")) {
   valvular:    document.getElementById('condValvular')?.checked  || false,
   oncoGI:      document.getElementById('condOncoGI')?.checked    || false,
   polypharm:   document.getElementById('condPolypharm')?.checked || false,
-  childB: document.getElementById('condChildB').checked,
-childC: document.getElementById('condChildC').checked,
-noStandardOAC: false,
+  cirrhosis:   document.getElementById('condCirrhosis')?.checked || false,
   obesity:     document.getElementById('condObesity')?.checked   || false,
   poorINR:     document.getElementById('condPoorINR')?.checked   || false,
   qd:          document.getElementById('condQD')?.checked        || false,
@@ -2176,29 +2149,6 @@ if (noOAC) {
 
         adequacy = summarizeForStrategy(name, prefer, avoid);
 
-// ================================================
-// ESCENARIO CHILD-PUGH B: igualar opciones con precaución
-// ================================================
-if (special.childB) {
-  if (name === "Dabigatrán" || name === "Rivaroxabán") {
-    adequacy = {
-      label: "Evitar",
-      cls: "tagAvoid",
-      tooltip: "Child-Pugh B: evitar"
-    };
-  }
-  else if (
-    (name === "Apixabán" || name === "Edoxabán" || name === "VKA") &&
-    adequacy.label !== "Evitar"
-  ) {
-    adequacy = {
-      label: "Precaución",
-      cls: "tagConsider",
-      tooltip: "Child-Pugh B: opción utilizable solo con precaución"
-    };
-  }
-}
-
 if (name === "VKA" && (penalty?.[name] || 0) > 0 && adequacy.label === "—") {
   adequacy = {
     label: "Aceptable",
@@ -2259,11 +2209,7 @@ function rowOrderPriority(r){
   if (noOAC && r.name === "No ACO") return 50;
 
   // Opciones utilizables
-  if (
-  r.adequacyLabel === "Preferible" ||
-  r.adequacyLabel === "Aceptable" ||
-  r.adequacyLabel === "Precaución"
-) return 30;
+  if (r.adequacyLabel === "Preferible" || r.adequacyLabel === "Aceptable") return 30;
 
   if (r.adequacyLabel === "—") return 20;
 
@@ -2297,16 +2243,9 @@ rows.sort((a,b)=>{
 
 let bestName;
 
-if (special.childC) {
-  bestName = "No recomendar anticoagulantes orales estándar";
-}
-else if (special.childB) {
-  bestName = "Apixabán, Edoxabán o VKA con precaución";
-}
-else if (noOAC) {
+if (noOAC) {
   bestName = "No ACO";
-}
-else {
+} else {
   const usableACO = rows.filter(r => r.name !== "No ACO" && r.adequacyLabel !== "Evitar");
   if (usableACO.length === 0) {
     bestName = "No ACO";
@@ -2316,26 +2255,17 @@ else {
 }
 
 const allACOAvoided =
-  special.childC ||
-  (
-    !noOAC &&
-    rows.filter(r => r.name !== "No ACO").every(r => r.adequacyLabel === "Evitar")
-  );
+  !noOAC &&
+  rows.filter(r => r.name !== "No ACO").every(r => r.adequacyLabel === "Evitar");
 
 let explanation;
 
-if (special.childC){
-  explanation = "Escenario de alto riesgo y fuera del uso estándar de anticoagulantes orales; requiere valoración individualizada.";
-}
-else if (special.childB){
-  explanation = "En Child-Pugh B no debe señalarse una estrategia oral como preferible por defecto; apixabán, edoxabán y VKA quedan como opciones con precaución.";
-}
-else if (allACOAvoided){
+if (allACOAvoided){
   explanation = "No existe una estrategia anticoagulante farmacológica adecuada en este contexto clínico";
+} else {
+  explanation = explainBestStrategy(bestName, prefer, avoid,noOAC);
 }
-else {
-  explanation = explainBestStrategy(bestName, prefer, avoid, noOAC);
-}
+
 
 rows.forEach(r => tbody.appendChild(r.tr));
 
@@ -2347,31 +2277,15 @@ rows.forEach(({tr,name}) => {
   }
 });
 
-applyColumnStriping();
+      applyColumnStriping();
 
 // =======================================================
 // RECOMENDACIONES INDIVIDUALIZADAS
 // =======================================================
 const bannerBox = document.getElementById("clinicalBannerZone");
 bannerBox.innerHTML = "";
+if (considerOAC_byBorderline && !noOAC && !special.valvular) {
 
-if (special.childC) {
-  bannerBox.innerHTML = `
-    <div class="clinicalBanner">
-      <span class="icon">⚠️</span>
-      Hepatopatía Child-Pugh C: no recomendar anticoagulantes orales estándar
-    </div>
-  `;
-}
-else if (special.childB) {
-  bannerBox.innerHTML = `
-    <div class="clinicalBanner">
-      <span class="icon">⚠️</span>
-      Hepatopatía Child-Pugh B: evitar rivaroxabán y dabigatrán; apixabán, edoxabán y VKA solo con precaución
-    </div>
-  `;
-}
-else if (considerOAC_byBorderline && !noOAC && !special.valvular) {
   bannerBox.innerHTML = `
     <div class="clinicalBanner">
       <span class="icon">🟠⚖️</span>
@@ -2381,14 +2295,9 @@ else if (considerOAC_byBorderline && !noOAC && !special.valvular) {
     </div>
   `;
 }
-
 const recList = document.getElementById('recList');
 const doseSection = document.getElementById('doseSection');
-const doseList = document.getElementById('doseList');
-
 recList.innerHTML = '';
-doseList.innerHTML = '';
-
 let preferredGlobal = [], avoidedGlobal = [], dosesForReport = [];
 
 // ---------------------------------------------------
@@ -2409,197 +2318,145 @@ const uniqueVkaNotes = [...new Set(vkaNotes)];
 // CASO 1: NO ACO por bajo riesgo embólico
 // -------------------------------------------
 if (noOAC_byLowRisk && !special.valvular) {
-  const li = document.createElement('li');
-  li.innerHTML =
-    '<span class="noOac">NO se recomienda anticoagulación oral por bajo riesgo embólico.</span>';
-  recList.appendChild(li);
+    const li = document.createElement('li');
+    li.innerHTML =
+      '<span class="noOac">NO se recomienda anticoagulación oral por bajo riesgo embólico.</span>';
+    recList.appendChild(li);
 
-  doseSection.style.display = 'none';
+    doseSection.style.display = 'none';
 }
 
 // -------------------------------------------
 // CASO 2: NO ACO por riesgo hemorrágico inaceptable
 // -------------------------------------------
 else if (noOAC_byHighBleed && !special.valvular) {
-  const li = document.createElement('li');
-  li.innerHTML =
-    '<span class="noOac">NO se recomienda anticoagulación oral por riesgo hemorrágico inaceptable o contraindicación absoluta.</span>';
-  recList.appendChild(li);
+    const li = document.createElement('li');
+    li.innerHTML =
+      '<span class="noOac">NO se recomienda anticoagulación oral por riesgo hemorrágico inaceptable o contraindicación absoluta.</span>';
+    recList.appendChild(li);
 
-  if (special.laaProg === true) {
-    const li2 = document.createElement('li');
-    li2.innerHTML =
-      '<b>Considerar cierre percutáneo de orejuela</b> como estrategia alternativa de prevención cardioembólica.';
-    recList.appendChild(li2);
-  }
+    // OFRECER CIERRE DE OREJUELA SI DISPONIBLE
+    if (special.laaProg === true) {
+        const li2 = document.createElement('li');
+        li2.innerHTML =
+          '<b>Considerar cierre percutáneo de orejuela</b> como estrategia alternativa de prevención cardioembólica.';
+        recList.appendChild(li2);
+    }
 
-  doseSection.style.display = 'none';
+    doseSection.style.display = 'none';
 }
 
 // -------------------------------------------
 // CASO 3: Anticoagulación indicada → lista completa con reglas
 // -------------------------------------------
 else {
-  uniqueVkaNotes.forEach(n => notes.push(n));
+    // Añadir notas de interacción con VKA
+uniqueVkaNotes.forEach(n => notes.push(n));
+// Añadir notas clínicas
+    notes.sort((a,b)=>{
+  if (a.includes("zona intermedia")) return -1;
+  if (b.includes("zona intermedia")) return 1;
+  return 0;
+});
+    notes.forEach(t => {
+        const li = document.createElement('li');
+        li.textContent = decodeEntities(t);
+        recList.appendChild(li);
+    });
 
-  notes.sort((a,b)=>{
-    if (a.includes("zona intermedia")) return -1;
-    if (b.includes("zona intermedia")) return 1;
-    return 0;
-  });
 
-  notes.forEach(t => {
-    const li = document.createElement('li');
-    li.textContent = decodeEntities(t);
-    recList.appendChild(li);
-  });
 
-  if (special.childC) {
-    preferredGlobal = [];
-    avoidedGlobal = ["VKA","Apixabán","Dabigatrán","Edoxabán","Rivaroxabán"];
+    // Preferidos y evitados
 
-    let li = document.createElement('li');
-    li.innerHTML = "<b>Escenario no estándar:</b> hepatopatía Child-Pugh C.";
-    recList.appendChild(li);
+// Escenario valvular: VKA obligatorio
+if (special.valvular) {
+  preferredGlobal = ["VKA"];
+  avoidedGlobal = ["Apixabán","Dabigatrán","Edoxabán","Rivaroxabán"];
+}
+else {
 
-    li = document.createElement('li');
-    li.innerHTML = "No recomendar anticoagulantes orales estándar.";
-    recList.appendChild(li);
-
-    li = document.createElement('li');
-    li.innerHTML = "Se requiere valoración individualizada en entorno especializado.";
-    recList.appendChild(li);
-
-    li = document.createElement('li');
-    li.innerHTML = "<b>Estrategias a evitar:</b> VKA, Apixabán, Dabigatrán, Edoxabán, Rivaroxabán.";
-    recList.appendChild(li);
-
-    doseSection.style.display = 'none';
-  }
-  else {
-    if (special.valvular) {
-      preferredGlobal = ["VKA"];
-      avoidedGlobal = ["Apixabán","Dabigatrán","Edoxabán","Rivaroxabán"];
-    }
-    else {
-      ["VKA","Apixabán","Dabigatrán","Edoxabán","Rivaroxabán"].forEach(n => {
+    ["VKA","Apixabán","Dabigatrán","Edoxabán","Rivaroxabán"].forEach(n => {
         if ((avoid[n] || new Set()).size > 0) avoidedGlobal.push(n);
         else if ((prefer[n] || new Set()).size > 0) preferredGlobal.push(n);
-      });
-    }
+    });
+
+}
+
 
     if (special.valvular) {
-      const li = document.createElement('li');
-      li.innerHTML =
-        "<b>Estrategia obligatoria:</b> VKA (antagonista de la vitamina K).";
-      recList.appendChild(li);
-    }
-    else if (special.childB) {
-  const childBCautionList = ["Apixabán","Edoxabán","VKA"]
-    .filter(n => !avoidedGlobal.includes(n));
 
-  if (childBCautionList.length) {
     const li = document.createElement('li');
     li.innerHTML =
-      "<b>Usar con precaución:</b> " + childBCautionList.join(", ") + ".";
+      "<b>Estrategia obligatoria:</b> VKA (antagonista de la vitamina K).";
     recList.appendChild(li);
-  }
-}
 
-    if (!special.valvular && preferredGlobal.length) {
-      const li = document.createElement('li');
-      li.innerHTML =
-        "<b>Estrategias preferibles:</b> " + preferredGlobal.join(", ");
-      recList.appendChild(li);
-    }
+}
+else if (preferredGlobal.length) {
+
+    const li = document.createElement('li');
+    li.innerHTML =
+      "<b>Estrategias preferibles:</b> " + preferredGlobal.join(", ");
+    recList.appendChild(li);
+
+}
 
     if (avoidedGlobal.length) {
-      const li = document.createElement('li');
-      li.innerHTML =
-        "<b>Estrategias a evitar:</b> " + avoidedGlobal.join(", ");
-      recList.appendChild(li);
+        const li = document.createElement('li');
+        li.innerHTML = "<b>Estrategias a evitar:</b> " + avoidedGlobal.join(", ");
+        recList.appendChild(li);
     }
 
+    // Mostrar posología
     doseSection.style.display = '';
+    const doseList = document.getElementById('doseList');
+    doseList.innerHTML = '';
     dosesForReport = doseSuggestions({age,crcl,hasbled,weightKg,scr_mgdl,special}, avoid);
 
-    if (special.childB) {
-      dosesForReport = dosesForReport.filter(d =>
-        !["Rivaroxabán","Dabigatrán"].includes(d.name)
-      );
-    }
-
     if (dosesForReport.length === 0) {
-      const li = document.createElement('li');
-      li.innerHTML =
-        '<span class="muted">No se muestran posologías porque todas las opciones están marcadas como “Evitar”.</span>';
-      doseList.appendChild(li);
-    }
-    else {
-      dosesForReport.sort((a,b)=>{
-        if (typeof bestName !== "undefined") {
-          if (a.name === bestName) return -1;
-          if (b.name === bestName) return 1;
-        }
-
-        if (preferredGlobal.includes(a.name) && !preferredGlobal.includes(b.name)) return -1;
-        if (!preferredGlobal.includes(a.name) && preferredGlobal.includes(b.name)) return 1;
-
-        if (a.name === "VKA" && b.name !== "VKA") return 1;
-        if (b.name === "VKA" && a.name !== "VKA") return -1;
-
-        return 0;
-      });
-
-      dosesForReport.forEach(d => {
         const li = document.createElement('li');
-
-        const tag = d.highlight
-          ? `<span class="doseTag">Dosis reducida</span>`
-          : '';
-
-        const star = (typeof bestName !== "undefined" && d.name === bestName) ? "⭐ " : "";
-
         li.innerHTML =
-          `<b>${star}${d.name}:</b> ${d.dose} ${tag} <span class="muted">— ${d.why}</span>`;
-
+          '<span class="muted">No se muestran posologías porque todas las opciones están marcadas como “Evitar”.</span>';
         doseList.appendChild(li);
-      });
+    } else {
+
+// Ordenar por preferencia clínica
+dosesForReport.sort((a,b)=>{
+
+  if (typeof bestName !== "undefined") {
+    if (a.name === bestName) return -1;
+    if (b.name === bestName) return 1;
+  }
+
+  if (preferredGlobal.includes(a.name) && !preferredGlobal.includes(b.name)) return -1;
+  if (!preferredGlobal.includes(a.name) && preferredGlobal.includes(b.name)) return 1;
+
+  if (a.name === "VKA" && b.name !== "VKA") return 1;
+  if (b.name === "VKA" && a.name !== "VKA") return -1;
+
+  return 0;
+});
+
+        dosesForReport.forEach(d => {
+    const li = document.createElement('li');
+
+    const tag = d.highlight
+      ? `<span class="doseTag">Dosis reducida</span>`
+      : '';
+
+    const star = (typeof bestName !== "undefined" && d.name === bestName) ? "⭐ " : "";
+
+    li.innerHTML =
+      `<b>${star}${d.name}:</b> ${d.dose} ${tag} <span class="muted">— ${d.why}</span>`;
+
+    doseList.appendChild(li);
+});
     }
-  }
 }
-
-const childBCautionList = ["Apixabán","Edoxabán","VKA"]
-  .filter(n => !avoidedGlobal.includes(n));
-
-if (special.childB){
-  if (childBCautionList.length){
-    bestName = childBCautionList.join(", ");
-    explanation =
-      "En Child-Pugh B no debe señalarse una estrategia oral como preferible por defecto; " +
-      childBCautionList.join(", ") +
-      " quedan como opciones con precaución.";
-  } else {
-    bestName = "Ninguna opción oral estándar";
-    explanation =
-      "En Child-Pugh B no queda una opción oral estándar utilizable tras aplicar el resto de restricciones.";
-  }
-}
-
 const expBox = document.getElementById("clinicalExplanation");
 
 let bestLabel = "Estrategia más favorable";
 let bestIcon = "⭐";
-
-if (special.childC){
-  bestLabel = "Conducta sugerida";
-  bestIcon = "⚠️";
-}
-else if (special.childB){
-  bestLabel = "Opciones con precaución";
-  bestIcon = "⚠️";
-}
-else if (special.valvular){
+if (special.valvular){
   bestLabel = "Estrategia obligatoria";
   bestIcon = "⚠️";
 }
@@ -2613,8 +2470,9 @@ const doacList = ["Apixabán","Dabigatrán","Edoxabán","Rivaroxabán"];
 const doacContraindicated =
   doacList.every(d => avoidedGlobal.includes(d));
 
+/* Flags de causa basados en variables reales */
 const doacContraindicated_hepatic =
-  special.childB === true || special.childC === true;
+  special.cirrhosis === true;
 
 const doacContraindicated_interaction =
   interactions.length > 0 && doacContraindicated;
@@ -2637,12 +2495,6 @@ let scenario = "";
 if (special.valvular){
   scenario = "valvular";
 }
-else if (special.childC){
-  scenario = "childC";
-}
-else if (special.childB){
-  scenario = "childB";
-}
 else if (noOAC_byLowRisk){
   scenario = "lowRisk";
 }
@@ -2656,21 +2508,32 @@ else{
   scenario = "clearOAC";
 }
 
+
 let summary = "";
 
 if (scenario === "lowRisk"){
+
   summary =
   "Paciente con fibrilación auricular y riesgo embólico bajo; no se recomienda anticoagulación.";
+
 }
+
 else if (scenario === "highBleed"){
+
   summary =
   "Paciente con fibrilación auricular con riesgo hemorrágico inaceptable o contraindicación absoluta para anticoagulación.";
+
 }
+
 else if (scenario === "borderline"){
+
   summary =
   "Paciente con fibrilación auricular con riesgo embólico intermedio; la anticoagulación puede considerarse según contexto clínico.";
+
 }
+
 else if (scenario === "valvular"){
+
   summary =
   "En presencia de prótesis valvular mecánica o fibrilación auricular asociada a estenosis mitral moderada-severa, la anticoagulación con antagonista de la vitamina K es obligatoria.";
 
@@ -2681,28 +2544,11 @@ else if (scenario === "valvular"){
 
   summary +=
   " Los anticoagulantes orales directos no están indicados en este contexto clínico.";
-}
-else if (scenario === "childC"){
-  summary =
-  "Paciente con fibrilación auricular e insuficiencia hepática Child-Pugh C. No se recomiendan anticoagulantes orales estándar y se requiere valoración individualizada en entorno especializado.";
-}
-else if (scenario === "childB"){
-  summary =
-  "Paciente con fibrilación auricular e insuficiencia hepática Child-Pugh B. Rivaroxabán y dabigatrán deben evitarse; ";
 
-  if (childBCautionList.length){
-    summary +=
-      childBCautionList.join(", ") +
-      " solo pueden considerarse con precaución. ";
-  } else {
-    summary +=
-      "no queda una opción oral estándar utilizable tras aplicar el resto de restricciones. ";
-  }
-
-  summary +=
-    "No debe señalarse una estrategia oral preferible por defecto en este contexto.";
 }
+
 else if (scenario === "clearOAC"){
+
   summary =
   "Paciente con fibrilación auricular con indicación clara de anticoagulación.";
 
@@ -2714,20 +2560,27 @@ else if (scenario === "clearOAC"){
     summary +=
     " Los anticoagulantes orales directos son, en conjunto, apropiados en este contexto clínico.";
   }
-}
 
+}
 // === FRASE FINAL DE ESTRATEGIA ===
+
+
 if (special.valvular && noOAC_byHighBleed){
+
   summary +=
   " En casos de estenosis mitral moderada-severa con riesgo hemorrágico elevado puede valorarse, a medio plazo, una estrategia estructural como el cierre de orejuela o la cirugía valvular con implantación de prótesis biológica, lo que podría modificar el escenario antitrombótico. (Ver explicación ampliada en los textos informativos de la herramienta).";
+
 }
 
 /* === AJUSTE DE ETIQUETA EN ZONA GRIS === */
+
 if (considerOAC_byBorderline && !noOAC && !special.valvular){
+
   bestLabel =
   "Si se decide anticoagular, la estrategia con mejor perfil sería";
 
   bestIcon = "⚖️";
+
 }
 
 if(expBox){
@@ -3455,27 +3308,21 @@ const clean = s => String(s)
 
   let scenario = "";
 
-if (r.special?.valvular){
-  scenario = "valvular";
-}
-else if (r.special?.childC){
-  scenario = "childC";
-}
-else if (r.special?.childB){
-  scenario = "childB";
-}
-else if (r.noOAC_byLowRisk){
-  scenario = "lowRisk";
-}
-else if (r.noOAC_byHighBleed){
-  scenario = "highBleed";
-}
-else if (r.considerOAC_byBorderline){
-  scenario = "borderline";
-}
-else{
-  scenario = "clearOAC";
-}
+  if (r.special?.valvular){
+    scenario = "valvular";
+  }
+  else if (r.noOAC_byLowRisk){
+    scenario = "lowRisk";
+  }
+  else if (r.noOAC_byHighBleed){
+    scenario = "highBleed";
+  }
+  else if (r.considerOAC_byBorderline){
+    scenario = "borderline";
+  }
+  else{
+    scenario = "clearOAC";
+  }
 
   /* ===============================
      RESUMEN CLINICO
