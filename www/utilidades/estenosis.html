@@ -1307,7 +1307,7 @@ let notaCREST2 = '';
     note   = 'Oclusión completa: la revascularización carotídea no aporta beneficio.';
     contra = 'CEA y CAS';
     pref   = '—';
-    post   = 'AS (AAS o clopidogrel) indefinida + estatina alta y control intensivo de factores de riesgo';
+    post   = 'Antiagregación (AAS o clopidogrel) indefinida junto a tratamiento hipolimemiante intensivo y control óptimo de factores de riesgo.';
     tone   = 'bad';
   }
 
@@ -1319,7 +1319,7 @@ let notaCREST2 = '';
               : 'Expectativa de vida ≤5 años: beneficio duradero de la revascularización muy limitado.';
     contra = 'CEA y CAS';
     pref   = '—';
-    post   = 'AS (AAS o clopidogrel) indefinida + estatina alta y control intensivo de factores de riesgo';
+    post   = 'Antiagregación (AAS o clopidogrel) indefinida junto a tratamiento hipolimemiante intensivo y control óptimo de factores de riesgo.';
     tone   = 'bad';
   }
 
@@ -1332,8 +1332,8 @@ let notaCREST2 = '';
     contra = 'CEA y CAS';
     pref   = '—';
     post   = esSintom
-              ? 'DAPT 21–30 días → monoterapia indefinida + estatina alta y control de factores de riesgo'
-              : 'AS (AAS o clopidogrel) indefinida + estatina alta y control de factores de riesgo';
+              ? 'DAPT 21–30 días → monoantiagregación indefinida junto a tratamiento hipolimemiante intensivo y control óptimo de factores de riesgo.'
+              : 'Antiagregación (AAS o clopidogrel) indefinida junto a tratamiento hipolimemiante intensivo y control óptimo de factores de riesgo.';
     tagDAPT = esSintom;
     tone   = 'bad';
   }
@@ -1371,7 +1371,7 @@ pref = 'CEA solo de forma excepcional, en casos muy seleccionados y si el riesgo
     pref = 'No revascularización rutinaria; valorar solo si evolución clínica pese a tratamiento médico intensivo tras CMD';
   }
 
-  post   = 'AS o clopidogrel indefinido + estatina alta y control intensivo; considerar DAPT temporal si clínica reciente según protocolo local.';
+  post   = 'Antiagregación (AAS o clopidogrel) indefinida junto a tratamiento hipolimemiante intensivo y control óptimo de factores de riesgo; considerar DAPT temporal si clínica reciente según protocolo local.';
   tone   = 'bad';
 }
  
@@ -1405,7 +1405,7 @@ else if ((riesgoCEAalto || cuelloHostil) && endoDificil){
     pref = 'No revascularización rutinaria; valorar solo si evolución clínica pese a tratamiento médico intensivo tras CMD';
   }
 
-  post   = 'AS o clopidogrel indefinido + estatina alta y control intensivo de factores de riesgo';
+  post   = 'Antiagregación (AAS o clopidogrel) indefinida junto a tratamiento hipolimemiante intensivo y control óptimo de factores de riesgo.';
   tone   = 'bad';
 }
 
@@ -1417,7 +1417,7 @@ else if ((riesgoCEAalto || cuelloHostil) && endoDificil){
             : 'Estenosis 70–99% asintomática con anatomía compleja para CEA y CAS: cuello hostil y acceso endovascular complejo. Ambas vías de revascularización quedan penalizadas y el beneficio esperado es incierto; priorizar tratamiento médico intensivo y valorar revascularización solo de forma excepcional tras CMD en centro de referencia.';
   contra = 'CEA y CAS';
   pref   = 'CMD en centro de referencia; revascularización solo excepcional';
-  post   = 'AS o clopidogrel indefinido + estatina alta y control intensivo; si se realiza revascularización excepcional, ajustar antiagregación según técnica.';
+  post   = 'Antiagregación (AAS o clopidogrel) indefinida junto a tratamiento hipolimemiante intensivo y control óptimo de factores de riesgo; si se realiza revascularización excepcional, ajustar antiagregación según técnica.';
   tone   = 'bad';
 }
 
@@ -1448,7 +1448,7 @@ if (tandemTratable){
     note   = 'Estenosis 70–99% sintomática con lesión en tándem tratable, cuello hostil y anatomía muy desfavorable para CAS: ambas vías de revascularización son de muy alto riesgo. Se debe priorizar tratamiento médico intensivo y valorar CAS solo de forma excepcional en centro de referencia tras CMD.';
     contra = 'CEA';
     pref   = 'CMD en centro de referencia, CAS solo excepcional';
-    post   = 'AS o clopidogrel indefinido + estatina alta y control intensivo; si se realiza CAS, DAPT 1–3 meses → monoterapia.';
+    post   = 'Antiagregación (AAS o clopidogrel) indefinida junto a tratamiento hipolimemiante intensivo y control óptimo de factores de riesgo; si se realiza CAS, DAPT 1–3 meses → monoterapia.';
     tone   = 'bad';
   }
 
@@ -1481,7 +1481,7 @@ if (tandemTratable){
     note   = 'Estenosis 70–99% sintomática con anatomía desfavorable para CAS y riesgo perioperatorio alto para CEA: ambas estrategias de revascularización quedan penalizadas. Valorar caso a caso en CMD.';
     contra = 'CEA; CAS penalizado por acceso endovascular complejo';
     pref   = 'CMD en centro de referencia; CAS solo excepcional si el riesgo global se considera aceptable';
-    post   = 'AS o clopidogrel indefinido + estatina alta y control intensivo; si se realiza CAS, DAPT 1–3 meses → monoterapia.';
+    post   = 'Antiagregación (AAS o clopidogrel) indefinida junto a tratamiento hipolimemiante intensivo y control óptimo de factores de riesgo; si se realiza CAS, DAPT 1–3 meses → monoterapia.';
     tone   = 'warn';
   } else {
     rec    = 'Tratamiento médico intensivo + CEA';
@@ -1546,7 +1546,7 @@ if (ambasContra){
     note   = 'Estenosis 50–69% sintomática con placa compleja: mayor riesgo embólico. El beneficio de revascularización no es automático, pero debe valorarse de forma individualizada en CMD.';
     contra = contraMod;
     pref   = prefMod;
-    post   = 'Tras DAPT: AAS o clopidogrel indefinido + estatina alta.';
+    post   = 'Tras DAPT: monoantiagregación indefinida junto a tratamiento hipolimemiante intensivo y control óptimo de factores de riesgo.';
     tagDAPT = true;
     tone   = 'warn';
   } else {
@@ -1554,7 +1554,7 @@ if (ambasContra){
 note   = 'Estenosis 50–69% sintomática sin placa compleja: beneficio de revascularización modesto y dependiente de la selección clínica. Priorizar tratamiento médico intensivo; considerar CEA solo si evento reciente, lesión causal, anatomía favorable y riesgo perioperatorio aceptable.';
 contra = contraMod;
 pref   = prefMod;
-post   = 'AS (AAS o clopidogrel) indefinida + estatina alta.';
+post   = 'Antiagregación (AAS o clopidogrel) indefinida junto a tratamiento hipolimemiante intensivo y control óptimo de factores de riesgo.';
 tone   = 'bad';
   }
 }
@@ -1608,7 +1608,7 @@ tone   = 'bad';
 note   = 'Estenosis 50–69% asintomática con placa compleja: mayor riesgo embólico, pero sin indicación rutinaria de revascularización. Valorar DAPT temporal de forma individualizada según perfil de placa, riesgo hemorrágico y CMD.';
 contra = contraMod;
 pref   = ambasContra ? '—' : 'CMD solo en casos excepcionales';
-post   = 'Considerar DAPT 21–30 días → monoterapia indefinida + estatina alta, si bajo riesgo hemorrágico.';
+post   = 'Considerar DAPT 21–30 días → monoantiagregación indefinida junto a tratamiento hipolimemiante intensivo y control óptimo de factores de riesgo, si bajo riesgo hemorrágico.';
 tagDAPT = true;
 tone   = 'warn';
   } else {
@@ -1616,7 +1616,7 @@ tone   = 'warn';
     note   = 'Estenosis 50–69% asintomática sin placa compleja: beneficio incierto de revascularización.';
     contra = contraMod;
     pref   = '—';
-    post   = 'AS o clopidogrel indefinido + estatina alta.';
+    post   = 'Antiagregación (AAS o clopidogrel) indefinida junto a tratamiento hipolimemiante intensivo y control óptimo de factores de riesgo.';
     tone   = 'bad';
   }
 }
@@ -1645,7 +1645,7 @@ if (tandemTratable){
     note   = 'Estenosis 70–99% asintomática con lesión en tándem tratable, cuello hostil y anatomía muy desfavorable para CAS: el riesgo global de cualquier revascularización es muy alto y el beneficio incierto, incluso a la luz de CREST-2. Se debe priorizar tratamiento médico intensivo y considerar CAS solo de forma excepcional en centro de referencia.';
     contra = 'CEA';
     pref   = 'CMD en centro de referencia; CAS solo excepcional';
-    post   = 'AS o clopidogrel indefinido + estatina alta y control intensivo; si se realiza CAS, DAPT 1–3 meses → monoterapia.';
+    post   = 'Antiagregación (AAS o clopidogrel) indefinida junto a tratamiento hipolimemiante intensivo y control óptimo de factores de riesgo; si se realiza CAS, DAPT 1–3 meses → monoterapia.';
     tone   = 'bad';
   }
 
@@ -1668,7 +1668,7 @@ if (tandemTratable){
     note   = 'Estenosis 70–99% asintomática con anatomía desfavorable para CAS y riesgo perioperatorio alto para CEA: no hay una opción de revascularización técnicamente razonable de entrada.';
     contra = 'CEA; CAS penalizado por acceso endovascular complejo';
     pref   = 'CMD en centro de referencia; revascularización solo excepcional';
-    post   = 'AS o clopidogrel indefinido + estatina alta y control intensivo.';
+    post   = 'Antiagregación (AAS o clopidogrel) indefinida junto a tratamiento hipolimemiante intensivo y control óptimo de factores de riesgo.';
     tone   = 'bad';
   } else {
     rec    = 'Tratamiento médico intensivo ± CEA (pacientes muy seleccionados en CMD)';
@@ -1715,7 +1715,7 @@ if (tandemTratable){
   note   = 'Estenosis 70–99% asintomática con anatomía compleja para CEA y CAS: ambas vías de revascularización quedan penalizadas y el beneficio esperado es incierto. Priorizar tratamiento médico intensivo y valorar revascularización solo de forma excepcional tras CMD en centro de referencia.';
   contra = 'CEA y CAS';
   pref   = 'CMD en centro de referencia; revascularización solo excepcional';
-  post   = 'AS o clopidogrel indefinido + estatina alta y control intensivo; si se realiza revascularización excepcional, ajustar antiagregación según técnica.';
+  post   = 'Antiagregación (AAS o clopidogrel) indefinida junto a tratamiento hipolimemiante intensivo y control óptimo de factores de riesgo; si se realiza revascularización excepcional, ajustar antiagregación según técnica.';
   tone   = 'bad';
 }
     }
@@ -2232,7 +2232,7 @@ const capitulosEstenosis = [
         </p>
 
         <p>
-          Este abordaje incluye antiagregación plaquetaria, tratamiento hipolipemiante intensivo con estatinas de alta potencia, control estricto de la presión arterial, abandono del tabaquismo, optimización del control glucémico en pacientes diabéticos y medidas sostenidas de prevención vascular global.
+          Este abordaje incluye antiagregación plaquetaria, tratamiento hipolipemiante intensivo, control estricto de la presión arterial, abandono del tabaquismo, optimización del control glucémico en pacientes diabéticos y medidas sostenidas de prevención vascular global.
         </p>
 
         <p>
@@ -2548,7 +2548,7 @@ const capitulosEstenosis = [
       <div class="article-subcard-header">Tratamiento antitrombótico y postprocedimiento</div>
       <div class="article-subcard-body">
         <p>
-          El tratamiento antitrombótico forma parte del núcleo del manejo de la estenosis carotídea y no debe entenderse como un elemento accesorio respecto a la revascularización. Tanto en los pacientes tratados de forma conservadora como en aquellos sometidos a CEA o CAS, la estrategia antitrombótica debe integrarse en un programa de prevención vascular intensiva que incluya estatinas de alta potencia, control tensional, abandono del tabaquismo y manejo estricto del riesgo cardiovascular global.
+          El tratamiento antitrombótico forma parte del núcleo del manejo de la estenosis carotídea y no debe entenderse como un elemento accesorio respecto a la revascularización. Tanto en los pacientes tratados de forma conservadora como en aquellos sometidos a CEA o CAS, la estrategia antitrombótica debe integrarse en un programa de prevención vascular intensiva que incluya tratamiento hipolipemiante intensivo, control tensional, abandono del tabaquismo y manejo estricto del riesgo cardiovascular global.
         </p>
       </div>
     </div>
