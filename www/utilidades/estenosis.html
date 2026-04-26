@@ -1565,7 +1565,7 @@ tone   = 'bad';
       note   = 'Estenosis <50%: no significativa para indicar CEA o CAS.';
       contra = 'CEA y CAS';
       pref   = '—';
-      post   = 'AS (AAS o clopidogrel) indefinida + tratamiento médico intensivo.';
+      post   = 'Antiagregación (AAS o clopidogrel) indefinida junto a tratamiento hipolimemiante intensivo y control óptimo de factores de riesgo.';
       tone   = 'bad';
     }
   }
@@ -1962,14 +1962,18 @@ if (distalNinguna) distalNinguna.checked = true;
   const tag = $('tagDAPT');
   if (tag) tag.style.display = 'none';
   $('resumenText').textContent = '';
-
 resetFeedbackState(true);
 
+// Cerrar todos los acordeones/details abiertos
+document.querySelectorAll('details[open]').forEach(detail => {
+  detail.open = false;
+});
+
 // 🔵 Scroll al inicio suavemente
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+window.scrollTo({
+  top: 0,
+  behavior: "smooth"
+});
 }
 
 function copiar(){
