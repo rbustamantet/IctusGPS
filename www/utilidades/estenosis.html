@@ -2791,7 +2791,7 @@ function renderDetallesArticuloEstenosis(){
 }
 
 function activarAcordeonDetallesArticulo(){
-  const detalles = document.querySelectorAll('#detalles-articulo-estenosis .details-block');
+  const detalles = document.querySelectorAll('details.details-block');
 
   detalles.forEach((detail) => {
     detail.addEventListener('toggle', function () {
