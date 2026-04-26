@@ -204,8 +204,8 @@ header{
   padding:1rem;
   margin:.3rem 0 1rem;
   font-size:14px;
+  text-align: justify;
 }
-
 .panel{
   background:#fff;
   border:1px solid var(--borde);
@@ -592,6 +592,186 @@ footer img{max-width:320px;height:auto;opacity:.95}
     transform:translateX(-50%);
   }
 }
+
+.feedback-launch{
+  margin:18px 0;
+  background:#fffdf5;
+  border:1px solid #f3e8b3;
+  border-left:4px solid #d4a514;
+  border-radius:12px;
+  padding:14px 16px;
+}
+
+.feedback-launch p{
+  margin:0 0 12px 0;
+  color:#5b4a00;
+  line-height:1.4;
+  font-size:14px;
+}
+
+.feedback-form-wrap{
+  display:none;
+  margin:12px 0 18px;
+  background:#ffffff;
+  border:1px solid #d9e4f2;
+  border-radius:14px;
+  box-shadow:0 3px 14px rgba(16,71,119,0.08);
+  padding:14px;
+}
+
+.feedback-form-wrap.show{
+  display:block;
+}
+
+.feedback-form-grid{
+  display:grid;
+  gap:12px;
+}
+
+.feedback-form-wrap textarea,
+.feedback-form-wrap input[type="email"],
+.feedback-form-wrap select{
+  width:100%;
+  box-sizing:border-box;
+  border:1px solid #cfe3f6;
+  background:#fff;
+  border-radius:10px;
+  padding:10px 12px;
+  font-size:1rem;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.feedback-form-wrap textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+.feedback-help{
+  font-size:.84rem;
+  color:#567;
+  margin-top:4px;
+}
+
+.feedback-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:12px;
+  align-items:center;
+}
+
+.feedback-note{
+  font-size:.84rem;
+  color:#6b7280;
+  margin-top:10px;
+}
+
+.feedback-preview{
+  margin-top:12px;
+  padding:10px 12px;
+  background:#f8fbff;
+  border:1px solid #d9e4f2;
+  border-radius:10px;
+  color:#345;
+  display:none;
+}
+
+.feedback-preview.show{
+  display:block;
+}
+
+.feedback-btn{
+  border:0;
+  border-radius:999px;
+  padding:10px 16px;
+  font-weight:700;
+  cursor:pointer;
+  line-height:1;
+  flex:0 0 auto;
+}
+
+.feedback-btn-primary{
+  background:#0f3d83;
+  color:#fff;
+}
+
+.feedback-btn-primary:hover{
+  background:#fff;
+  color:#0f3d83;
+  border:2px solid #0f3d83;
+}
+
+.feedback-btn-ghost{
+  background:#fff;
+  color:#0f3d83;
+  border:2px solid #0f3d83;
+}
+
+.feedback-btn-ghost:hover:not(:disabled){
+  background:#0f3d83;
+  color:#fff;
+}
+
+.feedback-btn:disabled,
+.feedback-btn-ghost:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+
+.article-subcard{
+  margin:14px 0;
+  background:#ffffff;
+  border:1px solid #d0d7e1;
+  border-radius:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.04);
+  overflow:hidden;
+}
+
+.article-subcard-header{
+  background:#0f3d83;
+  color:#ffffff;
+  padding:9px 13px;
+  font-size:14px;
+  font-weight:700;
+}
+
+.article-subcard-body{
+  padding:14px 16px;
+  font-size:13px;
+  line-height:1.55;
+  color:#1e293b;
+}
+
+.article-subcard-body p{
+  margin:0 0 12px;
+}
+
+.article-subcard-body p:last-child{
+  margin-bottom:0;
+}
+
+.article-subcard-body h4{
+  margin:14px 0 8px;
+  color:#0f3d83;
+  font-size:13px;
+  font-weight:800;
+  border-top:1px solid #e5e7eb;
+  padding-top:10px;
+}
+
+.article-subcard-body h4:first-child{
+  margin-top:0;
+  border-top:none;
+  padding-top:0;
+}
+
+.article-detail-body{
+  padding:10px 0 4px;
+}
+
+.article-detail > summary{
+  margin-bottom:8px;
+}
 </style>
   </head>
   <body>
@@ -617,17 +797,15 @@ footer img{max-width:320px;height:auto;opacity:.95}
       </div>
     </header>
     <main class="wrap">
-      <div class="howto" align="justify"> Integra situación clínica,
+      <div class="howto"> Integra situación clínica,
         características de la placa, anatomía y grado de estenosis
         (NASCET) para orientar la indicación de <b>antiagregación</b>,
         <b>DAPT</b>, <b>endarterectomía (CEA)</b> o <b>stent carotídeo
-          (CAS)</b>. En <b>estenosis asintomática ≥70%</b>, la revascularización debe
+          (CAS)</b> y en qué casos es recomendable que se alcance <b>consenso multidisciplinar (CMD)</b>. En <b>estenosis asintomática ≥70%</b>, la revascularización debe
 valorarse frente a <b>tratamiento médico intensivo solo</b>. Si se
-plantea intervención, <b>CAS + tratamiento médico intensivo</b>
+plantea intervención <b>asociada al tratamiento médico intensivo</b>
 debe reservarse a pacientes muy seleccionados y a centros con
-experiencia, de acuerdo con la evidencia reciente (CREST-2, NEJM
-2025). No
-        cálculo automático: usa <span class="strategy-tag tag-med">Calcular</span>
+experiencia, de acuerdo con la evidencia reciente (CREST-2). Para obtener recomendación, pulse <span class="tag-med">Calcular</span>
       </div>
       <!-- BLOQUE CLÍNICO -->
       <div class="block rope">
@@ -743,14 +921,17 @@ experiencia, de acuerdo con la evidencia reciente (CREST-2, NEJM
       <!-- BLOQUE GRADO -->
       <div class="block clin">
         <h3>📈 Grado de estenosis (NASCET)</h3>
-        <div class="inline-options" role="group" aria-label="Grado
-          NASCET"> <label class="check"><input name="grado" id="glt50"
+        <div class="inline-options" role="group" aria-label="Grado NASCET"> <label class="check"><input name="grado" id="glt50"
               type="radio"> &lt;50%</label> <label class="check"><input
               name="grado" id="g50a69" type="radio"> 50–69%</label> <label
             class="check"><input name="grado" id="g70a99" type="radio">
-            70–99%</label> <label class="check"><input name="grado"
+            70–99%</label> <label class="check">
+  <input name="grado" id="casiOclusion" type="radio">
+  Casi oclusión con colapso distal
+</label><label class="check"><input name="grado"
               id="gOclusion" type="radio"> Oclusión total</label> </div>
       </div>
+
       <!-- RESULTADOS -->
       <div class="panel" id="resultCard"
         style="margin:16px;display:none;">
@@ -787,16 +968,15 @@ experiencia, de acuerdo con la evidencia reciente (CREST-2, NEJM
         </div>
         <div style="margin-top:12px;">
           <div class="box" id="contraBox">
-            <div class="ttl">Contraindicada</div>
+            <div class="ttl">Técnica desaconsejada</div>
             <div class="val" id="contraVal">-</div>
           </div>
         </div>
         <div style="margin-top:12px;">
           <div class="box" id="prefBox">
-            <div class="ttl">Preferencia local</div>
-            <div class="val" id="prefVal">-</div>
-            <div class="mini"> La elección final dependerá de la
-              morbimortalidad y experiencia del centro. </div>
+            <div class="ttl">Estrategia/condiciones</div>
+<div class="val" id="prefVal">-</div>
+<div class="mini" id="prefNote">Según anatomía, riesgo periprocedimiento, CMD y experiencia del centro.</div>
           </div>
         </div>
         <div id="resumenText" class="resumen" style="white-space:pre-line; margin:1rem; border-top:1px dashed #e5e7eb; padding-top:1rem;"></div>
@@ -813,6 +993,64 @@ experiencia, de acuerdo con la evidencia reciente (CREST-2, NEJM
           class="btn-action btn-clear">Borrar</button> <button
           id="btnCopy" class="btn-action btn-copy">Copiar resumen</button>
       </div>
+
+<div class="feedback-launch" id="feedbackLaunchBox">
+  <p><b>¿Considera que la recomendación no se ajusta a la práctica clínica?</b><br>
+  Por favor, comuníquelo para revisar y mejorar la herramienta. No empleará más de 1 minuto.</p>
+  <button type="button" class="feedback-btn feedback-btn-ghost" id="btnOpenFeedback" disabled="disabled">
+    Comunicar resultado no adecuado
+  </button>
+</div>
+
+<div class="feedback-form-wrap" id="feedbackFormWrap">
+  <h3 style="margin:0 0 10px;">Comunicar resultado no adecuado</h3>
+
+  <div class="feedback-form-grid">
+    <div>
+      <label for="feedbackEmail">Correo electrónico</label>
+      <input type="email" id="feedbackEmail" placeholder="tu_correo@dominio.com">
+      <div class="feedback-help">Se utilizará solo para poder responderte o pedir aclaraciones.</div>
+    </div>
+
+    <div>
+      <label for="feedbackReason">Motivo principal</label>
+      <select id="feedbackReason">
+        <option value="">Selecciona…</option>
+        <option value="estrategia">La estrategia elegida no parece adecuada</option>
+        <option value="factores">La interpretación de los factores no parece correcta</option>
+        <option value="coherencia">La recomendación no parece coherente con el escenario</option>
+        <option value="detalle">Falta una matización importante</option>
+        <option value="otro">Otro motivo</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="feedbackMessage">Explique por qué considera que la respuesta no es adecuada</label>
+      <textarea id="feedbackMessage" placeholder="Describe el problema clínico o lógico que has detectado. Evita incluir datos identificativos del paciente."></textarea>
+      <div class="feedback-help">No introduzca nombre, NHC ni otros datos identificativos del paciente.</div>
+    </div>
+
+    <label class="check" for="feedbackConsent">
+      <input id="feedbackConsent" type="checkbox">
+      Confirmo que el comentario no incluye datos identificativos innecesarios
+    </label>
+  </div>
+
+  <div class="feedback-actions">
+    <button type="button" class="feedback-btn feedback-btn-primary" id="btnPrepareFeedback">Previsualizar mensaje</button>
+    <button type="button" class="feedback-btn feedback-btn-primary" id="btnSendFeedback">Abrir correo</button>
+    <button type="button" class="feedback-btn feedback-btn-ghost" id="btnCloseFeedback">Cerrar</button>
+  </div>
+
+  <div class="feedback-preview" id="feedbackPreview"></div>
+  <div class="feedback-note"><b>Muchas gracias por ayudarnos a mejorar la herramienta.</b></div>
+</div>
+
+<div class="howto" id="desarrollo-teorico">
+  <h3 style="margin-top:0; color:#0f3d83;">📘 Desarrollo teórico ampliado</h3>
+  <div id="detalles-articulo-estenosis" style="padding-left:2px;"></div>
+</div>
+
       <div class="howto">
         <!-- DETALLES -->
         <details class="details-block">
@@ -824,59 +1062,62 @@ experiencia, de acuerdo con la evidencia reciente (CREST-2, NEJM
             <!-- Contenido -->
             <div style="padding:16px 18px;">
               <!-- Clínica -->
-              <div style="margin-bottom:16px;">
-                <div style="font-weight:700; color:#0f3d83;
-                  margin-bottom:4px;"> 🩺 Clínica </div>
-                <ul style="margin:0; padding-left:18px;">
-                  <li><b>Sintomática:</b> valorar revascularización según grado de estenosis, anatomía, riesgo perioperatorio y contexto clínico.</li>
-                  <li><b>Asintomática:</b> la decisión debe plantearse frente a tratamiento médico intensivo. Si se considera revascularización en estenosis ≥70%, debe reservarse a pacientes muy seleccionados, con expectativa de vida suficiente y en centros con experiencia.</li>
-                </ul>
-              </div>
-              <!-- Placa / Anatomía -->
-              <div style="margin-bottom:16px;">
-                <div style="font-weight:700; color:#0f3d83;
-                  margin-bottom:4px;"> 🌀 Placa / Anatomía </div>
-                <ul style="margin:0; padding-left:18px;">
-                  <li><b>Placa compleja:</b> ulcerada, trombótica,
-                    hipodensa, heterogénea o hemorrágica → mayor riesgo
-                    embólico.</li>
-                  <li><b>Cuello hostil:</b> radioterapia cervical,
-                    reestenosis pos-CEA, estenosis cervical alta,
-                    intrastent u oclusión contralateral → incrementa
-                    riesgo quirúrgico; favorece CAS.</li>
-                  <li><b>Acceso endovascular complejo:</b> tortuosidad
-                    carotídea severa, arco aórtico tipo III o troncos
-                    supraaórticos hostiles → preferible CEA.</li>
-                  <li><b>Lesión distal intracraneal:</b>
-                    <ul style="margin:4px 0 0; padding-left:18px;">
-                      <li><i>No tratable:</i> descarta beneficio de
-                        CEA/CAS.</li>
-                      <li><i>Tratable:</i> prioriza CAS por la
-                        posibilidad de abordaje combinado («tándem
-                        tratable»).</li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-              <!-- Grado NASCET -->
-              <div>
-                <div style="font-weight:700; color:#0f3d83;
-                  margin-bottom:4px;"> 📈 Grado NASCET </div>
-                <ul style="margin:0; padding-left:18px;">
-                  <li><b>&lt;50%:</b> manejo médico.</li>
-                  <li><b>50–69%:</b> beneficio selectivo, principalmente
-                    en sintomáticos (individualizar).</li>
-                  <li><b>70–99% sintomáticos:</b> beneficio claro de
-                    revascularización si riesgo ≤6%.</li>
-                  <li><b>70–99% asintomáticos:</b> la decisión debe
-  plantearse frente a tratamiento médico intensivo solo.
-  Si se considera revascularización, <b>CAS + tratamiento
-  médico intensivo</b> debe reservarse a pacientes muy
-  seleccionados y a centros con experiencia. CEA solo
-  tendría cabida en escenarios anatómicos muy concretos
-  y con riesgo quirúrgico muy bajo (≤3%).</li>
-                </ul>
-              </div>
+<div style="margin-bottom:16px;">
+  <div style="font-weight:700; color:#0f3d83; margin-bottom:4px;">
+    🩺 Clínica
+  </div>
+  <ul style="margin:0; padding-left:18px;">
+    <li><b>Sintomática:</b> la indicación de revascularización depende del grado de estenosis, el tiempo y tipo de clínica, la anatomía, el riesgo perioperatorio y la experiencia del centro. En escenarios complejos debe individualizarse en CMD.</li>
+    <li><b>Asintomática:</b> la decisión debe plantearse siempre frente a tratamiento médico. En estenosis ≥70%, si se considera revascularización añadida a tratamiento médico intensivo, debe reservarse a pacientes muy seleccionados, tras CMD y en centros con baja morbimortalidad.</li>
+  </ul>
+</div>
+
+<!-- Condiciones generales -->
+<div style="margin-bottom:16px;">
+  <div style="font-weight:700; color:#0f3d83; margin-bottom:4px;">
+    ⚠️ Condiciones generales
+  </div>
+  <ul style="margin:0; padding-left:18px;">
+    <li><b>Contraindicación para intervenir:</b> comorbilidad, fragilidad o situación clínica/anatómica que hace desaconsejable cualquier revascularización carotídea.</li>
+    <li><b>Expectativa de vida ≤5 años:</b> reduce el beneficio esperable de una revascularización, especialmente en estenosis asintomática.</li>
+    <li><b>Riesgo perioperatorio CEA alto:</b> desaconseja endarterectomía carotídea; puede desplazar la estrategia hacia CAS si la anatomía endovascular es favorable, o hacia tratamiento médico si no lo es.</li>
+  </ul>
+</div>
+
+<!-- Placa / Anatomía -->
+<div style="margin-bottom:16px;">
+  <div style="font-weight:700; color:#0f3d83; margin-bottom:4px;">
+    🌀 Placa / Anatomía
+  </div>
+  <ul style="margin:0; padding-left:18px;">
+    <li><b>Placa compleja o de alto riesgo:</b> ulcerada o irregular, trombótica, hipodensa, heterogénea o con hemorragia intraplaca. Aumenta el riesgo embólico y puede justificar una valoración más individualizada en CMD.</li>
+    <li><b>Cuello hostil:</b> radioterapia cervical previa, reestenosis pos-CEA, estenosis cervical muy alta, cirugía cervical compleja, estenosis intrastent u otras situaciones que aumentan el riesgo quirúrgico. Desaconseja CEA y puede favorecer CAS si el acceso endovascular es razonable.</li>
+    <li><b>Acceso endovascular complejo:</b> tortuosidad carotídea severa, calcificación importante, arco aórtico tipo III o troncos supraaórticos hostiles. Desaconseja CAS y puede favorecer CEA si el riesgo quirúrgico es aceptable.</li>
+    <li><b>Cuello hostil + acceso endovascular complejo:</b> penaliza ambas técnicas; la revascularización, si se plantea, debe considerarse solo de forma excepcional tras CMD y en centro de referencia.</li>
+    <li><b>Lesión distal intracraneal:</b>
+      <ul style="margin:4px 0 0; padding-left:18px;">
+        <li><i>No tratable:</i> suele anular el beneficio de revascularizar la carótida cervical.</li>
+        <li><i>Tratable:</i> favorece una estrategia endovascular combinada, generalmente CAS + tratamiento distal, tras CMD y en centros con experiencia.</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<!-- Grado NASCET -->
+<div>
+  <div style="font-weight:700; color:#0f3d83; margin-bottom:4px;">
+    📈 Grado NASCET
+  </div>
+  <ul style="margin:0; padding-left:18px;">
+    <li><b>&lt;50%:</b> sin indicación de CEA/CAS. En pacientes sintomáticos se prioriza tratamiento médico intensivo; en asintomáticos leves incidentales, tratamiento preventivo individualizado y control de factores de riesgo.</li>
+    <li><b>50–69% sintomática:</b> beneficio de revascularización selectivo. Sin placa de alto riesgo, se prioriza tratamiento médico intensivo; con placa compleja o recurrencia clínica, puede valorarse revascularización en CMD.</li>
+    <li><b>50–69% asintomática:</b> no se recomienda revascularización rutinaria. Si existe placa compleja, individualizar de forma excepcional en CMD; puede considerarse DAPT temporal si el riesgo hemorrágico es bajo y el contexto clínico lo justifica.</li>
+    <li><b>70–99% sintomática:</b> escenario con mayor beneficio potencial de revascularización si el riesgo perioperatorio es aceptable y la anatomía lo permite.</li>
+    <li><b>70–99% asintomática:</b> la decisión debe plantearse frente a tratamiento médico intensivo solo. Si se considera revascularización añadida, debe reservarse a pacientes muy seleccionados, tras CMD y en centros con baja tasa de complicaciones. En la herramienta, CAS suele ser la opción preferente cuando la anatomía es favorable; CEA queda restringida a centros con riesgo quirúrgico muy bajo.</li>
+    <li><b>Casi oclusión con colapso distal:</b> no debe tratarse como una estenosis convencional 70–99%. La revascularización no se plantea de forma rutinaria; solo se valora en escenarios muy seleccionados, especialmente si hay evolución clínica pese a tratamiento médico intensivo y tras CMD.</li>
+    <li><b>Oclusión total:</b> no hay indicación de revascularización carotídea cervical; se prioriza tratamiento médico.</li>
+  </ul>
+</div>
             </div>
           </div>
         </details>
@@ -895,11 +1136,11 @@ experiencia, de acuerdo con la evidencia reciente (CREST-2, NEJM
                   carotídeo)</li>
                 <li><b>CEA</b>: <i>carotid endarterectomy</i>
                   (endarterectomía carotídea)</li>
+                <li><b>CMD</b>: Consenso multidisciplinar</li>
                 <li><b>CREST-2</b>: ensayo de revascularización
                   carotídea en estenosis asintomática</li>
                 <li><b>DAPT</b>: doble antiagregación plaquetaria</li>
                 <li><b>EV</b>: expectativa de vida</li>
-                <li><b>MDT</b>: equipo multidisciplinar</li>
                 <li><b>NASCET</b>: método de medición del porcentaje de
                   estenosis carotídea</li>
               </ul>
@@ -914,99 +1155,36 @@ experiencia, de acuerdo con la evidencia reciente (CREST-2, NEJM
             <!-- Contenido -->
             <div style="padding:16px 18px;">
               <ol class="details-list-compact biblio-list">
-                <!-- Guías clínicas -->
-                <li>Kleindorfer DO, et al. 2021 AHA/ASA Guideline for
-                  the Prevention of Stroke in Patients With Stroke and
-                  TIA. <i>Stroke</i>. 2021;52:e364–e467.</li>
-                <li>Naylor AR, et al. ESC/ESVS Guidelines on the
-                  Management of Extracranial Carotid Disease. <i>Eur J
-                    Vasc Endovasc Surg</i>. 2023;65:1–87.</li>
-                <li>European Stroke Organisation (ESO). Guidelines on
-                  extracranial carotid and vertebral artery disease. <i>Eur
-                    Stroke J</i>. 2021;6(4):XLVII–LXXXVIII.</li>
-                <!-- CREST-2 -->
-                <li>Howard G, Howard VJ, Brott TG, et al.; CREST-2
-                  Investigators. Carotid Revascularization and Intensive
-                  Medical Management for Asymptomatic Carotid Stenosis —
-                  Results of the CREST-2 Trial. <i>N Engl J Med</i>.
-                  2025;392:112–124.</li>
-                <li>Brott TG, et al. Rationale, design, and baseline
-                  characteristics of the CREST-2 trials. <i>Int J
-                    Stroke</i>. 2024;19:221–234.</li>
-                <!-- CEA vs CAS: ensayos y metaanálisis -->
-                <li>Bonati LH, et al. Long-term outcomes after carotid
-                  stenting versus endarterectomy: meta-analysis of
-                  individual patient data. <i>Lancet Neurol</i>.
-                  2022;21:795–805.</li>
-                <li>Rosenfield K, et al. ACT-1 Trial: stenting vs
-                  endarterectomy in asymptomatic standard-risk patients.
-                  <i>N Engl J Med</i>. 2016;374:1011–1020.</li>
-                <li>Yadav JS, et al. SAPPHIRE trial: protected
-                  carotid-artery stenting versus endarterectomy in
-                  high-risk patients. <i>N Engl J Med</i>.
-                  2004;351:1493–1501.</li>
-                <li>Rerkasem K, et al. Carotid endarterectomy for
-                  symptomatic carotid stenosis: updated review. <i>Cochrane
-                    Database Syst Rev</i>. 2023;9:CD001923.</li>
-                <!-- Placa, imagen y riesgo embólico -->
-                <li>García-García HM, et al. Advanced carotid plaque
-                  imaging for stroke risk stratification. <i>Circulation</i>.
-                  2023;147:1455–1472.</li>
-                <li>Lopes DK, et al. High-risk carotid plaque features
-                  and early stroke recurrence. <i>Stroke</i>.
-                  2024;55:907–916.</li>
-                <li>Underhill HR, et al. MRI-detected intraplaque
-                  hemorrhage and cerebrovascular risk. <i>Radiology</i>.
-                  2021;301:612–621.</li>
-                <li>Macdougall NJ, et al. Carotid ulceration and embolic
-                  risk: multidetector CT evidence. <i>JAMA Neurol</i>.
-                  2024;81:312–321.</li>
-                <!-- Selección anatómica de técnica -->
-                <li>Setacci C, et al. Anatomical criteria for choosing
-                  carotid stenting vs endarterectomy. <i>J Endovasc
-                    Ther</i>. 2023;30:539–551.</li>
-                <li>Malas MB, et al. CAS outcomes in complex or tortuous
-                  carotid anatomy. <i>J Vasc Surg</i>. 2024;79:145–154.</li>
-                <li>Hye RJ, et al. Impact of “hostile neck” on
-                  perioperative outcomes of carotid endarterectomy. <i>Ann
-                    Vasc Surg</i>. 2023;92:155–164.</li>
-                <!-- Lesiones en tándem -->
-                <li>Powers WJ, et al. Management of tandem
-                  cervical–intracranial lesions in ischemic stroke. <i>Stroke</i>.
-                  2024;55:1590–1602.</li>
-                <li>Behme D, et al. Endovascular management of tandem
-                  occlusions: updated real-world evidence. <i>J
-                    Neurointerv Surg</i>. 2023;15:480–488.</li>
-                <li>Texakalidis P, et al. Meta-analysis of stenting +
-                  thrombectomy for tandem occlusions. <i>Neurosurgery</i>.
-                  2022;90:345–355.</li>
-                <!-- Tratamiento médico óptimo -->
-                <li>Amarenco P, Labreuche J, et al. High-intensity
-                  statin therapy and carotid plaque stabilization. <i>Lancet
-                    Neurol</i>. 2020;19:502–512.</li>
-                <li>Sacco RL, et al. Optimal antiplatelet therapy after
-                  non-cardioembolic stroke. <i>Stroke</i>.
-                  2022;53:1100–1112.</li>
-                <li>Bonati LH, et al. Intensive control of blood
-                  pressure and LDL to prevent stroke in carotid disease.
-                  <i>Hypertension</i>. 2023;80:1208–1219.</li>
-                <!-- Práctica clínica real -->
-                <li>Naylor AR, et al. Contemporary outcomes of carotid
-                  revascularization in symptomatic disease. <i>Stroke</i>.
-                  2024;55:2732–2745.</li>
-                <li>Howard VJ, et al. Real-world outcomes of carotid
-                  revascularization in older adults. <i>JAMA Neurol</i>.
-                  2024;81:411–420.</li>
-                <li>Spence JD. Medical management of carotid stenosis in
-                  the post–CREST-2 era. <i>Stroke Vasc Neurol</i>.
-                  2025;10:1–12.</li>
-              </ol>
+  <li>Kleindorfer DO, Towfighi A, Chaturvedi S, et al. 2021 Guideline for the Prevention of Stroke in Patients With Stroke and Transient Ischemic Attack: A Guideline From the American Heart Association/American Stroke Association. <i>Stroke</i>. 2021;52(7):e364-e467.</li>
+
+  <li>Naylor AR, Rantner B, Ancetti S, et al. Editor's Choice – European Society for Vascular Surgery (ESVS) 2023 Clinical Practice Guidelines on the Management of Atherosclerotic Carotid and Vertebral Artery Disease. <i>Eur J Vasc Endovasc Surg</i>. 2023;65(1):7-111.</li>
+
+  <li>Bonati LH, Kakkos S, Berkefeld J, et al. European Stroke Organisation guideline on endarterectomy and stenting for carotid artery stenosis. <i>Eur Stroke J</i>. 2021;6(2):I-XLVII.</li>
+
+  <li>Brott TG, Howard G, Lal BK, et al. Medical Management and Revascularization for Asymptomatic Carotid Stenosis. <i>N Engl J Med</i>. 2026;394:219-231.</li>
+
+  <li>Howard VJ, Meschia JF, Lal BK, et al. Carotid revascularization and medical management for asymptomatic carotid stenosis: protocol of the CREST-2 clinical trials. <i>Int J Stroke</i>. 2017;12(7):770-778.</li>
+
+  <li>Rosenfield K, Matsumura JS, Chaturvedi S, et al.; ACT I Investigators. Randomized Trial of Stent versus Surgery for Asymptomatic Carotid Stenosis. <i>N Engl J Med</i>. 2016;374(11):1011-1020.</li>
+
+  <li>Yadav JS, Wholey MH, Kuntz RE, et al.; Stenting and Angioplasty with Protection in Patients at High Risk for Endarterectomy Investigators. Protected carotid-artery stenting versus endarterectomy in high-risk patients. <i>N Engl J Med</i>. 2004;351(15):1493-1501.</li>
+
+  <li>van Dam-Nolen DHK, van Egmond NCM, Dilba K, et al. Carotid Plaque Characteristics Predict Recurrent Ischemic Stroke and TIA. <i>Stroke</i>. 2022;53(5):1637-1645.</li>
+</ol>
             </div>
           </div>
         </details>
       </div>
     </main>
     <script>
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+
+window.addEventListener('load', () => {
+  window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+});
+
 // Utilidad corta
 const $ = id => document.getElementById(id);
 
@@ -1023,6 +1201,7 @@ function getGrado(){
   if ($('glt50').checked)      return '<50%';
   if ($('g50a69').checked)     return '50–69%';
   if ($('g70a99').checked)     return '70–99%';
+  if ($('casiOclusion').checked) return 'Casi oclusión';
   if ($('gOclusion').checked)  return 'Oclusión total';
   return '';
 }
@@ -1091,7 +1270,7 @@ const esAsinto = (clin === 'Asintomática');
 
   const gradoAlto    = (grado === '70–99%');
   const gradoMod     = (grado === '50–69%');
-
+  
   // Condiciones generales
   const contraInterv = bool('contraInterv');
 const vidaMenor5   = bool('vidaMenor5');      // expectativa de vida ≤5 años
@@ -1124,8 +1303,20 @@ let notaCREST2 = '';
 
   // 1.1 Oclusión completa: nunca CEA/CAS
   if (grado === 'Oclusión total'){
-    rec    = 'Tratamiento médico óptimo';
+    rec    = 'Tratamiento médico intensivo';
     note   = 'Oclusión completa: la revascularización carotídea no aporta beneficio.';
+    contra = 'CEA y CAS';
+    pref   = '—';
+    post   = 'AS (AAS o clopidogrel) indefinida + estatina alta y control intensivo de factores de riesgo';
+    tone   = 'bad';
+  }
+
+  // 1.3 Contraindicación global para intervenir o expectativa de vida muy limitada
+  else if (contraInterv || vidaMenor5){
+    rec    = 'Tratamiento médico intensivo';
+    note   = contraInterv
+              ? 'No candidato a intervención por comorbilidad o fragilidad extrema.'
+              : 'Expectativa de vida ≤5 años: beneficio duradero de la revascularización muy limitado.';
     contra = 'CEA y CAS';
     pref   = '—';
     post   = 'AS (AAS o clopidogrel) indefinida + estatina alta y control intensivo de factores de riesgo';
@@ -1135,7 +1326,7 @@ let notaCREST2 = '';
   // 1.2 Lesión distal crítica no tratable: descarta revascularización
   else if (distalNoTrat){
     rec    = esSintom
-              ? 'Tratamiento médico con antiagregación (DAPT inicial según clínica)'
+              ? 'Tratamiento médico intensivo (DAPT inicial según clínica)'
               : 'Tratamiento médico intensivo';
     note   = 'Lesión distal intracraneal crítica no tratable: la revascularización cervical no mejora el pronóstico.';
     contra = 'CEA y CAS';
@@ -1147,27 +1338,88 @@ let notaCREST2 = '';
     tone   = 'bad';
   }
 
-  // 1.3 Contraindicación global para intervenir o expectativa de vida muy limitada
-  else if (contraInterv || vidaMenor5){
-    rec    = 'Tratamiento médico';
-    note   = contraInterv
-              ? 'No candidato a intervención por comorbilidad o fragilidad extrema.'
-              : 'Expectativa de vida ≤5 años: beneficio duradero de la revascularización muy limitado.';
-    contra = 'CEA y CAS';
-    pref   = '—';
-    post   = 'AS (AAS o clopidogrel) indefinida + estatina alta y control intensivo de factores de riesgo';
-    tone   = 'bad';
+
+
+// 1.1b Casi oclusión carotídea con colapso distal
+else if (grado === 'Casi oclusión' && esSintom){
+  rec    = 'Tratamiento médico intensivo';
+
+  if (tandemTratable && endoDificil){
+  note = 'Casi oclusión carotídea con colapso distal, lesión distal tratable y acceso endovascular complejo: no debe tratarse como estenosis convencional 70–99%. La revascularización no se plantea de forma rutinaria; si recurren síntomas pese a tratamiento médico intensivo, el abordaje endovascular combinado queda penalizado por la anatomía y debe valorarse solo de forma excepcional tras CMD en centro de referencia. CEA no es adecuada porque no corrige la estenosis distal.';
+  contra = 'CEA y CAS';
+  pref = 'CMD en centro de referencia; CAS/endovascular combinado solo excepcional por conflicto entre lesión distal tratable y acceso endovascular complejo';
+} else if (tandemTratable){
+  note = 'Casi oclusión carotídea con colapso distal y lesión distal tratable: no debe tratarse como estenosis convencional 70–99%. La revascularización no se plantea de forma rutinaria; si recurren síntomas pese a tratamiento médico intensivo, valorar estrategia endovascular combinada tras CMD. CEA no es adecuada porque no corrige la estenosis distal.';
+  contra = 'CEA';
+  pref = 'CAS/endovascular combinado solo en casos muy seleccionados y en centro con experiencia tras CMD';
+}
+else if ((riesgoCEAalto || cuelloHostil) && endoDificil){
+  note = 'Casi oclusión carotídea con colapso distal y anatomía compleja para CEA y CAS: no debe tratarse como estenosis convencional 70–99%. La revascularización no se plantea de forma rutinaria; si recurren síntomas pese a tratamiento médico intensivo, valorar solo de forma excepcional tras CMD en centro de referencia.';
+  contra = 'CEA y CAS';
+  pref = 'CMD en centro de referencia; revascularización solo excepcional';
+} else if (riesgoCEAalto || cuelloHostil){
+    note = 'Casi oclusión carotídea con colapso distal: no debe tratarse como estenosis convencional 70–99%. La revascularización no se plantea de forma rutinaria; si recurren síntomas pese a tratamiento médico intensivo, valorar CAS solo en casos muy seleccionados y tras CMD.';
+    contra = 'CEA';
+    pref = 'CAS solo en casos muy seleccionados y si la anatomía endovascular es favorable tras CMD';
+  } else if (endoDificil){
+  note = 'Casi oclusión carotídea con colapso distal y acceso endovascular complejo: no debe tratarse como estenosis convencional 70–99%. La revascularización no se plantea de forma rutinaria; si recurren síntomas pese a tratamiento médico intensivo y se considera una intervención de forma excepcional, CAS queda penalizado por la anatomía.';
+contra = 'CAS';
+pref = 'CEA solo de forma excepcional, en casos muy seleccionados y si el riesgo perioperatorio es aceptable, tras CMD';
+}else {
+    note = 'Casi oclusión carotídea con colapso distal: no debe tratarse como estenosis convencional 70–99%. La revascularización no se plantea de forma rutinaria; valorar CEA/CAS solo si recurren síntomas pese a tratamiento médico intensivo y tras CMD.';
+    contra = 'CEA y CAS (salvo casos muy seleccionados)';
+    pref = 'No revascularización rutinaria; valorar solo si evolución clínica pese a tratamiento médico intensivo tras CMD';
   }
+
+  post   = 'AS o clopidogrel indefinido + estatina alta y control intensivo; considerar DAPT temporal si clínica reciente según protocolo local.';
+  tone   = 'bad';
+}
+ 
+else if (grado === 'Casi oclusión' && esAsinto){
+  rec    = 'Tratamiento médico intensivo';
+
+  if (tandemTratable && endoDificil){
+  note = 'Casi oclusión carotídea con colapso distal, lesión distal tratable y acceso endovascular complejo: no debe tratarse como estenosis convencional 70–99%. La revascularización no se plantea de forma rutinaria; si aparece clínica ipsilateral pese a tratamiento médico intensivo, el abordaje endovascular combinado queda penalizado por la anatomía y debe valorarse solo de forma excepcional tras CMD en centro de referencia.  CEA no sería adecuada porque no corrige la estenosis distal.';
+  contra = 'CEA y CAS';
+  pref = 'CMD en centro de referencia; CAS/endovascular combinado solo excepcional por conflicto entre lesión distal tratable y acceso endovascular complejo';
+} else if (tandemTratable){
+  note = 'Casi oclusión carotídea con colapso distal y lesión distal tratable: no debe tratarse como estenosis convencional 70–99%. La revascularización no se plantea de forma rutinaria; si aparece clínica ipsilateral pese a tratamiento médico intensivo, valorar estrategia endovascular combinada tras CMD.';
+  contra = 'CEA y CAS';
+  pref = 'CAS/endovascular combinado solo en casos muy seleccionados y en centro con experiencia tras CMD';
+} 
+else if ((riesgoCEAalto || cuelloHostil) && endoDificil){
+  note = 'Casi oclusión carotídea con colapso distal y anatomía compleja para CEA y CAS: no debe tratarse como estenosis convencional 70–99%. La revascularización no se plantea de forma rutinaria; si aparece clínica ipsilateral pese a tratamiento médico intensivo, valorar solo de forma excepcional tras CMD en centro de referencia.';
+  contra = 'CEA y CAS';
+  pref = 'CMD en centro de referencia; revascularización solo excepcional';
+} else if (riesgoCEAalto || cuelloHostil){
+    note = 'Casi oclusión carotídea con colapso distal: no debe tratarse como estenosis convencional 70–99%. La revascularización no se plantea de forma rutinaria; si aparece clínica ipsilateral pese a tratamiento médico intensivo, valorar CAS solo en casos muy seleccionados y tras CMD.';
+    contra = 'CEA y CAS';
+    pref = 'CAS solo en casos muy seleccionados y si la anatomía endovascular es favorable tras CMD';
+  } else if (endoDificil){
+ note = 'Casi oclusión carotídea con colapso distal y acceso endovascular complejo: no debe tratarse como estenosis convencional 70–99%. La revascularización no se plantea de forma rutinaria; si aparece clínica ipsilateral pese a tratamiento médico intensivo y se considera una intervención de forma excepcional, CAS queda penalizado por la anatomía.';
+  contra = 'CEA y CAS';
+  pref = 'CEA solo de forma excepcional, en casos muy seleccionados y si el riesgo perioperatorio es aceptable, tras CMD';
+}else {
+    note = 'Casi oclusión carotídea con colapso distal: no debe tratarse como estenosis convencional 70–99%. La revascularización no se plantea de forma rutinaria; valorar CEA/CAS solo si aparece clínica ipsilateral pese a tratamiento médico intensivo y tras CMD.';
+    contra = 'CEA y CAS';
+    pref = 'No revascularización rutinaria; valorar solo si evolución clínica pese a tratamiento médico intensivo tras CMD';
+  }
+
+  post   = 'AS o clopidogrel indefinido + estatina alta y control intensivo de factores de riesgo';
+  tone   = 'bad';
+}
 
   // 1.4 Anatomía extrema: alto riesgo para CEA y CAS (solo tiene sentido si grado alto)
   else if (gradoAlto && cuelloHostil && endoDificil && !tandemTratable){
-    rec    = 'Tratamiento médico intensivo';
-    note   = 'Anatomía compleja que dificulta tanto la cirugía (cuello hostil) como el CAS (acceso endovascular difícil). Revascularización solo en casos muy seleccionados tras discusión MDT.';
-    contra = 'CEA y CAS';
-    pref   = '—';
-    post   = 'AS (AAS o clopidogrel) indefinida + estatina alta y control intensivo de factores de riesgo';
-    tone   = 'bad';
-  }
+  rec    = 'Tratamiento médico intensivo ± revascularización (excepcional, tras CMD)';
+  note   = esSintom
+            ? 'Estenosis 70–99% sintomática con anatomía compleja para CEA y CAS: cuello hostil y acceso endovascular complejo. Ambas vías de revascularización quedan penalizadas; priorizar tratamiento médico intensivo y valorar revascularización solo de forma excepcional tras CMD en centro de referencia.'
+            : 'Estenosis 70–99% asintomática con anatomía compleja para CEA y CAS: cuello hostil y acceso endovascular complejo. Ambas vías de revascularización quedan penalizadas y el beneficio esperado es incierto; priorizar tratamiento médico intensivo y valorar revascularización solo de forma excepcional tras CMD en centro de referencia.';
+  contra = 'CEA y CAS';
+  pref   = 'CMD en centro de referencia; revascularización solo excepcional';
+  post   = 'AS o clopidogrel indefinido + estatina alta y control intensivo; si se realiza revascularización excepcional, ajustar antiagregación según técnica.';
+  tone   = 'bad';
+}
 
   /* ==========================
      2) SINTOMÁTICOS
@@ -1182,30 +1434,30 @@ if (tandemTratable){
 
   // 2.1.a.1 Tándem tratable + anatomía muy desfavorable para CAS (pero cuello no hostil)
   if (endoDificil && !cuelloHostil){
-    rec    = 'CAS posible pero de alta complejidad técnica';
-    note   = 'Estenosis 70–99% sintomática con lesión en tándem tratable y anatomía muy desfavorable para CAS. CEA sigue contraindicada al no tratar la lesión distal, pero el abordaje endovascular es de alto riesgo y debe decidirse en MDT en centro de referencia; considerar seriamente el tratamiento médico intensivo si el riesgo periprocedimiento es elevado.';
+    rec    = 'Tratamiento médico intensivo ± CAS (posible pero de alta complejidad técnica, tras CMD)';
+    note   = 'Estenosis 70–99% sintomática con lesión en tándem tratable y anatomía muy desfavorable para CAS. CEA sigue contraindicada al no tratar la lesión distal, pero el abordaje endovascular es de alto riesgo y debe decidirse en CMD en centro de referencia; considerar seriamente el tratamiento médico intensivo si el riesgo periprocedimiento es elevado.';
     contra = 'CEA';
-    pref   = 'MDT; CAS solo en centros de alta experiencia y si el riesgo global es aceptable.';
+    pref   = 'CMD; CAS solo en centros de alta experiencia y si el riesgo global es aceptable';
     post   = 'Si se realiza CAS: DAPT 1–3 meses → monoterapia indefinida.';
     tone   = 'warn';
   }
 
   // 2.1.a.2 Tándem tratable + cuello hostil + anatomía muy desfavorable para CAS
   else if (endoDificil && cuelloHostil){
-    rec    = 'Tratamiento médico intensivo o CAS muy selectivo (MDT)';
-    note   = 'Estenosis 70–99% sintomática con lesión en tándem tratable, cuello hostil y anatomía muy desfavorable para CAS: ambas vías de revascularización son de muy alto riesgo. Se debe priorizar tratamiento médico intensivo y valorar CAS solo de forma excepcional en centro de referencia tras MDT.';
+    rec    = 'Tratamiento médico intensivo ± CAS (pacientes muy seleccionados en CMD)';
+    note   = 'Estenosis 70–99% sintomática con lesión en tándem tratable, cuello hostil y anatomía muy desfavorable para CAS: ambas vías de revascularización son de muy alto riesgo. Se debe priorizar tratamiento médico intensivo y valorar CAS solo de forma excepcional en centro de referencia tras CMD.';
     contra = 'CEA';
-    pref   = 'MDT en centro de referencia.';
+    pref   = 'CMD en centro de referencia, CAS solo excepcional';
     post   = 'AS o clopidogrel indefinido + estatina alta y control intensivo; si se realiza CAS, DAPT 1–3 meses → monoterapia.';
     tone   = 'bad';
   }
 
   // 2.1.a.3 Tándem tratable con anatomía razonable para CAS
   else {
-    rec    = 'CAS preferible (lesión en tándem tratable)';
+    rec    = 'Tratamiento médico intensivo + CAS';
     note   = 'Estenosis 70–99% sintomática con lesión distal tratable: se prioriza estrategia endovascular (CAS + tratamiento de la lesión distal en el mismo acto). CEA no es adecuada porque no corrige la estenosis distal.';
     contra = 'CEA';
-    pref   = 'CAS en centro con experiencia en tratamiento de lesiones en tándem.';
+    pref   = 'CAS/endovascular combinado tras CMD, en centro con experiencia en tratamiento de lesiones en tándem';
     post   = 'Tras CAS: DAPT 1–3 meses → monoterapia antiagregante indefinida.';
     tone   = 'ok';
   }
@@ -1214,10 +1466,10 @@ if (tandemTratable){
 
       // 2.1.b Cuello hostil / alto riesgo quirúrgico → CAS preferente
       else if (cuelloHostil && !endoDificil){
-        rec    = 'CAS preferible';
+        rec    = 'Tratamiento médico intensivo + CAS';
         note   = 'Estenosis 70–99% sintomática con cuello hostil o alto riesgo quirúrgico: se favorece abordaje endovascular.';
         contra = 'CEA';
-        pref   = 'CAS en centros con baja tasa de complicaciones.';
+        pref   = 'CAS en centros con baja tasa de complicaciones';
         post   = 'Tras CAS: DAPT 1–3 meses → monoterapia indefinida';
         tone   = 'ok';
       }
@@ -1225,17 +1477,17 @@ if (tandemTratable){
       // 2.1.c Anatomía muy desfavorable para CAS pero cuello no hostil → CEA preferible
       else if (endoDificil && !cuelloHostil){
   if (riesgoCEAalto){
-    rec    = 'Tratamiento médico intensivo o CAS muy selectivo (MDT)';
-    note   = 'Estenosis 70–99% sintomática con anatomía desfavorable para CAS y riesgo perioperatorio alto para CEA: ambas estrategias de revascularización quedan penalizadas. Valorar caso a caso en MDT.';
-    contra = 'CEA';
-    pref   = 'MDT en centro con experiencia; CAS solo si el riesgo global se considera aceptable.';
+    rec    = 'Tratamiento médico intensivo ± CAS (pacientes muy seleccionados en CMD)';
+    note   = 'Estenosis 70–99% sintomática con anatomía desfavorable para CAS y riesgo perioperatorio alto para CEA: ambas estrategias de revascularización quedan penalizadas. Valorar caso a caso en CMD.';
+    contra = 'CEA; CAS penalizado por acceso endovascular complejo';
+    pref   = 'CMD en centro de referencia; CAS solo excepcional si el riesgo global se considera aceptable';
     post   = 'AS o clopidogrel indefinido + estatina alta y control intensivo; si se realiza CAS, DAPT 1–3 meses → monoterapia.';
     tone   = 'warn';
   } else {
-    rec    = 'CEA preferible';
+    rec    = 'Tratamiento médico intensivo + CEA';
     note   = 'Estenosis 70–99% sintomática con anatomía muy desfavorable para CAS (tortuosidad, calcificación severa, arco hostil).';
     contra = 'CAS';
-    pref   = 'CEA en centros con riesgo perioperatorio ≤6%.';
+    pref   = 'CEA en centros con riesgo perioperatorio ≤6%';
     post   = 'Tras CEA: AAS indefinido';
     tone   = 'ok';
   }
@@ -1244,17 +1496,17 @@ if (tandemTratable){
       // 2.1.d Anatomía razonable para ambas técnicas
       else {
   if (riesgoCEAalto){
-    rec    = 'CAS preferible';
+    rec    = 'Tratamiento médico intensivo + CAS preferible';
     note   = 'Estenosis 70–99% sintomática con riesgo perioperatorio alto para CEA: se desaconseja la cirugía y se favorece CAS si la anatomía lo permite.';
     contra = 'CEA';
-    pref   = 'CAS en centros con baja tasa de complicaciones.';
+    pref   = 'CAS en centros con baja tasa de complicaciones';
     post   = 'Tras CAS: DAPT 1–3 meses → monoterapia';
     tone   = 'ok';
   } else {
-    rec    = 'CEA o CAS (ambas posibles)';
-    note   = 'Estenosis 70–99% sintomática: claro beneficio de revascularización si riesgo perioperatorio ≤6%.';
+    rec    = 'Tratamiento médico intensivo + CEA o CAS';
+    note = 'Estenosis sintomática 70–99%: mayor beneficio potencial de revascularización. CEA es la técnica de referencia si la anatomía quirúrgica es favorable y el riesgo perioperatorio es aceptable; CAS es alternativa en pacientes seleccionados.';
     contra = 'Ninguna';
-    pref   = 'CEA como opción estándar; CAS si cuello hostil, acceso arterial más favorable o mayor experiencia endovascular.';
+    pref   = 'CEA como opción estándar; CAS si cuello hostil, acceso arterial más favorable o mayor experiencia endovascular';
     post   = 'CEA → AAS indefinido · CAS → DAPT 1–3 meses → monoterapia';
     tone   = 'ok';
   }
@@ -1263,11 +1515,23 @@ if (tandemTratable){
 
     // 2.2 Estenosis 50–69% sintomática
     else if (gradoMod){
-  let contraMod = 'CEA y CAS (salvo casos muy seleccionados).';
+  let contraMod = 'CAS rutinario';
 
   const ceaContra = riesgoCEAalto || cuelloHostil;
   const casContra = endoDificil;
   const ambasContra = ceaContra && casContra;
+
+let prefMod = '';
+
+if (ambasContra){
+  prefMod = 'No proceder a revascularización salvo situación excepcional tras CMD';
+} else if (ceaContra){
+  prefMod = 'CEA penalizada; valorar CAS solo en pacientes muy seleccionados, si la anatomía endovascular es favorable y tras CMD';
+} else if (casContra){
+  prefMod = 'CAS penalizado; valorar CEA solo en pacientes seleccionados, si riesgo quirúrgico aceptable y tras CMD';
+} else {
+  prefMod = 'Valorar CEA en pacientes seleccionados; CAS no rutinario, solo si CEA está penalizada o existe justificación anatómica/experiencia del centro';
+}
 
   if (ambasContra){
     contraMod = 'CEA y CAS';
@@ -1278,26 +1542,26 @@ if (tandemTratable){
   }
 
   if (placaCompleja){
-    rec    = 'DAPT temporal (21–30 días) → monoterapia';
-    note   = 'Estenosis 50–69% sintomática con placa compleja: alto riesgo embólico, pero beneficio de revascularización limitado; individualizar en MDT.';
+    rec    = 'Tratamiento médico intensivo. DAPT temporal (21–30 días) → monoterapia';
+    note   = 'Estenosis 50–69% sintomática con placa compleja: mayor riesgo embólico. El beneficio de revascularización no es automático, pero debe valorarse de forma individualizada en CMD.';
     contra = contraMod;
-    pref   = ambasContra ? '—' : 'Revascularización solo si alto riesgo de recurrencia (MDT).';
+    pref   = prefMod;
     post   = 'Tras DAPT: AAS o clopidogrel indefinido + estatina alta.';
     tagDAPT = true;
     tone   = 'warn';
   } else {
-    rec    = 'Manejo médico optimizado';
-    note   = 'Estenosis 50–69% sintomática sin placa compleja: beneficio de revascularización modesto; priorizar tratamiento médico intensivo.';
-    contra = contraMod;
-    pref   = ambasContra ? '—' : 'MDT si se plantea revascularización.';
-    post   = 'AS (AAS o clopidogrel) indefinida + estatina alta.';
-    tone   = 'bad';
+    rec    = 'Tratamiento médico intensivo';
+note   = 'Estenosis 50–69% sintomática sin placa compleja: beneficio de revascularización modesto y dependiente de la selección clínica. Priorizar tratamiento médico intensivo; considerar CEA solo si evento reciente, lesión causal, anatomía favorable y riesgo perioperatorio aceptable.';
+contra = contraMod;
+pref   = prefMod;
+post   = 'AS (AAS o clopidogrel) indefinida + estatina alta.';
+tone   = 'bad';
   }
 }
 
     // 2.3 Estenosis <50% sintomática
     else {
-      rec    = 'Antiagregación simple';
+      rec    = 'Tratamiento médico intensivo. Antiagregación simple';
       note   = 'Estenosis <50%: no significativa para indicar CEA o CAS.';
       contra = 'CEA y CAS';
       pref   = '—';
@@ -1314,10 +1578,10 @@ if (tandemTratable){
     // 3.1 Estenosis <50% asintomática
     if (grado === '<50%'){
       rec    = 'Tratamiento médico';
-      note   = 'Estenosis leve asintomática: sin indicación de revascularización.';
+      note   = 'Estenosis leve asintomática incidental: sin indicación de revascularización ni de intensificación automática del tratamiento por la estenosis.';
       contra = 'CEA y CAS';
       pref   = '—';
-      post   = 'AS o clopidogrel indefinido + estatina alta y control intensivo de factores de riesgo.';
+      post   = 'Control de factores de riesgo vascular y tratamiento preventivo individualizado según perfil clínico.';
       tone   = 'bad';
     }
 
@@ -1340,15 +1604,15 @@ if (tandemTratable){
   }
 
   if (placaCompleja){
-    rec    = 'DAPT temporal (21–30 días) → monoterapia';
-    note   = 'Estenosis 50–69% asintomática con placa compleja: alto riesgo embólico, pero no se recomienda revascularización rutinaria.';
-    contra = contraMod;
-    pref   = ambasContra ? '—' : 'MDT solo en casos excepcionales.';
-    post   = 'DAPT 21–30 días → monoterapia indefinida + estatina alta.';
-    tagDAPT = true;
-    tone   = 'warn';
+    rec    = 'Tratamiento médico intensivo. Considerar DAPT temporal (21–30 días) → monoterapia';
+note   = 'Estenosis 50–69% asintomática con placa compleja: mayor riesgo embólico, pero sin indicación rutinaria de revascularización. Valorar DAPT temporal de forma individualizada según perfil de placa, riesgo hemorrágico y CMD.';
+contra = contraMod;
+pref   = ambasContra ? '—' : 'CMD solo en casos excepcionales';
+post   = 'Considerar DAPT 21–30 días → monoterapia indefinida + estatina alta, si bajo riesgo hemorrágico.';
+tagDAPT = true;
+tone   = 'warn';
   } else {
-    rec    = 'Tratamiento médico óptimo';
+    rec    = 'Tratamiento médico intensivo';
     note   = 'Estenosis 50–69% asintomática sin placa compleja: beneficio incierto de revascularización.';
     contra = contraMod;
     pref   = '—';
@@ -1367,30 +1631,30 @@ if (tandemTratable){
 
   // 3.3.a.1 Tándem tratable + anatomía muy desfavorable para CAS (pero cuello no hostil)
   if (endoDificil && !cuelloHostil){
-    rec    = 'CAS posible pero de alta complejidad técnica';
-    note   = 'Estenosis 70–99% asintomática con lesión en tándem tratable y anatomía muy desfavorable para CAS. CEA no es adecuada al no tratar la lesión distal; cualquier revascularización debe decidirse en MDT y, si se realiza, será mediante CAS en centro de referencia. En muchos casos el tratamiento médico intensivo será la opción más prudente.';
+    rec    = 'Tratamiento médico intensivo ± CAS (posible pero de alta complejidad técnica, tras CMD)';
+    note   = 'Estenosis 70–99% asintomática con lesión en tándem tratable y anatomía muy desfavorable para CAS. CEA no es adecuada al no tratar la lesión distal; cualquier revascularización debe decidirse en CMD y, si se realiza, será mediante CAS en centro de referencia. En muchos casos el tratamiento médico intensivo será la opción más prudente.';
     contra = 'CEA';
-    pref   = 'MDT en centro con alta experiencia endovascular; valorar seriamente continuar solo con tratamiento médico intensivo.';
+    pref   = 'CMD en centro con alta experiencia endovascular; valorar seriamente continuar solo con tratamiento médico intensivo';
     post   = 'Si se realiza CAS: DAPT 1–3 meses → monoterapia indefinida.';
     tone   = 'warn';
   }
 
   // 3.3.a.2 Tándem tratable + cuello hostil + anatomía muy desfavorable para CAS
   else if (endoDificil && cuelloHostil){
-    rec    = 'Tratamiento médico intensivo o CAS muy selectivo (MDT)';
+    rec    = 'Tratamiento médico intensivo ± CAS (excepcional, tras CMD)';
     note   = 'Estenosis 70–99% asintomática con lesión en tándem tratable, cuello hostil y anatomía muy desfavorable para CAS: el riesgo global de cualquier revascularización es muy alto y el beneficio incierto, incluso a la luz de CREST-2. Se debe priorizar tratamiento médico intensivo y considerar CAS solo de forma excepcional en centro de referencia.';
     contra = 'CEA';
-    pref   = 'MDT en centro de referencia.';
+    pref   = 'CMD en centro de referencia; CAS solo excepcional';
     post   = 'AS o clopidogrel indefinido + estatina alta y control intensivo; si se realiza CAS, DAPT 1–3 meses → monoterapia.';
     tone   = 'bad';
   }
 
   // 3.3.a.3 Tándem tratable con anatomía razonable para CAS
   else {
-    rec    = 'Valorar CAS + tratamiento médico intensivo en pacientes muy seleccionados';
-    note   = 'En estenosis 70–99% asintomática, la decisión debe plantearse frente a tratamiento médico intensivo solo.  Si se considera revascularización, CAS junto a tratamiento médico intensivo debe reservarse a pacientes muy seleccionados y a centros con experiencia y baja tasa de complicaciones. Además, con lesión distal tratable y anatomía favorable para CAS: si se decide revascularizar, la opción preferente es un abordaje endovascular combinado. CEA no corrige la lesión distal. Los datos de CREST-2 apoyan CAS frente a tratamiento médico intensivo en centros con baja tasa de complicaciones.';
+    rec    = 'Tratamiento médico intensivo ± CAS (pacientes muy seleccionados en CMD)';
+    note   = 'En estenosis 70–99% asintomática, la decisión debe plantearse frente a tratamiento médico intensivo solo.  Si se considera revascularización, CAS junto a tratamiento médico intensivo debe reservarse a pacientes muy seleccionados y a centros con experiencia y baja tasa de complicaciones. Además, con lesión distal tratable y anatomía favorable para CAS: si se decide revascularizar, la opción preferente es un abordaje endovascular combinado. CEA no corrige la lesión distal. Los datos de CREST-2 apoyan CAS asociado a tratamiento médico intensivo en centros con baja tasa de complicaciones.';
     contra = 'CEA';
-    pref   = 'CAS en centros con experiencia en tratamientos de tándem y baja morbimortalidad periprocedimiento.';
+    pref   = 'CAS/endovascular combinado solo tras CMD, en centros con experiencia en tratamientos de tándem y baja morbimortalidad periprocedimiento';
     post   = 'Tras CAS: DAPT 1–3 meses → monoterapia indefinida.';
     tone   = 'ok';
   }
@@ -1402,15 +1666,15 @@ if (tandemTratable){
   if (riesgoCEAalto){
     rec    = 'Tratamiento médico intensivo';
     note   = 'Estenosis 70–99% asintomática con anatomía desfavorable para CAS y riesgo perioperatorio alto para CEA: no hay una opción de revascularización técnicamente razonable de entrada.';
-    contra = 'CEA';
-    pref   = 'MDT solo en casos excepcionales.';
+    contra = 'CEA; CAS penalizado por acceso endovascular complejo';
+    pref   = 'CMD en centro de referencia; revascularización solo excepcional';
     post   = 'AS o clopidogrel indefinido + estatina alta y control intensivo.';
     tone   = 'bad';
   } else {
-    rec    = 'CEA preferible en pacientes muy seleccionados';
+    rec    = 'Tratamiento médico intensivo ± CEA (pacientes muy seleccionados en CMD)';
     note   = 'Estenosis 70–99% asintomática con anatomía muy desfavorable para CAS. CREST-2 no mostró beneficio claro de CEA frente a tratamiento médico intensivo, por lo que debe reservarse a pacientes muy seleccionados, con baja morbimortalidad quirúrgica y larga expectativa de vida.';
     contra = 'CAS';
-    pref   = 'CEA sólo en centros con riesgo perioperatorio ≤3%.';
+    pref   = 'CEA solo planteable tras CMD, en pacientes muy seleccionados y en centros con riesgo perioperatorio ≤3%';
     post   = 'Tras CEA: AAS indefinido + tratamiento médico intensivo.';
     tone   = 'ok';
   }
@@ -1418,10 +1682,10 @@ if (tandemTratable){
 
       // 3.3.c Cuello hostil / alto riesgo quirúrgico: CAS preferente
       else if (cuelloHostil && !endoDificil){
-        rec    = 'Valorar CAS + tratamiento médico intensivo en pacientes muy seleccionados';
+        rec    = 'Tratamiento médico intensivo ± CAS (pacientes muy seleccionados en CMD)';
         note   = 'En estenosis 70–99% asintomática, la decisión debe plantearse frente a tratamiento médico intensivo solo.  Si se considera revascularización, CAS junto a tratamiento médico intensivo debe reservarse a pacientes muy seleccionados y a centros con experiencia y baja tasa de complicaciones. Además, con cuello hostil: se favorece CAS. En CREST-2, CAS junto a tratamiento médico intensivo redujo el riesgo de ictus frente al tratamiento médico intensivo solo.';
         contra = 'CEA';
-        pref   = 'CAS en centros con baja tasa de complicaciones periprocedimiento.';
+        pref   = 'CAS solo tras CMD, en pacientes muy seleccionados y en centros con baja tasa de complicaciones periprocedimiento';
         post   = 'Tras CAS: DAPT 1–3 meses → monoterapia indefinida.';
         tone   = 'ok';
       }
@@ -1429,17 +1693,17 @@ if (tandemTratable){
       // 3.3.d Anatomía favorable para ambas técnicas
       else if (!cuelloHostil && !endoDificil){
   if (riesgoCEAalto){
-    rec    = 'Valorar CAS + tratamiento médico intensivo en pacientes muy seleccionados';
+    rec    = 'Tratamiento médico intensivo ± CAS (pacientes muy seleccionados en CMD)';
     note   = 'Estenosis 70–99% asintomática con anatomía favorable pero riesgo perioperatorio alto para CEA: se desaconseja la cirugía y, si se decide revascularizar, se favorece CAS. En estenosis 70–99% asintomática, la decisión debe plantearse frente a tratamiento médico intensivo solo. Si se considera revascularización, CAS junto a tratamiento médico intensivo debe reservarse a pacientes muy seleccionados y a centros con experiencia y baja tasa de complicaciones. En CREST-2, CAS junto a tratamiento médico intensivo redujo el riesgo de ictus frente al tratamiento médico intensivo solo.';
     contra = 'CEA';
-    pref   = 'CAS como opción preferente en centros con baja tasa de complicaciones.';
+    pref   = 'CAS solo tras CMD, en pacientes muy seleccionados y en centros con baja tasa de complicaciones periprocedimiento';
     post   = 'Tras CAS: DAPT 1–3 meses → monoterapia indefinida.';
     tone   = 'ok';
   } else {
-    rec    = 'Valorar CAS + tratamiento médico intensivo en pacientes muy seleccionados';
-    note   = 'En estenosis 70–99% asintomática, la decisión debe plantearse frente a tratamiento médico intensivo solo. Si se considera revascularización, CAS junto a tratamiento médico intensivo debe reservarse a pacientes muy seleccionados y a centros con experiencia y baja tasa de complicaciones. Los datos de CREST-2 apoyan CAS junto a tratamiento médico intensivo frente a tratamiento médico intensivo solo, mientras que CEA no ha demostrado un beneficio significativo adicional.';
+    rec    = 'Tratamiento médico intensivo ± revascularización (pacientes muy seleccionados en CMD)';
+    note   = 'En estenosis 70–99% asintomática, la decisión debe plantearse frente a tratamiento médico intensivo solo. Si se considera revascularización junto a tratamiento médico intensivo debe reservarse a pacientes muy seleccionados y a centros con experiencia y baja tasa de complicaciones. Los datos de CREST-2 apoyan CAS junto a tratamiento médico intensivo frente a tratamiento médico intensivo solo, mientras que CEA no ha demostrado un beneficio significativo adicional.';
     contra = 'Ninguna';
-    pref   = 'CAS como opción preferente; CEA solo si no se dispone de CAS o se prefiere cirugía en pacientes seleccionados.';
+    pref   = 'Revascularización solo tras CMD en pacientes muy seleccionados; CAS como opción preferente y CEA solo planteable en centros con riesgo perioperatorio ≤3%';
     post   = 'Tras CAS: DAPT 1–3 meses → monoterapia indefinida.';
     tone   = 'ok';
   }
@@ -1447,43 +1711,68 @@ if (tandemTratable){
 
       // 3.3.e Caso residual (ya muy infrecuente)
       else {
-        rec    = 'Tratamiento médico intensivo o revascularización muy selectiva (MDT)';
-        note   = 'Estenosis 70–99% asintomática con anatomía compleja para ambas técnicas; considerar caso por caso en MDT, teniendo en cuenta los resultados de CREST-2.';
-        contra = 'CEA y CAS (salvo casos excepcionales).';
-        pref   = 'MDT en centro de referencia.';
-        post   = 'AS o clopidogrel indefinido + estatina alta y control intensivo.';
-        tone   = 'warn';
-      }
+  rec    = 'Tratamiento médico intensivo ± revascularización (excepcional, tras CMD)';
+  note   = 'Estenosis 70–99% asintomática con anatomía compleja para CEA y CAS: ambas vías de revascularización quedan penalizadas y el beneficio esperado es incierto. Priorizar tratamiento médico intensivo y valorar revascularización solo de forma excepcional tras CMD en centro de referencia.';
+  contra = 'CEA y CAS';
+  pref   = 'CMD en centro de referencia; revascularización solo excepcional';
+  post   = 'AS o clopidogrel indefinido + estatina alta y control intensivo; si se realiza revascularización excepcional, ajustar antiagregación según técnica.';
+  tone   = 'bad';
+}
     }
 
     // 3.4 Redundancia: estenosis asintomática con “Oclusión total” ya tratada arriba
   }
 
-  // Motivo prioritario de contraindicación de CEA
-  if (riesgoCEAalto && contra.includes('CEA')){
-    motivoContraCEA = 'CEA contraindicada por riesgo perioperatorio elevado del centro';
-    if (cuelloHostil){
-      motivoContraCEA += '; además existe cuello hostil';
-    }
-  } else if (cuelloHostil && contra.includes('CEA')){
-    motivoContraCEA = 'CEA desaconsejada/contraindicada por cuello hostil';
-  }
+  // Motivo prioritario para desaconsejar CEA
+  const motivoCEAAplicable =
+  contra.includes('CEA') &&
+  grado !== 'Oclusión total' &&
+  grado !== '<50%' &&
+  !contraInterv &&
+  !vidaMenor5 &&
+  !distalNoTrat;
 
-  // Mensaje CREST-2 para asintomáticas 70–99% con estrategia intervencionista basada en CAS
-  const requiereMensajeCREST2 =
-  esAsinto &&
-  gradoAlto &&
+if (motivoCEAAplicable && riesgoCEAalto){
+  motivoContraCEA = 'CEA desaconsejada por riesgo perioperatorio elevado del centro';
+  if (cuelloHostil){
+    motivoContraCEA += '; además existe cuello hostil';
+  }
+} else if (motivoCEAAplicable && cuelloHostil){
+  motivoContraCEA = 'CEA desaconsejada por cuello hostil';
+}
+
+  // Mensaje CREST-2 para estenosis asintomática 70–99%
+const casoCREST2 = esAsinto && gradoAlto;
+
+const casRazonableCREST2 =
+  casoCREST2 &&
   (
-    rec.includes('CAS') ||
-    pref.includes('CAS') ||
-    post.includes('Tras CAS')
+    pref.includes('CAS como opción preferente') ||
+    pref.includes('CAS solo tras CMD') ||
+    pref.includes('CAS/endovascular combinado solo tras CMD') ||
+    pref.includes('CAS en centros con experiencia')
+  ) &&
+  !pref.includes('excepcional') &&
+  !note.includes('alta complejidad técnica') &&
+  !note.includes('muy desfavorable para CAS') &&
+  !note.includes('no hay una opción de revascularización técnicamente razonable');
+
+const revascularizacionExcepcionalCREST2 =
+  casoCREST2 &&
+  (
+    pref.includes('excepcional') ||
+    note.includes('muy desfavorable para CAS') ||
+    note.includes('no hay una opción de revascularización técnicamente razonable') ||
+    rec.includes('excepcional')
   );
 
-  if (requiereMensajeCREST2){
-    notaCREST2 = 'En CREST-2, CAS junto a tratamiento médico intensivo obtuvo mejores resultados que tratamiento médico intensivo solo en estenosis carotídea asintomática seleccionada.';
-  }
+if (casRazonableCREST2){
+  notaCREST2 = 'En CREST-2, CAS junto a tratamiento médico intensivo obtuvo mejores resultados que tratamiento médico intensivo solo en pacientes seleccionados con estenosis carotídea asintomática.';
+} else if (revascularizacionExcepcionalCREST2){
+  notaCREST2 = 'Los resultados de CREST-2 deben interpretarse con cautela en este escenario, porque la anatomía o el riesgo individual hacen que la revascularización sea excepcional o de alta complejidad.';
+}
 
-  // Si CEA está contraindicada por riesgo perioperatorio alto, hacerlo explícito y prioritario en la nota
+  // Si CEA está desaconsejada por riesgo perioperatorio alto, hacerlo explícito y prioritario en la nota
 if (motivoContraCEA && !note.includes(motivoContraCEA)){
   note = motivoContraCEA + '. ' + note;
 }
@@ -1511,10 +1800,34 @@ if (motivoContraCEA && !note.includes(motivoContraCEA)){
   $('postTx').textContent    = post;
   $('contraVal').textContent = contra;
 
-  $('prefVal').textContent =
-  (pref && pref !== '—' && pref !== '-')
-    ? pref
-    : '—';
+  let prefMostrada = '—';
+
+if (pref && pref !== '—' && pref !== '-'){
+  prefMostrada = pref;
+} else if (
+  contra === 'CEA y CAS' ||
+  contra === 'CEA' ||
+  contra === 'CAS'
+){
+  prefMostrada = 'No procede revascularización';
+} else if (contra && contra.includes('salvo')){
+  prefMostrada = 'Solo en casos muy seleccionados tras CMD.';
+}
+
+$('prefVal').textContent = prefMostrada;
+
+const prefNote = $('prefNote');
+if (prefNote){
+  if (prefMostrada === 'No procede revascularización'){
+    prefNote.textContent = 'Priorizar tratamiento médico intensivo.';
+  } else if (prefMostrada.includes('CMD') || prefMostrada.includes('excepcional')){
+    prefNote.textContent = 'Requiere valoración individualizada en CMD y, si procede, centro con experiencia.';
+  } else if (prefMostrada.includes('CAS') || prefMostrada.includes('CEA')){
+    prefNote.textContent = 'Aplicar según anatomía, riesgo periprocedimiento y experiencia del centro.';
+  } else {
+    prefNote.textContent = 'Según anatomía, riesgo periprocedimiento, CMD y experiencia del centro.';
+  }
+}
 
   const toneClass = (tone === 'ok') ? 'ok' : (tone === 'warn') ? 'warn' : 'bad';
 
@@ -1522,7 +1835,7 @@ if (motivoContraCEA && !note.includes(motivoContraCEA)){
 $('recBox').classList.remove('ok','warn','bad');
 $('recBox').classList.add(toneClass);
 
-// Contraindicada: rojo siempre que haya algo contraindicado distinto de "Ninguna" o "—"
+// Técnica desaconsejada: rojo siempre que haya una técnica desaconsejada distinta de "Ninguna" o "—"
 $('contraBox').classList.remove('ok','warn','bad');
 if (contra && contra !== 'Ninguna' && contra !== '—' && contra !== '-'){
   $('contraBox').classList.add('bad');
@@ -1530,7 +1843,7 @@ if (contra && contra !== 'Ninguna' && contra !== '—' && contra !== '-'){
   $('contraBox').classList.add('ok');
 }
 
-// Preferencia local mantiene el tono global
+// Estrategia / condiciones mantiene el tono global
 $('prefBox').classList.remove('ok','warn','bad');
 $('prefBox').classList.add(toneClass);
 
@@ -1564,20 +1877,59 @@ $('prefBox').classList.add(toneClass);
   resumen += `Tándem: ${tandem.txt}${tandem.mini ? ' - ' + tandem.mini : ''}\n\n`;
   resumen += `Tratamiento recomendado: ${rec}\n`;
   resumen += `Nota: ${note}\n`;
-  resumen += `Técnica contraindicada: ${contra}\n`;
+  resumen += `Técnica desaconsejada: ${contra}\n`;
 if (motivoContraCEA){
   resumen += `Motivo de contraindicación de CEA: ${motivoContraCEA}\n`;
 }
-if (notaCREST2){
-  resumen += `Nota CREST-2: ${notaCREST2}\n`;
-}
+
   if ($('prefVal').textContent !== '—'){
-  resumen += `Preferencia local: ${$('prefVal').textContent}\n`;
+resumen += `Estrategia/condiciones: ${$('prefVal').textContent}\n`;
 }
   resumen += `Tratamiento asociado y postprocedimiento: ${post}\n`;
-  resumen += `\nAviso: herramienta orientativa; ajustar siempre a protocolos locales, discusión multidisciplinar (MDT) y resultados actualizados del ensayo CREST-2.`;
+  resumen += `\nAviso: herramienta orientativa; ajustar siempre a protocolos locales y consenso multidisciplinar (CMD).`;
 
   $('resumenText').textContent = resumen;
+
+$('resumenText').textContent = resumen;
+
+__lastFeedbackReport = {
+  createdAt: new Date().toISOString(),
+  page: 'estenosis_carotidea',
+  clin,
+  grado,
+  riesgo: `${riesgo.txt} (${riesgo.mini})`,
+  tandem: `${tandem.txt}${tandem.mini ? ' - ' + tandem.mini : ''}`,
+  condiciones: [
+    contraInterv ? 'Contraindicación para intervenir' : '',
+    vidaMenor5 ? 'Expectativa de vida ≤5 años' : '',
+    riesgoCEAalto ? 'Riesgo perioperatorio CEA alto' : '',
+    placaCompleja ? 'Placa de alto riesgo' : '',
+    cuelloHostil ? 'Cuello hostil' : '',
+    endoDificil ? 'Acceso endovascular complejo' : '',
+    distalNoTrat ? 'Lesión distal no tratable' : '',
+    tandemTratable ? 'Lesión distal tratable' : ''
+  ].filter(Boolean),
+  rec,
+  note,
+  contra,
+  pref: $('prefVal')?.textContent || pref,
+  post,
+  resumenVisible: resumen
+};
+
+const btnOpenFeedback = $('btnOpenFeedback');
+if (btnOpenFeedback) btnOpenFeedback.disabled = false;
+
+const feedbackFormWrap = $('feedbackFormWrap');
+const feedbackPreview = $('feedbackPreview');
+
+if (feedbackFormWrap && feedbackFormWrap.classList.contains('show') &&
+    feedbackPreview && feedbackPreview.classList.contains('show')) {
+  previewFeedbackPayload();
+}
+
+$('resultCard').style.display = 'block';
+
   $('resultCard').style.display = 'block';
 const target = document.getElementById("resultCard");
 const headerOffset = 120;   // ajustable según tu header y safe-top
@@ -1594,11 +1946,11 @@ window.scrollTo({
 function borrar(){
   // Radios principales
   ['sx','asint',
- 'glt50','g50a69','g70a99','gOclusion']
+ 'glt50','g50a69','g70a99','casiOclusion','gOclusion']
     .forEach(id => { const el = $(id); if (el) el.checked = false; });
 
-  // Checkboxes
-  ['contraInterv','vidaMenor5','riesgoCEAalto',
+// Checkboxes y radios de lesión distal 
+ ['contraInterv','vidaMenor5','riesgoCEAalto',
  'placaCompleja','cuelloHostil','endoDificil',
  'distalPresente','distalTratable','distalNinguna']
   .forEach(id => { const el = $(id); if (el) el.checked = false; });
@@ -1610,6 +1962,9 @@ if (distalNinguna) distalNinguna.checked = true;
   const tag = $('tagDAPT');
   if (tag) tag.style.display = 'none';
   $('resumenText').textContent = '';
+
+resetFeedbackState(true);
+
 // 🔵 Scroll al inicio suavemente
   window.scrollTo({
     top: 0,
@@ -1634,7 +1989,830 @@ function copiar(){
   });
 }
 
+const FEEDBACK_EMAIL = 'administrador@ictusgps.com';
+let __lastFeedbackReport = null;
 
+function escAttr(s){
+  return String(s)
+    .replace(/&/g,'&amp;')
+    .replace(/"/g,'&quot;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;');
+}
+
+function clearFeedbackFormFields(){
+  const reason = $('feedbackReason');
+  const message = $('feedbackMessage');
+  const consent = $('feedbackConsent');
+  const preview = $('feedbackPreview');
+
+  if (reason) reason.value = '';
+  if (message) message.value = '';
+  if (consent) consent.checked = false;
+  if (preview){
+    preview.classList.remove('show');
+    preview.innerHTML = '';
+  }
+}
+
+function resetFeedbackState(clearFields = false){
+  __lastFeedbackReport = null;
+
+  const btn = $('btnOpenFeedback');
+  const wrap = $('feedbackFormWrap');
+  const preview = $('feedbackPreview');
+
+  if (btn) btn.disabled = true;
+  if (wrap) wrap.classList.remove('show');
+  if (preview){
+    preview.classList.remove('show');
+    preview.innerHTML = '';
+  }
+
+  if (clearFields) clearFeedbackFormFields();
+}
+
+function openFeedbackForm(){
+  const wrap = $('feedbackFormWrap');
+  if (!wrap) return;
+  wrap.classList.add('show');
+  wrap.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function closeFeedbackForm(){
+  const wrap = $('feedbackFormWrap');
+  const preview = $('feedbackPreview');
+
+  if (wrap) wrap.classList.remove('show');
+  if (preview){
+    preview.classList.remove('show');
+    preview.innerHTML = '';
+  }
+}
+
+function validateFeedbackForm(){
+  const email = $('feedbackEmail')?.value.trim() || '';
+  const reason = $('feedbackReason')?.value || '';
+  const message = $('feedbackMessage')?.value.trim() || '';
+  const consent = $('feedbackConsent')?.checked || false;
+
+  if (!__lastFeedbackReport){
+    alert('Primero genere una recomendación antes de comunicar una incidencia.');
+    return false;
+  }
+  if (!email){
+    alert('Introduzca un correo electrónico de contacto.');
+    return false;
+  }
+  if (!reason){
+    alert('Seleccione el motivo principal.');
+    return false;
+  }
+  if (!message){
+    alert('Explique brevemente por qué considera inadecuado el resultado.');
+    return false;
+  }
+  if (!consent){
+    alert('Debe confirmar que no incluye datos identificativos innecesarios.');
+    return false;
+  }
+
+  return true;
+}
+
+function buildFeedbackReportText(){
+  if (!__lastFeedbackReport) return '';
+
+  const r = __lastFeedbackReport;
+
+  const cleanInline = s => String(s ?? '')
+  .replace(/•/g,'*')
+  .replace(/[—–]/g,'-')
+  .replace(/≥/g,'>=')
+  .replace(/≤/g,'<=')
+  .replace(/→/g,'->')
+  .replace(/[ \t]+/g,' ')
+  .trim();
+
+const cleanBlock = s => String(s ?? '')
+  .replace(/•/g,'*')
+  .replace(/[—–]/g,'-')
+  .replace(/≥/g,'>=')
+  .replace(/≤/g,'<=')
+  .replace(/→/g,'->')
+  .replace(/\r\n/g, '\n')
+  .replace(/\n{3,}/g, '\n\n')
+  .replace(/[ \t]+$/gm, '')
+  .trim();
+
+  const reasonMap = {
+    estrategia: 'La estrategia elegida no parece adecuada',
+    factores: 'La interpretación de los factores no parece correcta',
+    coherencia: 'La recomendación no parece coherente con el escenario',
+    detalle: 'Falta una matización importante',
+    otro: 'Otro motivo'
+  };
+
+  const email = $('feedbackEmail')?.value.trim() || '';
+  const reasonKey = $('feedbackReason')?.value || '';
+  const reasonTxt = reasonMap[reasonKey] || reasonKey || '-';
+  const message = $('feedbackMessage')?.value.trim() || '';
+  const fecha = new Date().toLocaleString('es-ES');
+
+  const lines = [];
+
+  lines.push('FEEDBACK SOBRE RECOMENDACION DE ESTENOSIS CAROTIDEA');
+  lines.push('Fecha: ' + fecha);
+  lines.push('Correo del usuario: ' + email);
+  lines.push('Motivo principal: ' + reasonTxt);
+  lines.push('');
+
+  lines.push('COMENTARIO DEL USUARIO');
+  lines.push(cleanBlock(message));
+  lines.push('');
+
+  lines.push('ESCENARIO CALCULADO');
+  lines.push('* Clinica: ' + (r.clin || '-'));
+  lines.push('* Grado NASCET: ' + (r.grado || '-'));
+  lines.push('* Riesgo morfologico: ' + (r.riesgo || '-'));
+  lines.push('* Tandem: ' + (r.tandem || '-'));
+  lines.push('* Condiciones marcadas: ' + (r.condiciones?.length ? r.condiciones.join(', ') : 'Ninguna'));
+  lines.push('');
+
+  lines.push('RECOMENDACION MOSTRADA');
+  lines.push(cleanBlock(r.resumenVisible || '-'));
+  lines.push('');
+
+  lines.push('Fin del feedback.');
+
+  return lines.join('\n');
+}
+
+function previewFeedbackPayload(){
+  if (!validateFeedbackForm()) return;
+
+  const preview = $('feedbackPreview');
+  if (!preview) return;
+
+  const email = $('feedbackEmail')?.value.trim() || '';
+  const reason = $('feedbackReason')?.value || '';
+  const reportText = buildFeedbackReportText();
+
+  preview.innerHTML =
+    '<b>Vista previa del mensaje.</b><br>' +
+    'Correo: ' + escAttr(email) + '<br>' +
+    'Motivo: ' + escAttr(reason) + '<br>' +
+    'Escenario: <b>' + escAttr(__lastFeedbackReport?.clin || '—') + ' · ' + escAttr(__lastFeedbackReport?.grado || '—') + '</b><br><br>' +
+    '<b>Vista previa del contenido a enviar:</b>' +
+    '<pre style="margin-top:8px; max-height:260px; overflow:auto; background:#f8fbff; border:1px solid #d9e4f2; border-radius:10px; padding:10px; white-space:pre-wrap;">' +
+    escAttr(reportText) +
+    '</pre>';
+
+  preview.classList.add('show');
+}
+
+function openFeedbackEmail(){
+  if (!validateFeedbackForm()) return;
+
+  const reasonMap = {
+    estrategia: 'Estrategia no adecuada',
+    factores: 'Factores mal interpretados',
+    coherencia: 'Recomendación no coherente',
+    detalle: 'Falta matización importante',
+    otro: 'Otro motivo'
+  };
+
+  const reasonKey = $('feedbackReason')?.value || '';
+  const reasonTxt = reasonMap[reasonKey] || 'Feedback clínico';
+
+  const subject = '[Ictus GPS - Estenosis carotídea] ' + reasonTxt;
+  const body = buildFeedbackReportText();
+
+  const mailtoUrl =
+    'mailto:' + encodeURIComponent(FEEDBACK_EMAIL) +
+    '?subject=' + encodeURIComponent(subject) +
+    '&body=' + encodeURIComponent(body);
+
+  window.location.href = mailtoUrl;
+}
+
+const capitulosEstenosis = [
+  {
+  id: 'detalle-preambulo',
+  title: 'Preámbulo',
+  html: `
+    <div class="article-subcard">
+      <div class="article-subcard-header">Preámbulo</div>
+      <div class="article-subcard-body">
+        <p>
+          La enfermedad carotídea extracraneal continúa siendo una causa relevante de ictus isquémico y de ataque isquémico transitorio. Sin embargo, la mera presencia de una estenosis carotídea no implica por sí sola una indicación automática de revascularización. La decisión terapéutica debe individualizarse e integrar de forma conjunta la situación clínica del paciente, el grado de estenosis según criterios NASCET, el perfil embólico de la placa, la factibilidad anatómica de la endarterectomía carotídea (CEA) y la viabilidad técnica del stenting carotídeo (CAS).
+        </p>
+
+        <p>
+          La práctica contemporánea ya no puede apoyarse únicamente en los ensayos históricos de cirugía carotídea. Debe incorporar también el impacto del tratamiento médico intensivo moderno, la experiencia acumulada con las técnicas endovasculares, el riesgo perioperatorio real de cada centro y la información aportada por la evidencia más reciente. En este contexto, el objetivo clínico ya no es simplemente revascularizar cuando una técnica resulta posible, sino identificar qué pacientes obtienen un beneficio neto real al añadir una intervención a una estrategia médica óptima.
+        </p>
+
+        <p>
+          Desde esta perspectiva, el manejo de la estenosis carotídea exige una aproximación más selectiva, más anatómica y más contextual, en la que el equilibrio entre beneficio esperado, complejidad técnica y seguridad del procedimiento resulta decisivo.
+        </p>
+      </div>
+    </div>
+  `
+},
+
+ {
+  id: 'detalle-tratamiento-medico',
+  title: 'Tratamiento médico intensivo',
+  html: `
+    <div class="article-subcard">
+      <div class="article-subcard-header">Tratamiento médico intensivo</div>
+      <div class="article-subcard-body">
+        <p>
+          El tratamiento médico intensivo constituye la base del manejo de la estenosis carotídea en todos los escenarios clínicos, tanto cuando se adopta una estrategia conservadora como cuando se plantea una revascularización. No debe entenderse como una alternativa menor frente a la intervención, sino como el sustrato terapéutico sobre el que descansa cualquier estrategia moderna de prevención cerebrovascular.
+        </p>
+
+        <p>
+          Este abordaje incluye antiagregación plaquetaria, tratamiento hipolipemiante intensivo con estatinas de alta potencia, control estricto de la presión arterial, abandono del tabaquismo, optimización del control glucémico en pacientes diabéticos y medidas sostenidas de prevención vascular global.
+        </p>
+
+        <p>
+          En la práctica, el tratamiento médico intensivo cumple tres funciones fundamentales. En primer lugar, constituye el tratamiento principal en los pacientes sin indicación de intervención o en aquellos en quienes el balance beneficio-riesgo no justifica una revascularización. En segundo lugar, en los pacientes sometidos a CEA o CAS, no sustituye al procedimiento, pero tampoco es un componente accesorio, sino parte esencial del beneficio clínico esperado a medio y largo plazo. En tercer lugar, en la estenosis carotídea asintomática, representa el verdadero comparador frente al que debe justificarse cualquier estrategia invasiva.
+        </p>
+
+        <p>
+          Desde esta perspectiva, la decisión terapéutica contemporánea ya no se formula como una elección simple entre tratamiento médico o revascularización, sino como la valoración de si añadir una intervención a un tratamiento médico intensivo bien aplicado proporciona un beneficio neto adicional en un paciente determinado.
+        </p>
+      </div>
+    </div>
+  `
+},
+
+ {
+  id: 'detalle-estratificacion',
+  title: 'Estratificación inicial',
+  html: `
+    <div class="article-subcard">
+      <div class="article-subcard-header">Estratificación inicial</div>
+      <div class="article-subcard-body">
+        <p>
+          La toma de decisiones terapéuticas en la estenosis carotídea puede organizarse en una secuencia ordenada de valoración clínica y anatómica. Este enfoque permite pasar de una descripción morfológica simple de la lesión a una estimación más realista del beneficio potencial de cada estrategia.
+        </p>
+
+        <p>
+          En primer lugar, debe definirse la situación clínica, diferenciando entre estenosis sintomática y asintomática, ya que el peso de la indicación terapéutica cambia de forma sustancial entre ambos escenarios.
+        </p>
+
+        <p>
+          En segundo lugar, debe determinarse el grado de estenosis según criterios NASCET, distinguiendo entre estenosis &lt;50%, 50–69%, 70–99% y oclusión total. Este paso sigue siendo uno de los determinantes principales de la indicación, aunque ya no puede interpretarse de manera aislada.
+        </p>
+
+        <p>
+          En tercer lugar, es necesario valorar los factores que modifican el riesgo o el posible beneficio de la intervención, entre ellos la presencia de placa de alto riesgo, una expectativa de vida limitada o una contraindicación general para cualquier procedimiento de revascularización.
+        </p>
+
+        <p>
+          Por último, debe definirse la viabilidad técnica real de cada opción, teniendo en cuenta si la anatomía resulta desfavorable para una u otra estrategia. En este contexto, la CEA puede verse penalizada por la presencia de cuello hostil o por un riesgo perioperatorio elevado, mientras que CAS puede quedar limitado por un acceso endovascular complejo. A ello se añade la posible existencia de una lesión distal ipsilateral en tándem, cuya condición de tratable o no tratable puede modificar de forma decisiva la lógica terapéutica. Debe diferenciarse además la casi oclusión carotídea con colapso distal, que constituye un escenario específico y no debe interpretarse como una estenosis convencional de alto grado.
+        </p>
+
+        <p>
+          Este último nivel es especialmente importante. La mejor técnica no es solo la más eficaz en términos abstractos, sino la que ofrece el mejor equilibrio entre beneficio esperado, factibilidad anatómica y riesgo real en el caso concreto.
+        </p>
+      </div>
+    </div>
+  `
+},
+{
+  id: 'detalle-estenosis-sintomatica',
+  title: 'Estenosis sintomática',
+  html: `
+    <div class="article-subcard">
+      <div class="article-subcard-header">Oclusión carotídea completa</div>
+      <div class="article-subcard-body">
+        <p>
+          La oclusión carotídea completa no suele beneficiarse de revascularización carotídea convencional. En la práctica, ni la endarterectomía carotídea ni el stenting carotídeo forman parte del manejo habitual de este escenario. Por ello, la estrategia recomendada se basa en tratamiento médico intensivo y prevención vascular secundaria estricta.
+        </p>
+      </div>
+    </div>
+
+    <div class="article-subcard">
+      <div class="article-subcard-header">Casi oclusión carotídea con colapso distal</div>
+      <div class="article-subcard-body">
+        <p>
+          La casi oclusión carotídea con colapso distal debe diferenciarse de la oclusión completa y de la estenosis convencional de alto grado. En pacientes sintomáticos, la revascularización no debe plantearse de forma rutinaria. La estrategia inicial debe ser tratamiento médico intensivo. Solo en pacientes con recurrencia de síntomas en territorio carotídeo a pesar de tratamiento médico óptimo podría considerarse CEA o CAS, y únicamente tras valoración multidisciplinar experta.
+        </p>
+      </div>
+    </div>
+
+    <div class="article-subcard">
+      <div class="article-subcard-header">Estenosis sintomática 70–99%</div>
+      <div class="article-subcard-body">
+        <p>
+          La estenosis carotídea sintomática grave continúa siendo el escenario de mayor beneficio potencial con revascularización. En ausencia de contraindicaciones mayores, la indicación debe considerarse de forma preferente. Cuando se decide intervenir, el procedimiento debe realizarse lo antes posible, idealmente dentro de los 14 días del último evento retiniano o cerebral, una vez el paciente esté neurológicamente estable.
+        </p>
+
+        <h4>Endarterectomía carotídea como técnica de referencia</h4>
+        <p>
+          La CEA continúa siendo la técnica de referencia en la mayoría de los pacientes con estenosis carotídea sintomática de 70-99%, especialmente cuando la anatomía quirúrgica es favorable y el riesgo perioperatorio del centro se mantiene en rangos aceptables.
+        </p>
+
+        <h4>Cuándo considerar CAS</h4>
+        <p>
+          El CAS puede considerarse como alternativa a la CEA en pacientes seleccionados, especialmente cuando la cirugía está penalizada por cuello hostil, radioterapia cervical previa, reestenosis posquirúrgica o mayor riesgo quirúrgico, siempre que la anatomía endovascular sea favorable y el centro tenga experiencia contrastada. Su papel es más consistente en pacientes menores de 70 años.
+        </p>
+
+        <h4>Cuándo la revascularización se vuelve incierta</h4>
+        <p>
+          Cuando coinciden factores que penalizan ambas técnicas, el balance entre beneficio y riesgo se reduce de forma importante. En estos casos, la indicación de revascularización deja de ser lineal, requiere valoración multidisciplinar y, con frecuencia, el tratamiento médico intensivo pasa a ser la opción más prudente.
+        </p>
+      </div>
+    </div>
+
+    <div class="article-subcard">
+      <div class="article-subcard-header">Estenosis sintomática 50–69%</div>
+      <div class="article-subcard-body">
+        <p>
+          En la estenosis sintomática moderada, el beneficio de la revascularización existe, pero es menor que en la estenosis grave y depende mucho más de la selección clínica. La estrategia de base sigue siendo el tratamiento médico intensivo, pero la CEA debe considerarse en pacientes seleccionados si el episodio es reciente, la lesión se considera causal y el riesgo perioperatorio del centro es aceptable. Si se decide intervenir, también en este grupo debe priorizarse una actuación precoz, idealmente dentro de los 14 días del evento índice.
+        </p>
+
+        <p>
+          La presencia de una placa de alto riesgo, la recurrencia de síntomas o un claro perfil embólico pueden reforzar la consideración de revascularización, pero no deben sustituir a la integración global del caso. En estos escenarios, especialmente si no se realiza una revascularización inmediata, puede considerarse una doble antiagregación plaquetaria temporal, siempre tras valorar el riesgo hemorrágico y de acuerdo con el protocolo local.
+        </p>
+
+        <p>
+          El CAS no debe plantearse como equivalente rutinario a la CEA en este escenario. Su papel debe reservarse a pacientes seleccionados en los que la cirugía esté penalizada, la anatomía endovascular sea favorable y exista experiencia suficiente del centro en el abordaje endovascular carotídeo.
+        </p>
+      </div>
+    </div>
+
+    <div class="article-subcard">
+      <div class="article-subcard-header">Estenosis sintomática &lt;50%</div>
+      <div class="article-subcard-body">
+        <p>
+          La estenosis sintomática leve no justifica de forma habitual ni CEA ni CAS. En este escenario, el tratamiento indicado es médico, con antiagregación y optimización intensiva de los factores de riesgo vascular. Aunque la carga embólica puede depender de las características de la placa, el grado de estenosis por sí solo no sustenta una indicación de intervención carotídea.
+        </p>
+      </div>
+    </div>
+  `
+},
+{
+  id: 'detalle-estenosis-asintomatica',
+  title: 'Estenosis asintomática',
+  html: `
+    <div class="article-subcard">
+      <div class="article-subcard-header">Principio general contemporáneo</div>
+      <div class="article-subcard-body">
+        <p>
+          La estenosis carotídea asintomática es probablemente el escenario que más ha cambiado con la evolución del tratamiento médico intensivo y con la reinterpretación contemporánea del beneficio de la revascularización. Hoy, la pregunta clínica ya no es simplemente si existe una estenosis severa, sino si añadir una intervención aporta un beneficio neto real sobre un tratamiento médico óptimo.
+        </p>
+
+        <p>
+          Por ello, la aproximación más prudente debe basarse en tres principios. En primer lugar, considerar el tratamiento médico intensivo como estrategia de base. En segundo lugar, reservar la revascularización a pacientes muy seleccionados. Y en tercer lugar, integrar de forma estricta la expectativa de vida, el riesgo periprocedimiento, la morfología de la placa, la anatomía vascular y la experiencia del centro.
+        </p>
+      </div>
+    </div>
+
+    <div class="article-subcard">
+      <div class="article-subcard-header">Estenosis asintomática 70–99%</div>
+      <div class="article-subcard-body">
+        <p>
+          Este es el escenario donde la evidencia actual obliga a mayor matización.
+        </p>
+
+        <h4>Papel del tratamiento médico intensivo</h4>
+        <p>
+          En la estenosis carotídea asintomática, el tratamiento médico intensivo constituye siempre el punto de partida y el comparador real frente al que debe justificarse cualquier intervención. La revascularización solo debe considerarse en pacientes muy seleccionados, con expectativa de vida suficiente, riesgo periprocedimiento muy bajo y hallazgos clínicos o de imagen que sugieran un riesgo de ictus mayor del habitual bajo tratamiento médico óptimo.
+        </p>
+
+        <h4>Papel contemporáneo de CAS</h4>
+        <p>
+          Si se plantea revascularización en una estenosis carotídea asintomática del 70–99%, CAS gana un peso clínico mayor que en etapas previas. Tras los resultados de CREST-2, CAS asociado a tratamiento médico intensivo dispone de evidencia aleatorizada contemporánea de beneficio frente a tratamiento médico intensivo solo en pacientes con estenosis carotídea asintomática de alto grado. Siempre en pacientes muy seleccionados y en centros con experiencia contrastada y baja morbimortalidad periprocedimiento.
+        </p>
+
+        <p>
+          Esta orientación resulta especialmente coherente cuando existe cuello hostil, cuando la cirugía queda penalizada por riesgo perioperatorio elevado, cuando hay una lesión distal tratable en tándem que favorece un abordaje endovascular combinado, o cuando la anatomía global sigue siendo razonablemente adecuada para CAS.
+        </p>
+
+        <h4>Papel actual de la CEA</h4>
+        <p>
+          La CEA no debe seguir presentándose como una indicación automática en la estenosis asintomática de alto grado. Los resultados contemporáneos de CREST-2 no mostraron un beneficio significativo de CEA frente a tratamiento médico intensivo solo. Sin embargo, tampoco debe considerarse una técnica meramente residual, ya que las guías vigentes continúan otorgándole un papel en pacientes cuidadosamente seleccionados, especialmente cuando el riesgo quirúrgico es muy bajo y la anatomía es favorable.
+        </p>
+
+        <h4>Cuándo no intervenir</h4>
+        <p>
+          Cuando no existen características que sugieran un riesgo elevado de ictus bajo tratamiento médico, cuando la expectativa de vida es limitada o cuando ni CEA ni CAS pueden ofrecerse con un riesgo periprocedimiento muy bajo, la estrategia más razonable es mantener tratamiento médico intensivo exclusivo. Este enfoque debe ser especialmente firme si la anatomía es desfavorable para ambas técnicas o si el centro no dispone de resultados auditables acordes con los estándares recomendados.
+        </p>
+      </div>
+    </div>
+
+    <div class="article-subcard">
+      <div class="article-subcard-header">Estenosis asintomática 50–69%</div>
+      <div class="article-subcard-body">
+        <p>
+          En este grupo, el beneficio de intervenir es incierto y no se recomienda revascularización rutinaria. Incluso en presencia de placa de alto riesgo, el enfoque general debe seguir siendo conservador, con tratamiento médico óptimo y selección extremadamente restrictiva de cualquier procedimiento.
+        </p>
+
+        <p>
+          Cuando una estenosis asintomática moderada se asocia a rasgos claros de placa de alto riesgo, puede considerarse de forma individualizada una mayor intensidad antitrombótica inicial, incluyendo un ciclo corto de doble antiagregación plaquetaria, siempre que el riesgo hemorrágico sea bajo y el caso se valore en su contexto clínico global.
+        </p>
+      </div>
+    </div>
+
+    <div class="article-subcard">
+      <div class="article-subcard-header">Estenosis asintomática &lt;50%</div>
+      <div class="article-subcard-body">
+        <p>
+          En la estenosis asintomática leve no existe indicación de revascularización. El manejo debe ser exclusivamente médico, con control de los factores de riesgo vascular.
+        </p>
+      </div>
+    </div>
+  `
+},
+
+{
+  id: 'detalle-factores-anatomicos',
+  title: 'Factores anatómicos y clínicos',
+  html: `
+    <div class="article-subcard">
+      <div class="article-subcard-header">Factores anatómicos y clínicos</div>
+      <div class="article-subcard-body">
+        <p>
+          La decisión entre tratamiento médico intensivo, endarterectomía carotídea (CEA) o stenting carotídeo (CAS) no depende únicamente del grado de estenosis o del carácter sintomático o asintomático del paciente. En la práctica clínica, varios factores anatómicos y clínicos pueden favorecer una técnica, penalizarla o incluso convertirla en poco razonable. Por ello, la valoración individual debe integrar no solo el riesgo embólico de la lesión, sino también la factibilidad técnica, el riesgo perioperatorio y la experiencia del centro.
+        </p>
+      </div>
+    </div>
+
+    <div class="article-subcard">
+      <div class="article-subcard-header">Riesgo perioperatorio alto para CEA</div>
+      <div class="article-subcard-body">
+        <p>
+          Cuando se habla de riesgo perioperatorio alto para CEA, se hace referencia a una probabilidad de complicaciones quirúrgicas neurológicas o de muerte superior a la aceptable para indicar cirugía carotídea. En términos prácticos, este factor deja de presentar a la CEA como una alternativa equivalente y la convierte en una opción fuertemente penalizada o en una contraindicación práctica. La interpretación clínica no debe ser “la cirugía sigue siendo una posibilidad más”, sino “la cirugía solo tendría cabida en un contexto excepcional”.
+        </p>
+
+        <p>
+          Este riesgo elevado puede depender de dos planos distintos. El primero es el propio paciente: comorbilidad cardiovascular grave, fragilidad, anatomía quirúrgica desfavorable o antecedentes que aumentan el riesgo operatorio. El segundo es el riesgo atribuible al centro: si la morbimortalidad perioperatoria real supera los umbrales aceptables, la CEA no debería seguir presentándose como opción estándar.
+        </p>
+
+        <p>
+          En la práctica, la presencia de riesgo perioperatorio alto para CEA desplaza la decisión hacia CAS si la anatomía endovascular es razonable. Si CAS también está penalizado, el peso de la decisión se mueve hacia tratamiento médico intensivo.
+        </p>
+      </div>
+    </div>
+
+    <div class="article-subcard">
+      <div class="article-subcard-header">Cuello hostil</div>
+      <div class="article-subcard-body">
+        <p>
+          El término cuello hostil se utiliza para describir situaciones en las que la exposición quirúrgica carotídea resulta más difícil o arriesgada de lo habitual. No se trata de una sola entidad, sino de un conjunto de circunstancias que aumentan la complejidad técnica de la cirugía y el riesgo de complicaciones locales o neurológicas.
+        </p>
+
+        <p>
+          Entre los ejemplos clásicos se incluyen la radioterapia cervical previa, la reestenosis tras una CEA previa, la cirugía cervical compleja previa, las estenosis muy altas o de acceso difícil y otras alteraciones locales que dificultan una disección segura.
+        </p>
+
+        <p>
+          Desde el punto de vista clínico, el cuello hostil no significa automáticamente que CAS sea obligatorio, pero sí reduce claramente el atractivo de CEA. Por ello, cuando el cuello es hostil y el acceso endovascular es razonable, suele favorecerse una estrategia endovascular. En cambio, cuando el cuello hostil coincide con una anatomía muy desfavorable para CAS, el caso entra en una zona de alta dificultad técnica y la decisión deja de ser lineal, requiriendo discusión multidisciplinar.
+        </p>
+      </div>
+    </div>
+
+    <div class="article-subcard">
+      <div class="article-subcard-header">Acceso endovascular complejo</div>
+      <div class="article-subcard-body">
+        <p>
+          El acceso endovascular complejo describe una anatomía vascular que hace técnicamente difícil, más arriesgado o menos reproducible realizar un CAS con seguridad. No se refiere a una mera incomodidad técnica, sino a la presencia de rasgos anatómicos que aumentan la dificultad para avanzar dispositivos, proteger distalmente la circulación cerebral o desplegar un stent de forma controlada.
+        </p>
+
+        <p>
+          Entre los ejemplos más relevantes están la tortuosidad marcada de la carótida o de los vasos de acceso, la calcificación severa del segmento carotídeo, los arcos aórticos desfavorables, como el arco tipo III o muy elongado, y los troncos supraaórticos hostiles.
+        </p>
+
+        <p>
+          Clínicamente, una anatomía hostil para CAS reduce su atractivo y puede hacer preferible CEA si la cirugía sigue siendo factible y segura. Si además la cirugía está penalizada por cuello hostil o por alto riesgo perioperatorio, la revascularización completa puede dejar de ser razonable y el tratamiento médico intensivo pasa a ocupar un papel central. En otras palabras, el acceso endovascular complejo no contraindica siempre CAS, pero sí obliga a preguntarse si el beneficio potencial justifica el riesgo técnico real.
+        </p>
+      </div>
+    </div>
+
+    <div class="article-subcard">
+      <div class="article-subcard-header">Lesión distal en tándem</div>
+      <div class="article-subcard-body">
+        <p>
+          La lesión en tándem hace referencia a la coexistencia de una estenosis carotídea cervical con una lesión arterial más distal ipsilateral. Debe diferenciarse el contexto agudo del contexto crónico o electivo.
+        </p>
+
+        <p>
+          En el ictus isquémico agudo con oclusión intracraneal asociada, la presencia de una lesión cervical en tándem puede modificar la estrategia de reperfusión y, en casos seleccionados, favorecer un abordaje endovascular combinado. En cambio, en la enfermedad aterosclerótica crónica con lesión distal asociada, la simple coexistencia de una lesión intracraneal no implica automáticamente beneficio de revascularizar la carótida cervical, y la decisión debe individualizarse con mayor cautela.
+        </p>
+
+        <p>
+          Si la lesión distal es no tratable o no modifica de forma realista el riesgo del paciente, el beneficio de revascularizar solo la carótida cervical puede reducirse de forma importante. Si la lesión distal es tratable y existe una lógica clara de abordaje combinado, el peso de la decisión puede desplazarse hacia una estrategia endovascular en centros con experiencia.
+        </p>
+      </div>
+    </div>
+
+    <div class="article-subcard">
+      <div class="article-subcard-header">Papel de la placa de alto riesgo</div>
+      <div class="article-subcard-body">
+        <p>
+          La placa de alto riesgo no se define solo por el porcentaje de estenosis, sino por sus características morfológicas e imagenológicas. Se consideran rasgos de mayor inestabilidad la ulceración, la irregularidad superficial, la composición hipodensa o heterogénea, la presencia de trombo adherido y la hemorragia intraplaca. Estos hallazgos se han asociado con mayor riesgo embólico y con mayor probabilidad de recurrencia isquémica.
+        </p>
+
+        <p>
+          En términos prácticos, la presencia de una placa de alto riesgo no convierte por sí sola una estenosis moderada en indicación directa de revascularización. Sin embargo, sí modifica el contexto clínico. Puede aumentar la preocupación por inestabilidad embólica, reforzar la necesidad de tratamiento médico intensivo muy estricto y, en algunos escenarios, justificar una valoración más individualizada o una mayor intensidad antitrombótica inicial.
+        </p>
+
+        <p>
+          Este matiz es especialmente importante en pacientes sintomáticos, donde la combinación de placa compleja y evento reciente puede aumentar el peso clínico del hallazgo. En otras palabras, la placa compleja no sustituye al resto de factores de decisión, pero sí aumenta la relevancia clínica de la lesión.
+        </p>
+      </div>
+    </div>
+
+    <div class="article-subcard">
+      <div class="article-subcard-header">Cómo se integran estos factores en la práctica</div>
+      <div class="article-subcard-body">
+        <p>
+          Lo relevante no es interpretar cada factor de forma aislada, sino entender cómo se combinan. Un cuello hostil favorece CAS, pero esa ventaja desaparece si el acceso endovascular también es muy complejo. Un alto riesgo perioperatorio para CEA puede desplazar la decisión hacia CAS, salvo que la anatomía para CAS sea mala. Una lesión distal tratable favorece el abordaje endovascular, mientras que una lesión distal no tratable puede hacer perder sentido a cualquier revascularización cervical.
+        </p>
+
+        <p>
+          Por eso, en el manejo contemporáneo de la estenosis carotídea, la anatomía no es un detalle técnico secundario, sino uno de los determinantes principales de la estrategia. La indicación final debe surgir de la integración entre riesgo neurológico, beneficio potencial, complejidad anatómica y experiencia local.
+        </p>
+      </div>
+    </div>
+  `
+},
+{
+  id: 'detalle-antitrombotico-postprocedimiento',
+  title: 'Tratamiento antitrombótico y postprocedimiento',
+  html: `
+    <div class="article-subcard">
+      <div class="article-subcard-header">Tratamiento antitrombótico y postprocedimiento</div>
+      <div class="article-subcard-body">
+        <p>
+          El tratamiento antitrombótico forma parte del núcleo del manejo de la estenosis carotídea y no debe entenderse como un elemento accesorio respecto a la revascularización. Tanto en los pacientes tratados de forma conservadora como en aquellos sometidos a CEA o CAS, la estrategia antitrombótica debe integrarse en un programa de prevención vascular intensiva que incluya estatinas de alta potencia, control tensional, abandono del tabaquismo y manejo estricto del riesgo cardiovascular global.
+        </p>
+      </div>
+    </div>
+
+    <div class="article-subcard">
+      <div class="article-subcard-header">Tratamiento médico sin intervención</div>
+      <div class="article-subcard-body">
+        <p>
+          Cuando no existe indicación de revascularización, el tratamiento antitrombótico depende del contexto clínico. En pacientes asintomáticos o en enfermedad estable, la estrategia habitual es monoterapia antiagregante, generalmente con ácido acetilsalicílico o clopidogrel, junto con tratamiento médico intensivo de los factores de riesgo.
+        </p>
+
+        <p>
+          En pacientes recientemente sintomáticos no candidatos a revascularización, o en los que esta no se vaya a realizar, puede considerarse un ciclo corto de doble antiagregación con ácido acetilsalicílico y clopidogrel durante 21 días, seguido de monoterapia, siempre tras excluir hemorragia intracraneal y valorar el riesgo hemorrágico.
+        </p>
+      </div>
+    </div>
+
+    <div class="article-subcard">
+      <div class="article-subcard-header">Cuándo considerar DAPT temporal</div>
+      <div class="article-subcard-body">
+        <p>
+          La doble antiagregación plaquetaria (DAPT) no es un tratamiento universal de la estenosis carotídea, pero sí puede tener un papel en contextos seleccionados. En pacientes sintomáticos recientes, especialmente cuando existe una placa de alto riesgo o un contexto de mayor inestabilidad embólica, una fase corta de DAPT puede ser razonable antes de pasar a monoterapia.
+        </p>
+
+        <p>
+          Este enfoque puede ser especialmente útil en escenarios donde la carga embólica parece elevada, pero el beneficio de la revascularización es limitado, discutible o dependiente de una valoración individualizada. Así, la DAPT temporal no sustituye una intervención claramente indicada, pero sí puede reforzar el tratamiento médico en situaciones donde la estabilización de la placa y la reducción del riesgo de recurrencia precoz son prioritarias.
+        </p>
+      </div>
+    </div>
+
+    <div class="article-subcard">
+      <div class="article-subcard-header">Tratamiento antitrombótico tras CEA</div>
+      <div class="article-subcard-body">
+        <p>
+          Tras una endarterectomía carotídea, la estrategia estándar suele ser la antiagregación simple a largo plazo. La cirugía elimina la placa diana, por lo que en general no se requiere el mismo esquema de DAPT que tras un implante endovascular. Las guías europeas recomiendan, además, dosis bajas de aspirina en pacientes sometidos a CEA, lo que refuerza la idea de que el tratamiento postoperatorio habitual es monoterapia antiagregante, no doble antiagregación prolongada.
+        </p>
+
+        <p>
+          En este contexto, el foco del postratamiento no se centra tanto en la trombosis del procedimiento como en la prevención secundaria global del paciente aterosclerótico.
+        </p>
+
+        <p>
+          En pacientes recientemente sintomáticos que van a ser intervenidos, puede considerarse DAPT perioperatoria en casos seleccionados, aunque la monoterapia con aspirina sigue siendo una estrategia válida y frecuente.
+        </p>
+      </div>
+    </div>
+
+    <div class="article-subcard">
+      <div class="article-subcard-header">Tratamiento antitrombótico tras CAS</div>
+      <div class="article-subcard-body">
+        <p>
+          El escenario cambia con CAS. La colocación de un stent introduce una superficie protésica intraluminal con riesgo trombótico precoz, por lo que la DAPT durante un periodo inicial forma parte del manejo estándar. Clopidogrel debe iniciarse al menos 3 días antes del procedimiento o administrarse en dosis de carga de 300 mg en casos urgentes.
+        </p>
+
+        <p>
+          En la práctica clínica contemporánea, la estrategia habitual consiste en DAPT durante al menos 4 semanas, habitualmente 1 a 3 meses según contexto y protocolo del centro, seguida de antiagregación simple indefinida. Este planteamiento está alineado con la evidencia reciente sobre duración óptima de DAPT tras revascularización carotídea.
+        </p>
+
+        <p>
+          En consecuencia, cuando la recomendación final se orienta hacia CAS, no debe pensarse solo en la técnica, sino en todo el paquete terapéutico: selección anatómica adecuada, experiencia del centro, prevención perioperatoria de embolización y un plan antitrombótico postprocedimiento bien definido.
+        </p>
+      </div>
+    </div>
+
+    <div class="article-subcard">
+      <div class="article-subcard-header">Papel del riesgo hemorrágico y de la individualización</div>
+      <div class="article-subcard-body">
+        <p>
+          Aunque los esquemas anteriores son útiles como marco general, el tratamiento antitrombótico siempre debe adaptarse al riesgo hemorrágico, a la presencia de necesidad concomitante de anticoagulación, a la edad, a la fragilidad y al contexto neurológico agudo o subagudo. Por ello, cualquier recomendación debe entenderse como una guía estructurada que requiere ajuste clínico individual.
+        </p>
+      </div>
+    </div>
+  `
+},
+
+{
+  id: 'detalle-discusion-multidisciplinar',
+  title: 'Discusión multidisciplinar y resultados del centro',
+  html: `
+    <div class="article-subcard">
+      <div class="article-subcard-header">Discusión multidisciplinar y resultados del centro</div>
+      <div class="article-subcard-body">
+        <p>
+          La discusión multidisciplinar no es una formalidad organizativa, sino una parte esencial del proceso de decisión en la estenosis carotídea contemporánea. En los escenarios limítrofes, anatómicamente complejos o de beneficio incierto, la indicación final no debe basarse únicamente en el porcentaje de estenosis, sino en la integración de la visión neurológica, quirúrgica y endovascular.
+        </p>
+      </div>
+    </div>
+
+    <div class="article-subcard">
+      <div class="article-subcard-header">Qué significa realmente una discusión multidisciplinar</div>
+      <div class="article-subcard-body">
+        <p>
+          La discusión multidisciplinar implica valorar el mismo caso desde perspectivas complementarias. La visión neurológica analiza la plausibilidad de que la lesión carotídea sea responsable del evento clínico, el riesgo de recurrencia y el contexto cerebrovascular global. La visión de cirugía vascular valora la viabilidad y el riesgo de CEA. La visión endovascular analiza la factibilidad real de CAS, su dificultad anatómica y el riesgo técnico asociado.
+        </p>
+
+        <p>
+          Este modelo permite evitar decisiones basadas en una lógica parcial. Un paciente puede parecer, en abstracto, candidato a intervención, pero dejar de serlo cuando se consideran con detalle la anatomía, la complejidad técnica, la comorbilidad y el riesgo perioperatorio real.
+        </p>
+      </div>
+    </div>
+
+    <div class="article-subcard">
+      <div class="article-subcard-header">Cuándo la discusión multidisciplinar es especialmente importante</div>
+      <div class="article-subcard-body">
+        <p>
+          La necesidad de discusión multidisciplinar adquiere máximo valor en los escenarios donde la indicación no es lineal.
+        </p>
+
+        <h4>Estenosis sintomática moderada</h4>
+        <p>
+          En la estenosis sintomática 50–69%, el beneficio de la revascularización es más modesto que en la estenosis grave. Por ello, la discusión multidisciplinar permite distinguir entre un caso con riesgo embólico relativamente bajo, en el que basta tratamiento médico intensivo, y otro con rasgos de mayor inestabilidad o recurrencia potencial, en el que puede tener sentido discutir una estrategia invasiva.
+        </p>
+
+        <h4>Estenosis asintomática de alto grado</h4>
+        <p>
+          La estenosis asintomática 70–99% es el escenario más representativo de la necesidad de selección rigurosa. En este grupo, el tratamiento médico intensivo es siempre la base. Si se considera revascularización, la discusión debe centrarse en si existe un beneficio adicional real, en qué pacientes podría justificarse y qué técnica ofrece el mejor balance entre eficacia y seguridad. Esto exige valorar de manera muy estricta la anatomía, el riesgo periprocedimiento, la expectativa de vida y los resultados del centro.
+        </p>
+
+        <h4>Discordancia anatómica entre técnicas</h4>
+        <p>
+          Otro escenario clásico es la coexistencia de cuello hostil y acceso endovascular complejo. En teoría, puede parecer que ambas técnicas siguen siendo posibles; en la práctica, ambas quedan muy penalizadas. Aquí la discusión multidisciplinar es el lugar donde se decide si todavía existe una opción invasiva razonable o si el tratamiento médico intensivo ofrece un balance beneficio-riesgo claramente superior.
+        </p>
+
+        <h4>Lesiones en tándem</h4>
+        <p>
+          Las lesiones en tándem son otro ejemplo paradigmático. Una cirugía carotídea puede resolver la estenosis cervical, pero dejar sin tratar la lesión distal. Un abordaje endovascular puede permitir una estrategia combinada, aunque a costa de mayor complejidad técnica. La discusión multidisciplinar resulta esencial para decidir si esa estrategia es factible, si el riesgo es aceptable y si el caso debe manejarse en un centro con mayor experiencia.
+        </p>
+      </div>
+    </div>
+
+    <div class="article-subcard">
+      <div class="article-subcard-header">Resultados del centro: un factor determinante</div>
+      <div class="article-subcard-body">
+        <p>
+          Uno de los principios fundamentales del manejo contemporáneo de la estenosis carotídea es que no basta con que una técnica sea correcta en teoría; debe ser segura y eficaz en ese centro concreto. La indicación de revascularización depende de que las tasas reales de complicaciones perioperatorias se mantengan dentro de límites aceptables.
+        </p>
+
+        <p>
+          Esto es particularmente relevante para CEA, pero también para CAS, cuya indicación contemporánea depende mucho del volumen, de la experiencia técnica y de los resultados auditables del equipo intervencionista. En la práctica, dos pacientes anatómicamente parecidos pueden recibir recomendaciones diferentes según el centro en el que se valoren. Lejos de ser una incoherencia, esto refleja una realidad clínica: la calidad del procedimiento no reside solo en la técnica escogida, sino también en quién la realiza, con qué experiencia y con qué resultados.
+        </p>
+
+        <p>
+          En términos prácticos, la revascularización solo debe proponerse cuando el centro pueda documentar resultados acordes con los umbrales de seguridad exigibles para el escenario clínico concreto.
+        </p>
+      </div>
+    </div>
+
+    <div class="article-subcard">
+      <div class="article-subcard-header">Implicaciones prácticas</div>
+      <div class="article-subcard-body">
+        <p>
+          La discusión multidisciplinar y los resultados del centro no son factores externos a la decisión terapéutica, sino parte de la propia indicación. Si una técnica está claramente favorecida y el centro tiene buenos resultados, puede plantearse como opción preferente. Si una técnica está penalizada por anatomía o por riesgo perioperatorio, no debe seguir presentándose como equivalente. Y si ambas técnicas están penalizadas, la decisión debe orientarse a determinar si aún existe una opción invasiva razonable o si la estrategia más sensata es mantener tratamiento médico intensivo solo.
+        </p>
+
+        <p>
+          En definitiva, en la estenosis carotídea moderna, elegir bien no significa únicamente saber qué técnica funciona en los ensayos, sino identificar qué estrategia ofrece el mejor balance entre beneficio, riesgo, anatomía y experiencia real del entorno asistencial.
+        </p>
+      </div>
+    </div>
+  `
+},
+
+{
+  id: 'detalle-algoritmo-practico',
+  title: 'Algoritmo clínico práctico',
+  html: `
+    <div class="article-subcard">
+      <div class="article-subcard-header">Algoritmo clínico práctico</div>
+      <div class="article-subcard-body">
+        <p>
+          Desde un punto de vista práctico, la toma de decisiones en la estenosis carotídea puede organizarse en una secuencia clínica relativamente simple. El primer paso consiste en descartar aquellos escenarios en los que la revascularización no suele aportar beneficio neto, como la oclusión carotídea completa, la presencia de una lesión distal no tratable, la contraindicación general para intervenir o una expectativa de vida muy limitada.
+        </p>
+
+        <p>
+          Una vez excluidos estos supuestos, la estenosis sintomática de 70–99% debe considerarse, en términos generales, un escenario favorable a la revascularización. En este contexto, la CEA mantiene su papel como técnica de referencia cuando la anatomía quirúrgica es favorable y el riesgo perioperatorio es aceptable, mientras que CAS adquiere preferencia cuando la cirugía está penalizada o cuando existe una lesión distal tratable que favorece un abordaje endovascular combinado.
+        </p>
+
+        <p>
+          En la estenosis sintomática de 50–69%, el tratamiento médico intensivo constituye la estrategia de base, y la revascularización debe reservarse a casos seleccionados tras una valoración individualizada. En la estenosis sintomática inferior al 50%, el manejo debe ser médico, ya que el grado de estrechamiento no sostiene de forma habitual una indicación invasiva.
+        </p>
+
+        <p>
+          En la estenosis asintomática de 70-99%, la decisión debe formularse siempre frente al comparador real del tratamiento médico intensivo solo. Si se plantea revascularización, CAS dispone de soporte contemporáneo aleatorizado de beneficio frente a tratamiento médico intensivo solo y puede considerarse la estrategia con mayor peso actual en pacientes muy seleccionados y en centros con experiencia. La CEA, aunque no ha mostrado el mismo nivel de respaldo en CREST-2, puede seguir considerándose en pacientes cuidadosamente seleccionados según riesgo quirúrgico, anatomía y resultados del centro.
+        </p>
+
+        <p>
+          En todos los casos, cuando una técnica está claramente penalizada por factores anatómicos o clínicos, no debe seguir presentándose como una alternativa equivalente.
+        </p>
+
+        <p>
+          La indicación final debe construirse sobre el equilibrio entre beneficio esperado, viabilidad anatómica, riesgo perioperatorio y experiencia real del centro.
+        </p>
+      </div>
+    </div>
+  `
+},
+
+{
+  id: 'detalle-conclusiones',
+  title: 'Conclusiones',
+  html: `
+    <div class="article-subcard">
+      <div class="article-subcard-header">Conclusiones</div>
+      <div class="article-subcard-body">
+        <p>
+          El tratamiento contemporáneo de la estenosis carotídea exige una aproximación menos automática y más contextual que en décadas previas.
+        </p>
+
+        <p>
+          En la estenosis sintomática grave, la revascularización continúa siendo un componente central del manejo, con predominio de la CEA cuando la anatomía quirúrgica es favorable y de CAS en situaciones quirúrgicas adversas o en presencia de lesiones distales tratables en tándem. En la estenosis sintomática moderada, en cambio, el tratamiento médico intensivo constituye la base de la estrategia, y la revascularización debe reservarse a pacientes seleccionados tras una valoración individualizada.
+        </p>
+
+        <p>
+          En la estenosis asintomática, el foco se ha desplazado claramente hacia la selección rigurosa y hacia el predominio del tratamiento médico intensivo. Si se considera una intervención en estenosis de alto grado, esta debe entenderse siempre como una decisión comparada frente a tratamiento médico intensivo solo, y no como una indicación automática derivada del porcentaje de estenosis. En este contexto, los resultados de CREST-2 refuerzan especialmente el papel de CAS asociado a tratamiento médico intensivo en pacientes muy seleccionados, mientras que CEA no ha demostrado en ese ensayo un beneficio significativo frente a tratamiento médico intensivo solo. No obstante, CEA puede seguir teniendo cabida en casos seleccionados hasta que futuras actualizaciones de guías redefinan con mayor precisión el lugar relativo de ambas técnicas.
+        </p>
+
+        <p>
+          En conjunto, el abordaje más sólido de la estenosis carotídea es hoy el que integra de forma realista la evidencia disponible, la situación clínica, la anatomía vascular, el riesgo perioperatorio y los resultados del centro. Más que elegir entre técnicas en abstracto, la práctica actual exige identificar qué estrategia ofrece el mejor balance entre beneficio esperado, complejidad técnica y seguridad en cada paciente.
+        </p>
+      </div>
+    </div>
+  `
+}
+];
+
+function renderDetallesArticuloEstenosis(){
+  const cont = document.getElementById('detalles-articulo-estenosis');
+  if (!cont) return;
+
+  cont.innerHTML = capitulosEstenosis.map(cap => `
+    <details class="details-block article-detail" id="${cap.id}">
+      <summary class="details-summary">📑 ${cap.title}</summary>
+      <div class="article-detail-body">
+        ${cap.html}
+      </div>
+    </details>
+  `).join('');
+}
+
+function activarAcordeonDetallesArticulo(){
+  const detalles = document.querySelectorAll('#detalles-articulo-estenosis .details-block');
+
+  detalles.forEach((detail) => {
+    detail.addEventListener('toggle', function () {
+      if (!this.open) return;
+
+      detalles.forEach((other) => {
+        if (other !== this) {
+          other.open = false;
+        }
+      });
+
+      requestAnimationFrame(() => {
+        const headerOffset = 120;
+        const y = this.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+          top: y,
+          behavior: 'smooth'
+        });
+      });
+    });
+  });
+}
 
 /* ==========================
    Listeners
@@ -1643,6 +2821,45 @@ $('btnCalc').addEventListener('click', calcular);
 $('btnClear').addEventListener('click', borrar);
 const btnCopyEl = $('btnCopy');
 if (btnCopyEl) btnCopyEl.addEventListener('click', copiar);
+
+renderDetallesArticuloEstenosis();
+activarAcordeonDetallesArticulo();
+
+const btnOpenFeedback = $('btnOpenFeedback');
+const btnCloseFeedback = $('btnCloseFeedback');
+const btnPrepareFeedback = $('btnPrepareFeedback');
+const btnSendFeedback = $('btnSendFeedback');
+
+if (btnOpenFeedback) {
+  btnOpenFeedback.addEventListener('click', (e) => {
+    e.preventDefault();
+    openFeedbackForm();
+  });
+}
+
+if (btnCloseFeedback) {
+  btnCloseFeedback.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeFeedbackForm();
+  });
+}
+
+if (btnPrepareFeedback) {
+  btnPrepareFeedback.addEventListener('click', (e) => {
+    e.preventDefault();
+    previewFeedbackPayload();
+  });
+}
+
+if (btnSendFeedback) {
+  btnSendFeedback.addEventListener('click', (e) => {
+    e.preventDefault();
+    openFeedbackEmail();
+  });
+}
+
+resetFeedbackState();
+
 </script>
     <footer> <img src="../img/uibanner.png" alt="Ictus GPS">
     </footer>
