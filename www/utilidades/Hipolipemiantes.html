@@ -544,8 +544,222 @@ body {
   color: #0f3d83;
 }
 
-</style>
-  </head>
+.details-block{
+  margin-top:6px;
+}
+
+.details-summary{
+  cursor:pointer;
+  font-weight:700;
+  color:#0f3d83;
+}
+
+.article-subcard{
+  margin:14px 0;
+  background:#ffffff;
+  border:1px solid #d0d7e1;
+  border-radius:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.04);
+  overflow:hidden;
+}
+
+.article-subcard-header{
+  background:#0f3d83;
+  color:#ffffff;
+  padding:9px 13px;
+  font-size:14px;
+  font-weight:700;
+}
+
+.article-subcard-body{
+  padding:14px 16px;
+  font-size:13px;
+  line-height:1.55;
+  color:#1e293b;
+}
+
+.article-subcard-body p{
+  margin:0 0 12px;
+}
+
+.article-subcard-body p:last-child{
+  margin-bottom:0;
+}
+
+.article-subcard-body h4{
+  margin:14px 0 8px;
+  color:#0f3d83;
+  font-size:13px;
+  font-weight:800;
+  border-top:1px solid #e5e7eb;
+  padding-top:10px;
+}
+
+.article-subcard-body h4:first-child{
+  margin-top:0;
+  border-top:none;
+  padding-top:0;
+}
+
+.article-detail-body{
+  padding:10px 0 4px;
+}
+
+.article-detail > summary{
+  margin-bottom:8px;
+}
+
+/* =========================================================
+   FEEDBACK DE RESULTADO
+========================================================= */
+.feedback-launch{
+  margin:18px 0;
+  background:#fffdf5;
+  border:1px solid #f3e8b3;
+  border-left:4px solid #d4a514;
+  border-radius:12px;
+  padding:14px 16px;
+}
+
+.feedback-launch p{
+  margin:0 0 12px 0;
+  color:#5b4a00;
+  line-height:1.4;
+  font-size:14px;
+}
+
+.feedback-form-wrap{
+  display:none;
+  margin:12px 0 18px;
+  background:#ffffff;
+  border:1px solid #d9e4f2;
+  border-radius:14px;
+  box-shadow:0 3px 14px rgba(16,71,119,0.08);
+  padding:14px;
+}
+
+.feedback-form-wrap.show{
+  display:block;
+}
+
+.feedback-form-grid{
+  display:grid;
+  gap:12px;
+}
+
+.feedback-form-wrap textarea,
+.feedback-form-wrap input[type="email"],
+.feedback-form-wrap select{
+  width:100%;
+  box-sizing:border-box;
+  border:1px solid #cfe3f6;
+  background:#fff;
+  border-radius:10px;
+  padding:10px 12px;
+  font-size:1rem;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.feedback-form-wrap textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+.feedback-form-wrap .check{
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  margin:6px 0;
+  font-weight:400;
+}
+
+.feedback-form-wrap .check input{
+  margin-top:2px;
+  accent-color:#0f3d83;
+}
+
+.feedback-help{
+  font-size:.84rem;
+  color:#567;
+  margin-top:4px;
+}
+
+.feedback-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:12px;
+  align-items:center;
+}
+
+.feedback-note{
+  font-size:.84rem;
+  color:#6b7280;
+  margin-top:10px;
+}
+
+.feedback-preview{
+  margin-top:12px;
+  padding:10px 12px;
+  background:#f8fbff;
+  border:1px solid #d9e4f2;
+  border-radius:10px;
+  color:#345;
+  display:none;
+}
+
+.feedback-preview.show{
+  display:block;
+}
+
+.feedback-btn{
+  border:0;
+  border-radius:999px;
+  padding:10px 16px;
+  font-weight:700;
+  cursor:pointer;
+  line-height:1;
+  flex:0 0 auto;
+}
+
+.feedback-btn-primary{
+  background:#0f3d83;
+  color:#fff;
+}
+
+.feedback-btn-primary:hover{
+  background:#fff;
+  color:#0f3d83;
+  border:2px solid #0f3d83;
+}
+
+.feedback-btn-ghost{
+  background:#fff;
+  color:#0f3d83;
+  border:2px solid #0f3d83;
+}
+
+.feedback-btn-ghost:hover:not(:disabled){
+  background:#0f3d83;
+  color:#fff;
+}
+
+.feedback-btn:disabled,
+.feedback-btn-ghost:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+
+@media print{
+  .feedback-launch,
+  .feedback-form-wrap{
+    display:none !important;
+  }
+}
+
+</style>  
+
+</head>
   <body>
     <!-- SAFE-TOP -->
     <div class="safe-top">
@@ -657,7 +871,7 @@ body {
               class="btn-action btn-copy no-print" id="btnCopiar">Copiar
               resumen</button> </div>
         </form>
-        <aside class="card">
+        <aside class="card hide" id="resultCard">
           <h2>Resultados y recomendación</h2>
           <div id="resultado" class="results">
             <p class="hint">Complete los supuestos y pulse <span
@@ -669,7 +883,7 @@ body {
           </div>
         </aside>
         <!-- Disclaimer final con fondo rojo tenue (inicialmente oculto) -->
-        <div class="disclaimer-red hide" id="disclaimerFinal">
+                <div class="disclaimer-red hide" id="disclaimerFinal">
           <p>Esta herramienta tiene finalidad exclusivamente orientativa
             y no sustituye el juicio clínico del facultativo. Las
             recomendaciones se basan en guías ESC/EAS y AHA/ASA
@@ -678,51 +892,64 @@ body {
             tratamiento hipolipemiante debe ajustarse siempre bajo
             supervisión médica.</p>
         </div>
-        <div class="howto">
+
+<div class="feedback-launch" id="feedbackLaunchBox">
+  <p><b>¿Considera que la recomendación no se ajusta a la práctica clínica?</b><br>
+  Por favor, comuníquelo para revisar y mejorar la herramienta. No empleará más de 1 minuto.</p>
+  <button type="button" class="feedback-btn feedback-btn-ghost" id="btnOpenFeedback" disabled="disabled">
+    Comunicar resultado no adecuado
+  </button>
+</div>
+
+<div class="feedback-form-wrap" id="feedbackFormWrap">
+  <h3 style="margin:0 0 10px;">Comunicar resultado no adecuado</h3>
+
+  <div class="feedback-form-grid">
+    <div>
+      <label for="feedbackEmail">Correo electrónico</label>
+      <input type="email" id="feedbackEmail" placeholder="tu_correo@dominio.com">
+      <div class="feedback-help">Se utilizará solo para poder responderte o pedir aclaraciones.</div>
+    </div>
+
+    <div>
+      <label for="feedbackReason">Motivo principal</label>
+      <select id="feedbackReason">
+        <option value="">Selecciona…</option>
+        <option value="estrategia">La estrategia elegida no parece adecuada</option>
+        <option value="factores">La interpretación de los factores no parece correcta</option>
+        <option value="coherencia">La recomendación no parece coherente con el escenario</option>
+        <option value="detalle">Falta una matización importante</option>
+        <option value="otro">Otro motivo</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="feedbackMessage">Explique por qué considera que la respuesta no es adecuada</label>
+      <textarea id="feedbackMessage" placeholder="Describa el problema clínico o lógico que ha detectado. Evite incluir datos identificativos del paciente."></textarea>
+      <div class="feedback-help">No introduzca nombre, NHC ni otros datos identificativos del paciente.</div>
+    </div>
+
+    <label class="check" for="feedbackConsent">
+      <input id="feedbackConsent" type="checkbox">
+      Confirmo que el comentario no incluye datos identificativos innecesarios
+    </label>
+  </div>
+
+  <div class="feedback-actions">
+    <button type="button" class="feedback-btn feedback-btn-primary" id="btnPrepareFeedback">Previsualizar mensaje</button>
+    <button type="button" class="feedback-btn feedback-btn-primary" id="btnSendFeedback">Abrir correo</button>
+    <button type="button" class="feedback-btn feedback-btn-ghost" id="btnCloseFeedback">Cerrar</button>
+  </div>
+
+  <div class="feedback-preview" id="feedbackPreview"></div>
+  <div class="feedback-note"><b>Muchas gracias por ayudarnos a mejorar la herramienta.</b></div>
+</div>
+
+      <div class="howto" id="desarrollo-teorico">
+  <h3 style="margin-top:0; color:#0f3d83;">📘 Desarrollo teórico ampliado</h3>
+  <div id="detalles-articulo-hipolipemiantes" style="padding-left:2px;"></div>
+<!-- Evidencia VESALIUS-CV -->
           <details style="margin-top:1px;">
-            <summary
-              style="cursor:pointer;font-weight:700;color:#0f3d83;">📚
-              Bibliografía</summary>
-            <div style=" margin-top:14px; background:#ffffff; border:1px
-              solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
-              rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
-              line-height:1.55; color:#1e293b;
-              ">
-              <!-- Barra superior tipo guideline -->
-              <div style=" background:#0f3d83; color:#ffffff;
-                padding:10px 14px; font-size:14px; font-weight:700;
-                letter-spacing:0.3px; "> 📘 Referencias bibliográficas </div>
-              <!-- Contenido -->
-              <div style="padding:16px 18px;">
-                <ol style="margin:8px; padding-left:20px;
-                  font-size:10px; line-height:1.45;">
-                  <li>Mach F, et&nbsp;al. 2019 ESC/EAS Guidelines for
-                    the management of dyslipidaemias. <em>Eur Heart J</em>.</li>
-                  <li>Visseren FLJ, et&nbsp;al. 2021 ESC Guidelines on
-                    cardiovascular disease prevention. <em>Eur Heart J</em>.</li>
-                  <li>Kleindorfer DO, et&nbsp;al. 2021 AHA/ASA Guideline
-                    for the Prevention of Stroke in Patients With Stroke
-                    and TIA. <em>Stroke</em>.</li>
-                  <li>Cannon CP, et&nbsp;al. IMPROVE-IT. <em>N Engl J
-                      Med</em> 2015.</li>
-                  <li>Sabatine MS, et&nbsp;al. FOURIER; Giugliano RP,
-                    et&nbsp;al. FOURIER-OLE. <em>N Engl J Med</em>.</li>
-                  <li>Schwartz GG, et&nbsp;al. ODYSSEY OUTCOMES. <em>N
-                      Engl J Med</em> 2018.</li>
-                  <li>Ray KK, et&nbsp;al. ORION-10/11 (inclisirán). <em>N
-                      Engl J Med</em> 2020.</li>
-                  <li>Nissen SE, et&nbsp;al. CLEAR Outcomes (ácido
-                    bempedoico). <em>N Engl J Med</em> 2023.</li>
-                  <li>Bohula EA, et&nbsp;al. VESALIUS-CV (evolocumab en
-                    pacientes sin IAM/ictus previos). <em>N Engl J Med</em>
-                    2025.</li>
-                </ol>
-              </div>
-            </div>
-          </details>
-          <br>
-          <!-- Evidencia VESALIUS-CV -->
-          <details style="margin-top:1px;" open="">
             <summary
               style="cursor:pointer;font-weight:700;color:#0f3d83;">🚨
               Evidencia reciente</summary>
@@ -734,7 +961,7 @@ body {
               <!-- Barra superior tipo guideline -->
               <div style=" background:#0f3d83; color:#ffffff;
                 padding:10px 14px; font-size:14px; font-weight:700;
-                letter-spacing:0.3px; "> 📰 VESALIUS-CV (NEJM 2025) </div>
+                letter-spacing:0.3px; "> 📰 VESALIUS-CV (NEJM 2026) </div>
               <!-- Contenido -->
               <div style="padding:16px 18px;" align="justify"> <b>VESALIUS-CV</b>
                 evaluó evolocumab frente a placebo en 12.257 pacientes
@@ -756,9 +983,494 @@ body {
                 tratamiento óptimo. </div>
             </div>
           </details>
-        </div>
+
+</div>
+        <div class="howto">
+<details style="margin-top:1px;">
+            <summary
+              style="cursor:pointer;font-weight:700;color:#0f3d83;">📒 Glosario de acrónimos</summary>
+            <div style=" margin-top:14px; background:#ffffff; border:1px
+              solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
+              rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
+              line-height:1.55; color:#1e293b;
+              ">
+              <!-- Barra superior tipo guideline -->
+              <div style=" background:#0f3d83; color:#ffffff;
+                padding:10px 14px; font-size:14px; font-weight:700;
+                letter-spacing:0.3px; "> 🔤 Acrónimos utilizados </div>
+              <!-- Contenido -->
+              <div style="padding:16px 18px;">
+                <ul class="details-list-compact glossary-list">
+        <li><b>AAC</b>: angiopatía amiloide cerebral.</li>
+        <li><b>AHA/ASA</b>: American Heart Association / American Stroke Association.</li>
+        <li><b>AIT</b>: accidente isquémico transitorio.</li>
+        <li><b>ARN</b>: ácido ribonucleico.</li>
+        <li><b>ASCVD</b>: <i>atherosclerotic cardiovascular disease</i>. Enfermedad cardiovascular aterosclerótica.</li>
+        <li><b>ATP</b>: adenosín trifosfato.</li>
+        <li><b>C-LDL</b>: colesterol unido a lipoproteínas de baja densidad. Equivale a LDL-colesterol.</li>
+        <li><b>CLEAR Outcomes</b>: ensayo clínico que evaluó ácido bempedoico en pacientes con intolerancia a estatinas.</li>
+        <li><b>EANS</b>: European Association of Neurosurgical Societies.</li>
+        <li><b>ESC/EAS</b>: European Society of Cardiology / European Atherosclerosis Society.</li>
+        <li><b>ESO</b>: European Stroke Organisation. Organización Europea del Ictus.</li>
+        <li><b>FOURIER</b>: ensayo clínico que evaluó evolocumab en pacientes con enfermedad cardiovascular aterosclerótica.</li>
+        <li><b>FOURIER-OLE</b>: extensión abierta del ensayo FOURIER.</li>
+        <li><b>ICH</b>: <i>intracerebral hemorrhage</i>. Hemorragia intracerebral.</li>
+        <li><b>IMPROVE-IT</b>: ensayo clínico que evaluó la combinación de simvastatina y ezetimiba tras síndrome coronario agudo.</li>
+        <li><b>iPCSK9</b>: inhibidor de PCSK9. Incluye fármacos como evolocumab y alirocumab.</li>
+        <li><b>LDL</b>: lipoproteína de baja densidad.</li>
+        <li><b>Lp(a)</b>: lipoproteína(a).</li>
+        <li><b>MACE</b>: eventos cardiovasculares mayores. Del inglés <i>major adverse cardiovascular events</i>.</li>
+        <li><b>ODYSSEY OUTCOMES</b>: ensayo clínico que evaluó alirocumab tras síndrome coronario agudo.</li>
+        <li><b>ORION</b>: programa de ensayos clínicos de inclisirán.</li>
+        <li><b>PCSK9</b>: proproteína convertasa subtilisina/kexina tipo 9. Proteína implicada en el metabolismo del receptor LDL.</li>
+        <li><b>siRNA</b>: <i>small interfering RNA</i>. ARN interferente pequeño.</li>
+        <li><b>SNS</b>: Sistema Nacional de Salud.</li>
+        <li><b>SPARCL</b>: ensayo clínico <i>Stroke Prevention by Aggressive Reduction in Cholesterol Levels</i>, relevante para el uso de atorvastatina en prevención secundaria tras ictus o AIT.</li>
+        <li><b>TIA</b>: <i>transient ischemic attack</i>. Equivalente en inglés a AIT.</li>
+        <li><b>VESALIUS-CV</b>: ensayo clínico que evaluó evolocumab en pacientes de alto riesgo cardiovascular sin infarto ni ictus previos.</li>
+      </ul>
+              </div>
+            </div>
+          </details>
+          <details style="margin-top:1px;">
+            <summary
+              style="cursor:pointer;font-weight:700;color:#0f3d83;">📚
+              Bibliografía</summary>
+            <div style=" margin-top:14px; background:#ffffff; border:1px
+              solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px
+              rgba(0,0,0,0.05); overflow:hidden; font-size:13px;
+              line-height:1.55; color:#1e293b;
+              ">
+              <!-- Barra superior tipo guideline -->
+              <div style=" background:#0f3d83; color:#ffffff;
+                padding:10px 14px; font-size:14px; font-weight:700;
+                letter-spacing:0.3px; "> 📘 Referencias bibliográficas </div>
+              <!-- Contenido -->
+              <div style="padding:16px 18px;">
+                <ol style="margin:8px; padding-left:20px; font-size:10px; line-height:1.45;">
+  <li>Kleindorfer DO, Towfighi A, Chaturvedi S, Cockroft KM, Gutierrez J, Lombardi-Hill D, et al. 2021 Guideline for the prevention of stroke in patients with stroke and transient ischemic attack: a guideline from the American Heart Association/American Stroke Association. <em>Stroke</em>. 2021;52(7):e364-e467. doi:10.1161/STR.0000000000000375.</li>
+
+  <li>Mach F, Baigent C, Catapano AL, Koskinas KC, Casula M, Badimon L, et al. 2019 ESC/EAS Guidelines for the management of dyslipidaemias: lipid modification to reduce cardiovascular risk. <em>Eur Heart J</em>. 2020;41(1):111-188. doi:10.1093/eurheartj/ehz455.</li>
+
+  <li>Amarenco P, Bogousslavsky J, Callahan A 3rd, Goldstein LB, Hennerici M, Rudolph AE, et al. High-dose atorvastatin after stroke or transient ischemic attack. <em>N Engl J Med</em>. 2006;355(6):549-559. doi:10.1056/NEJMoa061894.</li>
+
+  <li>Amarenco P, Kim JS, Labreuche J, Charles H, Abtan J, Béjot Y, et al. A comparison of two LDL cholesterol targets after ischemic stroke. <em>N Engl J Med</em>. 2020;382(1):9-19. doi:10.1056/NEJMoa1910355.</li>
+
+  <li>Cannon CP, Blazing MA, Giugliano RP, McCagg A, White JA, Theroux P, et al. Ezetimibe added to statin therapy after acute coronary syndromes. <em>N Engl J Med</em>. 2015;372(25):2387-2397. doi:10.1056/NEJMoa1410489.</li>
+
+  <li>Sabatine MS, Giugliano RP, Keech AC, Honarpour N, Wiviott SD, Murphy SA, et al. Evolocumab and clinical outcomes in patients with cardiovascular disease. <em>N Engl J Med</em>. 2017;376(18):1713-1722. doi:10.1056/NEJMoa1615664.</li>
+
+  <li>Giugliano RP, Pedersen TR, Saver JL, Sever PS, Keech AC, Bohula EA, et al. Stroke prevention with the PCSK9 inhibitor evolocumab added to statin in high-risk patients with stable atherosclerosis. <em>Stroke</em>. 2020;51(5):1546-1554. doi:10.1161/STROKEAHA.119.027759.</li>
+
+  <li>Schwartz GG, Steg PG, Szarek M, Bhatt DL, Bittner VA, Diaz R, et al. Alirocumab and cardiovascular outcomes after acute coronary syndrome. <em>N Engl J Med</em>. 2018;379(22):2097-2107. doi:10.1056/NEJMoa1801174.</li>
+
+  <li>Ray KK, Wright RS, Kallend D, Koenig W, Leiter LA, Raal FJ, et al. Two phase 3 trials of inclisiran in patients with elevated LDL cholesterol. <em>N Engl J Med</em>. 2020;382(16):1507-1519. doi:10.1056/NEJMoa1912387.</li>
+
+  <li>Nissen SE, Lincoff AM, Brennan D, Ray KK, Mason D, Kastelein JJP, et al. Bempedoic acid and cardiovascular outcomes in statin-intolerant patients. <em>N Engl J Med</em>. 2023;388(15):1353-1364. doi:10.1056/NEJMoa2215024.</li>
+
+  <li>Grundy SM, Stone NJ, Bailey AL, Beam C, Birtcher KK, Blumenthal RS, et al. 2018 AHA/ACC/AACVPR/AAPA/ABC/ACPM/ADA/AGS/APhA/ASPC/NLA/PCNA Guideline on the management of blood cholesterol. <em>Circulation</em>. 2019;139(25):e1082-e1143. doi:10.1161/CIR.0000000000000625.</li>
+
+  <li>Kronenberg F, Mora S, Stroes ESG, Ference BA, Arsenault BJ, Berglund L, et al. Lipoprotein(a) in atherosclerotic cardiovascular disease and aortic stenosis: a European Atherosclerosis Society consensus statement. <em>Eur Heart J</em>. 2022;43(39):3925-3946. doi:10.1093/eurheartj/ehac361.</li>
+
+  <li>Greenberg SM, Ziai WC, Cordonnier C, Dowlatshahi D, Francis B, Goldstein JN, et al. 2022 Guideline for the management of patients with spontaneous intracerebral hemorrhage: a guideline from the American Heart Association/American Stroke Association. <em>Stroke</em>. 2022;53(7):e282-e361. doi:10.1161/STR.0000000000000407.</li>
+
+  <li>Steiner T, Purrucker JC, Aguiar de Sousa D, Apostolaki-Hansson T, Beck J, Christensen H, et al. European Stroke Organisation (ESO) and European Association of Neurosurgical Societies (EANS) guideline on stroke due to spontaneous intracerebral haemorrhage. <em>Eur Stroke J</em>. 2025;10(4):1007-1086. doi:10.1177/23969873251340815.</li>
+
+  <li>European Medicines Agency. Leqvio: EPAR - Public assessment report. Amsterdam: European Medicines Agency; 2020.</li>
+
+  <li>Bohula EA, Wiviott SD, Giugliano RP, et al. Evolocumab in patients without a previous myocardial infarction or stroke. <em>N Engl J Med</em>. 2026. doi:10.1056/NEJMoa2514428.</li>
+</ol>
+              </div>
+            </div>
+          </details>
+                 </div>
         <div id="toast" class="toast">Copiado al portapapeles</div>
         <script>
+
+const capitulosHipolipemiantes = [
+  {
+    id: 'detalle-hipolipemiantes-resumen',
+    title: 'Resumen',
+    html: `
+      <div class="article-subcard">
+        <div class="article-subcard-header">Resumen</div>
+        <div class="article-subcard-body">
+          <p>El tratamiento hipolipemiante constituye una intervención esencial en la prevención secundaria tras un ictus isquémico o un accidente isquémico transitorio. Su indicación es especialmente robusta en el ictus de mecanismo aterotrombótico, pero también debe valorarse en el ictus cardioembólico, el ictus no aterotrombótico y, de forma individualizada, en el ictus hemorrágico.</p>
+
+          <p>La estrategia terapéutica debe basarse en cuatro pasos: definir el tipo de ictus, establecer el objetivo de colesterol LDL, valorar el tratamiento hipolipemiante previo y seleccionar la intensificación más adecuada.</p>
+
+          <p>Las estatinas continúan siendo el tratamiento inicial de referencia, pero la ezetimiba, el ácido bempedoico y los tratamientos dirigidos a PCSK9, como evolocumab, alirocumab e inclisirán, permiten alcanzar objetivos más estrictos en pacientes de alto o muy alto riesgo.</p>
+
+          <p>En pacientes con ictus isquémico o AIT, la guía AHA/ASA recomienda, en general, atorvastatina 80 mg y un objetivo de C-LDL inferior a 70 mg/dl; si no se alcanza con estatina máxima tolerada, se recomienda añadir ezetimiba y, si persiste por encima de objetivo, considerar un inhibidor de PCSK9.</p>
+
+          <p>Las guías ESC/EAS proponen, para pacientes de muy alto riesgo cardiovascular, un objetivo más intensivo: C-LDL inferior a 55 mg/dl y reducción de al menos el 50 % respecto al valor basal.</p>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    id: 'detalle-hipolipemiantes-introduccion',
+    title: 'Introducción',
+    html: `
+      <div class="article-subcard">
+        <div class="article-subcard-header">Introducción</div>
+        <div class="article-subcard-body">
+          <p>La dislipemia es uno de los principales factores modificables en la prevención secundaria vascular. Tras un ictus, el control del colesterol LDL debe formar parte de una estrategia integral junto con el control de la presión arterial, la diabetes, el tabaquismo, la obesidad, la actividad física, la dieta, el tratamiento antitrombótico adecuado y el manejo de la causa específica del ictus.</p>
+
+          <p>La reducción del C-LDL no debe entenderse como una intervención uniforme para todos los pacientes, sino como una decisión ajustada al mecanismo del ictus y al riesgo vascular global.</p>
+
+          <p>El beneficio esperado es mayor cuando existe enfermedad aterosclerótica demostrada, pero muchos pacientes con ictus cardioembólico o no aterotrombótico también presentan riesgo vascular elevado y pueden beneficiarse de un tratamiento intensivo.</p>
+
+          <p>El objetivo de esta guía es proponer un esquema práctico para seleccionar e intensificar el tratamiento hipolipemiante en pacientes con ictus isquémico aterotrombótico, ictus isquémico no aterotrombótico o cardioembólico e ictus hemorrágico.</p>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    id: 'detalle-hipolipemiantes-clasificacion',
+    title: 'Clasificación clínica inicial',
+    html: `
+      <div class="article-subcard">
+        <div class="article-subcard-header"> Clasificación clínica inicial</div>
+        <div class="article-subcard-body">
+          <h4>1. Ictus isquémico aterotrombótico</h4>
+          <p>El ictus aterotrombótico incluye aquellos eventos relacionados con aterosclerosis de grandes arterias, enfermedad carotídea o vertebral significativa, ateromatosis intracraneal, ateromatosis aórtica relevante o enfermedad arterial sistémica asociada.</p>
+
+          <p>Estos pacientes deben considerarse, en general, de muy alto riesgo vascular. En ellos, el objetivo terapéutico debe ser intensivo. Una estrategia razonable es buscar C-LDL inferior a 55 mg/dl y, si se conoce el C-LDL basal, una reducción de al menos el 50 %.</p>
+
+          <p>En la práctica, estos pacientes deben recibir estatina de alta intensidad salvo contraindicación, y la intensificación con ezetimiba o tratamientos dirigidos a PCSK9 debe considerarse de forma precoz si el C-LDL permanece por encima del objetivo.</p>
+
+          <h4>2. Ictus isquémico cardioembólico o no aterotrombótico</h4>
+          <p>En el ictus cardioembólico, lacunar, criptogénico o de etiología no aterotrombótica, la indicación hipolipemiante debe individualizarse según el riesgo vascular global.</p>
+
+          <p>Aunque el mecanismo inmediato del ictus no sea aterosclerótico, muchos pacientes presentan factores de riesgo que justifican tratamiento hipolipemiante: diabetes, enfermedad coronaria, enfermedad arterial periférica, enfermedad renal crónica, ateromatosis subclínica, edad avanzada, tabaquismo o hipertensión arterial.</p>
+
+          <p>Como objetivo general puede plantearse C-LDL inferior a 70 mg/dl en prevención secundaria tras ictus isquémico o AIT. En pacientes con enfermedad aterosclerótica concomitante o riesgo muy alto, puede ser razonable adoptar objetivos más estrictos, como C-LDL inferior a 55 mg/dl.</p>
+
+          <h4>3. Ictus hemorrágico</h4>
+          <p>El ictus hemorrágico requiere una aproximación diferenciada. En estos pacientes no debe aplicarse automáticamente el mismo algoritmo que en el ictus isquémico aterotrombótico.</p>
+
+          <p>La decisión de mantener, iniciar o intensificar tratamiento hipolipemiante debe individualizarse según el balance entre riesgo isquémico y riesgo hemorrágico.</p>
+
+          <p>Deben considerarse la localización de la hemorragia, la sospecha de angiopatía amiloide cerebral, la carga de microhemorragias, la presencia de enfermedad aterosclerótica, cardiopatía isquémica, diabetes, enfermedad arterial periférica y el riesgo global de eventos vasculares.</p>
+
+          <p>En el ictus hemorrágico es preferible evitar prohibiciones rígidas y documentar explícitamente la razón clínica de la decisión, priorizando la protección cardiovascular global en pacientes de alto riesgo.</p>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    id: 'detalle-hipolipemiantes-evaluacion',
+    title: 'Evaluación previa',
+    html: `
+      <div class="article-subcard">
+        <div class="article-subcard-header">Evaluación previa</div>
+        <div class="article-subcard-body">
+          <p>Antes de tomar una decisión terapéutica deben recogerse los siguientes elementos:</p>
+
+          <h4>Tipo de ictus</h4>
+          <p>Es fundamental diferenciar ictus aterotrombótico, ictus no aterotrombótico/cardioembólico e ictus hemorrágico.</p>
+
+          <h4>C-LDL actual</h4>
+          <p>Permite establecer la distancia respecto al objetivo terapéutico.</p>
+
+          <h4>C-LDL basal</h4>
+          <p>Si se conoce, permite estimar la reducción porcentual conseguida. En pacientes de muy alto riesgo, además de alcanzar una cifra absoluta de C-LDL, interesa lograr una reducción de al menos el 50 % respecto al basal.</p>
+
+          <h4>Tratamiento hipolipemiante actual</h4>
+          <p>Debe conocerse si el paciente no recibe tratamiento, toma estatina en monoterapia, ezetimiba en monoterapia, estatina más ezetimiba, ácido bempedoico o un tratamiento inyectable.</p>
+
+          <h4>Dosis e intensidad de estatina</h4>
+          <p>No es equivalente recibir una estatina de baja, moderada o alta intensidad. Atorvastatina 40–80 mg y rosuvastatina 20–40 mg se consideran opciones de alta intensidad.</p>
+
+          <h4>Tolerancia</h4>
+          <p>Debe documentarse si existe intolerancia o contraindicación a estatinas o ezetimiba.</p>
+
+          <h4>Situación clínica</h4>
+          <p>El ingreso hospitalario tras un ictus isquémico, especialmente aterotrombótico, representa una oportunidad para iniciar tratamiento intensivo, mejorar la adherencia y evitar retrasos en la prevención secundaria.</p>
+
+          <h4>Lp(a)</h4>
+          <p>La lipoproteína(a), cuando está elevada, identifica un perfil de mayor riesgo vascular. No suele ser un objetivo terapéutico directo en la práctica habitual, pero refuerza la necesidad de un control estricto del C-LDL y del resto de factores de riesgo.</p>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    id: 'detalle-hipolipemiantes-objetivos',
+    title: 'Objetivos de C-LDL',
+    html: `
+      <div class="article-subcard">
+        <div class="article-subcard-header">Objetivos de C-LDL</div>
+        <div class="article-subcard-body">
+          <h4>1. Ictus aterotrombótico</h4>
+          <p>En el ictus aterotrombótico, el objetivo preferente debe ser C-LDL inferior a 55 mg/dl. Si se dispone de C-LDL basal, debe buscarse además una reducción de al menos el 50 %.</p>
+
+          <p>Este enfoque es especialmente adecuado cuando existe enfermedad aterosclerótica demostrada, enfermedad multiterritorio, diabetes, enfermedad coronaria, enfermedad arterial periférica o recurrencia vascular.</p>
+
+          <h4>2. Ictus isquémico no aterotrombótico o cardioembólico</h4>
+          <p>En pacientes con ictus isquémico no aterotrombótico, puede plantearse como objetivo general C-LDL inferior a 70 mg/dl.</p>
+
+          <p>Si el paciente presenta enfermedad aterosclerótica concomitante o riesgo vascular muy alto, puede considerarse un objetivo inferior a 55 mg/dl.</p>
+
+          <h4>3. Ictus hemorrágico</h4>
+          <p>En el ictus hemorrágico no existe un objetivo único aplicable a todos los pacientes.</p>
+
+          <p>Puede considerarse un objetivo orientativo, por ejemplo C-LDL inferior a 70 mg/dl, cuando existe una indicación vascular sólida, pero la decisión debe individualizarse.</p>
+
+          <p>En pacientes con alto riesgo de recurrencia hemorrágica y bajo riesgo isquémico, la intensificación agresiva debe valorarse con cautela.</p>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    id: 'detalle-hipolipemiantes-tratamientos',
+    title: 'Tratamientos disponibles',
+    html: `
+      <div class="article-subcard">
+        <div class="article-subcard-header">Tratamientos disponibles</div>
+        <div class="article-subcard-body">
+          <h4>1. Estatinas</h4>
+          <p>Las estatinas son el tratamiento inicial de referencia en la mayoría de pacientes con ictus isquémico. Reducen el C-LDL, estabilizan la placa aterosclerótica y disminuyen el riesgo de eventos vasculares.</p>
+
+          <p>Las principales estatinas de alta intensidad son atorvastatina 40–80 mg y rosuvastatina 20–40 mg.</p>
+
+          <p>En pacientes con ictus isquémico aterotrombótico, debe utilizarse estatina de alta intensidad salvo contraindicación. En pacientes de edad avanzada, fragilidad, interacciones farmacológicas o antecedentes de intolerancia, puede ser necesario ajustar la dosis y buscar la máxima dosis tolerada.</p>
+
+          <p>Un principio práctico importante es que doblar la dosis de una estatina produce una reducción adicional relativamente modesta del C-LDL, habitualmente alrededor del 6 %. Por tanto, si el paciente está claramente lejos del objetivo, suele ser más eficiente añadir un fármaco complementario.</p>
+
+          <h4>2. Ezetimiba</h4>
+          <p>Ezetimiba inhibe la absorción intestinal de colesterol y reduce adicionalmente el C-LDL. Es el fármaco oral de elección para añadir a la estatina cuando el objetivo no se alcanza con estatina máxima tolerada.</p>
+
+          <p>Ezetimiba también puede utilizarse en monoterapia cuando existe intolerancia a estatinas, aunque en pacientes de muy alto riesgo puede ser insuficiente para alcanzar objetivos intensivos.</p>
+
+          <h4>3. Ácido bempedoico</h4>
+          <p>El ácido bempedoico es un fármaco oral que inhibe la ATP-citrato liasa, una enzima implicada en la síntesis hepática de colesterol.</p>
+
+          <p>Tiene especial interés en pacientes con intolerancia a estatinas o como tratamiento añadido cuando se requiere una reducción adicional del C-LDL.</p>
+
+          <p>Su papel práctico puede resumirse como opción oral útil en intolerancia a estatinas, complemento de ezetimiba, alternativa cuando no se desea o no se dispone de tratamiento inyectable, o paso intermedio en pacientes que necesitan una reducción adicional moderada.</p>
+
+          <h4>4. Inhibidores de PCSK9: evolocumab y alirocumab</h4>
+          <p>Evolocumab y alirocumab son anticuerpos monoclonales dirigidos contra PCSK9. Producen reducciones potentes del C-LDL y han demostrado beneficio en pacientes con enfermedad cardiovascular aterosclerótica o riesgo muy alto.</p>
+
+          <p>Deben considerarse especialmente en pacientes que permanecen fuera de objetivo pese a estatina máxima tolerada y ezetimiba, o en pacientes con intolerancia a estatinas y C-LDL persistentemente elevado.</p>
+
+          <p>En prevención secundaria tras ictus aterotrombótico, los inhibidores de PCSK9 son especialmente relevantes cuando existe enfermedad aterosclerótica extensa, C-LDL muy elevado, recurrencia vascular o imposibilidad de alcanzar objetivos con tratamiento oral.</p>
+
+          <h4>5. Inclisirán</h4>
+          <p>Inclisirán es un ARN interferente pequeño que reduce la síntesis hepática de PCSK9. Su principal característica práctica es la pauta de administración: dosis inicial, segunda dosis a los 3 meses y posteriormente una dosis cada 6 meses.</p>
+
+          <p>Su utilidad puede ser especialmente relevante en pacientes con problemas de adherencia, polifarmacia o dificultad para mantener tratamientos orales complejos.</p>
+
+          <p>Aunque su potencia hipolipemiante es clara, la evidencia clínica directa sobre reducción de eventos cardiovasculares ha sido más limitada que la disponible para los anticuerpos monoclonales anti-PCSK9. Por ello, su elección debe individualizarse según disponibilidad, adherencia, preferencias del paciente y contexto clínico.</p>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    id: 'detalle-hipolipemiantes-algoritmo',
+    title: 'Algoritmo terapéutico práctico',
+    html: `
+      <div class="article-subcard">
+        <div class="article-subcard-header">Algoritmo terapéutico práctico</div>
+        <div class="article-subcard-body">
+          <h4>1. Paciente sin tratamiento hipolipemiante previo</h4>
+          <p>En pacientes con ictus isquémico aterotrombótico o riesgo vascular muy alto, debe iniciarse estatina de alta intensidad salvo contraindicación. Las opciones habituales son atorvastatina 40–80 mg o rosuvastatina 20–40 mg.</p>
+
+          <p>Si el C-LDL basal o inicial es muy elevado, especialmente en ictus aterotrombótico, puede ser razonable planificar desde el inicio una estrategia combinada con ezetimiba.</p>
+
+          <p>Si existe intolerancia o contraindicación a estatinas, puede iniciarse ezetimiba, ácido bempedoico o ambos. Si el paciente es de muy alto riesgo o está muy lejos del objetivo, debe valorarse precozmente un tratamiento dirigido a PCSK9.</p>
+
+          <h4>2. Paciente con estatina en monoterapia</h4>
+          <p>Si el paciente recibe una estatina de baja o moderada intensidad y no alcanza el objetivo, el primer paso suele ser optimizar a estatina de alta intensidad.</p>
+
+          <p>Si ya recibe estatina de alta intensidad y continúa por encima del objetivo tras al menos 6 semanas de tratamiento, debe valorarse la distancia al objetivo.</p>
+
+          <p>Si está muy cerca, puede considerarse aumentar a dosis máxima, siempre que sea bien tolerada. Si está claramente por encima, suele ser preferible añadir ezetimiba.</p>
+
+          <p>Si ya está con dosis máxima o ezetimiba no es viable, debe considerarse ácido bempedoico, inhibidor de PCSK9 o inclisirán, según riesgo, disponibilidad y preferencias.</p>
+
+          <h4>3. Paciente con ezetimiba en monoterapia</h4>
+          <p>Ezetimiba en monoterapia puede ser adecuada en pacientes con intolerancia a estatinas. Sin embargo, si no existe intolerancia real, debe considerarse introducir o reintroducir estatina, preferiblemente de alta intensidad o a la máxima dosis tolerada.</p>
+
+          <p>Si el paciente presenta intolerancia confirmada a estatinas y permanece fuera de objetivo con ezetimiba, el ácido bempedoico es una opción oral razonable. Si la distancia al objetivo es amplia o el riesgo vascular es muy alto, debe considerarse tratamiento dirigido a PCSK9.</p>
+
+          <h4>4. Paciente con estatina más ezetimiba</h4>
+          <p>Cuando el paciente recibe la estatina a la dosis máxima tolerada más ezetimiba durante al menos 6 semanas y continúa fuera de objetivo, debe considerarse tratamiento inyectable adicional.</p>
+
+          <p>En pacientes con ictus aterotrombótico, enfermedad aterosclerótica extensa, recurrencia vascular, C-LDL persistentemente elevado o Lp(a) elevada, el siguiente paso preferente suele ser un tratamiento dirigido a PCSK9, como evolocumab, alirocumab o inclisirán.</p>
+
+          <p>El ácido bempedoico puede considerarse como opción oral adicional, especialmente si existe intolerancia parcial a estatinas, rechazo de inyectables, problemas de acceso o necesidad de una reducción complementaria.</p>
+
+          <h4>5. Paciente con intolerancia a estatinas</h4>
+          <p>La intolerancia a estatinas debe confirmarse cuidadosamente. Siempre que sea posible, debe intentarse diferenciar síntomas musculares inespecíficos de una intolerancia reproducible.</p>
+
+          <p>Puede valorarse cambiar de estatina, reducir dosis, utilizar una estatina diferente o buscar la máxima dosis tolerada.</p>
+
+          <p>Cuando la intolerancia es clara, el tratamiento debe apoyarse en ezetimiba, ácido bempedoico y terapias dirigidas a PCSK9. En pacientes de muy alto riesgo, no debe demorarse la intensificación si el C-LDL permanece por encima del objetivo.</p>
+
+          <h4>6. Paciente con intolerancia a ezetimiba</h4>
+          <p>Si ezetimiba no es tolerada o está contraindicada, el manejo dependerá de la estatina tolerada y de la distancia al objetivo.</p>
+
+          <p>Si el paciente tolera estatina de alta intensidad pero continúa fuera de objetivo, puede considerarse ácido bempedoico o tratamiento dirigido a PCSK9.</p>
+
+          <p>Si además existe intolerancia a estatinas, el tratamiento debe individualizarse, pero en pacientes de alto o muy alto riesgo los fármacos dirigidos a PCSK9 adquieren un papel prioritario.</p>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    id: 'detalle-hipolipemiantes-situaciones-especiales',
+    title: 'Situaciones clínicas especiales',
+    html: `
+      <div class="article-subcard">
+        <div class="article-subcard-header">Situaciones clínicas especiales</div>
+        <div class="article-subcard-body">
+          <h4>1. C-LDL muy elevado tras ictus aterotrombótico</h4>
+          <p>Un C-LDL persistentemente elevado, por ejemplo ≥100 mg/dl, en un paciente con ictus aterotrombótico identifica una situación de alto riesgo residual.</p>
+
+          <p>En estos casos, debe evitarse una estrategia excesivamente lenta. Puede ser razonable iniciar estatina de alta intensidad y añadir ezetimiba precozmente. Si el paciente permanece fuera de objetivo, debe considerarse sin demora un inhibidor de PCSK9 o inclisirán.</p>
+
+          <h4>2. C-LDL muy bajo</h4>
+          <p>La obtención de cifras muy bajas de C-LDL con el tratamiento no obliga necesariamente a reducir la intensidad de este en pacientes con ictus isquémico de alto riesgo, siempre que exista buena tolerancia clínica.</p>
+
+          <p>Por el contrario, en pacientes con ictus hemorrágico previo o alto riesgo hemorrágico cerebral intrínseco, la interpretación de reducciones agresivas debe ser mucho más cautelosa y personalizada.</p>
+
+          <h4>3. Lp(a) elevada</h4>
+          <p>La Lp(a) elevada se asocia a mayor riesgo aterotrombótico. En la práctica actual, su presencia debe interpretarse como un marcador de mayor riesgo que refuerza la necesidad de control estricto del C-LDL y de los demás factores de riesgo vascular.</p>
+
+          <p>Los inhibidores de PCSK9 pueden reducir modestamente la Lp(a), pero la indicación terapéutica principal continúa basándose en el riesgo vascular global y en la necesidad de reducción del C-LDL.</p>
+
+          <h4>4. Ictus hemorrágico con indicación cardiovascular concomitante</h4>
+          <p>En pacientes con ictus hemorrágico y enfermedad cardiovascular aterosclerótica establecida, la decisión puede ser compleja. No debe suspenderse ni intensificarse automáticamente el tratamiento hipolipemiante sin valorar el riesgo isquémico y hemorrágico.</p>
+
+          <p>Es razonable mantener o iniciar el tratamiento si predomina una fuerte comorbilidad de enfermedad aterosclerótica o alto riesgo cardiovascular, pero la intensificación debe valorarse con extrema prudencia según la localización de la hemorragia, especialmente en hemorragias lobares, y la sospecha de angiopatía amiloide cerebral.</p>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    id: 'detalle-hipolipemiantes-seguimiento',
+    title: 'Seguimiento',
+    html: `
+      <div class="article-subcard">
+        <div class="article-subcard-header">Seguimiento</div>
+        <div class="article-subcard-body">
+          <p>Tras iniciar o modificar el tratamiento hipolipemiante, debe realizarse un seguimiento clínico y analítico estrecho.</p>
+
+          <p>Se recomienda realizar una revisión mediante la medición del perfil lipídico en ayunas entre 4 y 12 semanas después del inicio o ajuste de la dosis para valorar la respuesta, la tolerancia y la adherencia.</p>
+
+          <p>Como nota práctica de protocolo, dado que la intensificación con ezetimiba exige valorar la respuesta a la estatina tras al menos 6 semanas, se sugiere programar este primer control en la 6ª semana para evitar demoras en el escalado terapéutico.</p>
+
+          <p>El seguimiento estructurado debe incluir sistemáticamente el C-LDL alcanzado, la reducción porcentual respecto al valor basal si se conoce, la adherencia terapéutica, los efectos adversos, las interacciones farmacológicas, la función hepática y la necesidad de intensificación escalonada.</p>
+
+          <h4>1. Mantenimiento a largo plazo</h4>
+          <p>Una vez alcanzado el objetivo lipídico, el tratamiento debe mantenerse de forma prolongada e ininterrumpida.</p>
+
+          <p>Se recomienda establecer controles periódicos de seguimiento cada 3 a 12 meses para garantizar el cumplimiento continuo, salvo que aparezca intolerancia, contraindicación o un cambio relevante en el balance riesgo-beneficio del paciente.</p>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    id: 'detalle-hipolipemiantes-propuesta',
+    title: 'Propuesta resumida de manejo',
+    html: `
+      <div class="article-subcard">
+        <div class="article-subcard-header">Propuesta resumida de manejo</div>
+        <div class="article-subcard-body">
+          <h4>1. Ictus isquémico aterotrombótico</h4>
+          <p>El objetivo preferente es un C-LDL &lt;55 mg/dl y una reducción ≥50 % si se conoce el valor basal.</p>
+
+          <p>El tratamiento inicial debe ser una estatina de alta intensidad, siendo la atorvastatina 80 mg la opción con mayor evidencia específica.</p>
+
+          <p>Si no se alcanza el objetivo tras al menos 6 semanas a dosis máxima tolerada, debe añadirse ezetimiba. Si persiste fuera de objetivo, debe considerarse un inhibidor de PCSK9 o inclisirán. El ácido bempedoico puede utilizarse como opción oral complementaria o alternativa en casos seleccionados.</p>
+
+          <h4>2. Ictus isquémico no aterotrombótico o cardioembólico</h4>
+          <p>El objetivo general es un C-LDL &lt;70 mg/dl, con la indicación de adoptar objetivos más estrictos, como C-LDL &lt;55 mg/dl, si existe enfermedad aterosclerótica concomitante documentada o un riesgo vascular global muy alto.</p>
+
+          <p>La intensidad del tratamiento debe adaptarse siempre al perfil vascular global del paciente.</p>
+
+          <h4>3. Ictus hemorrágico</h4>
+          <p>El tratamiento hipolipemiante debe individualizarse estrictamente. La decisión debe ponderar el riesgo isquémico frente al riesgo hemorrágico.</p>
+
+          <p>Es razonable mantener o iniciar el tratamiento si predomina una fuerte comorbilidad de enfermedad aterosclerótica o alto riesgo cardiovascular, pero la intensificación debe valorarse con extrema prudencia según la localización de la hemorragia y la sospecha de angiopatía amiloide cerebral.</p>
+        </div>
+      </div>
+    `
+  },
+
+  {
+    id: 'detalle-hipolipemiantes-conclusiones',
+    title: 'Conclusiones',
+    html: `
+      <div class="article-subcard">
+        <div class="article-subcard-header">Conclusiones</div>
+        <div class="article-subcard-body">
+          <p>El manejo hipolipemiante tras un ictus debe ser sistemático, escalonado e individualizado. El primer paso es definir el mecanismo del ictus y el riesgo vascular global. A partir de ahí, se establece un objetivo de C-LDL y se selecciona el tratamiento más adecuado.</p>
+
+          <p>Las estatinas de alta intensidad, con especial evidencia para la atorvastatina 80 mg, siguen siendo la base del tratamiento en el ictus isquémico, especialmente aterotrombótico.</p>
+
+          <p>La ezetimiba es el primer fármaco añadido cuando no se alcanza el objetivo tras al menos 6 semanas. El ácido bempedoico amplía las opciones orales, especialmente en pacientes con intolerancia a estatinas.</p>
+
+          <p>Los tratamientos dirigidos a PCSK9, como evolocumab, alirocumab e inclisirán, permiten alcanzar objetivos estrictos en pacientes de muy alto riesgo o con respuesta insuficiente a la terapia oral.</p>
+
+          <p>En el ictus hemorrágico, el tratamiento debe decidirse caso por caso, evitando tanto la retirada sistemática como la intensificación automática. La clave es documentar el balance entre el riesgo isquémico y el riesgo hemorrágico, manteniendo la terapia preferentemente en aquellos pacientes con alto riesgo cardiovascular subyacente.</p>
+
+          <p>En conjunto, una estrategia basada en el mecanismo del ictus, el objetivo de C-LDL, el tratamiento previo, la tolerancia y la distancia al objetivo permite optimizar la prevención secundaria vascular de forma racional, segura y reproducible.</p>
+        </div>
+      </div>
+    `
+  }
+];
+
+function renderDetallesArticuloHipolipemiantes(){
+  const cont = document.getElementById('detalles-articulo-hipolipemiantes');
+  if (!cont) return;
+
+  cont.innerHTML = capitulosHipolipemiantes.map(cap => `
+    <details class="details-block article-detail" id="${cap.id}">
+      <summary class="details-summary">📑 ${cap.title}</summary>
+      <div class="article-detail-body">
+        ${cap.html}
+      </div>
+    </details>
+  `).join('');
+}
+function activarAcordeonDetallesArticuloHipolipemiantes(){
+  const detalles = document.querySelectorAll('details');
+
+  detalles.forEach((detail) => {
+    detail.addEventListener('toggle', function () {
+      if (!this.open) return;
+
+      detalles.forEach((other) => {
+        if (other !== this) {
+          other.open = false;
+        }
+      });
+
+      requestAnimationFrame(() => {
+        const rect = this.getBoundingClientRect();
+        const y = window.scrollY + rect.top - 120;
+
+        window.scrollTo({
+          top: y,
+          behavior: 'smooth'
+        });
+      });
+    });
+  });
+}
 (function(){
 
   // Forzar inicio arriba al cargar/actualizar la página
@@ -1149,8 +1861,8 @@ Si ezetimiba es viable, usar <strong>ezetimiba</strong> ± <strong>ácido bemped
 // ===============================================
 if(data.tratamiento==='ezetimiba_mono' && !ezetimibaActualNoViable){ 
   if(intolerancia){
-    recs.push(`<div class="result-block"><strong>Ezetimiba en monoterapia</strong> con <u>intolerancia/contraindicación a estatinas</u>: 
-    no recomendar estatina. Si persiste fuera de objetivo o el riesgo vascular es alto/muy alto, valorar <strong>ácido bempedoico</strong> y/o <strong>iPCSK9</strong> / <strong>inclisirán</strong> según distancia al objetivo, disponibilidad y tolerancia.</div>`);
+    recs.push(`<div class="result-block"><strong>Ezetimiba en monoterapia</strong>, fuera de objetivo y con <u>intolerancia/contraindicación a estatinas</u>: 
+    no recomendar estatina. Valorar <strong>ácido bempedoico</strong> y/o <strong>iPCSK9</strong> / <strong>inclisirán</strong> según distancia al objetivo, disponibilidad y tolerancia.</div>`);
   } else {
     recs.push(`<div class="result-block"><strong>Ezetimiba en monoterapia</strong> y fuera de objetivo: 
     valorar <strong>iniciar/optimizar estatina de alta intensidad</strong> o máxima dosis tolerada, manteniendo ezetimiba si es bien tolerada. 
@@ -1451,9 +2163,224 @@ notas.push(`<div class="result-block">${transv.join(' ')}</div>`);
     setTimeout(()=>t.classList.remove('show'), 1800);
   }
 
-  $('#formLipidos').addEventListener('submit', function(e){
-    e.preventDefault();
-    const $$r = n => ($$('input[name="'+n+'"]:checked')[0]||{}).value;
+const FEEDBACK_EMAIL = 'administrador@ictusgps.com';
+let __lastFeedbackReport = null;
+
+function escAttr(s){
+  return String(s)
+    .replace(/&/g,'&amp;')
+    .replace(/"/g,'&quot;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;');
+}
+
+function clearFeedbackFormFields(){
+  const reason = $('#feedbackReason');
+  const message = $('#feedbackMessage');
+  const consent = $('#feedbackConsent');
+  const preview = $('#feedbackPreview');
+
+  if (reason) reason.value = '';
+  if (message) message.value = '';
+  if (consent) consent.checked = false;
+  if (preview){
+    preview.classList.remove('show');
+    preview.innerHTML = '';
+  }
+}
+
+function resetFeedbackState(clearFields = false){
+  __lastFeedbackReport = null;
+
+  const btn = $('#btnOpenFeedback');
+  const wrap = $('#feedbackFormWrap');
+  const preview = $('#feedbackPreview');
+
+  if (btn) btn.disabled = true;
+  if (wrap) wrap.classList.remove('show');
+  if (preview){
+    preview.classList.remove('show');
+    preview.innerHTML = '';
+  }
+
+  if (clearFields) clearFeedbackFormFields();
+}
+
+function openFeedbackForm(){
+  const wrap = $('#feedbackFormWrap');
+  if (!wrap) return;
+  wrap.classList.add('show');
+  wrap.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function closeFeedbackForm(){
+  const wrap = $('#feedbackFormWrap');
+  const preview = $('#feedbackPreview');
+
+  if (wrap) wrap.classList.remove('show');
+  if (preview){
+    preview.classList.remove('show');
+    preview.innerHTML = '';
+  }
+}
+
+function validateFeedbackForm(){
+  const email = $('#feedbackEmail')?.value.trim() || '';
+  const reason = $('#feedbackReason')?.value || '';
+  const message = $('#feedbackMessage')?.value.trim() || '';
+  const consent = $('#feedbackConsent')?.checked || false;
+
+  if (!__lastFeedbackReport){
+    alert('Primero genere una recomendación antes de comunicar una incidencia.');
+    return false;
+  }
+  if (!email){
+    alert('Introduzca un correo electrónico de contacto.');
+    return false;
+  }
+  if (!reason){
+    alert('Seleccione el motivo principal.');
+    return false;
+  }
+  if (!message){
+    alert('Explique brevemente por qué considera inadecuado el resultado.');
+    return false;
+  }
+  if (!consent){
+    alert('Debe confirmar que no incluye datos identificativos innecesarios.');
+    return false;
+  }
+
+  return true;
+}
+
+function buildFeedbackReportText(){
+  if (!__lastFeedbackReport) return '';
+
+  const r = __lastFeedbackReport;
+
+  const cleanInline = s => String(s ?? '')
+    .replace(/•/g,'*')
+    .replace(/[—–]/g,'-')
+    .replace(/≥/g,'>=')
+    .replace(/≤/g,'<=')
+    .replace(/→/g,'->')
+    .replace(/[ \t]+/g,' ')
+    .trim();
+
+  const cleanBlock = s => String(s ?? '')
+    .replace(/•/g,'*')
+    .replace(/[—–]/g,'-')
+    .replace(/≥/g,'>=')
+    .replace(/≤/g,'<=')
+    .replace(/→/g,'->')
+    .replace(/\r\n/g, '\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .replace(/[ \t]+$/gm, '')
+    .trim();
+
+  const reasonMap = {
+    estrategia: 'La estrategia elegida no parece adecuada',
+    factores: 'La interpretación de los factores no parece correcta',
+    coherencia: 'La recomendación no parece coherente con el escenario',
+    detalle: 'Falta una matización importante',
+    otro: 'Otro motivo'
+  };
+
+  const email = $('#feedbackEmail')?.value.trim() || '';
+  const reasonKey = $('#feedbackReason')?.value || '';
+  const reasonTxt = reasonMap[reasonKey] || reasonKey || '-';
+  const message = $('#feedbackMessage')?.value.trim() || '';
+  const fecha = new Date().toLocaleString('es-ES');
+
+  const lines = [];
+
+  lines.push('FEEDBACK SOBRE RECOMENDACION DE HIPOLIPEMIANTES');
+  lines.push('Fecha: ' + fecha);
+  lines.push('Correo del usuario: ' + email);
+  lines.push('Motivo: ' + reasonTxt);
+  lines.push('');
+
+  lines.push('COMENTARIO DEL USUARIO');
+  lines.push(cleanBlock(message));
+  lines.push('');
+
+  lines.push('DATOS DEL ESCENARIO');
+  lines.push('* Escenario: ' + cleanInline(r.escenarioTxt || '-'));
+  lines.push('* Tratamiento actual: ' + cleanInline(r.tratamientoTxt || '-'));
+  lines.push('* C-LDL actual: ' + cleanInline(r.ldl) + ' mg/dl');
+  lines.push('* C-LDL basal: ' + (r.ldlBasal !== null && r.ldlBasal !== undefined ? cleanInline(r.ldlBasal) + ' mg/dl' : 'No disponible'));
+  lines.push('* Objetivo: < ' + cleanInline(r.obj) + ' mg/dl');
+  lines.push('* Distancia al objetivo: ' + cleanInline(r.delta) + ' mg/dl');
+  lines.push('* Cambio vs basal: ' + cleanInline(r.cambioBasal || 'No disponible'));
+  lines.push('* Paciente ingresado: ' + (r.ingreso ? 'Sí' : 'No'));
+  lines.push('* Lp(a) elevada/relevante: ' + (r.lpaAlta ? 'Sí' : 'No'));
+  lines.push('* Riesgo vascular muy alto / aterosclerosis concomitante: ' + (r.riesgoMuyAlto ? 'Sí' : 'No'));
+  lines.push('');
+
+  lines.push('RECOMENDACION MOSTRADA');
+  lines.push(cleanBlock(r.resumenVisible || '-'));
+  lines.push('');
+
+  lines.push('Fin del feedback.');
+
+  return lines.join('\n');
+}
+
+function previewFeedbackPayload(){
+  if (!validateFeedbackForm()) return;
+
+  const preview = $('#feedbackPreview');
+  if (!preview) return;
+
+  const email = $('#feedbackEmail')?.value.trim() || '';
+  const reason = $('#feedbackReason')?.value || '';
+  const reportText = buildFeedbackReportText();
+
+  preview.innerHTML =
+    '<b>Vista previa del mensaje.</b><br>' +
+    'Correo: ' + escAttr(email) + '<br>' +
+    'Motivo: ' + escAttr(reason) + '<br>' +
+    'Escenario: <b>' + escAttr(__lastFeedbackReport?.escenarioTxt || '—') + ' · objetivo &lt;' + escAttr(__lastFeedbackReport?.obj || '—') + ' mg/dl</b><br><br>' +
+    '<b>Vista previa del contenido a enviar:</b>' +
+    '<pre style="margin-top:8px; max-height:260px; overflow:auto; background:#f8fbff; border:1px solid #d9e4f2; border-radius:10px; padding:10px; white-space:pre-wrap;">' +
+    escAttr(reportText) +
+    '</pre>';
+
+  preview.classList.add('show');
+}
+
+function openFeedbackEmail(){
+  if (!validateFeedbackForm()) return;
+
+  const reasonMap = {
+    estrategia: 'Estrategia no adecuada',
+    factores: 'Factores mal interpretados',
+    coherencia: 'Recomendación no coherente',
+    detalle: 'Falta matización importante',
+    otro: 'Otro motivo'
+  };
+
+  const reasonKey = $('#feedbackReason')?.value || '';
+  const reasonTxt = reasonMap[reasonKey] || 'Feedback clínico';
+
+  const subject = '[Ictus GPS - Hipolipemiantes] ' + reasonTxt;
+  const body = buildFeedbackReportText();
+
+  const mailtoUrl =
+    'mailto:' + encodeURIComponent(FEEDBACK_EMAIL) +
+    '?subject=' + encodeURIComponent(subject) +
+    '&body=' + encodeURIComponent(body);
+
+  window.location.href = mailtoUrl;
+}
+
+$('#formLipidos').addEventListener('submit', function(e){
+  e.preventDefault();
+
+  $('#resultCard').classList.remove('hide');
+
+  const $$r = n => ($$('input[name="'+n+'"]:checked')[0]||{}).value;
     const escenario=$$r('escenario');
     const tratamiento=$$r('tratamiento');
     const ingreso=$('#ingreso').checked;
@@ -1471,12 +2398,14 @@ notas.push(`<div class="result-block">${transv.join(' ')}</div>`);
         $('#resultado').innerHTML=`<p class="err">Indique el <strong>tipo de estatina</strong>.</p>`;
         $('#resumenText').textContent = '';
         $('#disclaimerFinal').classList.add('hide');
+        resetFeedbackState(true);
         return;
       }
       if((tipoEstatina==='atorvastatina'||tipoEstatina==='rosuvastatina') && !dosisEstatina){
         $('#resultado').innerHTML=`<p class="err">Indique la <strong>dosis actual</strong> de la estatina.</p>`;
         $('#resumenText').textContent = '';
         $('#disclaimerFinal').classList.add('hide');
+        resetFeedbackState(true);
         return;
       }
     }
@@ -1485,6 +2414,7 @@ notas.push(`<div class="result-block">${transv.join(' ')}</div>`);
       $('#resultado').innerHTML = `<p class="err">Complete todos los campos obligatorios.</p>`;
       $('#resumenText').textContent = '';
       $('#disclaimerFinal').classList.add('hide');
+      resetFeedbackState(true);
     return;
     }
 
@@ -1537,10 +2467,41 @@ if (target) {
   });
 }
 
-    // Construir resumen textual y mostrarlo en #resumenText
+        // Construir resumen textual y mostrarlo en #resumenText
     const htmlPlano = recs.join('') + (avisos.length? `<p>${avisos.join(' ')}</p>`:'') + notas.join('');
     const resumen = ensamblarResumenTXT({...payload, obj, delta}, htmlPlano);
     $('#resumenText').textContent = resumen;
+
+    __lastFeedbackReport = {
+      createdAt: new Date().toISOString(),
+      page: 'hipolipemiantes',
+      escenario,
+      escenarioTxt: textoEscenario(escenario),
+      tratamiento,
+      tratamientoTxt: textoTratamiento(payload),
+      ingreso,
+      ldl,
+      ldlBasal,
+      lpaAlta,
+      riesgoMuyAlto: $('#riesgoMuyAlto')?.checked || false,
+      pctRed,
+      cambioBasal: pctRed !== null ? textoCambioBasal(pctRed) : 'No disponible',
+      obj,
+      delta,
+      objetivoGlobalAlcanzado,
+      resumenVisible: resumen
+    };
+
+    const openFeedbackButton = $('#btnOpenFeedback');
+    if (openFeedbackButton) openFeedbackButton.disabled = false;
+
+    const feedbackFormWrap = $('#feedbackFormWrap');
+    const feedbackPreview = $('#feedbackPreview');
+
+    if (feedbackFormWrap && feedbackFormWrap.classList.contains('show') &&
+        feedbackPreview && feedbackPreview.classList.contains('show')) {
+      previewFeedbackPayload();
+    }
 
     // Mostrar el disclaimer solo tras obtener resultado válido
     $('#disclaimerFinal').classList.remove('hide');
@@ -1556,8 +2517,10 @@ if (target) {
     $('#wrapDosis').style.display='block';
     $('#notaOtra').style.display='none';
     $('#resultado').innerHTML = `<p class="hint">Complete los supuestos y pulse <span class="tag">Calcular</span>.</p>`;
+    $('#resultCard').classList.add('hide');
     $('#disclaimerFinal').classList.add('hide');
     $('#resumenText').textContent = '';
+           resetFeedbackState(true);
     // Scroll al inicio suavemente
     window.scrollTo({
       top: 0,
@@ -1567,8 +2530,10 @@ if (target) {
 
   $('#btnPrint').addEventListener('click', ()=>{
     const resultado = $('#resultado').innerHTML.trim();
-    if(!resultado || resultado.includes('Complete')){
-      alert('Primero calcule una recomendación.');
+    const resumen = $('#resumenText').textContent.trim();
+
+    if(!resumen){
+      alert('Primero calcule una recomendación válida.');
       return;
     }
 
@@ -1628,7 +2593,10 @@ if (target) {
   }
   button{display:inline-block;margin-top:14px;background:var(--accent);color:white;border:0;border-radius:999px;padding:8px 14px;font-weight:600;cursor:pointer;}
   @media print {.no-print{display:none}}
+
+
 </style>
+
 </head>
 <body>
   <h1>Informe – Selección de tratamiento hipolipemiante</h1>
@@ -1650,10 +2618,46 @@ if (target) {
     w.document.close();
   });
 
-  $('#btnCopiar').addEventListener('click', copiarResumen);
+    $('#btnCopiar').addEventListener('click', copiarResumen);
 
+  const btnOpenFeedback = $('#btnOpenFeedback');
+  const btnCloseFeedback = $('#btnCloseFeedback');
+  const btnPrepareFeedback = $('#btnPrepareFeedback');
+  const btnSendFeedback = $('#btnSendFeedback');
+
+  if (btnOpenFeedback) {
+    btnOpenFeedback.addEventListener('click', (e) => {
+      e.preventDefault();
+      openFeedbackForm();
+    });
+  }
+
+  if (btnCloseFeedback) {
+    btnCloseFeedback.addEventListener('click', (e) => {
+      e.preventDefault();
+      closeFeedbackForm();
+    });
+  }
+
+  if (btnPrepareFeedback) {
+    btnPrepareFeedback.addEventListener('click', (e) => {
+      e.preventDefault();
+      previewFeedbackPayload();
+    });
+  }
+
+  if (btnSendFeedback) {
+    btnSendFeedback.addEventListener('click', (e) => {
+      e.preventDefault();
+      openFeedbackEmail();
+    });
+  }
+
+  resetFeedbackState(true);
   toggleBloqueEstatina();
 })();
+renderDetallesArticuloHipolipemiantes();
+activarAcordeonDetallesArticuloHipolipemiantes();
 </script>
         <script src="../js/index.js"></script>
       </div>
