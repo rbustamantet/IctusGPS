@@ -1,0 +1,922 @@
+<div class="howto" id="desarrollo-teorico-fop">
+  <h3 style="margin-top:0; color:#0f3d83;">📘 Desarrollo teórico ampliado</h3>
+
+  <details class="details-block">
+    <summary class="details-summary">📄 Resumen</summary>
+    <div style="margin-top:14px; background:#ffffff; border:1px solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.05); overflow:hidden; font-size:13px; line-height:1.55; color:#1e293b;">
+      <div style="background:#0f3d83; color:#ffffff; padding:10px 14px; font-size:14px; font-weight:700;">Resumen</div>
+      <div style="padding:16px 18px;" align="justify">
+        <p>El foramen oval permeable (FOP) es un hallazgo frecuente en adultos y puede ser incidental o estar implicado causalmente en un ictus isquémico por embolia paradójica. La decisión terapéutica tras un ictus isquémico con FOP no debe basarse únicamente en la presencia del defecto interauricular, sino en la probabilidad de que el FOP haya sido el mecanismo causal del evento. Para ello resulta útil integrar la puntuación RoPE, los rasgos anatómicos de alto riesgo (especialmente shunt derecha–izquierda grande y aneurisma del septo interauricular) y las circunstancias clínicas que aumentan o reducen la plausibilidad de embolia paradójica. La clasificación PASCAL permite sintetizar esta información y estimar mejor el balance entre beneficio y daño del cierre percutáneo. La evidencia disponible apoya el cierre percutáneo en pacientes seleccionados, especialmente de 18 a 60 años, con ictus isquémico no lacunar, ausencia de causa alternativa y FOP probable o posiblemente causal. En cambio, cuando el FOP es probablemente incidental, o existe indicación independiente de anticoagulación crónica, el manejo médico individualizado suele ser preferible.</p>
+      </div>
+    </div>
+  </details>
+
+  <details class="details-block">
+  <summary class="details-summary">📄 Introducción</summary>
+
+  <div class="details-card">
+    <div class="details-card-header">
+      Introducción
+    </div>
+
+    <div class="details-card-body" align="justify">
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Contexto general
+      </h4>
+
+      <p><b>El foramen oval permeable (FOP)</b> es una comunicación persistente entre ambas aurículas que, al no cerrarse tras el nacimiento, puede permitir el paso derecha–izquierda de material embólico venoso hacia la circulación arterial sistémica. Aunque en la población general adulta tiene una prevalencia aproximada del 25% y suele ser un hallazgo sin repercusión clínica, la embolia paradójica a través del FOP puede ser responsable de una proporción relevante de ictus isquémicos, especialmente en pacientes jóvenes o sin una causa alternativa identificada. En pacientes de 60 años o menos con ictus isquémico de causa no establecida, la prevalencia de FOP es mayor que en la población general, lo que obliga a valorar de forma cuidadosa si se trata de un hallazgo incidental o de un mecanismo causal.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Problema clínico principal
+      </h4>
+
+      <p><b>El reto clínico principal</b> consiste en distinguir el FOP verdaderamente causal del FOP meramente incidental. Esta distinción es esencial porque el cierre percutáneo reduce de forma significativa el riesgo de recurrencia isquémica en pacientes bien seleccionados, pero someter al procedimiento a pacientes inadecuados los expone a riesgos sin ofrecerles un beneficio claro. Entre estos riesgos destaca la <b>fibrilación auricular de nueva aparición</b>. Aunque parte de la FA postprocedimiento puede ser precoz y transitoria, la evidencia más reciente subraya que, en pacientes con baja probabilidad causal del FOP, el cierre puede asociarse a un incremento de fibrilación auricular sin reducción demostrable del ictus recurrente, lo que puede traducirse en un balance desfavorable.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Enfoque de decisión
+      </h4>
+
+      <p><b>Por tanto, la indicación de cierre no debe ser sistemática</b>, sino basada en una estratificación rigurosa de causalidad y beneficio neto. Herramientas como la escala <b>RoPE</b> y la clasificación <b>PASCAL</b> permiten integrar la edad, la carga de factores de riesgo vascular y los principales rasgos anatómicos de alto riesgo del FOP, especialmente el <b>shunt derecha–izquierda grande</b> atribuible al FOP y el <b>aneurisma del septo interauricular</b>. Esta valoración debe completarse con el estudio etiológico, la exclusión adecuada de fibrilación auricular, la identificación de datos clínicos sugestivos de embolia paradójica y la consideración de factores que puedan modificar el balance terapéutico, con el objetivo de maximizar el beneficio clínico y evitar daños iatrogénicos.</p>
+    </div>
+  </div>
+</details>
+
+ <details class="details-block">
+  <summary class="details-summary">📄 Concepto de ictus asociado a FOP</summary>
+
+  <div class="details-card">
+    <div class="details-card-header">
+      Concepto de ictus asociado a FOP
+    </div>
+
+    <div class="details-card-body" align="justify">
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Definición operativa
+      </h4>
+
+      <p>Debe considerarse <b>ictus asociado a FOP</b> cuando se cumplen tres condiciones generales: existe un ictus isquémico compatible con mecanismo embolígeno, se documenta anatómicamente un FOP y no se encuentra una causa alternativa más probable tras un estudio etiológico adecuado.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Características del evento índice
+      </h4>
+
+      <p>El evento debe ser un <b>ictus isquémico no lacunar</b> o presentar un patrón radiológico compatible con mecanismo embolígeno. La mera presencia de un FOP no es suficiente para atribuirle el ictus, ya que el FOP es frecuente en la población general y puede constituir un hallazgo incidental.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Confirmación anatómica del FOP
+      </h4>
+
+      <p>La presencia anatómica del FOP debe demostrarse mediante <b>ecocardiografía</b>, preferiblemente con contraste y valoración del septo interauricular, ya sea por ecocardiografía transtorácica o transesofágica según disponibilidad, calidad de imagen y necesidad de caracterización anatómica. El Doppler transcraneal con microburbujas no visualiza directamente el FOP, sino que detecta un <b>shunt derecha–izquierda funcional</b>. Por ello, es útil como prueba de cribado y cuantificación del shunt, pero un resultado positivo debe interpretarse junto con la ecocardiografía para confirmar la localización intracardiaca, valorar la anatomía del FOP y descartar o considerar un componente extracardiaco, especialmente pulmonar.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Exclusión de causas alternativas
+      </h4>
+
+      <p>El estudio etiológico debe excluir, entre otras posibilidades, <b>fibrilación auricular</b>, ateromatosis significativa, enfermedad de pequeño vaso, disección arterial, trombo intracardiaco, valvulopatía embolígena y otras fuentes cardioembólicas o sistémicas más probables. Cuanto mayor sea la edad del paciente o mayor la carga de factores de riesgo vascular, más exigente debe ser la búsqueda de etiologías alternativas antes de atribuir el evento al FOP.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Despistaje de fibrilación auricular oculta
+      </h4>
+
+      <p>Respecto al despistaje de <b>fibrilación auricular oculta</b> antes de plantear el cierre, la intensidad de la monitorización debe adaptarse a la edad y al riesgo arrítmico:</p>
+
+      <ul style="padding-left:22px;">
+        <li><b>En pacientes menores de 55 años y sin datos de riesgo arrítmico</b>, puede considerarse suficiente una monitorización cardiaca básica con telemetría o Holter de 24 horas, siempre que el resto del estudio etiológico sea negativo.</li>
+
+        <li><b>En perfiles de mayor riesgo arrítmico y en pacientes mayores de 55 años</b>, se recomienda una monitorización prolongada superior a 48 horas.</li>
+
+        <li><b>En pacientes mayores de 60 años</b>, debe considerarse el uso de monitor cardiaco implantable o ILR/ICM para detectar fibrilación auricular paroxística oculta. Desde un punto de vista práctico, disponer de al menos 6 meses de monitorización con ILR/ICM sin fibrilación auricular puede considerarse un umbral razonable para discutir cierre en pacientes seleccionados, aunque no excluye de forma absoluta la posibilidad de FA futura y la monitorización debe mantenerse hasta el final de vida del dispositivo.</li>
+      </ul>
+    </div>
+  </div>
+</details>
+
+ <details class="details-block">
+  <summary class="details-summary">📄 Escala RoPE</summary>
+
+  <div class="details-card">
+    <div class="details-card-header">
+      Escala RoPE
+    </div>
+
+    <div class="details-card-body" align="justify">
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Finalidad de la escala
+      </h4>
+
+      <p>La escala <b>RoPE</b>, acrónimo de <b>Risk of Paradoxical Embolism</b>, estima la probabilidad de que un FOP detectado tras un ictus isquémico sin causa alternativa identificada sea patogénico y no un hallazgo incidental. No es una escala de riesgo de recurrencia ni una indicación directa de cierre, sino una herramienta para aproximar la probabilidad causal del FOP.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Cálculo de la puntuación
+      </h4>
+
+      <p>La puntuación total va de <b>0 a 10 puntos</b> y se calcula a partir de la edad, la ausencia de factores de riesgo vascular clásicos y el patrón radiológico del infarto.</p>
+
+      <p><b>La edad aporta entre 0 y 5 puntos:</b></p>
+
+      <ul style="padding-left:22px;">
+        <li>18–29 años: 5 puntos.</li>
+        <li>30–39 años: 4 puntos.</li>
+        <li>40–49 años: 3 puntos.</li>
+        <li>50–59 años: 2 puntos.</li>
+        <li>60–69 años: 1 punto.</li>
+        <li>70 años o más: 0 puntos.</li>
+      </ul>
+
+      <p><b>A esta puntuación por edad se añade 1 punto por cada una de las siguientes condiciones:</b></p>
+
+      <ul style="padding-left:22px;">
+        <li>Ausencia de hipertensión arterial.</li>
+        <li>Ausencia de diabetes mellitus.</li>
+        <li>Ausencia de tabaquismo.</li>
+        <li>Ausencia de ictus o AIT previo.</li>
+        <li>Infarto cortical en la neuroimagen.</li>
+      </ul>
+
+      <p>Por tanto, un paciente joven, sin factores de riesgo vascular, sin antecedentes de ictus o AIT y con infarto cortical tendrá una puntuación RoPE alta. En cambio, un paciente de mayor edad, con hipertensión, diabetes, tabaquismo, eventos previos o un patrón no cortical tendrá una puntuación más baja.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Interpretación práctica
+      </h4>
+
+      <p>La interpretación general es la siguiente: las puntuaciones bajas sugieren menor probabilidad de que el FOP sea causal y mayor probabilidad de que sea incidental; las puntuaciones altas sugieren mayor probabilidad de que el FOP esté relacionado con el ictus. De forma práctica, una puntuación <b>RoPE de 0 a 3</b> orienta a baja probabilidad causal, una puntuación de <b>4 a 6</b> a probabilidad intermedia y una puntuación de <b>7 a 10</b> a probabilidad alta.</p>
+
+      <p>Según la estimación clásica de RoPE, la probabilidad atribuible aproximada del FOP aumenta progresivamente con la puntuación: alrededor del <b>28–35%</b> en puntuaciones muy bajas, <b>44–67%</b> en puntuaciones intermedias y <b>78–90%</b> en puntuaciones altas. Estas cifras deben interpretarse como una estimación poblacional, no como una certeza diagnóstica individual.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Limitaciones
+      </h4>
+
+      <p>Una puntuación RoPE alta identifica pacientes jóvenes, con pocos factores vasculares clásicos y con un patrón de infarto más compatible con mecanismo embólico. Sin embargo, <b>RoPE tiene limitaciones importantes</b>. No incorpora las características anatómicas del FOP, como el shunt derecha–izquierda grande o el aneurisma del septo interauricular; tampoco incluye datos clínicos sugestivos de embolia paradójica, trombofilia, recurrencia bajo tratamiento antitrombótico, shunt pulmonar coexistente ni indicación independiente de anticoagulación crónica.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Integración con PASCAL y contexto clínico
+      </h4>
+
+      <p>Por este motivo, una puntuación RoPE alta no basta por sí sola para indicar cierre percutáneo, y una puntuación baja no excluye de forma absoluta un mecanismo de embolia paradójica si existen datos clínicos o anatómicos muy concordantes. La utilidad principal de RoPE es servir como primer paso de estratificación causal, que debe integrarse después con la anatomía del FOP mediante la clasificación <b>PASCAL</b> y con el contexto clínico global del paciente.</p>
+    </div>
+  </div>
+</details>
+
+ <details class="details-block">
+  <summary class="details-summary">📄 Rasgos anatómicos de alto riesgo</summary>
+
+  <div class="details-card">
+    <div class="details-card-header">
+      Rasgos anatómicos de alto riesgo
+    </div>
+
+    <div class="details-card-body" align="justify">
+      <p>La anatomía del FOP es un componente esencial en la estimación de causalidad tras un ictus isquémico, pero no todos los hallazgos anatómicos tienen el mismo peso. En términos prácticos, conviene distinguir entre los <b>rasgos anatómicos que forman parte de la clasificación PASCAL</b>, otros hallazgos que pueden aumentar la plausibilidad fisiopatológica de embolia paradójica a través del FOP, y situaciones anatómicas que introducen complejidad etiológica porque pueden señalar una vía alternativa de shunt derecha–izquierda.</p>
+
+      <p>Los dos rasgos anatómicos principales incluidos en PASCAL son el <b>shunt derecha–izquierda grande atribuible al FOP</b> y el <b>aneurisma del septo interauricular</b>. Estos son los hallazgos que PASCAL integra junto con la puntuación RoPE para clasificar la probabilidad de que el FOP sea causal. La guía ESO 2024 señala que los pacientes con gran shunt y aneurisma septal son quienes presentan un beneficio más claro del cierre percutáneo.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Rasgos anatómicos incluidos en PASCAL
+      </h4>
+
+      <p><b>Aneurisma del septo interauricular o septo laxo.</b> El aneurisma del septo interauricular se define habitualmente como una excursión del septum primum de al menos 10 mm desde el plano del septo auricular hacia la aurícula derecha y/o izquierda. Refleja una movilidad excesiva del tabique interauricular, favorece la apertura dinámica del FOP y se asocia a mayor riesgo embólico. En la práctica, el septo laxo o hipermóvil debe interpretarse dentro del mismo espectro anatómico cuando la movilidad septal es significativa y favorece el paso derecha–izquierda.</p>
+
+      <p><b>Gran paso derecha–izquierda atribuible al FOP.</b> Se define, según la técnica utilizada, por la aparición de un número elevado de microburbujas en cavidades izquierdas o en la circulación cerebral tras la opacificación del territorio venoso derecho, especialmente en los primeros ciclos cardíacos y tras maniobra de Valsalva. En muchos protocolos se emplea un umbral superior a 20 microburbujas, o patrones masivos tipo ducha o cortina en Doppler transcraneal. Sin embargo, el Doppler transcraneal no visualiza directamente el FOP, sino que detecta un shunt derecha–izquierda funcional. Por ello, un shunt grande detectado por DTC debe interpretarse junto con la ecocardiografía para confirmar su localización intracardiaca, valorar la anatomía del septo interauricular y descartar o considerar un componente extracardiaco, especialmente pulmonar.</p>
+
+      <p>La presencia de <b>shunt grande atribuible al FOP</b> y/o <b>aneurisma del septo interauricular</b> modifica la interpretación de la puntuación RoPE. Así, un paciente con RoPE alto y uno de estos rasgos se clasifica como PASCAL probable, mientras que un paciente con RoPE bajo o intermedio pero con anatomía de alto riesgo puede clasificarse como PASCAL posible. Por el contrario, la ausencia de ambos rasgos en un paciente con RoPE bajo orienta hacia un FOP probablemente incidental.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Otros rasgos anatómicos que pueden reforzar la plausibilidad del FOP
+      </h4>
+
+      <p>Existen otros hallazgos anatómicos que pueden aumentar la plausibilidad fisiopatológica de embolia paradójica a través del FOP, aunque <b>no forman parte directa de la clasificación PASCAL</b>. Estos rasgos deben interpretarse dentro del contexto clínico global y no como indicaciones automáticas de cierre.</p>
+
+      <p><b>Canal interauricular largo.</b> Un túnel superior a 8 mm puede mantener una comunicación anatómicamente favorable al paso embólico y favorecer la persistencia funcional del shunt, especialmente durante maniobras que aumentan la presión derecha.</p>
+
+      <p><b>Válvula de Eustaquio o red de Chiari prominente.</b> Estas estructuras pueden dirigir el flujo venoso procedente de la vena cava inferior hacia el septo interauricular y aumentar la probabilidad de paso a través del FOP. Su presencia puede reforzar la plausibilidad de embolia paradójica si el resto del contexto clínico es concordante.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Shunt pulmonar coexistente
+      </h4>
+
+      <p><b>El shunt pulmonar coexistente debe considerarse de forma separada.</b> No es un rasgo anatómico de alto riesgo del FOP ni modifica la clasificación PASCAL. Tampoco refuerza por sí solo la indicación de cierre percutáneo del FOP. Al contrario, introduce una complejidad anatómica y etiológica, porque puede actuar como vía alternativa de embolia paradójica.</p>
+
+      <p>Debe considerarse especialmente cuando el patrón temporal de aparición de microburbujas, la cuantificación del shunt, la ecocardiografía o el contexto clínico sugieren un paso extracardiaco. Su presencia obliga a caracterizar si el shunt derecha–izquierda clínicamente relevante es <b>intracardiaco, pulmonar o mixto</b>. Si el componente pulmonar es relevante, el cierre del FOP podría no eliminar por completo la vía de embolia paradójica.</p>
+
+      <p>Por este motivo, cuando existe shunt pulmonar coexistente y se está considerando cierre percutáneo del FOP, puede ser conveniente una valoración multidisciplinar para integrar los hallazgos de ecocardiografía, Doppler transcraneal, imagen torácica si procede y contexto clínico.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Interpretación práctica
+      </h4>
+
+      <p>La presencia de rasgos anatómicos de alto riesgo aumenta la probabilidad de que el FOP sea causal, pero <b>no sustituye al estudio etiológico completo</b>. La anatomía debe integrarse con la edad, la puntuación RoPE, el patrón radiológico del infarto, la exclusión de causas alternativas, el despistaje adecuado de fibrilación auricular y las circunstancias clínicas sugestivas de embolia paradójica.</p>
+
+      <p>En términos prácticos, <b>shunt grande atribuible al FOP y aneurisma septal</b> son los rasgos anatómicos que modifican PASCAL. El canal largo, la válvula de Eustaquio prominente y la red de Chiari pueden reforzar la plausibilidad de embolia paradójica a través del FOP, pero no deben utilizarse de forma aislada para indicar cierre percutáneo. El shunt pulmonar coexistente debe interpretarse como un <b>factor de complejidad anatómica y etiológica</b>: obliga a definir si la vía de paso derecha–izquierda es intracardiaca, pulmonar o mixta antes de atribuir el evento exclusivamente al FOP.</p>
+    </div>
+  </div>
+</details>
+
+ <details class="details-block">
+  <summary class="details-summary">📄 Situaciones clínicas</summary>
+
+  <div class="details-card">
+    <div class="details-card-header">
+      Situaciones clínicas
+    </div>
+
+    <div class="details-card-body" align="justify">
+      <p>Además de la puntuación <b>RoPE</b> y de la anatomía del FOP, existen elementos clínicos que influyen de forma decisiva en la interpretación causal del evento y en la indicación de cierre percutáneo. No todos estos elementos tienen la misma función. Algunos son <b>requisitos previos</b> antes de atribuir el ictus al FOP; otros modulan el <b>balance terapéutico</b> entre cierre, tratamiento médico o anticoagulación; otros aumentan la <b>plausibilidad clínica de embolia paradójica</b>; y otros introducen incertidumbre o conflicto terapéutico que aconseja <b>valoración multidisciplinar</b>.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Requisitos previos antes de atribuir el ictus al FOP
+      </h4>
+
+      <p>Antes de considerar que un ictus isquémico está asociado a FOP, deben cumplirse unos requisitos mínimos. Si alguno de ellos está pendiente, la indicación de cierre debe diferirse hasta completar la valoración etiológica.</p>
+
+      <ul style="padding-left:22px;">
+        <li><b>Ictus isquémico no lacunar o patrón compatible con mecanismo embolígeno.</b> El evento debe ser compatible con un mecanismo embólico y no explicarse mejor por enfermedad de pequeño vaso u otra etiología vascular local.</li>
+
+        <li><b>FOP documentado.</b> La presencia anatómica del foramen oval permeable debe demostrarse mediante ecocardiografía, preferiblemente con contraste y valoración del septo interauricular, ya sea por ecocardiografía transtorácica o transesofágica según disponibilidad y calidad de imagen. El Doppler transcraneal con microburbujas no visualiza directamente el FOP, sino que detecta un shunt derecha–izquierda funcional; por ello es útil como prueba de cribado y cuantificación del shunt, pero un resultado positivo debe interpretarse junto con la ecocardiografía para confirmar la localización intracardiaca, valorar la anatomía del FOP y descartar o considerar shunt extracardiaco, especialmente pulmonar.</li>
+
+        <li><b>Ausencia de causa alternativa tras estudio completo.</b> Es un requisito central antes de atribuir el ictus al FOP. El estudio etiológico debe excluir fibrilación auricular, ateromatosis significativa, enfermedad de pequeño vaso, disección arterial, trombo intracardiaco, valvulopatía embolígena y otras fuentes cardioembólicas o sistémicas más probables.</li>
+
+        <li><b>Despistaje adecuado de fibrilación auricular.</b> La ausencia de fibrilación auricular documentada debe interpretarse en función de la intensidad y duración de la monitorización realizada. En pacientes menores de 55 años y sin datos de riesgo arrítmico, puede ser suficiente una monitorización básica con telemetría o Holter de 24 horas. En pacientes de mayor riesgo arrítmico o mayores de 55 años, se recomienda monitorización prolongada superior a 48 horas. En pacientes mayores de 60 años, debe considerarse el uso de monitor cardiaco implantable para detectar fibrilación auricular paroxística oculta. Desde un punto de vista práctico, disponer de al menos 6 meses de monitorización con ILR/ICM sin FA puede considerarse un umbral razonable para discutir cierre en pacientes seleccionados, aunque no excluye de forma absoluta la posibilidad de FA futura y la monitorización debe mantenerse hasta el final de vida del dispositivo.</li>
+      </ul>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Factores que modulan el balance terapéutico
+      </h4>
+
+      <p>Una vez cumplidos los requisitos previos, determinados factores clínicos pueden modificar el balance entre <b>cierre percutáneo</b>, tratamiento antiagregante, anticoagulación o discusión multidisciplinar. Estos factores no forman parte de la clasificación PASCAL y no todos actúan en la misma dirección.</p>
+
+      <ul style="padding-left:22px;">
+        <li><b>Patrón embólico multiterritorial o bilateral.</b> Refuerza la posibilidad de un mecanismo embolígeno y aumenta la plausibilidad de que el FOP haya tenido un papel causal si el resto del estudio etiológico es negativo.</li>
+
+        <li><b>Recurrencia bajo tratamiento antitrombótico.</b> La recurrencia isquémica pese a tratamiento antitrombótico debe interpretarse según el tipo y la calidad del tratamiento recibido. No tiene el mismo significado clínico recurrir bajo antiagregación que hacerlo bajo anticoagulación adecuada o bajo anticoagulación subóptima.
+          <ul style="padding-left:20px; margin-top:8px;">
+            <li><b>Cuando la recurrencia ocurre bajo tratamiento antiagregante</b>, puede sugerir fracaso del manejo médico convencional y reforzar la indicación de cierre en pacientes con perfil PASCAL probable o posible, especialmente si el contexto anatómico y clínico es concordante. En cambio, en pacientes con PASCAL improbable y sin datos mayores sugestivos de embolia paradójica, la recurrencia bajo antiagregante no justifica por sí sola el cierre y debe motivar una reevaluación etiológica.</li>
+
+            <li><b>Cuando la recurrencia ocurre pese a anticoagulación adecuada y bien controlada</b>, se trata de una situación de mayor complejidad. Deben reevaluarse la etiología del ictus, la adherencia, la intensidad del tratamiento, la existencia de otras fuentes embolígenas y la posibilidad de mecanismos alternativos. En pacientes con PASCAL probable o posible, o con datos mayores sugestivos de embolia paradójica, puede discutirse el cierre adicional en comité multidisciplinar, pero el cierre no sustituye la anticoagulación si esta sigue indicada.</li>
+
+            <li><b>Cuando la recurrencia ocurre bajo anticoagulación subóptima, mala adherencia, infradosificación o rango terapéutico inadecuado</b>, no debe interpretarse como fracaso de anticoagulación adecuada. La prioridad es optimizar el tratamiento antitrombótico y reevaluar la etiología. Sin embargo, este dato tampoco descarta un mecanismo embólico o paradójico; si el perfil FOP-causal es favorable o existen datos mayores sugestivos de embolia paradójica, el caso puede requerir discusión multidisciplinar.</li>
+          </ul>
+        </li>
+
+        <li><b>Riesgo hemorrágico bajo.</b> Es un elemento favorable cuando se plantea cierre percutáneo, ya que tras el procedimiento suele requerirse tratamiento antiagregante, habitualmente doble antiagregación durante un periodo inicial seguida de antiagregación simple.</li>
+
+        <li><b>Trombofilia venosa.</b> La trombofilia puede aumentar la plausibilidad de embolia paradójica, pero sus implicaciones terapéuticas dependen de si existe o no indicación independiente de anticoagulación crónica. Cuando no existe indicación de anticoagulación crónica, puede reforzar la discusión sobre cierre en un contexto clínico-anatómico concordante. Cuando sí existe indicación de anticoagulación crónica, la anticoagulación pasa a ser el eje del tratamiento y el beneficio incremental del cierre suele ser limitado. Este aspecto se desarrolla con mayor detalle en la sección siguiente.</li>
+      </ul>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Datos clínicos sugestivos de embolia paradójica
+      </h4>
+
+      <p>La guía ESO 2024 contempla que determinadas circunstancias clínicas pueden elevar la probabilidad de causalidad del FOP incluso en casos inicialmente menos favorables, incluyendo pacientes clasificados como PASCAL improbable. Estas circunstancias aumentan la plausibilidad de que el FOP haya participado causalmente en el ictus mediante un mecanismo de embolia paradójica. No modifican la clasificación PASCAL, pero pueden cambiar la interpretación clínica y justificar discusión multidisciplinar cuando el conjunto del caso sea concordante.</p>
+
+      <h5 style="margin:12px 0 8px; color:#991b1b; font-size:12.5px; font-weight:800;">
+        🔴 Datos mayores
+      </h5>
+
+      <ul style="padding-left:22px;">
+        <li><b>Trombosis venosa profunda o tromboembolismo pulmonar próximo al ictus.</b> Aporta una fuente venosa plausible para embolia paradójica y aumenta de forma importante la probabilidad de relación causal entre FOP e ictus.</li>
+
+        <li><b>Trombo atrapado a través del FOP.</b> Constituye una evidencia directa de embolia paradójica en curso o inminente, y representa uno de los datos de mayor peso fisiopatológico.</li>
+
+        <li><b>Embolia sistémica no cerebral.</b> La presencia de embolia arterial en otro territorio sugiere un fenómeno embólico sistémico y puede reforzar el papel causal del FOP si no existe otra fuente embolígena más probable.</li>
+
+        <li><b>Enfermedad por descompresión en buceadores.</b> Es un contexto clásico en el que el FOP puede facilitar fenómenos embólicos paradójicos.</li>
+
+        <li><b>Platipnea-ortodesoxia.</b> Puede reflejar un shunt derecha–izquierda clínicamente relevante y aumentar la plausibilidad de paso anómalo a través del FOP.</li>
+      </ul>
+
+      <p>En presencia de uno o varios de estos datos mayores, incluso un paciente inicialmente clasificado como PASCAL improbable puede requerir discusión multidisciplinar antes de descartar definitivamente el cierre percutáneo. Esta aproximación es coherente con la guía ESO 2024, que recomienda evitar el cierre en PASCAL improbable salvo que existan circunstancias clínicas excepcionales que aumenten claramente la probabilidad de embolia paradójica.</p>
+
+      <h5 style="margin:12px 0 8px; color:#92400e; font-size:12.5px; font-weight:800;">
+        🟠 Datos de apoyo
+      </h5>
+
+      <ul style="padding-left:22px;">
+        <li><b>Maniobra de Valsalva al inicio del evento.</b> Puede favorecer un aumento transitorio de la presión derecha y facilitar el paso derecha–izquierda a través del FOP.</li>
+
+        <li><b>Inmovilidad prolongada o viaje reciente.</b> Aumenta el riesgo de trombosis venosa y puede reforzar la plausibilidad de embolia paradójica, especialmente si el evento neurológico ocurre en proximidad temporal.</li>
+
+        <li><b>Hipertensión arterial pulmonar.</b> Puede favorecer o amplificar el shunt derecha–izquierda y debe considerarse dentro del contexto hemodinámico global.</li>
+
+        <li><b>Apnea del sueño u otras condiciones hipoxémicas.</b> Pueden asociarse a cambios de presión intratorácica, hipoxemia o sobrecarga derecha que favorezcan episodios de shunt derecha–izquierda.</li>
+
+        <li><b>Migraña con aura.</b> Puede aumentar la plausibilidad contextual de relación con FOP, aunque no constituye por sí sola una indicación de cierre.</li>
+      </ul>
+
+      <p>Estos datos de apoyo deben interpretarse de forma integrada con RoPE, PASCAL, anatomía, edad, exclusión de otras etiologías y preferencias del paciente. Por sí solos no convierten la indicación de cierre en automática.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Situaciones que aconsejan discusión multidisciplinar
+      </h4>
+
+      <p>La <b>discusión multidisciplinar</b> en un equipo neurocardiológico no debe reservarse solo para los casos en los que se decide cerrar el FOP. También es útil cuando existe incertidumbre etiológica, conflicto terapéutico o discrepancia entre la probabilidad causal estimada y otros datos clínicos o anatómicos.</p>
+
+      <p>Debe considerarse especialmente en pacientes <b>mayores de 60 años con PASCAL probable o posible</b>, dado que la evidencia aleatorizada es más limitada y la exclusión de fibrilación auricular y otras etiologías debe ser particularmente rigurosa.</p>
+
+      <p>También debe considerarse en pacientes con <b>PASCAL improbable pero con datos mayores sugestivos de embolia paradójica</b>, como trombosis venosa profunda o tromboembolismo pulmonar próximo al ictus, trombo atrapado a través del FOP, embolia sistémica no cerebral, enfermedad por descompresión o platipnea-ortodesoxia. En estos casos, los datos mayores no modifican formalmente PASCAL, pero impiden descartar el FOP de forma automática.</p>
+
+      <p>La <b>indicación independiente de anticoagulación crónica</b> constituye otro escenario que debe individualizarse. En estos pacientes, la anticoagulación es el eje del tratamiento y el cierre no la sustituye. Si se plantea cierre adicional, debe hacerse en casos muy seleccionados y tras valoración multidisciplinar, especialmente si existe recurrencia embólica pese a anticoagulación adecuada o datos mayores sugestivos de embolia paradójica.</p>
+
+      <p>La <b>recurrencia isquémica bajo anticoagulación adecuada o bajo anticoagulación subóptima</b> también puede requerir discusión multidisciplinar, pero por motivos diferentes. La recurrencia bajo anticoagulación adecuada obliga a revisar el mecanismo etiológico y valorar si existe una vía embólica no controlada. La recurrencia bajo anticoagulación subóptima obliga primero a optimizar el tratamiento, pero si coexiste un perfil PASCAL favorable o datos mayores de embolia paradójica, el caso puede requerir valoración conjunta.</p>
+
+      <p>Finalmente, la presencia de un <b>shunt pulmonar coexistente</b> debe interpretarse como un factor de complejidad anatómica y etiológica. No modifica PASCAL ni refuerza por sí solo la indicación de cierre del FOP. Al contrario, obliga a caracterizar si el paso derecha–izquierda clínicamente relevante es intracardiaco, pulmonar o mixto, ya que un shunt pulmonar relevante puede actuar como vía alternativa de embolia paradójica y no se resolvería con el cierre del FOP. Si se está considerando cierre percutáneo, esta situación puede justificar valoración multidisciplinar.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Seguridad procedimental
+      </h4>
+
+      <p>Si existe una <b>contraindicación procedimental</b>, anatomía desfavorable, comorbilidad grave o riesgo inaceptable para el procedimiento, debe priorizarse el manejo médico individualizado. En estos casos, la decisión terapéutica debe centrarse en optimizar la prevención secundaria según el mecanismo más probable del ictus y el perfil global del paciente.</p>
+
+      <p>En conjunto, la valoración clínica debe diferenciar entre <b>requisitos previos</b>, <b>factores que modulan el balance terapéutico</b>, <b>datos sugestivos de embolia paradójica</b> y <b>situaciones de complejidad que aconsejan discusión multidisciplinar</b>. Esta distinción evita atribuir de forma automática el ictus al FOP y permite seleccionar mejor a los pacientes en quienes el cierre percutáneo puede ofrecer un beneficio neto.</p>
+    </div>
+  </div>
+</details>
+
+ <details class="details-block">
+  <summary class="details-summary">📄 Trombofilia y FOP</summary>
+
+  <div class="details-card">
+    <div class="details-card-header">
+      Trombofilia y FOP
+    </div>
+
+    <div class="details-card-body" align="justify">
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Papel clínico de la trombofilia
+      </h4>
+
+      <p>Los estados de <b>trombofilia</b>, hereditarios o adquiridos, se asocian a mayor riesgo trombótico, principalmente venoso. En presencia de FOP pueden aumentar la plausibilidad biológica de embolia paradójica, al facilitar la formación de trombos venosos capaces de pasar a la circulación arterial a través de un <b>shunt derecha–izquierda</b>. Sin embargo, no todas las trombofilias tienen el mismo peso clínico ni las mismas implicaciones terapéuticas.</p>
+
+      <p>El hallazgo de una trombofilia <b>no forma parte de la clasificación PASCAL</b> y no modifica directamente la categoría PASCAL. Su función es diferente: actúa como un modificador clínico que puede reforzar la plausibilidad de embolia paradójica cuando el resto del contexto es concordante. Por tanto, no debe interpretarse de forma aislada ni convertir automáticamente la indicación de cierre en obligatoria.</p>
+
+      <p>En la práctica, más que clasificar la trombofilia solo por el resultado analítico, es importante determinar si existe o no una <b>indicación independiente de anticoagulación crónica</b>. Esta distinción modifica de forma sustancial la orientación terapéutica.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Trombofilia sin indicación de anticoagulación crónica
+      </h4>
+
+      <p>Incluye situaciones en las que existe una predisposición trombótica de bajo o moderado riesgo, o antecedentes trombóticos provocados y resueltos, sin indicación actual de anticoagulación indefinida. Pueden incluirse, según el contexto clínico y la valoración hematológica, situaciones como <b>factor V Leiden heterocigoto</b>, mutación G20210A de la protrombina heterocigota, elevación aislada de factor VIII, hiperhomocisteinemia leve o antecedente de trombosis venosa claramente provocada.</p>
+
+      <p>En estos casos, la trombofilia puede reforzar la plausibilidad de embolia paradójica y apoyar la discusión sobre cierre percutáneo cuando el perfil global es concordante, especialmente en pacientes con <b>PASCAL probable o posible</b>, shunt grande atribuible al FOP, aneurisma del septo interauricular o datos clínicos sugestivos de embolia paradójica.</p>
+
+      <p>La trombofilia sin indicación de anticoagulación crónica <b>no convierte por sí sola la indicación de cierre en automática</b>. Su peso debe integrarse con la edad, la clasificación PASCAL, la anatomía del FOP, el patrón radiológico del infarto, la exclusión de otras etiologías, el riesgo hemorrágico y las preferencias del paciente.</p>
+
+      <p>En pacientes con <b>PASCAL improbable</b>, la trombofilia aislada no suele ser suficiente para indicar cierre. Puede justificar una discusión individualizada si concurren otros datos concordantes, como datos mayores sugestivos de embolia paradójica, rasgos anatómicos de alto riesgo o recurrencia isquémica bajo tratamiento médico, pero no debe sustituir al razonamiento etiológico global.</p>
+
+      <p>Algunos estudios sugieren que los pacientes con ictus asociado a FOP y trombofilia pueden presentar mayor riesgo de recurrencia y podrían beneficiarse del cierre frente al tratamiento médico aislado. No obstante, estos datos deben interpretarse con cautela, porque el tipo de trombofilia, la indicación o no de anticoagulación crónica, la probabilidad causal del FOP y el contexto clínico modifican el balance terapéutico.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Trombofilia con indicación de anticoagulación crónica
+      </h4>
+
+      <p>Incluye situaciones de mayor riesgo trombótico o con indicación independiente de anticoagulación indefinida, como <b>síndrome antifosfolípido de alto riesgo</b>, trombosis venosa profunda o tromboembolismo pulmonar no provocados o recurrentes, combinación de varias trombofilias hereditarias o déficits graves de antitrombina, proteína C o proteína S, siempre según valoración clínica y hematológica.</p>
+
+      <p>La guía ESO 2024 desaconseja la anticoagulación crónica en el ictus asociado a FOP salvo que exista otra indicación médica para anticoagular. Por ello, cuando una trombofilia sí constituye una <b>indicación independiente de anticoagulación crónica</b>, la anticoagulación pasa a ser el eje del tratamiento.</p>
+
+      <p>En este contexto, el cierre del FOP <b>no sustituye la anticoagulación</b> y el beneficio incremental del cierre suele ser limitado. Por ello, el cierre no debe recomendarse de entrada de forma automática, aunque tampoco debe considerarse formalmente contraindicado por el mero hecho de existir trombofilia.</p>
+
+      <p>La decisión sobre cierre en pacientes con indicación independiente de anticoagulación crónica debe individualizarse. Puede plantearse discusión multidisciplinar en situaciones seleccionadas, especialmente si existe <b>PASCAL probable o posible</b>, rasgos anatómicos de alto riesgo o datos mayores sugestivos de embolia paradójica. En estos casos, la pregunta no es si el cierre sustituye a la anticoagulación, sino si añade un beneficio razonable en un paciente con alta plausibilidad de embolia paradójica a través del FOP.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Interpretación práctica
+      </h4>
+
+      <p>En conjunto, la trombofilia debe entenderse como un <b>modificador clínico relevante</b>, no como una indicación aislada de cierre. Su impacto depende de si existe indicación de anticoagulación crónica, de la probabilidad causal del FOP, de la anatomía, de la presencia de datos clínicos de embolia paradójica y del balance individual entre prevención de recurrencia, riesgo hemorrágico y seguridad procedimental.</p>
+    </div>
+  </div>
+</details>
+
+ <details class="details-block">
+  <summary class="details-summary">📄 Clasificación PASCAL</summary>
+
+  <div class="details-card">
+    <div class="details-card-header">
+      Clasificación PASCAL
+    </div>
+
+    <div class="details-card-body" align="justify">
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Finalidad de la clasificación
+      </h4>
+
+      <p>La clasificación <b>PASCAL</b>, acrónimo de <b>PFO-Associated Stroke Causal Likelihood</b>, integra la puntuación <b>RoPE</b> con los dos principales rasgos anatómicos de alto riesgo del foramen oval permeable: el <b>shunt derecha–izquierda grande atribuible al FOP</b> y el <b>aneurisma del septo interauricular</b>. Su objetivo es estimar la probabilidad de que el FOP sea causal en un ictus isquémico sin otra etiología más probable y clasificar a los pacientes en tres categorías: <b>probable</b>, <b>posible</b> o <b>improbable</b>.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Requisitos antes de aplicar PASCAL
+      </h4>
+
+      <p><b>PASCAL no sustituye al estudio etiológico.</b> Antes de aplicarlo, deben cumplirse unos requisitos mínimos: ictus isquémico no lacunar o patrón compatible con mecanismo embolígeno, FOP documentado anatómicamente, ausencia de una causa alternativa más probable y despistaje de fibrilación auricular proporcionado a la edad y al riesgo arrítmico del paciente. Tampoco incorpora todos los elementos clínicos relevantes: la trombofilia, los datos mayores sugestivos de embolia paradójica, la recurrencia bajo tratamiento antitrombótico, el shunt pulmonar coexistente o la indicación independiente de anticoagulación crónica no modifican formalmente la categoría PASCAL, aunque sí pueden cambiar la interpretación clínica del caso.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Evidencia procedente del consorcio SCOPE
+      </h4>
+
+      <p>El análisis de datos individuales del <b>consorcio SCOPE</b>, publicado inicialmente en JAMA y actualizado posteriormente en JAMA Neurology, evaluó pacientes incluidos en los seis ensayos aleatorizados de cierre transcatéter del FOP frente a tratamiento antitrombótico aislado. Estos análisis mostraron que PASCAL permite distinguir pacientes con beneficio neto del cierre de aquellos en quienes el balance puede ser desfavorable, al comparar la reducción de ictus isquémico recurrente con el exceso de fibrilación auricular detectada después del procedimiento.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#166534; font-size:13px; font-weight:800;">
+        🟢 PASCAL probable
+      </h4>
+
+      <p>Corresponde a pacientes con <b>RoPE ≥7</b> y presencia de <b>shunt grande atribuible al FOP</b> y/o <b>aneurisma del septo interauricular</b>. En este grupo, el FOP es probablemente causal. El cierre percutáneo ofrece el beneficio neto más claro, especialmente cuando el estudio etiológico está completo y no existen contraindicaciones. En el análisis de 2026, a 5 años se observó una reducción absoluta de ictus isquémico recurrente del <b>2,5%</b>, frente a un aumento de fibrilación auricular tardía del <b>1,3%</b>.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#92400e; font-size:13px; font-weight:800;">
+        🟠 PASCAL posible
+      </h4>
+
+      <p>Incluye dos situaciones: <b>RoPE ≥7 sin shunt grande ni aneurisma septal</b>, o <b>RoPE &lt;7 con shunt grande atribuible al FOP y/o aneurisma del septo interauricular</b>. En este grupo, la relación causal entre FOP e ictus es posible y requiere valoración individualizada. El cierre puede ser razonable en pacientes seleccionados, especialmente si el contexto clínico y anatómico es concordante. En el análisis de 2026 también se observó beneficio neto del cierre, con una reducción absoluta de ictus recurrente del <b>3,4%</b> a 5 años, frente a un aumento de fibrilación auricular tardía del <b>1,1%</b>.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#991b1b; font-size:13px; font-weight:800;">
+        🔴 PASCAL improbable
+      </h4>
+
+      <p>Corresponde a pacientes con <b>RoPE &lt;7</b> y ausencia de <b>shunt grande atribuible al FOP</b> o <b>aneurisma septal</b>. En este escenario, el FOP es probablemente incidental. En el análisis de 2026 no se observó reducción del ictus recurrente con el cierre; por el contrario, se describió un aumento absoluto del <b>0,4%</b> en ictus recurrente y un incremento del <b>4,6%</b> en fibrilación auricular tardía. Este perfil sugiere un balance desfavorable y apoya evitar el cierre de forma ordinaria.</p>
+
+      <p>No obstante, <b>PASCAL improbable no debe interpretarse como una prohibición absoluta de discutir el cierre</b>. La guía ESO 2024 contempla que determinadas circunstancias clínicas excepcionales pueden aumentar claramente la probabilidad de embolia paradójica, como trombosis venosa profunda o tromboembolismo pulmonar próximo al ictus, trombo atrapado a través del FOP, embolia sistémica no cerebral, enfermedad por descompresión o platipnea-ortodesoxia. Estos datos no modifican formalmente PASCAL, pero pueden justificar discusión multidisciplinar antes de descartar definitivamente el cierre.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Interpretación práctica
+      </h4>
+
+      <p>En conjunto, PASCAL permite trasladar la decisión desde la simple presencia de FOP hacia una estimación más precisa de causalidad y beneficio neto. Aproximadamente cuatro de cada cinco pacientes incluidos en los ensayos fueron clasificados como <b>PASCAL probable o posible</b> y mostraron un balance favorable al cierre, mientras que el grupo <b>PASCAL improbable</b> concentró el mayor riesgo de daño neto, especialmente por fibrilación auricular sin reducción demostrable del riesgo de ictus recurrente.</p>
+
+      <p>La interpretación práctica debe ser integrada: <b>PASCAL probable suele apoyar cierre preferente</b> en pacientes de 18 a 60 años; <b>PASCAL posible apoya cierre razonable</b> en pacientes seleccionados; y <b>PASCAL improbable orienta a manejo médico preferente</b> salvo circunstancias excepcionales. En mayores de 60 años, incluso con PASCAL probable o posible, la decisión debe ser más prudente y preferiblemente valorada en equipo neurocardiológico, tras una exclusión rigurosa de fibrilación auricular y otras etiologías.</p>
+    </div>
+  </div>
+</details>
+
+<details class="details-block">
+  <summary class="details-summary">📄 Cierre percutáneo frente a tratamiento médico</summary>
+
+  <div class="details-card">
+    <div class="details-card-header">
+      Cierre percutáneo frente a tratamiento médico
+    </div>
+
+    <div class="details-card-body" align="justify">
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Evidencia disponible
+      </h4>
+
+      <p>La evidencia que sustenta el <b>cierre percutáneo del FOP</b> procede de varios ensayos aleatorizados y de análisis agrupados de datos individuales en pacientes jóvenes o de mediana edad con ictus criptogénico y FOP. Los estudios iniciales, como CLOSURE I y PC Trial, no demostraron de forma concluyente la superioridad del cierre, en parte por limitaciones de selección, dispositivos y potencia estadística. Sin embargo, los ensayos posteriores con mejor selección de pacientes, mayor seguimiento y dispositivos más eficaces —especialmente RESPECT a largo plazo, CLOSE, REDUCE y DEFENSE-PFO— demostraron que el cierre percutáneo reduce el riesgo de ictus isquémico recurrente frente al tratamiento médico aislado en pacientes seleccionados.</p>
+
+      <p>En el análisis agrupado de datos individuales de los grandes ensayos aleatorizados, que incluyó <b>3740 pacientes</b> con ictus criptogénico y FOP, el cierre redujo significativamente la incidencia anualizada de ictus isquémico recurrente frente al tratamiento médico aislado. Esta reducción no fue uniforme en todos los pacientes, sino que dependió de la probabilidad de que el FOP fuese causal. Este punto es clave: <b>el beneficio del cierre no deriva de la mera presencia de un FOP</b>, sino de seleccionar pacientes en quienes el FOP tiene una probabilidad razonable de haber participado en el mecanismo del ictus.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Recomendaciones generales de las guías
+      </h4>
+
+      <p>Las guías actuales reflejan esta interpretación. En general, recomiendan considerar el cierre percutáneo en pacientes de <b>18 a 60 años</b> con ictus isquémico no lacunar, FOP documentado, ausencia de otra causa más probable y características que apoyen una relación causal, especialmente cuando existe shunt grande, aneurisma del septo interauricular o una clasificación <b>PASCAL probable o posible</b>. La guía ESO 2024 refuerza además la necesidad de integrar la probabilidad causal, la anatomía, el perfil clínico y el riesgo de fibrilación auricular antes de decidir.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Papel del tratamiento médico
+      </h4>
+
+      <p>El <b>tratamiento médico</b> sigue siendo la alternativa principal cuando el FOP parece incidental, cuando el estudio etiológico está incompleto, cuando existen contraindicaciones para el procedimiento o cuando el balance beneficio-riesgo no favorece el cierre. En ausencia de otra indicación de anticoagulación, el tratamiento médico suele basarse en antiagregación. La anticoagulación crónica no debe indicarse solo por la presencia de FOP, salvo que exista otra indicación independiente.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Utilidad de PASCAL para ordenar el balance
+      </h4>
+
+      <p>La clasificación <b>PASCAL</b> permite ordenar mejor este balance. Los pacientes con PASCAL probable concentran el beneficio más claro del cierre, ya que combinan una puntuación RoPE alta con rasgos anatómicos de alto riesgo. En pacientes con PASCAL posible, el cierre puede ser razonable si el conjunto clínico-anatómico es concordante. En cambio, en pacientes con PASCAL improbable, el FOP suele ser incidental y el cierre no debe realizarse de forma ordinaria, salvo circunstancias excepcionales que aumenten claramente la plausibilidad de embolia paradójica.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#991b1b; font-size:13px; font-weight:800;">
+        Riesgo de fibrilación auricular
+      </h4>
+
+      <p>El principal riesgo específico del cierre es la <b>fibrilación auricular de nueva aparición</b>, habitualmente periprocedimiento o precoz tras el implante, aunque también puede detectarse más tardíamente. Este riesgo debe ponderarse frente a la reducción esperada de ictus recurrente. Por ello, el balance es más favorable cuanto mayor es la probabilidad causal del FOP y menos favorable cuando existen edad avanzada, factores de riesgo vascular, baja puntuación RoPE, ausencia de rasgos anatómicos de alto riesgo o sospecha de etiologías alternativas.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Pacientes mayores de 60 años
+      </h4>
+
+      <p>En pacientes <b>mayores de 60 años</b>, la indicación debe ser especialmente prudente. La evidencia aleatorizada es más limitada y aumenta la probabilidad de fibrilación auricular oculta, ateromatosis u otros mecanismos de ictus. Incluso con PASCAL probable o posible, el cierre no debe indicarse de forma automática y suele requerir valoración individualizada tras una exclusión rigurosa de etiologías alternativas, idealmente en un equipo neurocardiológico.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Indicación independiente de anticoagulación
+      </h4>
+
+      <p>Cuando existe una <b>indicación independiente de anticoagulación crónica</b>, el cierre no sustituye la anticoagulación. En estos casos, el beneficio incremental del cierre suele ser menor y la decisión debe individualizarse. El cierre adicional puede considerarse solo en casos seleccionados, especialmente si la plausibilidad causal del FOP es alta y el contexto clínico sugiere embolia paradójica.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Recurrencia bajo tratamiento antitrombótico
+      </h4>
+
+      <p>La <b>recurrencia bajo tratamiento antitrombótico</b> también debe interpretarse según el tratamiento recibido. La recurrencia bajo antiagregación puede reforzar la indicación de cierre si el perfil causal es favorable. En cambio, la recurrencia pese a anticoagulación adecuada o durante anticoagulación subóptima introduce mayor complejidad y obliga a reevaluar el mecanismo etiológico antes de modificar la estrategia.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Vías alternativas de shunt derecha–izquierda
+      </h4>
+
+      <p>La presencia de posibles vías alternativas de <b>shunt derecha–izquierda</b>, como un shunt pulmonar coexistente, puede modificar el balance terapéutico. En estos casos, la cuestión no es solo si el FOP tiene rasgos de alto riesgo, sino si el cierre del FOP resolvería la vía embólica relevante. Si el componente pulmonar parece significativo, la decisión sobre cierre debe ser especialmente cuidadosa.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Síntesis práctica
+      </h4>
+
+      <p>En conjunto, el cierre percutáneo del FOP es una estrategia respaldada por ensayos aleatorizados, metaanálisis y guías clínicas en pacientes seleccionados con ictus asociado a FOP y probabilidad causal alta o intermedia. El tratamiento médico es preferible cuando el FOP parece incidental, cuando existe una etiología alternativa más probable, cuando el riesgo del procedimiento supera el beneficio esperado o cuando la estrategia principal debe ser anticoagulación por otra indicación. La decisión final debe individualizarse, evitando tanto el cierre indiscriminado como la exclusión automática de pacientes con alta plausibilidad de embolia paradójica.</p>
+    </div>
+  </div>
+</details>
+  <details class="details-block">
+  <summary class="details-summary">📄 Recomendaciones actuales de las guías</summary>
+
+  <div class="details-card">
+    <div class="details-card-header">
+      Recomendaciones actuales de las guías
+    </div>
+
+    <div class="details-card-body" align="justify">
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Principio general
+      </h4>
+
+      <p>Las recomendaciones actuales coinciden en que el <b>cierre percutáneo del FOP</b> no debe indicarse por la mera presencia del defecto interauricular, sino en pacientes seleccionados con ictus isquémico compatible, ausencia de una causa alternativa más probable y una probabilidad razonable de que el FOP haya participado causalmente en el evento.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Guía AHA/ASA 2021
+      </h4>
+
+      <p>La guía <b>AHA/ASA 2021</b> considera razonable el cierre percutáneo del FOP en pacientes de <b>18 a 60 años</b> con ictus isquémico no lacunar de causa indeterminada tras un estudio adecuado y con características anatómicas de FOP de alto riesgo. En pacientes sin rasgos anatómicos de alto riesgo, el beneficio del cierre se considera menos establecido. Esta aproximación subraya la importancia de no tratar el FOP como un hallazgo aislado, sino como parte de una valoración etiológica completa.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Guía SCAI 2022
+      </h4>
+
+      <p>La guía <b>SCAI 2022</b> adopta una postura más amplia para los pacientes de <b>18 a 60 años</b> con ictus asociado a FOP, recomendando el cierre percutáneo frente a la antiagregación aislada con recomendación fuerte y certeza moderada. Además, señala que una puntuación <b>RoPE ≥7</b> puede identificar pacientes con mayor probabilidad de beneficio. En pacientes de <b>60 años o más</b>, la recomendación de SCAI es condicional y se basa en evidencia de baja o muy baja certeza, por lo que la decisión debe individualizarse cuidadosamente.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Integración de RoPE, anatomía y PASCAL
+      </h4>
+
+      <p>La evidencia posterior ha reforzado la necesidad de integrar de forma más explícita la <b>probabilidad causal del FOP</b>. Una estrategia basada solo en la presencia de FOP puede ser demasiado amplia y exponer a cierre a pacientes con FOP incidental y bajo beneficio esperado. Por otro lado, una estrategia centrada exclusivamente en la anatomía de alto riesgo puede dejar fuera a pacientes con alta probabilidad causal por otros elementos clínicos. Por ello, la integración de <b>RoPE</b>, anatomía y clasificación <b>PASCAL</b> ofrece una aproximación más precisa al balance entre beneficio y riesgo.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Guía ESO 2024
+      </h4>
+
+      <p>La guía <b>ESO 2024</b> incorpora de forma explícita esta estratificación. Recomienda el cierre percutáneo asociado a tratamiento antiagregante en pacientes seleccionados de <b>18 a 60 años</b> sin otra causa evidente del ictus y con FOP considerado posible o probablemente relacionado con el evento. En términos prácticos, propone utilizar la clasificación <b>PASCAL</b> para seleccionar candidatos: cierre en pacientes con <b>PASCAL probable o posible</b>, y evitar el cierre en pacientes con <b>PASCAL improbable</b>, salvo que existan circunstancias clínicas excepcionales que aumenten claramente la probabilidad de embolia paradójica.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#991b1b; font-size:13px; font-weight:800;">
+        PASCAL improbable y excepciones clínicas
+      </h4>
+
+      <p>En pacientes con <b>PASCAL improbable</b>, la ESO 2024 sugiere no realizar cierre de forma ordinaria. Sin embargo, reconoce que determinados datos clínicos pueden modificar la interpretación causal, como trombosis venosa profunda o tromboembolismo pulmonar próximo al ictus, embolia sistémica no cerebral, trombo atrapado a través del FOP, enfermedad por descompresión, platipnea-ortodesoxia u otros elementos que aumenten la plausibilidad de embolia paradójica. Estos datos no modifican formalmente PASCAL, pero pueden justificar <b>discusión multidisciplinar</b>.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#92400e; font-size:13px; font-weight:800;">
+        Pacientes mayores de 60 años
+      </h4>
+
+      <p>Respecto a los pacientes <b>mayores de 60 años</b>, la evidencia sigue siendo más limitada, ya que la mayoría de los ensayos aleatorizados incluyeron pacientes jóvenes o de mediana edad. La guía ESO 2024 considera insuficiente la evidencia para emitir una recomendación firme en este grupo. La guía SCAI 2022 contempla el cierre en pacientes de 60 años o más con ictus asociado a FOP, pero con recomendación condicional y certeza muy baja. Por tanto, en este grupo no debe emitirse una indicación automática de cierre.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Consenso Asia-Pacífico 2025
+      </h4>
+
+      <p>El consenso de expertos <b>Asia-Pacífico de 2025</b> adopta una postura más abierta para pacientes mayores de 60 años con ictus embólico de fuente indeterminada y FOP de alto riesgo. Propone que puedan ser considerados para cierre percutáneo cuando existan rasgos anatómicos relevantes, como <b>shunt grande</b> o <b>aneurisma septal</b>, y cuando la valoración clínica sugiera un papel causal del FOP. Esta aproximación debe mantenerse individualizada, tras una exclusión rigurosa de fibrilación auricular y otras causas alternativas de ictus.</p>
+    </div>
+  </div>
+</details>
+
+<details class="details-block">
+  <summary class="details-summary">📄 Orientación terapéutica práctica</summary>
+
+  <div class="details-card">
+    <div class="details-card-header">
+      Orientación terapéutica práctica
+    </div>
+
+    <div class="details-card-body" align="justify">
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Secuencia inicial de decisión
+      </h4>
+
+      <p>La orientación terapéutica en pacientes con ictus isquémico y FOP debe seguir una <b>secuencia lógica</b>. Antes de aplicar la clasificación PASCAL o plantear cierre percutáneo, es necesario confirmar que el evento puede considerarse razonablemente un ictus asociado a FOP. Para ello deben cumplirse unos requisitos mínimos: ictus isquémico no lacunar o patrón compatible con mecanismo embolígeno, FOP documentado anatómicamente, ausencia de una causa alternativa más probable tras estudio etiológico adecuado y despistaje de fibrilación auricular proporcionado a la edad y al riesgo arrítmico del paciente.</p>
+
+      <p>Si alguno de estos requisitos está pendiente, la decisión sobre cierre debe diferirse hasta completar el estudio. La presencia aislada de FOP no debe considerarse suficiente para atribuir el ictus al defecto interauricular.</p>
+
+      <p>Una vez cumplidos estos requisitos, la decisión debe integrar la clasificación <b>PASCAL</b>, la edad, la anatomía del FOP, los factores que modulan el balance terapéutico, los datos clínicos sugestivos de embolia paradójica, la existencia de indicación independiente de anticoagulación crónica, el riesgo hemorrágico, la seguridad procedimental, la presencia de posibles vías alternativas de shunt derecha–izquierda y las preferencias del paciente.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#166534; font-size:13px; font-weight:800;">
+        🟢 En pacientes con PASCAL probable o posible
+      </h4>
+
+      <p>En pacientes de <b>18 a 60 años</b> con ictus isquémico no lacunar, FOP documentado, ausencia de causa alternativa evidente y clasificación PASCAL probable o posible, el cierre percutáneo del FOP debe considerarse una opción terapéutica preferente o razonable, asociado a tratamiento antiagregante.</p>
+
+      <p>La recomendación es especialmente sólida cuando concurren una puntuación <b>RoPE alta</b> y rasgos anatómicos incluidos en PASCAL, como shunt derecha–izquierda grande atribuible al FOP o aneurisma del septo interauricular. En estos pacientes, el balance entre reducción de ictus recurrente y riesgo de fibrilación auricular suele ser favorable al cierre.</p>
+
+      <p>En pacientes con <b>PASCAL probable</b>, la probabilidad de causalidad del FOP es alta y el cierre percutáneo suele ser la estrategia preferente si no existen contraindicaciones. En pacientes con <b>PASCAL posible</b>, la relación causal es menos definitiva, pero la evidencia disponible también muestra beneficio neto en pacientes seleccionados. En este grupo, la decisión debe individualizarse integrando edad, carga de factores de riesgo vascular, patrón radiológico, anatomía, contexto clínico, riesgo hemorrágico y preferencias del paciente.</p>
+
+      <p>Los datos clínicos mayores sugestivos de embolia paradójica, como trombosis venosa profunda o tromboembolismo pulmonar próximo al ictus, trombo atrapado a través del FOP, embolia sistémica no cerebral, enfermedad por descompresión o platipnea-ortodesoxia, no modifican formalmente PASCAL, pero pueden reforzar la plausibilidad causal del FOP. En un paciente de 18 a 60 años con PASCAL probable o posible, estos datos suelen apoyar la razonabilidad del cierre, siempre que no exista otra etiología más probable.</p>
+
+      <h5 style="margin:12px 0 8px; color:#92400e; font-size:12.5px; font-weight:800;">
+        Pacientes mayores de 60 años
+      </h5>
+
+      <p>En pacientes <b>mayores de 60 años</b> con PASCAL probable o posible, la indicación debe ser más prudente. La evidencia aleatorizada es más limitada, ya que la mayoría de los ensayos incluyeron pacientes jóvenes o de mediana edad. En este grupo, antes de discutir el cierre debe realizarse una exclusión rigurosa de fibrilación auricular y otras etiologías. El uso de monitor cardíaco implantable puede ser especialmente relevante. Desde un punto de vista práctico, disponer de al menos 6 meses de ILR/ICM sin fibrilación auricular puede considerarse un umbral razonable para discutir cierre en pacientes seleccionados, aunque no descarta por completo FA futura y la monitorización debe mantenerse hasta el final de vida del dispositivo.</p>
+
+      <p>Por tanto, en mayores de 60 años no debe emitirse una indicación automática de cierre. La decisión debe individualizarse, preferiblemente en un equipo multidisciplinar neurocardiológico, y reservarse para pacientes con alta plausibilidad causal, anatomía favorable y ausencia convincente de etiologías alternativas.</p>
+
+      <h5 style="margin:12px 0 8px; color:#0f3d83; font-size:12.5px; font-weight:800;">
+        Tratamiento antiagregante tras el cierre
+      </h5>
+
+      <p>Tras el cierre, y de acuerdo con los protocolos de los ensayos positivos recogidos por ESO 2024, se sugiere doble antiagregación plaquetaria durante 1 a 6 meses, seguida de antiagregación en monoterapia a largo plazo, al menos durante 5 años. La duración exacta debe adaptarse al dispositivo utilizado, el riesgo hemorrágico, los protocolos locales y la valoración conjunta de neurología vascular y cardiología intervencionista.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#991b1b; font-size:13px; font-weight:800;">
+        🔴 En pacientes con PASCAL improbable
+      </h4>
+
+      <p>En pacientes con <b>PASCAL improbable</b>, el FOP debe considerarse probablemente incidental. En este escenario, el cierre percutáneo no ha demostrado una reducción clara del riesgo de ictus recurrente y puede asociarse a daño neto, especialmente por fibrilación auricular de nueva aparición. Por ello, en general se aconseja evitar el cierre y priorizar el manejo médico, habitualmente con tratamiento antiagregante, salvo que exista otra indicación terapéutica específica.</p>
+
+      <p>No obstante, PASCAL no debe interpretarse de forma aislada. La guía ESO 2024 contempla que determinadas circunstancias clínicas pueden elevar la probabilidad de causalidad del FOP incluso en pacientes inicialmente menos favorables. Por este motivo, en pacientes con PASCAL improbable debe valorarse si existen datos clínicos mayores sugestivos de embolia paradójica.</p>
+
+      <p>Entre estos datos mayores se incluyen trombosis venosa profunda o tromboembolismo pulmonar próximo al ictus, trombo atrapado a través del FOP, embolia sistémica no cerebral, enfermedad por descompresión en buceadores y platipnea-ortodesoxia. La presencia de uno o varios de estos elementos no modifica formalmente la clasificación PASCAL, pero puede justificar discusión multidisciplinar antes de descartar de forma definitiva el cierre percutáneo.</p>
+
+      <p>Otros datos de apoyo, como maniobra de Valsalva al inicio del evento, inmovilidad prolongada o viaje reciente, hipertensión pulmonar, apnea del sueño u otras condiciones hipoxémicas, o migraña con aura, pueden reforzar la plausibilidad contextual, pero por sí solos no deben convertir una indicación de manejo médico en una indicación automática de cierre.</p>
+
+      <p>En conjunto, en pacientes con PASCAL improbable la estrategia general debe ser <b>manejo médico preferente</b>. El cierre solo debería discutirse en situaciones excepcionales, cuando el conjunto clínico, anatómico y etiológico sugiera de forma convincente un mecanismo de embolia paradójica.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Recurrencia bajo tratamiento antitrombótico
+      </h4>
+
+      <p>La recurrencia isquémica bajo tratamiento antitrombótico debe interpretarse según el tipo de tratamiento recibido y su calidad. No tiene el mismo significado recurrir bajo antiagregación que recurrir pese a anticoagulación adecuada o durante una anticoagulación subóptima.</p>
+
+      <p><b>Si la recurrencia ocurre bajo tratamiento antiagregante</b>, puede sugerir fracaso del manejo médico convencional y reforzar la indicación de cierre en pacientes con PASCAL probable o posible, especialmente si el contexto anatómico y clínico es concordante. En pacientes con PASCAL improbable y sin datos mayores sugestivos de embolia paradójica, la recurrencia bajo antiagregante no justifica por sí sola el cierre y debe motivar reevaluación etiológica y optimización del manejo médico.</p>
+
+      <p><b>Si la recurrencia ocurre pese a anticoagulación adecuada y bien controlada</b>, se trata de una situación de mayor complejidad. Deben reevaluarse la etiología, la adherencia, la intensidad del tratamiento, la existencia de otras fuentes embolígenas y la posibilidad de mecanismos alternativos. En pacientes con PASCAL probable o posible, o con datos mayores sugestivos de embolia paradójica, puede discutirse cierre adicional en comité multidisciplinar, pero el cierre no sustituye la anticoagulación si esta sigue indicada.</p>
+
+      <p><b>Si la recurrencia ocurre bajo anticoagulación subóptima, mala adherencia, infradosificación o rango terapéutico inadecuado</b>, no debe interpretarse como fracaso de anticoagulación adecuada. La prioridad es optimizar el tratamiento antitrombótico y reevaluar la etiología. Sin embargo, este dato tampoco descarta un mecanismo embólico o paradójico; si el perfil FOP-causal es favorable o existen datos mayores sugestivos de embolia paradójica, el caso puede requerir valoración multidisciplinar.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        En pacientes con indicación independiente de anticoagulación crónica
+      </h4>
+
+      <p>Cuando existe una <b>indicación independiente de anticoagulación crónica</b> —por ejemplo, fibrilación auricular, tromboembolismo venoso no provocado o recurrente, síndrome antifosfolípido de alto riesgo u otra trombofilia mayor—, la anticoagulación constituye el eje del manejo. En este contexto, el cierre del FOP no sustituye la anticoagulación y su beneficio incremental suele ser limitado.</p>
+
+      <p>La guía ESO 2024 desaconseja la anticoagulación crónica en el ictus asociado a FOP salvo que exista otra indicación médica para anticoagular. Por tanto, si la anticoagulación está indicada por otro motivo, la decisión sobre cierre debe individualizarse. En general, el cierre no debe recomendarse de entrada y debe reservarse para situaciones muy seleccionadas, especialmente si hay recurrencia embólica pese a anticoagulación adecuada y bien controlada, o si concurren rasgos anatómicos y clínicos de muy alto riesgo.</p>
+
+      <p>En pacientes con <b>trombofilia sin indicación de anticoagulación crónica</b>, la situación es diferente. En estos casos, la trombofilia venosa puede aumentar la plausibilidad de embolia paradójica y apoyar la discusión del cierre, especialmente si la clasificación PASCAL es probable o posible y no existen contraindicaciones. La decisión debe integrar el perfil hemorrágico, la recurrencia, la anatomía del FOP y las preferencias del paciente.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Shunt pulmonar coexistente
+      </h4>
+
+      <p>La presencia de un <b>shunt pulmonar coexistente</b> introduce una complejidad anatómica y etiológica. No modifica la clasificación PASCAL ni refuerza por sí sola la indicación de cierre del FOP. Al contrario, obliga a caracterizar si el paso derecha–izquierda clínicamente relevante es intracardiaco, pulmonar o mixto.</p>
+
+      <p>Si el componente pulmonar es relevante, el cierre del FOP podría no eliminar por completo la vía de embolia paradójica. Por ello, cuando existe shunt pulmonar coexistente y se está considerando cierre percutáneo, conviene integrar los hallazgos de ecocardiografía, Doppler transcraneal, imagen torácica si procede y contexto clínico. En estos casos, puede ser apropiada la valoración multidisciplinar.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#991b1b; font-size:13px; font-weight:800;">
+        En pacientes con contraindicación para cierre
+      </h4>
+
+      <p>Si existe una <b>contraindicación procedimental</b>, anatomía desfavorable, comorbilidad grave o riesgo inaceptable para el procedimiento, debe priorizarse el manejo médico individualizado. En estos casos, la estrategia debe centrarse en optimizar la prevención secundaria según el mecanismo más probable del ictus, incluyendo tratamiento antiagregante o anticoagulante cuando corresponda, control intensivo de factores de riesgo vascular y seguimiento clínico.</p>
+
+      <p>La contraindicación para cierre no implica que el FOP sea irrelevante, sino que el balance beneficio-riesgo del procedimiento no es favorable. La decisión debe documentarse claramente y, cuando exista incertidumbre, discutirse de forma multidisciplinar.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Enfoque práctico final
+      </h4>
+
+      <p>De forma práctica, la decisión puede resumirse así:</p>
+
+      <ol style="padding-left:22px;">
+        <li><b>Primero</b>, hay que confirmar que se cumplen los requisitos mínimos para considerar un ictus asociado a FOP: ictus no lacunar o patrón embolígeno, FOP documentado, ausencia de causa alternativa y despistaje adecuado de fibrilación auricular.</li>
+
+        <li><b>Segundo</b>, aplicar RoPE y PASCAL para estimar la probabilidad de causalidad.</li>
+
+        <li><b>Tercero</b>, interpretar PASCAL según edad y contexto clínico. En pacientes de 18 a 60 años con PASCAL probable o posible, el cierre percutáneo suele ser preferente o razonable. En mayores de 60 años, la decisión debe ser individualizada. En PASCAL improbable, el manejo médico es la estrategia preferente salvo circunstancias excepcionales que aumenten claramente la probabilidad de embolia paradójica.</li>
+
+        <li><b>Cuarto</b>, identificar factores que modulan el balance terapéutico, como recurrencia bajo tratamiento antitrombótico, trombofilia, riesgo hemorrágico bajo, indicación independiente de anticoagulación crónica o contraindicación para cierre.</li>
+
+        <li><b>Quinto</b>, identificar situaciones de complejidad que aconsejan valoración multidisciplinar, como edad mayor de 60 años con PASCAL probable o posible, PASCAL improbable con datos mayores de embolia paradójica, indicación independiente de anticoagulación crónica, recurrencia bajo anticoagulación adecuada, recurrencia bajo anticoagulación subóptima con perfil FOP-causal favorable, shunt pulmonar coexistente o riesgo procedimental elevado.</li>
+      </ol>
+    </div>
+  </div>
+</details> 
+ <details class="details-block">
+  <summary class="details-summary">📄 Seguridad y seguimiento</summary>
+
+  <div class="details-card">
+    <div class="details-card-header">
+      Seguridad y seguimiento
+    </div>
+
+    <div class="details-card-body" align="justify">
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Balance general de seguridad
+      </h4>
+
+      <p>El <b>cierre percutáneo del FOP</b> es un procedimiento generalmente seguro cuando se realiza en centros con experiencia, pero no está exento de complicaciones. La seguridad debe valorarse siempre en relación con el beneficio esperado: cuanto mayor sea la probabilidad causal del FOP y mayor el riesgo de recurrencia atribuible al mecanismo paradójico, más favorable será el balance del cierre frente al tratamiento médico.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#991b1b; font-size:13px; font-weight:800;">
+        Fibrilación auricular post-procedimiento
+      </h4>
+
+      <p>El evento adverso más relevante es la <b>fibrilación auricular de nueva aparición</b>. La evidencia disponible muestra que el cierre reduce el riesgo de ictus isquémico recurrente, pero aumenta el riesgo de fibrilación auricular, por lo que la selección adecuada de pacientes es esencial para maximizar el beneficio neto. Este punto es especialmente importante en pacientes con edad avanzada, mayor carga de factores de riesgo vascular o baja probabilidad de causalidad del FOP.</p>
+
+      <p>Es útil distinguir entre <b>fibrilación auricular precoz o periprocedimiento</b> y <b>fibrilación auricular tardía</b>. La FA precoz suele concentrarse en las primeras semanas tras el implante, especialmente en los primeros 45 días, y con frecuencia puede ser transitoria o relacionada con la irritación auricular provocada por el dispositivo. La FA tardía, detectada más allá de ese periodo, tiene mayor relevancia para el balance beneficio-riesgo a largo plazo, ya que puede implicar un mecanismo cardioembólico persistente y modificar la estrategia antitrombótica.</p>
+
+      <p>Los análisis estratificados por PASCAL muestran que el impacto clínico de la fibrilación auricular no es igual en todos los pacientes. En pacientes con <b>PASCAL probable o posible</b>, la reducción de ictus recurrente suele superar el incremento de FA, lo que apoya el cierre cuando el estudio etiológico es completo y no existen contraindicaciones. En pacientes con <b>PASCAL improbable</b>, en cambio, el cierre no ha demostrado una reducción clara del ictus recurrente y puede asociarse a un exceso de FA tardía, generando un balance desfavorable o incluso daño neto.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#991b1b; font-size:13px; font-weight:800;">
+        Complicaciones del procedimiento o del dispositivo
+      </h4>
+
+      <p>Además de la fibrilación auricular, pueden aparecer <b>complicaciones relacionadas con el procedimiento o el dispositivo</b>, aunque son poco frecuentes. Entre ellas se incluyen complicaciones vasculares en el acceso, embolización o malposición del dispositivo, derrame pericárdico, trombo sobre el dispositivo, erosión, endocarditis, arritmias, shunt residual o necesidad excepcional de reintervención. Estas complicaciones son infrecuentes, pero justifican que el procedimiento se realice en unidades con experiencia y con seguimiento estructurado.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Seguimiento clínico y cardiológico
+      </h4>
+
+      <p>Tras el cierre, debe realizarse un <b>seguimiento coordinado</b>. El seguimiento técnico corresponde principalmente a cardiología intervencionista, incluyendo la valoración del dispositivo, el shunt residual, las complicaciones mecánicas, el trombo sobre el dispositivo y la fibrilación auricular postcierre. Atención primaria y cardiología tienen un papel central en la prevención secundaria vascular a largo plazo, el control de factores de riesgo, la adherencia terapéutica y la detección de problemas cardiovasculares intercurrentes. El papel de neurología vascular se centra sobre todo en la fase inicial de selección del paciente y atribución etiológica del ictus, y posteriormente en la valoración de nuevos síntomas neurológicos, recurrencias isquémicas o dudas sobre el mecanismo del evento. En pacientes estables, el seguimiento neurológico puede ser puntual y no necesariamente continuado.</p>
+
+      <p>El <b>seguimiento del ritmo cardíaco</b> debe individualizarse. En pacientes con palpitaciones, síntomas compatibles con arritmia, edad más avanzada o mayor riesgo arrítmico, debe mantenerse una vigilancia más estrecha. Si aparece fibrilación auricular tras el cierre, debe valorarse su duración, carga arrítmica, contexto temporal y riesgo embólico global. La decisión de anticoagular no debe basarse solo en la presencia del dispositivo, sino en la interpretación clínica de la FA y en el perfil de riesgo del paciente.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Tratamiento antitrombótico tras el cierre
+      </h4>
+
+      <p>Respecto al <b>tratamiento antitrombótico tras el cierre</b>, la guía ESO 2024 señala que la mayoría de los ensayos positivos utilizaron doble antiagregación plaquetaria durante un periodo inicial, habitualmente entre 1 y 6 meses, seguida de antiagregación simple a largo plazo. Como orientación práctica, puede considerarse doble antiagregación durante 1 a 6 meses y posteriormente antiagregación en monoterapia, al menos durante varios años, aunque la duración exacta debe individualizarse.</p>
+
+      <p>La duración de la antiagregación debe adaptarse al dispositivo utilizado, al riesgo hemorrágico, a la presencia de shunt residual, a la aparición de fibrilación auricular, a la existencia de otras indicaciones antitrombóticas y a los protocolos locales. En pacientes con <b>indicación independiente de anticoagulación crónica</b>, el cierre no sustituye dicha anticoagulación, por lo que el régimen antitrombótico debe consensuarse entre neurología vascular, cardiología intervencionista y, cuando proceda, hematología.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#92400e; font-size:13px; font-weight:800;">
+        Shunt residual
+      </h4>
+
+      <p>La presencia de <b>shunt residual</b> tras el cierre debe interpretarse según su magnitud y el contexto clínico. Un shunt residual pequeño puede tener relevancia limitada, mientras que un shunt persistente significativo puede obligar a reevaluar la eficacia del cierre, la posición del dispositivo, la existencia de una vía alternativa de shunt derecha–izquierda o la necesidad de seguimiento específico.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Objetivos del seguimiento
+      </h4>
+
+      <p>En conjunto, el seguimiento tras el cierre debe orientarse a <b>prevenir complicaciones relacionadas con el dispositivo</b>, detectar fibrilación auricular u otros eventos cardiovasculares relevantes y mantener una prevención secundaria vascular adecuada. Para ello, el seguimiento debe apoyarse principalmente en cardiología intervencionista, cardiología clínica y atención primaria, con participación de neurología vascular cuando existan recurrencias neurológicas, nuevos síntomas compatibles con AIT o ictus, o dudas sobre la atribución etiológica del evento.</p>
+    </div>
+  </div>
+</details>
+
+ <details class="details-block">
+  <summary class="details-summary">📄 Conclusiones</summary>
+
+  <div class="details-card">
+    <div class="details-card-header">
+      Conclusiones
+    </div>
+
+    <div class="details-card-body" align="justify">
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Estimación de causalidad
+      </h4>
+
+      <p>El manejo del FOP tras un ictus isquémico debe basarse en una <b>estimación razonada de causalidad</b>. La presencia aislada de FOP no basta para indicar el cierre; la decisión debe integrar la edad, los factores de riesgo vascular, el patrón del infarto, la exclusión de otras etiologías, la puntuación RoPE, la anatomía de alto riesgo y las circunstancias clínicas modificadoras. Esta integración se sintetiza de forma práctica mediante la clasificación <b>PASCAL</b>.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#166534; font-size:13px; font-weight:800;">
+        Pacientes con mayor beneficio esperado
+      </h4>
+
+      <p>La evidencia actual respalda el cierre percutáneo en pacientes seleccionados, sobre todo de <b>18 a 60 años</b>, con ictus isquémico no lacunar, FOP documentado, ausencia de causa alternativa y FOP probable o posiblemente causal según PASCAL. En este escenario, el cierre ofrece un beneficio neto al reducir el riesgo de ictus recurrente, especialmente cuando concurren una puntuación RoPE alta y rasgos anatómicos de alto riesgo, como <b>shunt derecha–izquierda grande atribuible al FOP</b> o <b>aneurisma del septo interauricular</b>. En pacientes mayores de 60 años, la indicación debe ser más prudente e individualizada, tras exclusión rigurosa de fibrilación auricular y otras causas alternativas, y solo cuando la plausibilidad causal sea alta.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#991b1b; font-size:13px; font-weight:800;">
+        PASCAL improbable
+      </h4>
+
+      <p>En cambio, cuando el FOP se clasifica como <b>PASCAL improbable</b>, debe considerarse probablemente incidental. En este grupo, el cierre no ha demostrado una reducción clara del riesgo de ictus recurrente y puede asociarse a un balance desfavorable por aumento de fibrilación auricular, por lo que el manejo médico suele ser preferible. No obstante, la presencia de datos mayores sugestivos de embolia paradójica puede justificar discusión individualizada antes de descartar definitivamente el cierre.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#92400e; font-size:13px; font-weight:800;">
+        Situaciones que favorecen manejo médico
+      </h4>
+
+      <p>También debe priorizarse el <b>manejo médico</b> cuando existe una causa alternativa más probable, una contraindicación para el procedimiento o una indicación independiente de anticoagulación crónica. En este último caso, el cierre no sustituye a la anticoagulación. La presencia de posibles vías alternativas de shunt derecha–izquierda, como un <b>shunt pulmonar coexistente</b>, obliga además a valorar si el cierre del FOP resolvería realmente la vía embólica relevante.</p>
+
+      <hr class="details-divider">
+
+      <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">
+        Decisión individualizada
+      </h4>
+
+      <p>La decisión final debe individualizarse en función del paciente concreto. La discusión en un <b>equipo neurocardiológico</b> es especialmente útil cuando existe edad avanzada, incertidumbre etiológica, PASCAL improbable con datos mayores de embolia paradójica, indicación de anticoagulación crónica, recurrencia bajo tratamiento antitrombótico, shunt pulmonar coexistente o riesgo procedimental elevado. Ningún sistema de puntuación sustituye al juicio clínico ni a las preferencias informadas del paciente.</p>
+    </div>
+  </div>
+</details>
+</div>
