@@ -990,7 +990,28 @@ body {
   <label class="infoLabel" for="condICHprev">
     Hemorragia intracraneal de muy alto riesgo
   </label>
-</div> <div class="row infoRow">
+</div> 
+<div class="row infoRow">
+  <input id="condUpperGI" type="checkbox">
+
+  <span class="infoTip">
+    <button type="button" class="infoBtn" aria-label="Información sobre gastritis, esofagitis o reflujo gastroesofágico relevante" aria-expanded="false">i</button>
+    <span class="infoBubble" role="tooltip">
+      <b>Marcar si existe gastritis, esofagitis o reflujo gastroesofágico clínicamente relevante.</b>
+      <ul>
+        <li>Esta casilla no equivale a hemorragia digestiva mayor.</li>
+        <li>No debe marcarse por un antecedente remoto, leve o ya resuelto sin relevancia actual.</li>
+        <li>Si se elige dabigatrán, orienta a considerar dosis de 110 mg cada 12 h.</li>
+        <li>Si existe hemorragia digestiva severa previa, usar además la casilla específica de hemorragia digestiva.</li>
+      </ul>
+    </span>
+  </span>
+
+  <label class="infoLabel" for="condUpperGI">
+    Gastritis/esofagitis/RGE clínicamente relevante
+  </label>
+</div>
+<div class="row infoRow">
   <input id="condGIbleed" type="checkbox">
 
   <span class="infoTip">
@@ -1085,11 +1106,22 @@ body {
     <button type="button" class="infoBtn" aria-label="Información sobre riesgo hemorrágico inaceptable o contraindicación a anticoagulación oral" aria-expanded="false">i</button>
     <span class="infoBubble" role="tooltip">
       <b>Marcar cuando exista una contraindicación clínica relevante para anticoagulación oral.</b>
-      <ul>
-        <li>Ejemplos: sangrado activo mayor, lesión hemorrágica no controlada, riesgo de recurrencia inaceptable o situación clínica en la que anticoagular no sea asumible.</li>
-        <li>En este escenario, debe considerarse no anticoagular.</li>
-        <li>Valorar cierre percutáneo de orejuela si el riesgo cardioembólico es relevante y el paciente es candidato.</li>
-      </ul>
+        <ul class="details-list-compact">
+  <li>Sangrado mayor activo o no controlado.</li>
+  <li>Lesión sangrante no corregible o con alto riesgo de resangrado.</li>
+  <li>Hemorragia intracraneal o intraespinal espontánea por causa no reversible.</li>
+  <li>Hemorragia intracerebral lobar atribuible o probablemente relacionada con angiopatía amiloide.</li>
+  <li>Angiopatía amiloide cerebral probable avanzada.</li>
+  <li>Hemorragia intracraneal relacionada con angiopatía amiloide asociada a ≥5 microhemorragias lobares, siderosis superficial cortical o hemorragia subaracnoidea de la convexidad no aneurismática.</li>
+  <li>Hemorragia intracraneal no relacionada con angiopatía amiloide asociada a ≥10 microhemorragias cerebrales.</li>
+  <li>Trombocitopenia grave, especialmente &lt;50.000 plaquetas/µL.</li>
+  <li>Coagulopatía grave no corregible.</li>
+  <li>Hepatopatía descompensada con coagulopatía clínicamente relevante.</li>
+  <li>Varices de alto riesgo no controladas o sangrado digestivo reciente no corregido.</li>
+  <li>Neoplasia gastrointestinal o genitourinaria sangrante activa.</li>
+  <li>Caídas traumáticas recurrentes no modificables.</li>
+  <li>Imposibilidad real de administración, adherencia, supervisión o seguimiento seguro.</li>
+</ul>
     </span>
   </span>
 
@@ -1253,7 +1285,7 @@ body {
   </div>
 </div>
         <div class="sep"></div>
-<h3 style="margin:0 0 6px;">Interacciones farmacológicas</h3>
+<h3 style="margin:0 0 6px;">Interacciones farmacocinéticas</h3>
 
 <div class="grid g-2">
 
@@ -2466,6 +2498,7 @@ if (!isAvoided("Dabigatrán")) {
   (isFinite(crcl) && crcl >= 30 && crcl <= 50) ||
   (age >= 80) ||
   (age >= 75 && age < 80 && hasbled >= 3) ||
+  special.upperGI === true ||
   special.dabigatranReduce === true;
 
     out.push({
@@ -2473,11 +2506,13 @@ if (!isAvoided("Dabigatrán")) {
       dose: dabReduce ? "110 mg cada 12 h" : "150 mg cada 12 h",
       highlight: dabReduce,
       why: dabReduce
-  ? (
-      special.dabigatranReduce
-        ? "Reducción por verapamilo: inhibición de P-gp con aumento de exposición de dabigatrán. Tomar dabigatrán y verapamilo a la vez"
-        : "ClCr 30–50 mL/min, edad ≥80 años o edad 75–80 con HAS-BLED alto"
-    )
+  ? [
+      (isFinite(crcl) && crcl >= 30 && crcl <= 50) ? "ClCr 30–50 mL/min" : null,
+      (age >= 80) ? "edad ≥80 años" : null,
+      (age >= 75 && age < 80 && hasbled >= 3) ? "edad 75–80 con HAS-BLED alto" : null,
+      special.upperGI === true ? "gastritis/esofagitis/RGE clínicamente relevante" : null,
+      special.dabigatranReduce === true ? "verapamilo: inhibición de P-gp con aumento de exposición de dabigatrán; tomar dabigatrán y verapamilo a la vez" : null
+    ].filter(Boolean).join("; ")
   : "Sin criterios de reducción"
     });
   }
@@ -2530,6 +2565,7 @@ if (!isAvoided("Dabigatrán")) {
 
       const special = {
   dysphagia:   document.getElementById('condDysphagia')?.checked || false,
+  upperGI:     document.getElementById('condUpperGI')?.checked   || false,
   giBleed:     document.getElementById('condGIbleed')?.checked   || false,
   ichRisk:     document.getElementById('condICHrisk')?.checked   || false,
   ichPrev:     document.getElementById('condICHprev')?.checked   || false,
@@ -4872,14 +4908,16 @@ document.addEventListener("keydown", function(e){
   <div class="details-card" style="border-top:4px solid #991b1b;">
     <div class="details-card-header">Situaciones clínicas de alto riesgo hemorrágico</div>
     <div class="details-card-body" align="justify">
+
       <p>El riesgo hemorrágico no debe interpretarse como una contraindicación automática a la anticoagulación, pero existen escenarios en los que puede modificar de forma decisiva la elección del fármaco, el momento de inicio, la necesidad de medidas correctoras o incluso la indicación de no anticoagular. En estos pacientes, la decisión debe ir más allá de la puntuación HAS-BLED e integrar el tipo de sangrado previo, su causa, la posibilidad de tratamiento del foco hemorrágico, la neuroimagen, la función renal y hepática, la necesidad de antiagregación concomitante y la disponibilidad de alternativas no farmacológicas.</p>
 
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin:12px 0;">
         <div style="padding:12px; border-radius:12px; background:#f0fdf4; border:1px solid #bbf7d0; border-left:4px solid #166534;">
-          <p style="margin:0;"><b>Riesgo alto modificable</b><br>El objetivo práctico es distinguir entre riesgo hemorrágico alto pero modificable, en el que la anticoagulación puede mantenerse o reiniciarse tras corregir factores de riesgo,</p>
+          <p style="margin:0;">El objetivo práctico es distinguir entre <b>riesgo hemorrágico alto pero modificable</b>, en el que la anticoagulación puede mantenerse o reiniciarse tras corregir factores de riesgo</p>
         </div>
+
         <div style="padding:12px; border-radius:12px; background:#fff5f5; border:1px solid #fecaca; border-left:4px solid #991b1b;">
-          <p style="margin:0;"><b>Riesgo inaceptable</b><br>y riesgo hemorrágico inaceptable, en el que el daño esperado puede superar el beneficio preventivo.</p>
+          <p style="margin:0;">y <b>riesgo hemorrágico inaceptable</b>, en el que el daño esperado puede superar el beneficio preventivo.</p>
         </div>
       </div>
 
@@ -4898,6 +4936,7 @@ document.addEventListener("keydown", function(e){
           <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:#991b1b; color:#fff;">!</span>
           Escenarios de exclusión de anticoagulación oral salvo circunstancias excepcionales
         </div>
+
         <p style="margin:0;">La segunda situación es la hemorragia intracraneal de muy alto riesgo, en la que el riesgo de recurrencia se considera inaceptable y no se recomienda de forma general iniciar o reiniciar anticoagulación oral salvo circunstancias excepcionales. Las guías europeas recientes (ESO/EANS 2025) incluyen como escenarios de exclusión: hemorragia intracraneal no relacionada con angiopatía amiloide que asocie <b>≥10 microhemorragias cerebrales</b>; o hemorragia intracraneal relacionada con angiopatía amiloide que asocie <b>≥5 microhemorragias lobares</b>, siderosis superficial cortical o hemorragia subaracnoidea de la convexidad no aneurismática.</p>
       </div>
 
@@ -4940,14 +4979,52 @@ document.addEventListener("keydown", function(e){
       <h4 style="margin:0 0 8px; color:#991b1b; font-size:13px; font-weight:800;">Riesgo hemorrágico inaceptable o contraindicación absoluta</h4>
 
       <div style="padding:12px 14px; background:#fff5f5; border:1px solid #fecaca; border-left:5px solid #991b1b; border-radius:12px; margin:10px 0;">
-        <p style="margin:0;">Cuando el clínico identifica un riesgo hemorrágico inaceptable, la decisión debe expresarse de forma precisa. No basta con "alto HAS-BLED". Debe constar el motivo: HIC lobar recurrente, angiopatía amiloide probable avanzada, sangrado activo no corregible, cáncer sangrante, hepatopatía con coagulopatía, plaquetas muy bajas, caídas traumáticas repetidas cuya causa se considere no tratable o no modificable o imposibilidad real de tratamiento seguro.</p>
+        <p style="margin:0;">Cuando el clínico identifica un <b>riesgo hemorrágico inaceptable</b>, la decisión debe expresarse de forma precisa. No basta con <b>“alto HAS-BLED”</b>. Deben considerarse contraindicaciones absolutas o situaciones de riesgo hemorrágico inaceptable aquellas en las que no puede garantizarse un tratamiento anticoagulante oral seguro, especialmente si la causa hemorrágica es <b>persistente, no corregible o no modificable</b>.</p>
       </div>
 
-      <p>Si el riesgo embólico es bajo, no anticoagular es directo. Si el riesgo embólico es alto, debe considerarse alternativa no farmacológica, especialmente cierre percutáneo de orejuela izquierda en FA no valvular cuando la contraindicación a ACO es persistente. La recomendación es más clara si el mecanismo embólico esperado procede de orejuela y no existe otra indicación de anticoagulación sistémica.</p>
+      <p>Entre las situaciones que pueden justificar no anticoagular o contraindicar la anticoagulación oral se incluyen:</p>
+
+      <ul>
+        <li><b>Sangrado mayor activo o no controlado:</b> en el que no puede garantizarse un tratamiento anticoagulante seguro.</li>
+
+        <li><b>Lesión sangrante no corregible o con alto riesgo de resangrado:</b> especialmente si afecta al tracto gastrointestinal, pulmonar o genitourinario y la causa no es reversible.</li>
+
+        <li><b>Hemorragia intracraneal o intraespinal espontánea por causa no reversible:</b> con riesgo de recurrencia considerado inaceptable.</li>
+
+        <li><b>Hemorragia intracerebral lobar atribuible o probablemente relacionada con angiopatía amiloide cerebral:</b> especialmente si se asocia a ≥5 microhemorragias lobares, siderosis superficial cortical o hemorragia subaracnoidea de la convexidad no aneurismática.</li>
+
+        <li><b>Angiopatía amiloide cerebral probable avanzada:</b> con carga hemorrágica por neuroimagen compatible con riesgo muy alto de recurrencia, incluyendo microhemorragias lobares múltiples, siderosis superficial cortical o hemorragia subaracnoidea de la convexidad.</li>
+
+        <li><b>Hemorragia intracraneal no relacionada con angiopatía amiloide asociada a ≥10 microhemorragias cerebrales.</b></li>
+
+        <li><b>Trombocitopenia grave:</b> especialmente &lt;50.000 plaquetas/µL, salvo valoración hematológica específica.</li>
+
+        <li><b>Coagulopatía grave no corregible:</b> con riesgo hemorrágico clínicamente relevante.</li>
+
+        <li><b>Hepatopatía descompensada con coagulopatía:</b> especialmente si se asocia a trombocitopenia grave, sangrado reciente o varices de alto riesgo no controladas.</li>
+
+        <li><b>Neoplasia gastrointestinal o genitourinaria sangrante activa:</b> con sangrado activo o alto riesgo de resangrado no controlado.</li>
+
+        <li><b>Caídas traumáticas recurrentes no modificables:</b> cuando la causa de las caídas no se considera tratable o corregible.</li>
+
+        <li><b>Imposibilidad real de tratamiento seguro:</b> por imposibilidad de administración fiable, adherencia mínima, seguimiento clínico o analítico, control de interacciones o supervisión adecuada.</li>
+      </ul>
+
+      <div style="margin:14px 0 0; padding:12px 14px; background:#f8fbff; border:1px solid #d9e4f2; border-left:5px solid #0f3d83; border-radius:12px;">
+        <p style="margin:0;">Si el riesgo embólico es bajo, <b>no anticoagular</b> es directo. Si el riesgo embólico es alto, debe considerarse una <b>alternativa no farmacológica</b>, especialmente el <b>cierre percutáneo de orejuela izquierda</b> en FA no valvular cuando la contraindicación a la anticoagulación oral es persistente. La recomendación es más clara si el mecanismo embólico esperado procede de la orejuela y no existe otra indicación de anticoagulación sistémica.</p>
+      </div>
+
+      <div style="margin:12px 0 0; padding:12px 14px; background:#fff7ed; border:1px solid #fed7aa; border-left:5px solid #f59e0b; border-radius:12px;">
+        <p style="margin:0;">Un <b>HAS-BLED alto</b>, la <b>edad avanzada</b>, la <b>fragilidad</b>, un antecedente de sangrado corregido, un sangrado procedimental, un sangrado por traumatismo aislado o un riesgo de caídas modificable <b>no constituyen por sí solos una contraindicación absoluta</b> a la anticoagulación oral. Deben servir para <b>corregir factores reversibles</b>, <b>elegir mejor el fármaco</b> y <b>estrechar el seguimiento</b>.</p>
+      </div>
+
+      <div style="margin:12px 0 0; padding:12px 14px; background:#fff7ed; border:1px solid #fed7aa; border-left:5px solid #f59e0b; border-radius:12px;">
+        <p style="margin:0;">Finalmente, es importante diferenciar <b>contraindicaciones a la anticoagulación oral</b> de situaciones que obligan a un anticoagulante concreto. La <b>prótesis valvular mecánica</b>, la <b>estenosis mitral moderada-severa</b> y el <b>síndrome antifosfolípido de alto riesgo</b> no son contraindicaciones a la anticoagulación oral; son escenarios en los que debe utilizarse <b>AVK</b> y evitarse <b>ACOD</b>.</p>
+      </div>
+
     </div>
   </div>
 </details>
-
 <details class="details-block">
   <summary class="details-summary">📄 Situaciones clínicas que modifican la elección del anticoagulante</summary>
 
@@ -5017,12 +5094,13 @@ document.addEventListener("keydown", function(e){
   <div class="details-card" style="border-top:4px solid #7c2d12;">
     <div class="details-card-header">Interacciones farmacológicas</div>
     <div class="details-card-body" align="justify">
+<p>Los ACOD dependen en distinta medida de P-gp y CYP3A4. P-gp influye en absorción intestinal y eliminación renal o biliar. CYP3A4 participa en metabolismo hepático, especialmente de apixabán y rivaroxabán.</p>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:10px; margin-bottom:14px;">
-        <div style="padding:12px; border-radius:12px; background:#fff7ed; border:1px solid #fed7aa; border-left:4px solid #f59e0b;">
-          <p style="margin:0;"><b>Sobreexposición</b><br>Los ACOD dependen en distinta medida de P-gp y CYP3A4. P-gp influye en absorción intestinal y eliminación renal o biliar. CYP3A4 participa en metabolismo hepático, especialmente de apixabán y rivaroxabán. Las interacciones producen dos escenarios opuestos: sobreexposición con aumento de sangrado,</p>
+        <div style="padding:12px; border-radius:12px; background:#fff5f5; border:1px solid #fecaca; border-left:5px solid #991b1b;">
+          <p style="margin:0;">Las interacciones producen dos escenarios opuestos: <b>sobreexposición</b> con aumento de sangrado</p>
         </div>
-        <div style="padding:12px; border-radius:12px; background:#eff6ff; border:1px solid #bfdbfe; border-left:4px solid #0f3d83;">
-          <p style="margin:0;"><b>Infraexposición</b><br>o infraexposición con pérdida de eficacia anticoagulante.</p>
+        <div style="padding:12px; border-radius:12px; background:#fff7ed; border:1px solid #fed7aa; border-left:4px solid #f59e0b;">
+          <p style="margin:0;">o <b>infraexposición</b> con pérdida de eficacia anticoagulante y mayor riesgo de eventos tromboembólicos.</p>
         </div>
       </div>
 
@@ -5239,7 +5317,59 @@ document.addEventListener("keydown", function(e){
 
 
       <div class="howto">
+<details class="details-block">
+  <summary class="details-summary">🚫 Contraindicaciones de la anticoagulación oral</summary>
 
+  <div class="details-card" style="border-top:4px solid #991b1b;">
+    <div class="details-card-header">📄 Lista de contraindicaciones</div>
+
+    <div class="details-card-body" align="justify">
+      <div style="padding:12px 14px; background:#fff5f5; border:1px solid #fecaca; border-left:5px solid #991b1b; border-radius:12px; margin-bottom:14px;">
+        <p style="margin:0;">
+          Deben considerarse contraindicaciones absolutas o situaciones de riesgo hemorrágico inaceptable aquellas en las que no puede garantizarse un tratamiento anticoagulante oral seguro, especialmente si la causa hemorrágica es persistente, no corregible o no modificable.
+        </p>
+      </div>
+
+      <ul>
+        <li><b>Sangrado mayor activo o no controlado:</b> hemorragia clínicamente relevante en curso en la que no puede garantizarse un tratamiento anticoagulante seguro.</li>
+
+        <li><b>Lesión sangrante no corregible o con alto riesgo de resangrado:</b> especialmente si afecta al tracto gastrointestinal, pulmonar o genitourinario y la causa no es reversible.</li>
+
+        <li><b>Hemorragia intracraneal o intraespinal espontánea por causa no reversible:</b> antecedente de sangrado intracraneal o intraespinal con riesgo de recurrencia considerado inaceptable.</li>
+
+        <li><b>Hemorragia intracerebral lobar relacionada con angiopatía amiloide:</b> antecedente de hemorragia intracerebral lobar atribuible o probablemente relacionada con angiopatía amiloide, especialmente si se asocia a ≥5 microhemorragias lobares, siderosis superficial cortical o hemorragia subaracnoidea de la convexidad no aneurismática.</li>
+
+        <li><b>Angiopatía amiloide cerebral probable avanzada:</b> carga hemorrágica por neuroimagen compatible con riesgo muy alto de recurrencia, incluyendo microhemorragias lobares múltiples, siderosis superficial cortical o hemorragia subaracnoidea de la convexidad.</li>
+
+        <li><b>Hemorragia intracraneal no relacionada con angiopatía amiloide con muy alta carga de microhemorragias:</b> antecedente de hemorragia intracraneal asociado a ≥10 microhemorragias cerebrales.</li>
+
+        <li><b>Trombocitopenia grave:</b> recuento plaquetario muy bajo, especialmente &lt;50.000 plaquetas/µL, salvo valoración hematológica específica.</li>
+
+        <li><b>Coagulopatía grave no corregible:</b> alteración de la coagulación con riesgo hemorrágico clínicamente relevante que no pueda corregirse de forma segura.</li>
+
+        <li><b>Hepatopatía descompensada con coagulopatía:</b> especialmente hepatopatía avanzada con coagulopatía clínicamente relevante, trombocitopenia grave, sangrado reciente o varices de alto riesgo no controladas.</li>
+
+        <li><b>Neoplasia gastrointestinal o genitourinaria sangrante activa:</b> lesión tumoral con sangrado activo o alto riesgo de resangrado no controlado.</li>
+
+        <li><b>Caídas traumáticas recurrentes no modificables:</b> sangrado grave relacionado con caídas repetidas cuando la causa de las caídas no se considera tratable o corregible.</li>
+
+        <li><b>Imposibilidad real de tratamiento seguro:</b> imposibilidad de administración fiable, adherencia mínima, seguimiento clínico o analítico, control de interacciones o supervisión adecuada cuando ello haga insegura la anticoagulación.</li>
+      </ul>
+
+      <div style="margin:14px 0 0; padding:12px 14px; background:#f8fbff; border:1px solid #d9e4f2; border-left:5px solid #0f3d83; border-radius:12px;">
+        <p style="margin:0;">
+          <b>Nota práctica:</b> un HAS-BLED alto, edad avanzada, fragilidad, antecedente de sangrado corregido, sangrado procedimental, sangrado por traumatismo aislado o riesgo de caídas modificable no constituyen por sí solos una contraindicación absoluta a la anticoagulación oral. Deben servir para corregir factores reversibles, elegir mejor el fármaco y estrechar el seguimiento.
+        </p>
+      </div>
+
+      <div style="margin:12px 0 0; padding:12px 14px; background:#fff7ed; border:1px solid #fed7aa; border-left:5px solid #f59e0b; border-radius:12px;">
+        <p style="margin:0;">
+          <b>Importante:</b> prótesis valvular mecánica, estenosis mitral moderada-severa y síndrome antifosfolípido de alto riesgo no son contraindicaciones a la anticoagulación oral; son situaciones en las que debe utilizarse AVK y evitarse ACOD.
+        </p>
+      </div>
+    </div>
+  </div>
+</details>
 <details class="details-block">
   <summary class="details-summary">🥇 Elección de la mejor estrategia terapéutica</summary>
 
