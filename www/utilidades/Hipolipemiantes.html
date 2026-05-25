@@ -608,7 +608,20 @@ body {
 .article-detail > summary{
   margin-bottom:8px;
 }
+.details-list-compact{
+  padding-left:20px;
+  font-size:10px;
+  line-height:1.45;
+}
 
+.details-list-compact.glossary-list{
+  list-style:none;
+  margin:8px;
+}
+
+.details-list-compact.biblio-list{
+  margin:1px;
+}
 /* =========================================================
    FEEDBACK DE RESULTADO
 ========================================================= */
@@ -754,6 +767,294 @@ body {
   .feedback-launch,
   .feedback-form-wrap{
     display:none !important;
+  }
+}
+
+/* =========================================================
+   PATRÓN HOMOGÉNEO SOLO PARA DESARROLLO TEÓRICO
+   Hipolipemiantes — bloque #desarrollo-teorico
+========================================================= */
+
+#desarrollo-teorico.article-theory-shell{
+  background:#ffffff;
+  border:1px solid #e1e8f2;
+  border-radius:16px;
+  box-shadow:0 6px 20px rgba(15,61,131,0.07);
+  padding:14px 16px 16px;
+  margin:.8rem 0 1rem;
+  text-align:left;
+}
+
+#desarrollo-teorico.article-theory-shell .article-theory-title{
+  margin:0 0 10px;
+  color:#0f3d83;
+  font-size:1rem;
+  font-weight:800;
+  line-height:1.25;
+}
+
+#desarrollo-teorico.article-theory-shell .article-theory-index{
+  padding-left:0 !important;
+}
+
+/* Índice compacto SOLO del artículo dinámico */
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .details-block.article-detail{
+  margin:0;
+  padding:0;
+  border-bottom:1px solid #edf2f7;
+  scroll-margin-top:140px;
+}
+
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .details-block.article-detail:last-child{
+  border-bottom:0;
+}
+
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-detail > .details-summary{
+  cursor:pointer;
+  list-style:none;
+  color:#0f3d83;
+  font-size:13.5px;
+  font-weight:700;
+  line-height:1.25;
+  padding:7px 2px;
+  margin:0;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-detail > .details-summary::-webkit-details-marker{
+  display:none;
+}
+
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-detail > .details-summary::before{
+  content:"▸";
+  color:#17a2b8;
+  font-size:12px;
+  transition:transform .18s ease;
+  flex:0 0 auto;
+}
+
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-detail[open] > .details-summary{
+  color:#0b2f66;
+}
+
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-detail[open] > .details-summary::before{
+  transform:rotate(90deg);
+}
+
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-detail-body{
+  padding:8px 0 4px;
+}
+
+/* Tarjetas visibles solo al abrir */
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-subcard{
+  position:relative;
+  margin:10px 0 12px;
+  background:#ffffff;
+  border:1px solid #d7e2ef;
+  border-radius:15px;
+  box-shadow:0 6px 18px rgba(15,61,131,0.08);
+  overflow:hidden;
+  color:#263942;
+  font-size:.88rem;
+  line-height:1.58;
+  isolation:isolate;
+}
+
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-subcard::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:4px;
+  background:linear-gradient(180deg,#0f3d83 0%,#17a2b8 50%,#16a34a 100%);
+  z-index:1;
+}
+
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-subcard-header{
+  position:relative;
+  z-index:2;
+  background:#eef7ff;
+  color:#103f58;
+  padding:9px 14px 9px 18px;
+  border-bottom:1px solid #dceaf7;
+  font-size:.92rem;
+  font-weight:800;
+  line-height:1.3;
+  letter-spacing:0;
+  display:block;
+}
+
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-subcard-header::before{
+  content:"";
+  display:inline-block;
+  width:7px;
+  height:7px;
+  margin-right:7px;
+  border-radius:999px;
+  background:#17a2b8;
+  vertical-align:1px;
+}
+
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-subcard-body{
+  position:relative;
+  z-index:2;
+  padding:14px 18px 16px 20px;
+  color:#263942;
+  font-size:.88rem;
+  line-height:1.58;
+  text-align:justify;
+}
+
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-subcard-body p{
+  margin:0 0 10px;
+  font-size:.88rem;
+  line-height:1.58;
+}
+
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-subcard-body p:last-child{
+  margin-bottom:0;
+}
+
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-subcard-body b,
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-subcard-body strong{
+  color:#0f3d83;
+  font-weight:800;
+}
+
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-subcard-body ul,
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-subcard-body ol{
+  margin:8px 0 10px;
+  padding-left:20px !important;
+}
+
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-subcard-body li{
+  margin:4px 0;
+}
+
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-subcard-body h4,
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-subcard-body h5{
+  margin:12px 0 7px;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:#0f3d83;
+  font-size:.86rem;
+  font-weight:800;
+  line-height:1.35;
+}
+
+/* Caja final breve */
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-auto-note{
+  margin-top:12px;
+  padding:10px 12px;
+  border-radius:12px;
+  font-size:.82rem;
+  line-height:1.45;
+  text-align:left;
+  border:1px solid transparent;
+  box-shadow:none;
+}
+
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-auto-note span{
+  display:block;
+  margin:0 0 3px;
+  font-size:.76rem;
+  line-height:1.2;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.03em;
+}
+
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-auto-note span::before{
+  content:"";
+  display:inline-block;
+  width:7px;
+  height:7px;
+  margin-right:7px;
+  border-radius:999px;
+  background:currentColor;
+  opacity:.75;
+  vertical-align:1px;
+}
+
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-auto-note p{
+  display:block;
+  margin:0;
+  font-size:.82rem;
+  line-height:1.45;
+}
+
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-auto-note-key{
+  background:#f0f7ff;
+  border-color:#bfd7f2;
+  color:#103f58;
+}
+
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-auto-note-decision{
+  background:#eefbf4;
+  border-color:#bfe8cf;
+  color:#14532d;
+}
+
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-auto-note-warning{
+  background:#fff7ed;
+  border-color:#fed7aa;
+  color:#7c2d12;
+}
+
+#desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-auto-note-summary{
+  background:#f8fafc;
+  border-color:#dbe4ee;
+  color:#334155;
+}
+
+/* Móvil */
+@media(max-width:600px){
+  #desarrollo-teorico.article-theory-shell{
+    padding:12px;
+    border-radius:14px;
+  }
+
+  #desarrollo-teorico.article-theory-shell .article-theory-title{
+    font-size:.98rem;
+  }
+
+  #desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-detail > .details-summary{
+    font-size:13px;
+    padding:8px 0;
+  }
+
+  #desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-subcard{
+    border-radius:14px;
+    font-size:.80rem;
+  }
+
+  #desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-subcard-header{
+    font-size:.84rem;
+    padding:8px 12px 8px 18px;
+  }
+
+  #desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-subcard-body{
+    padding:12px 14px 14px 18px;
+    font-size:.80rem;
+    line-height:1.55;
+  }
+
+  #desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-subcard-body p{
+    font-size:.80rem;
+    line-height:1.55;
+  }
+
+  #desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-auto-note{
+    font-size:.78rem;
+    padding:9px 10px;
+  }
+
+  #desarrollo-teorico.article-theory-shell #detalles-articulo-hipolipemiantes .article-auto-note p{
+    font-size:.78rem;
   }
 }
 
@@ -945,9 +1246,12 @@ body {
   <div class="feedback-note"><b>Muchas gracias por ayudarnos a mejorar la herramienta.</b></div>
 </div>
 
-      <div class="howto" id="desarrollo-teorico">
-  <h3 style="margin-top:0; color:#0f3d83;">📘 Desarrollo teórico ampliado</h3>
-  <div id="detalles-articulo-hipolipemiantes" style="padding-left:2px;"></div>
+      <div class="howto article-theory-shell" id="desarrollo-teorico">
+  <h3 class="article-theory-title">📘 Tratamiento hipolipemiante en el paciente con ictus</h3>
+  <div id="detalles-articulo-hipolipemiantes" class="article-theory-index"></div>
+
+</div>
+        <div class="howto">
 <!-- Evidencia VESALIUS-CV -->
           <details style="margin-top:1px;">
             <summary
@@ -984,8 +1288,6 @@ body {
             </div>
           </details>
 
-</div>
-        <div class="howto">
 <details style="margin-top:1px;">
             <summary
               style="cursor:pointer;font-weight:700;color:#0f3d83;">📒 Glosario de acrónimos</summary>
@@ -999,8 +1301,23 @@ body {
                 padding:10px 14px; font-size:14px; font-weight:700;
                 letter-spacing:0.3px; "> 🔤 Acrónimos utilizados </div>
               <!-- Contenido -->
-              <div style="padding:16px 18px;">
-                <ul class="details-list-compact glossary-list">
+              <!-- Contenido -->
+            <div style="padding:16px 18px;">
+              <style>
+    /* 1 columna por defecto */
+    .glosario-columns {
+      column-count: 1;
+      column-gap: 32px;
+    }
+
+    /* En pantallas grandes → 2 columnas */
+    @media (min-width: 900px){
+      .glosario-columns {
+        column-count: 2;
+      }
+    }
+  </style>
+              <ul class="glosario-grid details-list-compact glossary-list">
         <li><b>AAC</b>: angiopatía amiloide cerebral.</li>
         <li><b>AHA/ASA</b>: American Heart Association / American Stroke Association.</li>
         <li><b>AIT</b>: accidente isquémico transitorio.</li>
@@ -1311,7 +1628,7 @@ const capitulosHipolipemiantes = [
           <h4>5. Paciente con intolerancia a estatinas</h4>
           <p>La intolerancia a estatinas debe confirmarse cuidadosamente. Siempre que sea posible, debe intentarse diferenciar síntomas musculares inespecíficos de una intolerancia reproducible.</p>
 
-          <p>Puede valorarse cambiar de estatina, reducir dosis, utilizar una estatina diferente o buscar la máxima dosis tolerada.</p>
+          <p>Puede valorarse cambiar de estatina, reducir dosis o buscar la máxima dosis tolerada.</p>
 
           <p>Cuando la intolerancia es clara, el tratamiento debe apoyarse en ezetimiba, ácido bempedoico y terapias dirigidas a PCSK9. En pacientes de muy alto riesgo, no debe demorarse la intensificación si el C-LDL permanece por encima del objetivo.</p>
 
@@ -1433,6 +1750,115 @@ const capitulosHipolipemiantes = [
   }
 ];
 
+function decorarArticuloHipolipemiantes(){
+  const root = document.getElementById('detalles-articulo-hipolipemiantes');
+  if (!root) return;
+
+  const llamadas = {
+    'Resumen': {
+      type: 'summary',
+      label: 'Resumen operativo',
+      text: 'La estrategia se basa en mecanismo del ictus, objetivo de C-LDL, tratamiento previo, tolerancia y distancia al objetivo.'
+    },
+
+    'Introducción': {
+      type: 'key',
+      label: 'Idea clave',
+      text: 'El control del C-LDL forma parte de una prevención secundaria vascular integral, no de una decisión aislada.'
+    },
+
+    'Clasificación clínica inicial': {
+      type: 'decision',
+      label: 'Decisión práctica',
+      text: 'El primer paso es separar ictus aterotrombótico, no aterotrombótico y hemorrágico para ajustar intensidad y objetivo.'
+    },
+
+    'Evaluación previa': {
+      type: 'key',
+      label: 'Idea clave',
+      text: 'Antes de intensificar, conviene conocer C-LDL actual, basal, tratamiento previo, tolerancia y situación clínica.'
+    },
+
+    'Objetivos de C-LDL': {
+      type: 'decision',
+      label: 'Decisión práctica',
+      text: 'El objetivo debe adaptarse al mecanismo y al riesgo: más estricto en enfermedad aterosclerótica o riesgo vascular muy alto.'
+    },
+
+    'Tratamientos disponibles': {
+      type: 'summary',
+      label: 'Resumen operativo',
+      text: 'Estatinas, ezetimiba, ácido bempedoico y terapias dirigidas a PCSK9 permiten una intensificación escalonada.'
+    },
+
+    'Algoritmo terapéutico práctico': {
+      type: 'decision',
+      label: 'Decisión práctica',
+      text: 'Si el paciente está lejos del objetivo, suele ser más eficiente combinar fármacos que solo duplicar estatina.'
+    },
+
+    'Situaciones clínicas especiales': {
+      type: 'warning',
+      label: 'Precaución',
+      text: 'C-LDL muy bajo, Lp(a) elevada e ictus hemorrágico requieren interpretar el beneficio vascular frente al riesgo individual.'
+    },
+
+    'Seguimiento': {
+      type: 'summary',
+      label: 'Resumen operativo',
+      text: 'Tras iniciar o modificar tratamiento, el control analítico permite valorar respuesta, tolerancia, adherencia e intensificación.'
+    },
+
+    'Propuesta resumida de manejo': {
+      type: 'summary',
+      label: 'Resumen operativo',
+      text: 'El manejo debe ser escalonado: estatina de alta intensidad, ezetimiba y, si persiste fuera de objetivo, PCSK9 o alternativas.'
+    },
+
+    'Conclusiones': {
+      type: 'key',
+      label: 'Idea clave',
+      text: 'La prevención secundaria lipídica debe ser sistemática, individualizada y mantenida a largo plazo.'
+    }
+  };
+
+  root.querySelectorAll('.article-subcard').forEach((tarjeta) => {
+    if (tarjeta.dataset.autoNoteApplied === 'true') return;
+
+    const cabecera = tarjeta.querySelector('.article-subcard-header');
+    const cuerpo = tarjeta.querySelector('.article-subcard-body');
+
+    if (!cabecera || !cuerpo) return;
+
+    const titulo = cabecera.textContent.trim().replace(/\s+/g, ' ');
+    const llamada = llamadas[titulo];
+
+    if (!llamada) return;
+
+    if (cuerpo.querySelector('.article-auto-note')) {
+      tarjeta.dataset.autoNoteApplied = 'true';
+      return;
+    }
+
+    const nota = document.createElement('div');
+    nota.className = `article-auto-note article-auto-note-${llamada.type}`;
+
+    const etiqueta = document.createElement('span');
+    etiqueta.textContent = llamada.label;
+
+    const texto = document.createElement('p');
+    texto.textContent = llamada.text;
+
+    nota.appendChild(etiqueta);
+    nota.appendChild(texto);
+    cuerpo.appendChild(nota);
+
+    tarjeta.dataset.autoNoteApplied = 'true';
+  });
+}
+
+window.decorarArticuloHipolipemiantes = decorarArticuloHipolipemiantes;
+
 function renderDetallesArticuloHipolipemiantes(){
   const cont = document.getElementById('detalles-articulo-hipolipemiantes');
   if (!cont) return;
@@ -1445,7 +1871,10 @@ function renderDetallesArticuloHipolipemiantes(){
       </div>
     </details>
   `).join('');
+
+  decorarArticuloHipolipemiantes();
 }
+
 function activarAcordeonDetallesArticuloHipolipemiantes(){
   const detalles = document.querySelectorAll('details');
 

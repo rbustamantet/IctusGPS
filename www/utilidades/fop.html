@@ -828,6 +828,508 @@ body {
   }
 }
 
+/* =========================================================
+   BLOQUE TEÓRICO FOP - PATRÓN HOMOGÉNEO ICTUSGPS
+   Acotado exclusivamente a #desarrollo-teorico-fop
+========================================================= */
+
+#desarrollo-teorico-fop.article-theory-shell {
+  background: #ffffff;
+  border: 1px solid #e5e9f2;
+  border-radius: 14px;
+  box-shadow: 0 2px 2px rgba(100, 116, 139, 0.45);
+  padding: 16px;
+}
+
+#desarrollo-teorico-fop .article-theory-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0 0 14px;
+  padding: 0;
+  border-bottom: none;
+  color: #0f3d83;
+  font-size: 1.12rem;
+  font-weight: 850;
+  line-height: 1.28;
+}
+
+#desarrollo-teorico-fop .details-block {
+  margin: 0 0 8px;
+}
+
+#desarrollo-teorico-fop .details-summary {
+  display: list-item;
+  padding: 0;
+  min-height: unset;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #0f3d83;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.42;
+  letter-spacing: normal;
+  cursor: pointer;
+}
+
+#desarrollo-teorico-fop .details-summary:hover {
+  color: #174ea6;
+  background: transparent;
+  box-shadow: none;
+}
+
+#desarrollo-teorico-fop details[open] > .details-summary {
+  margin-bottom: 8px;
+  color: #0f3d83;
+  background: transparent;
+  box-shadow: none;
+}
+
+#desarrollo-teorico-fop .details-summary::marker {
+  color: #0f3d83;
+  font-size: 0.85em;
+}
+
+#desarrollo-teorico-fop .details-card {
+  position: relative;
+  overflow: hidden;
+  margin: 8px 0 16px 14px;
+  border: 1px solid rgba(33, 110, 145, 0.16);
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.98), rgba(246,250,252,0.96));
+  box-shadow:
+    0 10px 24px rgba(15, 57, 78, 0.08),
+    0 2px 8px rgba(15, 57, 78, 0.04);
+  isolation: isolate;
+}
+
+#desarrollo-teorico-fop .details-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 5px;
+  background: linear-gradient(180deg, #0f7fa0, #35b7c8, #7cc9a7);
+  z-index: 1;
+}
+
+#desarrollo-teorico-fop .details-card::after {
+  content: "";
+  position: absolute;
+  right: -75px;
+  top: -75px;
+  width: 145px;
+  height: 145px;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle,
+    rgba(53, 183, 200, 0.14),
+    rgba(53, 183, 200, 0.04) 55%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+#desarrollo-teorico-fop .details-card-header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 17px 11px 20px;
+  border-bottom: 1px solid rgba(33, 110, 145, 0.13);
+  background:
+    linear-gradient(135deg, rgba(232, 246, 250, 0.94), rgba(255,255,255,0.76));
+  color: #103f58;
+  font-size: 0.93rem;
+  font-weight: 850;
+  line-height: 1.3;
+}
+
+#desarrollo-teorico-fop .details-card-header::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #1597ad;
+  box-shadow:
+    0 0 0 4px rgba(21, 151, 173, 0.12),
+    0 0 0 8px rgba(21, 151, 173, 0.05);
+}
+
+#desarrollo-teorico-fop .details-card-body {
+  position: relative;
+  z-index: 2;
+  padding: 16px 20px 18px;
+  color: #263942;
+}
+
+#desarrollo-teorico-fop .details-card-body p {
+  margin: 0 0 12px;
+  color: #263942;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+#desarrollo-teorico-fop .details-card-body p + p {
+  margin-top: 10px;
+}
+
+#desarrollo-teorico-fop .details-card-body p:last-child {
+  margin-bottom: 0;
+}
+
+#desarrollo-teorico-fop .details-card-body b {
+  color: #123f57;
+  font-weight: 850;
+}
+
+#desarrollo-teorico-fop .details-divider {
+  border: none;
+  border-top: 1px solid rgba(15, 61, 131, 0.12);
+  margin: 14px 0;
+}
+
+#desarrollo-teorico-fop .details-card-body h4 {
+  color: #0f3d83;
+  font-size: 0.82rem;
+  font-weight: 850;
+  line-height: 1.35;
+}
+
+#desarrollo-teorico-fop .details-card-body ul,
+#desarrollo-teorico-fop .details-card-body ol {
+  padding-left: 22px;
+  margin-top: 8px;
+  margin-bottom: 12px;
+  color: #263942;
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+#desarrollo-teorico-fop .details-card-body li {
+  margin-bottom: 6px;
+}
+
+/* Caja final compacta */
+
+#desarrollo-teorico-fop .article-auto-note {
+  display: block;
+  margin: 16px 0 0;
+  padding: 12px 14px;
+  border-radius: 13px;
+  border: 1px solid transparent;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  box-shadow: 0 5px 14px rgba(15, 57, 78, 0.055);
+}
+
+#desarrollo-teorico-fop .article-auto-note span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 5px;
+  font-size: 0.68rem;
+  font-weight: 850;
+  letter-spacing: 0.065em;
+  text-transform: uppercase;
+}
+
+#desarrollo-teorico-fop .article-auto-note span::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.75;
+}
+
+#desarrollo-teorico-fop .article-auto-note p {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+#desarrollo-teorico-fop .article-auto-note-key,
+#desarrollo-teorico-fop .article-auto-note-summary {
+  background: linear-gradient(135deg, #eef9fb, #ffffff);
+  border-color: rgba(21, 151, 173, 0.22);
+  color: #17495a;
+}
+
+#desarrollo-teorico-fop .article-auto-note-key span,
+#desarrollo-teorico-fop .article-auto-note-summary span {
+  color: #0f7086;
+}
+
+#desarrollo-teorico-fop .article-auto-note-key p,
+#desarrollo-teorico-fop .article-auto-note-summary p {
+  color: #263942;
+}
+
+#desarrollo-teorico-fop .article-auto-note-warning {
+  background: linear-gradient(135deg, #fff7eb, #ffffff);
+  border-color: rgba(210, 137, 28, 0.26);
+  color: #62451e;
+}
+
+#desarrollo-teorico-fop .article-auto-note-warning span {
+  color: #9a5b00;
+}
+
+#desarrollo-teorico-fop .article-auto-note-warning p {
+  color: #4f3718;
+}
+
+#desarrollo-teorico-fop .article-auto-note-decision {
+  background: linear-gradient(135deg, #f1f6ff, #ffffff);
+  border-color: rgba(65, 105, 190, 0.24);
+  color: #263d67;
+}
+
+#desarrollo-teorico-fop .article-auto-note-decision span {
+  color: #3157a4;
+}
+
+#desarrollo-teorico-fop .article-auto-note-decision p {
+  color: #263d67;
+}
+
+@media (max-width: 640px) {
+  #desarrollo-teorico-fop.article-theory-shell {
+    padding: 14px;
+    border-radius: 13px;
+  }
+
+  #desarrollo-teorico-fop .article-theory-title {
+    font-size: 0.98rem;
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+
+  #desarrollo-teorico-fop .details-summary {
+    font-size: 13px;
+    line-height: 1.38;
+  }
+
+  #desarrollo-teorico-fop .details-block {
+    margin-bottom: 7px;
+  }
+
+  #desarrollo-teorico-fop .details-card {
+    margin-left: 6px;
+    border-radius: 14px;
+  }
+
+  #desarrollo-teorico-fop .details-card-header {
+    padding: 11px 14px 10px 17px;
+    font-size: 0.86rem;
+  }
+
+  #desarrollo-teorico-fop .details-card-body {
+    padding: 14px 15px 16px;
+  }
+
+  #desarrollo-teorico-fop .details-card-body p {
+    font-size: 0.8rem;
+    line-height: 1.52;
+  }
+
+  #desarrollo-teorico-fop .details-card-body ul,
+  #desarrollo-teorico-fop .details-card-body ol {
+    font-size: 0.79rem;
+    line-height: 1.5;
+  }
+
+  #desarrollo-teorico-fop .article-auto-note {
+    padding: 11px 12px;
+  }
+
+  #desarrollo-teorico-fop .article-auto-note p {
+    font-size: 0.79rem;
+  }
+}
+
+@media print {
+  #desarrollo-teorico-fop.article-theory-shell,
+  #desarrollo-teorico-fop .details-card,
+  #desarrollo-teorico-fop .article-auto-note {
+    box-shadow: none;
+    background: #ffffff;
+  }
+
+  #desarrollo-teorico-fop .details-card::after {
+    display: none;
+  }
+
+  #desarrollo-teorico-fop .details-card-header {
+    background: #f7f7f7;
+    color: #111111;
+  }
+
+  #desarrollo-teorico-fop .article-auto-note,
+  #desarrollo-teorico-fop .article-auto-note span,
+  #desarrollo-teorico-fop .article-auto-note p {
+    color: #111111;
+    border-color: #d8e2e7;
+  }
+}
+
+/* =========================================================
+   AJUSTE TIPOGRÁFICO HOMOGÉNEO - FOP
+   Tamaños alineados con página de Cardiopatías embolígenas
+   Solo afecta a #desarrollo-teorico-fop
+========================================================= */
+
+/* Título principal del bloque teórico */
+#desarrollo-teorico-fop .article-theory-title {
+  font-size: 1.12rem !important;
+  line-height: 1.28 !important;
+  margin-bottom: 14px !important;
+}
+
+#desarrollo-teorico-fop .article-theory-title span {
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
+}
+
+/* Índice / capítulos */
+#desarrollo-teorico-fop .details-block {
+  margin: 0 0 8px !important;
+}
+
+#desarrollo-teorico-fop .details-summary {
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  line-height: 1.42 !important;
+  letter-spacing: normal !important;
+}
+
+/* Tarjeta abierta */
+#desarrollo-teorico-fop .details-card {
+  margin: 8px 0 16px 14px !important;
+}
+
+#desarrollo-teorico-fop .details-card-header {
+  padding: 12px 17px 11px 20px !important;
+  font-size: 0.93rem !important;
+  line-height: 1.3 !important;
+}
+
+/* Cuerpo del texto */
+#desarrollo-teorico-fop .details-card-body {
+  padding: 16px 20px 18px !important;
+}
+
+#desarrollo-teorico-fop .details-card-body p {
+  font-size: 0.88rem !important;
+  line-height: 1.6 !important;
+}
+
+/* Subtítulos internos */
+#desarrollo-teorico-fop .details-card-body h4 {
+  font-size: 0.82rem !important;
+  line-height: 1.35 !important;
+}
+
+/* Listas internas */
+#desarrollo-teorico-fop .details-card-body ul,
+#desarrollo-teorico-fop .details-card-body ol {
+  font-size: 0.86rem !important;
+  line-height: 1.55 !important;
+}
+
+#desarrollo-teorico-fop .details-card-body li {
+  margin-bottom: 6px !important;
+}
+
+/* Caja final: idea clave / decisión / precaución / resumen */
+#desarrollo-teorico-fop .article-auto-note {
+  margin: 16px 0 0 !important;
+  padding: 12px 14px !important;
+  border-radius: 13px !important;
+  font-size: 0.86rem !important;
+  line-height: 1.5 !important;
+}
+
+#desarrollo-teorico-fop .article-auto-note span {
+  margin-bottom: 5px !important;
+  font-size: 0.68rem !important;
+  letter-spacing: 0.065em !important;
+}
+
+#desarrollo-teorico-fop .article-auto-note p {
+  margin: 0 !important;
+  font-size: 0.84rem !important;
+  line-height: 1.5 !important;
+}
+
+/* =========================================================
+   MÓVIL
+========================================================= */
+@media (max-width: 640px) {
+  #desarrollo-teorico-fop .article-theory-title {
+    font-size: 0.98rem !important;
+    line-height: 1.25 !important;
+    margin-bottom: 12px !important;
+  }
+
+  #desarrollo-teorico-fop .article-theory-title span {
+    font-size: 0.78rem !important;
+  }
+
+  #desarrollo-teorico-fop .details-block {
+    margin-bottom: 7px !important;
+  }
+
+  #desarrollo-teorico-fop .details-summary {
+    font-size: 13px !important;
+    line-height: 1.38 !important;
+  }
+
+  #desarrollo-teorico-fop .details-card {
+    margin-left: 6px !important;
+  }
+
+  #desarrollo-teorico-fop .details-card-header {
+    padding: 11px 14px 10px 17px !important;
+    font-size: 0.86rem !important;
+  }
+
+  #desarrollo-teorico-fop .details-card-body {
+    padding: 14px 15px 16px !important;
+  }
+
+  #desarrollo-teorico-fop .details-card-body p {
+    font-size: 0.8rem !important;
+    line-height: 1.52 !important;
+  }
+
+  #desarrollo-teorico-fop .details-card-body h4 {
+    font-size: 0.78rem !important;
+    line-height: 1.32 !important;
+  }
+
+  #desarrollo-teorico-fop .details-card-body ul,
+  #desarrollo-teorico-fop .details-card-body ol {
+    font-size: 0.79rem !important;
+    line-height: 1.5 !important;
+  }
+
+  #desarrollo-teorico-fop .article-auto-note {
+    padding: 11px 12px !important;
+  }
+
+  #desarrollo-teorico-fop .article-auto-note p {
+    font-size: 0.79rem !important;
+  }
+}
+
 </style>
   </head>
   <body>
@@ -1227,14 +1729,14 @@ body {
 </div>
 
       <!-- BLOQUE INFORMATIVO (incluye PASCAL + explicación A/C) -->
-<div class="howto" id="desarrollo-teorico-fop">
-  <h3 style="margin-top:0; color:#0f3d83;">📘 Ictus isquémico y foramen oval permeable</h3>
+<div class="howto article-theory-shell" id="desarrollo-teorico-fop">
+  <h3 class="article-theory-title">📘 Ictus isquémico y foramen oval permeable</h3>
 
   <details class="details-block">
     <summary class="details-summary">📄 Resumen</summary>
-    <div style="margin-top:14px; background:#ffffff; border:1px solid #d0d7e1; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.05); overflow:hidden; font-size:13px; line-height:1.55; color:#1e293b;">
-      <div style="background:#0f3d83; color:#ffffff; padding:10px 14px; font-size:14px; font-weight:700;">Resumen</div>
-      <div style="padding:16px 18px;" align="justify">
+    <div class="details-card">
+  <div class="details-card-header">Resumen</div>
+  <div class="details-card-body" align="justify">
         <p>El foramen oval permeable (FOP) es un hallazgo frecuente en adultos y puede ser incidental o estar implicado causalmente en un ictus isquémico por embolia paradójica. La decisión terapéutica tras un ictus isquémico con FOP no debe basarse únicamente en la presencia del defecto interauricular, sino en la probabilidad de que el FOP haya sido el mecanismo causal del evento. Para ello resulta útil integrar la puntuación RoPE, los rasgos anatómicos de alto riesgo (especialmente shunt derecha–izquierda grande y aneurisma del septo interauricular) y las circunstancias clínicas que aumentan o reducen la plausibilidad de embolia paradójica. La clasificación PASCAL permite sintetizar esta información y estimar mejor el balance entre beneficio y daño del cierre percutáneo. La evidencia disponible apoya el cierre percutáneo en pacientes seleccionados, especialmente de 18 a 60 años, con ictus isquémico no lacunar, ausencia de causa alternativa y FOP probable o posiblemente causal. En cambio, cuando el FOP es probablemente incidental, o existe indicación independiente de anticoagulación crónica, el manejo médico individualizado suele ser preferible.</p>
       </div>
     </div>
@@ -4061,6 +4563,115 @@ document.getElementById('btnOpenFeedback')?.addEventListener('click', openFeedba
 document.getElementById('btnPrepareFeedback')?.addEventListener('click', previewFeedbackPayload);
 document.getElementById('btnSendFeedback')?.addEventListener('click', openFeedbackEmail);
 document.getElementById('btnCloseFeedback')?.addEventListener('click', closeFeedbackForm);
+
+
+(function(){
+  const root = document.getElementById('desarrollo-teorico-fop');
+  if (!root) return;
+
+  const notasPorTitulo = {
+    'Resumen': {
+      tipo: 'summary',
+      etiqueta: 'Resumen operativo',
+      texto: 'La decisión no debe basarse en la presencia aislada de FOP, sino en la probabilidad causal y el beneficio neto esperado.'
+    },
+    'Introducción': {
+      tipo: 'key',
+      etiqueta: 'Idea clave',
+      texto: 'El objetivo es diferenciar el FOP causal del incidental para evitar tanto cierres innecesarios como infratratamiento.'
+    },
+    'Concepto de ictus asociado a FOP': {
+      tipo: 'key',
+      etiqueta: 'Idea clave',
+      texto: 'La atribución al FOP exige ictus compatible, FOP documentado y ausencia de una causa alternativa más probable.'
+    },
+    'Escala RoPE': {
+      tipo: 'warning',
+      etiqueta: 'Precaución',
+      texto: 'RoPE estima causalidad, pero no sustituye la valoración anatómica, clínica ni el estudio etiológico completo.'
+    },
+    'Rasgos anatómicos de alto riesgo': {
+      tipo: 'key',
+      etiqueta: 'Idea clave',
+      texto: 'El shunt grande atribuible al FOP y el aneurisma septal son los rasgos anatómicos centrales para PASCAL.'
+    },
+'Situaciones clínicas': {
+  tipo: 'key',
+  etiqueta: 'Idea clave',
+  texto: 'Las situaciones clínicas no modifican PASCAL por sí solas, pero ayudan a contextualizar la plausibilidad causal y la necesidad de discusión multidisciplinar.'
+},
+    'Trombofilia y FOP': {
+      tipo: 'warning',
+      etiqueta: 'Precaución',
+      texto: 'La trombofilia modifica el contexto clínico, pero no convierte por sí sola el cierre en obligatorio.'
+    },
+    'Clasificación PASCAL': {
+      tipo: 'decision',
+      etiqueta: 'Decisión práctica',
+      texto: 'PASCAL ayuda a trasladar la decisión desde “hay FOP” hacia “cuál es la probabilidad causal y el beneficio neto”.'
+    },
+    'Cierre percutáneo frente a tratamiento médico': {
+      tipo: 'decision',
+      etiqueta: 'Decisión práctica',
+      texto: 'El cierre ofrece mayor valor cuando el perfil causal es probable o posible y el estudio etiológico está completo.'
+    },
+    'Recomendaciones actuales de las guías': {
+      tipo: 'summary',
+      etiqueta: 'Resumen operativo',
+      texto: 'Las guías apoyan el cierre en pacientes seleccionados, no como indicación automática ante cualquier FOP.'
+    },
+    'Orientación terapéutica práctica': {
+      tipo: 'decision',
+      etiqueta: 'Decisión práctica',
+      texto: 'Primero se completan requisitos diagnósticos; después se integra PASCAL, edad, anatomía y contexto clínico.'
+    },
+    'Seguridad y seguimiento': {
+      tipo: 'warning',
+      etiqueta: 'Precaución',
+      texto: 'El beneficio del cierre debe ponderarse siempre frente al riesgo de fibrilación auricular y complicaciones procedimentales.'
+    },
+    'Conclusiones': {
+      tipo: 'summary',
+      etiqueta: 'Resumen operativo',
+      texto: 'La estrategia debe individualizarse, evitando tanto el cierre indiscriminado como descartar casos con alta plausibilidad causal.'
+    }
+  };
+
+  function limpiarTitulo(texto) {
+    return texto
+      .replace(/^[📄📘📋📒📚\s]+/u, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  window.decorarArticuloFOP = function decorarArticuloFOP() {
+    root.querySelectorAll('details.details-block').forEach(function(detalle) {
+      const summary = detalle.querySelector(':scope > summary.details-summary');
+      const body = detalle.querySelector('.details-card-body');
+      if (!summary || !body) return;
+
+      const titulo = limpiarTitulo(summary.textContent || '');
+      const nota = notasPorTitulo[titulo];
+      if (!nota) return;
+
+      if (body.dataset.autoNoteApplied === 'true') return;
+      if (body.querySelector(':scope > .article-auto-note')) {
+        body.dataset.autoNoteApplied = 'true';
+        return;
+      }
+
+      const caja = document.createElement('div');
+      caja.className = 'article-auto-note article-auto-note-' + nota.tipo;
+      caja.innerHTML = '<span>' + nota.etiqueta + '</span><p>' + nota.texto + '</p>';
+
+      body.appendChild(caja);
+      body.dataset.autoNoteApplied = 'true';
+    });
+  };
+
+  window.decorarArticuloFOP();
+})();
+
 
 </script>
     <script src="../js/index.js"></script>

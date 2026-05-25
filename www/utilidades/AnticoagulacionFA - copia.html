@@ -2368,7 +2368,7 @@ glecaprevir: {
   },
 
   notes: [
-    "Glecaprevir/pibrentasvir: antiviral de acción directa frente a VHC con inhibición de P-gp → puede aumentar la exposición de algunos anticoagulantes. Con dabigatrán, el uso concomitante debe evitarse/no se recomienda. Con apixabán, rivaroxabán, edoxabán o antagonistas de vitamina K, utilizar con precaución, revisando función renal, otros inhibidores P-gp, riesgo hemorrágico y necesidad de monitorización clínica/analítica."
+    "Glecaprevir/pibrentasvir: antiviral de acción directa frente a VHC con inhibición potente de P-gp → puede aumentar la exposición de dabigatrán; el uso concomitante no se recomienda. Revisar función renal, otros inhibidores P-gp y riesgo hemorrágico."
   ]
 },
 
@@ -2381,7 +2381,7 @@ glecaprevir: {
   edoxabanReduce: true,
 
   notes: [
-    "Ciclosporina: inhibidor potente de P-gp/BCRP → puede aumentar la exposición de algunos anticoagulantes. Con dabigatrán, el uso concomitante está contraindicado/debe evitarse por aumento relevante de exposición. Con apixabán, rivaroxabán, edoxabán o antagonistas de vitamina K, utilizar con precaución; edoxabán requiere reducción de dosis a 30 mg cada 24 h. En pacientes trasplantados, coordinar con el equipo responsable por función renal fluctuante, otros inmunosupresores, antibióticos, antifúngicos y riesgo de procedimientos."
+    "Ciclosporina: inhibidor potente de P-gp → dabigatrán contraindicado/evitar por aumento relevante de exposición; edoxabán requiere reducción de dosis a 30 mg cada 24 h. En pacientes trasplantados, coordinar con el equipo responsable por función renal fluctuante, otros inmunosupresores, antibióticos, antifúngicos y riesgo de procedimientos."
   ]
 },
 
@@ -2389,11 +2389,11 @@ glecaprevir: {
   pgpInhibitor: true,
 
   avoid: {
-    "Dabigatrán": "Tacrolimus: dabigatrán contraindicado/debe evitarse por posible aumento relevante de exposición"
+    "Dabigatrán": "No recomendado con tacrolimus por posible aumento de exposición"
   },
 
   notes: [
-    "Tacrolimus: posible inhibidor de P-gp con evidencia clínica limitada, pero no debe asumirse ausencia de interacción. Con dabigatrán, el uso concomitante está contraindicado/debe evitarse. Con apixabán, rivaroxabán, edoxabán o antagonistas de vitamina K, utilizar con precaución. Revisar niveles de tacrolimus, función renal, otros inhibidores/inductores y riesgo hemorrágico global; si se elige un ACOD, hacerlo con extrema cautela y seguimiento estrecho."
+    "Tacrolimus: posible inhibidor de P-gp con evidencia clínica limitada, pero no debe asumirse ausencia de interacción. Dabigatrán no se recomienda con tacrolimus. Revisar niveles de tacrolimus, función renal, otros inhibidores/inductores y riesgo hemorrágico global; si se elige un ACOD, hacerlo con extrema cautela y seguimiento estrecho."
   ]
 },
 
@@ -3200,47 +3200,6 @@ if (
     label: "Aceptable",
     cls: "tagConsider",
     tooltip: "VKA puede ser la alternativa oral cuando la interacción desaconseja ACOD, pero la interacción también puede alterar el INR; requiere monitorización estrecha y ajuste de dosis."
-  };
-}
-
-// ================================================
-// GLECAPREVIR/PIBRENTASVIR, CICLOSPORINA Y TACROLIMUS:
-// dabigatrán evitar; resto con precaución
-// ================================================
-if (
-  (
-    interactions.includes("glecaprevir") ||
-    interactions.includes("ciclosporina") ||
-    interactions.includes("tacrolimus")
-  ) &&
-  (name === "Apixabán" || name === "Rivaroxabán" || name === "Edoxabán" || name === "VKA") &&
-  adequacy.label !== "Evitar" &&
-  adequacy.label !== "Obligatorio"
-) {
-  const precautionReasons = [];
-
-  if (interactions.includes("glecaprevir")) {
-    precautionReasons.push(
-      "Glecaprevir/pibrentasvir: usar con precaución por posible interacción farmacocinética; revisar función renal, riesgo hemorrágico y medicación concomitante."
-    );
-  }
-
-  if (interactions.includes("ciclosporina")) {
-    precautionReasons.push(
-      "Ciclosporina: usar con precaución por posible aumento de exposición farmacocinética; revisar función renal, riesgo hemorrágico, medicación concomitante y necesidad de monitorización clínica/analítica."
-    );
-  }
-
-  if (interactions.includes("tacrolimus")) {
-    precautionReasons.push(
-      "Tacrolimus: usar con precaución; revisar niveles de tacrolimus, función renal, otros inhibidores/inductores y riesgo hemorrágico global."
-    );
-  }
-
-  adequacy = {
-    label: "Precaución",
-    cls: "tagConsider",
-    tooltip: precautionReasons.join(" ")
   };
 }
 

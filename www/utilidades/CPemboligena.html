@@ -174,6 +174,11 @@ header{
   margin:1px;
 }
 
+.details-list-compact.acro-list{
+  list-style:none;
+  margin:1px;
+}
+
 /* Botones copiar / borrar */
 .actions{
   display:none;
@@ -498,7 +503,719 @@ footer img{max-width:320px;height:auto;opacity:.95}
     transform:translateY(0);
   }
 }
+/* =========================================================
+   Desarrollo ampliado - Cardiopatías embolígenas
+   Anticoagulación en ictus cardioembólico no FA no FOP
+   Diseño visual conservador, sin cambios funcionales
+   ========================================================= */
 
+.article-theory-shell {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(33, 110, 145, 0.16);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at top right, rgba(53,183,200,0.12), transparent 28%),
+    linear-gradient(180deg, rgba(255,255,255,0.98), rgba(246,250,252,0.96));
+  box-shadow:
+    0 12px 28px rgba(15, 57, 78, 0.08),
+    0 2px 8px rgba(15, 57, 78, 0.04);
+}
+
+.article-theory-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 4px 0 12px;
+  border-bottom: 1px solid rgba(33, 110, 145, 0.14);
+  color: #103f58;
+  font-size: 1.12rem;
+  font-weight: 850;
+  line-height: 1.25;
+}
+
+.article-theory-title span {
+  color: #64748b;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+/* Solo afecta al desarrollo de recomendaciones, no al glosario ni a bibliografía */
+#desarrollo-recomendaciones .details-block {
+  margin: 14px 0 18px;
+}
+
+#desarrollo-recomendaciones .details-summary {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 11px 14px 11px 18px;
+  border: 1px solid rgba(33, 110, 145, 0.16);
+  border-radius: 14px;
+  background:
+    linear-gradient(135deg, rgba(232, 246, 250, 0.98), rgba(255,255,255,0.86));
+  color: #103f58;
+  font-size: 0.97rem;
+  font-weight: 800;
+  box-shadow: 0 4px 12px rgba(15, 57, 78, 0.05);
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+#desarrollo-recomendaciones .details-summary::marker {
+  color: #1597ad;
+}
+
+#desarrollo-recomendaciones .details-summary:hover {
+  border-color: rgba(33, 110, 145, 0.28);
+  box-shadow: 0 7px 18px rgba(15, 57, 78, 0.08);
+}
+
+#desarrollo-recomendaciones details[open] > .details-summary {
+  background:
+    linear-gradient(135deg, rgba(218, 242, 247, 0.98), rgba(255,255,255,0.9));
+  border-color: rgba(21, 151, 173, 0.28);
+}
+
+/* Tarjeta interna estilo estenosis */
+#desarrollo-recomendaciones .details-card {
+  position: relative;
+  overflow: hidden;
+  margin-top: 12px;
+  border: 1px solid rgba(33, 110, 145, 0.16);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.98), rgba(246,250,252,0.96));
+  box-shadow:
+    0 12px 28px rgba(15, 57, 78, 0.08),
+    0 2px 8px rgba(15, 57, 78, 0.04);
+  isolation: isolate;
+}
+
+#desarrollo-recomendaciones .details-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 5px;
+  background: linear-gradient(180deg, #0f7fa0, #35b7c8, #7cc9a7);
+  z-index: 1;
+}
+
+#desarrollo-recomendaciones .details-card::after {
+  content: "";
+  position: absolute;
+  right: -70px;
+  top: -70px;
+  width: 150px;
+  height: 150px;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle,
+    rgba(53, 183, 200, 0.16),
+    rgba(53, 183, 200, 0.04) 55%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+#desarrollo-recomendaciones .details-card-header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 22px 15px 24px;
+  border-bottom: 1px solid rgba(33, 110, 145, 0.13);
+  background:
+    linear-gradient(135deg, rgba(232, 246, 250, 0.96), rgba(255,255,255,0.72));
+  color: #103f58;
+  font-size: 1.03rem;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+}
+
+#desarrollo-recomendaciones .details-card-header::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 11px;
+  height: 11px;
+  border-radius: 999px;
+  background: #1597ad;
+  box-shadow:
+    0 0 0 5px rgba(21, 151, 173, 0.12),
+    0 0 0 9px rgba(21, 151, 173, 0.05);
+}
+
+#desarrollo-recomendaciones .details-card-body {
+  position: relative;
+  z-index: 2;
+  padding: 20px 24px 22px;
+  color: #263942;
+}
+
+#desarrollo-recomendaciones .details-card-body p {
+  margin: 0 0 14px;
+  font-size: 0.98rem;
+  line-height: 1.72;
+}
+
+#desarrollo-recomendaciones .details-card-body p + p {
+  margin-top: 12px;
+}
+
+#desarrollo-recomendaciones .details-card-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* Destaca solo las frases ya marcadas con <b>, no párrafos por posición */
+#desarrollo-recomendaciones .details-card-body p > b {
+  color: #123f57;
+  font-weight: 850;
+}
+
+#desarrollo-recomendaciones .details-card-body p:has(> b:first-child) {
+  padding: 14px 16px;
+  border-left: 4px solid rgba(21, 151, 173, 0.65);
+  border-radius: 14px;
+  background:
+    linear-gradient(135deg, rgba(239, 248, 250, 0.96), rgba(255,255,255,0.88));
+}
+
+/* Llamadas automáticas */
+.article-auto-note {
+  margin: 18px 0 2px;
+  padding: 15px 17px;
+  border-radius: 15px;
+  border: 1px solid transparent;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  box-shadow: 0 7px 18px rgba(15, 57, 78, 0.06);
+}
+
+.article-auto-note span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  font-size: 0.76rem;
+  font-weight: 850;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.article-auto-note span::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.75;
+}
+
+.article-auto-note p {
+  margin: 0;
+  font-size: 0.96rem;
+  line-height: 1.6;
+}
+
+.article-auto-note-key {
+  background: linear-gradient(135deg, #eef9fb, #ffffff);
+  border-color: rgba(21, 151, 173, 0.22);
+  color: #17495a;
+}
+
+.article-auto-note-key span {
+  color: #0f7086;
+}
+
+.article-auto-note-warning {
+  background: linear-gradient(135deg, #fff7eb, #ffffff);
+  border-color: rgba(210, 137, 28, 0.26);
+  color: #62451e;
+}
+
+.article-auto-note-warning span {
+  color: #9a5b00;
+}
+
+.article-auto-note-decision {
+  background: linear-gradient(135deg, #f1f6ff, #ffffff);
+  border-color: rgba(65, 105, 190, 0.24);
+  color: #263d67;
+}
+
+.article-auto-note-decision span {
+  color: #3157a4;
+}
+
+.article-auto-note-summary {
+  background: linear-gradient(135deg, #103f58, #176f83);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.article-auto-note-summary span,
+.article-auto-note-summary p {
+  color: #ffffff;
+}
+
+@media (max-width: 640px) {
+  .article-theory-title {
+    font-size: 1rem;
+  }
+
+  #desarrollo-recomendaciones .details-summary {
+    font-size: 0.94rem;
+    padding: 10px 12px 10px 15px;
+  }
+
+  #desarrollo-recomendaciones .details-card {
+    border-radius: 15px;
+  }
+
+  #desarrollo-recomendaciones .details-card-header {
+    padding: 14px 18px 13px 20px;
+    font-size: 0.98rem;
+  }
+
+  #desarrollo-recomendaciones .details-card-body {
+    padding: 17px 18px 19px;
+  }
+
+  #desarrollo-recomendaciones .details-card-body p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+}
+
+@media print {
+  .article-theory-shell,
+  #desarrollo-recomendaciones .details-card,
+  .article-auto-note {
+    box-shadow: none;
+    background: #fff;
+  }
+
+  #desarrollo-recomendaciones .details-card::after {
+    display: none;
+  }
+
+  #desarrollo-recomendaciones .details-card-header,
+  #desarrollo-recomendaciones .details-card-body p:has(> b:first-child) {
+    background: #f7f7f7;
+    color: #111;
+  }
+
+  .article-auto-note,
+  .article-auto-note span,
+  .article-auto-note p {
+    color: #111;
+    border-color: #d8e2e7;
+  }
+}
+
+/* =========================================================
+   Corrección visual - Desarrollo cardiopatías
+   Índice limpio + diseño solo al abrir capítulos
+   ========================================================= */
+
+/* Oculta las llamadas automáticas previas para evitar exceso de cajas */
+#desarrollo-recomendaciones .article-auto-note {
+  display: none !important;
+}
+
+/* Evita que los párrafos con <b> se conviertan en cajas */
+#desarrollo-recomendaciones .details-card-body p:has(> b:first-child) {
+  padding: 0 !important;
+  border-left: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+/* Contenedor general más parecido al de estenosis */
+#desarrollo-recomendaciones.article-theory-shell,
+#desarrollo-recomendaciones {
+  background: #ffffff;
+  border: 1px solid #e5e9f2;
+  border-radius: 14px;
+  box-shadow: 0 2px 2px rgba(100, 116, 139, 0.45);
+  padding: 16px;
+}
+
+/* Título principal sobrio */
+.article-theory-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 18px;
+  padding: 0;
+  border-bottom: none;
+  color: #0f3d83;
+  font-size: 1.35rem;
+  font-weight: 850;
+  line-height: 1.25;
+}
+
+.article-theory-title span {
+  color: #0f3d83;
+  font-size: 1rem;
+  font-weight: 750;
+}
+
+/* Índice general: sin cajas, como en estenosis */
+#desarrollo-recomendaciones .details-block {
+  margin: 0 0 14px;
+}
+
+#desarrollo-recomendaciones .details-summary {
+  display: list-item;
+  min-height: unset;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #0f3d83;
+  font-size: 1.08rem;
+  font-weight: 850;
+  line-height: 1.35;
+  cursor: pointer;
+}
+
+#desarrollo-recomendaciones .details-summary:hover {
+  color: #174ea6;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+#desarrollo-recomendaciones details[open] > .details-summary {
+  color: #0f3d83;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  margin-bottom: 10px;
+}
+
+#desarrollo-recomendaciones .details-summary::marker {
+  color: #0f3d83;
+  font-size: 0.85em;
+}
+
+/* La tarjeta visual aparece solo dentro del capítulo abierto */
+#desarrollo-recomendaciones .details-card {
+  position: relative;
+  overflow: hidden;
+  margin: 10px 0 18px 18px;
+  border: 1px solid rgba(33, 110, 145, 0.16);
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.98), rgba(246,250,252,0.96));
+  box-shadow:
+    0 10px 24px rgba(15, 57, 78, 0.08),
+    0 2px 8px rgba(15, 57, 78, 0.04);
+  isolation: isolate;
+}
+
+#desarrollo-recomendaciones .details-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 5px;
+  background: linear-gradient(180deg, #0f7fa0, #35b7c8, #7cc9a7);
+  z-index: 1;
+}
+
+#desarrollo-recomendaciones .details-card::after {
+  content: "";
+  position: absolute;
+  right: -75px;
+  top: -75px;
+  width: 145px;
+  height: 145px;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle,
+    rgba(53, 183, 200, 0.14),
+    rgba(53, 183, 200, 0.04) 55%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+#desarrollo-recomendaciones .details-card-header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 13px 18px 12px 21px;
+  border-bottom: 1px solid rgba(33, 110, 145, 0.13);
+  background:
+    linear-gradient(135deg, rgba(232, 246, 250, 0.94), rgba(255,255,255,0.76));
+  color: #103f58;
+  font-size: 0.98rem;
+  font-weight: 850;
+  line-height: 1.3;
+}
+
+#desarrollo-recomendaciones .details-card-header::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #1597ad;
+  box-shadow:
+    0 0 0 4px rgba(21, 151, 173, 0.12),
+    0 0 0 8px rgba(21, 151, 173, 0.05);
+}
+
+#desarrollo-recomendaciones .details-card-body {
+  position: relative;
+  z-index: 2;
+  padding: 17px 21px 19px;
+  color: #263942;
+}
+
+#desarrollo-recomendaciones .details-card-body p {
+  margin: 0 0 12px;
+  color: #263942;
+  font-size: 0.91rem;
+  line-height: 1.62;
+}
+
+#desarrollo-recomendaciones .details-card-body p + p {
+  margin-top: 10px;
+}
+
+#desarrollo-recomendaciones .details-card-body p:last-child {
+  margin-bottom: 0;
+}
+
+#desarrollo-recomendaciones .details-card-body b {
+  color: #123f57;
+  font-weight: 850;
+}
+
+/* Móvil: más compacto */
+@media (max-width: 640px) {
+  #desarrollo-recomendaciones.article-theory-shell,
+  #desarrollo-recomendaciones {
+    padding: 14px;
+    border-radius: 13px;
+  }
+
+  .article-theory-title {
+    font-size: 1.05rem;
+    line-height: 1.25;
+    margin-bottom: 15px;
+  }
+
+  .article-theory-title span {
+    font-size: 0.84rem;
+  }
+
+  #desarrollo-recomendaciones .details-block {
+    margin-bottom: 11px;
+  }
+
+  #desarrollo-recomendaciones .details-summary {
+    font-size: 0.93rem;
+    line-height: 1.35;
+  }
+
+  #desarrollo-recomendaciones .details-card {
+    margin-left: 8px;
+    border-radius: 14px;
+  }
+
+  #desarrollo-recomendaciones .details-card-header {
+    padding: 12px 15px 11px 18px;
+    font-size: 0.9rem;
+  }
+
+  #desarrollo-recomendaciones .details-card-body {
+    padding: 15px 16px 17px;
+  }
+
+  #desarrollo-recomendaciones .details-card-body p {
+    font-size: 0.84rem;
+    line-height: 1.56;
+  }
+}
+
+/* =========================================================
+   Ajuste fino - Índice compacto + llamadas finales visibles
+   Cardiopatías embolígenas
+   ========================================================= */
+
+/* Título principal del bloque: menos dominante */
+.article-theory-title {
+  font-size: 1.12rem !important;
+  line-height: 1.28 !important;
+  margin-bottom: 14px !important;
+}
+
+.article-theory-title span {
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
+}
+
+/* Índice inicial: mismo tono/tamaño que otros details */
+#desarrollo-recomendaciones .details-block {
+  margin: 0 0 8px !important;
+}
+
+#desarrollo-recomendaciones .details-summary {
+  display: list-item !important;
+  padding: 0 !important;
+  min-height: unset !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+
+  color: #0f3d83 !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  line-height: 1.42 !important;
+  letter-spacing: normal !important;
+}
+
+#desarrollo-recomendaciones .details-summary:hover {
+  color: #174ea6 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+#desarrollo-recomendaciones details[open] > .details-summary {
+  margin-bottom: 8px !important;
+  color: #0f3d83 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Tarjeta abierta: algo más compacta */
+#desarrollo-recomendaciones .details-card {
+  margin: 8px 0 16px 14px !important;
+}
+
+#desarrollo-recomendaciones .details-card-header {
+  padding: 12px 17px 11px 20px !important;
+  font-size: 0.93rem !important;
+}
+
+#desarrollo-recomendaciones .details-card-body {
+  padding: 16px 20px 18px !important;
+}
+
+#desarrollo-recomendaciones .details-card-body p {
+  font-size: 0.88rem !important;
+  line-height: 1.6 !important;
+}
+
+/* Recupera la caja final de idea clave / precaución / decisión */
+#desarrollo-recomendaciones .article-auto-note {
+  display: block !important;
+  margin: 16px 0 0 !important;
+  padding: 12px 14px !important;
+  border-radius: 13px !important;
+  font-size: 0.86rem !important;
+  line-height: 1.5 !important;
+  box-shadow: 0 5px 14px rgba(15, 57, 78, 0.055) !important;
+}
+
+#desarrollo-recomendaciones .article-auto-note span {
+  margin-bottom: 5px !important;
+  font-size: 0.68rem !important;
+  letter-spacing: 0.065em !important;
+}
+
+#desarrollo-recomendaciones .article-auto-note p {
+  margin: 0 !important;
+  font-size: 0.84rem !important;
+  line-height: 1.5 !important;
+}
+
+/* Móvil: compacto y legible */
+@media (max-width: 640px) {
+  .article-theory-title {
+    font-size: 0.98rem !important;
+    margin-bottom: 12px !important;
+  }
+
+  .article-theory-title span {
+    font-size: 0.78rem !important;
+  }
+
+  #desarrollo-recomendaciones .details-summary {
+    font-size: 13px !important;
+    line-height: 1.38 !important;
+  }
+
+  #desarrollo-recomendaciones .details-block {
+    margin-bottom: 7px !important;
+  }
+
+  #desarrollo-recomendaciones .details-card {
+    margin-left: 6px !important;
+  }
+
+  #desarrollo-recomendaciones .details-card-header {
+    padding: 11px 14px 10px 17px !important;
+    font-size: 0.86rem !important;
+  }
+
+  #desarrollo-recomendaciones .details-card-body {
+    padding: 14px 15px 16px !important;
+  }
+
+  #desarrollo-recomendaciones .details-card-body p {
+    font-size: 0.8rem !important;
+    line-height: 1.52 !important;
+  }
+
+  #desarrollo-recomendaciones .article-auto-note {
+    padding: 11px 12px !important;
+  }
+
+  #desarrollo-recomendaciones .article-auto-note p {
+    font-size: 0.79rem !important;
+  }
+}
+
+/* =========================================================
+   Variante suave - Caja resumen operativo
+   Cardiopatías embolígenas
+   ========================================================= */
+
+#desarrollo-recomendaciones .article-auto-note-summary {
+  background: linear-gradient(135deg, #eef9fb, #ffffff) !important;
+  border-color: rgba(21, 151, 173, 0.24) !important;
+  color: #17495a !important;
+}
+
+#desarrollo-recomendaciones .article-auto-note-summary span {
+  color: #0f7086 !important;
+}
+
+#desarrollo-recomendaciones .article-auto-note-summary p {
+  color: #263942 !important;
+}
+
+#desarrollo-recomendaciones .article-auto-note-summary span::before {
+  background: currentColor !important;
+}
 </style>
   </head>
   <body>
@@ -623,17 +1340,17 @@ footer img{max-width:320px;height:auto;opacity:.95}
           guías vigentes y la discusión multidisciplinar cuando proceda.
         </p>
       </section>
-<div class="howto" id="desarrollo-recomendaciones">
-  <h3 style="margin-top:0; color:#0f3d83;">📘 Desarrollo ampliado de las recomendaciones</h3>
+<div class="howto article-theory-shell" id="desarrollo-recomendaciones">
+  <h3 class="article-theory-title">📘 Anticoagulación en el ictus cardioembólico <span>(no FA no FOP)</span></h3>
   <div id="detalles-escenarios" style="padding-left:2px;"></div>
 </div>
       <div class="howto">
 <details class="details-block">
   <summary class="details-summary">📒 Glosario de acrónimos</summary>
-  <div class="details-card">
+  <div class="details-card" >
     <div class="details-card-header">🔤 Acrónimos utilizados</div>
     <div class="details-card-body">
-      <ul class="details-list-compact biblio-list">
+      <ul class="details-list-compact acro-list">
         <li><b>AAS</b>: ácido acetilsalicílico.</li>
         <li><b>ACOD</b>: anticoagulantes orales de acción directa.</li>
         <li><b>AHA</b>: <i>American Heart Association</i>.</li>
@@ -2075,6 +2792,137 @@ function renderDetallesEscenarios(){
     </details>
   `).join('');
 }
+
+/* =========================================================
+   Llamadas visuales automáticas - Cardiopatías embolígenas
+   No modifica la lógica clínica ni el contenido original.
+   Solo añade bloques visuales al desarrollo ampliado.
+   ========================================================= */
+
+(function activarLlamadasVisualesCardiopatias() {
+  const llamadas = {
+    'Miocardiopatía hipertrófica': {
+      type: 'key',
+      label: 'Idea clave',
+      text: 'En esta entidad, la aparición de FA cambia la conducta: la anticoagulación se indica aunque el riesgo calculado por escalas convencionales sea bajo.'
+    },
+
+    'Miocardiopatía dilatada': {
+      type: 'decision',
+      label: 'Decisión práctica',
+      text: 'La disfunción ventricular aislada no equivale automáticamente a anticoagulación crónica; el trombo documentado o la FA son los modificadores decisivos.'
+    },
+
+    'Miocardiopatía isquémica crónica': {
+      type: 'decision',
+      label: 'Punto de decisión',
+      text: 'La clave no es solo la cicatriz o la acinesia, sino demostrar si existe trombo mural y confirmar su resolución por imagen.'
+    },
+
+    'Miocardiopatía restrictiva': {
+      type: 'warning',
+      label: 'Territorio de alto riesgo',
+      text: 'La afectación auricular, especialmente en amiloidosis, obliga a valorar FA, flutter, trombo intracardiaco y datos de estasis de forma muy cuidadosa.'
+    },
+
+    'Miocardiopatía de Tako-Tsubo': {
+      type: 'decision',
+      label: 'Riesgo dinámico',
+      text: 'El riesgo embólico depende de la fase aguda, del trombo ventricular y de la recuperación posterior de la función ventricular.'
+    },
+
+    'Infarto agudo de miocardio': {
+      type: 'key',
+      label: 'Indicador principal',
+      text: 'La indicación fuerte de anticoagulación no es el IAM en sí, sino el trombo ventricular documentado o un contexto de muy alto riesgo individualizado.'
+    },
+
+    'Mixoma auricular': {
+      type: 'warning',
+      label: 'Prioridad causal',
+      text: 'El tratamiento definitivo es resolver la fuente embolígena; la anticoagulación puede ser puente, pero no sustituye la estrategia quirúrgica cuando procede.'
+    },
+
+    'Prótesis valvulares y cardiopatía valvular': {
+      type: 'decision',
+      label: 'Elección del fármaco',
+      text: 'La presencia de válvula mecánica o estenosis mitral moderada-severa desplaza la estrategia hacia AVK y condiciona claramente la elección antitrombótica.'
+    },
+
+    'Endocarditis infecciosa': {
+      type: 'warning',
+      label: 'Máxima prudencia',
+      text: 'En fase activa, el riesgo hemorrágico y de complicaciones neurológicas hace que la anticoagulación no deba usarse de rutina.'
+    },
+
+    'Síndrome del seno enfermo': {
+      type: 'key',
+      label: 'Buscar el mecanismo',
+      text: 'El foco no es anticoagular de forma empírica, sino demostrar FA subclínica mediante monitorización prolongada cuando el contexto lo sugiera.'
+    },
+
+    'Aurícula izquierda y orejuela': {
+      type: 'summary',
+      label: 'Resumen operativo',
+      text: 'El trombo auricular u orejuela documentado indica anticoagulación; la cardiopatía auricular sin FA ni trombo obliga sobre todo a buscar FA oculta.'
+    }
+  };
+
+  function decorarCardiopatias(root = document) {
+    const tarjetas = root.querySelectorAll('#desarrollo-recomendaciones .details-card');
+
+    tarjetas.forEach((tarjeta) => {
+      if (tarjeta.dataset.autoNoteApplied === '1') return;
+
+      const cabecera = tarjeta.querySelector('.details-card-header');
+      const cuerpo = tarjeta.querySelector('.details-card-body');
+
+      if (!cabecera || !cuerpo) return;
+
+      const titulo = cabecera.textContent.trim().replace(/\s+/g, ' ');
+      const llamada = llamadas[titulo];
+
+      if (!llamada) return;
+
+      const nota = document.createElement('div');
+      nota.className = `article-auto-note article-auto-note-${llamada.type}`;
+
+      const etiqueta = document.createElement('span');
+      etiqueta.textContent = llamada.label;
+
+      const texto = document.createElement('p');
+      texto.textContent = llamada.text;
+
+      nota.appendChild(etiqueta);
+      nota.appendChild(texto);
+      cuerpo.appendChild(nota);
+
+      tarjeta.dataset.autoNoteApplied = '1';
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    decorarCardiopatias();
+  });
+
+  let temporizadorDecoracion = null;
+
+  const observador = new MutationObserver(() => {
+    clearTimeout(temporizadorDecoracion);
+    temporizadorDecoracion = setTimeout(() => {
+      decorarCardiopatias();
+    }, 60);
+  });
+
+  if (document.body) {
+    observador.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  window.decorarCardiopatias = decorarCardiopatias;
+})();
 
 document.addEventListener('DOMContentLoaded', () => {
   renderDetallesEscenarios();

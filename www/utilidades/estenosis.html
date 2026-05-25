@@ -772,7 +772,337 @@ footer img{max-width:320px;height:auto;opacity:.95}
 .article-detail > summary{
   margin-bottom:8px;
 }
-</style>
+
+/* =========================================================
+   PATRÓN HOMOGÉNEO SOLO PARA DESARROLLO TEÓRICO
+   Estenosis carotídea — bloque #desarrollo-teorico
+========================================================= */
+
+#desarrollo-teorico.article-theory-shell{
+  background:#ffffff;
+  border:1px solid #e1e8f2;
+  border-radius:16px;
+  box-shadow:0 6px 20px rgba(15,61,131,0.07);
+  padding:14px 16px 16px;
+  margin:.8rem 0 1rem;
+  text-align:left;
+}
+
+#desarrollo-teorico.article-theory-shell .article-theory-title{
+  margin:0 0 10px;
+  color:#0f3d83;
+  font-size:1rem;
+  font-weight:800;
+  line-height:1.25;
+}
+
+#desarrollo-teorico.article-theory-shell .article-theory-index{
+  padding-left:0 !important;
+}
+
+/* Índice compacto */
+#desarrollo-teorico.article-theory-shell .details-block.article-detail{
+  margin:0;
+  padding:0;
+  border-bottom:1px solid #edf2f7;
+  scroll-margin-top:140px;
+}
+
+#desarrollo-teorico.article-theory-shell .details-block.article-detail:last-child{
+  border-bottom:0;
+}
+
+#desarrollo-teorico.article-theory-shell .article-detail > .details-summary{
+  cursor:pointer;
+  list-style:none;
+  color:#0f3d83;
+  font-size:13.5px;
+  font-weight:700;
+  line-height:1.25;
+  padding:7px 2px;
+  margin:0;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+#desarrollo-teorico.article-theory-shell .article-detail > .details-summary::-webkit-details-marker{
+  display:none;
+}
+
+#desarrollo-teorico.article-theory-shell .article-detail > .details-summary::before{
+  content:"▸";
+  color:#17a2b8;
+  font-size:12px;
+  transition:transform .18s ease;
+  flex:0 0 auto;
+}
+
+#desarrollo-teorico.article-theory-shell .article-detail[open] > .details-summary{
+  color:#0b2f66;
+}
+
+#desarrollo-teorico.article-theory-shell .article-detail[open] > .details-summary::before{
+  transform:rotate(90deg);
+}
+
+#desarrollo-teorico.article-theory-shell .article-detail-body{
+  padding:8px 0 4px;
+}
+
+/* Tarjetas visibles solo al abrir */
+#desarrollo-teorico.article-theory-shell .article-subcard{
+  position:relative;
+  margin:10px 0 12px;
+  background:#ffffff;
+  border:1px solid #d7e2ef;
+  border-radius:15px;
+  box-shadow:0 6px 18px rgba(15,61,131,0.08);
+  overflow:hidden;
+  color:#263942;
+  font-size:.88rem;
+  line-height:1.58;
+  isolation:isolate;
+}
+
+#desarrollo-teorico.article-theory-shell .article-subcard::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:4px;
+  background:linear-gradient(180deg,#0f3d83 0%,#17a2b8 50%,#16a34a 100%);
+  z-index:1;
+}
+
+#desarrollo-teorico.article-theory-shell .article-subcard-header{
+  position:relative;
+  z-index:2;
+  background:#eef7ff;
+  color:#103f58;
+  padding:9px 14px 9px 18px;
+  border-bottom:1px solid #dceaf7;
+  font-size:.92rem;
+  font-weight:800;
+  line-height:1.3;
+  letter-spacing:0;
+  display:block;
+}
+
+#desarrollo-teorico.article-theory-shell .article-subcard-header::before{
+  content:"";
+  display:inline-block;
+  width:7px;
+  height:7px;
+  margin-right:7px;
+  border-radius:999px;
+  background:#17a2b8;
+  vertical-align:1px;
+}
+
+#desarrollo-teorico.article-theory-shell .article-subcard-body{
+  position:relative;
+  z-index:2;
+  padding:14px 18px 16px 20px;
+  color:#263942;
+  font-size:.88rem;
+  line-height:1.58;
+  text-align:justify;
+}
+
+#desarrollo-teorico.article-theory-shell .article-subcard-body p{
+  margin:0 0 10px;
+  font-size:.88rem;
+  line-height:1.58;
+}
+
+#desarrollo-teorico.article-theory-shell .article-subcard-body p:last-child{
+  margin-bottom:0;
+}
+
+#desarrollo-teorico.article-theory-shell .article-subcard-body b,
+#desarrollo-teorico.article-theory-shell .article-subcard-body strong{
+  color:#0f3d83;
+  font-weight:800;
+}
+
+#desarrollo-teorico.article-theory-shell .article-subcard-body ul,
+#desarrollo-teorico.article-theory-shell .article-subcard-body ol{
+  margin:8px 0 10px;
+  padding-left:20px !important;
+}
+
+#desarrollo-teorico.article-theory-shell .article-subcard-body li{
+  margin:4px 0;
+}
+
+#desarrollo-teorico.article-theory-shell .article-subcard-body h4,
+#desarrollo-teorico.article-theory-shell .article-subcard-body h5{
+  margin:12px 0 7px;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:#0f3d83;
+  font-size:.86rem;
+  font-weight:800;
+  line-height:1.35;
+}
+
+#desarrollo-teorico.article-theory-shell .article-subcard-body h4::before,
+#desarrollo-teorico.article-theory-shell .article-subcard-body h5::before{
+  display:none;
+}
+
+#desarrollo-teorico.article-theory-shell .details-divider{
+  border:none;
+  border-top:1px solid #e5eaf2;
+  margin:12px 0;
+}
+
+/* Caja final breve */
+#desarrollo-teorico.article-theory-shell .article-auto-note{
+  margin-top:12px;
+  padding:10px 12px;
+  border-radius:12px;
+  font-size:.82rem;
+  line-height:1.45;
+  text-align:left;
+  border:1px solid transparent;
+  box-shadow:none;
+}
+
+#desarrollo-teorico.article-theory-shell .article-auto-note span{
+  display:block;
+  margin:0 0 3px;
+  font-size:.76rem;
+  line-height:1.2;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.03em;
+}
+
+#desarrollo-teorico.article-theory-shell .article-auto-note span::before{
+  content:"";
+  display:inline-block;
+  width:7px;
+  height:7px;
+  margin-right:7px;
+  border-radius:999px;
+  background:currentColor;
+  opacity:.75;
+  vertical-align:1px;
+}
+
+#desarrollo-teorico.article-theory-shell .article-auto-note p{
+  display:block;
+  margin:0;
+  font-size:.82rem;
+  line-height:1.45;
+}
+
+#desarrollo-teorico.article-theory-shell .article-auto-note-key{
+  background:#f0f7ff;
+  border-color:#bfd7f2;
+  color:#103f58;
+}
+
+#desarrollo-teorico.article-theory-shell .article-auto-note-decision{
+  background:#eefbf4;
+  border-color:#bfe8cf;
+  color:#14532d;
+}
+
+#desarrollo-teorico.article-theory-shell .article-auto-note-warning{
+  background:#fff7ed;
+  border-color:#fed7aa;
+  color:#7c2d12;
+}
+
+#desarrollo-teorico.article-theory-shell .article-auto-note-summary{
+  background:#f8fafc;
+  border-color:#dbe4ee;
+  color:#334155;
+}
+
+#desarrollo-teorico.article-theory-shell .article-auto-note-summary span,
+#desarrollo-teorico.article-theory-shell .article-auto-note-summary p{
+  color:#334155;
+}
+
+/* Móvil */
+@media(max-width:600px){
+  #desarrollo-teorico.article-theory-shell{
+    padding:12px;
+    border-radius:14px;
+  }
+
+  #desarrollo-teorico.article-theory-shell .article-theory-title{
+    font-size:.98rem;
+  }
+
+  #desarrollo-teorico.article-theory-shell .article-detail > .details-summary{
+    font-size:13px;
+    padding:8px 0;
+  }
+
+  #desarrollo-teorico.article-theory-shell .article-subcard{
+    border-radius:14px;
+    font-size:.80rem;
+  }
+
+  #desarrollo-teorico.article-theory-shell .article-subcard-header{
+    font-size:.84rem;
+    padding:8px 12px 8px 18px;
+  }
+
+  #desarrollo-teorico.article-theory-shell .article-subcard-body{
+    padding:12px 14px 14px 18px;
+    font-size:.80rem;
+    line-height:1.55;
+  }
+
+  #desarrollo-teorico.article-theory-shell .article-subcard-body p{
+    font-size:.80rem;
+    line-height:1.55;
+  }
+
+  #desarrollo-teorico.article-theory-shell .article-auto-note{
+    font-size:.78rem;
+    padding:9px 10px;
+  }
+
+  #desarrollo-teorico.article-theory-shell .article-auto-note p{
+    font-size:.78rem;
+  }
+}
+
+/* Impresión limpia solo del bloque teórico */
+@media print{
+  #desarrollo-teorico.article-theory-shell .article-subcard{
+    break-inside:avoid;
+    box-shadow:none;
+    background:#fff;
+    border:1px solid #d8e2e7;
+  }
+
+  #desarrollo-teorico.article-theory-shell .article-subcard-header{
+    background:#f3f7f9;
+    color:#111;
+  }
+
+  #desarrollo-teorico.article-theory-shell .article-auto-note{
+    box-shadow:none;
+    background:#fff;
+    color:#111;
+    border-color:#d8e2e7;
+  }
+
+  #desarrollo-teorico.article-theory-shell .article-auto-note span,
+  #desarrollo-teorico.article-theory-shell .article-auto-note p{
+    color:#111;
+  }
+}</style>
   </head>
   <body>
     <!-- SAFE-TOP -->
@@ -1046,9 +1376,9 @@ experiencia, de acuerdo con la evidencia reciente (CREST-2). Para obtener recome
   <div class="feedback-note"><b>Muchas gracias por ayudarnos a mejorar la herramienta.</b></div>
 </div>
 
-<div class="howto" id="desarrollo-teorico">
-  <h3 style="margin-top:0; color:#0f3d83;">📘 Desarrollo teórico ampliado</h3>
-  <div id="detalles-articulo-estenosis" style="padding-left:2px;"></div>
+<div class="howto article-theory-shell" id="desarrollo-teorico">
+  <h3 class="article-theory-title">📘 Tratamiento de la estenosis carotídea</h3>
+  <div id="detalles-articulo-estenosis" class="article-theory-index"></div>
 </div>
 
       <div class="howto">
@@ -2788,6 +3118,8 @@ function renderDetallesArticuloEstenosis(){
       </div>
     </details>
   `).join('');
+
+  decorarArticuloEstenosis();
 }
 
 function activarAcordeonDetallesArticulo(){
@@ -2815,8 +3147,175 @@ function activarAcordeonDetallesArticulo(){
     });
   });
 }
+/* =========================================================
+   Cajas finales automáticas - SOLO desarrollo teórico
+   Estenosis carotídea
+   ========================================================= */
 
-/* ==========================
+function decorarArticuloEstenosis(){
+  const root = document.getElementById('desarrollo-teorico');
+  if (!root) return;
+
+  const llamadas = {
+    'Preámbulo': {
+      type: 'key',
+      label: 'Idea clave',
+      text: 'La presencia de estenosis no implica por sí sola indicación automática de revascularización.'
+    },
+
+    'Tratamiento médico intensivo': {
+      type: 'key',
+      label: 'Idea clave',
+      text: 'El tratamiento médico intensivo es la base común tanto si se interviene como si no.'
+    },
+
+    'Estratificación inicial': {
+      type: 'decision',
+      label: 'Decisión práctica',
+      text: 'Primero se define clínica y grado NASCET; después se valora anatomía, riesgo y experiencia del centro.'
+    },
+
+    'Casi oclusión carotídea con colapso distal': {
+      type: 'warning',
+      label: 'Precaución',
+      text: 'No debe manejarse como una estenosis convencional superior al 70%  ni conducir automáticamente a revascularización.'
+    },
+
+    'Estenosis sintomática 70–99%': {
+      type: 'decision',
+      label: 'Decisión práctica',
+      text: 'Es el escenario con mayor beneficio potencial de revascularización si el riesgo y la anatomía son favorables.'
+    },
+
+    'Estenosis sintomática 50–69%': {
+      type: 'decision',
+      label: 'Decisión práctica',
+      text: 'El beneficio es más selectivo y depende del contexto clínico, recurrencia, placa y riesgo periprocedimiento.'
+    },
+
+    'Estenosis sintomática <50%': {
+      type: 'warning',
+      label: 'Precaución',
+      text: 'El grado de estenosis por sí solo no sostiene una indicación habitual de CEA ni de CAS.'
+    },
+
+    'Principio general contemporáneo': {
+      type: 'key',
+      label: 'Idea clave',
+      text: 'En estenosis asintomática, intervenir debe justificarse frente a tratamiento médico intensivo, no frente a no tratar.'
+    },
+
+    'Estenosis asintomática 70–99%': {
+      type: 'decision',
+      label: 'Decisión práctica',
+      text: 'La revascularización solo debe plantearse en pacientes muy seleccionados y con bajo riesgo periprocedimiento.'
+    },
+
+    'Estenosis asintomática 50–69%': {
+      type: 'warning',
+      label: 'Precaución',
+      text: 'La estrategia general es conservadora; la placa compleja puede modular el seguimiento, no indicar intervención rutinaria.'
+    },
+
+    'Estenosis asintomática <50%': {
+      type: 'summary',
+      label: 'Resumen operativo',
+      text: 'El manejo se centra en prevención vascular intensiva y control evolutivo individualizado.'
+    },
+
+    'Cuello hostil': {
+      type: 'decision',
+      label: 'Decisión práctica',
+      text: 'El cuello hostil penaliza CEA y puede desplazar la discusión hacia CAS si el acceso endovascular es razonable.'
+    },
+
+    'Acceso endovascular complejo': {
+      type: 'warning',
+      label: 'Precaución',
+      text: 'La anatomía hostil para CAS obliga a ponderar cuidadosamente el riesgo técnico real.'
+    },
+
+    'Lesión distal en tándem': {
+      type: 'decision',
+      label: 'Decisión práctica',
+      text: 'La tratabilidad de la lesión distal puede cambiar la estrategia hacia un abordaje endovascular combinado.'
+    },
+
+    'Papel de la placa de alto riesgo': {
+      type: 'key',
+      label: 'Idea clave',
+      text: 'La placa compleja aumenta la relevancia clínica de la lesión, pero no sustituye al grado ni al contexto.'
+    },
+
+    'Tratamiento antitrombótico tras CEA': {
+      type: 'summary',
+      label: 'Resumen operativo',
+      text: 'Tras CEA, el eje habitual es antiagregación simple y prevención vascular secundaria global.'
+    },
+
+    'Tratamiento antitrombótico tras CAS': {
+      type: 'decision',
+      label: 'Decisión práctica',
+      text: 'Tras CAS, la DAPT inicial responde al riesgo trombótico precoz del stent.'
+    },
+
+    'Resultados del centro: un factor determinante': {
+      type: 'warning',
+      label: 'Precaución',
+      text: 'La técnica solo es defendible si el centro puede ofrecer resultados auditables y riesgo aceptable.'
+    },
+
+    'Algoritmo clínico práctico': {
+      type: 'summary',
+      label: 'Resumen operativo',
+      text: 'La indicación final debe integrar beneficio esperado, anatomía, riesgo perioperatorio y experiencia real del centro.'
+    },
+
+    'Conclusiones': {
+      type: 'summary',
+      label: 'Resumen operativo',
+      text: 'La estrategia óptima es la que ofrece mejor balance entre beneficio, complejidad técnica y seguridad.'
+    }
+  };
+
+  root.querySelectorAll('.article-subcard').forEach((tarjeta) => {
+    if (tarjeta.dataset.autoNoteApplied === 'true') return;
+
+    const cabecera = tarjeta.querySelector('.article-subcard-header');
+    const cuerpo = tarjeta.querySelector('.article-subcard-body');
+
+    if (!cabecera || !cuerpo) return;
+
+    const titulo = cabecera.textContent.trim().replace(/\s+/g, ' ');
+    const llamada = llamadas[titulo];
+
+    if (!llamada) return;
+
+    if (cuerpo.querySelector('.article-auto-note')) {
+      tarjeta.dataset.autoNoteApplied = 'true';
+      return;
+    }
+
+    const nota = document.createElement('div');
+    nota.className = `article-auto-note article-auto-note-${llamada.type}`;
+
+    const etiqueta = document.createElement('span');
+    etiqueta.textContent = llamada.label;
+
+    const texto = document.createElement('p');
+    texto.textContent = llamada.text;
+
+    nota.appendChild(etiqueta);
+    nota.appendChild(texto);
+    cuerpo.appendChild(nota);
+
+    tarjeta.dataset.autoNoteApplied = 'true';
+  });
+}
+
+window.decorarArticuloEstenosis = decorarArticuloEstenosis;/* 
+
+==========================
    Listeners
 ========================== */
 $('btnCalc').addEventListener('click', calcular);
