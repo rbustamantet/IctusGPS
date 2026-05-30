@@ -27,6 +27,14 @@
   opacity: 0.5;
   pointer-events: none;
 }
+.locked-select {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+  opacity: 1 !important;
+  background-color: #f9fafb;
+  pointer-events: none;
+  cursor: default;
+}
 
 /* -----------------------------------------
    FORMULARIO PRINCIPAL DE SWITCHING
