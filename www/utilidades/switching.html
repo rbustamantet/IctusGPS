@@ -401,9 +401,10 @@
     </p>
 
     <div class="switch-actions">
+<button id="btnImprimir" type="button" class="boton-opcion boton-copy">Imprimir</button>
 <button id="btnCopiar" type="button" class="boton-opcion boton-copy">Copiar</button>
 <button id="btnBorrar" type="button" class="boton-opcion boton-clear">Borrar</button>
-    </div>
+</div>
 
   </div>
 
@@ -3460,13 +3461,416 @@ document.getElementById("btnBorrar").addEventListener("click", () => {
 });
 
 /* ==========================================================
+   BOTÓN IMPRIMIR
+========================================================== */
+
+function escaparHTML(texto) {
+  return String(texto || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function extraerPartesTextoCopia(texto) {
+  const lineas = String(texto || "").split("\n");
+
+  const cabecera = lineas[0] || "";
+  const fecha = (cabecera.match(/Fecha:\s*(.+)$/) || [])[1] || "";
+
+  const indiceSeparador = lineas.findIndex(l => /^_+$/.test(l.trim()));
+  const resto = indiceSeparador >= 0 ? lineas.slice(indiceSeparador + 1) : lineas.slice(1);
+
+  while (resto.length && !resto[0].trim()) {
+    resto.shift();
+  }
+
+  const titulo = resto.shift() || "RECOMENDACIÓN";
+
+  while (resto.length && !resto[0].trim()) {
+    resto.shift();
+  }
+
+  return {
+    fecha,
+    titulo: titulo.trim(),
+    cuerpo: resto.join("\n").trim()
+  };
+}
+
+function convertirCuerpoRecomendacionAHTML(texto) {
+  const lineas = String(texto || "").split("\n");
+  let html = "";
+  let listaAbierta = false;
+
+  function cerrarLista() {
+    if (listaAbierta) {
+      html += "</ul>";
+      listaAbierta = false;
+    }
+  }
+
+  lineas.forEach(lineaOriginal => {
+    const linea = lineaOriginal.trim();
+
+    if (!linea) {
+      cerrarLista();
+      html += `<div class="espacio"></div>`;
+      return;
+    }
+
+    if (linea.startsWith("- ")) {
+      if (!listaAbierta) {
+        html += `<ul>`;
+        listaAbierta = true;
+      }
+
+      html += `<li>${escaparHTML(linea.slice(2).trim())}</li>`;
+      return;
+    }
+
+    cerrarLista();
+    html += `<h2>${escaparHTML(linea.toUpperCase())}</h2>`;
+  });
+
+  cerrarLista();
+  return html;
+}
+
+function imprimirTextoRecomendacion(texto) {
+  const partes = extraerPartesTextoCopia(texto);
+
+  const logoIctusGPS = new URL("../img/topbar.png", window.location.href).href;
+  const iconoACO = new URL("../iconos/anticoagulacionico.png", window.location.href).href;
+
+  const disclaimer = `
+Esta herramienta es un apoyo a la decisión clínica; no sustituye el juicio profesional, la valoración individual del paciente ni los protocolos/guías locales actualizados. Ante discrepancias, prevalecen los protocolos vigentes y el criterio del equipo responsable.
+  `.trim();
+
+  const iframe = document.createElement("iframe");
+
+  iframe.style.position = "fixed";
+  iframe.style.right = "0";
+  iframe.style.bottom = "0";
+  iframe.style.width = "0";
+  iframe.style.height = "0";
+  iframe.style.border = "0";
+  iframe.setAttribute("aria-hidden", "true");
+
+  document.body.appendChild(iframe);
+
+  const doc = iframe.contentDocument || iframe.contentWindow.document;
+
+  doc.open();
+  doc.write(`
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>ACO Manager - Recomendación</title>
+<style>
+  @page {
+    margin: 16mm;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11.5pt;
+    line-height: 1.45;
+    color: #1b1b1b;
+    background: #ffffff;
+  }
+
+  .cabecera {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 16px;
+    background: #0f3d83;
+    color: #ffffff;
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin-bottom: 22px;
+  }
+
+  .marca {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .marca img {
+    max-height: 34px;
+    max-width: 170px;
+    object-fit: contain;
+  }
+
+  .titulo-pagina {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 18pt;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+  }
+
+  .titulo-pagina img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+  }
+
+  .fecha {
+    text-align: right;
+    font-size: 10.5pt;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .titulo-escenario {
+    margin: 0 0 20px 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #0f3d83;
+    color: #0f3d83;
+    font-size: 17pt;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+  }
+
+  .contenido {
+    margin-top: 6px;
+  }
+
+  .contenido h2 {
+    margin: 18px 0 6px 0;
+    color: #0f3d83;
+    font-size: 12.5pt;
+    font-weight: 800;
+    letter-spacing: 0.25px;
+    text-transform: uppercase;
+  }
+
+  .contenido ul {
+    margin: 0 0 10px 0;
+    padding-left: 20px;
+  }
+
+  .contenido li {
+    margin: 3px 0;
+    padding-left: 2px;
+  }
+
+  .contenido li::marker {
+    color: #0f3d83;
+  }
+
+  .espacio {
+    height: 4px;
+  }
+
+  .disclaimer {
+    margin-top: 26px;
+    padding: 13px 15px;
+    border: 1px solid #f0b8b8;
+    border-left: 5px solid #b42318;
+    border-radius: 8px;
+    background: #fff4f4;
+    color: #7a1b1b;
+    font-size: 10pt;
+    line-height: 1.4;
+  }
+
+  .disclaimer strong {
+    color: #7a1b1b;
+  }
+
+  @media print {
+    body {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .cabecera {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .disclaimer {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <div class="cabecera">
+    <div class="marca">
+      <img src="${logoIctusGPS}" alt="IctusGPS">
+    </div>
+
+    <div class="titulo-pagina">
+      <img src="${iconoACO}" alt="">
+      <span>ACO Manager</span>
+    </div>
+
+    <div class="fecha">
+      Fecha: ${escaparHTML(partes.fecha)}
+    </div>
+  </div>
+
+  <h1 class="titulo-escenario">${escaparHTML(partes.titulo)}</h1>
+
+  <main class="contenido">
+    ${convertirCuerpoRecomendacionAHTML(partes.cuerpo)}
+  </main>
+
+  <section class="disclaimer">
+    <strong>⚠ Advertencia.</strong>
+    ${escaparHTML(disclaimer)}
+  </section>
+
+</body>
+</html>
+  `);
+  doc.close();
+
+  setTimeout(() => {
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+
+    setTimeout(() => {
+      iframe.remove();
+    }, 1000);
+  }, 1000);
+}
+
+document.getElementById("btnImprimir").addEventListener("click", () => {
+  const cont = document.getElementById("resultado-texto");
+  const textoBase = (cont.innerText || cont.textContent || "").trim();
+
+  if (!textoBase) return;
+
+  const txt = construirTextoCopiaRecomendaciones(textoBase);
+  imprimirTextoRecomendacion(txt);
+});
+
+/* ==========================================================
    BOTÓN COPIAR
 ========================================================== */
+
+function limpiarTextoParaCopia(texto) {
+  return (texto || "")
+    .normalize("NFC") // conserva correctamente tildes y ñ
+    .replace(/\r\n/g, "\n")
+    .replace(/\r/g, "\n")
+    .replace(/[•●▪▫]/g, "-")
+    .replace(/[→⇒➜➔]/g, "->")
+    .replace(/[≤]/g, "<=")
+    .replace(/[≥]/g, ">=")
+    .replace(/[–—]/g, "-")
+    .replace(/[“”]/g, '"')
+    .replace(/[‘’]/g, "'")
+    .replace(/[…]/g, "...")
+    .replace(/[✅❌⚠️⭐🚫🔴🔵⚪🟡➡️]/g, "")
+    .replace(/\uFE0F/g, "")
+    .replace(/[^\n\r\t\x20-\x7EÀ-ÖØ-öø-ÿ]/g, "")
+    .replace(/[ \t]+\n/g, "\n")
+    .replace(/\n[ \t]+-\s*/g, "\n- ")
+    .replace(/[ \t]+-\s+/g, "\n- ")
+    .split("\n").map(linea => linea.trimStart()).join("\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
+function obtenerTituloEscenarioCopia() {
+  const sel = document.getElementById("escenario");
+  if (!sel || sel.selectedIndex < 0) return "RECOMENDACIÓN";
+
+  return (sel.options[sel.selectedIndex].text || "RECOMENDACIÓN")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toUpperCase();
+}
+
+function quitarTituloInicialDuplicado(texto, titulo) {
+  const normalizar = linea => (linea || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toUpperCase();
+
+  const tituloNormalizado = normalizar(titulo);
+
+  const cabecerasInternas = [
+    "RECOMENDACION FINAL",
+    "RECOMENDACION FINAL:",
+    "PAUSA PERIOPERATORIA",
+    "PAUSA PREOPERATORIA",
+    "PAUSA PARA PUNCION LUMBAR"
+  ];
+
+  const lineas = (texto || "").split("\n");
+
+  while (lineas.length && !lineas[0].trim()) {
+    lineas.shift();
+  }
+
+  while (
+    lineas.length &&
+    (
+      normalizar(lineas[0]) === tituloNormalizado ||
+      cabecerasInternas.includes(normalizar(lineas[0]))
+    )
+  ) {
+    lineas.shift();
+
+    while (lineas.length && !lineas[0].trim()) {
+      lineas.shift();
+    }
+  }
+
+  return lineas.join("\n").trim();
+}
+
+function construirTextoCopiaRecomendaciones(textoRecomendaciones) {
+  const fecha = new Date().toLocaleDateString("es-ES", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric"
+  });
+
+  const tituloEscenario = obtenerTituloEscenarioCopia();
+  const separador = "_".repeat(60);
+
+  let recomendaciones = limpiarTextoParaCopia(textoRecomendaciones);
+  recomendaciones = quitarTituloInicialDuplicado(recomendaciones, tituloEscenario);
+
+  return [
+    `IctusGPS | ACO Manager | Fecha: ${fecha}`,
+    separador,
+    "",
+    tituloEscenario,
+    "",
+    recomendaciones
+  ].join("\n");
+}
+
 document.getElementById("btnCopiar").addEventListener("click", () => {
   const cont = document.getElementById("resultado-texto");
-  const txt  = (cont.dataset.copy || cont.textContent || "").trim();
+  const textoBase = (cont.innerText || cont.textContent || "").trim();
 
-  if (!txt) return;
+  if (!textoBase) return;
+
+  const txt = construirTextoCopiaRecomendaciones(textoBase);
 
   navigator.clipboard.writeText(txt).then(() => {
     const btn = document.getElementById("btnCopiar");
