@@ -413,6 +413,7 @@ input[type="number"], select{
   padding:10px 12px;
   background:#f8fafc;
   line-height:1.45;
+  display:none !important;
 }
 
 /* Toast */
@@ -1164,13 +1165,12 @@ body {
             <label><input id="lpaAlta" type="checkbox"> Lp(a) elevada /
               relevante (si se conoce)</label> </fieldset>
           <!-- BOTONES AL ESTILO FOP (manteniendo IDs) -->
-          <div class="actions"> <button type="submit" id="btnCalcular"
-              class="btn-action btn-calc">Calcular</button> <button
-              type="button" class="btn-action btn-clear" id="btnLimpiar">Borrar</button>
-            <button type="button" class="btn-action btn-copy no-print"
-              id="btnPrint">Imprimir</button> <button type="button"
-              class="btn-action btn-copy no-print" id="btnCopiar">Copiar
-              resumen</button> </div>
+          <div class="actions">
+  <button type="submit" id="btnCalcular" class="btn-action btn-calc">Calcular</button>
+  <button type="button" class="btn-action btn-copy no-print" id="btnPrint">Imprimir</button>
+  <button type="button" class="btn-action btn-copy no-print" id="btnCopiar">Copiar</button>
+  <button type="button" class="btn-action btn-clear" id="btnLimpiar">Borrar</button>
+</div>
         </form>
         <aside class="card hide" id="resultCard">
           <h2>Resultados y recomendación</h2>
@@ -2532,35 +2532,218 @@ notas.push(`<div class="result-block">${transv.join(' ')}</div>`);
     return {recs, avisos, notas, obj, delta, objetivoGlobalAlcanzado};
   }
 
+    function obtenerDisclaimerIctusGPS(){
+    return 'Esta herramienta es un apoyo a la decisión clínica; no sustituye el juicio profesional, la valoración individual del paciente ni los protocolos/guías locales actualizados. Ante discrepancias, prevalecen los protocolos vigentes y el criterio del equipo responsable.';
+  }
+
+  function limpiarTextoParaCopia(texto){
+    let s = String(texto || '');
+
+    if (/<[a-z][\s\S]*>/i.test(s)) {
+      const tmp = document.createElement('div');
+      tmp.innerHTML = s;
+      s = tmp.textContent || tmp.innerText || '';
+    }
+
+    s = s
+      .replace(/\u00a0/g, ' ')
+      .replace(/[\u200B-\u200D\uFEFF]/g, '')
+      .replace(/[“”]/g, '"')
+      .replace(/[‘’]/g, "'")
+      .replace(/[–—]/g, '-')
+      .replace(/[→⇒➜➔]/g, '->')
+      .replace(/≤/g, '<=')
+      .replace(/≥/g, '>=');
+
+    try {
+      s = s.replace(/\p{Extended_Pictographic}/gu, '');
+    } catch(e) {
+      s = s.replace(/[🩺💊🩸📘📑🚨📒📚🔤⚠️]/g, '');
+    }
+
+    s = s
+      .replace(/[^\S\r\n]+/g, ' ')
+      .split(/\r?\n/)
+      .map(line => line.trim())
+      .join('\n')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+
+    return s;
+  }
+
+  function obtenerTituloPaginaCopia(){
+    const visible = document.querySelector('header .title')?.textContent;
+    return limpiarTextoParaCopia(visible || document.title || 'Hipolipemiantes')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function obtenerTituloEscenarioCopia(){
+    const seleccionado = document.querySelector('input[name="escenario"]:checked');
+
+    if (seleccionado) {
+      const label = seleccionado.closest('label');
+      if (label) {
+        const clone = label.cloneNode(true);
+        clone.querySelectorAll('input,.kbd').forEach(n => n.remove());
+        const desdeSelector = limpiarTextoParaCopia(clone.textContent)
+          .replace(/\s+/g, ' ')
+          .trim();
+        if (desdeSelector) return desdeSelector.toUpperCase();
+      }
+
+      if (typeof textoEscenario === 'function') {
+        return limpiarTextoParaCopia(textoEscenario(seleccionado.value)).toUpperCase();
+      }
+    }
+
+    const resumen = document.querySelector('#resumenText')?.textContent || '';
+    const m = resumen.match(/^Escenario:\s*(.+)$/mi);
+    if (m && m[1]) return limpiarTextoParaCopia(m[1]).toUpperCase();
+
+    return obtenerTituloPaginaCopia().toUpperCase();
+  }
+
+  function quitarTituloInicialDuplicado(texto, titulo){
+    const normalizar = s => limpiarTextoParaCopia(s).toLowerCase().replace(/\s+/g, ' ').trim();
+    const objetivo = normalizar(titulo);
+
+    const lineas = String(texto || '').split('\n');
+    while (lineas.length && !lineas[0].trim()) lineas.shift();
+
+    if (lineas.length && normalizar(lineas[0]) === objetivo) {
+      lineas.shift();
+    }
+
+    return lineas.join('\n').trim();
+  }
+
+  function extraerResumenLimpioActual(texto){
+    let limpio = limpiarTextoParaCopia(texto || document.querySelector('#resumenText')?.textContent || '');
+
+    limpio = limpio
+      .replace(/^SELECCIÓN DE TRATAMIENTO HIPOLIPEMIANTE\s*$/gmi, '')
+      .replace(/^=+\s*$/gmi, '')
+      .replace(/^-+\s*$/gmi, '')
+      .replace(/^(Recomendación final|Resultado|Conducta):\s*/gmi, '')
+      .trim();
+
+    const lineas = limpio.split('\n').map(l => l.trim()).filter(Boolean);
+    const refIdx = lineas.findIndex(l => /^Referencias\s*:/i.test(l));
+    const utiles = refIdx >= 0 ? lineas.slice(0, refIdx) : lineas;
+
+    const idxConclusiones = utiles.findIndex(l => /^Conclusiones clínicas\s*:/i.test(l));
+    const datos = idxConclusiones >= 0 ? utiles.slice(0, idxConclusiones) : [];
+    const recomendaciones = idxConclusiones >= 0 ? utiles.slice(idxConclusiones + 1) : utiles;
+
+    const cuerpo = [];
+
+    if (datos.length) {
+      cuerpo.push('Datos clínicos');
+      datos.forEach(l => {
+        if (!l) return;
+        cuerpo.push(l.startsWith('- ') ? l : '- ' + l.replace(/\s{2,}/g, ' '));
+      });
+      cuerpo.push('');
+    }
+
+cuerpo.push('Recomendaciones');
+
+const recomendacionesAgrupadas = [];
+
+recomendaciones.forEach(l => {
+  const linea = l
+    .replace(/^(Recomendación final|Resultado|Conducta):\s*/i, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+
+  if (!linea) return;
+
+  if (linea.startsWith('- ')) {
+    recomendacionesAgrupadas.push(linea);
+    return;
+  }
+
+  if (!recomendacionesAgrupadas.length) {
+    recomendacionesAgrupadas.push('- ' + linea);
+  } else {
+    recomendacionesAgrupadas[recomendacionesAgrupadas.length - 1] += ' ' + linea;
+  }
+});
+
+recomendacionesAgrupadas.forEach(l => {
+  cuerpo.push(l.replace(/\s{2,}/g, ' ').trim());
+});
+
+    return cuerpo.join('\n').trim();
+  }
+
+  function construirTextoCopiaRecomendaciones(texto, opciones = {}){
+    const incluirDisclaimer = opciones.incluirDisclaimer !== false;
+    const fuente = limpiarTextoParaCopia(texto || document.querySelector('#resumenText')?.textContent || '');
+
+    if (!fuente) return '';
+
+    const fecha = new Date().toLocaleDateString('es-ES');
+    const tituloPagina = obtenerTituloPaginaCopia();
+    const tituloEscenario = obtenerTituloEscenarioCopia();
+
+    let cuerpo = extraerResumenLimpioActual(fuente);
+    cuerpo = quitarTituloInicialDuplicado(cuerpo, tituloEscenario);
+
+    let salida = [
+      `IctusGPS | ${tituloPagina} | Fecha: ${fecha}`,
+      '____________________________________________________________',
+      '',
+      tituloEscenario,
+      cuerpo
+    ].join('\n');
+
+    if (incluirDisclaimer) {
+      salida += '\n\nAdvertencia\n- ' + obtenerDisclaimerIctusGPS();
+    }
+
+    return limpiarTextoParaCopia(salida);
+  }
+
   function ensamblarResumenTXT(payload, htmlPlano){
-    const nl = '\r\n';
-    let t = [];
+    const tmp = document.createElement('div');
+    tmp.innerHTML = htmlPlano;
 
-    t.push('SELECCIÓN DE TRATAMIENTO HIPOLIPEMIANTE');
-    t.push('======================================');
-    t.push('');
-    t.push(`Escenario:        ${textoEscenario(payload.escenario)}`);
-    t.push(`C-LDL:            ${payload.ldl} mg/dl`);
-    t.push(`Objetivo:         < ${payload.obj} mg/dl`);
-    t.push(`Distancia:        ${payload.delta} mg/dl`);
-    if(payload.pctRed !== null)
-      t.push(`Cambio vs. basal: ${textoCambioBasal(payload.pctRed)}`);
-    t.push(`Tratamiento:      ${textoTratamiento(payload)}`);
-    t.push('');
-    t.push('Conclusiones clínicas:');
-    t.push('-----------------------');
+    const bloques = Array.from(tmp.querySelectorAll('.result-block'));
+const textoBloqueComoLinea = (nodo) => limpiarTextoParaCopia(nodo.textContent)
+  .replace(/\s*\n\s*/g, ' ')
+  .replace(/\s{2,}/g, ' ')
+  .trim();
 
-    const tmp=document.createElement('div');
-    tmp.innerHTML=htmlPlano;
-    t.push(tmp.textContent.trim());
-    t.push('');
-    t.push('Referencias: ESC/EAS 2019–2021; AHA/ASA 2021; ensayos FOURIER, ODYSSEY, CLEAR Outcomes y VESALIUS-CV (NEJM 2025, evolocumab en prevención CV de alto riesgo).');
+const recomendaciones = bloques.length
+  ? bloques
+      .map(b => textoBloqueComoLinea(b))
+      .filter(Boolean)
+      .map(t => '- ' + t.replace(/^-\s*/, ''))
+      .join('\n')
+  : '- ' + limpiarTextoParaCopia(tmp.textContent)
+      .replace(/\s*\n\s*/g, ' ')
+      .replace(/\s{2,}/g, ' ')
+      .trim();
 
-    return t.join(nl);
+    return [
+      `Escenario: ${textoEscenario(payload.escenario)}`,
+      `C-LDL: ${payload.ldl} mg/dl`,
+      `Objetivo: < ${payload.obj} mg/dl`,
+      `Distancia: ${payload.delta} mg/dl`,
+      payload.pctRed !== null ? `Cambio vs. basal: ${textoCambioBasal(payload.pctRed)}` : '',
+      `Tratamiento: ${textoTratamiento(payload)}`,
+      '',
+      'Conclusiones clínicas:',
+      recomendaciones
+    ].filter(Boolean).join('\n');
   }
 
   async function copiarResumen(){
-    const texto = $('#resumenText').textContent.trim();
+    const texto = construirTextoCopiaRecomendaciones('', { incluirDisclaimer:true });
+
     if(!texto){
       alert('Primero calcule una recomendación.');
       return;
@@ -2570,10 +2753,11 @@ notas.push(`<div class="result-block">${transv.join(' ')}</div>`);
       await navigator.clipboard.writeText(texto);
       mostrarToast('Copiado al portapapeles');
     }catch(e){
-      const ta=document.createElement('textarea'); 
-      ta.value=texto; 
-      document.body.appendChild(ta); 
+      const ta = document.createElement('textarea');
+      ta.value = texto;
+      document.body.appendChild(ta);
       ta.select();
+
       try{
         document.execCommand('copy');
         mostrarToast('Copiado al portapapeles');
@@ -2957,94 +3141,271 @@ if (target) {
     });
   });
 
-  $('#btnPrint').addEventListener('click', ()=>{
-    const resultado = $('#resultado').innerHTML.trim();
-    const resumen = $('#resumenText').textContent.trim();
+    function escaparHTML(texto){
+    return String(texto || '')
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;')
+      .replace(/'/g,'&#039;');
+  }
 
-    if(!resumen){
+  function extraerPartesTextoCopia(texto){
+    const limpio = limpiarTextoParaCopia(texto);
+    const lineas = limpio.split('\n');
+
+    const cabecera = lineas.shift() || '';
+    if (lineas[0] && /^_+$/.test(lineas[0].trim())) lineas.shift();
+    while (lineas.length && !lineas[0].trim()) lineas.shift();
+
+    const titulo = lineas.shift() || obtenerTituloEscenarioCopia();
+    while (lineas.length && !lineas[0].trim()) lineas.shift();
+
+    const idxAdvertencia = lineas.findIndex(l => /^Advertencia$/i.test(l.trim()));
+    const cuerpo = (idxAdvertencia >= 0 ? lineas.slice(0, idxAdvertencia) : lineas).join('\n').trim();
+
+    const fechaMatch = cabecera.match(/Fecha:\s*([^|]+)$/i);
+
+    return {
+      cabecera,
+      titulo: limpiarTextoParaCopia(titulo).toUpperCase(),
+      cuerpo,
+      fecha: fechaMatch ? fechaMatch[1].trim() : new Date().toLocaleDateString('es-ES')
+    };
+  }
+
+  function convertirCuerpoRecomendacionAHTML(texto){
+    const lineas = limpiarTextoParaCopia(texto).split('\n');
+    let html = '';
+    let ulAbierta = false;
+
+    const cerrarUl = () => {
+      if (ulAbierta) {
+        html += '</ul>';
+        ulAbierta = false;
+      }
+    };
+
+    lineas.forEach(linea => {
+      const l = linea.trim();
+
+      if (!l) {
+        cerrarUl();
+        return;
+      }
+
+      if (l.startsWith('- ')) {
+        if (!ulAbierta) {
+          html += '<ul>';
+          ulAbierta = true;
+        }
+        html += `<li>${escaparHTML(l.slice(2))}</li>`;
+        return;
+      }
+
+      cerrarUl();
+      html += `<h2>${escaparHTML(l).toUpperCase()}</h2>`;
+    });
+
+    cerrarUl();
+    return html;
+  }
+
+  function imprimirTextoRecomendacion(texto){
+    const partes = extraerPartesTextoCopia(texto);
+
+    if (!partes.cuerpo) {
       alert('Primero calcule una recomendación válida.');
       return;
     }
 
-    const fecha = new Date().toLocaleString('es-ES', { dateStyle:'short', timeStyle:'short' });
-    const informe = `
-<!doctype html>
+    const nombrePagina = obtenerTituloPaginaCopia();
+    const logoSrc = '../img/topbar.png';
+    const iconoSrc = '../iconos/hipolipemiantesico.png';
+    const disclaimer = obtenerDisclaimerIctusGPS();
+
+    const iframe = document.createElement('iframe');
+    iframe.style.position = 'fixed';
+    iframe.style.right = '0';
+    iframe.style.bottom = '0';
+    iframe.style.width = '0';
+    iframe.style.height = '0';
+    iframe.style.border = '0';
+    iframe.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(iframe);
+
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+
+    doc.open();
+    doc.write(`<!doctype html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<title>Informe – Tratamiento hipolipemiante</title>
+<title>IctusGPS - ${escaparHTML(nombrePagina)}</title>
 <style>
-  :root{
-    --bg:#f8fafc; --card:#ffffff; --ink:#0f172a; --muted:#475569;
-    --accent:#2563eb; --accent-light:#dbeafe;
-    --ok:#0a7f3f; --warn:#b45309; --bad:#b91c1c;
-  }
+  @page{ margin:14mm; }
+
   body{
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    color:var(--ink);
-    background:var(--bg);
-    margin:32px auto;
-    max-width:800px;
-    line-height:1.5;
+    font-family:Arial, Helvetica, sans-serif;
+    color:#0f172a;
+    font-size:12pt;
+    line-height:1.45;
+    margin:0;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
   }
-  h1{color:var(--accent);font-size:1.4rem;margin-bottom:4px;}
-  h2{font-size:1.1rem;margin:18px 0 6px;}
-  p{margin:4px 0 8px;}
-  .muted{color:var(--muted);}
-  .card{
-    background:var(--card);
-    border:1px solid var(--accent-light);
-    border-radius:14px;
-    padding:18px 20px;
-    margin-top:14px;
-    box-shadow:0 4px 14px rgba(0,0,0,.06);
+
+  .print-header{
+    display:grid;
+    grid-template-columns:1fr 2fr 1fr;
+    gap:12px;
+    align-items:center;
+    background:#0f3d83 !important;
+    background-color:#0f3d83 !important;
+    color:#ffffff !important;
+    border-radius:10px;
+    padding:12px 14px;
+    margin-bottom:18px;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
   }
-  .pill{
-    display:inline-block;
-    background:var(--accent-light);
-    color:var(--accent);
-    border-radius:999px;
-    padding:2px 8px;
-    font-size:.78rem;
+
+  .print-logo{
+    height:42px;
+    width:auto;
+    max-width:120px;
+    object-fit:contain;
+    display:block;
+    background:transparent;
+    border:0 !important;
+    border-radius:0 !important;
+    padding:0 !important;
+    box-shadow:none !important;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+
+  .print-center{
+    text-align:center;
     font-weight:700;
-    margin-right:4px;
+    font-size:13pt;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
   }
-  .result-block{margin:.7rem 0;padding:.7rem;border:1px dashed #cbd5e1;border-radius:12px;background:#f9fafb;}
-  .ok{color:var(--ok);} .warn{color:var(--warn);} .err{color:var(--bad);}
-  ul{margin:0 0 0 20px;padding:0;}
-  .foot{
-    margin-top:16px;
-    font-size:.85rem;
-    color:var(--muted);
-    border-top:1px solid var(--accent-light);
-    padding-top:8px;
+
+  .print-icon{
+    width:28px;
+    height:28px;
+    object-fit:contain;
+  }
+
+  .print-date{
     text-align:right;
+    font-size:10.5pt;
+    font-weight:700;
   }
-  button{display:inline-block;margin-top:14px;background:var(--accent);color:white;border:0;border-radius:999px;padding:8px 14px;font-weight:600;cursor:pointer;}
-  @media print {.no-print{display:none}}
 
+  .scenario-title{
+    color:#0f3d83;
+    font-weight:800;
+    font-size:15pt;
+    text-transform:uppercase;
+    padding-bottom:6px;
+    border-bottom:2px solid #0f3d83;
+    margin:0 0 16px;
+  }
 
+  h2{
+    color:#0f3d83;
+    font-size:12pt;
+    font-weight:800;
+    margin:14px 0 6px;
+    text-transform:uppercase;
+  }
+
+  ul{
+    margin:0 0 10px 20px;
+    padding:0;
+  }
+
+  li{
+    margin:5px 0;
+    page-break-inside:avoid;
+  }
+
+  .print-disclaimer{
+    margin-top:18px;
+    padding:10px 12px;
+    background:#fff7f7;
+    border:1px solid #f3b4b4;
+    border-left:5px solid #991b1b;
+    border-radius:8px;
+    color:#7d1a1a;
+    font-size:10.5pt;
+    page-break-inside:avoid;
+  }
+
+  .print-disclaimer strong{
+    color:#991b1b;
+  }
+
+  @media print{
+    body{
+      -webkit-print-color-adjust:exact;
+      print-color-adjust:exact;
+    }
+
+    .print-header{
+      background:#0f3d83 !important;
+      background-color:#0f3d83 !important;
+      color:#ffffff !important;
+      -webkit-print-color-adjust:exact;
+      print-color-adjust:exact;
+    }
+  }
 </style>
-
 </head>
 <body>
-  <h1>Informe – Selección de tratamiento hipolipemiante</h1>
-  <div class="muted">Generado: ${fecha}</div>
-
-  <div class="card">
-    ${resultado}
-    <div class="foot">Herramienta de apoyo clínico. Interpretación facultativa obligatoria.</div>
+  <div class="print-header">
+    <div><img class="print-logo" src="${escaparHTML(logoSrc)}" alt="IctusGPS"></div>
+    <div class="print-center">
+      <img class="print-icon" src="${escaparHTML(iconoSrc)}" alt="">
+      <span>${escaparHTML(nombrePagina)}</span>
+    </div>
+    <div class="print-date">Fecha: ${escaparHTML(partes.fecha)}</div>
   </div>
 
-  <button class="no-print" onclick="window.print()">Imprimir / Guardar PDF</button>
-  <script>window.addEventListener('load',()=>setTimeout(()=>window.print(),300));<\/script>
-</body>
-</html>`;
+  <h1 class="scenario-title">${escaparHTML(partes.titulo)}</h1>
 
-    const w = window.open('', '_blank');
-    w.document.open();
-    w.document.write(informe);
-    w.document.close();
+  <main>
+    ${convertirCuerpoRecomendacionAHTML(partes.cuerpo)}
+  </main>
+
+  <div class="print-disclaimer">
+    <strong>⚠ Advertencia.</strong> ${escaparHTML(disclaimer)}
+  </div>
+</body>
+</html>`);
+    doc.close();
+
+    setTimeout(() => {
+      iframe.contentWindow.focus();
+      iframe.contentWindow.print();
+      setTimeout(() => iframe.remove(), 1000);
+    }, 250);
+  }
+
+  $('#btnPrint').addEventListener('click', ()=>{
+    const texto = construirTextoCopiaRecomendaciones('', { incluirDisclaimer:false });
+
+    if(!texto){
+      alert('Primero calcule una recomendación válida.');
+      return;
+    }
+
+    imprimirTextoRecomendacion(texto);
   });
 
     $('#btnCopiar').addEventListener('click', copiarResumen);

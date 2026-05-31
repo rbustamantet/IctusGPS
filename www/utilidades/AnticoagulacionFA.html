@@ -3928,19 +3928,18 @@ const childBCautionList = ["Apixabán","Edoxabán","Dabigatrán","VKA"]
         .map(r => r.name);
 
       if (strongPreferredGlobal.length) {
-        const li = document.createElement('li');
-        li.innerHTML =
-          "<b>Estrategias preferibles:</b> " + strongPreferredGlobal.join(", ");
-        recList.appendChild(li);
-      }
-
-      if (conditionedPreferredGlobal.length) {
-        const li = document.createElement('li');
-        li.innerHTML =
-          "<b>Mejor opción disponible en escenario condicionado:</b> " +
-          conditionedPreferredGlobal.join(", ");
-        recList.appendChild(li);
-      }
+  const li = document.createElement('li');
+  li.innerHTML =
+    "<b>Estrategias preferibles:</b> " + strongPreferredGlobal.join(", ");
+  recList.appendChild(li);
+}
+else if (conditionedPreferredGlobal.length) {
+  const li = document.createElement('li');
+  li.innerHTML =
+    "<b>Mejor opción disponible en escenario condicionado:</b> " +
+    conditionedPreferredGlobal.join(", ");
+  recList.appendChild(li);
+}
     }
 
     if (avoidedGlobal.length) {
@@ -4352,141 +4351,187 @@ document.getElementById('btnCopy').disabled=false;
 document.getElementById('btnOpenFeedback').disabled=false;
     }
 
-function cleanVisibleText(s){
-  return String(s ?? '')
-    .normalize('NFC')                    // Mantiene tildes y ñ en forma Unicode estándar
-    .replace(/\u00A0/g, ' ')             // Espacio no separable
-    .replace(/[\u200B-\u200D\uFEFF]/g, '') // Caracteres invisibles
-    .replace(/[\uFE0E\uFE0F]/g, '')      // Selectores de variante de emoji
-    .replace(/[•●▪◦]/g, '*')             // Viñetas raras
-    .replace(/[–—−]/g, '-')              // Guiones tipográficos
-    .replace(/[“”]/g, '"')               // Comillas tipográficas dobles
-    .replace(/[‘’]/g, "'")               // Comillas tipográficas simples
-    .replace(/→/g, '->')
-    .replace(/←/g, '<-')
-    .replace(/≥/g, '>=')
+function obtenerDisclaimerIctusGPS(){
+  return 'Esta herramienta es un apoyo a la decisión clínica; no sustituye el juicio profesional, la valoración individual del paciente ni los protocolos/guías locales actualizados. Ante discrepancias, prevalecen los protocolos vigentes y el criterio del equipo responsable.';
+}
+
+function limpiarTextoParaCopia(texto){
+  return String(texto ?? '')
+    .normalize('NFC')
+    .replace(/\u00A0/g, ' ')
+    .replace(/[\u200B-\u200D\uFEFF]/g, '')
+    .replace(/[\uFE0E\uFE0F]/g, '')
+    .replace(/[–—−]/g, '-')
+    .replace(/[“”]/g, '"')
+    .replace(/[‘’]/g, "'")
+    .replace(/[→➜➔⇒]/g, '->')
+    .replace(/[←⇐]/g, '<-')
     .replace(/≤/g, '<=')
+    .replace(/≥/g, '>=')
     .replace(/≈/g, '~')
     .replace(/±/g, '+/-')
     .replace(/×/g, 'x')
     .replace(/₂/g, '2')
     .replace(/₃/g, '3')
-    .replace(/CHA₂DS₂/g, 'CHA2DS2')
-    .replace(/[\u{1F000}-\u{1FAFF}]/gu, '') // Emojis y pictogramas principales
-    .replace(/[⚠⚖★☆✓✔✖✘]/g, '')        // Símbolos sueltos no ASCII
-    .replace(/\s+/g, ' ')
+    .replace(/[•●▪◦]/g, '-')
+    .replace(/[\u{1F000}-\u{1FAFF}]/gu, '')
+    .replace(/[⚠⚖★☆✓✔✖✘📊👤📌🧾🆚]/gu, '')
+    .replace(/[ \t]+/g, ' ')
+    .replace(/[ \t]*\n[ \t]*/g, '\n')
+    .replace(/\n{3,}/g, '\n\n')
     .trim();
 }
 
-function getVisibleResultText(){
-  const lines = [];
+/* Mantener compatibilidad con feedback y código existente */
+function cleanVisibleText(s){
+  return limpiarTextoParaCopia(s).replace(/\n+/g, ' ').trim();
+}
 
-  const txt = id => cleanVisibleText(document.getElementById(id)?.innerText || '');
+function obtenerNombrePaginaCopia(){
+  const visible = document.querySelector('header .title')?.innerText || '';
+  const titulo = visible || document.title || 'Fibrilación auricular';
+  return cleanVisibleText(titulo);
+}
 
-  lines.push('INFORME DE ANTICOAGULACIÓN EN FIBRILACIÓN AURICULAR - IctusGPS');
-  lines.push('');
+function obtenerTituloEscenarioCopia(){
+  const pageTitle = obtenerNombrePaginaCopia();
 
-  lines.push('PUNTUACIONES Y RIESGOS');
-  lines.push('* CHA2DS2-VA: ' + txt('scoreVA'));
-  lines.push('* CHA2DS2-VASc: ' + txt('scoreVASc'));
-  lines.push('* HAS-BLED: ' + txt('scoreHASBLED'));
-  lines.push('* ClCr: ' + txt('crcl') + ' ml/min');
-  lines.push('* SCr: ' + txt('scrConv') + ' mg/dL');
-  lines.push('* Riesgo anual de ictus sin anticoagulación: ' + txt('annualStroke') + '%');
-  lines.push('* Riesgo anual de sangrado mayor: ' + txt('annualBleed') + '%');
-  lines.push('');
-
-  const rows = Array.from(document.querySelectorAll('#comparative tbody tr'));
-
-  if (rows.length){
-    lines.push('COMPARATIVA DE ESTRATEGIAS');
-    rows.forEach(tr => {
-      const cells = Array.from(tr.cells).map(td => cleanVisibleText(td.innerText));
-      if (cells.length >= 10){
-        lines.push(
-          '* ' + cells[0] +
-          ' | RI: ' + cells[1] +
-          ' | RRR: ' + cells[2] +
-          ' | RRA: ' + cells[3] +
-          ' | NNT: ' + cells[4] +
-          ' | RS: ' + cells[5] +
-          ' | RRS: ' + cells[6] +
-          ' | NNH: ' + cells[7] +
-          ' | IE: ' + cells[8] +
-          ' | Adecuación clínica: ' + cells[9]
-        );
-      }
-    });
-    lines.push('');
+  if (/fibrilaci[oó]n auricular/i.test(pageTitle)){
+    return 'ANTICOAGULACIÓN EN FIBRILACIÓN AURICULAR';
   }
 
-  const banner = txt('clinicalBannerZone');
-  const recs = Array.from(document.querySelectorAll('#recList li'))
-    .map(li => cleanVisibleText(li.innerText))
+  return cleanVisibleText(pageTitle || 'IctusGPS').toUpperCase();
+}
+
+function quitarTituloInicialDuplicado(texto, titulo){
+  let lineas = String(texto || '').split('\n');
+  const tituloNorm = cleanVisibleText(titulo).toUpperCase();
+
+  while (lineas.length){
+    const primera = cleanVisibleText(lineas[0]).toUpperCase();
+
+    if (!primera){
+      lineas.shift();
+      continue;
+    }
+
+    if (
+      primera === tituloNorm ||
+      /^(RECOMENDACI[ÓO]N FINAL|RESULTADO|CONDUCTA|PAUSA PERIOPERATORIA|PAUSA PREOPERATORIA)\s*:?\s*$/.test(primera)
+    ){
+      lineas.shift();
+      continue;
+    }
+
+    lineas[0] = lineas[0].replace(
+      /^\s*(Recomendaci[oó]n final|Resultado|Conducta)\s*:\s*/i,
+      ''
+    );
+    break;
+  }
+
+  return lineas.join('\n').trim();
+}
+
+function textoLineaResultado(id){
+  return cleanVisibleText(document.getElementById(id)?.innerText || '');
+}
+
+function agregarSeccion(lineas, titulo, items){
+  const limpios = items.map(cleanVisibleText).filter(Boolean);
+  if (!limpios.length) return;
+
+  if (lineas.length) lineas.push('');
+  lineas.push(titulo);
+
+  limpios.forEach(item => {
+    const limpio = item.replace(/^-+\s*/, '').trim();
+    if (limpio) lineas.push('- ' + limpio);
+  });
+}
+
+function construirCuerpoClinicoDesdeDOM(){
+  const lineas = [];
+
+  const scoreVA = textoLineaResultado('scoreVA');
+  const scoreVASc = textoLineaResultado('scoreVASc');
+  const hasBled = textoLineaResultado('scoreHASBLED');
+  const crcl = textoLineaResultado('crcl');
+  const scr = textoLineaResultado('scrConv');
+  const stroke = textoLineaResultado('annualStroke');
+  const bleed = textoLineaResultado('annualBleed');
+
+  const puntuaciones = [];
+  if (scoreVA && scoreVA !== NDASH) puntuaciones.push('CHA2DS2-VA: ' + scoreVA);
+  if (scoreVASc && scoreVASc !== NDASH) puntuaciones.push('CHA2DS2-VASc: ' + scoreVASc);
+  if (hasBled && hasBled !== NDASH) puntuaciones.push('HAS-BLED: ' + hasBled);
+  if (crcl && crcl !== NDASH) puntuaciones.push('ClCr: ' + crcl + ' ml/min');
+  if (scr && scr !== NDASH) puntuaciones.push('SCr: ' + scr + ' mg/dL');
+  if (stroke && stroke !== NDASH) puntuaciones.push('Riesgo anual de ictus sin anticoagulación: ' + stroke + '%');
+  if (bleed && bleed !== NDASH) puntuaciones.push('Riesgo anual de sangrado mayor: ' + bleed + '%');
+
+  agregarSeccion(lineas, 'Puntuaciones y riesgos', puntuaciones);
+
+  const filasComparativa = Array.from(document.querySelectorAll('#comparative tbody tr'))
+    .map(tr => {
+      const cells = Array.from(tr.cells).map(td => cleanVisibleText(td.innerText));
+      if (cells.length < 10) return '';
+      return cells[0] +
+        ' | RI: ' + cells[1] +
+        ' | RRR: ' + cells[2] +
+        ' | RRA: ' + cells[3] +
+        ' | NNT: ' + cells[4] +
+        ' | RS: ' + cells[5] +
+        ' | RRS: ' + cells[6] +
+        ' | NNH: ' + cells[7] +
+        ' | IE: ' + cells[8] +
+        ' | Adecuación clínica: ' + cells[9];
+    })
     .filter(Boolean);
 
-  const explanation = txt('clinicalExplanation');
+  agregarSeccion(lineas, 'Comparativa de estrategias', filasComparativa);
 
-  if (banner || recs.length || explanation){
-    lines.push('RECOMENDACIONES INDIVIDUALIZADAS');
+  const recomendaciones = [];
 
-    if (banner){
-      lines.push('* ' + banner);
-    }
+  const banner = textoLineaResultado('clinicalBannerZone');
+  if (banner) recomendaciones.push(banner);
 
-    recs.forEach(r => lines.push('* ' + r));
+  Array.from(document.querySelectorAll('#recList li'))
+    .map(li => cleanVisibleText(li.innerText))
+    .filter(Boolean)
+    .forEach(txt => recomendaciones.push(txt));
 
-    if (explanation){
-      lines.push('');
-      lines.push('RESUMEN CLÍNICO');
-      lines.push(explanation);
-    }
+  const explanation = textoLineaResultado('clinicalExplanation');
+  if (explanation) recomendaciones.push(explanation);
 
-    lines.push('');
-  }
+  agregarSeccion(lineas, 'Recomendaciones individualizadas', recomendaciones);
 
   const doseSection = document.getElementById('doseSection');
   const doseVisible = doseSection && doseSection.style.display !== 'none';
 
-  const doses = Array.from(document.querySelectorAll('#doseList li'))
-    .map(li => cleanVisibleText(li.innerText))
-    .filter(Boolean);
+  if (doseVisible){
+    const dosis = Array.from(document.querySelectorAll('#doseList li'))
+      .map(li => cleanVisibleText(li.innerText))
+      .filter(Boolean);
 
-  if (doseVisible && doses.length){
-    lines.push('POSOLOGÍA SUGERIDA');
-    doses.forEach(d => lines.push('* ' + d));
-    lines.push('');
+    agregarSeccion(lineas, 'Posología sugerida', dosis);
   }
 
-  lines.push('Documento generado automáticamente. Interpretar junto con el juicio clínico y las guías locales.');
-
-  return lines.join('\n');
+  return lineas.join('\n');
 }
 
-function getVisibleResultHTMLForPrint(){
-  const resultCard = document.getElementById('resultCard');
-  if (!resultCard) return '';
+function eliminarDisclaimerDeTexto(texto){
+  const disclaimer = obtenerDisclaimerIctusGPS()
+    .replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-  const clone = resultCard.cloneNode(true);
-
-  clone.querySelectorAll('.btnbar, button').forEach(el => el.remove());
-
-  return clone.innerHTML;
+  return String(texto || '')
+    .replace(new RegExp('\\n*Advertencia\\s*\\n\\s*-?\\s*' + disclaimer + '\\s*$', 'i'), '')
+    .replace(new RegExp('\\n*' + disclaimer + '\\s*$', 'i'), '')
+    .trim();
 }
 
-function printReport(){
-
-  if (!__lastReport){
-    showToast('Primero calcule los resultados para generar el informe.','warn');
-    return;
-  }
-
-  const resultHTML = getVisibleResultHTMLForPrint();
-
-  if (!resultHTML){
-    showToast('No se encontraron resultados visibles para imprimir.','warn');
-    return;
-  }
+function construirTextoCopiaRecomendaciones(texto, opciones = {}){
+  const incluirDisclaimer = opciones.incluirDisclaimer !== false;
 
   const fecha = new Date().toLocaleDateString('es-ES', {
     day: '2-digit',
@@ -4494,216 +4539,561 @@ function printReport(){
     year: 'numeric'
   });
 
-  const pageStyles = Array.from(
-    document.querySelectorAll('style, link[rel="stylesheet"]')
-  )
-    .map(el => el.outerHTML)
-    .join('\n');
+  const nombrePagina = obtenerNombrePaginaCopia();
+  const tituloEscenario = obtenerTituloEscenarioCopia();
 
-  const html = `
-<!doctype html>
+  let cuerpo = texto
+    ? limpiarTextoParaCopia(texto)
+    : construirCuerpoClinicoDesdeDOM();
+
+  cuerpo = limpiarTextoParaCopia(cuerpo);
+  cuerpo = eliminarDisclaimerDeTexto(cuerpo);
+  cuerpo = quitarTituloInicialDuplicado(cuerpo, tituloEscenario);
+
+  const salida = [
+    'IctusGPS | ' + nombrePagina + ' | Fecha: ' + fecha,
+    '____________________________________________________________',
+    '',
+    tituloEscenario,
+    '',
+    cuerpo
+  ];
+
+  if (incluirDisclaimer){
+    salida.push(
+      '',
+      'Advertencia',
+      '- ' + obtenerDisclaimerIctusGPS()
+    );
+  }
+
+  return salida.join('\n').replace(/\n{3,}/g, '\n\n').trim();
+}
+
+/* Mantener nombre anterior para feedback y posibles llamadas internas */
+function getVisibleResultText(){
+  return construirTextoCopiaRecomendaciones('', { incluirDisclaimer:true });
+}
+
+function escaparHTML(texto){
+  return String(texto ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function obtenerTablaComparativaHTMLParaImprimir(){
+  const tabla = document.getElementById('comparative');
+
+  if (!tabla || !tabla.querySelector('tbody tr')) return '';
+
+  const clon = tabla.cloneNode(true);
+  clon.id = 'printComparative';
+  clon.classList.add('print-comparative-table');
+
+  clon.querySelectorAll('button, input, select, textarea, script').forEach(el => el.remove());
+
+  return '<div class="print-comparative-wrap">' + clon.outerHTML + '</div>';
+}
+
+function extraerPartesTextoCopia(texto){
+  const lineas = String(texto || '').split('\n');
+
+  const cabecera = cleanVisibleText(lineas.shift() || '');
+  if (lineas[0] && /^_+$/.test(lineas[0].trim())) lineas.shift();
+
+  while (lineas.length && !lineas[0].trim()) lineas.shift();
+
+  const titulo = cleanVisibleText(lineas.shift() || obtenerTituloEscenarioCopia());
+
+  while (lineas.length && !lineas[0].trim()) lineas.shift();
+
+  const cuerpoLineas = [];
+  for (const linea of lineas){
+    if (/^\s*Advertencia\s*$/i.test(linea)) break;
+    cuerpoLineas.push(linea);
+  }
+
+  const fechaMatch = cabecera.match(/Fecha:\s*([0-9]{2}\/[0-9]{2}\/[0-9]{4})/i);
+
+  return {
+    cabecera,
+    titulo,
+    cuerpo: cuerpoLineas.join('\n').trim(),
+    fecha: fechaMatch ? fechaMatch[1] : new Date().toLocaleDateString('es-ES'),
+    nombrePagina: obtenerNombrePaginaCopia()
+  };
+}
+
+function convertirCuerpoRecomendacionAHTML(texto){
+  const lineas = String(texto || '').split('\n');
+  const tablaComparativaHTML = obtenerTablaComparativaHTMLParaImprimir();
+
+  let html = '';
+  let ulAbierta = false;
+  let dentroComparativa = false;
+
+  const cerrarUl = () => {
+    if (ulAbierta){
+      html += '</ul>';
+      ulAbierta = false;
+    }
+  };
+
+  lineas.forEach(lineaOriginal => {
+    const linea = cleanVisibleText(lineaOriginal);
+
+    if (!linea){
+      cerrarUl();
+      return;
+    }
+
+    if (/^-\s+/.test(linea)){
+      if (dentroComparativa && tablaComparativaHTML){
+        return;
+      }
+
+      if (!ulAbierta){
+        html += '<ul>';
+        ulAbierta = true;
+      }
+
+      html += '<li>' + escaparHTML(linea.replace(/^-\s+/, '')) + '</li>';
+      return;
+    }
+
+    cerrarUl();
+
+    const tituloSeccion = linea.toUpperCase();
+    dentroComparativa = /^COMPARATIVA DE ESTRATEGIAS$/.test(tituloSeccion);
+
+    html += '<h2 class="print-section-title">' + escaparHTML(tituloSeccion) + '</h2>';
+
+    if (dentroComparativa && tablaComparativaHTML){
+      html += tablaComparativaHTML;
+    }
+  });
+
+  cerrarUl();
+  return html;
+}
+
+function imprimirTextoRecomendacion(texto){
+  if (!__lastReport){
+    showToast('Primero calcule los resultados para generar el informe.','warn');
+    return;
+  }
+
+  const partes = extraerPartesTextoCopia(texto);
+
+  if (!partes.cuerpo){
+    showToast('No se encontraron recomendaciones para imprimir.','warn');
+    return;
+  }
+
+  const cuerpoHTML = convertirCuerpoRecomendacionAHTML(partes.cuerpo);
+  const disclaimer = obtenerDisclaimerIctusGPS();
+
+  const html = `<!doctype html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
 <base href="${document.baseURI}">
-<title>Informe — Anticoagulación en fibrilación auricular</title>
-
-${pageStyles}
-
+<title>Informe — ${escaparHTML(partes.nombrePagina)}</title>
 <style>
+  @page{
+    size:A4;
+    margin:10mm 10mm 12mm 10mm;
+  }
+
   body{
-    background:#ffffff !important;
-    color:#0e1a33;
     margin:0;
-    padding:5mm 8mm 8mm 8mm;
-    font-family:Verdana,Geneva,sans-serif;
+    background:#ffffff;
+    color:#0e1a33;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:12pt;
+    line-height:1.45;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
   }
 
-  body::after,
-  .safe-top,
-  header,
-  .btnbar,
-  button{
-    display:none !important;
-  }
-
-.print-main-header{
-  text-align:center;
-  padding-bottom:8px;
-  margin-bottom:10px;
-  border-bottom:2px solid #0f3d83;
-}
-
-.print-main-header img{
-  max-width:260px;
-  height:auto;
-}
-
-  .print-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    border-bottom:2px solid #0f3d83;
-    padding-bottom:8px;
-    margin-bottom:14px;
-  }
-
-  .print-title{
-    font-weight:700;
-    color:#0f3d83;
-    font-size:1rem;
-  }
-
-  .print-date{
-    color:#475569;
-    font-size:.9rem;
-  }
-
-  #printRoot{
-    max-width:1000px;
+  .print-wrap{
+    max-width:190mm;
     margin:0 auto;
   }
 
-  .card-result{
-  box-shadow:none !important;
-  margin:0 !important;
-  border-left:4px solid #10b981;
-  page-break-inside:auto;
-  padding:10px !important;
-  font-size:11px !important;
-}
+  .print-header{
+    display:grid;
+    grid-template-columns:1fr 1.4fr 1fr;
+    align-items:center;
+    gap:12px;
+    background:#0f3d83 !important;
+    background-color:#0f3d83 !important;
+    color:#ffffff !important;
+    border-radius:10px;
+    padding:10px 14px;
+    margin-bottom:18px;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
 
-.card-result h2{
-  font-size:18px !important;
-  margin:0 0 6px !important;
-}
-
-.card-result h3{
-  font-size:14px !important;
-  margin:0 0 4px !important;
-}
-
-.card-result,
-.card-result p,
-.card-result li,
-.card-result div,
-.card-result small,
-.card-result span{
-  font-size:11px !important;
-  line-height:1.28 !important;
-}
-
-.card-result .pill{
-  font-size:10px !important;
-  padding:1px 6px !important;
-}
-
-.card-result table{
-  font-size:10px !important;
-}
-
-.card-result th,
-.card-result td{
-  font-size:10px !important;
-  padding:3px 5px !important;
-  line-height:1.2 !important;
-}
-
-.card-result .clinicalRecommendation{
-  font-size:11px !important;
-  padding:8px 10px !important;
-}
-
-.card-result .clinicalBanner{
-  font-size:12px !important;
-  padding:7px 9px !important;
-}
-
-.card-result .sep{
-  margin:8px 0 !important;
-}
-
-table{
+.print-page-shell{
   width:100%;
+  border-collapse:collapse;
+  border:0;
+  background:#ffffff;
+}
+
+.print-page-shell > thead{
+  display:table-header-group;
+}
+
+.print-page-shell > tbody{
+  display:table-row-group;
+}
+
+.print-page-shell > thead > tr > td,
+.print-page-shell > tbody > tr > td{
+  border:0 !important;
+  padding:0 !important;
+  background:#ffffff !important;
+}
+
+.print-header{
+  margin-bottom:18px;
+}
+
+  .print-logo{
+    height:42px;
+    width:auto;
+    max-width:120px;
+    object-fit:contain;
+    display:block;
+    background:transparent;
+    border:0 !important;
+    border-radius:0 !important;
+    padding:0 !important;
+    box-shadow:none !important;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+
+  .print-center{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    font-weight:700;
+    text-align:center;
+    color:#ffffff !important;
+  }
+
+  .print-page-icon{
+    width:28px;
+    height:28px;
+    object-fit:contain;
+  }
+
+  .print-date{
+    text-align:right;
+    font-weight:700;
+    color:#ffffff !important;
+  }
+
+  .print-scenario-title{
+    margin:0 0 16px;
+    padding-bottom:8px;
+    border-bottom:2px solid #0f3d83;
+    color:#0f3d83;
+    font-size:16pt;
+    font-weight:800;
+    text-transform:uppercase;
+  }
+
+  .print-section-title{
+    margin:16px 0 6px;
+    color:#0f3d83;
+    font-size:12.5pt;
+    font-weight:800;
+    text-transform:uppercase;
+  }
+
+  ul{
+    margin:4px 0 10px 20px;
+    padding:0;
+  }
+
+  li{
+    margin:4px 0;
+    break-inside:avoid;
+  }
+
+.print-comparative-wrap{
+  margin:8px 0 16px;
+  width:100%;
+  overflow:visible;
+}
+
+.print-comparative-table{
+  width:100%;
+  border-collapse:collapse;
+  background:#ffffff;
+  border-radius:12px;
+  overflow:hidden;
+  font-size:8.5pt;
+  line-height:1.25;
   page-break-inside:auto;
 }
 
-  tr{
+.print-comparative-table thead{
+  display:table-header-group;
+}
+
+.print-comparative-table tbody{
+  display:table-row-group;
+}
+
+.print-comparative-table tfoot{
+  display:table-row-group;
+}
+
+.print-comparative-table tr{
+  page-break-inside:avoid;
+  break-inside:avoid;
+}
+
+.print-comparative-table th,
+.print-comparative-table td{
+  padding:5px 6px;
+  border-bottom:1px solid #e8f2fb;
+  text-align:left;
+  vertical-align:top;
+}
+
+.print-comparative-table thead th{
+  background:#eef6ff;
+  color:#0b4576;
+  font-size:8.2pt;
+  font-weight:800;
+}
+
+.print-comparative-table tfoot td{
+  background:#f3f9ff;
+  color:#345;
+  font-size:7.6pt;
+}
+
+.print-comparative-table .right{
+  text-align:right !important;
+}
+
+.print-comparative-table tbody tr.best td{
+  background:#e8f5e9;
+}
+
+.print-comparative-table tbody tr.best td:first-child{
+  border-left:4px solid #166534;
+  font-weight:700;
+}
+
+.print-comparative-table .rowConsider td{
+  background:#fff4e5 !important;
+}
+
+.print-comparative-table .rowConsider td:first-child{
+  border-left:4px solid #f59e0b;
+}
+
+.print-comparative-table th:nth-child(9),
+.print-comparative-table td:nth-child(9){
+  font-weight:700;
+  color:#0f3d83;
+}
+
+.print-comparative-table .pill{
+  display:inline-block;
+  padding:2px 7px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:7.5pt;
+}
+
+.print-comparative-table .ok{
+  background:#e8f5e9;
+  color:#1b5e20;
+}
+
+.print-comparative-table .okr{
+  background:#ffcccc;
+  color:#660000;
+}
+
+.print-comparative-table .okb{
+  background:#0f3d83;
+  color:#ffffff;
+}
+
+.print-comparative-table .bad{
+  background:#ffebee;
+  color:#b71c1c;
+}
+
+.print-comparative-table .tagPref{
+  background:#e8f5e9;
+  color:#1b5e20;
+  border:1px solid #b7dfbf;
+  padding:2px 6px;
+  border-radius:999px;
+  font-size:7.3pt;
+  font-weight:700;
+}
+
+.print-comparative-table .tagAvoid{
+  background:#ffebee;
+  color:#b71c1c;
+  border:1px solid #f3c5c8;
+  padding:2px 6px;
+  border-radius:999px;
+  font-size:7.3pt;
+  font-weight:700;
+}
+
+.print-comparative-table .tagConsider{
+  background:#fff4e5;
+  color:#b45309;
+  border:1px solid #f59e0b;
+  padding:2px 6px;
+  border-radius:999px;
+  font-size:7.3pt;
+  font-weight:700;
+}
+
+.print-comparative-table .tagNeutral{
+  background:#eef6ff;
+  color:#0b4576;
+  border:1px solid #cfe3f6;
+  padding:2px 6px;
+  border-radius:999px;
+  font-size:7.3pt;
+  font-weight:700;
+}
+
+  .print-disclaimer{
+    margin-top:20px;
+    padding:10px 12px;
+    background:#fff5f5;
+    border:1px solid #fecaca;
+    border-left:5px solid #991b1b;
+    border-radius:8px;
+    color:#7f1d1d;
+    break-inside:avoid;
     page-break-inside:avoid;
-    page-break-after:auto;
   }
 
-  .clinicalRecommendation{
-    page-break-inside:avoid;
+  .print-disclaimer strong{
+    display:block;
+    margin-bottom:4px;
+    color:#991b1b;
   }
 
-  .sep{
-    margin:12px 0;
+  .print-disclaimer p{
+    margin:0;
   }
 
-  .print-footer{
-    margin-top:18px;
-    padding-top:10px;
-    border-top:1px solid #e5e7eb;
-    text-align:center;
+  @media print{
+  body{
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
   }
 
-  .print-footer img{
-    max-width:250px;
-    height:auto;
+  .print-header{
+    background:#0f3d83 !important;
+    background-color:#0f3d83 !important;
+    color:#ffffff !important;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
   }
 
-  @page{
-    size:A4;
-    margin:6mm 8mm 8mm 8mm;
+  .print-page-shell > thead{
+    display:table-header-group;
   }
+}
 </style>
 </head>
-
 <body>
-<div id="printRoot">
+  <table class="print-page-shell">
+    <thead>
+      <tr>
+        <td>
+          <div class="print-wrap">
+            <div class="print-header">
+              <div>
+                <img src="../img/topbar.png" class="print-logo" alt="IctusGPS">
+              </div>
+              <div class="print-center">
+                <img src="../iconos/anticoagulacion.png" class="print-page-icon" alt="">
+                <span>${escaparHTML(partes.nombrePagina)}</span>
+              </div>
+              <div class="print-date">Fecha: ${escaparHTML(partes.fecha)}</div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </thead>
 
-  <div class="print-main-header">
-  <img src="../img/uibanner.png" alt="Ictus GPS">
-</div>
+    <tbody>
+      <tr>
+        <td>
+          <div class="print-wrap">
+            <h1 class="print-scenario-title">${escaparHTML(partes.titulo)}</h1>
 
-<div class="print-header">
-  <div class="print-title">Informe — Anticoagulación en fibrilación auricular</div>
-  <div class="print-date">${fecha}</div>
-</div>
+            <main>
+              ${cuerpoHTML}
+            </main>
 
-  <div class="card-result">
-    ${resultHTML}
-  </div>
+            <div class="print-disclaimer">
+              <strong>⚠ Advertencia</strong>
+              <p>${escaparHTML(disclaimer)}</p>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</body></html>`;
 
-  <p style="margin-top:8px;font-size:.65rem;color:#64748b;">
-    Documento generado automáticamente. Interpretar junto con el juicio clínico y las guías locales.
-  </p>
+  const iframe = document.createElement('iframe');
+  iframe.style.position = 'fixed';
+  iframe.style.right = '0';
+  iframe.style.bottom = '0';
+  iframe.style.width = '0';
+  iframe.style.height = '0';
+  iframe.style.border = '0';
+  iframe.setAttribute('aria-hidden', 'true');
 
-  <div class="print-footer"></div>
+  document.body.appendChild(iframe);
 
-</div>
+  const doc = iframe.contentWindow.document;
+  doc.open();
+  doc.write(html);
+  doc.close();
 
-<script>
-  window.addEventListener('load', () => {
-    setTimeout(() => window.print(), 250);
-  });
-<\/script>
-</body>
-</html>
-`;
+  iframe.onload = () => {
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+    setTimeout(() => iframe.remove(), 1000);
+  };
+}
 
-  const w = window.open('', '_blank');
+/* Mantener nombre anterior por compatibilidad */
+function printReport(){
+  const texto = construirTextoCopiaRecomendaciones('', { incluirDisclaimer:false });
+  imprimirTextoRecomendacion(texto);
+}
 
-  if (!w){
-    showToast('El navegador bloqueó la impresión. Permite ventanas emergentes para imprimir el informe.','warn');
-    return;
-  }
-
-  w.document.open();
-  w.document.write(html);
-  w.document.close();
-}/* =========================================================
+/* =========================================================
    INFORME EN TEXTO (copiar)
 ========================================================= */
 async function copyReport(){
@@ -4713,7 +5103,7 @@ async function copyReport(){
     return;
   }
 
-  const finalText = getVisibleResultText();
+  const finalText = construirTextoCopiaRecomendaciones('', { incluirDisclaimer:true });
 
   try {
     if (navigator.clipboard && window.isSecureContext) {
@@ -4784,8 +5174,17 @@ closeFeedbackForm();
       __lastReport=null;
       window.scrollTo({top:0,behavior:'smooth'}); applyColumnStriping();
     });
-    document.getElementById('btnPrint').addEventListener('click', (e)=>{ e.preventDefault(); printReport(); });
-    document.getElementById('btnCopy').addEventListener('click', (e)=>{ e.preventDefault(); copyReport(); });
+document.getElementById('btnPrint').addEventListener('click', (e)=>{
+  e.preventDefault();
+  const texto = construirTextoCopiaRecomendaciones('', { incluirDisclaimer:false });
+  imprimirTextoRecomendacion(texto);
+});
+
+document.getElementById('btnCopy').addEventListener('click', (e)=>{
+  e.preventDefault();
+
+  copyReport();
+});
     document.getElementById('btnResetResults').addEventListener('click', (e) => {
   e.preventDefault();
   document.getElementById('btnReset').click();

@@ -327,6 +327,12 @@ select{
   margin:1px;
 }
 
+.glosario-grid.glossary-list {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
 @media(min-width:860px){
   .grid.cols-2{grid-template-columns:1fr 1fr;}
 }
@@ -431,7 +437,7 @@ select{
 }
 
 .btn-action{
-  flex:1 1 32%;
+  flex:1 1 160px;
   border:none;
   border-radius:10px;
   padding:12px;
@@ -458,6 +464,13 @@ select{
   color:#fff!important;
 }
 
+.btn-print{
+  background:#fff;
+  color:#0f3d83;
+  border:1px solid #2563eb;
+}
+.btn-print:hover{background:#eff6ff;}
+
 .btn-calc{
   background:#0f3d83;
   color:#fff;
@@ -467,15 +480,7 @@ select{
 
 /* OTROS */
 #resumenText{
-  white-space:pre-wrap;
-  font-size:13px;
-  color:#0f172a;
-  margin-top:12px;
-  border:1px dashed var(--borde);
-  border-radius:10px;
-  padding:10px 12px;
-  background:#f8fafc;
-  line-height:1.45;
+  display:none !important;
 }
 
 .disclaimer-red{
@@ -1318,11 +1323,12 @@ experiencia, de acuerdo con la evidencia reciente (CREST-2). Para obtener recome
         </div>
       </div>
       <!-- BOTONES -->
-      <div class="actions"> <button id="btnCalc" class="btn-action
-          btn-calc">Calcular</button> <button id="btnClear"
-          class="btn-action btn-clear">Borrar</button> <button
-          id="btnCopy" class="btn-action btn-copy">Copiar resumen</button>
-      </div>
+      <div class="actions">
+  <button id="btnCalc" class="btn-action btn-calc">Calcular</button>
+  <button id="btnPrint" class="btn-action btn-print">Imprimir</button>
+  <button id="btnCopy" class="btn-action btn-copy">Copiar</button>
+  <button id="btnClear" class="btn-action btn-clear">Borrar</button>
+</div>
 
 <div class="feedback-launch" id="feedbackLaunchBox">
   <p><b>¿Considera que la recomendación no se ajusta a la práctica clínica?</b><br>
@@ -1477,31 +1483,46 @@ experiencia, de acuerdo con la evidencia reciente (CREST-2). Para obtener recome
         </details>
         <details class="details-block">
   <summary class="details-summary">📚
-            Bibliografía</summary>
-          <div class="details-card">
+    Bibliografía</summary>
+  <div class="details-card">
     <div class="details-card-header"> 📘 Referencias bibliográficas </div>
-            <!-- Contenido -->
-            <div style="padding:16px 18px;">
-              <ol class="details-list-compact biblio-list">
-  <li>Kleindorfer DO, Towfighi A, Chaturvedi S, et al. 2021 Guideline for the Prevention of Stroke in Patients With Stroke and Transient Ischemic Attack: A Guideline From the American Heart Association/American Stroke Association. <i>Stroke</i>. 2021;52(7):e364-e467.</li>
 
-  <li>Naylor AR, Rantner B, Ancetti S, et al. Editor's Choice – European Society for Vascular Surgery (ESVS) 2023 Clinical Practice Guidelines on the Management of Atherosclerotic Carotid and Vertebral Artery Disease. <i>Eur J Vasc Endovasc Surg</i>. 2023;65(1):7-111.</li>
+    <!-- Contenido -->
+    <div style="padding:16px 18px;">
+      <ol class="details-list-compact biblio-list">
+        <li>Kleindorfer DO, Towfighi A, Chaturvedi S, Cockroft KM, Gutierrez J, Lombardi-Hill D, et al. 2021 Guideline for the Prevention of Stroke in Patients With Stroke and Transient Ischemic Attack: A Guideline From the American Heart Association/American Stroke Association. <i>Stroke</i>. 2021;52(7):e364-e467. doi:10.1161/STR.0000000000000375.</li>
 
-  <li>Bonati LH, Kakkos S, Berkefeld J, et al. European Stroke Organisation guideline on endarterectomy and stenting for carotid artery stenosis. <i>Eur Stroke J</i>. 2021;6(2):I-XLVII.</li>
+        <li>Bonati LH, Kakkos S, Berkefeld J, de Borst GJ, Bulbulia R, Halliday A, et al. European Stroke Organisation guideline on endarterectomy and stenting for carotid artery stenosis. <i>Eur Stroke J</i>. 2021;6(2):I-XLVII. doi:10.1177/23969873211012121.</li>
 
-  <li>Brott TG, Howard G, Lal BK, et al. Medical Management and Revascularization for Asymptomatic Carotid Stenosis. <i>N Engl J Med</i>. 2026;394:219-231.</li>
+        <li>Naylor R, Rantner B, Ancetti S, de Borst GJ, De Carlo M, Halliday A, et al. Editor's Choice - European Society for Vascular Surgery (ESVS) 2023 Clinical Practice Guidelines on the Management of Atherosclerotic Carotid and Vertebral Artery Disease. <i>Eur J Vasc Endovasc Surg</i>. 2023;65(1):7-111. doi:10.1016/j.ejvs.2022.04.011.</li>
 
-  <li>Howard VJ, Meschia JF, Lal BK, et al. Carotid revascularization and medical management for asymptomatic carotid stenosis: protocol of the CREST-2 clinical trials. <i>Int J Stroke</i>. 2017;12(7):770-778.</li>
+        <li>Rerkasem A, Orrapin S, Howard DPJ, Rerkasem K. Carotid endarterectomy for symptomatic carotid stenosis. <i>Cochrane Database Syst Rev</i>. 2020;9:CD001081. doi:10.1002/14651858.CD001081.pub4.</li>
 
-  <li>Rosenfield K, Matsumura JS, Chaturvedi S, et al.; ACT I Investigators. Randomized Trial of Stent versus Surgery for Asymptomatic Carotid Stenosis. <i>N Engl J Med</i>. 2016;374(11):1011-1020.</li>
+        <li>Carotid Stenosis Trialists' Collaboration. Long-term outcomes of stenting and endarterectomy for symptomatic carotid stenosis: a preplanned pooled analysis of individual patient data. <i>Lancet Neurol</i>. 2019;18(4):348-356. doi:10.1016/S1474-4422(19)30028-6.</li>
 
-  <li>Yadav JS, Wholey MH, Kuntz RE, et al.; Stenting and Angioplasty with Protection in Patients at High Risk for Endarterectomy Investigators. Protected carotid-artery stenting versus endarterectomy in high-risk patients. <i>N Engl J Med</i>. 2004;351(15):1493-1501.</li>
+        <li>Howard VJ, Meschia JF, Lal BK, Turan TN, Roubin GS, Brown RD Jr, et al. Carotid revascularization and medical management for asymptomatic carotid stenosis: Protocol of the CREST-2 clinical trials. <i>Int J Stroke</i>. 2017;12(7):770-778. doi:10.1177/1747493017706238.</li>
 
-  <li>van Dam-Nolen DHK, van Egmond NCM, Dilba K, et al. Carotid Plaque Characteristics Predict Recurrent Ischemic Stroke and TIA. <i>Stroke</i>. 2022;53(5):1637-1645.</li>
-</ol>
-            </div>
-          </div>
-        </details>
+        <li>Turan TN, Voeks JH, Chimowitz MI, Roldan A, Lematty T, Haley W, et al. Rationale, Design, and Implementation of Intensive Risk Factor Treatment in the CREST2 Trial. <i>Stroke</i>. 2020;51(10):2960-2971. doi:10.1161/STROKEAHA.120.030730.</li>
+
+        <li>Brott TG, Howard G, Lal BK, Meschia JF, Chaturvedi S, Roubin GS, et al. Medical Management and Revascularization for Asymptomatic Carotid Stenosis. <i>N Engl J Med</i>. 2026;394(3):219-231. doi:10.1056/NEJMoa2508800.</li>
+
+        <li>Hicks CW, Veith FJ, Perler BA. Carotid Revascularization and Medical Management for Asymptomatic Carotid Stenosis Trial-2 (CREST-2) and the Contemporary Management of Asymptomatic Carotid Stenosis. <i>Eur J Vasc Endovasc Surg</i>. 2026;71(4):531-533. doi:10.1016/j.ejvs.2026.02.033.</li>
+
+        <li>Halliday A, Bulbulia R, Bonati LH, Chester J, Cradduck-Bamford A, Peto R, et al. Second asymptomatic carotid surgery trial (ACST-2): a randomised comparison of carotid artery stenting versus carotid endarterectomy. <i>Lancet</i>. 2021;398(10305):1065-1073. doi:10.1016/S0140-6736(21)01910-3.</li>
+
+        <li>Reiff T, Eckstein HH, Mansmann U, Jansen O, Fraedrich G, Mudra H, et al. Carotid endarterectomy or stenting or best medical treatment alone for moderate-to-severe asymptomatic carotid artery stenosis: 5-year results of a multicentre, randomised controlled trial. <i>Lancet Neurol</i>. 2022;21(10):877-888. doi:10.1016/S1474-4422(22)00290-3.</li>
+
+        <li>ECST-2 Investigators. Optimised medical therapy alone versus optimised medical therapy plus revascularisation for asymptomatic or low-to-intermediate risk symptomatic carotid stenosis (ECST-2): 2-year interim results of a multicentre randomised trial. <i>Lancet Neurol</i>. 2025;24(5):389-399. doi:10.1016/S1474-4422(25)00107-3.</li>
+
+        <li>van den Berg JC. Evidence overview: anatomical criteria determining patients at high risk for carotid stenting. <i>J Cardiovasc Surg (Torino)</i>. 2017;58(2):161-169.</li>
+
+        <li>Di Donna A, Muto G, Giordano F, Muto M, Guarnieri G, Servillo G, et al. Diagnosis and management of tandem occlusion in acute ischemic stroke. <i>Eur J Radiol Open</i>. 2023;11:100513. doi:10.1016/j.ejro.2023.100513.</li>
+
+        <li>AbuRahma AF, Avgerinos ED, Chang RW, Darling RC 3rd, Duncan AA, Forbes TL, et al. Society for Vascular Surgery clinical practice guidelines for management of extracranial cerebrovascular disease. <i>J Vasc Surg</i>. 2022;75(1S):4S-22S. doi:10.1016/j.jvs.2021.04.073.</li>
+      </ol>
+    </div>
+  </div>
+</details>
       </div>
     </main>
     <script>
@@ -2196,29 +2217,9 @@ $('prefBox').classList.add(toneClass);
     tag.textContent = '💡 DAPT temporal (21–30 días) → monoterapia indefinida';
   }
 
-  // Resumen de texto para copiar
-  let resumen = `Estenosis carotídea - Recomendación\n`;
-  resumen += `=========================\n`;
-  resumen += `Clínica: ${clin}\n`;
-  resumen += `Grado (NASCET): ${grado}\n`;
-  resumen += `Placa/Imagen: ${riesgo.txt} (${riesgo.mini})\n`;
-  resumen += `Tándem: ${tandem.txt}${tandem.mini ? ' - ' + tandem.mini : ''}\n\n`;
-  resumen += `Tratamiento recomendado: ${rec}\n`;
-  resumen += `Nota: ${note}\n`;
-  resumen += `Técnica desaconsejada: ${contra}\n`;
-if (motivoContraCEA){
-  resumen += `Motivo de contraindicación de CEA: ${motivoContraCEA}\n`;
-}
-
-  if ($('prefVal').textContent !== '—'){
-resumen += `Estrategia/condiciones: ${$('prefVal').textContent}\n`;
-}
-  resumen += `Tratamiento asociado y postprocedimiento: ${post}\n`;
-  resumen += `\nAviso: herramienta orientativa; ajustar siempre a protocolos locales y consenso multidisciplinar (CMD).`;
-
+  // Resumen limpio homogéneo para Copiar/Imprimir
+  const resumen = construirTextoCopiaRecomendaciones();
   $('resumenText').textContent = resumen;
-
-$('resumenText').textContent = resumen;
 
 __lastFeedbackReport = {
   createdAt: new Date().toISOString(),
@@ -2304,21 +2305,508 @@ window.scrollTo({
 });
 }
 
-function copiar(){
-  const t = $('resumenText').textContent.trim();
-  if (!t) return;
-  if (!navigator.clipboard || !navigator.clipboard.writeText) return;
+function obtenerFechaCopia(){
+  return new Date().toLocaleDateString('es-ES', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  });
+}
 
-  navigator.clipboard.writeText(t).then(() => {
+function obtenerDisclaimerIctusGPS(){
+  return 'Esta herramienta es un apoyo a la decisión clínica; no sustituye el juicio profesional, la valoración individual del paciente ni los protocolos/guías locales actualizados. Ante discrepancias, prevalecen los protocolos vigentes y el criterio del equipo responsable.';
+}
+function obtenerTituloPaginaCopia(){
+  const visible = document.querySelector('header .title')?.textContent || '';
+  return limpiarTextoParaCopia(visible || document.title || 'Estenosis carotídea');
+}
+
+function escaparRegExp(texto){
+  return String(texto ?? '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function limpiarTextoParaCopia(texto){
+  return String(texto ?? '')
+    .replace(/\r\n/g, '\n')
+    .replace(/[•▪●·]/g, '-')
+    .replace(/→|➜|➡|⇒/g, '->')
+    .replace(/≤/g, '<=')
+    .replace(/≥/g, '>=')
+    .replace(/[“”]/g, '"')
+    .replace(/[‘’]/g, "'")
+    .replace(/[—–]/g, '-')
+    .replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, '')
+    .replace(/[^\S\n]+/g, ' ')
+    .replace(/[ \t]+$/gm, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
+function obtenerTituloEscenarioCopia(){
+  const clin = $('valClin')?.textContent?.trim() || getClinica();
+  const grado = $('valGrado')?.textContent?.trim() || getGrado();
+
+  const partes = [
+    clin && clin !== '-' ? clin : '',
+    grado && grado !== '-' ? `NASCET ${grado}` : ''
+  ].filter(Boolean);
+
+  if (partes.length){
+    return limpiarTextoParaCopia(partes.join(' | ')).toUpperCase();
+  }
+
+  const rec = $('recVal')?.textContent?.trim();
+  if (rec && rec !== '-'){
+    return limpiarTextoParaCopia(rec).toUpperCase();
+  }
+
+  return obtenerTituloPaginaCopia().toUpperCase();
+}
+
+function quitarTituloInicialDuplicado(texto, titulo){
+  let t = String(texto ?? '').trim();
+
+  const cabecerasRedundantes = [
+    'Recomendación final',
+    'Resultado',
+    'Conducta',
+    'Pausa perioperatoria',
+    'Pausa preoperatoria'
+  ];
+
+  cabecerasRedundantes.forEach(cabecera => {
+    t = t.replace(new RegExp('^\\s*' + escaparRegExp(cabecera) + '\\s*:?\\s*\\n*', 'i'), '');
+  });
+
+  const tituloLimpio = limpiarTextoParaCopia(titulo);
+  if (tituloLimpio){
+    t = t.replace(new RegExp('^\\s*' + escaparRegExp(tituloLimpio) + '\\s*\\n+', 'i'), '');
+  }
+
+  return t.trim();
+}
+
+function construirTextoCopiaRecomendaciones(textoRecomendaciones = '', opciones = {}){
+  const incluirDisclaimer = opciones.incluirDisclaimer !== false;
+  
+  const pagina = obtenerTituloPaginaCopia();
+  const titulo = obtenerTituloEscenarioCopia();
+
+  const lineas = [
+    `IctusGPS | ${pagina} | Fecha: ${obtenerFechaCopia()}`,
+    '____________________________________________________________',
+    '',
+    titulo,
+    ''
+  ];
+
+  const agregarSeccion = (nombre, items) => {
+    const limpios = items
+      .map(item => limpiarTextoParaCopia(item))
+      .filter(item => item && item !== '-' && item !== '—');
+
+    if (!limpios.length) return;
+
+    lineas.push(limpiarTextoParaCopia(nombre));
+    limpios.forEach(item => lineas.push(`- ${item}`));
+    lineas.push('');
+  };
+
+  if (textoRecomendaciones){
+    const cuerpo = quitarTituloInicialDuplicado(
+      limpiarTextoParaCopia(textoRecomendaciones),
+      titulo
+    );
+
+    cuerpo.split('\n').forEach(linea => {
+      const limpia = limpiarTextoParaCopia(linea);
+      if (!limpia) {
+        lineas.push('');
+      } else if (/^- /.test(limpia)) {
+        lineas.push(limpia);
+      } else {
+        lineas.push(limpia);
+      }
+    });
+
+    return limpiarTextoParaCopia(lineas.join('\n'));
+  }
+
+  const rec = $('recVal')?.textContent || '';
+  const note = $('recNote')?.textContent || '';
+  const contra = $('contraVal')?.textContent || '';
+  const pref = $('prefVal')?.textContent || '';
+  const post = $('postTx')?.textContent || '';
+
+  agregarSeccion('Recomendación', [
+    rec ? `Tratamiento recomendado: ${rec}` : '',
+    note ? `Nota: ${note}` : ''
+  ]);
+
+  agregarSeccion('Técnica y estrategia', [
+    contra ? `Técnica desaconsejada: ${contra}` : '',
+    pref && pref !== '—' ? `Estrategia/condiciones: ${pref}` : ''
+  ]);
+
+  agregarSeccion('Tratamiento asociado y postprocedimiento', [
+    post
+  ]);
+
+  if (incluirDisclaimer){
+    agregarSeccion('Advertencia', [
+      obtenerDisclaimerIctusGPS()
+    ]);
+  }
+
+  return limpiarTextoParaCopia(lineas.join('\n'));
+}
+
+function copiarTextoFallback(texto, alCopiar){
+  const ta = document.createElement('textarea');
+  ta.value = texto;
+  ta.setAttribute('readonly', '');
+  ta.style.position = 'fixed';
+  ta.style.left = '-9999px';
+  document.body.appendChild(ta);
+  ta.select();
+
+  try {
+    document.execCommand('copy');
+    if (typeof alCopiar === 'function') alCopiar();
+  } finally {
+    document.body.removeChild(ta);
+  }
+}
+
+function copiar(){
+  const t = construirTextoCopiaRecomendaciones();
+  if (!t) return;
+
+  const confirmarCopiado = () => {
     const b = $('btnCopy');
     if (!b) return;
     b.classList.add('copiado');
     b.textContent = 'Copiado';
     setTimeout(() => {
       b.classList.remove('copiado');
-      b.textContent = 'Copiar resumen';
+      b.textContent = 'Copiar';
     }, 1200);
+  };
+
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t)
+      .then(confirmarCopiado)
+      .catch(() => copiarTextoFallback(t, confirmarCopiado));
+  } else {
+    copiarTextoFallback(t, confirmarCopiado);
+  }
+}
+
+function escaparHTML(texto){
+  if (typeof escAttr === 'function') return escAttr(texto);
+  return String(texto ?? '')
+    .replace(/&/g,'&amp;')
+    .replace(/"/g,'&quot;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;');
+}
+
+function resolverRutaRecurso(ruta){
+  const a = document.createElement('a');
+  a.href = ruta;
+  return a.href;
+}
+
+function obtenerLogoIctusGPSImpresion(){
+  const logo = document.querySelector('.safe-logo')?.getAttribute('src');
+  return resolverRutaRecurso(logo || '../img/topbar.png');
+}
+
+function obtenerIconoPaginaImpresion(){
+  const icono = document.querySelector('header .title img')?.getAttribute('src');
+  return resolverRutaRecurso(icono || '../iconos/estenosisico.png');
+}
+
+function extraerPartesTextoCopia(texto){
+  const limpio = limpiarTextoParaCopia(texto);
+  const lineas = limpio.split('\n');
+
+  const cabecera = lineas[0] || '';
+  const fechaMatch = cabecera.match(/Fecha:\s*(.+)$/i);
+  const fecha = fechaMatch ? fechaMatch[1].trim() : obtenerFechaCopia();
+
+  const idxSeparador = lineas.findIndex(l => /^_{10,}$/.test(l.trim()));
+  const resto = idxSeparador >= 0 ? lineas.slice(idxSeparador + 1) : lineas.slice(1);
+
+  while (resto.length && !resto[0].trim()) resto.shift();
+
+  const titulo = resto.shift() || obtenerTituloEscenarioCopia();
+
+  while (resto.length && !resto[0].trim()) resto.shift();
+
+  return {
+    cabecera,
+    fecha,
+    titulo: limpiarTextoParaCopia(titulo).toUpperCase(),
+    cuerpo: resto.join('\n').trim()
+  };
+}
+
+function convertirCuerpoRecomendacionAHTML(texto){
+  const lineas = limpiarTextoParaCopia(texto).split('\n');
+  let html = '';
+  let ulAbierta = false;
+
+  const cerrarLista = () => {
+    if (ulAbierta){
+      html += '</ul>';
+      ulAbierta = false;
+    }
+  };
+
+  lineas.forEach(lineaOriginal => {
+    const linea = limpiarTextoParaCopia(lineaOriginal);
+    if (!linea){
+      cerrarLista();
+      return;
+    }
+
+    if (/^- /.test(linea)){
+      if (!ulAbierta){
+        html += '<ul>';
+        ulAbierta = true;
+      }
+      html += `<li>${escaparHTML(linea.replace(/^- /, ''))}</li>`;
+    } else {
+      cerrarLista();
+      html += `<h3>${escaparHTML(linea.toUpperCase())}</h3>`;
+    }
   });
+
+  cerrarLista();
+
+  return html || '<p>No hay recomendación disponible.</p>';
+}
+
+function imprimirTextoRecomendacion(texto){
+  const textoLimpio = limpiarTextoParaCopia(
+  texto || construirTextoCopiaRecomendaciones('', { incluirDisclaimer: false })
+);
+  if (!textoLimpio) return;
+
+  const partes = extraerPartesTextoCopia(textoLimpio);
+  const tituloPagina = obtenerTituloPaginaCopia();
+  const logo = obtenerLogoIctusGPSImpresion();
+  const icono = obtenerIconoPaginaImpresion();
+
+const disclaimer = obtenerDisclaimerIctusGPS();
+
+  const iframe = document.createElement('iframe');
+  iframe.style.position = 'fixed';
+  iframe.style.right = '0';
+  iframe.style.bottom = '0';
+  iframe.style.width = '0';
+  iframe.style.height = '0';
+  iframe.style.border = '0';
+  iframe.setAttribute('aria-hidden', 'true');
+
+  document.body.appendChild(iframe);
+
+  const doc = iframe.contentWindow.document;
+
+  doc.open();
+  doc.write(`<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>${escaparHTML(tituloPagina)} - IctusGPS</title>
+  <style>
+    @page{
+      size:A4;
+      margin:14mm;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      color:#0e1a33;
+      font-family:Arial, Helvetica, sans-serif;
+      font-size:11.5pt;
+      line-height:1.45;
+      background:#ffffff;
+    }
+
+    .print-wrap{
+      max-width:180mm;
+      margin:0 auto;
+    }
+
+.print-header{
+  display:grid;
+  grid-template-columns:1fr 1.5fr 1fr;
+  align-items:center;
+  gap:12px;
+  background:#0f3d83 !important;
+  background-color:#0f3d83 !important;
+  color:#ffffff !important;
+  border-radius:12px;
+  padding:12px 14px;
+  margin-bottom:18px;
+  break-inside:avoid;
+  page-break-inside:avoid;
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact;
+}
+
+.print-logo{
+  height:42px;
+  width:auto;
+  max-width:120px;
+  object-fit:contain;
+  display:block;
+  background:transparent !important;
+  border:0 !important;
+  border-radius:0 !important;
+  padding:0 !important;
+  box-shadow:none !important;
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact;
+}
+
+    .print-center{
+      text-align:center;
+      font-weight:800;
+      font-size:14pt;
+      letter-spacing:.2px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+    }
+
+    .print-center img{
+      width:30px;
+      height:30px;
+      object-fit:contain;
+    }
+
+    .print-date{
+      text-align:right;
+      font-weight:700;
+      font-size:10.5pt;
+      white-space:nowrap;
+    }
+
+    .scenario-title{
+      margin:0 0 16px;
+      padding:0 0 8px;
+      color:#0f3d83;
+      border-bottom:2px solid #0f3d83;
+      font-size:15pt;
+      font-weight:900;
+      text-transform:uppercase;
+      break-after:avoid;
+      page-break-after:avoid;
+    }
+
+    .body h3{
+      margin:16px 0 6px;
+      color:#0f3d83;
+      font-size:11.5pt;
+      font-weight:900;
+      text-transform:uppercase;
+      break-after:avoid;
+      page-break-after:avoid;
+    }
+
+    .body ul{
+      margin:0 0 10px 18px;
+      padding:0;
+    }
+
+    .body li{
+      margin:4px 0;
+      padding-left:2px;
+    }
+
+    .disclaimer{
+      margin-top:22px;
+      padding:12px 14px;
+      background:#fff1f2;
+      border:1px solid #fecaca;
+      border-left:5px solid #991b1b;
+      border-radius:10px;
+      color:#7f1d1d;
+      font-size:10.5pt;
+      line-height:1.4;
+      break-inside:avoid;
+      page-break-inside:avoid;
+    }
+
+    .disclaimer b{
+      color:#991b1b;
+    }
+
+@media print{
+  body{
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+
+  .print-header{
+    background:#0f3d83 !important;
+    background-color:#0f3d83 !important;
+    color:#ffffff !important;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+
+  .print-header,
+  .disclaimer{
+    break-inside:avoid;
+    page-break-inside:avoid;
+  }
+}
+  </style>
+</head>
+<body>
+  <div class="print-wrap">
+    <div class="print-header">
+      <div>
+        <img class="print-logo" src="${escaparHTML(logo)}" alt="IctusGPS">
+      </div>
+      <div class="print-center">
+        <img src="${escaparHTML(icono)}" alt="">
+        <span>${escaparHTML(tituloPagina)}</span>
+      </div>
+      <div class="print-date">Fecha: ${escaparHTML(partes.fecha)}</div>
+    </div>
+
+    <h1 class="scenario-title">${escaparHTML(partes.titulo)}</h1>
+
+    <div class="body">
+      ${convertirCuerpoRecomendacionAHTML(partes.cuerpo)}
+    </div>
+
+    <div class="disclaimer">
+      <b>⚠ Advertencia.</b> ${escaparHTML(disclaimer)}
+    </div>
+  </div>
+</body>
+</html>`);
+  doc.close();
+
+  setTimeout(() => {
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+
+    setTimeout(() => {
+      if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+    }, 1000);
+  }, 250);
 }
 
 const FEEDBACK_EMAIL = 'administrador@ictusgps.com';
@@ -3322,7 +3810,14 @@ $('btnCalc').addEventListener('click', calcular);
 $('btnClear').addEventListener('click', borrar);
 const btnCopyEl = $('btnCopy');
 if (btnCopyEl) btnCopyEl.addEventListener('click', copiar);
-
+const btnPrintEl = $('btnPrint');
+if (btnPrintEl) {
+  btnPrintEl.addEventListener('click', () => {
+    imprimirTextoRecomendacion(
+      construirTextoCopiaRecomendaciones('', { incluirDisclaimer: false })
+    );
+  });
+}
 renderDetallesArticuloEstenosis();
 activarAcordeonDetallesArticulo();
 

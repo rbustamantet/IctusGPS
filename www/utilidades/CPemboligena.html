@@ -208,6 +208,17 @@ header{
   color:#fff;
 }
 
+.boton-print{
+  background:#fff;
+  color:#0f3d83;
+  border:1px solid #2563eb
+}
+
+.boton-print:hover{
+  background:#0f3d83;
+  color:#fff;
+}
+
 .boton-copy{
   background:#fff;
   color:#0f3d83;
@@ -1261,8 +1272,7 @@ footer img{max-width:320px;height:auto;opacity:.95}
           <option value="tako">Miocardiopatía de Tako-Tsubo</option>
           <option value="iam">Infarto agudo de miocardio</option>
           <option value="mixoma">Mixoma auricular</option>
-          <option value="valvular">Prótesis valvulares / Cardiopatía
-            valvular</option>
+          <option value="valvular">Prótesis valvulares / Cardiopatía valvular</option>
           <option value="endocarditis">Endocarditis infecciosa</option>
           <option value="sicksinus">Síndrome del seno enfermo</option>
           <option value="auricula">Aurícula izquierda / orejuela</option>
@@ -1276,10 +1286,11 @@ footer img{max-width:320px;height:auto;opacity:.95}
       </div>
 
       <!-- BOTONES DE ACCION -->
-<div class="actions"> <button onclick="borrarFormulario()"
-    class="boton-opcion boton-clear">Borrar</button> <button
-    onclick="copiarResumen()" class="boton-opcion boton-copy">Copiar
-    recomendación</button> </div>
+<div class="actions">
+  <button type="button" class="boton-opcion boton-print">Imprimir</button>
+  <button type="button" class="boton-opcion boton-copy">Copiar recomendación</button>
+  <button type="button" class="boton-opcion boton-clear">Borrar</button>
+</div>
 
 <div class="feedback-launch" id="feedbackLaunchBox">
   <p><b>¿Considera que la recomendación no se ajusta a la práctica clínica?</b><br>
@@ -2289,37 +2300,514 @@ if (copyBtn) {
 }
 
 
-function copiarResumen() {
-  // Obtener el texto plano del panel
-  const texto = document.getElementById("patologia-resultado").innerText.trim();
-  if (!texto || texto.includes("Seleccione un escenario clínico")) {
-    return; // Nada que copiar
+function obtenerDisclaimerIctusGPS(){
+  return 'Esta herramienta es un apoyo a la decisión clínica; no sustituye el juicio profesional, la valoración individual del paciente ni los protocolos/guías locales actualizados. Ante discrepancias, prevalecen los protocolos vigentes y el criterio del equipo responsable.';
+}
+
+function limpiarTextoParaCopia(texto){
+  return String(texto || '')
+    .replace(/\u00a0/g, ' ')
+    .replace(/[≤]/g, '<=')
+    .replace(/[≥]/g, '>=')
+    .replace(/[→⇒➜➔]/g, '->')
+    .replace(/[“”]/g, '"')
+    .replace(/[‘’]/g, "'")
+    .replace(/[–—]/g, '-')
+    .replace(/[•·]/g, '-')
+    .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, '')
+    .replace(/[^\S\r\n]+/g, ' ')
+    .replace(/[ \t]+\n/g, '\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
+function obtenerNombrePaginaCopia(){
+  const tituloVisible = document.querySelector('header .title')?.textContent || '';
+  return limpiarTextoParaCopia(tituloVisible || document.title || 'Otras cardiopatías embolígenas');
+}
+
+function obtenerTituloEscenarioCopia(){
+  const select = document.getElementById('patologia');
+  const opcion = select?.selectedOptions?.[0]?.textContent?.trim();
+
+  if (select?.value && opcion) {
+    return limpiarTextoParaCopia(opcion).toUpperCase();
   }
 
-if (!navigator.clipboard || !navigator.clipboard.writeText) {
-  showToast("La función de copia no está disponible en este dispositivo.", "error");
-  return;
+  const tituloResultado = document.querySelector('#patologia-resultado b')?.textContent?.trim();
+  if (tituloResultado) {
+    return limpiarTextoParaCopia(tituloResultado).toUpperCase();
+  }
+
+  return obtenerNombrePaginaCopia().toUpperCase();
 }
-navigator.clipboard.writeText(texto)
-  .then(() => {
-    const btn = document.querySelector(".boton-copy");
-    if (!btn) return;
 
-    clearTimeout(btn.copyTimer);
+function normalizarParaComparar(texto){
+  return String(texto || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\w\s]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase();
+}
 
-    const oldText = btn.textContent;
+function quitarTituloInicialDuplicado(texto, titulo){
+  const lineas = String(texto || '').split('\n');
+  const tituloNorm = normalizarParaComparar(titulo);
 
-    btn.classList.add("copiado");
-    btn.textContent = "Copiado";
+  while (lineas.length && !lineas[0].trim()) lineas.shift();
 
-    btn.copyTimer = setTimeout(() => {
-  btn.classList.remove("copiado");
-  btn.textContent = oldText;
-}, 1500);
-  })
-  .catch(() => {
-    showToast("No se pudo copiar la recomendación.", "error");
+  if (!lineas.length) return '';
+
+  const primeraNorm = normalizarParaComparar(lineas[0]);
+
+  const cabecerasRedundantes = [
+    'recomendacion final',
+    'resultado',
+    'conducta',
+    'recomendacion'
+  ];
+
+  if (primeraNorm === tituloNorm || cabecerasRedundantes.includes(primeraNorm)) {
+    lineas.shift();
+  }
+
+  return lineas.join('\n').trim();
+}
+
+function escaparRegExp(texto){
+  return String(texto || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function obtenerTextoResultadoLimpio(){
+  const cont = document.getElementById('patologia-resultado');
+  if (!cont) return '';
+
+  const clone = cont.cloneNode(true);
+  clone.querySelectorAll('.note, script, style').forEach(el => el.remove());
+
+  // Convierte <br> en saltos reales antes de extraer texto
+  clone.querySelectorAll('br').forEach(br => br.replaceWith('\n'));
+
+  let texto = clone.innerText || clone.textContent || '';
+
+  return limpiarTextoParaCopia(texto)
+    .replace(/^Recomendación\s*/i, '')
+    .trim();
+}
+
+function quitarTituloPatologiaDeDescripcion(texto){
+  const select = document.getElementById('patologia');
+  const tituloVisible = select?.selectedOptions?.[0]?.textContent?.trim() || '';
+  const tituloResultado = document.querySelector('#patologia-resultado b')?.textContent?.trim() || '';
+  const titulo = limpiarTextoParaCopia(tituloVisible || tituloResultado);
+
+  if (!titulo) return limpiarTextoParaCopia(texto);
+
+  const re = new RegExp('^\\s*' + escaparRegExp(titulo) + '\\s*[-:]+\\s*', 'i');
+
+  return limpiarTextoParaCopia(texto).replace(re, '').trim();
+}
+
+function segmentarResultadoCardiopatiasParaCopia(texto){
+  let t = limpiarTextoParaCopia(texto);
+
+  if (!t || t.includes('Seleccione un escenario clínico')) return [];
+
+  // Elimina cabecera visible del panel si aparece al inicio
+  t = t.replace(/^Recomendación\s*/i, '').trim();
+
+  const marcadorFactores = /Factores de riesgo presentes\s*:/i;
+  const marcadorRecomendacion = /Recomendación orientativa\s*:/i;
+
+  const idxFactores = t.search(marcadorFactores);
+  const idxRecomendacion = t.search(marcadorRecomendacion);
+
+  let descripcion = '';
+  let factores = '';
+  let recomendacion = '';
+
+  if (idxFactores >= 0) {
+    descripcion = t.slice(0, idxFactores).trim();
+
+    const matchFactores = t.match(marcadorFactores);
+    const inicioFactores = idxFactores + matchFactores[0].length;
+
+    if (idxRecomendacion >= 0) {
+      factores = t.slice(inicioFactores, idxRecomendacion).trim();
+
+      const matchReco = t.match(marcadorRecomendacion);
+      const inicioReco = idxRecomendacion + matchReco[0].length;
+      recomendacion = t.slice(inicioReco).trim();
+    } else {
+      factores = t.slice(inicioFactores).trim();
+    }
+  } else if (idxRecomendacion >= 0) {
+    descripcion = t.slice(0, idxRecomendacion).trim();
+
+    const matchReco = t.match(marcadorRecomendacion);
+    const inicioReco = idxRecomendacion + matchReco[0].length;
+    recomendacion = t.slice(inicioReco).trim();
+  } else {
+    descripcion = t;
+  }
+
+  descripcion = quitarTituloPatologiaDeDescripcion(descripcion);
+
+  const cuerpo = [];
+
+  if (descripcion) {
+    cuerpo.push('Resumen');
+    cuerpo.push('- ' + descripcion.replace(/^-+\s*/, ''));
+  }
+
+  if (factores) {
+    cuerpo.push('Factores de riesgo presentes');
+    cuerpo.push('- ' + factores.replace(/^-+\s*/, ''));
+  }
+
+  if (recomendacion) {
+    cuerpo.push('Recomendación orientativa');
+    cuerpo.push('- ' + recomendacion.replace(/^-+\s*/, ''));
+  }
+
+  return cuerpo;
+}
+
+function construirTextoCopiaRecomendaciones(texto = '', opciones = {}){
+  const incluirDisclaimer = opciones.incluirDisclaimer !== false;
+  const fecha = new Date().toLocaleDateString('es-ES');
+  const nombrePagina = obtenerNombrePaginaCopia();
+  const tituloEscenario = obtenerTituloEscenarioCopia();
+
+  const fuente = texto && String(texto).trim()
+    ? texto
+    : obtenerTextoResultadoLimpio();
+
+  const cuerpo = segmentarResultadoCardiopatiasParaCopia(fuente);
+
+  if (!cuerpo.length) return '';
+
+  const salida = [
+    `IctusGPS | ${nombrePagina} | Fecha: ${fecha}`,
+    '____________________________________________________________',
+    '',
+    tituloEscenario,
+    ...cuerpo
+  ];
+
+  if (incluirDisclaimer) {
+    salida.push(
+      '',
+      'Advertencia',
+      '- ' + obtenerDisclaimerIctusGPS()
+    );
+  }
+
+  return salida.join('\n').trim();
+}
+function copiarResumen(){
+  const finalText = construirTextoCopiaRecomendaciones('', { incluirDisclaimer:true });
+
+  if (!finalText) {
+    showToast("Seleccione una patología antes de copiar.", "warn");
+    return;
+  }
+
+  if (!navigator.clipboard || !navigator.clipboard.writeText) {
+    showToast("La función de copia no está disponible en este dispositivo.", "error");
+    return;
+  }
+
+  navigator.clipboard.writeText(finalText)
+    .then(() => {
+      const btn = document.querySelector(".boton-copy");
+      if (!btn) return;
+
+      clearTimeout(btn.copyTimer);
+
+      const oldText = btn.textContent;
+      btn.classList.add("copiado");
+      btn.textContent = "Copiado";
+
+      btn.copyTimer = setTimeout(() => {
+        btn.classList.remove("copiado");
+        btn.textContent = oldText;
+      }, 1500);
+    })
+    .catch(() => {
+      showToast("No se pudo copiar la recomendación.", "error");
+    });
+}
+
+function escaparHTML(texto){
+  return String(texto || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function extraerPartesTextoCopia(texto){
+  const lineas = String(texto || '')
+    .split('\n')
+    .map(linea => linea.trim())
+    .filter(Boolean);
+
+  const sepIndex = lineas.findIndex(linea => /^_{5,}$/.test(linea));
+  const titulo = sepIndex >= 0 ? lineas[sepIndex + 1] : obtenerTituloEscenarioCopia();
+
+  let cuerpo = sepIndex >= 0
+    ? lineas.slice(sepIndex + 2)
+    : lineas.slice(1);
+
+  const advertenciaIndex = cuerpo.findIndex(linea =>
+    normalizarParaComparar(linea) === 'advertencia'
+  );
+
+  if (advertenciaIndex >= 0) {
+    cuerpo = cuerpo.slice(0, advertenciaIndex);
+  }
+
+  return {
+    titulo: limpiarTextoParaCopia(titulo || obtenerTituloEscenarioCopia()),
+    cuerpo: cuerpo.join('\n').trim()
+  };
+}
+
+function convertirCuerpoRecomendacionAHTML(texto){
+  const lineas = String(texto || '')
+    .split('\n')
+    .map(linea => linea.trim())
+    .filter(Boolean);
+
+  let html = '';
+  let listaAbierta = false;
+
+  const cerrarLista = () => {
+    if (listaAbierta) {
+      html += '</ul>';
+      listaAbierta = false;
+    }
+  };
+
+  lineas.forEach(linea => {
+    if (/^-\s+/.test(linea)) {
+      if (!listaAbierta) {
+        html += '<ul class="print-list">';
+        listaAbierta = true;
+      }
+      html += '<li>' + escaparHTML(linea.replace(/^-\s+/, '')) + '</li>';
+      return;
+    }
+
+    cerrarLista();
+    html += '<h2 class="print-section-title">' + escaparHTML(linea) + '</h2>';
   });
+
+  cerrarLista();
+  return html;
+}
+
+function absolutizarSrc(src){
+  try {
+    return new URL(src, window.location.href).href;
+  } catch(e) {
+    return src;
+  }
+}
+
+function imprimirTextoRecomendacion(texto){
+  const textoFinal = texto || construirTextoCopiaRecomendaciones('', { incluirDisclaimer:false });
+
+  if (!textoFinal) {
+    showToast("Seleccione una patología antes de imprimir.", "warn");
+    return;
+  }
+
+  const partes = extraerPartesTextoCopia(textoFinal);
+  const fecha = new Date().toLocaleDateString('es-ES');
+  const nombrePagina = obtenerNombrePaginaCopia();
+  const logoSrc = absolutizarSrc(document.querySelector('.safe-logo')?.getAttribute('src') || '../img/topbar.png');
+  const iconoSrc = absolutizarSrc(document.querySelector('header .title img')?.getAttribute('src') || '../iconos/cardiopatiasico.png');
+
+  const htmlPrint = `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>${escaparHTML(nombrePagina)}</title>
+<style>
+  @page{ margin:14mm; }
+
+  body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    color:#111827;
+    font-size:12pt;
+    line-height:1.45;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+
+  .print-header{
+    display:grid;
+    grid-template-columns:1fr 1.4fr 1fr;
+    align-items:center;
+    gap:12px;
+    background:#0f3d83 !important;
+    background-color:#0f3d83 !important;
+    color:#ffffff !important;
+    border-radius:10px;
+    padding:12px 14px;
+    margin-bottom:18px;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+
+  .print-logo{
+    height:42px;
+    width:auto;
+    max-width:120px;
+    object-fit:contain;
+    display:block;
+    background:transparent;
+    border:0 !important;
+    border-radius:0 !important;
+    padding:0 !important;
+    box-shadow:none !important;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+
+  .print-center{
+    text-align:center;
+    font-weight:700;
+    font-size:13pt;
+    color:#ffffff !important;
+  }
+
+  .print-center img{
+    height:28px;
+    width:28px;
+    vertical-align:middle;
+    object-fit:contain;
+    margin-right:6px;
+  }
+
+  .print-date{
+    text-align:right;
+    font-size:10.5pt;
+    color:#ffffff !important;
+  }
+
+  .print-scenario-title{
+    color:#0f3d83;
+    font-size:15pt;
+    font-weight:800;
+    text-transform:uppercase;
+    border-bottom:2px solid #0f3d83;
+    padding-bottom:6px;
+    margin:4px 0 16px;
+  }
+
+  .print-section-title{
+    color:#0f3d83;
+    font-size:12pt;
+    font-weight:800;
+    text-transform:uppercase;
+    margin:14px 0 6px;
+  }
+
+  .print-list{
+    margin:0 0 10px 18px;
+    padding:0;
+  }
+
+  .print-list li{
+    margin:5px 0;
+    padding-left:2px;
+  }
+
+  .print-disclaimer{
+    margin-top:22px;
+    padding:12px 14px;
+    background:#fff5f5;
+    border:1px solid #f3b4b4;
+    border-left:6px solid #b91c1c;
+    border-radius:8px;
+    color:#7f1d1d;
+    break-inside:avoid;
+    page-break-inside:avoid;
+  }
+
+  .print-disclaimer strong{
+    color:#7f1d1d;
+  }
+
+  @media print{
+    body{
+      -webkit-print-color-adjust:exact;
+      print-color-adjust:exact;
+    }
+
+    .print-header{
+      background:#0f3d83 !important;
+      background-color:#0f3d83 !important;
+      color:#ffffff !important;
+      -webkit-print-color-adjust:exact;
+      print-color-adjust:exact;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="print-header">
+    <div><img class="print-logo" src="${escaparHTML(logoSrc)}" alt="IctusGPS"></div>
+    <div class="print-center"><img src="${escaparHTML(iconoSrc)}" alt="">${escaparHTML(nombrePagina)}</div>
+    <div class="print-date">Fecha: ${escaparHTML(fecha)}</div>
+  </div>
+
+  <div class="print-scenario-title">${escaparHTML(partes.titulo)}</div>
+
+  <main>
+    ${convertirCuerpoRecomendacionAHTML(partes.cuerpo)}
+  </main>
+
+  <section class="print-disclaimer">
+    <strong>⚠ Advertencia.</strong>
+    ${escaparHTML(obtenerDisclaimerIctusGPS())}
+  </section>
+</body>
+</html>`;
+
+  const iframe = document.createElement('iframe');
+  iframe.style.position = 'fixed';
+  iframe.style.right = '0';
+  iframe.style.bottom = '0';
+  iframe.style.width = '0';
+  iframe.style.height = '0';
+  iframe.style.border = '0';
+  iframe.setAttribute('aria-hidden', 'true');
+
+  document.body.appendChild(iframe);
+
+  const doc = iframe.contentWindow.document;
+  doc.open();
+  doc.write(htmlPrint);
+  doc.close();
+
+  iframe.onload = () => {
+    setTimeout(() => {
+      iframe.contentWindow.focus();
+      iframe.contentWindow.print();
+
+      setTimeout(() => {
+        iframe.remove();
+      }, 1000);
+    }, 150);
+  };
 }
 
 const FEEDBACK_EMAIL = 'administrador@ictusgps.com';
@@ -2948,11 +3436,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-  const clearBtn = document.querySelector('.boton-clear');
-  const copyBtn = document.querySelector('.boton-copy');
+const printBtn = document.querySelector('.boton-print');
+const copyBtn = document.querySelector('.boton-copy');
+const clearBtn = document.querySelector('.boton-clear');
 
-  clearBtn.addEventListener('click', borrarResumen);
-  copyBtn.addEventListener('click', copiarResumen);
+if (printBtn) {
+  printBtn.addEventListener('click', () => {
+    const texto = construirTextoCopiaRecomendaciones('', { incluirDisclaimer:false });
+    imprimirTextoRecomendacion(texto);
+  });
+}
+
+if (copyBtn) copyBtn.addEventListener('click', copiarResumen);
+if (clearBtn) clearBtn.addEventListener('click', borrarFormulario);
 
 });
 

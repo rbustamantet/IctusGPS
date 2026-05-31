@@ -456,6 +456,17 @@ footer img{max-width:320px;height:auto;opacity:.95}
   color:#fff;
 }
 
+.boton-print{
+  background:#fff;
+  color:#0f3d83;
+  border:1px solid #2563eb
+}
+
+.boton-print:hover{
+  background:#0f3d83;
+  color:#fff;
+}
+
 .boton-copy{
   background:#fff;
   color:#0f3d83;
@@ -970,8 +981,9 @@ footer img{max-width:320px;height:auto;opacity:.95}
       </div>
 
       <div class="actions">
-  <button class="boton-opcion boton-clear" title="Borrar contenido">Borrar</button>
+  <button class="boton-opcion boton-print" title="Imprimir recomendación">Imprimir</button>
   <button class="boton-opcion boton-copy" title="Copiar resumen">Copiar recomendación</button>
+  <button class="boton-opcion boton-clear" title="Borrar contenido">Borrar</button>
 </div>
 
 <div class="feedback-launch" id="feedbackLaunchBox">
@@ -2259,11 +2271,19 @@ document.querySelectorAll('.details-block').forEach((detail) => {
   const escenarioSelect = document.getElementById('escenario');
   escenarioSelect.addEventListener('change', mostrarTratamientoEscenario);
 
-  const clearBtn = document.querySelector('.boton-clear');
-  const copyBtn = document.querySelector('.boton-copy');
+const printBtn = document.querySelector('.boton-print');
+const copyBtn = document.querySelector('.boton-copy');
+const clearBtn = document.querySelector('.boton-clear');
 
-  clearBtn.addEventListener('click', borrarResumen);
-  copyBtn.addEventListener('click', copiarResumen);
+if (printBtn) {
+  printBtn.addEventListener('click', () => {
+    const texto = construirTextoCopiaRecomendaciones('', { incluirDisclaimer:false });
+    imprimirTextoRecomendacion(texto);
+  });
+}
+
+if (copyBtn) copyBtn.addEventListener('click', copiarResumen);
+if (clearBtn) clearBtn.addEventListener('click', borrarResumen);
 
 const btnOpenFeedback = document.getElementById('btnOpenFeedback');
 const btnCloseFeedback = document.getElementById('btnCloseFeedback');
@@ -2394,37 +2414,170 @@ function showToast(message, type = 'info') {
   }, 3000);
 }
 
-function copiarResumen(){
-  const cont = document.getElementById('escenario-texto');
-  const clone = cont.cloneNode(true);
-  clone.querySelectorAll('.info-icon').forEach(el => el.remove());
+function obtenerDisclaimerIctusGPS(){
+  return 'Esta herramienta es un apoyo a la decisión clínica; no sustituye el juicio profesional, la valoración individual del paciente ni los protocolos/guías locales actualizados. Ante discrepancias, prevalecen los protocolos vigentes y el criterio del equipo responsable.';
+}
 
-  const baseText = clone.innerText.trim();
+function limpiarTextoParaCopia(texto){
+  return String(texto || '')
+    .replace(/\u00a0/g, ' ')
+    .replace(/[≤]/g, '<=')
+    .replace(/[≥]/g, '>=')
+    .replace(/[→⇒➜➔]/g, '->')
+    .replace(/[“”]/g, '"')
+    .replace(/[‘’]/g, "'")
+    .replace(/[–—]/g, '-')
+    .replace(/[•·]/g, '-')
+    .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, '')
+    .replace(/[^\S\r\n]+/g, ' ')
+    .replace(/[ \t]+\n/g, '\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
 
-  if(!baseText || baseText.includes('Seleccione un escenario clínico')){
-    return;
+function obtenerNombrePaginaCopia(){
+  const tituloVisible = document.querySelector('header .title')?.textContent || '';
+  const tituloDocumento = document.title || 'IctusGPS';
+  return limpiarTextoParaCopia(tituloVisible || tituloDocumento);
+}
+
+function obtenerTituloEscenarioCopia(){
+  const select = document.getElementById('escenario');
+  const opcionSeleccionada = select?.selectedOptions?.[0]?.textContent?.trim();
+
+  if (select?.value && opcionSeleccionada) {
+    return limpiarTextoParaCopia(opcionSeleccionada).toUpperCase();
   }
 
-  const iconos = cont.querySelectorAll('.info-icon');
-  let notasIncluidas = [];
+  const primerTituloResultado = document.querySelector('#escenario-texto b')?.textContent?.trim();
+  if (primerTituloResultado) {
+    return limpiarTextoParaCopia(primerTituloResultado).toUpperCase();
+  }
 
-  iconos.forEach(ic => {
-    const key = ic.dataset.info;
-    if(notas[key] && !notasIncluidas.includes(key)) {
-      notasIncluidas.push(key);
-    }
-  });
+  return obtenerNombrePaginaCopia().toUpperCase();
+}
 
-  let finalText = baseText;
+function normalizarParaComparar(texto){
+  return String(texto || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\w\s]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase();
+}
 
-  if(notasIncluidas.length > 0){
-    finalText += '\n\nNotas clínicas:\n';
-    notasIncluidas.forEach(key => {
-      const div = document.createElement('div');
-      div.innerHTML = notas[key];
-      const notaPlano = div.innerText.trim();
-      finalText += '\n• ' + notaPlano.replace(/\n/g, '\n  ');
-    });
+function quitarTituloInicialDuplicado(texto, titulo){
+  const lineas = String(texto || '').split('\n');
+  const tituloNorm = normalizarParaComparar(titulo);
+
+  while (lineas.length && !lineas[0].trim()) lineas.shift();
+
+  if (!lineas.length) return '';
+
+  const primeraNorm = normalizarParaComparar(lineas[0]);
+
+  const cabecerasRedundantes = [
+    'recomendacion final',
+    'resultado',
+    'conducta'
+  ];
+
+  if (
+    primeraNorm === tituloNorm ||
+    cabecerasRedundantes.includes(primeraNorm)
+  ) {
+    lineas.shift();
+  }
+
+  return lineas.join('\n').trim();
+}
+
+function obtenerLineasRecomendacionDesdeDOM(){
+  const cont = document.getElementById('escenario-texto');
+  if (!cont) return [];
+
+  const clone = cont.cloneNode(true);
+
+  clone.querySelectorAll('.info-icon, .note, script, style').forEach(el => el.remove());
+
+  const textoVisible = limpiarTextoParaCopia(clone.innerText || clone.textContent || '');
+
+  if (!textoVisible || textoVisible.includes('Seleccione un escenario clínico')) {
+    return [];
+  }
+
+  const items = Array.from(clone.querySelectorAll('li'))
+    .map(li => limpiarTextoParaCopia(li.innerText || li.textContent || ''))
+    .filter(Boolean);
+
+  if (items.length) {
+    return [
+      'Recomendaciones',
+      ...items.map(item => '- ' + item.replace(/^-+\s*/, ''))
+    ];
+  }
+
+  const titulo = obtenerTituloEscenarioCopia();
+  const cuerpo = quitarTituloInicialDuplicado(textoVisible, titulo)
+    .split('\n')
+    .map(linea => limpiarTextoParaCopia(linea))
+    .filter(Boolean)
+    .filter(linea => !/^resultado operativo\b/i.test(linea))
+    .filter(linea => !/^ver desarrollo/i.test(linea));
+
+  return cuerpo.map(linea => linea.startsWith('- ') ? linea : '- ' + linea);
+}
+
+function construirTextoCopiaRecomendaciones(texto = '', opciones = {}){
+  const incluirDisclaimer = opciones.incluirDisclaimer !== false;
+  const fecha = new Date().toLocaleDateString('es-ES');
+  const nombrePagina = obtenerNombrePaginaCopia();
+  const tituloEscenario = obtenerTituloEscenarioCopia();
+
+  let lineasCuerpo = [];
+
+  if (texto && String(texto).trim()) {
+    const cuerpoLimpio = quitarTituloInicialDuplicado(
+      limpiarTextoParaCopia(texto),
+      tituloEscenario
+    );
+
+    lineasCuerpo = cuerpoLimpio
+      .split('\n')
+      .map(linea => limpiarTextoParaCopia(linea))
+      .filter(Boolean);
+  } else {
+    lineasCuerpo = obtenerLineasRecomendacionDesdeDOM();
+  }
+
+  if (!lineasCuerpo.length) return '';
+
+  const salida = [
+    `IctusGPS | ${nombrePagina} | Fecha: ${fecha}`,
+    '____________________________________________________________',
+    '',
+    tituloEscenario,
+    ...lineasCuerpo
+  ];
+
+  if (incluirDisclaimer) {
+    salida.push(
+      '',
+      'Advertencia',
+      '- ' + obtenerDisclaimerIctusGPS()
+    );
+  }
+
+  return salida.join('\n').trim();
+}
+
+function copiarResumen(){
+  const finalText = construirTextoCopiaRecomendaciones('', { incluirDisclaimer: true });
+
+  if (!finalText) {
+    showToast('Seleccione un escenario clínico antes de copiar.', 'warn');
+    return;
   }
 
   navigator.clipboard.writeText(finalText)
@@ -2442,6 +2595,267 @@ function copiarResumen(){
     .catch(() => {
       showToast('No se pudo copiar la recomendación.', 'warn');
     });
+}
+
+function escaparHTML(texto){
+  return String(texto || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function extraerPartesTextoCopia(texto){
+  const lineas = String(texto || '')
+    .split('\n')
+    .map(linea => linea.trim())
+    .filter(Boolean);
+
+  const sepIndex = lineas.findIndex(linea => /^_{5,}$/.test(linea));
+  const titulo = sepIndex >= 0 ? lineas[sepIndex + 1] : obtenerTituloEscenarioCopia();
+
+  let cuerpo = sepIndex >= 0
+    ? lineas.slice(sepIndex + 2)
+    : lineas.slice(1);
+
+  const advertenciaIndex = cuerpo.findIndex(linea =>
+    normalizarParaComparar(linea) === 'advertencia'
+  );
+
+  if (advertenciaIndex >= 0) {
+    cuerpo = cuerpo.slice(0, advertenciaIndex);
+  }
+
+  return {
+    titulo: limpiarTextoParaCopia(titulo || obtenerTituloEscenarioCopia()),
+    cuerpo: cuerpo.join('\n').trim()
+  };
+}
+
+function convertirCuerpoRecomendacionAHTML(texto){
+  const lineas = String(texto || '')
+    .split('\n')
+    .map(linea => linea.trim())
+    .filter(Boolean);
+
+  let html = '';
+  let listaAbierta = false;
+
+  const cerrarLista = () => {
+    if (listaAbierta) {
+      html += '</ul>';
+      listaAbierta = false;
+    }
+  };
+
+  lineas.forEach(linea => {
+    if (/^-\s+/.test(linea)) {
+      if (!listaAbierta) {
+        html += '<ul class="print-list">';
+        listaAbierta = true;
+      }
+      html += '<li>' + escaparHTML(linea.replace(/^-\s+/, '')) + '</li>';
+      return;
+    }
+
+    cerrarLista();
+    html += '<h2 class="print-section-title">' + escaparHTML(linea) + '</h2>';
+  });
+
+  cerrarLista();
+  return html;
+}
+
+function imprimirTextoRecomendacion(texto){
+  const textoFinal = texto || construirTextoCopiaRecomendaciones('', { incluirDisclaimer: false });
+
+  if (!textoFinal) {
+    showToast('Seleccione un escenario clínico antes de imprimir.', 'warn');
+    return;
+  }
+
+  const partes = extraerPartesTextoCopia(textoFinal);
+  const fecha = new Date().toLocaleDateString('es-ES');
+  const nombrePagina = obtenerNombrePaginaCopia();
+  const logoSrc = document.querySelector('.safe-logo')?.getAttribute('src') || '../img/topbar.png';
+  const iconoSrc = document.querySelector('header .title img')?.getAttribute('src') || '../iconos/aterotromboticoico.png';
+
+  const htmlPrint = `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>${escaparHTML(nombrePagina)}</title>
+<style>
+  @page{ margin:14mm; }
+
+  body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    color:#111827;
+    font-size:12pt;
+    line-height:1.45;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+
+  .print-header{
+    display:grid;
+    grid-template-columns:1fr 1.4fr 1fr;
+    align-items:center;
+    gap:12px;
+    background:#0f3d83 !important;
+    background-color:#0f3d83 !important;
+    color:#ffffff !important;
+    border-radius:10px;
+    padding:12px 14px;
+    margin-bottom:18px;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+
+  .print-logo{
+    height:42px;
+    width:auto;
+    max-width:120px;
+    object-fit:contain;
+    display:block;
+    background:transparent;
+    border:0 !important;
+    border-radius:0 !important;
+    padding:0 !important;
+    box-shadow:none !important;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+
+  .print-center{
+    text-align:center;
+    font-weight:700;
+    font-size:13pt;
+    color:#ffffff !important;
+  }
+
+  .print-center img{
+    height:28px;
+    width:28px;
+    vertical-align:middle;
+    object-fit:contain;
+    margin-right:6px;
+  }
+
+  .print-date{
+    text-align:right;
+    font-size:10.5pt;
+    color:#ffffff !important;
+  }
+
+  .print-scenario-title{
+    color:#0f3d83;
+    font-size:15pt;
+    font-weight:800;
+    text-transform:uppercase;
+    border-bottom:2px solid #0f3d83;
+    padding-bottom:6px;
+    margin:4px 0 16px;
+  }
+
+  .print-section-title{
+    color:#0f3d83;
+    font-size:12pt;
+    font-weight:800;
+    text-transform:uppercase;
+    margin:14px 0 6px;
+  }
+
+  .print-list{
+    margin:0 0 10px 18px;
+    padding:0;
+  }
+
+  .print-list li{
+    margin:5px 0;
+    padding-left:2px;
+  }
+
+  .print-disclaimer{
+    margin-top:22px;
+    padding:12px 14px;
+    background:#fff5f5;
+    border:1px solid #f3b4b4;
+    border-left:6px solid #b91c1c;
+    border-radius:8px;
+    color:#7f1d1d;
+    break-inside:avoid;
+    page-break-inside:avoid;
+  }
+
+  .print-disclaimer strong{
+    color:#7f1d1d;
+  }
+
+  @media print{
+    body{
+      -webkit-print-color-adjust:exact;
+      print-color-adjust:exact;
+    }
+
+    .print-header{
+      background:#0f3d83 !important;
+      background-color:#0f3d83 !important;
+      color:#ffffff !important;
+      -webkit-print-color-adjust:exact;
+      print-color-adjust:exact;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="print-header">
+    <div><img class="print-logo" src="${escaparHTML(logoSrc)}" alt="IctusGPS"></div>
+    <div class="print-center"><img src="${escaparHTML(iconoSrc)}" alt="">${escaparHTML(nombrePagina)}</div>
+    <div class="print-date">Fecha: ${escaparHTML(fecha)}</div>
+  </div>
+
+  <div class="print-scenario-title">${escaparHTML(partes.titulo)}</div>
+
+  <main>
+    ${convertirCuerpoRecomendacionAHTML(partes.cuerpo)}
+  </main>
+
+  <section class="print-disclaimer">
+    <strong>⚠ Advertencia.</strong>
+    ${escaparHTML(obtenerDisclaimerIctusGPS())}
+  </section>
+</body>
+</html>`;
+
+  const iframe = document.createElement('iframe');
+  iframe.style.position = 'fixed';
+  iframe.style.right = '0';
+  iframe.style.bottom = '0';
+  iframe.style.width = '0';
+  iframe.style.height = '0';
+  iframe.style.border = '0';
+  iframe.setAttribute('aria-hidden', 'true');
+
+  document.body.appendChild(iframe);
+
+  const doc = iframe.contentWindow.document;
+  doc.open();
+  doc.write(htmlPrint);
+  doc.close();
+
+  iframe.onload = () => {
+    setTimeout(() => {
+      iframe.contentWindow.focus();
+      iframe.contentWindow.print();
+
+      setTimeout(() => {
+        iframe.remove();
+      }, 1000);
+    }, 150);
+  };
 }
 
 const FEEDBACK_EMAIL = 'administrador@ictusgps.com';

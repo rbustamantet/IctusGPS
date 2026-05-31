@@ -480,12 +480,11 @@ body {
             <div id="corrBox" class="corr"></div>
           </div>
           <!-- Botones Copiar / Imprimir -->
-          <div class="btnbar"> <button type="button" id="btnClear"
-              class="btn">Borrar</button> <button type="button"
-              id="btnCopy" class="btn" disabled="disabled">Copiar
-              informe</button> <button type="button" id="btnPrint"
-              class="btn primary" disabled="disabled">Imprimir</button>
-          </div>
+          <div class="btnbar">
+  <button type="button" id="btnPrint" class="btn primary" disabled="disabled">Imprimir</button>
+  <button type="button" id="btnCopy" class="btn" disabled="disabled">Copiar informe</button>
+  <button type="button" id="btnClear" class="btn">Borrar</button>
+</div>
         </div>
       </div>
       <!-- Disclaimer final con fondo rojo tenue -->
@@ -720,171 +719,607 @@ scrollToCard();
   document.addEventListener('DOMContentLoaded', ()=>{ selectMode('ado'); clearAndCalc(); });
 
   /* ===== Informe: copiar (texto plano) ===== */
-async function copyReport(){
-  if(!__lastReport) return;
-  const r = __lastReport;
-  const fecha = new Date(r.ts).toLocaleString('es-ES');
+function obtenerDisclaimerIctusGPS(){
+  return 'Esta herramienta es un apoyo a la decisión clínica; no sustituye el juicio profesional, la valoración individual del paciente ni los protocolos/guías locales actualizados. Ante discrepancias, prevalecen los protocolos vigentes y el criterio del equipo responsable.';
+}
 
-  /* ---- Seccion DATOS ---- */
-  const datos = [];
-  const tipoTxt = 
+function limpiarTextoParaCopia(texto){
+  return String(texto || '')
+    .replace(/\u00a0/g, ' ')
+    .replace(/[≤]/g, '<=')
+    .replace(/[≥]/g, '>=')
+    .replace(/[→⇒➜➔]/g, '->')
+    .replace(/[“”]/g, '"')
+    .replace(/[‘’]/g, "'")
+    .replace(/[–—]/g, '-')
+    .replace(/[•·]/g, '-')
+    .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, '')
+    .replace(/[^\S\r\n]+/g, ' ')
+    .replace(/[ \t]+\n/g, '\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
+function obtenerNombrePaginaCopia(){
+  const tituloVisible = document.querySelector('header .title')?.textContent || '';
+  return limpiarTextoParaCopia(tituloVisible || document.title || 'Insulinoterapia');
+}
+
+function obtenerTituloEscenarioCopia(){
+  if (!__lastReport) return obtenerNombrePaginaCopia().toUpperCase();
+
+  const r = __lastReport;
+  const tipoTxt =
     r.modo === 'ado'    ? 'ADO' :
     r.modo === 'ins'    ? 'Insulina' :
     r.modo === 'insado' ? 'Insulina + ADO' :
-                          'Sin DM (G>150)';
+                          'Sin DM conocida';
 
-  datos.push("• Tipo de paciente: " + tipoTxt);
-  datos.push("• Estado: " + (r.come ? "Come" : "No come"));
-  if(r.peso != null) datos.push("• Peso: " + r.peso + " kg");
-  if(r.dti  != null) datos.push("• DTI: " + r.dti + " UI/dia");
-  if(r.glucTxt)       datos.push("• Glucemia al ingreso: " + r.glucTxt);
-  datos.push("• Protocolo de correccion: " + r.letra);
+  return limpiarTextoParaCopia(`${tipoTxt} - ${r.come ? 'come' : 'no come'} - protocolo ${r.letra}`).toUpperCase();
+}
 
-  /* ---- Seccion DOSIS ---- */
-  const dosis = [
-    "• Basal: " + r.basal + " UI",
-    r.come ? "• Desayuno: " + r.des + " UI" : "",
-    r.come ? "• Comida: "   + r.com + " UI" : "",
-    r.come ? "• Cena: "     + r.cen + " UI" : "",
-    "• DTD: " + r.dtd + " UI" + (r.come ? "  |  Bolus total: " + r.bolus + " UI" : "")
-  ].filter(Boolean);
+function normalizarParaComparar(texto){
+  return String(texto || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\w\s]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase();
+}
 
-  /* ---- Recomendaciones ---- */
-  const recs = (r.bullets && r.bullets.length)
-    ? ["Recomendaciones:", ...r.bullets.map(x => "• " + x)]
-    : [];
+function quitarTituloInicialDuplicado(texto, titulo){
+  const lineas = String(texto || '').split('\n');
+  const tituloNorm = normalizarParaComparar(titulo);
 
-  /* ---- Tabla ASCII de pauta de correccion ---- */
-  const rangos = [
-    "<80 mg/dL",
-    "80-129",
-    "130-149",
-    "150-199",
-    "200-249",
-    "250-299",
-    "300-349",
-    ">349"
+  while (lineas.length && !lineas[0].trim()) lineas.shift();
+
+  if (!lineas.length) return '';
+
+  const primeraNorm = normalizarParaComparar(lineas[0]);
+
+  const cabecerasRedundantes = [
+    'informe dosificacion de insulina',
+    'resultado',
+    'conducta',
+    'recomendacion final'
   ];
 
+  if (primeraNorm === tituloNorm || cabecerasRedundantes.includes(primeraNorm)) {
+    lineas.shift();
+  }
+
+  return lineas.join('\n').trim();
+}
+
+function formatearValorCorreccion(v){
+  if (v === 0) return '0';
+  return v > 0 ? `+${v}` : `${v}`;
+}
+
+function construirCuerpoInformeInsulina(){
+  if (!__lastReport) return '';
+
+  const r = __lastReport;
+
+  const tipoTxt =
+    r.modo === 'ado'    ? 'ADO' :
+    r.modo === 'ins'    ? 'Insulina' :
+    r.modo === 'insado' ? 'Insulina + ADO' :
+                          'Sin DM conocida (Glu >150)';
+
+  const lineas = [];
+
+  lineas.push('Datos');
+  lineas.push(`- Tipo de paciente: ${tipoTxt}`);
+  lineas.push(`- Estado: ${r.come ? 'Come' : 'No come'}`);
+  if (r.peso != null) lineas.push(`- Peso: ${r.peso} kg`);
+  if (r.dti  != null) lineas.push(`- DTI: ${r.dti} UI/día`);
+  if (r.glucTxt) lineas.push(`- Glucemia al ingreso: ${r.glucTxt}`);
+  lineas.push(`- Protocolo de corrección: ${r.letra}`);
+
+  lineas.push('');
+  lineas.push('Dosis');
+  lineas.push(`- Basal: ${r.basal} UI`);
+  if (r.come) {
+    lineas.push(`- Desayuno: ${r.des} UI`);
+    lineas.push(`- Comida: ${r.com} UI`);
+    lineas.push(`- Cena: ${r.cen} UI`);
+    lineas.push(`- Bolus total: ${r.bolus} UI`);
+  }
+  lineas.push(`- DTD: ${r.dtd} UI`);
+
+  if (r.bullets && r.bullets.length) {
+    lineas.push('');
+    lineas.push('Recomendaciones');
+    r.bullets.forEach(x => {
+      lineas.push('- ' + limpiarTextoParaCopia(x).replace(/^-+\s*/, ''));
+    });
+  }
+
   const corrVals = CORR[r.letra] || [];
-
-  const tabla = [];
-  tabla.push("PAUTA DE CORRECCION - Protocolo " + r.letra);
-  tabla.push("Glucemia capilar   | Unidades a anadir");
-  tabla.push("------------------------------------------");
-
-  rangos.forEach((rg, i) => {
-    const v = corrVals[i];
-    const txt = v === 0 ? "0" : (v > 0 ? "+" + v : "" + v);
-    tabla.push(rg.padEnd(18) + " | " + txt);
+  lineas.push('');
+  lineas.push(`Pauta de corrección - Protocolo ${r.letra}`);
+  RANGOS.forEach((rg, i) => {
+    lineas.push(`- ${rg}: ${formatearValorCorreccion(corrVals[i])} UI`);
   });
 
-  /* ---- Construccion del texto final ---- */
-  const txt =
-"INFORME - DOSIFICACION DE INSULINA\n" +
-"Generado: " + fecha + "\n\n" +
+  return lineas.join('\n').trim();
+}
 
-"DATOS\n" +
-datos.join("\n") + "\n\n" +
+function construirTextoCopiaRecomendaciones(texto = '', opciones = {}){
+  const incluirDisclaimer = opciones.incluirDisclaimer !== false;
 
-"DOSIS\n" +
-dosis.join("\n") + "\n\n" +
+  const cuerpo = texto && String(texto).trim()
+    ? quitarTituloInicialDuplicado(limpiarTextoParaCopia(texto), obtenerTituloEscenarioCopia())
+    : construirCuerpoInformeInsulina();
 
-(recs.length ? recs.join("\n") + "\n\n" : "") +
+  if (!cuerpo) return '';
 
-tabla.join("\n") + "\n";
+  const fecha = new Date().toLocaleDateString('es-ES');
+  const nombrePagina = obtenerNombrePaginaCopia();
+  const tituloEscenario = obtenerTituloEscenarioCopia();
 
-  /* ---- Copia al portapapeles ---- */
+  const salida = [
+    `IctusGPS | ${nombrePagina} | Fecha: ${fecha}`,
+    '____________________________________________________________',
+    '',
+    tituloEscenario,
+    cuerpo
+  ];
+
+  if (incluirDisclaimer) {
+    salida.push(
+      '',
+      'Advertencia',
+      '- ' + obtenerDisclaimerIctusGPS()
+    );
+  }
+
+  return salida.join('\n').trim();
+}
+
+async function copyReport(){
+  const txt = construirTextoCopiaRecomendaciones('', { incluirDisclaimer:true });
+
+  if (!txt) return;
+
   try{
     await navigator.clipboard.writeText(txt);
     const prev = btnCopy.textContent;
-    btnCopy.textContent = "Copiado ✓";
-    setTimeout(()=>{ btnCopy.textContent = prev; }, 1600);
+    btnCopy.textContent = "Copiado";
+    setTimeout(() => { btnCopy.textContent = prev; }, 1600);
   }catch(e){
     alert("No se pudo copiar al portapapeles.");
   }
 }
 
-  /* ===== Informe: imprimir (HTML limpio UTF-8) ===== */
-  function printReport(){
-    if(!__lastReport) return;
-    const r=__lastReport;
-    const fecha=new Date(r.ts).toLocaleString('es-ES');
+function escaparHTML(texto){
+  return String(texto || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
 
-    const filasCorr = (CORR[r.letra]||[]).map((v,i)=>{
-      const txt=(v===0?'0':(v>0?`+${v}`:`${v}`));
-      return `<tr><td>${RANGOS[i]}</td><td>${txt}</td></tr>`;
-    }).join('');
+function extraerPartesTextoCopia(texto){
+  const lineas = String(texto || '')
+    .split('\n')
+    .map(linea => linea.trim())
+    .filter(Boolean);
 
-    const tipoTxt = r.modo==='ado'?'ADO':(r.modo==='ins'?'Insulina':(r.modo==='insado'?'Insulina + ADO':'Sin DM (G>150)'));
+  const sepIndex = lineas.findIndex(linea => /^_{5,}$/.test(linea));
+  const titulo = sepIndex >= 0 ? lineas[sepIndex + 1] : obtenerTituloEscenarioCopia();
 
-    const html = `<!doctype html>
-<html><head><meta charset="utf-8">
-<title>Informe - Dosificación de Insulina</title>
-<style>
-  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;margin:24px;color:#111}
-  h1{font-size:1.2rem;margin:0 0 6px}
-  h2{font-size:1.05rem;margin:18px 0 6px}
-  h3{font-size:1rem;margin:14px 0 4px}
-  .card{padding:12px 14px;border:1px solid #e3eef9;border-radius:10px;background:#f8fbff;margin-top:8px}
-  .muted{color:#666}
-  .grid{display:flex;gap:16px;flex-wrap:wrap}
-  table{border-collapse:collapse}
-  td,th{padding:6px 10px;border:1px solid #e5e7eb}
-  th{background:#eef6ff}
-  ul{margin:6px 0 0 18px}
-  @media print {.no-print{display:none}}
-</style></head>
-<body>
-  <h1>Informe — Dosificación de Insulina</h1>
-  <div class="muted">Generado: ${fecha}</div>
+  let cuerpo = sepIndex >= 0
+    ? lineas.slice(sepIndex + 2)
+    : lineas.slice(1);
 
-  <div class="card">
-    <h2>Datos</h2>
-    <table>
-      <tr><td><b>Tipo de paciente</b></td><td>${tipoTxt}</td></tr>
-      <tr><td><b>Estado</b></td><td>${r.come?'Come':'No come'}</td></tr>
-      ${r.peso!=null?`<tr><td><b>Peso</b></td><td>${r.peso} kg</td></tr>`:''}
-      ${r.dti!=null?`<tr><td><b>DTI</b></td><td>${r.dti} UI/día</td></tr>`:''}
-      ${r.glucTxt?`<tr><td><b>Glucemia al ingreso</b></td><td>${r.glucTxt}</td></tr>`:''}
-      <tr><td><b>Protocolo</b></td><td>${r.letra}</td></tr>
-    </table>
-  </div>
+  const advertenciaIndex = cuerpo.findIndex(linea =>
+    normalizarParaComparar(linea) === 'advertencia'
+  );
 
-  <div class="card">
-    <h2>Dosis</h2>
-    <table>
-      <tr><td><b>Basal</b></td><td>${r.basal} UI</td></tr>
-      ${r.come?`<tr><td><b>Desayuno</b></td><td>${r.des} UI</td></tr>`:''}
-      ${r.come?`<tr><td><b>Comida</b></td><td>${r.com} UI</td></tr>`:''}
-      ${r.come?`<tr><td><b>Cena</b></td><td>${r.cen} UI</td></tr>`:''}
-      <tr><td><b>DTD</b></td><td>${r.dtd} UI${r.come?`  |  Bolus total: ${r.bolus} UI`:''}</td></tr>
-    </table>
-  </div>
-
-  ${(r.bullets&&r.bullets.length)?`
-  <div class="card">
-    <h2>Recomendaciones</h2>
-    <ul>${r.bullets.map(x=>`<li>${x}</li>`).join('')}</ul>
-  </div>`:''}
-
-  <div class="card">
-    <h2>Pauta de corrección — ${r.letra}</h2>
-    <table>
-      <thead><tr><th>Glucemia capilar</th><th>Unidades a añadir</th></tr></thead>
-      <tbody>${filasCorr}</tbody>
-    </table>
-  </div>
-
-  <button class="no-print" onclick="window.print()">Imprimir</button>
-  <script>window.addEventListener('load',()=>{setTimeout(()=>{window.print();},150);});<\/script>
-</body></html>`;
-
-    const w = window.open('', '_blank');
-    if(!w){ alert('Permite las ventanas emergentes para imprimir.'); return; }
-    w.document.open(); w.document.write(html); w.document.close();
+  if (advertenciaIndex >= 0) {
+    cuerpo = cuerpo.slice(0, advertenciaIndex);
   }
 
+  return {
+    titulo: limpiarTextoParaCopia(titulo || obtenerTituloEscenarioCopia()).replace(/\s+/g, ' '),
+    cuerpo: cuerpo.join('\n').trim()
+  };
+}
+
+function claseValorCorreccion(valor){
+  const v = String(valor || '').trim();
+
+  if (/^-/.test(v)) return 'correction-negative';
+  if (/^\+/.test(v)) return 'correction-positive';
+
+  return 'correction-neutral';
+}
+
+function convertirCuerpoRecomendacionAHTML(texto){
+  const lineas = String(texto || '')
+    .split('\n')
+    .map(linea => linea.trim())
+    .filter(Boolean);
+
+  let html = '';
+  let listaAbierta = false;
+
+  const cerrarLista = () => {
+    if (listaAbierta) {
+      html += '</ul>';
+      listaAbierta = false;
+    }
+  };
+
+  for (let i = 0; i < lineas.length; i++) {
+    const linea = lineas[i];
+
+    if (/^Pauta de corrección\s*-\s*Protocolo/i.test(linea)) {
+  cerrarLista();
+
+  html += '<section class="print-correction-section">';
+  html += '<h2 class="print-section-title print-correction-title">' + escaparHTML(linea) + '</h2>';
+  html += '<div class="print-correction-table-wrap">';
+  html += '<table class="print-correction-table">';
+  html += '<thead><tr><th>Glucemia capilar</th><th>Unidades a añadir</th></tr></thead>';
+  html += '<tbody>';
+
+  while (lineas[i + 1] && /^-\s+/.test(lineas[i + 1])) {
+    i++;
+
+    const fila = lineas[i].replace(/^-\s+/, '');
+    const partes = fila.split(':');
+    const rango = partes.shift()?.trim() || '';
+    const valor = partes.join(':').trim();
+
+    html += '<tr>';
+    html += '<td>' + escaparHTML(rango) + '</td>';
+    html += '<td class="' + claseValorCorreccion(valor) + '">' + escaparHTML(valor) + '</td>';
+    html += '</tr>';
+  }
+
+  html += '</tbody></table></div>';
+  html += '</section>';
+  continue;
+}
+
+    if (/^-\s+/.test(linea)) {
+      if (!listaAbierta) {
+        html += '<ul class="print-list">';
+        listaAbierta = true;
+      }
+
+      html += '<li>' + escaparHTML(linea.replace(/^-\s+/, '')) + '</li>';
+      continue;
+    }
+
+    cerrarLista();
+    html += '<h2 class="print-section-title">' + escaparHTML(linea) + '</h2>';
+  }
+
+  cerrarLista();
+  return html;
+}
+function absolutizarSrc(src){
+  try {
+    return new URL(src, window.location.href).href;
+  } catch(e) {
+    return src;
+  }
+}
+
+function imprimirTextoRecomendacion(texto){
+  const textoFinal = texto || construirTextoCopiaRecomendaciones('', { incluirDisclaimer:false });
+
+  if (!textoFinal) return;
+
+  const partes = extraerPartesTextoCopia(textoFinal);
+  const fecha = new Date().toLocaleDateString('es-ES');
+  const nombrePagina = obtenerNombrePaginaCopia();
+  const logoSrc = absolutizarSrc(document.querySelector('.safe-logo')?.getAttribute('src') || '../img/topbar.png');
+  const iconoSrc = absolutizarSrc(document.querySelector('header .title img')?.getAttribute('src') || '../iconos/insulinoterapiaico.png');
+
+  const htmlPrint = `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>${escaparHTML(nombrePagina)}</title>
+<style>
+  @page{ margin:14mm; }
+
+  body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    color:#111827;
+    font-size:12pt;
+    line-height:1.45;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+
+.print-page-shell{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.print-page-shell thead{
+  display:table-header-group;
+}
+
+.print-page-shell tbody{
+  display:table-row-group;
+}
+
+.print-page-shell td{
+  border:0;
+  padding:0;
+}
+
+.print-header-cell{
+  padding-bottom:18px;
+}
+
+.print-content-cell{
+  padding:0;
+}
+
+ .print-header{
+  display:grid;
+  grid-template-columns:1fr 1.4fr 1fr;
+  align-items:center;
+  gap:12px;
+  background:#0f3d83 !important;
+  background-color:#0f3d83 !important;
+  color:#ffffff !important;
+  border-radius:10px;
+  padding:12px 14px;
+  margin-bottom:36px;
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact;
+}
+
+  .print-logo{
+    height:42px;
+    width:auto;
+    max-width:120px;
+    object-fit:contain;
+    display:block;
+    background:transparent;
+    border:0 !important;
+    border-radius:0 !important;
+    padding:0 !important;
+    box-shadow:none !important;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+
+  .print-center{
+    text-align:center;
+    font-weight:700;
+    font-size:13pt;
+    color:#ffffff !important;
+  }
+
+  .print-center img{
+    height:28px;
+    width:28px;
+    vertical-align:middle;
+    object-fit:contain;
+    margin-right:6px;
+  }
+
+  .print-date{
+    text-align:right;
+    font-size:10.5pt;
+    color:#ffffff !important;
+  }
+
+  .print-scenario-title{
+    color:#0f3d83;
+    font-size:15pt;
+    font-weight:800;
+    text-transform:uppercase;
+    border-bottom:2px solid #0f3d83;
+    padding-bottom:6px;
+    margin:4px 0 16px;
+  }
+
+  .print-section-title{
+    color:#0f3d83;
+    font-size:12pt;
+    font-weight:800;
+    text-transform:uppercase;
+    margin:14px 0 6px;
+  }
+
+  .print-list{
+    margin:0 0 10px 18px;
+    padding:0;
+  }
+
+  .print-list li{
+    margin:5px 0;
+    padding-left:2px;
+  }
+
+.print-correction-section{
+  break-before:page;
+  page-break-before:always;
+  break-inside:avoid;
+  page-break-inside:avoid;
+  margin-top:0;
+}
+
+.print-correction-title{
+  break-after:avoid;
+  page-break-after:avoid;
+  margin-top:0;
+}
+
+.print-correction-table-wrap{
+  margin:8px 0 14px;
+  border:1px solid #c7d7ee;
+  border-radius:10px;
+  overflow:hidden;
+  break-inside:avoid;
+  page-break-inside:avoid;
+}
+
+.print-correction-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:11.5pt;
+}
+
+.print-correction-table thead th{
+  background:#0f3d83 !important;
+  background-color:#0f3d83 !important;
+  color:#ffffff !important;
+  text-align:left;
+  padding:9px 11px;
+  font-weight:800;
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact;
+}
+
+.print-correction-table tbody td{
+  padding:8px 11px;
+  border-top:1px solid #dbe4f0;
+  vertical-align:middle;
+}
+
+.print-correction-table tbody tr:nth-child(even){
+  background:#f4f8ff;
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact;
+}
+
+.print-correction-table tbody td:first-child{
+  font-weight:700;
+  color:#1e293b;
+}
+
+.print-correction-table tbody td:last-child{
+  width:34%;
+  text-align:center;
+  font-weight:800;
+  font-size:12pt;
+}
+
+.correction-negative{
+  color:#b91c1c;
+}
+
+.correction-neutral{
+  color:#166534;
+}
+
+.correction-positive{
+  color:#0f3d83;
+}
+
+  .print-disclaimer{
+    margin-top:22px;
+    padding:12px 14px;
+    background:#fff5f5;
+    border:1px solid #f3b4b4;
+    border-left:6px solid #b91c1c;
+    border-radius:8px;
+    color:#7f1d1d;
+    break-inside:avoid;
+    page-break-inside:avoid;
+  }
+
+  .print-disclaimer strong{
+    color:#7f1d1d;
+  }
+
+  @media print{
+    body{
+      -webkit-print-color-adjust:exact;
+      print-color-adjust:exact;
+    }
+
+    .print-header{
+      background:#0f3d83 !important;
+      background-color:#0f3d83 !important;
+      color:#ffffff !important;
+      -webkit-print-color-adjust:exact;
+      print-color-adjust:exact;
+    }
+  }
+</style>
+</head>
+<body>
+  <table class="print-page-shell">
+    <thead>
+      <tr>
+        <td class="print-header-cell">
+          <div class="print-header">
+            <div><img class="print-logo" src="${escaparHTML(logoSrc)}" alt="IctusGPS"></div>
+            <div class="print-center"><img src="${escaparHTML(iconoSrc)}" alt="">${escaparHTML(nombrePagina)}</div>
+            <div class="print-date">Fecha: ${escaparHTML(fecha)}</div>
+          </div>
+        </td>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td class="print-content-cell">
+          <div class="print-scenario-title">${escaparHTML(partes.titulo)}</div>
+
+          <main>
+            ${convertirCuerpoRecomendacionAHTML(partes.cuerpo)}
+          </main>
+
+          <section class="print-disclaimer">
+            <strong>⚠ Advertencia.</strong>
+            ${escaparHTML(obtenerDisclaimerIctusGPS())}
+          </section>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>`;
+
+  const iframe = document.createElement('iframe');
+  iframe.style.position = 'fixed';
+  iframe.style.right = '0';
+  iframe.style.bottom = '0';
+  iframe.style.width = '0';
+  iframe.style.height = '0';
+  iframe.style.border = '0';
+  iframe.setAttribute('aria-hidden', 'true');
+
+  document.body.appendChild(iframe);
+
+  const doc = iframe.contentWindow.document;
+  doc.open();
+  doc.write(htmlPrint);
+  doc.close();
+
+  iframe.onload = () => {
+    setTimeout(() => {
+      iframe.contentWindow.focus();
+      iframe.contentWindow.print();
+
+      setTimeout(() => {
+        iframe.remove();
+      }, 1000);
+    }, 150);
+  };
+}
+
+function printReport(){
+  const texto = construirTextoCopiaRecomendaciones('', { incluirDisclaimer:false });
+  imprimirTextoRecomendacion(texto);
+}
 /* ===== Botón BORRAR (reset total + scroll top) ===== */
 function clearAll(){
 
