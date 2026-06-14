@@ -1195,131 +1195,6 @@ body {
     font-size:.78rem;
   }
 }
-.interactions-details-body h4 {
-  margin: 18px 0 10px;
-  padding: 8px 10px;
-  border-radius: 10px;
-  background: #eef5ff;
-  border-left: 5px solid #0f3d83;
-  color: #0f3d83;
-  font-size: 13px;
-  font-weight: 800;
-}
-
-.interactions-details-body h5 {
-  margin: 18px 0 8px;
-  padding: 8px 10px;
-  border-radius: 10px;
-  background: #f8fbff;
-  border-left: 4px solid #4f81bd;
-  border-top: 1px solid #d8e6f7;
-  color: #0f3d83;
-  font-size: 12px;
-  font-weight: 800;
-}
-
-.interactions-details-body h5[style*="#991b1b"] {
-  background: #fff7f7;
-  border-left-color: #991b1b;
-  border-top-color: #f0caca;
-  color: #991b1b !important;
-}
-
-.interactions-details-body h5 + p {
-  margin-top: 6px;
-}
-
-.interactions-details-body p {
-  text-align: justify;
-}
-
-.interactions-details-body .article-auto-note,
-.interactions-details-body .article-auto-note p {
-  text-align: justify;
-}
-
-/* =========================================================
-   INTERACCIONES FARMACOLÓGICAS — separación visual por fármaco
-   Debe ir al final del CSS para sobreescribir el patrón teórico general
-========================================================= */
-
-#desarrollo-teorico-fa.article-theory-shell
-.article-theory-detail
-.interactions-details-body h4{
-  margin:18px 0 12px !important;
-  padding:9px 12px !important;
-  border:1px solid #d7e6f8 !important;
-  border-left:5px solid #0f3d83 !important;
-  border-radius:12px !important;
-  background:#eef6ff !important;
-  color:#0f3d83 !important;
-  font-size:.88rem !important;
-  font-weight:800 !important;
-  line-height:1.35 !important;
-}
-
-#desarrollo-teorico-fa.article-theory-shell
-.article-theory-detail > .details-card > .details-card-body.interactions-details-body h5{
-  margin:22px 0 10px !important;
-  padding:9px 12px !important;
-  border:1px solid #93c5fd !important;
-  border-left:6px solid #0f3d83 !important;
-  border-radius:12px !important;
-  background:#bfdbfe !important;
-  color:#0b2f66 !important;
-  font-size:.85rem !important;
-  font-weight:900 !important;
-  line-height:1.35 !important;
-  box-shadow:0 3px 8px rgba(15,61,131,0.12) !important;
-}
-
-#desarrollo-teorico-fa.article-theory-shell
-.article-theory-detail
-.interactions-details-body h5::before{
-  content:"";
-  display:inline-block;
-  width:8px;
-  height:8px;
-  margin-right:8px;
-  border-radius:999px;
-  background:#0f3d83;
-  vertical-align:1px;
-}
-
-#desarrollo-teorico-fa.article-theory-shell
-.article-theory-detail > .details-card > .details-card-body.interactions-details-body h5[style*="#991b1b"]{
-  border-color:#fecaca !important;
-  border-left-color:#991b1b !important;
-  background:#fff1f1 !important;
-  color:#991b1b !important;
-}
-
-#desarrollo-teorico-fa.article-theory-shell
-.article-theory-detail > .details-card > .details-card-body.interactions-details-body h5[style*="#991b1b"]::before{
-  background:#991b1b !important;
-}
-
-#desarrollo-teorico-fa.article-theory-shell
-.article-theory-detail
-.interactions-details-body h5 + p{
-  margin-top:0 !important;
-}
-
-#desarrollo-teorico-fa.article-theory-shell
-.article-theory-detail
-.interactions-details-body p{
-  text-align:justify !important;
-}
-
-#desarrollo-teorico-fa.article-theory-shell
-.article-theory-detail
-.interactions-details-body .article-auto-note,
-#desarrollo-teorico-fa.article-theory-shell
-.article-theory-detail
-.interactions-details-body .article-auto-note p{
-  text-align:justify !important;
-}
-
 
 </style>
   </head>
@@ -1803,16 +1678,11 @@ body {
     </label>
 
     <label class="row">
-  <input type="checkbox" class="drug-int" value="eritromicina">
-  Eritromicina
-</label>
+      <input type="checkbox" class="drug-int" value="eritromicina">
+      Eritromicina
+    </label>
 
-<label class="row">
-  <input type="checkbox" class="drug-int" value="fluconazol">
-  Fluconazol sistémico
-</label>
-
-<label class="row">
+    <label class="row">
   <input type="checkbox" class="drug-int" value="ketoconazol">
   Ketoconazol sistémico
 </label>
@@ -2429,19 +2299,6 @@ const DRUG_INTERACTIONS = {
   ]
 },
 
-fluconazol: {
-  pgpInhibitor: false,
-
-  consider: {
-    "Apixabán": "Fluconazol sistémico: posible aumento de exposición; mantener dosis calculada y reforzar vigilancia si hay factores hemorrágicos",
-    "Rivaroxabán": "Fluconazol sistémico: posible aumento de exposición; mantener dosis calculada y reforzar vigilancia si hay factores hemorrágicos"
-  },
-
-  notes: [
-    "Fluconazol sistémico: inhibidor moderado de CYP3A4. Puede aumentar la exposición de apixabán o rivaroxabán, pero no suele exigir reducción sistemática de dosis. Mantener la dosis calculada del ACOD y reforzar vigilancia si existe insuficiencia renal, edad avanzada, bajo peso, antecedente hemorrágico, antiagregación, combinación con otros inhibidores o tratamiento prolongado. Con dabigatrán, la interacción CYP3A4 suele ser menos relevante, pero debe revisarse la carga global de P-gp, función renal y riesgo hemorrágico."
-  ]
-},
-
   ketoconazol: {
     pgpInhibitor: true,
     consider: {
@@ -2460,7 +2317,7 @@ fluconazol: {
     vkaNote: "⚠️ Ketoconazol sistémico inhibe el metabolismo hepático de los antagonistas de vitamina K → aumento significativo del INR y del riesgo hemorrágico. Si se utiliza VKA (warfarina o acenocumarol), se requiere monitorización muy estrecha del INR y posible reducción de dosis.",
 
     notes: [
-      "Ketoconazol sistémico: inhibidor potente de CYP3A4 y P-gp. Apixabán y rivaroxabán no se recomiendan; dabigatrán debe evitarse; edoxabán requiere reducción de dosis a 30 mg cada 24 h."
+      "Ketoconazol sistémico: inhibidor potente de CYP3A4 y P-gp. Apixabán y rivaroxabán no se recomiendan; dabigatrán debe evitarse; edoxabán requiere reducción de dosis a 30 mg cada 24 h. Si se utiliza VKA, el INR puede aumentar de forma importante y requiere monitorización muy estrecha."
     ]
   },
 
@@ -2481,7 +2338,7 @@ fluconazol: {
     vkaNote: "⚠️ Itraconazol, voriconazol y posaconazol sistémicos pueden inhibir el metabolismo hepático de los antagonistas de vitamina K → aumento significativo del INR y del riesgo hemorrágico. Si se utiliza VKA (warfarina o acenocumarol), se requiere monitorización muy estrecha del INR y posible reducción de dosis.",
 
     notes: [
-      "Itraconazol, posaconazol y voriconazol sistémicos: inhibidores potentes de CYP3A4 y P-gp. Apixabán y rivaroxabán no se recomiendan; dabigatrán debe evitarse, especialmente con itraconazol sistémico. Edoxabán requiere vigilancia clínica, pero no reducción automática de dosis por este grupo en la lógica de la calculadora."
+      "Itraconazol, posaconazol y voriconazol sistémicos: inhibidores potentes de CYP3A4 y P-gp. Apixabán y rivaroxabán no se recomiendan; dabigatrán debe evitarse, especialmente con itraconazol sistémico. Edoxabán requiere vigilancia clínica, pero no reducción automática de dosis por este grupo en la lógica de la calculadora. Si se utiliza VKA, el INR puede aumentar de forma importante y requiere monitorización muy estrecha."
     ]
   },
 
@@ -3653,8 +3510,7 @@ function rowOrderPriority(r){
   // PRIORIDAD MÁXIMA: tratamiento obligatorio
   if (r.adequacyLabel === "Obligatorio") return 100;
 
-  // Escenario de conflicto no estándar:
-  // se mantiene alto para que no quede escondido.
+  // Escenario de conflicto no estándar
   if (r.adequacyLabel === "Incierta") return 95;
 
   // Escenario de no anticoagular
@@ -3666,18 +3522,17 @@ function rowOrderPriority(r){
   // Jerarquía clínica principal
   if (r.adequacyLabel === "Preferible") return 40;
 
-  // Neutro: sin condicionantes específicos
+  // Neutro: sin nada a favor ni en contra
   if (r.adequacyLabel === "—") return 35;
 
-  // Opciones condicionadas:
-  // Aceptable, Considerar y Precaución no deben ordenarse entre sí
-  // solo por el nombre de la etiqueta. Dentro de este grupo decide
-  // la puntuación/IE.
-  if (
-    r.adequacyLabel === "Aceptable" ||
-    r.adequacyLabel === "Considerar" ||
-    r.adequacyLabel === "Precaución"
-  ) return 30;
+  // Aceptable: utilizable, pero con alguna limitación menor
+  if (r.adequacyLabel === "Aceptable") return 30;
+
+  // Considerar: decisión individualizada
+  if (r.adequacyLabel === "Considerar") return 28;
+
+  // Precaución: utilizable, pero con riesgo/advertencia relevante
+  if (r.adequacyLabel === "Precaución") return 25;
 
   // No anticoagular cuando no es la estrategia principal
   if (r.name === "No ACO") return 15;
@@ -3691,31 +3546,27 @@ rows.sort((a,b)=>{
   // Si NO es escenario de no anticoagular,
   // "No ACO" debe ir siempre al final
   if (!noOAC && !prudentNoOAC_byBorderlineChildC && !prudentNoOAC_byBorderlineChildB) {
-    if (a.name === "No ACO") return 1;
-    if (b.name === "No ACO") return -1;
-  }
+  if (a.name === "No ACO") return 1;
+  if (b.name === "No ACO") return -1;
+}
 
   const pa = rowOrderPriority(a);
   const pb = rowOrderPriority(b);
 
-  // 1) Primero manda la prioridad clínica.
   if (pb !== pa) return pb - pa;
 
-  // 2) Dentro de la misma prioridad clínica, manda el IE.
-  if (b.strokeEquivalent !== a.strokeEquivalent) {
-    return b.strokeEquivalent - a.strokeEquivalent;
-  }
-
-  // 3) Si el IE empata, usar el score interno como desempate.
-  const scoreA = a.score;
+    const scoreA = a.score;
   const scoreB = b.score;
 
   if (scoreB !== scoreA) {
     return scoreB - scoreA;
   }
 
-  // 4) Último desempate estable según orden basal.
-  return STRATS.indexOf(a.name) - STRATS.indexOf(b.name);
+  if (b.strokeEquivalent !== a.strokeEquivalent) {
+    return b.strokeEquivalent - a.strokeEquivalent;
+  }
+
+  return 0;
 });
 
 const tableOrderNames = rows.map(r => r.name);
@@ -4069,14 +3920,12 @@ const childBCautionList = ["Apixabán","Edoxabán","Dabigatrán","VKA"]
         .filter(Boolean);
 
       const strongPreferredGlobal = preferredRowsForRec
-  .filter(r => strongPreferredLabels.includes(String(r.adequacyLabel || "").trim()))
-  .sort((a,b) => tableOrderNames.indexOf(a.name) - tableOrderNames.indexOf(b.name))
-  .map(r => r.name);
+        .filter(r => strongPreferredLabels.includes(String(r.adequacyLabel || "").trim()))
+        .map(r => r.name);
 
-const conditionedPreferredGlobal = preferredRowsForRec
-  .filter(r => conditionedPreferredLabels.includes(String(r.adequacyLabel || "").trim()))
-  .sort((a,b) => tableOrderNames.indexOf(a.name) - tableOrderNames.indexOf(b.name))
-  .map(r => r.name);
+      const conditionedPreferredGlobal = preferredRowsForRec
+        .filter(r => conditionedPreferredLabels.includes(String(r.adequacyLabel || "").trim()))
+        .map(r => r.name);
 
       if (strongPreferredGlobal.length) {
   const li = document.createElement('li');
@@ -4087,7 +3936,7 @@ const conditionedPreferredGlobal = preferredRowsForRec
 else if (conditionedPreferredGlobal.length) {
   const li = document.createElement('li');
   li.innerHTML =
-    "<b>Opción clínicamente preferida en escenario condicionado:</b> " +
+    "<b>Mejor opción disponible en escenario condicionado:</b> " +
     conditionedPreferredGlobal.join(", ");
   recList.appendChild(li);
 }
@@ -6039,204 +5888,104 @@ document.addEventListener("keydown", function(e){
   <summary class="details-summary">📄 Interacciones farmacológicas</summary>
 
   <div class="details-card" style="border-top:4px solid #7c2d12;">
-    <div class="details-card-header">Interacciones farmacológicas metabólicas</div>
-    <div class="details-card-body interactions-details-body" align="justify">
+    <div class="details-card-header">Interacciones farmacológicas</div>
+    <div class="details-card-body" align="justify">
+<p>Los ACOD dependen en distinta medida de P-gp y CYP3A4. P-gp influye en absorción intestinal y eliminación renal o biliar. CYP3A4 participa en metabolismo hepático, especialmente de apixabán y rivaroxabán.</p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:10px; margin-bottom:14px;">
+        <div style="padding:12px; border-radius:12px; background:#fff5f5; border:1px solid #fecaca; border-left:5px solid #991b1b;">
+          <p style="margin:0;">Las interacciones producen dos escenarios opuestos: <b>sobreexposición</b> con aumento de sangrado</p>
+        </div>
+        <div style="padding:12px; border-radius:12px; background:#fff7ed; border:1px solid #fed7aa; border-left:4px solid #f59e0b;">
+          <p style="margin:0;">o <b>infraexposición</b> con pérdida de eficacia anticoagulante y mayor riesgo de eventos tromboembólicos.</p>
+        </div>
+      </div>
 
-      <p>Los ACOD dependen en distinta medida de P-gp y CYP3A4. P-gp influye en la absorción intestinal y en la eliminación renal o biliar. CYP3A4 participa en metabolismo hepático, especialmente de apixabán y rivaroxabán. Las interacciones producen dos escenarios opuestos: <b>sobreexposición</b> con aumento de sangrado, o <b>infraexposición</b> con pérdida de eficacia anticoagulante.</p>
+      <p>Los inhibidores potentes de P-gp y CYP3A4 aumentan exposición. Incluyen azoles sistémicos potentes, ritonavir, cobicistat y algunos antiarrítmicos o antibióticos según el fármaco. Los inductores potentes reducen exposición. Incluyen rifampicina, carbamazepina, fenitoína, fenobarbital, primidona y hierba de San Juan. En presencia de inductores potentes, la regla clínica más segura es <b>evitar ACOD</b> por riesgo de infraanticoagulación.</p>
 
-      <p><b>Los inhibidores potentes de P-gp y CYP3A4 aumentan exposición.</b> Incluyen azoles sistémicos potentes, ritonavir, cobicistat y algunos antiarrítmicos o antibióticos según el fármaco. <b>Los inductores potentes reducen exposición.</b> Incluyen rifampicina, carbamazepina, fenitoína, fenobarbital, primidona y hierba de San Juan. <b>En presencia de inductores potentes, la regla clínica más segura es evitar ACOD por riesgo de infraanticoagulación.</b></p>
-
-      <p><b>Las interacciones con AVK también son relevantes.</b> Muchos inhibidores aumentan INR y riesgo hemorrágico. Muchos inductores reducen INR y aumentan riesgo trombótico. Por tanto, cambiar a AVK no elimina el problema, pero permite monitorizar y ajustar con INR si existe un circuito fiable.</p>
+      <p>Las interacciones con AVK también son relevantes. Muchos inhibidores aumentan INR y riesgo hemorrágico. Muchos inductores reducen INR y aumentan riesgo trombótico. Por tanto, cambiar a AVK no elimina el problema, pero permite monitorizar y ajustar con INR si existe un circuito fiable.</p>
 
       <hr class="details-divider">
 
       <h4 style="margin:0 0 8px; color:#0f3d83; font-size:13px; font-weight:800;">Inhibidores de P-gp o CYP3A4</h4>
 
       <h5 style="margin:12px 0 6px; color:#0f3d83; font-size:12px; font-weight:800;">Amiodarona</h5>
-
-      <p><b>Inhibe P-gp</b> y puede aumentar la exposición de <b>dabigatrán y edoxabán</b>. En general no obliga por sí sola a reducir todos los ACOD, pero aumenta el riesgo hemorrágico si coexisten edad avanzada, ClCr bajo, bajo peso, anemia u otros inhibidores. Con dabigatrán, el riesgo es especialmente relevante por su dependencia de P-gp y eliminación renal.</p>
-
-      <p>Con <b>dabigatrán</b>, la combinación requiere especial prudencia. En un paciente anciano, con aclaramiento de creatinina entre 30 y 50 ml/min, o con otros factores hemorrágicos, dabigatrán 150 mg cada 12 horas junto con amiodarona suele ser una combinación desfavorable. En ese contexto debe valorarse dabigatrán 110 mg cada 12 horas si se decide mantenerlo, o cambiar de estrategia anticoagulante si el riesgo acumulado es elevado.</p>
-
-      <p>Con <b>apixabán</b>, <b>rivaroxabán</b> y <b>edoxabán</b>, amiodarona no exige reducción automática de dosis. Debe mantenerse la dosis que corresponda por función renal, edad, peso e indicación, reforzando la vigilancia clínica si hay factores acumulativos de sangrado.</p>
-
-      <p>Con <b>AVK</b>, amiodarona puede aumentar INR por inhibición metabólica y requiere controles estrechos y posible reducción de dosis.</p>
+      <p>Inhibe P-gp y puede aumentar la exposición de dabigatrán y edoxabán. En general no obliga por sí sola a reducir todos los ACOD, pero aumenta el riesgo hemorrágico si coexisten edad avanzada, ClCr bajo, bajo peso, anemia o otros inhibidores. Con dabigatrán, el riesgo es especialmente relevante por su dependencia de P-gp y eliminación renal.</p>
+      <p>Con AVK, amiodarona puede aumentar INR por inhibición metabólica y requiere controles estrechos y posible reducción de dosis. En pacientes ancianos con ClCr 30-50 ml/min, dabigatrán 150 mg cada 12 horas más amiodarona suele ser una combinación desfavorable; debe considerarse reducción autorizada o cambio a otra estrategia.</p>
 
       <h5 style="margin:12px 0 6px; color:#0f3d83; font-size:12px; font-weight:800;">Verapamilo</h5>
-
-      <p>Es <b>inhibidor de la P-gp</b>. Aumenta la exposición de <b>dabigatrán</b> y puede aumentar la exposición de <b>edoxabán</b>.</p>
-
-      <p>En el caso de <b>dabigatrán</b>, la ficha técnica recomienda reducción de dosis a 110 mg cada 12 horas en FANV cuando se administra con verapamilo, y establece que ambos fármacos deben tomarse a la vez. La administración de verapamilo antes de dabigatrán, especialmente 1 hora antes, aumenta de forma marcada la Cmax y el AUC del anticoagulante; en cambio, si verapamilo se administra 2 horas después, la interacción es mucho menor.</p>
-
-      <p>En el <b>edoxabán</b>, la ficha técnica europea indica que quinidina, verapamilo o amiodarona aumentan sus concentraciones, pero no requieren reducción de dosis, a diferencia de ciclosporina, dronedarona, eritromicina o ketoconazol. Por tanto, el verapamilo debe generar vigilancia, pero no una reducción automática obligatoria del edoxabán según la ficha técnica vigente.</p>
-
-      <p>Con <b>apixabán</b> y <b>rivaroxabán</b>, verapamilo no obliga a una reducción sistemática de dosis, pero debe reforzarse la vigilancia hemorrágica, especialmente si existe insuficiencia renal, edad avanzada, bajo peso, antecedente de sangrado o polimedicación.</p>
+      <p>Es inhibidor de la P-gp. Aumenta la exposición de dabigatrán y puede aumentar la exposición de edoxabán. En el caso de dabigatrán, la ficha técnica recomienda reducción de dosis a 110 mg cada 12 horas en FANV cuando se administra con verapamilo, y establece que ambos fármacos deben tomarse a la vez. La administración de verapamilo antes de dabigatrán, especialmente 1 hora antes, aumenta de forma marcada la Cmax y el AUC del anticoagulante; en cambio, si verapamilo se administra 2 horas después, la interacción es mucho menor.</p>
+      <p>En el edoxabán, la ficha técnica europea indica que quinidina, verapamilo o amiodarona aumentan sus concentraciones, pero no requieren reducción de dosis, a diferencia de ciclosporina, dronedarona, eritromicina o ketoconazol. Por tanto, el verapamilo debe generar vigilancia, pero no una reducción automática obligatoria del edoxabán según la ficha técnica vigente.</p>
 
       <h5 style="margin:12px 0 6px; color:#0f3d83; font-size:12px; font-weight:800;">Diltiazem</h5>
-
-      <p><b>Inhibe de forma moderada CYP3A4 y P-gp.</b> Puede aumentar exposición de <b>apixabán</b> y <b>rivaroxabán</b>, aunque generalmente no exige ajuste automático de dosis. Debe aumentar la vigilancia si el paciente es anciano, tiene ClCr reducido, HAS-BLED alto, toma antiagregantes o presenta antecedente de sangrado.</p>
-
-      <p>En pacientes tratados con <b>apixabán</b>, <b>rivaroxabán</b>, <b>dabigatrán</b> o <b>edoxabán</b>, debe mantenerse la dosis que corresponda por ficha técnica, función renal, edad, peso e indicación, y reforzar vigilancia si existen otros factores de riesgo hemorrágico.</p>
-
-      <p>En un paciente estable, diltiazem no obliga necesariamente a cambiar ACOD. En un <b>paciente frágil</b> con varios factores de acumulación, puede inclinar la elección hacia una estrategia con menor interacción o hacia seguimiento más estrecho.</p>
+      <p>Inhibe de forma moderada CYP3A4 y P-gp. Puede aumentar exposición de apixabán y rivaroxabán, aunque generalmente no exige ajuste automático de dosis. Debe aumentar la vigilancia si el paciente es anciano, tiene ClCr reducido, HAS-BLED alto, toma antiagregantes o presenta antecedente de sangrado.</p>
+      <p>En un paciente estable, diltiazem no obliga necesariamente a cambiar ACOD. En un paciente frágil con varios factores de acumulación, puede inclinar la elección hacia una estrategia con menor interacción o hacia seguimiento más estrecho.</p>
 
       <h5 style="margin:12px 0 6px; color:#991b1b; font-size:12px; font-weight:800;">Dronedarona</h5>
-
-      <p><b>Es un inhibidor potente de la P-gp </b>y debe manejarse de forma específica según el ACOD.</p>
-
-      <p>La combinación con <b>dabigatrán</b> está formalmente contraindicada y no debe emplearse en ningún caso.</p>
-
-      <p>Asimismo, la información oficial del <b>rivaroxabán</b> indica que debe evitarse su administración concomitante por falta de datos clínicos de seguridad. Debe valorarse retirar o sustituir dronedarona. Si dronedarona es imprescindible, debe cambiarse a otro anticoagulante más adecuado.</p>
-
-      <p>Con el <b>edoxabán</b>, la ficha técnica recomienda reducir obligatoriamente la dosis a 30 mg cada 24 horas si se administra con dronedarona.</p>
-
-      <p>Con <b>apixabán</b> debe valorarse cuidadosamente el riesgo de aumento de exposición, especialmente si coexiste edad avanzada, insuficiencia renal, bajo peso, sangrado previo, antiagregación u otros inhibidores.</p>
-
-      <p><b>En pacientes con múltiples factores de sangrado que requieran dronedarona, puede ser razonable elegir un AVK con monitorización o replantear la necesidad del antiarrítmico.</b></p>
+      <div style="padding:12px 14px; background:#fff5f5; border:1px solid #fecaca; border-left:5px solid #991b1b; border-radius:12px; margin:8px 0;">
+        <p style="margin:0;">Es un inhibidor potente de la P-gp. La combinación con dabigatrán está formalmente contraindicada y no debe emplearse en ningún caso. Asimismo, la información oficial del rivaroxabán indica que debe evitarse su administración concomitante por falta de datos clínicos de seguridad. Con el edoxabán, la ficha técnica recomienda reducir obligatoriamente la dosis a 30 mg cada 24 horas si se administra con dronedarona.</p>
+      </div>
+      <p>Con AVK, dronedarona puede modificar INR y requiere seguimiento. En general, si el paciente necesita dronedarona y anticoagulación, la elección debe revisarse cuidadosamente, evitando dabigatrán, evitando rivaroxabán y ajustando edoxabán si se utiliza.</p>
 
       <h5 style="margin:12px 0 6px; color:#0f3d83; font-size:12px; font-weight:800;">Quinidina</h5>
-
-      <p><b>Inhibe P-gp.</b> Puede aumentar exposición de <b>dabigatrán</b> y <b>edoxabán</b>.</p>
-
-      <p>Con <b>dabigatrán</b> debe extremarse la prudencia, sobre todo si existe insuficiencia renal, edad avanzada o antecedentes de sangrado. En pacientes con aclaramiento de creatinina reducido o edad avanzada, debe considerarse dabigatrán 110 mg cada 12 horas si se decide mantener la combinación.</p>
-
-      <p>En <b>edoxabán</b>, la ficha técnica europea indica aumento de AUC y Cmax con quinidina, pero no requiere reducción de dosis.</p>
-
-      <p>Con <b>apixabán</b> y <b>rivaroxabán</b>, quinidina no exige ajuste sistemático de dosis, aunque debe reforzarse la vigilancia clínica si existen factores de riesgo hemorrágico.</p>
-
-      <p>La interpretación práctica es vigilancia clínica, revisión renal y evitar acumulación de varios inhibidores. Si se asocian amiodarona, verapamilo u otros inhibidores, el riesgo acumulativo puede ser difícil de predecir y debe valorarse una alternativa o una estrategia más prudente.</p>
+      <p>Inhibe P-gp. Puede aumentar exposición de dabigatrán y edoxabán. En dabigatrán debe evitarse o extremarse la precaución según contexto, especialmente con edad avanzada o ClCr reducido. En edoxabán, la ficha técnica europea indica aumento de AUC y Cmax con quinidina, pero no requiere reducción de dosis.</p>
+      <p>La interpretación práctica es vigilancia clínica, revisión renal y evitar acumulación de varios inhibidores. Si se asocian quinidina, amiodarona, verapamilo u otros inhibidores, el riesgo acumulativo puede ser impredecible.</p>
 
       <h5 style="margin:12px 0 6px; color:#0f3d83; font-size:12px; font-weight:800;">Claritromicina</h5>
-
-      <p><b>Es inhibidor de CYP3A4 y P-gp.</b> Puede aumentar la exposición de <b>apixabán</b> y <b>rivaroxabán</b>.</p>
-
-      <p>En <b>rivaroxabán</b>, la ficha técnica describe aumento del AUC con claritromicina y señala que puede ser relevante en pacientes de alto riesgo, especialmente con insuficiencia renal.</p>
-
-      <p>Con <b>apixabán</b> o <b>rivaroxabán</b>, no existe una reducción sistemática aplicable en todos los casos. Si la claritromicina es imprescindible y breve, puede mantenerse el ACOD con la dosis calculada por indicación, función renal, edad y peso, junto con vigilancia clínica, revisión de sangrados y retirada de otros fármacos hemorrágicos evitables. Si el paciente es frágil, tiene insuficiencia renal, antecedente de sangrado, antiagregación concomitante o precisa mantener el antibiótico varios días, debe considerarse un antibiótico alternativo o una estrategia anticoagulante temporal alternativa<b>.</b></p>
-
-      <p>Con <b>dabigatrán</b>, la relevancia de claritromicina aumenta si existe deterioro renal, porque la inhibición de P-gp puede aumentar la exposición del fármaco. Si el aclaramiento de creatinina es bajo, debe revisarse si dabigatrán sigue siendo adecuado y evitar dosis altas en pacientes frágiles.</p>
-
-      <p>Con <b>edoxabán</b> no existe una reducción específica autorizada como ocurre con eritromicina, por lo que debe mantenerse la dosis que corresponda por función renal, peso e indicación, con vigilancia del riesgo hemorrágico global.</p>
-
-      <p>Con <b>AVK</b>, claritromicina puede aumentar INR, por lo que requiere control estrecho.</p>
+      <p>Es inhibidor de CYP3A4 y P-gp. Puede aumentar la exposición de apixabán y rivaroxabán. En rivaroxabán, la ficha técnica describe aumento del AUC con claritromicina y señala que puede ser relevante en pacientes de alto riesgo, especialmente con insuficiencia renal.</p>
+      <p>Si la claritromicina es imprescindible y breve, puede optarse por vigilancia estrecha, revisión de sangrados y evitar otros fármacos hemorrágicos. Si el tratamiento debe mantenerse o el paciente es frágil, debe considerarse antibiótico alternativo o anticoagulación alternativa temporal.</p>
+      <p>Con AVK, claritromicina puede aumentar INR, por lo que requiere control estrecho.</p>
 
       <h5 style="margin:12px 0 6px; color:#0f3d83; font-size:12px; font-weight:800;">Eritromicina</h5>
-
-      <p><b>Inhibe moderadamente el CYP3A4 y la P-gp</b> y puede aumentar la exposición de varios ACOD.</p>
-
-      <p>En el caso de <b>rivaroxabán</b>, la ficha técnica muestra aumento de la exposición plasmática. Este efecto puede ser más relevante si existe insuficiencia renal. En pacientes con ClCr reducido, especialmente entre 15 y 80 ml/min, edad avanzada, bajo peso, antecedente de sangrado, antiagregación u otros factores hemorrágicos, debe evitarse la combinación siempre que exista una alternativa antibiótica eficaz. Si no existe alternativa y se mantiene rivaroxabán, debe hacerse con vigilancia clínica estrecha y revisión explícita de la indicación, dosis y duración del antibiótico.</p>
-
-      <p>En cuanto al <b>edoxabán</b>, la eritromicina es uno de los inhibidores de la P-gp que exige por ficha técnica una reducción obligatoria de la dosis a 30 mg cada 24 horas.</p>
-
-      <p>Con <b>apixabán</b> y <b>dabigatrán</b>, eritromicina no implica una reducción sistemática aplicable en todos los casos, pero debe reforzarse la vigilancia, especialmente si hay insuficiencia renal, edad avanzada, bajo peso, antecedente de sangrado o antiagregación concomitante.</p>
-
-      <p>En pacientes con ClCr bajo o edad avanzada, la prescripción de eritromicina debe considerarse una interacción clínicamente muy relevante independientemente del ACOD elegido. <b>Si existe una alternativa antibiótica eficaz sin interacción con estas vías metabólicas, suele ser siempre la estrategia preferible.</b></p>
-
-      <h5 style="margin:12px 0 6px; color:#0f3d83; font-size:12px; font-weight:800;">Fluconazol</h5>
-
-      <p><b>Es un inhibidor moderado de CYP3A4.</b> Puede contribuir al aumento de exposición de apixabán o rivaroxabán, pero no suele exigir reducción sistemática de dosis.</p>
-
-      <p>Debe mantenerse la dosis calculada del ACOD y reforzar vigilancia si existe insuficiencia renal, edad avanzada, bajo peso, antecedente hemorrágico, antiagregación o combinación con otros inhibidores. Con dabigatrán, la interacción suele ser menos relevante desde el punto de vista CYP3A4, aunque debe revisarse la carga global de P-gp, función renal y riesgo hemorrágico.</p>
-
-      <p>Si el paciente tiene varios factores acumulativos de sangrado o requiere tratamiento prolongado con fluconazol, debe valorarse una alternativa antifúngica o una estrategia anticoagulante alternativa temporal.</p>
+      <p>Inhibe moderadamente el CYP3A4 y la P-gp. En el caso de rivaroxabán, la ficha técnica muestra un aumento de su exposición plasmática, con efecto potencialmente más relevante si existe insuficiencia renal. La guía ACC/AHA/HRS 2023 recomienda evitar rivaroxabán en pacientes con ClCr entre 15 y menor de 80 ml/min que reciban inhibidores combinados de P-gp y CYP3A4 moderados, como eritromicina, salvo que el beneficio clínico justifique el riesgo.</p>
+      <p>En cuanto al edoxabán, la eritromicina es uno de los inhibidores de la P-gp que exige por ficha técnica una reducción obligatoria de la dosis a 30 mg cada 24 horas.</p>
+      <p>En pacientes con ClCr bajo o edad avanzada, la prescripción de eritromicina debe considerarse una interacción clínicamente muy relevante independientemente del ACOD elegido. Si existe una alternativa antibiótica eficaz sin interacción con estas vías metabólicas, suele ser siempre la estrategia preferible.</p>
 
       <h5 style="margin:12px 0 6px; color:#991b1b; font-size:12px; font-weight:800;">Azoles sistémicos potentes</h5>
+      <div style="padding:12px 14px; background:#fff5f5; border:1px solid #fecaca; border-left:5px solid #991b1b; border-radius:12px; margin:8px 0;">
+        <p style="margin:0;">Ketoconazol, itraconazol, posaconazol y voriconazol son inhibidores potentes de CYP3A4 y P-gp. Deben evitarse con apixabán y rivaroxabán, porque pueden aumentar de forma relevante la exposición. La ficha técnica europea de apixabán no recomienda su uso con inhibidores potentes simultáneos de CYP3A4 y P-gp, incluidos los antimicóticos azólicos. La de rivaroxabán tampoco recomienda la combinación con azoles sistémicos potentes. En el contexto europeo, la combinación de apixabán con inhibidores potentes simultáneos de CYP3A4 y P-gp, como ketoconazol, itraconazol, posaconazol, voriconazol o ritonavir, no se recomienda. Como matiz regulatorio, la guía ACC/AHA/HRS 2023 recoge la estrategia estadounidense de reducir apixabán de 5 mg cada 12 horas a 2,5 mg cada 12 horas si se asocia a inhibidores potentes, y evitar la combinación si el paciente ya recibe 2,5 mg cada 12 horas; no obstante, en nuestro entorno debe priorizarse la ficha técnica europea.</p>
+      </div>
+      <p>Con edoxabán, el ketoconazol obliga a una reducción de dosis a 30 mg cada 24 horas. Con dabigatrán, el uso concomitante de ketoconazol por vía sistémica o itraconazol no es solo desfavorable, sino que constituye una contraindicación absoluta según su ficha técnica. En tratamientos prolongados con azoles potentes, el AVK con monitorización estrecha puede ser la alternativa, aunque los azoles también aumentan drásticamente el INR y obligan a un control frecuente.</p>
+      <p>Los azoles tópicos no tienen el mismo significado que los sistémicos. Si la absorción sistémica es mínima, la interacción suele carecer de relevancia clínica.</p>
 
-      <p><b>Ketoconazol, itraconazol, posaconazol y voriconazol son inhibidores potentes de CYP3A4 y P-gp </b>y pueden aumentar de forma clínicamente relevante la exposición de varios ACOD.</p>
-
-      <p>Con <b>apixabán</b> y <b>rivaroxabán</b>, debe evitarse la administración concomitante con azoles sistémicos potentes. La ficha técnica europea de apixabán no recomienda su uso con inhibidores potentes simultáneos de CYP3A4 y P-gp, incluidos los antimicóticos azólicos sistémicos. La ficha técnica de rivaroxabán tampoco recomienda la combinación con azoles sistémicos potentes. En nuestro entorno debe priorizarse esta recomendación europea. Como matiz regulatorio, la guía ACC/AHA/HRS 2023 recoge la estrategia estadounidense de reducir apixabán de 5 mg cada 12 horas a 2,5 mg cada 12 horas si se asocia a inhibidores potentes, y evitar la combinación si el paciente ya recibe 2,5 mg cada 12 horas; no obstante, esta estrategia no debe sustituir la recomendación europea de evitar la combinación cuando exista una alternativa razonable.</p>
-
-      <p>Con <b>dabigatrán</b>, ketoconazol sistémico e itraconazol están contraindicados. No se trata solo de una combinación desfavorable, sino de una contraindicación según ficha técnica. Con posaconazol o voriconazol debe evitarse dabigatrán como opción estándar si existen factores hemorrágicos relevantes, insuficiencia renal, edad avanzada o necesidad de tratamiento antifúngico sistémico prolongado.</p>
-
-      <p>Con <b>edoxabán</b>, ketoconazol obliga a reducir la dosis a 30 mg una vez al día. Con itraconazol, voriconazol o posaconazol debe individualizarse según ficha técnica, función renal, peso, riesgo hemorrágico y duración prevista del antifúngico; si el tratamiento sistémico es prolongado o concurren varios factores de sangrado, debe valorarse una alternativa anticoagulante.</p>
-
-      <p>En tratamientos prolongados con azoles sistémicos potentes, el AVK con control estrecho de INR puede ser una alternativa, aunque los azoles también pueden aumentar el INR y obligan a controles frecuentes.</p>
-
-      <p>Si el tratamiento antifúngico es tópico y la absorción sistémica es mínima, la interacción suele carecer de relevancia clínica.</p>
-
-      <h5 style="margin:12px 0 6px; color:#991b1b; font-size:12px; font-weight:800;">Antirretrovirales e inhibidores de proteasa</h5>
-
-      <p>Los antirretrovirales <b>ritonavir y cobicistat son inhibidores potentes de CYP3A4 y P-gp.</b> Deben evitarse con la mayoría de ACOD por aumento marcado de la exposición.</p>
-
-      <p><b>Apixabán</b> y <b>rivaroxabán</b> no se recomiendan con inhibidores potentes de CYP3A4/P-gp como ritonavir; en el caso de apixabán, la guía ACC/AHA/HRS 2023 contempla una estrategia de reducción de dosis al 50 por ciento en el contexto estadounidense, pero en nuestro entorno debe priorizarse la ficha técnica europea.</p>
-
-      <p>Con <b>dabigatrán</b>, la combinación no se recomienda por posible afectación de P-gp y ausencia de datos clínicos suficientes.</p>
-
-      <p>Con <b>edoxabán</b> no se ha estudiado suficientemente el uso con inhibidores de proteasa del VIH, y la ficha técnica advierte que no se ha evaluado con otros inhibidores de P-gp, incluidos los inhibidores de proteasa del VIH.</p>
-
-      <p><b>Si el antirretroviral o el potenciador farmacológico es imprescindible, suele preferirse un AVK</b> con monitorización muy estrecha, aceptando que el INR puede ser altamente variable.</p>
-
-      <h5 style="margin:12px 0 6px; color:#991b1b; font-size:12px; font-weight:800;">Antivirales frente al VHC</h5>
-
-      <p>Las combinaciones antivirales frente al VHC deben valorarse según el fármaco concreto, porque <b>pueden modificar P-gp, BCRP o CYP3A4</b>.</p>
-
-      <p>Glecaprevir/pibrentasvir está contraindicado con <b>dabigatrán</b> por aumento de exposición y riesgo hemorrágico.</p>
-
-      <p>Con <b>otros ACOD</b>, debe individualizarse según el antiviral concreto, la función renal y el riesgo hemorrágico. Debe evitarse una recomendación automática y revisar la ficha técnica</p>
+      <h5 style="margin:12px 0 6px; color:#991b1b; font-size:12px; font-weight:800;">Antirretrovirales y nuevos antivirales de acción directa</h5>
+      <p>Los antirretrovirales ritonavir y cobicistat son inhibidores potentes de CYP3A4 y P-gp. Deben evitarse con la mayoría de ACOD por aumento marcado de la exposición. Apixabán y rivaroxabán no se recomiendan con inhibidores potentes de CYP3A4/P-gp como ritonavir; en el caso de apixabán, la guía ACC/AHA/HRS 2023 contempla una estrategia de reducción de dosis al 50 por ciento en el contexto estadounidense, pero en nuestro entorno debe priorizarse la ficha técnica europea.</p>
+      <p>Con edoxabán no se ha estudiado suficientemente el uso con inhibidores de proteasa del VIH, y la ficha técnica advierte que no se ha evaluado con otros inhibidores de P-gp, incluidos los inhibidores de proteasa del VIH.</p>
+      <p>Asimismo, cabe destacar que algunos de los nuevos antivirales de acción directa frente al virus de la hepatitis C (como la asociación a dosis fijas de glecaprevir/pibrentasvir) son potentes inhibidores de la P-gp y pueden aumentar la exposición de fármacos sustrato como dabigatrán. Por ello, el uso concomitante de dabigatrán con glecaprevir/pibrentasvir no se recomienda.</p>
+      <p>Si el antirretroviral o el potenciador farmacológico es imprescindible, suele preferirse un AVK con monitorización muy estrecha, aceptando que el INR puede ser altamente variable.</p>
 
       <h5 style="margin:12px 0 6px; color:#0f3d83; font-size:12px; font-weight:800;">Ciclosporina</h5>
-
-      <p>Es <b>inhibidor potente de P-gp</b> y puede aumentar de forma relevante la exposición de algunos ACOD.</p>
-
-      <p>Con <b>dabigatrán</b>, la administración concomitante está contraindicada por riesgo de aumento relevante de exposición y sangrado. No debe mantenerse dabigatrán; debe cambiarse el anticoagulante o sustituirse ciclosporina si es posible.</p>
-
-      <p>Con <b>edoxabán</b>, la ficha técnica recomienda reducir a 30 mg cada 24 horas si se administra concomitantemente.</p>
-
-      <p>Con apixabán y rivaroxabán, ciclosporina puede aumentar la exposición y requiere vigilancia estrecha. Debe valorarse alternativa si existe insuficiencia renal, alto riesgo hemorrágico, sangrado previo o polimedicación relevante.</p>
-
+      <p>Es inhibidor potente de P-gp. Con edoxabán, la ficha técnica recomienda reducir a 30 mg cada 24 horas si se administra concomitantemente. Con dabigatrán, la administración concomitante está contraindicada por riesgo de aumento relevante de exposición y sangrado.</p>
       <p>En pacientes trasplantados, la elección se complica por función renal fluctuante, otros inmunosupresores, antibióticos, antifúngicos y riesgo de procedimientos. Debe coordinarse con el equipo responsable del trasplante.</p>
 
       <h5 style="margin:12px 0 6px; color:#0f3d83; font-size:12px; font-weight:800;">Tacrolimus</h5>
-
-      <p>Puede tener efecto <b>inhibidor de P-gp</b>, aunque la evidencia clínica in vivo es más limitada que con la ciclosporina. La conducta práctica es no asumir ausencia de interacción; de hecho, la ficha técnica del <b>dabigatrán</b> señala explícitamente que "no se recomienda" su uso concomitante. Deben revisarse los niveles valle de tacrolimus, la función renal, la presencia de otros inhibidores o inductores, y el riesgo hemorrágico global.</p>
-
-      <p>Con <b>apixabán</b>, <b>rivaroxabán</b> o <b>edoxabán</b>, no existe una reducción fija aplicable en todos los casos, pero debe individualizarse. En pacientes trasplantados debe revisarse función renal, niveles del inmunosupresor, interacciones concomitantes y riesgo hemorrágico.</p>
-
-      <p>En pacientes con tacrolimus y función renal inestable, el AVK puede permitir una monitorización anticoagulante fiable mediante el INR, aunque no evita las interacciones metabólicas. Si se elige un ACOD, debe seleccionarse con extrema cautela y bajo un seguimiento clínico riguroso.</p>
+      <p>Puede tener efecto inhibidor de P-gp, aunque la evidencia clínica in vivo es más limitada que con la ciclosporina. La conducta práctica es no asumir ausencia de interacción; de hecho, la ficha técnica del dabigatrán señala explícitamente que "no se recomienda" su uso concomitante.</p>
+      <p>En pacientes con tacrolimus, función renal variable o varios fármacos concomitantes, debe revisarse el tratamiento de forma multidisciplinar y monitorizar función renal, sangrado e interacciones.</p>
 
       <hr class="details-divider">
 
       <h4 style="margin:0 0 8px; color:#991b1b; font-size:13px; font-weight:800;">Inductores de P-gp o CYP3A4</h4>
 
       <h5 style="margin:12px 0 6px; color:#991b1b; font-size:12px; font-weight:800;">Rifampicina</h5>
-
-      <p>Es un <b>inductor potente de P-gp y CYP3A4</b>. Reduce drásticamente la exposición de los ACOD (los estudios farmacocinéticos muestran caídas del área bajo la curva [AUC] del 50 % para rivaroxabán, 54 % para apixabán y hasta un 67 % para dabigatrán) y puede producir un fallo anticoagulante crítico. En presencia de rifampicina, la regla práctica y la recomendación de las guías internacionales <b>es evitar todos los ACOD y valorar AVK con monitorización estrecha</b>, sabiendo que la rifampicina también puede reducir el INR y exigir dosis significativamente mayores de AVK.</p>
-
-      <p>En tuberculosis u otras infecciones que requieran rifampicina, debe <b>planificarse</b> la anticoagulación desde el inicio y reevaluarla al retirar el inductor, porque el INR o la exposición pueden cambiar de nuevo (a modo de ejemplo, la ficha técnica del dabigatrán especifica que el efecto inductor enzimático tarda aproximadamente 7 días en desaparecer tras suspender la rifampicina, tras los cuales el riesgo hemorrágico puede reaparecer si no se ajusta la terapia).</p>
+      <p>Es un inductor potente de CYP3A4 y P-gp. Reduce de forma importante la exposición de los ACOD y puede comprometer su eficacia. La conducta preferente es <b>evitar ACOD</b> si el paciente necesita rifampicina.</p>
+      <p>Con AVK, rifampicina también reduce INR y puede obligar a incrementos importantes de dosis, con riesgo de sobreanticoagulación al suspenderla. En tuberculosis u otras infecciones que requieran rifampicina, debe planificarse la anticoagulación desde el inicio y reevaluarla al retirar el inductor, porque el INR o la exposición pueden cambiar de nuevo (a modo de ejemplo, la ficha técnica del dabigatrán especifica que el efecto inductor enzimático tarda aproximadamente 7 días en desaparecer tras suspender la rifampicina, tras los cuales el riesgo hemorrágico puede reaparecer si no se ajusta la terapia).</p>
 
       <h5 style="margin:12px 0 6px; color:#991b1b; font-size:12px; font-weight:800;">Carbamazepina</h5>
-
-      <p><b>Induce CYP3A4 y P-gp.</b> Puede reducir de forma marcada las concentraciones de <b>apixabán</b>, <b>rivaroxabán</b>, <b>dabigatrán</b> y <b>edoxabán</b>.</p>
-
-      <p><b>Deben evitarse los ACOD si la carbamazepina no puede sustituirse.</b> Las guías recientes (AHA 2023) respaldan esta restricción advirtiendo que, en la práctica real, el uso concomitante de ACOD y antiepilépticos inductores se asocia con un aumento del 86 % en los eventos tromboembólicos e isquémicos.</p>
-
+      <p>Induce CYP3A4 y P-gp. Puede reducir de forma marcada las concentraciones de apixabán, rivaroxabán, dabigatrán y edoxabán. Deben evitarse los ACOD si la carbamazepina no puede sustituirse. Las guías recientes (AHA 2023) respaldan esta restricción advirtiendo que, en la práctica real, el uso concomitante de ACOD y antiepilépticos inductores se asocia con un aumento del 86 % en los eventos tromboembólicos e isquémicos.</p>
       <p>Las opciones son cambiar a un antiepiléptico no inductor si es clínicamente posible o anticoagular con AVK y control estrecho. El cambio de antiepiléptico debe hacerse por neurología, evitando la descompensación de crisis.</p>
 
       <h5 style="margin:12px 0 6px; color:#991b1b; font-size:12px; font-weight:800;">Fenitoína</h5>
-
-      <p>Es un <b>inductor potente de CYP3A4 y P-gp</b>. Debe considerarse una de las interacciones de mayor riesgo con ACOD por infraexposición y riesgo embólico. La ficha técnica de apixabán advierte que inductores potentes como fenitoína pueden reducir la exposición de forma relevante.</p>
-
-      <p><b>La conducta preferente es evitar los ACOD.</b> Debe valorarse la <b>sustitución por un antiepiléptico no inductor o AVK con control estrecho</b>. En pacientes con ictus previo y FA, mantener ACOD junto a fenitoína sin ajuste ni vigilancia específica no es una estrategia segura. Como salvedad regulatoria estrictamente europea, cabe destacar que la ficha técnica de la AEMPS para el apixabán indica que, en caso de necesidad absoluta, podría utilizarse "con precaución" para la prevención de ictus en FANV sin modificar la dosis, aunque desaconseja totalmente esta combinación para el tratamiento de trombosis venosa profunda o embolia pulmonar (donde la eficacia se vería comprometida). En la práctica clínica diaria, la prudencia dicta evitar la combinación siempre que existan alternativas.</p>
+      <p>Es un inductor potente de CYP3A4 y P-gp. Debe considerarse una de las interacciones de mayor riesgo con ACOD por infraexposición y riesgo embólico. La ficha técnica de apixabán advierte que inductores potentes como fenitoína pueden reducir la exposición de forma relevante.</p>
+      <p>La conducta preferente es evitar los ACOD. Debe valorarse la sustitución por un antiepiléptico no inductor o AVK con control estrecho. En pacientes con ictus previo y FA, mantener ACOD junto a fenitoína sin ajuste ni vigilancia específica no es una estrategia segura. Como salvedad regulatoria estrictamente europea, cabe destacar que la ficha técnica de la AEMPS para el apixabán indica que, en caso de necesidad absoluta, podría utilizarse "con precaución" para la prevención de ictus en FANV sin modificar la dosis, aunque desaconseja totalmente esta combinación para el tratamiento de trombosis venosa profunda o embolia pulmonar (donde la eficacia se vería comprometida). En la práctica clínica diaria, la prudencia dicta evitar la combinación siempre que existan alternativas.</p>
 
       <h5 style="margin:12px 0 6px; color:#991b1b; font-size:12px; font-weight:800;">Fenobarbital y primidona</h5>
-
-      <p>Son <b>inductores potentes</b>. <b>Reducen exposición de ACOD y deben evitarse</b> en combinación.</p>
-
-      <p>Igual que con carbamazepina o fenitoína, debe considerarse <b>cambio de antiepiléptico o AVK con monitorización estrecha</b>.</p>
-
+      <p>Son inductores potentes. Reducen exposición de ACOD y deben evitarse en combinación. Igual que con carbamazepina o fenitoína, debe considerarse cambio de antiepiléptico o AVK con monitorización estrecha.</p>
       <p>En pacientes mayores, estos fármacos también aumentan riesgo de caídas, deterioro cognitivo y errores de medicación, lo que refuerza la necesidad de revisión neurológica y farmacológica integral.</p>
 
       <h5 style="margin:12px 0 6px; color:#991b1b; font-size:12px; font-weight:800;">Hierba de San Juan</h5>
-
-      <p>La hierba de San Juan o Hypericum <b>induce CYP3A4 y P-gp</b>. Puede reducir la exposición de los ACOD (su uso conjunto está explícitamente advertido en las fichas técnicas como causa de disminución de concentraciones plasmáticas) y también alterar el control de los AVK. <b>Debe preguntarse de forma activa por productos de herbolario y suplementos</b>, porque el paciente puede no considerarlos como medicación.</p>
-
-      <p><b>En pacientes anticoagulados, el Hypericum debe evitarse por completo.</b> Su retirada también puede modificar la exposición de otros fármacos, por lo que debe registrarse cuidadosamente en la conciliación.</p>
-
-      <div class="article-auto-note article-auto-note-warning" style="text-align:justify;">
-        <span>Idea clave</span>
-        <p style="text-align:justify;">Ante una interacción farmacológica relevante, la pregunta principal no es solo si hay que ajustar una dosis, sino si el anticoagulante sigue siendo utilizable en ese paciente concreto. Los inhibidores pueden producir sobreexposición y sangrado; los inductores pueden producir infraexposición y fallo anticoagulante; y el AVK no elimina la interacción, aunque permite monitorizar y ajustar el INR si existe un circuito fiable.</p>
+      <div style="padding:12px 14px; background:#fff5f5; border:1px solid #fecaca; border-left:5px solid #991b1b; border-radius:12px; margin:8px 0;">
+        <p style="margin:0;">La hierba de San Juan o Hypericum induce CYP3A4 y P-gp. Puede reducir la exposición de los ACOD (su uso conjunto está explícitamente advertido en las fichas técnicas como causa de disminución de concentraciones plasmáticas) y también alterar el control de los AVK. Debe preguntarse de forma activa por productos de herbolario y suplementos, porque el paciente puede no considerarlos como medicación.</p>
       </div>
-
+      <p>En pacientes anticoagulados, el Hypericum debe evitarse por completo. Su retirada también puede modificar la exposición de otros fármacos, por lo que debe registrarse cuidadosamente en la conciliación.</p>
     </div>
   </div>
 </details>
@@ -6518,21 +6267,19 @@ document.addEventListener("keydown", function(e){
 
       <ol style="font-size:12px; padding-left:22px; line-height:1.55; margin:0 0 12px 0;">
         <li>
-  Primero se clasifica cada estrategia según su adecuación clínica:
-  <b>obligatoria</b>, <b>preferible</b>, <b>sin condicionantes específicos</b>,
-  <b>aceptable</b>, <b>considerar</b>, <b>utilizable con precaución</b>,
-  <b>incierta</b> o <b>a evitar</b>.
-</li>
+          Primero se clasifica cada estrategia según su adecuación clínica:
+          <b>obligatoria</b>, <b>preferible</b>, <b>aceptable</b>,
+          <b>utilizable con precaución</b>, <b>incierta</b> o <b>a evitar</b>.
+        </li>
         <li>
           Después se aplican ajustes internos por condiciones clínicas,
           interacciones, dificultad de monitorización, penalizaciones específicas
           y preferencias razonables.
         </li>
         <li>
-  Finalmente, entre opciones de prioridad clínica similar, se prioriza el
-  <b>IE descendente</b> como medida de beneficio clínico neto, quedando los
-  ajustes internos y el score global como criterios de desempate o refinamiento.
-</li>
+          Finalmente, entre opciones de prioridad clínica similar, se tiene en cuenta
+          el balance cuantitativo de beneficio/riesgo, incluyendo el <b>IE</b>.
+        </li>
       </ol>
 
       <p style="font-size:12px; margin:0 0 10px 0;">
@@ -6599,7 +6346,7 @@ document.addEventListener("keydown", function(e){
     </div>
     <div>• Un valor alto de <b>IE</b> indica mayor beneficio clínico neto esperado.</div>
     <div>• Pero la <b>prioridad final</b> depende primero de la <b>adecuación clínica</b> del tratamiento.</div>
-    <div>• La primera posición refleja la <b>mejor opción global disponible</b>, considerando primero la adecuación clínica y, dentro de opciones de prioridad similar, el <b>IE</b> como criterio principal de beneficio/riesgo.</div>
+    <div>• La primera posición refleja la <b>mejor opción global disponible</b>, considerando adecuación clínica, penalizaciones, interacciones y balance beneficio/riesgo.</div>
     <div>• Una opción marcada como <b>aceptable</b>, <b>considerar</b> o <b>precaución</b> no debe interpretarse como una recomendación fuerte, aunque aparezca en primer lugar.</div>
   </div>
 
