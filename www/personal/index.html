@@ -1,0 +1,882 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Todacitan — calendario de tomas</title>
+
+<style>
+  :root{
+    --azul:#0f3d83;
+    --azul2:#123f7a;
+    --fondo:#f3f6fb;
+    --texto:#102033;
+    --borde:#dbe4f0;
+    --verde:#16803c;
+    --verde-fondo:#e9f8ef;
+    --rojo:#b42318;
+    --rojo-fondo:#fff0f0;
+    --amarillo:#fff4dd;
+    --amarillo-borde:#f0a000;
+  }
+
+  *{
+    box-sizing:border-box;
+  }
+
+  body{
+    margin:0;
+    background:var(--fondo);
+    color:var(--texto);
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:16px;
+    line-height:1.45;
+  }
+
+  header{
+    position:sticky;
+    top:0;
+    z-index:10;
+    padding:calc(env(safe-area-inset-top, 0px) + 14px) 16px 14px 16px;
+    background:linear-gradient(135deg, var(--azul), var(--azul2));
+    color:white;
+    box-shadow:0 4px 16px rgba(0,0,0,.22);
+  }
+
+  header h1{
+    margin:0;
+    font-size:22px;
+    text-align:center;
+  }
+
+  header p{
+    margin:4px 0 0 0;
+    text-align:center;
+    font-size:14px;
+    opacity:.92;
+  }
+
+  main{
+    max-width:900px;
+    margin:0 auto;
+    padding:16px 14px 32px 14px;
+  }
+
+  .card{
+    background:white;
+    border:1px solid var(--borde);
+    border-radius:18px;
+    padding:16px;
+    margin-bottom:14px;
+    box-shadow:0 4px 14px rgba(15,61,131,.10);
+  }
+
+  .warning{
+    background:var(--amarillo);
+    border-left:6px solid var(--amarillo-borde);
+  }
+
+  .danger{
+    background:var(--rojo-fondo);
+    border-left:6px solid var(--rojo);
+  }
+
+  .ok{
+    background:var(--verde-fondo);
+    border-left:6px solid var(--verde);
+  }
+
+  .muted{
+    color:#5d6b80;
+    font-size:14px;
+  }
+
+  .actions{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+  @media(min-width:650px){
+    .actions{
+      grid-template-columns:repeat(2, 1fr);
+    }
+  }
+
+  button{
+    border:0;
+    border-radius:999px;
+    padding:12px 16px;
+    font-weight:bold;
+    font-size:15px;
+    cursor:pointer;
+    min-height:44px;
+  }
+
+  .btn-main{
+    background:var(--azul);
+    color:white;
+  }
+
+  .btn-soft{
+    background:#eaf0fb;
+    color:var(--azul);
+  }
+
+  .btn-danger{
+    background:#fee2e2;
+    color:#991b1b;
+  }
+
+  .resumen-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+
+  @media(min-width:650px){
+    .resumen-grid{
+      grid-template-columns:repeat(4, 1fr);
+    }
+  }
+
+  .mini{
+    background:#f7f9fd;
+    border:1px solid var(--borde);
+    border-radius:14px;
+    padding:12px;
+    text-align:center;
+  }
+
+  .mini .num{
+    font-size:24px;
+    font-weight:bold;
+    color:var(--azul);
+  }
+
+  .mini .label{
+    font-size:13px;
+    color:#5d6b80;
+  }
+
+  .progress-wrap{
+    width:100%;
+    height:14px;
+    background:#e5eaf2;
+    border-radius:999px;
+    overflow:hidden;
+    margin-top:10px;
+  }
+
+  .progress-bar{
+    height:100%;
+    width:0%;
+    background:var(--azul);
+    transition:width .2s ease;
+  }
+
+  .day-card{
+    background:white;
+    border:1px solid var(--borde);
+    border-radius:18px;
+    padding:14px;
+    margin-bottom:12px;
+    box-shadow:0 3px 10px rgba(15,61,131,.08);
+  }
+
+  .day-card.today{
+    border:2px solid var(--azul);
+  }
+
+  .day-title{
+    font-weight:bold;
+    font-size:18px;
+    color:var(--azul);
+    margin-bottom:4px;
+  }
+
+  .day-subtitle{
+    color:#5d6b80;
+    font-size:14px;
+    margin-bottom:10px;
+  }
+
+  .dose{
+    display:grid;
+    grid-template-columns:1fr auto;
+    align-items:center;
+    gap:10px;
+    border-top:1px solid #e5eaf2;
+    padding:11px 0;
+  }
+
+  .dose:first-of-type{
+    border-top:0;
+  }
+
+  .dose-left{
+    min-width:0;
+  }
+
+  .time{
+    display:inline-block;
+    font-size:18px;
+    font-weight:bold;
+    color:#102033;
+    margin-right:6px;
+  }
+
+  .taken{
+    opacity:.55;
+    text-decoration:line-through;
+  }
+
+  .done{
+    display:inline-block;
+    background:var(--verde-fondo);
+    color:var(--verde);
+    border-radius:999px;
+    padding:7px 10px;
+    font-weight:bold;
+    font-size:13px;
+    margin-right:6px;
+  }
+
+  .pending{
+    display:inline-block;
+    background:#eef3fb;
+    color:#3b4b63;
+    border-radius:999px;
+    padding:7px 10px;
+    font-weight:bold;
+    font-size:13px;
+  }
+
+  .overdue{
+    display:inline-block;
+    background:#fff0f0;
+    color:#b42318;
+    border-radius:999px;
+    padding:7px 10px;
+    font-weight:bold;
+    font-size:13px;
+  }
+
+  .hidden{
+    display:none;
+  }
+
+  .small-btn{
+    padding:8px 11px;
+    min-height:36px;
+    font-size:13px;
+  }
+
+  .switch-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-top:10px;
+  }
+
+  input[type="checkbox"]{
+    transform:scale(1.25);
+  }
+
+  #estado{
+    white-space:pre-line;
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Todacitan</h1>
+  <p>Calendario de tomas y avisos desde el día 2</p>
+</header>
+
+<main>
+
+  <section class="card warning">
+    <strong>Inicio del tratamiento:</strong> lunes 15 de junio de 2026, día 1.<br>
+    <strong>Esta app programa avisos desde:</strong> día 2, martes 16 de junio de 2026.<br>
+    <strong>Fecha límite para dejar de fumar:</strong> día 5, viernes 19 de junio de 2026.
+  </section>
+
+  <section class="card" id="estadoCard">
+    <strong>Estado</strong>
+    <div id="estado" class="muted">Cargando...</div>
+  </section>
+
+  <section class="card">
+    <div class="resumen-grid">
+      <div class="mini">
+        <div class="num" id="totalTomas">0</div>
+        <div class="label">tomas totales</div>
+      </div>
+      <div class="mini">
+        <div class="num" id="tomasHechas">0</div>
+        <div class="label">marcadas</div>
+      </div>
+      <div class="mini">
+        <div class="num" id="tomasPendientes">0</div>
+        <div class="label">pendientes</div>
+      </div>
+      <div class="mini">
+        <div class="num" id="porcentaje">0%</div>
+        <div class="label">progreso</div>
+      </div>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="actions">
+      <button class="btn-main" onclick="programarNotificaciones()">Programar / reprogramar avisos</button>
+      <button class="btn-soft" onclick="verAvisosPendientes()">Ver avisos pendientes</button>
+      <button class="btn-soft" onclick="cancelarAvisos()">Cancelar avisos</button>
+      <button class="btn-danger" onclick="borrarProgreso()">Borrar progreso</button>
+    </div>
+
+    <div class="switch-row">
+      <label for="soloHoy"><strong>Mostrar solo hoy</strong></label>
+      <input id="soloHoy" type="checkbox" onchange="renderCalendario()">
+    </div>
+  </section>
+
+  <section id="hoyBox" class="card ok hidden"></section>
+
+  <section id="calendario"></section>
+
+</main>
+
+<script>
+/*
+  Todacitan — Capacitor HTML/JS plano
+
+  Requisitos:
+  npm install @capacitor/local-notifications@7
+  npx cap sync android
+
+  En Android 13+ se pedirá permiso de notificaciones.
+*/
+
+const inicioTratamiento = new Date(2026, 5, 15, 0, 0, 0, 0);
+// Mes 5 = junio. Día 1: lunes 15/06/2026.
+
+const primerDiaMostrado = 2;
+const ultimoDiaTratamiento = 25;
+
+const pauta = [
+  {
+    desde: 1,
+    hasta: 3,
+    horas: ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00"]
+  },
+  {
+    desde: 4,
+    hasta: 12,
+    horas: ["08:00", "10:30", "13:00", "15:30", "18:00"]
+  },
+  {
+    desde: 13,
+    hasta: 16,
+    horas: ["08:00", "11:00", "14:00", "17:00"]
+  },
+  {
+    desde: 17,
+    hasta: 20,
+    horas: ["08:00", "13:00", "18:00"]
+  },
+  {
+    desde: 21,
+    hasta: 25,
+    horas: ["08:00", "20:00"]
+  }
+];
+
+function getLocalNotifications(){
+  if(
+    window.Capacitor &&
+    window.Capacitor.Plugins &&
+    window.Capacitor.Plugins.LocalNotifications
+  ){
+    return window.Capacitor.Plugins.LocalNotifications;
+  }
+  return null;
+}
+
+function esCapacitorAndroid(){
+  try{
+    return !!(
+      window.Capacitor &&
+      typeof window.Capacitor.getPlatform === "function" &&
+      window.Capacitor.getPlatform() === "android"
+    );
+  }catch(e){
+    return false;
+  }
+}
+
+function obtenerHorasDia(dia){
+  const bloque = pauta.find(p => dia >= p.desde && dia <= p.hasta);
+  return bloque ? bloque.horas : [];
+}
+
+function fechaDeDia(dia){
+  const f = new Date(inicioTratamiento);
+  f.setDate(inicioTratamiento.getDate() + dia - 1);
+  return f;
+}
+
+function crearFechaHora(dia, hora){
+  const fecha = fechaDeDia(dia);
+  const partes = hora.split(":").map(Number);
+  fecha.setHours(partes[0], partes[1], 0, 0);
+  return fecha;
+}
+
+function diaTratamientoActual(){
+  const ahora = new Date();
+  const inicio = new Date(inicioTratamiento);
+  inicio.setHours(0,0,0,0);
+
+  const hoy = new Date(ahora);
+  hoy.setHours(0,0,0,0);
+
+  const diffMs = hoy.getTime() - inicio.getTime();
+  return Math.floor(diffMs / 86400000) + 1;
+}
+
+function claveToma(dia, hora){
+  return "todacitan_dia_" + dia + "_hora_" + hora;
+}
+
+function estaTomado(dia, hora){
+  return localStorage.getItem(claveToma(dia, hora)) === "1";
+}
+
+function marcarTomado(dia, hora){
+  localStorage.setItem(claveToma(dia, hora), "1");
+  renderCalendario();
+}
+
+function desmarcarTomado(dia, hora){
+  localStorage.removeItem(claveToma(dia, hora));
+  renderCalendario();
+}
+
+function formatearFecha(fecha){
+  return fecha.toLocaleDateString("es-ES", {
+    weekday:"long",
+    day:"numeric",
+    month:"long",
+    year:"numeric"
+  });
+}
+
+function formatearFechaCorta(fecha){
+  return fecha.toLocaleDateString("es-ES", {
+    weekday:"long",
+    day:"numeric",
+    month:"long"
+  });
+}
+
+function formatearFechaHora(fecha){
+  return fecha.toLocaleString("es-ES", {
+    weekday:"short",
+    day:"numeric",
+    month:"short",
+    hour:"2-digit",
+    minute:"2-digit"
+  });
+}
+
+function todasLasTomas(){
+  const lista = [];
+
+  for(let dia = primerDiaMostrado; dia <= ultimoDiaTratamiento; dia++){
+    const fechaDia = fechaDeDia(dia);
+    const horas = obtenerHorasDia(dia);
+
+    horas.forEach((hora, index) => {
+      lista.push({
+        dia,
+        hora,
+        index,
+        fechaDia,
+        fechaHora: crearFechaHora(dia, hora),
+        id: dia * 100 + index
+      });
+    });
+  }
+
+  return lista;
+}
+
+function siguienteTomaPendiente(){
+  const ahora = new Date();
+  const tomas = todasLasTomas();
+
+  return tomas.find(t => {
+    return !estaTomado(t.dia, t.hora) && t.fechaHora >= ahora;
+  }) || null;
+}
+
+function actualizarResumen(){
+  const tomas = todasLasTomas();
+  const total = tomas.length;
+  const hechas = tomas.filter(t => estaTomado(t.dia, t.hora)).length;
+  const pendientes = total - hechas;
+  const pct = total > 0 ? Math.round((hechas / total) * 100) : 0;
+
+  document.getElementById("totalTomas").textContent = total;
+  document.getElementById("tomasHechas").textContent = hechas;
+  document.getElementById("tomasPendientes").textContent = pendientes;
+  document.getElementById("porcentaje").textContent = pct + "%";
+  document.getElementById("progressBar").style.width = pct + "%";
+}
+
+function actualizarEstado(){
+  const estado = document.getElementById("estado");
+  const diaActual = diaTratamientoActual();
+  const notif = getLocalNotifications();
+  const plataforma = esCapacitorAndroid() ? "Android / Capacitor" : "navegador o entorno no Android";
+
+  let texto = "Plataforma: " + plataforma + ".\n";
+
+  if(!notif){
+    texto += "Plugin de notificaciones: no detectado. El calendario funcionará, pero los avisos solo funcionarán dentro de la app Android con @capacitor/local-notifications instalado y sincronizado.\n";
+  }else{
+    texto += "Plugin de notificaciones: detectado.\n";
+  }
+
+  texto += "Día de tratamiento calculado hoy: día " + diaActual + ".\n";
+
+  const sig = siguienteTomaPendiente();
+  if(sig){
+    texto += "Siguiente toma pendiente: día " + sig.dia + ", " + formatearFechaHora(sig.fechaHora) + ".";
+  }else{
+    texto += "No quedan tomas futuras pendientes según el calendario.";
+  }
+
+  estado.textContent = texto;
+}
+
+function renderHoyBox(){
+  const hoyBox = document.getElementById("hoyBox");
+  const diaActual = diaTratamientoActual();
+
+  if(diaActual < primerDiaMostrado || diaActual > ultimoDiaTratamiento){
+    hoyBox.classList.add("hidden");
+    hoyBox.innerHTML = "";
+    return;
+  }
+
+  const horas = obtenerHorasDia(diaActual);
+  const hechas = horas.filter(h => estaTomado(diaActual, h)).length;
+
+  hoyBox.classList.remove("hidden");
+  hoyBox.innerHTML =
+    "<strong>Hoy es el día " + diaActual + " del tratamiento.</strong><br>" +
+    formatearFecha(fechaDeDia(diaActual)) + "<br>" +
+    "Tomas de hoy: " + hechas + " de " + horas.length + " marcadas.";
+}
+
+function renderCalendario(){
+  actualizarResumen();
+  actualizarEstado();
+  renderHoyBox();
+
+  const cont = document.getElementById("calendario");
+  cont.innerHTML = "";
+
+  const soloHoy = document.getElementById("soloHoy").checked;
+  const diaActual = diaTratamientoActual();
+  const ahora = new Date();
+
+  for(let dia = primerDiaMostrado; dia <= ultimoDiaTratamiento; dia++){
+    if(soloHoy && dia !== diaActual) continue;
+
+    const fecha = fechaDeDia(dia);
+    const horas = obtenerHorasDia(dia);
+
+    const card = document.createElement("div");
+    card.className = "day-card";
+    if(dia === diaActual){
+      card.classList.add("today");
+    }
+
+    const title = document.createElement("div");
+    title.className = "day-title";
+    title.textContent = "Día " + dia + " — " + formatearFechaCorta(fecha);
+    card.appendChild(title);
+
+    const subt = document.createElement("div");
+    subt.className = "day-subtitle";
+
+    if(dia === 5){
+      subt.innerHTML = "<strong>Fecha límite para dejar de fumar.</strong>";
+    }else{
+      subt.textContent = horas.length + " tomas programadas";
+    }
+
+    card.appendChild(subt);
+
+    horas.forEach(hora => {
+      const tomado = estaTomado(dia, hora);
+      const fechaHora = crearFechaHora(dia, hora);
+      const vencida = !tomado && fechaHora < ahora;
+
+      const row = document.createElement("div");
+      row.className = "dose";
+
+      const left = document.createElement("div");
+      left.className = "dose-left";
+
+      const spanHora = document.createElement("span");
+      spanHora.className = "time";
+      if(tomado) spanHora.classList.add("taken");
+      spanHora.textContent = hora;
+
+      const texto = document.createElement("span");
+      texto.textContent = "1 comprimido";
+
+      left.appendChild(spanHora);
+      left.appendChild(texto);
+
+      const right = document.createElement("div");
+
+      if(tomado){
+        const done = document.createElement("span");
+        done.className = "done";
+        done.textContent = "Tomado";
+        right.appendChild(done);
+
+        const btn = document.createElement("button");
+        btn.className = "btn-soft small-btn";
+        btn.textContent = "Desmarcar";
+        btn.onclick = function(){
+          desmarcarTomado(dia, hora);
+        };
+        right.appendChild(btn);
+      }else{
+        const status = document.createElement("span");
+        status.className = vencida ? "overdue" : "pending";
+        status.textContent = vencida ? "Pendiente vencida" : "Pendiente";
+        right.appendChild(status);
+
+        const btn = document.createElement("button");
+        btn.className = "btn-main small-btn";
+        btn.style.marginLeft = "6px";
+        btn.textContent = "Marcar";
+        btn.onclick = function(){
+          marcarTomado(dia, hora);
+        };
+        right.appendChild(btn);
+      }
+
+      row.appendChild(left);
+      row.appendChild(right);
+      card.appendChild(row);
+    });
+
+    cont.appendChild(card);
+  }
+}
+
+async function prepararCanalAndroid(LocalNotifications){
+  if(!esCapacitorAndroid()) return;
+
+  if(typeof LocalNotifications.createChannel !== "function") return;
+
+  try{
+    await LocalNotifications.createChannel({
+      id: "todacitan",
+      name: "Todacitan",
+      description: "Avisos de tomas de Todacitan",
+      importance: 5,
+      visibility: 1,
+      sound: "default",
+      vibration: true,
+      lights: true
+    });
+  }catch(e){
+    console.warn("No se pudo crear canal Android:", e);
+  }
+}
+
+async function programarNotificaciones(){
+  const LocalNotifications = getLocalNotifications();
+
+  if(!LocalNotifications){
+    alert(
+      "No se detecta el plugin de notificaciones.\n\n" +
+      "Instala y sincroniza:\n" +
+      "npm install @capacitor/local-notifications@7\n" +
+      "npx cap sync android"
+    );
+    return;
+  }
+
+  try{
+    const permiso = await LocalNotifications.requestPermissions();
+
+    if(permiso.display !== "granted"){
+      alert("No se han concedido permisos de notificación.");
+      return;
+    }
+
+    await prepararCanalAndroid(LocalNotifications);
+
+    const pendientes = await LocalNotifications.getPending();
+
+    if(pendientes && pendientes.notifications && pendientes.notifications.length){
+      await LocalNotifications.cancel({
+        notifications: pendientes.notifications.map(n => ({ id: n.id }))
+      });
+    }
+
+    const avisos = [];
+    const ahora = new Date();
+
+    for(let dia = primerDiaMostrado; dia <= ultimoDiaTratamiento; dia++){
+      const horas = obtenerHorasDia(dia);
+
+      horas.forEach((hora, index) => {
+        const fechaAviso = crearFechaHora(dia, hora);
+
+        if(fechaAviso > ahora){
+          avisos.push({
+            id: dia * 100 + index,
+            title: "Todacitan",
+            body: "Día " + dia + ": tomar 1 comprimido ahora (" + hora + ")",
+            schedule: {
+              at: fechaAviso,
+              allowWhileIdle: true
+            },
+            channelId: "todacitan",
+            sound: "default"
+          });
+        }
+      });
+    }
+
+    if(avisos.length === 0){
+      alert("No hay avisos futuros que programar.");
+      return;
+    }
+
+    await LocalNotifications.schedule({
+      notifications: avisos
+    });
+
+    localStorage.setItem("todacitan_avisos_programados", new Date().toISOString());
+
+    alert("Avisos programados: " + avisos.length);
+    actualizarEstado();
+
+  }catch(e){
+    console.error(e);
+    alert("Error al programar avisos:\n" + (e && e.message ? e.message : e));
+  }
+}
+
+async function verAvisosPendientes(){
+  const LocalNotifications = getLocalNotifications();
+
+  if(!LocalNotifications){
+    alert("No se detecta el plugin de notificaciones.");
+    return;
+  }
+
+  try{
+    const pendientes = await LocalNotifications.getPending();
+    const lista = pendientes.notifications || [];
+
+    if(lista.length === 0){
+      alert("No hay avisos pendientes programados.");
+      return;
+    }
+
+    alert("Avisos pendientes programados: " + lista.length);
+  }catch(e){
+    alert("Error al consultar avisos pendientes:\n" + (e && e.message ? e.message : e));
+  }
+}
+
+async function cancelarAvisos(){
+  const LocalNotifications = getLocalNotifications();
+
+  if(!LocalNotifications){
+    alert("No se detecta el plugin de notificaciones.");
+    return;
+  }
+
+  if(!confirm("¿Cancelar todos los avisos pendientes de Todacitan?")) return;
+
+  try{
+    const pendientes = await LocalNotifications.getPending();
+    const lista = pendientes.notifications || [];
+
+    if(lista.length){
+      await LocalNotifications.cancel({
+        notifications: lista.map(n => ({ id: n.id }))
+      });
+    }
+
+    localStorage.removeItem("todacitan_avisos_programados");
+
+    alert("Avisos cancelados.");
+    actualizarEstado();
+
+  }catch(e){
+    alert("Error al cancelar avisos:\n" + (e && e.message ? e.message : e));
+  }
+}
+
+function borrarProgreso(){
+  if(!confirm("¿Borrar todas las tomas marcadas? No cancela los avisos.")) return;
+
+  Object.keys(localStorage).forEach(k => {
+    if(k.startsWith("todacitan_dia_")){
+      localStorage.removeItem(k);
+    }
+  });
+
+  renderCalendario();
+}
+
+function registrarListenersNotificaciones(){
+  const LocalNotifications = getLocalNotifications();
+  if(!LocalNotifications) return;
+
+  try{
+    if(typeof LocalNotifications.addListener === "function"){
+      LocalNotifications.addListener("localNotificationActionPerformed", function(){
+        renderCalendario();
+      });
+
+      LocalNotifications.addListener("localNotificationReceived", function(){
+        renderCalendario();
+      });
+    }
+  }catch(e){
+    console.warn("No se pudieron registrar listeners:", e);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+  registrarListenersNotificaciones();
+  renderCalendario();
+});
+</script>
+
+</body>
+</html>

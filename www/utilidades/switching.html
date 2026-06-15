@@ -2786,7 +2786,7 @@ function moduloRenal(datos){
         bloqueResultado("Datos usados", datosBasicosACOD),
         bloqueResultado("Dosis por indicación", [
           `FANV: ${dosisEdoxaban}`,
-          `TVP/EP: ${dosisEdoxaban} tras al menos 5 días de anticoagulación parenteral.`,
+          `TVP/EP: ${dosisEdoxaban} Tras al menos 5 días de anticoagulación parenteral.`,
           `Prevención de recurrencias TVP/EP: ${dosisEdoxaban} tras fase inicial indicada.`
         ]),
         bloqueResultado("Motivo", [
@@ -7123,29 +7123,24 @@ function convertirCuerpoRecomendacionAHTML(texto) {
 function imprimirTextoRecomendacion(texto) {
   const partes = extraerPartesTextoCopia(texto);
 
-  const logoIctusGPS = new URL("../img/topbar.png", window.location.href).href;
-  const iconoACO = new URL("../iconos/anticoagulacionico.png", window.location.href).href;
+let logoIctusGPS = new URL("../img/topbar.png", window.location.href).href;
+let iconoACO = new URL("../iconos/anticoagulacionico.png", window.location.href).href;
+
+const esAndroidCapacitor =
+  window.Capacitor &&
+  typeof window.Capacitor.getPlatform === "function" &&
+  window.Capacitor.getPlatform() === "android";
+
+if (esAndroidCapacitor) {
+  logoIctusGPS = "file:///android_asset/public/img/topbar.png";
+  iconoACO = "file:///android_asset/public/iconos/anticoagulacionico.png";
+}
 
   const disclaimer = `
 Esta herramienta es un apoyo a la decisión clínica; no sustituye el juicio profesional, la valoración individual del paciente ni los protocolos/guías locales actualizados. Ante discrepancias, prevalecen los protocolos vigentes y el criterio del equipo responsable.
   `.trim();
 
-  const iframe = document.createElement("iframe");
-
-  iframe.style.position = "fixed";
-  iframe.style.right = "0";
-  iframe.style.bottom = "0";
-  iframe.style.width = "0";
-  iframe.style.height = "0";
-  iframe.style.border = "0";
-  iframe.setAttribute("aria-hidden", "true");
-
-  document.body.appendChild(iframe);
-
-  const doc = iframe.contentDocument || iframe.contentWindow.document;
-
-  doc.open();
-  doc.write(`
+  const htmlImpresion = `
 <!doctype html>
 <html lang="es">
 <head>
@@ -7323,7 +7318,52 @@ Esta herramienta es un apoyo a la decisión clínica; no sustituye el juicio pro
 
 </body>
 </html>
-  `);
+  `;
+
+  const plataforma =
+    window.Capacitor && typeof window.Capacitor.getPlatform === "function"
+      ? window.Capacitor.getPlatform()
+      : "web";
+
+  if (plataforma === "android") {
+    const Printer =
+      window.Capacitor?.Plugins?.Printer ||
+      window.Capacitor?.Plugins?.CapacitorPrinter ||
+      window.Printer;
+
+    if (!Printer || typeof Printer.printHtml !== "function") {
+      alert("El módulo de impresión nativa no está disponible.");
+      console.warn("Plugins disponibles:", window.Capacitor?.Plugins);
+      return;
+    }
+
+    Printer.printHtml({
+      name: "ACO Manager",
+      html: htmlImpresion
+    }).catch(error => {
+      console.error("Error al imprimir en Android:", error);
+      alert("No se pudo abrir la impresión nativa de Android.");
+    });
+
+    return;
+  }
+
+  const iframe = document.createElement("iframe");
+
+  iframe.style.position = "fixed";
+  iframe.style.right = "0";
+  iframe.style.bottom = "0";
+  iframe.style.width = "0";
+  iframe.style.height = "0";
+  iframe.style.border = "0";
+  iframe.setAttribute("aria-hidden", "true");
+
+  document.body.appendChild(iframe);
+
+  const doc = iframe.contentDocument || iframe.contentWindow.document;
+
+  doc.open();
+  doc.write(htmlImpresion);
   doc.close();
 
   setTimeout(() => {

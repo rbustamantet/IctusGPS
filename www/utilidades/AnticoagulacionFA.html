@@ -4497,7 +4497,13 @@ __lastReport={
   notes:[...notes],
   doses:dosesForReport
 };
-      document.getElementById('btnPrint').disabled=false;
+const btnPrint = document.getElementById('btnPrint');
+if (btnPrint) {
+  btnPrint.disabled = false;
+  btnPrint.style.display = '';
+  btnPrint.style.visibility = 'visible';
+}
+
 document.getElementById('btnCopy').disabled=false;
 document.getElementById('btnOpenFeedback').disabled=false;
     }
@@ -4844,10 +4850,23 @@ function imprimirTextoRecomendacion(texto){
     return;
   }
 
-  const cuerpoHTML = convertirCuerpoRecomendacionAHTML(partes.cuerpo);
+    const cuerpoHTML = convertirCuerpoRecomendacionAHTML(partes.cuerpo);
   const disclaimer = obtenerDisclaimerIctusGPS();
 
-  const html = `<!doctype html>
+  let logoIctusGPS = new URL("../img/topbar.png", window.location.href).href;
+  let iconoPagina = new URL("../iconos/anticoagulacion.png", window.location.href).href;
+
+  const esAndroidCapacitor =
+    window.Capacitor &&
+    typeof window.Capacitor.getPlatform === "function" &&
+    window.Capacitor.getPlatform() === "android";
+
+  if (esAndroidCapacitor) {
+    logoIctusGPS = "file:///android_asset/public/img/topbar.png";
+    iconoPagina = "file:///android_asset/public/iconos/anticoagulacion.png";
+  }
+
+  const htmlImpresion = `<!doctype html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
@@ -5181,10 +5200,10 @@ function imprimirTextoRecomendacion(texto){
           <div class="print-wrap">
             <div class="print-header">
               <div>
-                <img src="../img/topbar.png" class="print-logo" alt="IctusGPS">
+                <img src="${logoIctusGPS}" class="print-logo" alt="IctusGPS">
               </div>
               <div class="print-center">
-                <img src="../iconos/anticoagulacion.png" class="print-page-icon" alt="">
+                <img src="${iconoPagina}" class="print-page-icon" alt="">
                 <span>${escaparHTML(partes.nombrePagina)}</span>
               </div>
               <div class="print-date">Fecha: ${escaparHTML(partes.fecha)}</div>
@@ -5215,6 +5234,26 @@ function imprimirTextoRecomendacion(texto){
   </table>
 </body></html>`;
 
+    if (esAndroidCapacitor) {
+    const Printer =
+      window.Capacitor?.Plugins?.Printer ||
+      window.Capacitor?.Plugins?.CapacitorPrinter ||
+      window.Printer;
+
+    if (Printer && typeof Printer.printHtml === "function") {
+      Printer.printHtml({
+        name: partes.nombrePagina || "Fibrilación auricular",
+        html: htmlImpresion
+      }).catch(() => {
+        showToast('No se pudo iniciar la impresión nativa.','warn');
+      });
+      return;
+    }
+
+    showToast('No se encontró el plugin de impresión nativa.','warn');
+    return;
+  }
+
   const iframe = document.createElement('iframe');
   iframe.style.position = 'fixed';
   iframe.style.right = '0';
@@ -5228,7 +5267,7 @@ function imprimirTextoRecomendacion(texto){
 
   const doc = iframe.contentWindow.document;
   doc.open();
-  doc.write(html);
+  doc.write(htmlImpresion);
   doc.close();
 
   iframe.onload = () => {
@@ -6919,11 +6958,6 @@ document.addEventListener("keydown", function(e){
     <script src="../js/index.js"></script>
     <script>
 document.addEventListener("DOMContentLoaded", () => {
-  if (window.Capacitor && Capacitor.getPlatform() === "android") {
-    const btnPrint = document.getElementById("btnPrint");
-    if (btnPrint) btnPrint.style.display = "none";
-  }
-
   document.querySelectorAll('.details-block').forEach((detail) => {
     detail.addEventListener('toggle', function () {
       if (this.open) {
