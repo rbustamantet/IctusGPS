@@ -237,6 +237,10 @@ header{
   .radios{display:flex;gap:10px;flex-wrap:wrap}
   .chip-radio{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:2px solid var(--borde);background:#fff;font-weight:700;cursor:pointer}
   .chip-radio input{accent-color:#2563eb}
+  .chip-radio:has(input:disabled){
+    opacity:.45;
+    cursor:not-allowed;
+  }
 
   /* Resultados */
   .chips{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 10px}
@@ -418,7 +422,7 @@ body {
               class="top">Glucemia al ingreso</label>
             <div class="radios"> <label class="chip-radio"> <input
                   name="g" value="desconocida" checked="checked"
-                  type="radio"> Desconocida / &lt;150 </label> <label
+                  type="radio"> Desconocida o &lt;150 </label> <label
                 class="chip-radio"> <input name="g"
                   value="entre150_200" type="radio"> 150–200 </label> <label
                 class="chip-radio"> <input name="g" value="mayor_200"
@@ -514,7 +518,18 @@ body {
     $('#colPeso').hidden = !pesoVisible;
     $('#bloqueGluc').hidden = !pesoVisible;
     $('#colDTI').hidden  = (m==='ado' || m==='sindm');
-    if(m==='sindm'){ const r=document.querySelector('input[name="g"][value="entre150_200"]'); if(r) r.checked=true; }
+
+    const glucDesconocida = document.querySelector('input[name="g"][value="desconocida"]');
+    const gluc150_200 = document.querySelector('input[name="g"][value="entre150_200"]');
+
+    if (glucDesconocida) {
+      glucDesconocida.disabled = (m === 'sindm');
+    }
+
+    if (m === 'sindm' && glucDesconocida?.checked && gluc150_200) {
+      gluc150_200.checked = true;
+    }
+
     clearAndCalc();
   }
   Object.entries(tabs).forEach(([k,el])=>el.addEventListener('click', ()=>selectMode(k)));
@@ -701,7 +716,11 @@ scrollToCard();
       letra, basal, bolus, dtd, des, com, cen,
       bullets: bullets.map(stripHTML)
     };
-    btnCopy.disabled=false; btnPrint.disabled=false;
+        btnCopy.disabled = false;
+    btnPrint.disabled = false;
+    btnPrint.style.display = '';
+    btnPrint.style.visibility = 'visible';
+    btnPrint.removeAttribute('hidden');
   }
 
   function pintarError(msg){
@@ -1020,8 +1039,19 @@ function imprimirTextoRecomendacion(texto){
   const partes = extraerPartesTextoCopia(textoFinal);
   const fecha = new Date().toLocaleDateString('es-ES');
   const nombrePagina = obtenerNombrePaginaCopia();
-  const logoSrc = absolutizarSrc(document.querySelector('.safe-logo')?.getAttribute('src') || '../img/topbar.png');
-  const iconoSrc = absolutizarSrc(document.querySelector('header .title img')?.getAttribute('src') || '../iconos/insulinoterapiaico.png');
+
+  let logoSrc = new URL("../img/topbar.png", window.location.href).href;
+  let iconoSrc = new URL("../iconos/insulinoterapiaico.png", window.location.href).href;
+
+  const esAndroidCapacitor =
+    window.Capacitor &&
+    typeof window.Capacitor.getPlatform === "function" &&
+    window.Capacitor.getPlatform() === "android";
+
+  if (esAndroidCapacitor) {
+    logoSrc = "file:///android_asset/public/img/topbar.png";
+    iconoSrc = "file:///android_asset/public/iconos/insulinoterapiaico.png";
+  }
 
   const htmlPrint = `<!DOCTYPE html>
 <html lang="es">
@@ -1288,6 +1318,26 @@ function imprimirTextoRecomendacion(texto){
 </body>
 </html>`;
 
+  if (esAndroidCapacitor) {
+    const Printer =
+      window.Capacitor?.Plugins?.Printer ||
+      window.Capacitor?.Plugins?.CapacitorPrinter ||
+      window.Printer;
+
+    if (Printer && typeof Printer.printHtml === "function") {
+      Printer.printHtml({
+        name: nombrePagina || "Insulinoterapia",
+        html: htmlPrint
+      }).catch(() => {
+        alert('No se pudo iniciar la impresión nativa.');
+      });
+      return;
+    }
+
+    alert('No se encontró el plugin de impresión nativa.');
+    return;
+  }
+
   const iframe = document.createElement('iframe');
   iframe.style.position = 'fixed';
   iframe.style.right = '0';
@@ -1370,12 +1420,12 @@ $('#btnClear').addEventListener('click', clearAll);
   btnPrint.addEventListener('click', printReport);
 // Activa la sombra al hacer scroll
 (function(){
-  const t=document.querySelector('.topbar');
-  const s=()=>t.classList.toggle('scrolled',window.scrollY>8);
-  document.addEventListener('scroll',s,{passive:true});
+  const t = document.querySelector('.bar');
+  if (!t) return;
+  const s = () => t.classList.toggle('scrolled', window.scrollY > 8);
+  document.addEventListener('scroll', s, { passive:true });
   s();
 })();
-
 function scrollToCard(){
   const card = document.querySelector('#card');
   if(!card) return;

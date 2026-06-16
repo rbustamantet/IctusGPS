@@ -4466,8 +4466,19 @@ function imprimirTextoRecomendacion(texto){
   const partes = extraerPartesTextoCopia(textoFinal);
   const fecha = new Date().toLocaleDateString('es-ES');
   const nombrePagina = obtenerNombrePaginaCopia();
-  const logoSrc = absolutizarSrc(document.querySelector('.safe-logo')?.getAttribute('src') || '../img/topbar.png');
-  const iconoSrc = absolutizarSrc(document.querySelector('header .title img')?.getAttribute('src') || '../iconos/fopico.png');
+
+  let logoSrc = new URL("../img/topbar.png", window.location.href).href;
+  let iconoSrc = new URL("../iconos/fopico.png", window.location.href).href;
+
+  const esAndroidCapacitor =
+    window.Capacitor &&
+    typeof window.Capacitor.getPlatform === "function" &&
+    window.Capacitor.getPlatform() === "android";
+
+  if (esAndroidCapacitor) {
+    logoSrc = "file:///android_asset/public/img/topbar.png";
+    iconoSrc = "file:///android_asset/public/iconos/fopico.png";
+  }
 
   const htmlPrint = `<!DOCTYPE html>
 <html lang="es">
@@ -4618,6 +4629,26 @@ function imprimirTextoRecomendacion(texto){
 </body>
 </html>`;
 
+  if (esAndroidCapacitor) {
+    const Printer =
+      window.Capacitor?.Plugins?.Printer ||
+      window.Capacitor?.Plugins?.CapacitorPrinter ||
+      window.Printer;
+
+    if (Printer && typeof Printer.printHtml === "function") {
+      Printer.printHtml({
+        name: nombrePagina || "Foramen oval permeable",
+        html: htmlPrint
+      }).catch(() => {
+        alert('No se pudo iniciar la impresión nativa.');
+      });
+      return;
+    }
+
+    alert('No se encontró el plugin de impresión nativa.');
+    return;
+  }
+
   const iframe = document.createElement('iframe');
   iframe.style.position = 'fixed';
   iframe.style.right = '0';
@@ -4650,7 +4681,17 @@ function imprimirTextoRecomendacion(texto){
    LISTENERS PRINCIPALES
 ========================================================= */
 
-$('btnCalc').addEventListener('click', calcular);
+$('btnCalc').addEventListener('click', () => {
+  calcular();
+
+  const btnPrint = $('btnPrint');
+  if (btnPrint) {
+    btnPrint.disabled = false;
+    btnPrint.style.display = '';
+    btnPrint.style.visibility = 'visible';
+    btnPrint.removeAttribute('hidden');
+  }
+});
 
 $('btnPrint')?.addEventListener('click', () => {
   const texto = construirTextoCopiaRecomendaciones('', { incluirDisclaimer:false });

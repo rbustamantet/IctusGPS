@@ -2678,8 +2678,19 @@ function imprimirTextoRecomendacion(texto){
   const partes = extraerPartesTextoCopia(textoFinal);
   const fecha = new Date().toLocaleDateString('es-ES');
   const nombrePagina = obtenerNombrePaginaCopia();
-  const logoSrc = document.querySelector('.safe-logo')?.getAttribute('src') || '../img/topbar.png';
-  const iconoSrc = document.querySelector('header .title img')?.getAttribute('src') || '../iconos/aterotromboticoico.png';
+
+  let logoSrc = new URL("../img/topbar.png", window.location.href).href;
+  let iconoSrc = new URL("../iconos/aterotromboticoico.png", window.location.href).href;
+
+  const esAndroidCapacitor =
+    window.Capacitor &&
+    typeof window.Capacitor.getPlatform === "function" &&
+    window.Capacitor.getPlatform() === "android";
+
+  if (esAndroidCapacitor) {
+    logoSrc = "file:///android_asset/public/img/topbar.png";
+    iconoSrc = "file:///android_asset/public/iconos/aterotromboticoico.png";
+  }
 
   const htmlPrint = `<!DOCTYPE html>
 <html lang="es">
@@ -2829,6 +2840,26 @@ function imprimirTextoRecomendacion(texto){
   </section>
 </body>
 </html>`;
+
+  if (esAndroidCapacitor) {
+    const Printer =
+      window.Capacitor?.Plugins?.Printer ||
+      window.Capacitor?.Plugins?.CapacitorPrinter ||
+      window.Printer;
+
+    if (Printer && typeof Printer.printHtml === "function") {
+      Printer.printHtml({
+        name: nombrePagina || "Ictus aterotrombótico",
+        html: htmlPrint
+      }).catch(() => {
+        showToast('No se pudo iniciar la impresión nativa.', 'warn');
+      });
+      return;
+    }
+
+    showToast('No se encontró el plugin de impresión nativa.', 'warn');
+    return;
+  }
 
   const iframe = document.createElement('iframe');
   iframe.style.position = 'fixed';

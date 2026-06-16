@@ -3118,6 +3118,14 @@ if (target) {
 
     // Mostrar el disclaimer solo tras obtener resultado válido
     $('#disclaimerFinal').classList.remove('hide');
+
+    const btnPrint = $('#btnPrint');
+    if (btnPrint) {
+      btnPrint.disabled = false;
+      btnPrint.style.display = '';
+      btnPrint.style.visibility = 'visible';
+      btnPrint.removeAttribute('hidden');
+    }
   });
 
   $('#btnLimpiar').addEventListener('click', ()=>{
@@ -3130,10 +3138,18 @@ if (target) {
     $('#wrapDosis').style.display='block';
     $('#notaOtra').style.display='none';
     $('#resultado').innerHTML = `<p class="hint">Complete los supuestos y pulse <span class="tag">Calcular</span>.</p>`;
-    $('#resultCard').classList.add('hide');
-    $('#disclaimerFinal').classList.add('hide');
-    $('#resumenText').textContent = '';
-           resetFeedbackState(true);
+           $('#resultCard').classList.add('hide');
+           $('#disclaimerFinal').classList.add('hide');
+           $('#resumenText').textContent = '';
+
+    const btnPrint = $('#btnPrint');
+    if (btnPrint) {
+      btnPrint.style.display = '';
+      btnPrint.style.visibility = 'visible';
+      btnPrint.removeAttribute('hidden');
+    }
+
+    resetFeedbackState(true);
     // Scroll al inicio suavemente
     window.scrollTo({
       top: 0,
@@ -3220,24 +3236,24 @@ if (target) {
     }
 
     const nombrePagina = obtenerTituloPaginaCopia();
-    const logoSrc = '../img/topbar.png';
-    const iconoSrc = '../iconos/hipolipemiantesico.png';
+
+    let logoSrc = new URL("../img/topbar.png", window.location.href).href;
+    let iconoSrc = new URL("../iconos/hipolipemiantesico.png", window.location.href).href;
+
+    const esAndroidCapacitor =
+      window.Capacitor &&
+      typeof window.Capacitor.getPlatform === "function" &&
+      window.Capacitor.getPlatform() === "android";
+
+    if (esAndroidCapacitor) {
+      logoSrc = "file:///android_asset/public/img/topbar.png";
+      iconoSrc = "file:///android_asset/public/iconos/hipolipemiantesico.png";
+    }
+
     const disclaimer = obtenerDisclaimerIctusGPS();
 
-    const iframe = document.createElement('iframe');
-    iframe.style.position = 'fixed';
-    iframe.style.right = '0';
-    iframe.style.bottom = '0';
-    iframe.style.width = '0';
-    iframe.style.height = '0';
-    iframe.style.border = '0';
-    iframe.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(iframe);
+    const htmlImpresion = `<!doctype html>
 
-    const doc = iframe.contentDocument || iframe.contentWindow.document;
-
-    doc.open();
-    doc.write(`<!doctype html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
@@ -3387,7 +3403,42 @@ if (target) {
     <strong>⚠ Advertencia.</strong> ${escaparHTML(disclaimer)}
   </div>
 </body>
-</html>`);
+</html>`;
+
+    if (esAndroidCapacitor) {
+      const Printer =
+        window.Capacitor?.Plugins?.Printer ||
+        window.Capacitor?.Plugins?.CapacitorPrinter ||
+        window.Printer;
+
+      if (Printer && typeof Printer.printHtml === "function") {
+        Printer.printHtml({
+          name: nombrePagina || "Hipolipemiantes",
+          html: htmlImpresion
+        }).catch(() => {
+          alert('No se pudo iniciar la impresión nativa.');
+        });
+        return;
+      }
+
+      alert('No se encontró el plugin de impresión nativa.');
+      return;
+    }
+
+    const iframe = document.createElement('iframe');
+    iframe.style.position = 'fixed';
+    iframe.style.right = '0';
+    iframe.style.bottom = '0';
+    iframe.style.width = '0';
+    iframe.style.height = '0';
+    iframe.style.border = '0';
+    iframe.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(iframe);
+
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+
+    doc.open();
+    doc.write(htmlImpresion);
     doc.close();
 
     setTimeout(() => {
