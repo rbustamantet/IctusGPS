@@ -294,7 +294,7 @@
 
 <header>
   <h1>Todacitan</h1>
-  <p>Calendario de tomas y avisos desde el día 2</p>
+  <p>Calendario de tomas y avisos</p>
 </header>
 
 <main>
@@ -345,7 +345,7 @@
 
     <div class="switch-row">
       <label for="soloHoy"><strong>Mostrar solo hoy</strong></label>
-      <input id="soloHoy" type="checkbox" onchange="renderCalendario()">
+      <input id="soloHoy" type="checkbox" checked onchange="renderCalendario()">
     </div>
   </section>
 
@@ -457,12 +457,23 @@ function claveToma(dia, hora){
   return "todacitan_dia_" + dia + "_hora_" + hora;
 }
 
+function horaTomada(dia, hora){
+  return localStorage.getItem(claveToma(dia, hora));
+}
+
 function estaTomado(dia, hora){
-  return localStorage.getItem(claveToma(dia, hora)) === "1";
+  return horaTomada(dia, hora) !== null;
+}
+
+function horaActual24h(){
+  const ahora = new Date();
+  const hh = String(ahora.getHours()).padStart(2, "0");
+  const mm = String(ahora.getMinutes()).padStart(2, "0");
+  return hh + ":" + mm;
 }
 
 function marcarTomado(dia, hora){
-  localStorage.setItem(claveToma(dia, hora), "1");
+  localStorage.setItem(claveToma(dia, hora), horaActual24h());
   renderCalendario();
 }
 
@@ -656,7 +667,8 @@ function renderCalendario(){
       if(tomado){
         const done = document.createElement("span");
         done.className = "done";
-        done.textContent = "Tomado";
+        const horaReal = horaTomada(dia, hora);
+        done.textContent = horaReal && horaReal !== "1" ? horaReal : "Tomado";
         right.appendChild(done);
 
         const btn = document.createElement("button");
